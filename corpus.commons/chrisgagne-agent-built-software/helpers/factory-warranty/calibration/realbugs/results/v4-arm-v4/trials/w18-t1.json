@@ -1,0 +1,57 @@
+{
+ "id": "w18",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5203,
+ "codex_tokens": 50635,
+ "work": "<tmp>/replay-w18-t1-2i2begln",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "isUnknownOption at yargs-parser.ts:978 now returns false whenever hasAllShortFlags (945-967) finds every letter configured, whatever the short-option-groups setting. So line 226 skips pushPositional, and the !short-option-groups branch at 261-264 sets key='ab' through setArg. Before the change the guard sent '-ab' to the normalFlag check, which found no 'ab' flag, so it went to _. Trigger traced: boolean ['a','b'] plus {'short-option-groups': false, 'unknown-options-as-args': true} with input '-ab'.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 978,
+   "claim": "With short-option-groups disabled and unknown-options-as-args on, an unknown single-dash option like '-ab' (where 'a' and 'b' are configured) is no longer kept in argv._ but parsed as an undeclared option 'ab'.",
+   "evidence": "Line 978 now reads `if (hasAllShortFlags(arg)) { return false }`. hasAllShortFlags (lines 945-967) checks each letter separately, so with `boolean: ['a','b']` it returns true for `-ab`. isUnknownOption therefore returns false and line 226 does not call pushPositional. Since short-option-groups is false, the branch at lines 261-264 (`!configuration['short-option-groups'] && arg.match(/^-[^-]+/)`) sets key = 'ab' and calls setArg on an option that was never declared. Before the change, the guard skipped this shortcut, hasFlagsMatching(normalFlag) found no flag 'ab', and `-ab` went to `_`. Nothing else in the parser takes over the removed guard's job.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch changes only the one-line guard and adds no tests. In test/yargs-parser.mjs, short-option-groups:false appears only at 2316, 2322, 2879 and 2898, and none of those tests turns on unknown-options-as-args, so the regression in C1/X1 is untested. Lowered from medium to low: this is a test gap, and the behaviour problem itself is covered by the C1/X1 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "lib/yargs-parser.ts",
+   "line": 978,
+   "claim": "The change ships with no test for the combination of short-option-groups:false and unknown-options-as-args.",
+   "evidence": "diff.patch contains only the one-line removal of `configuration['short-option-groups'] &&` and adds no tests. acceptance.md just points to the baseline tests. In test/yargs-parser.mjs, short-option-groups:false shows up only at lines 2313-2898, and the unknown-options-as-args tests (lines 3036-3435 and 4136+) never set short-option-groups:false, so the regression above goes untested.",
+   "axis_row": "L4.27",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/wirechat/wirechat",
+  "pr_number": 183,
+  "base": "7f645146da1285f3817a9dfcb04be0a53ee50ecd",
+  "head": "6e3156e78da9b47cb4c6d596883b3ef0730b8cf8"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 655,
+   "end_line": 655,
+   "message": "Receiving or sending a message after jumping into history skips intervening messages and disables loading them through loadNewer. With 100 chronological messages, jumpToMessage() targeting message 20 loads messages 10\u201330. If message 101 then arrives, appendNewMessage() calls pushMessage(), which appends 101 and synchronizes the newer cursor to it. syncCanLoadFlags() finds nothing after 101 and sets canLoadNewer=false, leaving messages 31\u2013100 absent from the displayed window."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "resources/views/livewire/chats/partials/message-body.blade.php",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "Duplicate class attributes prevent unread previews and timestamps from receiving their conditional font weight and color. The paragraph already has a literal class attribute on line 16, then @class emits another class attribute containing the conditional unread styles. The timestamp repeats this pattern on lines 27\u201328. HTML parsing retains the first attribute, so the conditional styles are discarded."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "resources/views/livewire/chat/partials/body.blade.php",
+   "start_line": 198,
+   "end_line": 198,
+   "message": "Programmatic jump scrolling cancels its own media correction lock, allowing subsequently loaded images to move the target out of position. scrollToMessageCenterWithRetry() sets jumpTargetId and a 1200ms lock, then scrollToMessageCenter() assigns container.scrollTop without updating lastScrollTop. The resulting scroll event enters onScroll(); any movement over eight pixels clears jumpTargetId and jumpLockUntil. onAnyMediaLoad() therefore cannot recenter that target when media subsequently changes the layout."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

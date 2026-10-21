@@ -1,0 +1,3 @@
+should_block: true
+caught_by: [gate:rollback, review]
+defect: migration 0005 copies users.date_of_birth into birth_date (any value not ISO or DD/MM/YYYY becomes NULL) and then drops date_of_birth, with no down migration and no rollback evidence

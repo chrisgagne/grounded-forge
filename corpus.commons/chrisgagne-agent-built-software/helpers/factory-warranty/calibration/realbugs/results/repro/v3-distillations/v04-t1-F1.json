@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.042253,
+  "duration_s": 86.5
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/min_parity.js {tree}",
+  "because": "On head, decimal.js accepts '+1', '+0.5' and '+1e3', but decimal.min.js still throws 'Invalid argument' for each of them, so the shipped minified build was not rebuilt and behaves differently from its source; on base both files reject these inputs the same way, so the check passes."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok   new Decimal(\"+1\"): decimal.js=ERR: [DecimalError] Invalid argument: +1 decimal.min.js=ERR: [DecimalError] Invalid argument: +1\nok   new Decimal(\"+0.5\"): decimal.js=ERR: [DecimalError] Invalid argument: +0.5 decimal.min.js=ERR: [DecimalError] Invalid argument: +0.5\nok   new Decimal(\"+1e3\"): decimal.js=ERR: [DecimalError] Invalid argument: +1e3 decimal.min.js=ERR: [DecimalError] Invalid argument: +1e3\nok   new Decimal(\"-1\"): decimal.js=-1 decimal.min.js=-1\nok   new Decimal(\"1\"): decimal.js=1 decimal.min.js=1\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL new Decimal(\"+1\"): decimal.js=1 decimal.min.js=ERR: [DecimalError] Invalid argument: +1\nFAIL new Decimal(\"+0.5\"): decimal.js=0.5 decimal.min.js=ERR: [DecimalError] Invalid argument: +0.5\nFAIL new Decimal(\"+1e3\"): decimal.js=1000 decimal.min.js=ERR: [DecimalError] Invalid argument: +1e3\nok   new Decimal(\"-1\"): decimal.js=-1 decimal.min.js=-1\nok   new Decimal(\"1\"): decimal.js=1 decimal.min.js=1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, decimal.js accepts '+1', '+0.5' and '+1e3', but decimal.min.js still throws 'Invalid argument' for each of them, so the shipped minified build was not rebuilt and behaves differently from its source; on base both files reject these inputs the same way, so the check passes.",
+ "run": "v3-distillations",
+ "trial": "v04-t1",
+ "kind": "control"
+}

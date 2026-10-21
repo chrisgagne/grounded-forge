@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/scotthamilton77/agents-config",
+  "pr_number": 1,
+  "base": "3776d9195827d79efec978fb900573f3a5a53339",
+  "head": "1fc789709ae044579908fed58c8c14638d0db095"
+ },
+ "agent": "v5-factory-raw-pooled",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/user/.agents/INSTRUCTIONS.md.template",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "While moving the shared instructions into a new file, the change also rewrote the 'Decide, don't defer' rule. The agent is now told not to ask clarifying questions in general, not only when presenting plans, which gives every installed agent more autonomy without anyone asking for it. The removed line in src/user/.claude/AGENTS.md.template reads: \"Decide, don't defer: When presenting plans or designs for review, use your best judgment on implementation details...\". The new INSTRUCTIONS.md.template line drops that scope and adds: \"Don't ask clarifying questions for decisions you can reasonably make yourself.\" Every other moved section (laws, constraints, workflow, the rest of orchestration) is copied word for word, so this edit is hidden inside what looks like a pure move."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/user/.codex/AGENTS.md.template",
+   "start_line": 10,
+   "end_line": 10,
+   "message": "The Codex (and possibly Gemini) instruction files may never load the shared laws, constraints and workflow. They pull them in through a Claude-style `@file` reference, and the installed file has no fallback content of its own. The whole of ~/.codex/AGENTS.md is the persona block plus \"Read the contents of @INSTRUCTIONS.md for shared laws, constraints, workflow, and orchestration.\" GEMINI.md.template does the same. install.sh only copies INSTRUCTIONS.md next to the file (sync_templates into ~/.<tool>/). Nothing inlines it or tells the agent where the file is. If a tool does not resolve `@INSTRUCTIONS.md` relative to ~/.codex/, that tool runs without the shared rules, which defeats the change's stated goal of installing shared content into every tool."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "scripts/install.sh",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "The installer now refuses to run on macOS's default Bash 3.2. The only reason is the new per-tool associative-array counters, and the README still tells users to just run ./scripts/install.sh. New guard: `if ((BASH_VERSINFO[0] < 4)); then echo \"Error: Bash 4.0+ required...\"; exit 1`. It exists because of `declare -A tool_installed tool_updated ...` at line 158. The baseline script used plain integer counters and ran under 3.2. README.md 'Installation' still shows `./scripts/install.sh --dry-run` and mentions only jq as a requirement."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "scripts/install.sh",
+   "start_line": 499,
+   "end_line": 499,
+   "message": "The header promises tool-specific 'overrides', but if a tool directory ever has a template, skill or agent with the same name as a shared one, every run swaps the two back and forth. With --yes this rewrites the file and makes a backup on every run, and the 'not in source' warnings also fire for every shared item. install_tool runs sync_templates/sync_directory for SRC_SHARED (phases 1\u20133) and then again for src_tool (phases 4\u20135), all into the same dest_dir. Neither pass knows the other exists: phase 4 overwrites the shared copy, and the next run's phase 1 sees a mismatch and prompts to restore it. sync_directory's second loop then warns \"exists in ~/.$CURRENT_TOOL but not in $label source\" for every item the other pass installed. The header comment (line 16) calls src/user/.claude/ \"Claude-specific overrides & extensions\"."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "README.md",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "The change leaves README.md wrong. It still describes a Claude-only src/user/.claude/ layout, and its manual-install commands copy paths this change moved away, so those commands now fail. README lines 108\u2013116 run `cp -r src/user/.claude/agents ~/.claude/`, `cp -r src/user/.claude/skills ~/.claude/` and `cp src/user/.claude/AGENT-PERSONA.md.template ...`, but the diff renames all of these to src/user/.agents/. Line 3 still says \"Currently supports Claude Code, with planned support for other AI assistants (Gemini, Codex, etc.)\", and the roadmap still lists Gemini and Codex support as under consideration. Only AGENTS.md was updated."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/user/.agents/INSTRUCTIONS.md.template",
+   "start_line": 3,
+   "end_line": 3,
+   "message": "The file says it holds 'tool-agnostic' instructions, but it tells Codex and Gemini to use Claude/superpowers-only skills and features those tools won't have. Line 3: \"Tool-agnostic principles for all AI coding assistants.\" Its orchestration section, which is installed into ~/.codex and ~/.gemini, says \"Use `verification-before-completion` skill\" (from the obra/superpowers Claude plugin, which install.sh never installs), \"Plan mode\" and \"look up docs via context7\"."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "scripts/install.sh",
+   "start_line": 493,
+   "end_line": 493,
+   "message": "The shared Claude-format agent definitions are copied unconditionally into ~/.codex/agents and ~/.gemini/agents. Nothing shows those tools read that directory or format, so this may just add unused files to their home directories. install_tool runs `sync_directory \"agents\" \"$SRC_SHARED\" \"$dest_dir\" \"shared\"` for every tool in TOOLS. src/user/.agents/agents/*.md are Claude subagent definitions (frontmatter with model hints, per AGENTS.md 'File Formats')."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "scripts/install.sh",
+   "start_line": 436,
+   "end_line": 436,
+   "message": "The new TOML branch duplicates the compare/diff/confirm/backup/copy logic that already lives in sync_templates, so the two copies can drift apart. Lines 436\u2013471 repeat lines 219\u2013252 almost line for line (compute_hash compare, diff -u, DRY_RUN branch, confirm, backup, cp, counter updates). Only the confirm prompt text differs."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "scripts/install.sh",
+   "start_line": 477,
+   "end_line": 477,
+   "message": "The installer was substantially rewritten (multi-tool detection, --tools validation, per-tool counters, a new settings dispatch) with no automated test of any of its paths, and the project's configured test command is a no-op. The diff adds no test files. .factory/config.yaml sets `test: 'echo ''replay: the project suite is not run...'' && exit 0'`. Cases like `--tools=claude,,codex`, an unknown tool name, a dry run against a missing ~/.codex, and same-name collisions between shared and tool-specific items are not exercised anywhere."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/user/.agents/skills/self-improving-agent/SKILL.md",
+   "start_line": 36,
+   "end_line": 36,
+   "message": "The shared correction-handling skill directs Codex and Gemini to persist user preferences in Claude\u2019s configuration, so those tools may repeat the same mistakes in later sessions. install_tool() installs this skill into every selected tool\u2019s skills directory, and INSTRUCTIONS.md.template requires invoking it after user corrections. Its destination table nevertheless specifies ~/.claude/AGENTS.md for cross-project preferences and ~/.claude/projects/*/memory/MEMORY.md for remembered context."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "README.md",
+   "start_line": 109,
+   "end_line": 109,
+   "message": "The documented manual installation commands reference paths removed by this change and no longer install the required shared instructions. The diff moves agents/, skills/, AGENT-PERSONA.md.template, and USER-PERSONA.md.template from src/user/.claude/ to src/user/.agents/. README.md still copies them from their previous paths, and its template-copy instructions omit the new INSTRUCTIONS.md and CLAUDE-EXTENSIONS.md dependencies."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

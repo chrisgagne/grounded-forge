@@ -1,0 +1,1150 @@
+[
+  {
+    "pr_key": "AntManThePro_TwistedsCommandCenter_13-78f6157e",
+    "candidate_findings": [
+      {
+        "file": "src/components/Inventory/AddItemModal.tsx",
+        "start_line": 39,
+        "end_line": 39,
+        "message": "The new Edit flow calls `updateItem`, which only changes `items` and never adds an `ActivityEntry`, even though `ActivityEntry.action` has an `'updated'` value and add/delete both log activity. A user edits an item, for example changing its quantity from 50 to 2 (In Stock → Low Stock), and clicks Save Changes. The table and stats update, but the dashboard's Recent Activity feed shows nothing. Adds and deletes do appear in that feed, so edits are the only change it leaves out.",
+        "status": "matched_tp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "Imageomics_catalog_75-a8a7cdc7",
+    "candidate_findings": [
+      {
+        "file": "main.js",
+        "start_line": 312,
+        "end_line": 312,
+        "message": "Validation accepts any `repo` whose trimmed value is non-empty, but the fetch URL and dedup sets use the raw, untrimmed `entry.repo`, so a repo with stray whitespace passes validation and is then silently dropped. config.yaml has `repo: \"user/dataset \"` (trailing space, easy to get from quoted YAML). Validation passes, the request goes to `.../datasets/user/dataset%20`, HF returns 404, and the item only produces a console.warn and never shows up. The same mismatch exists in scripts/export-tags.js:134, where the error is swallowed with no log at all. Fix: normalize with `entry.repo.trim()` before dedup and fetch, or reject whitespace during validation.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "main.js",
+        "start_line": 326,
+        "end_line": 326,
+        "message": "Additional repos are deduped only by the configured string, and fetched results are checked against the org list but not against each other, so two config entries that resolve to the same HF repo both get added. ADDITIONAL_HF_REPOS lists both `Owner/Model` and `owner/model` (HF resolves repo paths case-insensitively and returns the canonical id). Both pass the `seenRepos` check, both fetches return the same `item.id`, and the card shows up twice. The same thing happens if an org repo is listed with different casing: `existingIds.has(entry.repo)` misses it, but the post-fetch `existingIds.has(item.id)` catches that case. Dedup the `fetched` array by `item.id` (and compare case-insensitively in the pre-filter).",
+        "status": "matched_fp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "OpenDevicePartnership_embedded-services_793-f63a0246",
+    "candidate_findings": [
+      {
+        "file": "partition-manager/partition-manager/Cargo.toml",
+        "start_line": 29,
+        "end_line": 29,
+        "message": "`defmt` was removed from the crate's default features, so by default `partition_manager::Error` no longer derives `defmt::Format`. This is a breaking public API change that has nothing to do with adding PartitionGuard. A downstream firmware crate that depends on `partition-manager` with default features and logs the error with `defmt::error!(\"{}\", err)` (or puts `Error<E>` inside its own `#[derive(defmt::Format)]` type) stops compiling after this change with `Error<E>: defmt::Format` not satisfied. The change seems to have been made only so `cargo test` builds on the host; it should be handled in test/dev configuration instead of by changing the defaults.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "api-architecture",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "api-architecture"
+      }
+    ]
+  },
+  {
+    "pr_key": "Pushedskydiver_chief-clancy_216-6baec2ab",
+    "candidate_findings": [
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 390,
+        "end_line": 390,
+        "message": "The EEXIST + --push retry path goes straight to Step 4c without comparing the current plan file's SHA-256 against the existing marker's sha256, so it can post plan content that was never approved. User approves plan X (marker sha=A), the push fails, the user edits .clancy/plans/X.md (now sha=B, so the inventory shows Stale), then runs the printed retry `--push --ticket KEY`. Step 4a sees EEXIST, keeps the old marker and pushes the edited, unapproved content to the board ticket.",
+        "status": "matched_tp",
+        "matched_golden_index": 31,
+        "covered_golden_indices": [
+          31
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 516,
+        "end_line": 516,
+        "message": "The Source parsing runs before any check for --ticket. A missing Source header skips silently, and an inline or file-path Source goes to the skip-no-ticket branch, so the --ticket override never gets used in exactly the cases it is documented for. The plan's brief Source is `docs/rfcs/auth.md`, or the plan has no Source line. The user runs `/clancy:approve-plan stem --push --ticket PROJ-12`, as the flag docs suggest ('Useful when the brief Source field is missing'). Step 4c either skips silently or logs BOARD_PUSH_SKIPPED_NO_TICKET, and no push happens.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 562,
+        "end_line": 562,
+        "message": "The Step 4c key regexes disagree with the key formats accepted elsewhere. Shortcut allows only `^\\d+$`, but Step 2 and plan.md accept `SC-123`. Notion rejects the `notion-XXXXXXXX` short key and any uppercase hex UUID. Brief Source is `[SC-123] Story`. The bracket regex extracts `SC-123`, which fails Shortcut's `^\\d+$`, so Step 4c hard-errors with key-mismatch and logs BOARD_PUSH_FAILED for a valid Shortcut ticket. The same thing happens with `--ticket notion-1a2b3c4d`.",
+        "status": "matched_fp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3,
+          25,
+          26
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 524,
+        "end_line": 524,
+        "message": "The pushable-Source regex `^\\[(#?\\d+|[A-Z][A-Z0-9]*-\\d+)\\]` cannot match a lowercase-hex Notion page ID, so every Notion Source falls into the 'file-path' bucket and is skipped. On a Notion board, the brief Source is `[0123abcd...ef] Page title`. It doesn't match the bracketed pattern, so it's classified as file-path, and BOARD_PUSH_SKIPPED_NO_TICKET|file-path is logged. Notion auto-detect push can never happen, and the user sees a wrong 'source is file-path' note.",
+        "status": "novel_tp",
+        "covered_golden_indices": [
+          3
+        ],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 98,
+        "end_line": 98,
+        "message": "Step 2 still says the board push for plan-file-stem mode 'is deferred to a future PR — for now the local marker is the only side effect', which contradicts the new Step 4c. An agent following the workflow reads in Step 2 that the local marker is the only side effect and may skip Step 4c entirely, so --push is silently ignored.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 411,
+        "end_line": 411,
+        "message": "After Step 4c the flow always continues to Step 7, which unconditionally appends a LOCAL_APPROVE_PLAN row. This also happens on the EEXIST retry path, which contradicts the claim of 'one approval row' per plan. Step 4c's rows are also specified as 'after the existing LOCAL_APPROVE_PLAN row from Step 7', but Step 7 runs after Step 4c. First approval with a failed push, then a retry with --push. progress.txt gets two LOCAL_APPROVE_PLAN rows, and Step 7 prints a fresh 'approved' success block. In both runs the 4c row (BOARD_PUSH_FAILED / LOCAL_APPROVE_PLAN_PUSH) is written before the LOCAL_APPROVE_PLAN row, or the agent has to reorder the writes.",
+        "status": "matched_fp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1,
+          2
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 608,
+        "end_line": 608,
+        "message": "Key validation, including validation of a --ticket override, is placed before the decision matrix. In the `--afk` without `--push` cell, where no push should happen and --ticket is 'ignored', a bad Source key or --ticket value still causes a hard error and a BOARD_PUSH_FAILED row. An unattended `--afk` run on a plan whose Source key doesn't match the board regex prints a ✗ error and logs BOARD_PUSH_FAILED|key-mismatch. It should have logged only LOCAL_ONLY|afk-without-push.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 634,
+        "end_line": 634,
+        "message": "The duplicated curl blocks use $TICKET_KEY, $ISSUE_NUMBER, $ISSUE_ID, $WORK_ITEM_ID, $STORY_ID and $PAGE_ID, but Step 4c never says how to get them from {KEY}. For example, it doesn't say to strip the '#' from a GitHub key or to resolve a Linear identifier to an issue ID, which plan.md does in its own fetch steps. For a GitHub key `#50`, setting ISSUE_NUMBER to `#50` makes the URL `/issues/#50/comments`, where '#' starts a URL fragment. The POST goes to `/issues/` and fails, so BOARD_PUSH_FAILED is logged.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "YasserShkeir_django-smart-ratelimit_25-d7c5c7c2",
+    "candidate_findings": [
+      {
+        "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+        "start_line": 20,
+        "end_line": 20,
+        "message": "On Django versions without `RenameIndex` (3.2 and 4.0, both still declared as supported in pyproject), the index renames are skipped. The migration state then keeps the old index names from 0001 while the models generate the new auto-names. A user on Django 4.0 applies 0002 and then runs `makemigrations` (or `makemigrations --check` in CI). The autodetector sees index names that don't match and generates a RemoveIndex/AddIndex migration inside the installed package, or fails the CI check. Using SeparateDatabaseAndState or RemoveIndex+AddIndex as a fallback would keep the state consistent.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "django_smart_ratelimit/backends/database.py",
+        "start_line": 286,
+        "end_line": 286,
+        "message": "`get()` now returns the deserialized `data` whenever it is set. Token-bucket rows now always have `data`, so `get()` on those keys returns a dict where it used to return the integer count. It also coerces string values (`set(k, \"5\")` then `get(k)` returns int 5). A caller does `backend.get(key)` on a token-bucket key and does arithmetic or comparisons on the result. It now gets a dict like `{'tokens': ..., 'last_refill': ...}` and raises TypeError. A string stored with `set()` that looks numeric comes back as a number.",
+        "status": "matched_fp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "api-architecture",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "api-architecture"
+      }
+    ]
+  },
+  {
+    "pr_key": "arolariu_arolariu.ro_615-ef4814f4",
+    "candidate_findings": [
+      {
+        "file": "scripts/dev-local.ts",
+        "start_line": 579,
+        "end_line": 579,
+        "message": "The Azurite readiness probe sends an unauthenticated List Containers request (`/devstoreaccount1?comp=list`), which Azurite rejects with 403, so `response.ok` should never be true. Azurite is up and healthy, but every GET returns 403 AuthorizationFailure. waitForHealth would keep looping for the full 60s, so each `npm run dev:local` and each VS Code debug launch (via the `Infra: Setup Docker` preLaunchTask) would stall for a minute and then print 'did not become healthy'. A TCP probe or treating any HTTP response as ready would fix this.",
+        "status": "matched_fp",
+        "matched_golden_index": 15,
+        "covered_golden_indices": [
+          15
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": ".vscode/launch.json",
+        "start_line": 253,
+        "end_line": 253,
+        "message": "In the Full Stack compound, only `.NET API: Debug` has a preLaunchTask. That task runs `docker compose up -d`, which starts the Docker exp container on host port 5002. Meanwhile `Python: exp FastAPI Debug` starts at the same time and binds 127.0.0.1:5002. If uvicorn binds 5002 first, `docker compose up -d` cannot publish 5002:80, dockerCompose throws, the preLaunchTask fails, and the .NET API never launches. If Docker wins instead, uvicorn fails with EADDRINUSE until `docker stop` runs, so the exp debug session dies.",
+        "status": "matched_tp",
+        "matched_golden_index": 28,
+        "covered_golden_indices": [
+          28
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "scripts/dev-local.ts",
+        "start_line": 790,
+        "end_line": 790,
+        "message": "When any bare-metal service exits, Promise.race resolves and main() returns without killing or reporting on the other children. Example: with profile `all`, exp crashes on a Python import error. The script prints nothing, the website and API keep running against a dead exp on :5002, and the orchestrator no longer looks after them. In addition, `p.kill()` with `shell: true` only signals the wrapping shell. On a SIGTERM (for example, a VS Code task being terminated), the nx/next/dotnet grandchildren are orphaned and keep holding ports 3000, 5000, and 5002.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "packages/components/project.json",
+        "start_line": 445,
+        "end_line": 445,
+        "message": "Making components:dev a never-ending `rslib build --watch` and adding exp:dev gives `nx run-many --target=dev --all --parallel` six long-running dev targets. Nx's default concurrency is 3, so only three of them ever start. The new `Dev: All Services (parallel)` VS Code task runs `npm run dev`. Nx would start three watchers that never exit, so the rest (for example the website or exp) stay queued forever and the advertised 'all services' never comes up.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "scripts/dev-local.ts",
+        "start_line": 649,
+        "end_line": 649,
+        "message": "The inline Azurite init script ends in `.catch(()=>{})`, so the node process always exits 0 and execSync never throws. If Azurite is still starting, auth fails, or the `invoices` container can't be created, the error is swallowed and the script prints 'Azurite blob containers initialized with CORS'. Later, invoice uploads fail with ContainerNotFound and there is no hint of the cause.",
+        "status": "novel_tp",
+        "covered_golden_indices": [
+          15
+        ],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "dotnet_efcore_38115-009f4190",
+    "candidate_findings": [
+      {
+        "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+        "start_line": 287,
+        "end_line": 287,
+        "message": "Every property with AfterSaveBehavior.Throw now has its original value overwritten with its current value whenever an entry moves to Modified. That covers all primary and alternate key properties by default, plus any user-configured Throw property, not just the complex-type discriminator the fix targets. As a result, real pending changes to those properties are wiped out silently instead of being detected. A tracked Unchanged entity has an alternate key, or a property set to `SetAfterSaveBehavior(Throw)`, possibly also a concurrency token. The user assigns `entity.Code = \"new\"`, then calls `context.Entry(entity).State = EntityState.Modified`. The `EntityEntry.State` setter doesn't run DetectChanges first, so the original snapshot is overwritten with \"new\" before the change is ever seen. Before this change, SaveChanges' DetectChanges would find the mismatch and throw PropertyReadOnlyAfterSave. Now the modification is silently dropped: no exception, no UPDATE of the column, and `OriginalValues` reports the wrong value. For alternate keys, the key-change handling in DetectChanges is also skipped (identity-map update and dependent FK fixup). For a concurrency token, the WHERE clause uses the new value instead of the real original. The fix should be limited to the case it targets (shadow discriminator properties on complex types), or should only apply when the entry is coming from Detached.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "godaddy_antares_142-12f376d0",
+    "candidate_findings": [
+      {
+        "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+        "start_line": 75,
+        "end_line": 75,
+        "message": "The default Legend is no longer centered: the root changed from a full-width flex with `justifyContent=\"center\"` to an `inline-flex` aligned to `flex-start`, so any caller that doesn't pass `alignSelf=\"center\"` now gets a left-aligned legend. A consumer renders `<Legend series={series} />` under a custom chart, or inside any block or non-column-flex parent. Before this change the items were centered. Now the legend shrinks to fit its content and sits at the start edge. Only BarChart and LineChart were updated with `alignSelf=\"center\"`, and that prop has no effect in a block parent anyway. This is a silent visual regression for a public component.",
+        "status": "matched_tp",
+        "matched_golden_index": 5,
+        "covered_golden_indices": [
+          5
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "api-architecture",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "api-architecture"
+      },
+      {
+        "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+        "start_line": 86,
+        "end_line": 86,
+        "message": "`aria-label={label ?? 'Chart legend'}` only falls back when `label` is null or undefined, while the visible label is shown only when `label` is truthy, so `label=\"\"` gives a list with an empty accessible name. A caller passes `label={title}` where `title` is `''` (for example, an untitled chart). Nothing visible is rendered, and the list gets `aria-label=\"\"` instead of 'Chart legend', so screen readers announce an unnamed list. Use `label || 'Chart legend'` instead.",
+        "status": "matched_tp",
+        "matched_golden_index": 8,
+        "covered_golden_indices": [
+          8
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "accessibility",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "accessibility"
+      }
+    ]
+  },
+  {
+    "pr_key": "godotengine_godot-angle-static_18-71c01496",
+    "candidate_findings": [
+      {
+        "file": ".github/workflows/ci.yaml",
+        "start_line": 144,
+        "end_line": 144,
+        "message": "The x86_32 GCC job sets mingw_prefix=C:/mingw32, but the stock windows-2025 runner image only preinstalls a 64-bit MinGW at C:\\mingw64. The step that used to provision the i686 toolchain (msys2/setup-msys2) was removed, and nothing installs it now. On the 'MinGW/GCC (MSVCRT) x86_32' job, godot-tools/windows.py:82-104 sets CC=C:/mingw32/bin/i686-w64-mingw32-gcc. That file doesn't exist on the runner, so scons fails right away and the godot-angle-static-x86_32-gcc-release artifact (and any tagged release) is never produced.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "reliability"
+      },
+      {
+        "file": ".github/workflows/ci.yaml",
+        "start_line": 189,
+        "end_line": 189,
+        "message": "'Setup MinGW path' always adds C:/mingw32/bin to PATH, even for the x86_64 job whose prefix is C:/mingw64. It should be derived from the matrix (e.g. C:/${{ matrix.msys }}/bin). In the x86_64 GCC job, C:/mingw64/bin is never explicitly added. The job only works if the image's default PATH happens to include it. If a 32-bit toolchain were present at C:/mingw32, its bin would be put ahead of the 64-bit one, so the x86_64 gcc driver could pick up the wrong-arch helper tools and DLLs (as, ld, libgcc/libstdc++ DLLs).",
+        "status": "matched_fp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "hughdidit_DAISy-Agency_274-1c88a238",
+    "candidate_findings": [
+      {
+        "file": "src/agents/tool-call-id.ts",
+        "start_line": 242,
+        "end_line": 242,
+        "message": "The latest turn's tool-call ids are kept verbatim but never added to `used`/`map`, so `makeUniqueToolId` can give an older tool call the same id as one in the latest turn. An older turn has id `call:abc`, which sanitizes to `callabc`. The latest assistant turn has raw id `callabc` and is preserved as-is. The older call isn't de-duplicated against it, so both tool_use blocks (and their results) go out with id `callabc`. Claude rejects the duplicate id, or results get paired with the wrong call. Before this change the transcript-wide de-dup would have suffixed one of them.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/agents/tool-call-id.ts",
+        "start_line": 286,
+        "end_line": 286,
+        "message": "A tool result is left unchanged whenever its id matches any tool call in the latest turn, wherever that result sits in the transcript. An older result that reuses the same raw id is skipped while its own older assistant call still gets rewritten. Raw id `toolu_1` shows up in an older turn and again in the latest turn (replayed or retried calls, or providers that reuse ids). The older assistant block is rewritten to `toolu1`, but its paired older toolResult stays `toolu_1` because it is in `preservedLatestToolCallIds`. The older call is left with no result and the older result has no call. Pairing validation fails or the provider rejects the request.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/agents/tool-call-id.ts",
+        "start_line": 270,
+        "end_line": 270,
+        "message": "The latest assistant turn now skips strict-mode id sanitization completely, including ids that came from a different provider earlier in the session. Ids that the openai-completions path needed sanitized are sent unchanged. A session switches to github-copilot/claude-* after an OpenAI Responses or other provider turn whose tool ids contain `|`, `:` or `.` (e.g. `call_x|fc_y`). The latest assistant turn and its results are sent with those raw ids, even though `toolCallIdMode: \"strict\"` exists to keep ids alphanumeric. Copilot rejects the request. Before this change those ids were normalized.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "hughdidit_DAISy-Agency_294-690f26b6",
+    "candidate_findings": []
+  },
+  {
+    "pr_key": "jongalloway_DiagramForge_101-8be727e4",
+    "candidate_findings": [
+      {
+        "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+        "start_line": 356,
+        "end_line": 356,
+        "message": "For each compartment Label, the renderer draws every rendered line (Lines or '\\n'-split Text) but moves currentY down by only one line height. The layout (SizeClassNode) also counts just one line per Label. A compartment entry with Text \"+foo(a: int,\\n b: int): void\" draws two text rows, but the next entry is placed only one row lower, so the two overlap. The node is also sized one row too short, so the last row spills past the bottom border.",
+        "status": "matched_fp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+        "start_line": 436,
+        "end_line": 436,
+        "message": "SizeClassNode only runs when Compartments.Count > 0. The renderer draws annotations whenever Annotations.Count > 0, so a node with annotations but no compartments gets no header space and no label:centerY. An interface node with <<interface>> and no members is sized as a standard node, and its name is centered at Height/2. The annotation is drawn at pad+0.85*fontSize, right on top of the class name, and long annotations are not counted in the width.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+        "start_line": 491,
+        "end_line": 491,
+        "message": "annotationsHeight is Count × base fontSize × lineHeight. The renderer instead advances by each annotation's own FontSize for every rendered line, and puts the first baseline at an offset based on the base fontSize. If an annotation has a larger FontSize (or contains a newline), the renderer pushes the annotation block lower than the space the layout reserved. The annotation then overlaps the class name, whose label:centerY was computed from the smaller reserved height.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "konturio_disaster-ninja-fe_1081-d2c0c636",
+    "candidate_findings": [
+      {
+        "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+        "start_line": 2,
+        "end_line": 2,
+        "message": "LAYER_BIVARIATE_PREFIX and SOURCE_BIVARIATE_PREFIX are imported from './constants', but they exist only in '~core/logical_layers/constants'. `./constants` (BivariateRenderer/constants.ts) only exports FALLBACK zooms, H3_HOVER_LAYER, SOURCE_LAYER_BIVARIATE, etc. The type check fails. At runtime getSourcePrefix() returns undefined, so the source id becomes 'undefined<id>' and the layer id becomes 'undefined<id>'.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+        "start_line": 39,
+        "end_line": 39,
+        "message": "stepOverrides receive raw axis step values (legend.axis.x/y.steps), but the multivariate bivariate style classifies linearNormalization() scores, which fall in 0..1 (max-min normalization). Take a population-density axis with steps [0, 10, 100, 1000]. Every hexagon's normalized score is ≤1, so all features fall into the lowest class or two. The map renders almost one colour instead of the 3x3 bivariate palette. The bivariate popup cell lookup in PopupMultivariate uses the same stepOverrides, so it shows the wrong cell too.",
+        "status": "matched_tp",
+        "matched_golden_index": 23,
+        "covered_golden_indices": [
+          23
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+        "start_line": 37,
+        "end_line": 37,
+        "message": "Only state.style is converted. MultivariateRenderer.getMaxZoomLevel reads layer.style (the source) and returns FALLBACK_BIVARIATE_MAX_ZOOM unless that style's type is 'multivariate'. The old per-indicator maxZoom (getMaxMCDAZoomLevel / getMaxNumeratorZoomLevel) is lost. An MCDA layer from mcdaLayer.ts has source.style.type === 'mcda' and no source maxZoom. The tile source maxzoom is now always 9 instead of the indicators' maxZoom. Tiles are over-requested or under-zoomed, so data is missing or blank at zooms the indicators don't cover. Bivariate sources (no style) behave the same way.",
+        "status": "matched_tp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11,
+          13
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+        "start_line": 19,
+        "end_line": 19,
+        "message": "If there is no legend, convertStyle returns null and _updateMap skips mountLayers and addPopup. The old renderer threw an error ('Vector layers must have legend'). When a bivariate layer's legend hasn't resolved yet or is missing, the source and hover border are added but no fill layer is drawn. Nothing is logged, so the empty layer is hard to diagnose.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "maintainability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "maintainability"
+      }
+    ]
+  },
+  {
+    "pr_key": "konturio_disaster-ninja-fe_1234-2271e590",
+    "candidate_findings": [
+      {
+        "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+        "start_line": 37,
+        "end_line": 37,
+        "message": "CircleIcon now draws a horizontal line instead of a ring whenever there is no fill color, which changes every stroke-only circle legend in the app, not just the new case. Both built-in circle legends set only `color` and no fill: DEFAULT_USER_LAYER_LEGEND (src/features/create_layer/constants.ts:39, a point layer with a marker icon) and registerNewGeometryLayer.ts:34 (`style: { color: mainColor }`). For both, fillColor resolves to 'none', so the legend shows a line where it used to show a circle outline. Any backend-configured `stepShape: 'circle'` step with only `circle-stroke-color` gets the same wrong line icon.",
+        "status": "matched_tp",
+        "matched_golden_index": 10,
+        "covered_golden_indices": [
+          10
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "mikecubed_m3OS_84-5e9d78eb",
+    "candidate_findings": [
+      {
+        "file": "kernel-core/src/trace_ring.rs",
+        "start_line": 11,
+        "end_line": 11,
+        "message": "TraceEvent is a repr(C) enum whose variants have interior and trailing padding (e.g. Dispatch {u32,u8,u64} pads 3 bytes after `core`, smaller variants leave union bytes unused), so sys_ktrace's raw-byte copy leaks uninitialized kernel stack bytes despite the 'no uninit bytes' comment, and reading them via from_raw_parts::<u8> is UB. In sys_ktrace, `tmp` is a stack array; `*slot = self.buf[..]` copies a TraceEntry by value and the compiler is free to skip padding bytes. Those padding bytes and the unused tail of short variants (e.g. YieldNow is only {u32,u8}) then go to userspace through copy_to_user. An unprivileged process calling ktrace can read leftover kernel stack data. Zeroing the `_pad` field in TraceEntry does nothing for padding inside the enum.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "kernel/src/arch/x86_64/syscall.rs",
+        "start_line": 496,
+        "end_line": 496,
+        "message": "sys_ktrace takes no offset and copy_into always starts at the oldest entry, so with MAX_BATCH=64 and a 256-entry ring, userspace can only ever see the oldest 64 events and never the newest 192. The ring is full (256 entries) and a caller passes a 64KB buffer. It gets the 64 oldest entries back. The comment says 'callers can call again for more', but calling again returns the same oldest 64 entries (or a newer shifted window by chance), so the most recent events, the ones you need for debugging, are unreachable.",
+        "status": "matched_tp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "api-architecture",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "api-architecture"
+      },
+      {
+        "file": "kernel/src/arch/x86_64/syscall.rs",
+        "start_line": 462,
+        "end_line": 462,
+        "message": "sys_ktrace has no privilege check, so any user process can read kernel stack pointers (Dispatch.rsp, SwitchOut.saved_rsp) and scheduler/IPC activity of other processes. An unprivileged user program calls ktrace(0, buf) and reads Dispatch/SwitchOut entries. These contain kernel stack addresses, which defeats any kernel address randomization, and they also reveal the IPC endpoint and fork activity of other processes. The feature is enabled by default (default = [\"trace\"]).",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "security",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "kernel/src/arch/x86_64/syscall.rs",
+        "start_line": 463,
+        "end_line": 463,
+        "message": "core_id is truncated to u8 before the bounds check, so out-of-range values such as 256 wrap to valid cores instead of returning an error. ktrace(256, buf) truncates to core 0 and returns core 0's entries, when it should return u64::MAX for an invalid core ID as documented.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "rcrsr_rill_53-2ed44caf",
+    "candidate_findings": []
+  },
+  {
+    "pr_key": "scorbo2_ext-sn-statistics_20-12fad831",
+    "candidate_findings": [
+      {
+        "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+        "start_line": 327,
+        "end_line": 327,
+        "message": "The 25-term search limit only appears in help text and is never enforced; the search goes through findWords(..., TOP_N_WORDS), which caps results at 25. The user enters 30 comma-separated words and all of them occur in the notes. Only the top 25 come back, and the 'combined occurrences' total leaves out the other 5. Nothing tells the user that results were dropped.",
+        "status": "matched_fp",
+        "matched_golden_index": 7,
+        "covered_golden_indices": [
+          7
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+        "start_line": 248,
+        "end_line": 248,
+        "message": "When topWords is empty, buildWordsTab returns early, so the word-search field and button are never added, even though a search would still work. In a small corpus where no word of 5+ letters appears twice, or where every repeated word is short, topWords ends up empty. The tab then shows only '(no data)', and the user can't search for words like 'the' or 'cat' that do occur.",
+        "status": "matched_tp",
+        "matched_golden_index": 23,
+        "covered_golden_indices": [
+          23
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+        "start_line": 332,
+        "end_line": 332,
+        "message": "Search terms come from TagList/Tag normalization, not StatisticsUtil.normalizeText, so a term with punctuation or other characters that normalizeText would strip never matches the normalized note tokens. The user searches for 'hello!' or 'e-mail'. The notes were tokenized as 'hello' and 'e mail', so the term doesn't match and the result reports 0 occurrences. A fix is to pass each tag through normalizeText (and split on whitespace) before adding it to wordSet.",
+        "status": "matched_fp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "wiyco_review-insights_31-e9c5280f",
+    "candidate_findings": [
+      {
+        "file": "src/analyze/bias-detector.ts",
+        "start_line": 81,
+        "end_line": 81,
+        "message": "The quasi-independence model treats every unobserved reviewer-author pair as a structural zero. Whenever the support graph is a forest (cells ≤ rows + cols − components), the fit is saturated: E_ij equals M_ij, every residual is 0, and nothing can be flagged. That includes the most concentrated pairs, where a reviewer reviews only one author or an author is reviewed by only one reviewer. Reviewer A reviews author X 50 times; reviewer B reviews X once and Y once. Support {A-X, B-X, B-Y} is a tree, so IPF reproduces the observed counts exactly (E_AX = 50), the residual is 0, and bias-detected is \"false\". More generally, any reviewer who reviews only one author has E = rowTotal = M for that cell and can never be flagged. The same holds for a repo with a single active reviewer or a single author. Small teams with sparse matrices therefore get \"No bias\" in exactly the cases the feature is meant to catch.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "wspulse_client-kt_24-bc2ac1a4",
+    "candidate_findings": [
+      {
+        "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+        "start_line": 67,
+        "end_line": 67,
+        "message": "Swapping a blocking `CountDownLatch.await(5s)` for a suspending `CompletableDeferred.await()` inside `runTest(StandardTestDispatcher)` means the test no longer checks that callbacks fire right away. While the test body is suspended, runTest auto-advances virtual time, so the 60 s pong deadline (clientConfig sets pongWait=60s, and autoPong is never ticked again) can fire and complete the deferreds through a different code path. Suppose injectClose() regresses and stops firing onTransportDrop/onDisconnect. `transportDropped.await()` suspends, runTest jumps virtual time to the pong deadline in `resetPongDeadline`, the pong timeout raises a ConnectionLostException that fires both callbacks with non-null errors, and the test passes. The old latch blocked the scheduler thread, so the same regression failed the test. This pattern repeats in the 'throwing onTransportDrop does not prevent onDisconnect' test (line 326) and in the other converted `.await()` calls.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "testing"
+      },
+      {
+        "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+        "start_line": 303,
+        "end_line": 303,
+        "message": "In 'close from onTransportDrop suppresses onTransportRestore', if `transportDropped.await()` actually has to suspend, runTest advances virtual time through the reconnect backoff before `client.close()` runs. The reconnect can then finish and change what the test is measuring. If the drop callback fires asynchronously (for example after a dispatcher change), awaiting lets the 1–10 ms backoff elapse and transport2 connects before close(). onTransportRestore then fires and the test fails or stops covering the intended race. The previous latch kept virtual time frozen.",
+        "status": "novel_fp",
+        "covered_golden_indices": [
+          2
+        ],
+        "classifier_tp_fp": "fp",
+        "classifier_severity": "low",
+        "classifier_category": "testing",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "fp",
+        "result_severity": "low",
+        "result_category": "testing"
+      },
+      {
+        "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+        "start_line": 531,
+        "end_line": 531,
+        "message": "`waitUntil` checks the condition before each `advanceTimeBy(10)` but not after the 500th advance. A condition that becomes true during the final 10 ms step is reported as a timeout. Work that completes between 4.99 s and 5.0 s of virtual time makes the condition true on the last advance, but `error(\"waitUntil: condition not satisfied after 5s\")` is thrown without rechecking. Add `if (condition()) return` before the error.",
+        "status": "matched_tp",
+        "matched_golden_index": 13,
+        "covered_golden_indices": [
+          13
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+        "start_line": 326,
+        "end_line": 326,
+        "message": "Bounded latch waits that carried assertion messages (e.g. 'onDisconnect must fire even when onTransportDrop throws') became bare unbounded `await()` calls. If a callback never fires, there is no descriptive failure, only a generic runTest timeout or an endless virtual-time spin. If onDisconnect never fires after onTransportDrop throws and no timer remains, the test hangs until runTest's 60 s real-time timeout and then reports an UncompletedCoroutinesError with no hint of which callback was missing.",
+        "status": "novel_tp",
+        "covered_golden_indices": [
+          2
+        ],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "testing",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "testing"
+      }
+    ]
+  },
+  {
+    "pr_key": "zircote_nsip-example_27-b6e16d4e",
+    "candidate_findings": [
+      {
+        "file": "reports/2026-04-15-lambing-event/report.md",
+        "start_line": 114,
+        "end_line": 114,
+        "message": "The ram lamb's predicted WWT +1.98 and YWT +2.63 are described as amounts 'above breed midpoint', but they are raw midparent EBVs. Measured against the midpoints (+1.59 and +0.37), the margins are only +0.39 and +2.26. A reader judging EPC26005 as a sire candidate thinks he is 1.98 lbs above the breed midpoint for WWT. The table on the same page shows he is only 0.39 lbs above it, so his growth advantage is overstated about 5x.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "documentation",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "documentation"
+      },
+      {
+        "file": "reports/2026-04-15-lambing-event/report.md",
+        "start_line": 180,
+        "end_line": 180,
+        "message": "Next Steps item 3 says the predicted WWT is '+1.98 lbs above breed average'. The breed midpoint is +1.59, so the prediction is only about 0.4 lbs above average. A producer sets the weaning-weight expectation for the lamb using a ~2 lb genetic advantage that the data in the report's own table does not support.",
+        "status": "novel_tp",
+        "covered_golden_indices": [
+          2
+        ],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "documentation",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "documentation"
+      },
+      {
+        "file": "reports/2026-04-15-lambing-event/report.md",
+        "start_line": 167,
+        "end_line": 167,
+        "message": "Highlight 2 says the predicted offspring BWT is 'well below breed average'. The prediction is +0.06 against a +0.18 midpoint, and line 112 of the same report calls it 'near breed average'. The report contradicts itself and overstates how much the sire's BWT lowers lambing risk. This can push future mating choices for yearling ewes toward this sire based on an inflated effect.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1,
+          17
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "documentation",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "documentation"
+      },
+      {
+        "file": "reports/2026-04-15-lambing-event/report.md",
+        "start_line": 149,
+        "end_line": 149,
+        "message": "The pedigree note calls USD318 the dam's 'maternal grandsire'. In the tree, USD318 is the sire of FLE382, who is FLE082's sire, so USD318 is her paternal grandsire. Anyone reading the note to trace lineage, or entering pedigree data from it, puts USD318 on the wrong side of the dam's pedigree.",
+        "status": "matched_tp",
+        "matched_golden_index": 16,
+        "covered_golden_indices": [
+          16
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "reports/2026-04-15-lambing-event/report.md",
+        "start_line": 93,
+        "end_line": 93,
+        "message": "The inbreeding section says the dam and sire come from 'completely separate genetic backgrounds' and have 'no shared ancestors at any generation level'. But Hound River Farm (NWT) animals appear in both pedigrees (NWT063 on the dam side; NWT012 and NWT082 on the sire side), and only 3 generations were checked. COI is reported as 0.0% from a shallow pedigree. A related NWT ancestor deeper in the lines would go unnoticed, and the outcross/heterosis claim and the 'zero inbreeding risk' assurance would be wrong.",
+        "status": "matched_tp",
+        "matched_golden_index": 14,
+        "covered_golden_indices": [
+          14
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "reports/2026-04-15-lambing-event/report.md",
+        "start_line": 178,
+        "end_line": 178,
+        "message": "Next Steps item 1 says recording birth weight is 'critical for updating ... the dam's NLB accuracy'. NLB is driven by the number of lambs born, which is already recorded; birth weight updates BWT, not NLB. This misinforms the producer about which records drive which EBVs. They may assume NLB accuracy depends on a pending weight measurement.",
+        "status": "matched_tp",
+        "matched_golden_index": 13,
+        "covered_golden_indices": [
+          13
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "reports/2026-04-15-lambing-event",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "Every other report directory, including the parallel 2026-04-14-lambing-event, ships a data.csv with structured event, parent and EBV fields alongside report.md. This report does not. Any tooling or downstream analysis that reads reports/*/data.csv will miss this lambing event (issue #26) or fail on this directory.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "maintainability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "maintainability"
+      }
+    ]
+  }
+]

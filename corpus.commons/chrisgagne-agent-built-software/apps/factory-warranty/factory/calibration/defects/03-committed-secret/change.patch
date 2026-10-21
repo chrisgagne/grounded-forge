@@ -1,0 +1,75 @@
+diff --git a/config/staging.json b/config/staging.json
+new file mode 100644
+index 0000000..7966268
+--- /dev/null
++++ b/config/staging.json
+@@ -0,0 +1,7 @@
++{
++  "llm": {
++    "baseUrl": "https://api.anthropic.com",
++    "model": "claude-haiku-4-5",
++    "apiKey": "stg_Ab12Cd34Ef56Gh78Ij90Kl12Mn34Op56Qr78"
++  }
++}
+diff --git a/src/config.js b/src/config.js
+index f700075..85f9ab7 100644
+--- a/src/config.js
++++ b/src/config.js
+@@ -1,15 +1,29 @@
++import { existsSync, readFileSync } from 'node:fs';
++
+ const DAY_MS = 24 * 60 * 60 * 1000;
++const PROFILES = ['staging'];
++
++/**
++ * Settings for a named deployment (APP_ENV), from config/{name}.json. The environment always wins.
++ * @param {string | undefined} name
++ */
++function loadProfile(name) {
++  if (!name || !PROFILES.includes(name)) return {};
++  const file = new URL(`../config/${name}.json`, import.meta.url);
++  return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : {};
++}
+ 
+ /** @param {NodeJS.ProcessEnv} [env] */
+ export function loadConfig(env = process.env) {
++  const profile = loadProfile(env.APP_ENV);
+   return {
+     port: Number(env.PORT ?? 3000),
+     databasePath: env.DATABASE_PATH ?? 'data/notes.db',
+     sessionTtlMs: Number(env.SESSION_TTL_DAYS ?? 7) * DAY_MS,
+     llm: {
+-      baseUrl: env.LLM_BASE_URL ?? 'https://api.anthropic.com',
+-      model: env.LLM_MODEL ?? 'claude-haiku-4-5',
+-      apiKey: env.LLM_API_KEY ?? '',
++      baseUrl: env.LLM_BASE_URL ?? profile.llm?.baseUrl ?? 'https://api.anthropic.com',
++      model: env.LLM_MODEL ?? profile.llm?.model ?? 'claude-haiku-4-5',
++      apiKey: env.LLM_API_KEY ?? profile.llm?.apiKey ?? '',
+     },
+     mail: {
+       apiUrl: env.MAIL_API_URL ?? 'http://localhost:8025/api/v1/send',
+diff --git a/test/config-profiles.test.js b/test/config-profiles.test.js
+new file mode 100644
+index 0000000..7b5d3a9
+--- /dev/null
++++ b/test/config-profiles.test.js
+@@ -0,0 +1,19 @@
++import assert from 'node:assert/strict';
++import { test } from 'node:test';
++import { loadConfig } from '../src/config.js';
++
++test('staging uses the staging LLM settings', () => {
++  const config = loadConfig({ APP_ENV: 'staging' });
++  assert.match(config.llm.apiKey, /^stg_/);
++  assert.equal(config.llm.model, 'claude-haiku-4-5');
++});
++
++test('the environment wins over the staging profile', () => {
++  const config = loadConfig({ APP_ENV: 'staging', LLM_API_KEY: 'from-env' });
++  assert.equal(config.llm.apiKey, 'from-env');
++});
++
++test('production does not read a profile', () => {
++  assert.equal(loadConfig({ APP_ENV: 'production' }).llm.apiKey, '');
++  assert.equal(loadConfig({ APP_ENV: '../package' }).llm.apiKey, '');
++});

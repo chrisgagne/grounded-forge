@@ -1,0 +1,60 @@
+{
+ "id": "rd12",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 437,
+   "end_line": 443,
+   "message": "MERGE ignores task type and TDD phase. Architect GREEN, QA RED/GREEN, and verification proposals can all target the same component and layer, so this rule collapses distinct steps into one task and can retain dependencies on itself. Restrict merging to compatible phases and purposes, and remap dependencies while removing internal edges."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 514,
+   "end_line": 520,
+   "message": "No artifact-generation step saves the architecture, implementation, test, or security plans: agents only return summaries, and Phase 4 writes tasks and reports. DoR checks 1 and 9 require files that a first invocation never creates, and subsequent invocations cannot recover the agent outputs needed by the other checks. Persist all four plans at their documented paths before validation."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 97,
+   "end_line": 102,
+   "message": "Freshness is compared against the tasks file, but Phase 4.5 updates the story after writing that file. A successful planning run therefore makes its own tasks stale, so the next invocation launches all five agents again without any user change. Use a completion artifact written after the story update, such as the planning report, as the freshness marker."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 486,
+   "end_line": 494,
+   "message": "Ordering every RED task before every GREEN task breaks incremental TDD: later tests can depend on classes and behavior introduced by earlier GREEN steps, yet those implementations have not run. Order scenario cycles as RED \u2192 GREEN \u2192 REFACTOR in TPP order, respecting the dependency graph, rather than grouping all tasks by phase."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 738,
+   "end_line": 742,
+   "message": "The denominator counts mandatory checks that passed instead of the ten mandatory checks performed. With eight mandatory passes and no conditional checks, the checklist reports 8/8 despite two blockers; with no passes it reports 0/0. Set total_checks to 10 + conditional_applicable."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 795,
+   "end_line": 795,
+   "message": "Verdict handling updates only the report. The story contract requires READY to update the story status to 'Pronta para Desenvolvimento' and reflect readiness in Section 4, while NOT_READY retains the pending status. Without that update, successful planning leaves the story marked pending and fails the stated READY acceptance scenario."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 348,
+  "reasoning_effort": "none",
+  "tokens": 33901
+ }
+}

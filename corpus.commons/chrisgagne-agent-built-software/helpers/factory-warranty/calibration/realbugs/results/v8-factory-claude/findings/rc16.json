@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/zircote/nsip-example",
+  "pr_number": 27,
+  "base": "c765b47b60b3d289f92ea4e49b4fe873af22024e",
+  "head": "b6e16d4e6d0553bc5b1d9634248cb11ad27bdd7b"
+ },
+ "agent": "v8-factory-claude",
+ "findings": [
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 114,
+   "end_line": 114,
+   "message": "The report calls the lamb's predicted EBVs margins above the breed midpoint, which overstates how far above average the lamb is by about five times for WWT. Line 114 says \"his predicted growth profile (WWT +1.98, YWT +2.63 above breed midpoint)\", and line 180 says \"with a predicted WWT of +1.98 lbs above breed average\". The report's own table (line 107) gives predicted WWT +1.98 against a midpoint of +1.59, which is +0.39 above. For YWT it gives +2.63 against +0.37, which is +2.26 above. +1.98 and +2.63 are the midparent EBVs themselves, not differences from the midpoint."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 41,
+   "end_line": 41,
+   "message": "The documented lambing enrichment needs the dam's NLW (Number of Lambs Weaned) EBV and its breed range, but the report leaves NLW out completely. docs/BREEDING-EVENT-LOG.md:72-75 says the agent \"Calls `details` for the dam to retrieve her NLB ... and NLW (Number of Lambs Weaned) EBVs\" and \"Calls `trait_ranges` for NLB and NLW\". The issue template (lambing-record.yml:11-13) also promises \"the dam's NLB and NLW EBVs\". The dam EBV table (lines 41-47), the breed context table and the glossary list only BWT, WWT, PWWT, YWT and NLB."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 96,
+   "end_line": 96,
+   "message": "The report says the two lines have completely separate backgrounds and no shared ancestors at any generation, but its own pedigree shows both lines draw on Hound River Farm and was checked only to grandparent depth. Line 96 says the dam and sire \"come from completely separate genetic backgrounds, making this an outcross mating with zero inbreeding risk\". Line 144 says \"No shared ancestors appear at any generation level\". The pedigree trees show the dam's maternal grandsire 6400522016NWT063 (Hound River Farm) and the sire's paternal grandparents 6400522018NWT012 and 6400522017NWT082 (Hound River Farm), and they stop at grandparents. The 0% COI supports 'no close relationship', not 'any generation'."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 114,
+   "end_line": 114,
+   "message": "The ram lamb's ID EPC26005 may not come from any recorded source: the event summary never lists it, and it doesn't follow the flock's LPN format. The Event Summary table (lines 14-25) records only \"Lamb Sex | Ram lamb\" and \"Lamb Description | White, healthy, large and strong\", with no lamb ID. Yet lines 114, 179 and 182 tell the farmer to register and evaluate \"EPC26005\". No other file in the repository contains this ID."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change ships report.md without the machine-readable data.csv that the reports instructions require and that the previous lambing report included. The diff adds only reports/2026-04-15-lambing-event/report.md. .github/instructions/flock-action.instructions.md (applyTo: \"reports/**\") lists data.csv as a required artifact. reports/2026-04-14-lambing-event/ has a data.csv with event, dam, sire, predicted_offspring and breed_range rows."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 168,
+   "end_line": 168,
+   "message": "The report contradicts itself on the lamb's predicted birth weight, calling it both 'near breed average' and 'well below breed average'. Line 168 says \"resulting in a predicted offspring BWT well below breed average\". Line 112 says \"with a predicted BWT near breed average\". The table gives +0.06 against a midpoint of +0.18 in a range of -0.94 to +1.30, which is a small difference."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 144,
+   "end_line": 144,
+   "message": "The pedigree note gets the relationship wrong: it calls USD318 the dam's maternal grandsire, but it is her paternal grandsire. In the dam lineage tree (lines 125-126), 6400612018USD318 sits under \"Sire: 6401492022FLE382\". Line 144 nevertheless calls it \"maternal grandsire (USD318 from USDA-ARS Booneville)\"."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 68,
+   "end_line": 68,
+   "message": "The report may present unsupported facts about the sire: a 50K genotype and 'many' progeny at Beyond Blessed Farm. Neither appears in any earlier report or data export. Line 68 says \"**Genotyped**: 50K (genomically enhanced EBVs)\", and line 70 says \"many from the 2025 lambing season at Beyond Blessed Farm\". Earlier reports record only \"25 progeny\" and \"3 daughters present\" (reports/2026-02-16-rank-animals/report.md:267). No genotype status appears in any data.csv."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 178,
+   "end_line": 178,
+   "message": "A recommendation says the lamb's birth weight is critical for updating the dam's NLB accuracy, but birth weight feeds BWT, not NLB, so the advice is wrong. Line 178 says \"Record the birth weight ... critical for updating both the dam's NLB accuracy and the sire's BWT progeny data\". NLB is litter size (the glossary at line 192), which comes from the number born, not from lamb weight."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The 'Percentile' column is really a lamb's linear position between the breed minimum and maximum, not a percentile, so phrases like '32nd \u2014 well below average' can mislead the reader. Every value matches (EBV - min)/(max - min). For example, sire BWT (-0.225+0.944)/2.244 = 0.32 is shown as \"32nd\", and dam WWT (2.72+3.019)/9.209 = 0.62 is shown as \"62nd\". This copies the earlier reports' convention, but the column header and notes call it a percentile."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change has no stated acceptance criteria or test that checks the report's figures, so the arithmetic and wording errors above could pass the gate unnoticed. acceptance.md says only \"story.md is the spec. The baseline's tests are the locked acceptance tests\". The export contains no story.md and no tests, and the diff adds a single markdown file with nothing checking its numbers against NSIP data."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

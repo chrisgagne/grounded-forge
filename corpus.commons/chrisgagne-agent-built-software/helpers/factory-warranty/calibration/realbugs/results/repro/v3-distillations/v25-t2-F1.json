@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1356878,
+  "duration_s": 186.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "cd {tree} && env -u CI node_modules/.bin/jest --roots ../check",
+  "because": "On head, Set(['x']).union('abc') gives ['a','b','c','x'] instead of ['abc','x'], which shows that union now splits a string argument into characters because the string special case was removed (on base the same test passes)."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS ../check/__tests__/unionString.js\n  Set.union with a string argument\n    \u2713 adds the string whole, not its characters (1 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        0.807 s\nRan all test suites.\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL ../check/__tests__/unionString.js\n  Set.union with a string argument\n    \u2715 adds the string whole, not its characters (3 ms)\n\n  \u25cf Set.union with a string argument \u203a adds the string whole, not its characters\n\n    expect(received).toEqual(expected) // deep equality\n\n    - Expected  - 1\n    + Received  + 3\n\n      Array [\n    -   \"abc\",\n    +   \"a\",\n    +   \"b\",\n    +   \"c\",\n        \"x\",\n      ]\n\n      4 |   it('adds the string whole, not its characters', () => {\n      5 |     const result = Set(['x']).union('abc');\n    > 6 |     expect(result.toArray().sort()).toEqual(['abc', 'x']);\n        |                                     ^\n      7 |   });\n      8 | });\n      9 |\n\n      at Object.<anonymous> (../check/__tests__/unionString.js:6:37)\n\nTest Suites: 1 failed, 1 total\nTests:       1 failed, 1 total\nSnapshots:   0 total\nTime:        0.809 s\nRan all test suites.\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, Set(['x']).union('abc') gives ['a','b','c','x'] instead of ['abc','x'], which shows that union now splits a string argument into characters because the string special case was removed (on base the same test passes).",
+ "run": "v3-distillations",
+ "trial": "v25-t2",
+ "kind": "bug"
+}

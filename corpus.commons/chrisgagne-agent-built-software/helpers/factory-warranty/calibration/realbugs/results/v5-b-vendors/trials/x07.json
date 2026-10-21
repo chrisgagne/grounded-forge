@@ -1,0 +1,31 @@
+{
+ "id": "x07",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/tzName/index.ts",
+   "start_line": 38,
+   "end_line": 38,
+   "message": "`format` is passed straight to `Intl.DateTimeFormat` as `timeZoneName`. The \"shortGeneric\" and \"longGeneric\" values (ES2021 Intl.DateTimeFormat extension) are missing from older runtimes, such as Safari < 15.4 and older Node/ICU builds. Those throw a RangeError there. Plain-JS callers can also pass any other string, such as \"shortOffset\", which the type doesn't cover and the docs don't mention. Either document the minimum runtime support or validate/fall back, so a cosmetic helper doesn't crash on some platforms."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 21,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 2270,
+   "cost_usd": 0.0839318,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 2270
+ },
+ "stopped": false
+}

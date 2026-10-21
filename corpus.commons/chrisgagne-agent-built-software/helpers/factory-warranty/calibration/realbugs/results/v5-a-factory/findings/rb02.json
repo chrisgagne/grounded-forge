@@ -1,0 +1,133 @@
+{
+ "pr": {
+  "repo": "https://github.com/simnaut/emdash",
+  "pr_number": 2,
+  "base": "5beb0ddc334deb862ba90cedbf03f052b58e4974",
+  "head": "41d750067fc7a39eb29f6a530cf0d4ae0f8bdb41"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "packages/core/src/astro/routes/api/search/index.ts",
+   "start_line": 42,
+   "end_line": 42,
+   "message": "The now-public search endpoint passes the caller's `status` through, so anyone without a login can read draft, scheduled or archived titles and snippets. middleware/auth.ts adds \"/_emdash/api/search\" to PUBLIC_API_EXACT, and search/index.ts drops `requirePerm(user, \"search:read\")`. The handler then calls `searchWithDb(emdash.db, query.q, { collections, status: query.status, ... })`. schemas/search.ts declares `status: z.string().optional()`, and search/query.ts:219 filters on `AND c.status = ${status}`. The FTS triggers in fts-manager.ts index every row whatever its status. So `GET /_emdash/api/search?q=a&status=draft` with no session returns draft titles and snippets. The comment added in middleware/auth.ts:87-89 says \"The query layer hardcodes status='published'\". That is untrue, and it would lead a reviewer to skip this path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/core/src/astro/routes/api/auth/oauth/[provider]/callback.ts",
+   "start_line": 143,
+   "end_line": 143,
+   "message": "Before setup is complete, any GitHub/Google OAuth user becomes ADMIN and setup gets finalized, so a stranger can take over a fresh install. The new `canSelfSignup` returns `{ allowed: true, role: Role.ADMIN }` whenever `emdash:setup_complete` is not true, before the allowed-domain check runs. After `handleOAuthCallback` it calls `finalizeSetup(emdash.db)`, which sets `emdash:setup_complete`. `/_emdash/api/auth/oauth/` is in PUBLIC_API_PREFIXES, and nothing links the callback to the setup wizard. Trigger: on a new install with GitHub OAuth configured, an attacker opens /_emdash/api/auth/oauth/github and finishes the GitHub login. They become admin and setup is marked complete. Before this change, the domain allowlist gated signup at this point."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "start_line": 131,
+   "end_line": 131,
+   "message": "Before setup is complete, whichever atproto DID finishes OAuth first becomes ADMIN with the owner's wizard email. The handle the owner entered is never checked. `isFirstUser = setupComplete !== true && setupComplete !== \"true\"`, and then `findOrCreateOAuthUser(..., async () => { if (isFirstUser) return { allowed: true, role: Role.ADMIN }; ...})`. setup-admin.ts stores `handle: body.handle` in setup_state, but callback.ts never compares it with `atprotoSession.did`. For the first user it sets `email = setupState?.email` and `emailVerified: isFirstUser`. login.ts (under the public prefix `/_emdash/api/auth/atproto/`) has no setup-state check. Trigger: the owner completes wizard step 1; an attacker POSTs `{handle:\"attacker.bsky.social\"}` to /_emdash/api/auth/atproto/login and completes OAuth. They become admin, finalizeSetup runs, and the owner's setup flow then fails with SETUP_COMPLETE."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "start_line": 126,
+   "end_line": 126,
+   "message": "Checking the setup_complete flag doesn't prevent concurrent first-user callbacks. Both can create admins, or the second DID can be auto-linked to the admin through the shared wizard email. callback.ts:126 says \"Using an option flag instead of countUsers() avoids a TOCTOU race where two concurrent callbacks both see 0 users and both create admins\". But the flag is read with `options.get(\"emdash:setup_complete\")` and only written later by `finalizeSetup`, with no lock or conditional write in between. The core OAuth callback ([provider]/callback.ts:140) has the same comment and the same read-then-write pattern. The comment at line 147 even says \"safe if two callbacks race past the check\"."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/auth-atproto/src/routes/login.ts",
+   "start_line": 28,
+   "end_line": 28,
+   "message": "The atproto routes build client_id and redirect_uri from the internal request origin instead of the configured public origin, so atproto login breaks behind a TLS-terminating proxy. login.ts, setup-admin.ts:56 and callback.ts:42 all use `const baseUrl = url.origin;`. client-metadata.ts uses `new URL(request.url).origin`. Every core auth route in the diff was switched to `getPublicOrigin(url, emdash?.config)` for exactly this reverse-proxy case (see public-url.ts). Behind a proxy, `http://localhost:4321/_emdash/api/auth/atproto/callback` would be registered as the redirect_uri."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/core/src/astro/integration/index.ts",
+   "start_line": 211,
+   "end_line": 211,
+   "message": "Astro's checkOrigin is turned off for the whole site, while EmDash's replacement CSRF check only covers its own public and plugin API routes. `const securityConfig = { checkOrigin: false, ... }; updateConfig({ security: securityConfig, ...})`. `checkPublicCsrf` is called only from middleware/auth.ts for `isPublicApiRoute` and `/_emdash/api/plugins/`. The other /_emdash routes need the X-EmDash-Request header. Template or user routes such as a contact-form POST no longer get any origin check. This weakens a secure default."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/core/src/plugins/context.ts",
+   "start_line": 496,
+   "end_line": 496,
+   "message": "A plugin with allowedHosts \"*\" can fetch any host, including private IPs and metadata endpoints, with no SSRF validation. `isHostAllowed` gains `if (pattern === \"*\") return true;`. `createHttpAccess` only calls `isHostAllowed` and then `globalThis.fetch(currentUrl, ...)`. `createUnrestrictedHttpAccess` (the fetch:any path) calls `validateExternalUrl(currentUrl)` on every hop. Trigger: a plugin with `allowedHosts: [\"*\"]` calls `ctx.http.fetch(\"http://169.254.169.254/latest/meta-data/\")`, and the request goes through."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "start_line": 60,
+   "end_line": 60,
+   "message": "The atproto callback accepts any valid state/code without tying it to the browser that started the flow, which allows login CSRF. login.ts returns the authorize URL and sets no cookie or session marker. The OAuth state is held only server-side in the `auth:atproto` `states` collection (db-store.ts). callback.ts calls `client.callback(url.searchParams)` and then `session.set(\"user\", { id: user.id })`, with no check that ties the state to the current session."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/lunaria.yml",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "A pull_request_target workflow with pull-requests: write runs a third-party action pinned to a mutable prerelease tag. `- uses: lunariajs/action@v1-prerelease` under `on: pull_request_target` with `permissions: pull-requests: write`. In the same diff, other actions use pinned SHAs (e.g. `actions/checkout@de0fac2e...`)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "package.json",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "A root devDependency installs from a pkg.pr.new preview build, not a published release. `\"@lunariajs/core\": \"https://pkg.pr.new/lunariajs/lunaria/@lunariajs/core@83617cc\"`, with a matching tarball resolution in pnpm-lock.yaml:3007. i18n/build.ts and lunaria.config.ts import it."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/core/src/astro/routes/sitemap-[collection].xml.ts",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "Per-collection sitemaps still use the internal request origin, while the sitemap index and robots.txt use the public origin. sitemap-[collection].xml.ts: `const siteUrl = (settings.url || url.origin)`. sitemap.xml.ts and robots.txt.ts in the same diff use `settings.url || getPublicOrigin(url, emdash?.config)`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/core/src/astro/routes/api/search/suggest.ts",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The search:read permission check was removed from the non-public suggest endpoint. The diff deletes `const denied = requirePerm(user, \"search:read\"); if (denied) return denied;` from suggest.ts. `/_emdash/api/search/suggest` is not added to PUBLIC_API_EXACT, so middleware still requires a login, but nothing checks the permission any more."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/core/src/astro/middleware/csp.ts",
+   "start_line": 22,
+   "end_line": 22,
+   "message": "The admin CSP's img-src is widened to any https origin. `\"img-src 'self' https: data: blob:\"` replaces the earlier `buildEmDashCsp(marketplaceUrl)`, which allowed only 'self', data:, blob: and the marketplace origin."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/core/src/database/migrations/034_published_at_index.ts",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "The new migration 034 uses a bare CREATE INDEX, while 033 was patched to IF NOT EXISTS for idempotency. 034: `CREATE INDEX ${sql.ref(`idx_${table.name}_deleted_published_id`)}`. 033 was edited in this diff from `CREATE INDEX` to `CREATE INDEX IF NOT EXISTS` for every index. Editing the already-shipped migration 033 also changes history that existing databases have already run."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "Dockerfile",
+   "start_line": 49,
+   "end_line": 49,
+   "message": "The runtime image runs the Node server as root. The final stage `FROM node:22-slim` ... `CMD [\"node\", \"./dist/server/entry.mjs\"]` has no `USER` directive, so the server and the writable `data`/`uploads` directories are owned by root."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/bonk.yml",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The bonk action SHA changed but its version comment still gives the old date. `ask-bonk/ask-bonk/github@c39e982d... # main 2026-03-23` became `ask-bonk/ask-bonk/github@7e200bbf... # main 2026-03-23`. The comment is unchanged."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The security-critical atproto callback and login routes have no tests. The tests added for auth-atproto are auth.test.ts (descriptor shape), oauth-client.test.ts and resolve-handle.test.ts. None of them exercise routes/callback.ts or routes/login.ts."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

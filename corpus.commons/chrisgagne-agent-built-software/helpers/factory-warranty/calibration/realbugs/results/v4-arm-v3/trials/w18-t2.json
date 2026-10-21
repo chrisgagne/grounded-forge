@@ -1,0 +1,56 @@
+{
+ "id": "w18",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.4982,
+ "codex_tokens": 32702,
+ "work": "<tmp>/replay-w18-t2-9faoodzy",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff turns line 978 into an unconditional `hasAllShortFlags(arg)` check. hasAllShortFlags (945-967) checks each letter on its own, so '-ab' counts as known and isUnknownOptionAsArg returns false at line 226. The branch at line 262 (`!configuration['short-option-groups'] && arg.match(/^-[^-]+/)`) then reads the whole 'ab' as the key at line 264 and sets it.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 978,
+   "claim": "With short-option-groups off and unknown-options-as-args on, an unknown option like '-ab' made of known single-letter flags is no longer treated as unknown. It gets parsed as a new key 'ab' instead of being passed through to argv._.",
+   "evidence": "Line 978 now reads `if (hasAllShortFlags(arg)) { return false }`. `hasAllShortFlags` (lines 945-967) checks each letter separately with `hasAnyFlag(letters[j])`, so `-ab` returns true when `a` and `b` are defined, and `isUnknownOption` returns false. In the main loop, the branch at line 262 (`!configuration['short-option-groups'] && arg.match(/^-[^-]+/)`) then reads the whole `ab` as the key (`m = arg.match(/^--?(.+)/)`) and calls setArg on it. Before the change, the guard skipped the per-letter check when grouping was off, so `hasFlagsMatching(arg, ..., normalFlag)` looked up the key `ab`, found nothing, and the arg went through `pushPositional`.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch changes only lib/yargs-parser.ts and adds no tests. The tests that set short-option-groups: false (test/yargs-parser.mjs:2316, 2322, 2879, 2898) don't test '-ab' made of known letters under unknown-options-as-args. I lowered the severity to low because this is a coverage gap; the real defect is the item above.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "lib/yargs-parser.ts",
+   "line": 978,
+   "claim": "No test covers unknown-options-as-args combined with short-option-groups false, so the behaviour change is unchecked.",
+   "evidence": "diff.patch changes only lib/yargs-parser.ts (one line). The unknown-options-as-args tests in test/yargs-parser.mjs (around lines 3047-3290) all run with short-option-groups at its default of true, so none of them exercises the branch this change affects. acceptance.md points to a story.md that isn't in the export or the packet, so I can't trace the change to any stated requirement.",
+   "axis_row": "L5.26",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

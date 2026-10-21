@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.32262859999999993,
+  "duration_s": 206.8
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/reverse-iterator.cjs {tree}",
+  "because": "The script builds the tree's own src with its rollup and buble pipeline, then iterates `Seq([1,2,3]).reverse().map(x => x).reverse().values()`. On head this throws \"Cannot read properties of undefined (reading 'size')\" because the arrow-function `__iterator` reads `this.size` while `this` is undefined, so the script exits 1. On base it returns [1,2,3] with keys [0,1,2] and exits 0."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS [ 1, 2, 3 ] [ 0, 1, 2 ]\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL: reverse iterator of reversed indexed Seq threw: Cannot read properties of undefined (reading 'size')\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The script builds the tree's own src with its rollup and buble pipeline, then iterates `Seq([1,2,3]).reverse().map(x => x).reverse().values()`. On head this throws \"Cannot read properties of undefined (reading 'size')\" because the arrow-function `__iterator` reads `this.size` while `this` is undefined, so the script exits 1. On base it returns [1,2,3] with keys [0,1,2] and exits 0.",
+ "run": "v4-arm-v4",
+ "trial": "w20-t1",
+ "kind": "bug"
+}

@@ -1,0 +1,149 @@
+{
+  "method": "Independently inspected the cloned default-branch histories using git log, show, diff --numstat, -S, and -L. Excluded used-commits.txt entries, merges, bug fixes, security changes, generated files, and candidates with later corrective changes. Counted additions plus deletions in whole code files, including embedded comments and declarations; excluded separate documentation and tests. Checked behavior changes against tests in the same commit, searched subsequent messages for reverts and feature/commit references, and inspected later relevant diffs through file migrations. Findings cover the cloned origin/HEAD tips identified below. Randomized the accepted cases with SystemRandom before assigning IDs. No files were modified.",
+  "cases": [
+    {
+      "id": "fc01",
+      "kind": "control",
+      "project": "date-fns",
+      "commit": "09af14288683a44577af4ff91e25223b9235377b",
+      "parent": "4fb7824650cdfb2b3f45ee116be4f228b814c561",
+      "code_files": ["src/format/index.ts"],
+      "test_files": ["src/format/test.ts"],
+      "code_lines_changed": 4,
+      "ground_truth": "CONTROL: Adds formatDate and FormatDateOptions as aliases of format and FormatOptions.",
+      "evidence": "Subject: Add alias formatDate for format function (#3653). The added test compares both functions. Checked subsequent format-file history, revert messages, and references to formatDate, #3653, and the commit through 717ce0a807ea4c6b540d015b5c408723175b2838. git log -L followed the exports into pkgs/core and traced them directly to this commit without subsequent changes; no corrective commit or revert found."
+    },
+    {
+      "id": "fc02",
+      "kind": "control",
+      "project": "yargs-parser",
+      "commit": "f942242d970e60ce483f617005c424b8e3acbacd",
+      "parent": "f5f9e5a7ea91821f7c95e8eb4c71dc74de1bc907",
+      "code_files": ["index.js"],
+      "test_files": [],
+      "code_lines_changed": 2,
+      "ground_truth": "CONTROL: Changes the unreassigned defVal local from let to const without changing parsing behavior.",
+      "evidence": "Subject: refactor: let to const. Inspected the complete one-line replacement and subsequent parser history through aa386be666df974a127904020c61b9febc10301f. Pickaxe searches and line history followed defVal into lib/yargs-parser.ts, where the const binding remains; intervening changes were migration or surrounding parsing changes. Searched revert messages and commit references; no bug introduced by the binding change or revert found."
+    },
+    {
+      "id": "fc03",
+      "kind": "control",
+      "project": "js-yaml",
+      "commit": "42dea284430b1077f95a326f14db422b19bedecc",
+      "parent": "6cf374ee84f51d78a8286bbcbbd3ac2628153927",
+      "code_files": ["src/tag/sequence/pairs.ts"],
+      "test_files": ["test/core/tags/pairs.test.mjs"],
+      "code_lines_changed": 9,
+      "ground_truth": "CONTROL: Allows YAML !!pairs entries backed by realMapTag to preserve complex keys.",
+      "evidence": "Subject: Support complex !!pairs keys with realMapTag. Same-commit tests cover scalar and complex keys. Inspected every later pairs.ts diff and searched pairs-related messages, commit references, and reverts through 78326247fa2cec0d2c7ed553353d554e039ee7c8. Later source changes concern documentation and tag typing; a7c9766, titled Fix !!pairs coverage, only adds a test for the already-correct multiple-key rejection. No implementation correction or revert found."
+    },
+    {
+      "id": "fc04",
+      "kind": "control",
+      "project": "immutable-js",
+      "commit": "2f8570d9aae6e8cbae545de8b4a352b58c2a7ff6",
+      "parent": "847603889e25e37262b54380872a2bd9240c9e3c",
+      "code_files": ["src/Record.js", "type-definitions/Immutable.d.ts"],
+      "test_files": ["__tests__/Record.ts", "__tests__/RecordJS.js"],
+      "code_lines_changed": 15,
+      "ground_truth": "CONTROL: Exposes named Record factories through displayName and uses that property when describing Record instances.",
+      "evidence": "Subject: Give Records a displayName (#1625). Same-commit tests cover factory displayName and subclass descriptive names. Checked later Record history, declaration pickaxe searches, #1625/displayName/commit references, and revert messages through 686b8baf1dc825419f5ded2968b48e3432644aff. git log -L traces both displayName assignment and recordName lookup directly to this commit with no later functional changes; no corrective commit or revert found."
+    },
+    {
+      "id": "fc05",
+      "kind": "control",
+      "project": "jsdiff",
+      "commit": "83653673cbe22e1688985ccd3c468b418f48d6bb",
+      "parent": "56c6a8a16d2c96dc9a1da60dd33e438a0e75cf38",
+      "code_files": ["src/index.js", "src/patch/reverse.js"],
+      "test_files": ["test/patch/reverse.js"],
+      "code_lines_changed": 29,
+      "ground_truth": "CONTROL: Adds reversePatch for inverting a structured patch or an array of structured patches.",
+      "evidence": "Subject: Add function to reverse a patch (#450). Added tests verify reversed output, application, and patch arrays. Checked later reverse-file history, public exports, reversePatch/#450/commit references, and revert mentions through 5947609000de10226b5f6ef2d80428eb71ed4eba. The only later implementation changes are c8a9cc5 removing the globally retired linedelimiters field and dd1c4e0 migrating to TypeScript; inversion behavior and exports remain. No bug correction or revert of this feature found."
+    },
+    {
+      "id": "fc06",
+      "kind": "control",
+      "project": "jsdiff",
+      "commit": "1023590bd4b29edb8c4d280f9bd50966fc22e469",
+      "parent": "c72ef4aec8fc6318dd413ab7c225fa47891f607c",
+      "code_files": ["src/diff/array.js"],
+      "test_files": ["test/diff/array.js"],
+      "code_lines_changed": 4,
+      "ground_truth": "CONTROL: Removes a redundant array copy during diffArrays joining while retaining input copying during tokenization.",
+      "evidence": "Subject: Omit redundant slice in join method of diffArrays. Added anti-aliasing tests verify result chunks are distinct from input arrays. Checked all later array implementation changes, diffArrays/arrayDiff/commit references, and revert mentions through 5947609000de10226b5f6ef2d80428eb71ed4eba. The only later source commit is dd1c4e0's TypeScript rewrite; inspected its replacement and line history showing join still returns its argument. No corrective change or revert found."
+    },
+    {
+      "id": "fc07",
+      "kind": "control",
+      "project": "node-semver",
+      "commit": "0d0a0a2582fb1486bc6cd255ba18819c441ed149",
+      "parent": "c368af612e521767e960419e6388c5129c857984",
+      "code_files": ["functions/truncate.js", "index.js"],
+      "test_files": ["test/fixtures/truncations.js", "test/functions/truncate.js"],
+      "code_lines_changed": 50,
+      "ground_truth": "CONTROL: Adds truncate to remove version components below a selected release level while discarding build metadata.",
+      "evidence": "Subject: feat: Add `truncate` function (#855). Same-commit tests cover release levels, invalid inputs, prereleases, metadata, and frozen SemVer inputs. Checked subsequent histories of both code files plus truncate/#855/commit references and revert messages through 6e05b7637396ac66522cff8731f07cfe0ef49a29. Neither code file changed afterward; the only named follow-up is release documentation. No fix or revert found."
+    },
+    {
+      "id": "fc08",
+      "kind": "control",
+      "project": "node-semver",
+      "commit": "7c2ec1c2517a63351eb8cdec68810697bba2b855",
+      "parent": "8f4d96d7816c296d311eef101588a3809170ea2b",
+      "code_files": ["functions/diff.js"],
+      "test_files": [],
+      "code_lines_changed": 3,
+      "ground_truth": "CONTROL: Replaces a hoisted var in diff with an explicitly declared let while preserving its initialization and return behavior.",
+      "evidence": "Subject: refactor: replace var with let. Compared parent and commit: defaultResult remains undefined until the same conditional assignment. Checked subsequent diff.js history, pickaxe results, commit references, and revert messages through 6e05b7637396ac66522cff8731f07cfe0ef49a29. Inspected ebcf4df's const refactor and later fixes including #533, #546, and #755; these change existing prerelease algorithms rather than repair this equivalent binding replacement. No introduced bug or revert found."
+    },
+    {
+      "id": "fc09",
+      "kind": "control",
+      "project": "markdown-it",
+      "commit": "5837f6bc5b96a9a1215950ca270f5e10dff0a2c3",
+      "parent": "564bfa8e7d7c5bc89fb807753f1b57a9fae4e67d",
+      "code_files": ["lib/token.js"],
+      "test_files": ["test/misc.js"],
+      "code_lines_changed": 14,
+      "ground_truth": "CONTROL: Adds Token.attrGet to return an attribute value or null when the attribute is absent.",
+      "evidence": "Subject: Add an attrGet method to Token. Added tests cover missing and present attributes. Checked token-file histories, attrGet/commit references, and revert messages through 3c51991c32aaa2b002a52c009334ebe5752c84b3. git log -L followed the method through .mjs, src/, class conversion, and TypeScript migration; subsequent edits preserve the lookup behavior. No corrective commit or revert found."
+    },
+    {
+      "id": "fc10",
+      "kind": "control",
+      "project": "yargs-parser",
+      "commit": "a525234558c847deedd73f8792e0a3b77b26e2c0",
+      "parent": "84a401f0fa3095e0a19661670d1570d0c3b9d3c9",
+      "code_files": ["index.js"],
+      "test_files": ["test/yargs-parser.js"],
+      "code_lines_changed": 7,
+      "ground_truth": "CONTROL: Adds detailed parsing metadata that records which option keys received their default values.",
+      "evidence": "Subject: feat: options that have had their default value used are now tracked (#211). Added tests cover defaults, explicit arguments, configuration objects, and aliases. Checked later parser history, defaulted/canLog pickaxe results, #211/commit references, and revert messages through aa386be666df974a127904020c61b9febc10301f. Followed applyDefaultsAndAliases into TypeScript with git log -L; its canLog-controlled recording remains intact. No correction to this feature or revert found."
+    },
+    {
+      "id": "fc11",
+      "kind": "control",
+      "project": "decimal.js",
+      "commit": "8df4a72aaa1a209ddd8b39eb9466512342a02252",
+      "parent": "50f63bec5c03f6b2024a8979cb543179fd1ad678",
+      "code_files": ["decimal.js"],
+      "test_files": [],
+      "code_lines_changed": 3,
+      "ground_truth": "CONTROL: Replaces Math.floor with equivalent bitwise truncation when extracting a nonnegative rounding digit modulo ten.",
+      "evidence": "Subject: bitwise floor ok. Inspected the surrounding rounding algorithm to verify the extracted digit is bounded below ten, so the substitution preserves behavior. Checked subsequent decimal.js history, bitwise/rounding-digit/commit references, and revert messages through b1d1e311eb272b16f5b2ca0e0d1f4c4fa8558edf. git log -L traces the current rounding expression directly to this commit without later edits; the revert found concerns README advice. No fix or revert of this refactor found."
+    },
+    {
+      "id": "fc12",
+      "kind": "control",
+      "project": "markdown-it",
+      "commit": "18f1531024604c090c16233ee44c572be3115ee0",
+      "parent": "88c6e0f8e6fd567c70ffabbc1e9ce7b980d2e3a9",
+      "code_files": ["lib/token.js"],
+      "test_files": ["test/misc.js"],
+      "code_lines_changed": 34,
+      "ground_truth": "CONTROL: Adds Token.attrSet and Token.attrJoin for replacing attribute values and appending space-separated values.",
+      "evidence": "Subject: New .attrJoin() & .attrSet() methods in Token. Same-commit tests exercise attribute creation, replacement, and joining. Checked token-file histories, both method names, commit references, and revert messages through 3c51991c32aaa2b002a52c009334ebe5752c84b3. git log -L follows both methods through module, class, and TypeScript migrations; later changes are syntax, typing, formatting, and equivalent string interpolation. No corrective commit or revert found."
+    }
+  ]
+}

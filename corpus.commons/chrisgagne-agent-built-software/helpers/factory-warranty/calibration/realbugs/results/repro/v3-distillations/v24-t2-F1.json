@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.12509240000000002,
+  "duration_s": 24.8
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "Parsing `--no-foo bar` with boolean foo, 'boolean-negation' off and 'unknown-options-as-args' on gives `_: ['--no-foo','bar']` on base but `{_: [], 'no-foo': 'bar'}` on head, so head treats `--no-foo` as a known option and parses it as a separate `no-foo` flag instead of passing it through to argv._."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[\"--no-foo\",\"bar\"]}\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[],\"no-foo\":\"bar\",\"noFoo\":\"bar\"}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: --no-foo should be passed through to argv._ when boolean-negation is off\n+ actual - expected\n\n+ []\n- [\n-   '--no-foo',\n-   'bar'\n- ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v3-distillations/v24-t2-F1/check/check.mjs:10:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [],\n  expected: [ '--no-foo', 'bar' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "Parsing `--no-foo bar` with boolean foo, 'boolean-negation' off and 'unknown-options-as-args' on gives `_: ['--no-foo','bar']` on base but `{_: [], 'no-foo': 'bar'}` on head, so head treats `--no-foo` as a known option and parses it as a separate `no-foo` flag instead of passing it through to argv._.",
+ "run": "v3-distillations",
+ "trial": "v24-t2",
+ "kind": "bug"
+}

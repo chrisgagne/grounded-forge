@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/Pushedskydiver/chief-clancy",
+  "pr_number": 216,
+  "base": "a77f2542ee0d6e041810e373dfed09e8e6ffe696",
+  "head": "6baec2abdca4d6b74b716ee677e88a03a1e63060"
+ },
+ "agent": "v8-factory-claude",
+ "findings": [
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 390,
+   "end_line": 390,
+   "message": "The `EEXIST + --push` retry path never checks that the current plan file still matches the marker's sha256, so it can publish an edited, never-approved plan to the board as the 'approved plan'. Lines 390-394: on EEXIST with `--push`, the marker is 'not re-written', Step 4b is skipped and the flow goes 'directly to Step 4c'. Step 4c then reads `.clancy/plans/{stem}.md` (line 504) and posts its content through the curl blocks. Nothing in 4a's retry branch or in 4c hashes the plan and compares it to the marker's `sha256=`, even though lines 410-412 describe that comparison as the gate. Trigger: approve plan X, the push fails, edit X.md, then run the printed retry command `/clancy:approve-plan X --push --ticket KEY`. The edited content is posted to the ticket while the marker still holds the old hash. The same branch also re-posts a duplicate comment when the earlier push succeeded, because it never checks for a prior `LOCAL_APPROVE_PLAN_PUSH` row."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 524,
+   "end_line": 524,
+   "message": "The bracketed-key Source parser cannot match Notion keys (hex/UUID) or Shortcut-style keys, so Notion auto-detect never pushes and Notion Sources are wrongly classed as 'file-path'. The pushable pattern is `^\\[(#?\\d+|[A-Z][A-Z0-9]*-\\d+)\\]\\s+.+$`, which allows only `#digits`, bare digits or `UPPER-digits`. Brief writes board Sources as `[{KEY}] {Title}` (brief.md:808), and Notion keys are `^[0-9a-f]{32}$|^[0-9a-f-]{36}$` (line 186 table). So `[3f2a\u2026] Title` falls into bucket 3 ('matches anything else', line 526). That logs `BOARD_PUSH_SKIPPED_NO_TICKET | file-path` and shows 'source is file-path', which is wrong. The Notion success note added to Step 7 (line 1504) can then only fire through `--ticket`. Shortcut's `[SC-123]`, which Step 2 line 106 accepts, parses as bracketed but then hard-errors against `^\\d+$`."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 516,
+   "end_line": 516,
+   "message": "The `--ticket` override is never honoured when the plan has no Source header or has an inline-quoted or file-path Source, because those branches skip before the override is considered. This contradicts the command doc's promise that `--ticket` helps when Source is 'missing'. Line 518 says a missing `**Source:**` header makes Step 4c 'skip silently and continue to Step 7', with no `--ticket` exception. The skip-no-ticket branch (lines 530-546) logs `BOARD_PUSH_SKIPPED_NO_TICKET` and continues to Step 7, again with no exception. `--ticket` is first mentioned at line 550, after both exits. The diff's commands/approve-plan.md says `--ticket` is 'Useful when the brief Source field is missing, ambiguous'. Trigger: `/clancy:approve-plan foo --push --ticket PROJ-1` on a plan whose Source is `\"Add dark mode\"` follows the documented order to the skip branch, and nothing is pushed."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 98,
+   "end_line": 98,
+   "message": "Step 2 still says the board push for plan-file stems is deferred and that the marker is the only side effect. This contradicts the new Step 4c, so the LLM running the workflow gets conflicting instructions about whether to push. Line 98: 'The board push offer for plan-file-stem mode is deferred to a future PR \u2014 for now the local marker is the only side effect.' The diff updated the Overview (line 8) and the 4a/4b tails to route into Step 4c, but left this sentence unchanged."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 742,
+   "end_line": 742,
+   "message": "The success and failure classification depends on the HTTP status, but the duplicated curl commands never capture one. A 4xx/5xx response may be logged as a successful push. Every push block uses `curl -s` without `--fail` or `-w '%{http_code}'` (e.g. lines 638-646 and 662-668). With those options absent, curl exits 0 on HTTP 401/403/500. Yet line 742 keys success on 'When the curl returns a 2xx response' and logs `LOCAL_APPROVE_PLAN_PUSH`, and lines 760-762 require 'the literal numeric status code' for `BOARD_PUSH_FAILED`. Nothing in the commands provides that code."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 681,
+   "end_line": 681,
+   "message": "The plan body and identifiers are placed inside single-quoted `-d '...'` shell arguments. Plan text containing a `'` can break out into the shell, and `$ISSUE_ID`/`$PAGE_ID` never expand. The new `--afk --push` path reaches this sink unattended. Line 681: `-d '{\"query\": \"mutation { commentCreate(input: { issueId: \\\"$ISSUE_ID\\\", body: \\\"<markdown plan>\\\" }) ...'`. Line 731: `-d '{\"parent\": {\"page_id\": \"$PAGE_ID\"}, ...}'`. Inside single quotes `$ISSUE_ID`/`$PAGE_ID` stay literal. The `<markdown plan>` content comes from the plan file, which derives from briefs and board tickets, and is interpolated with no encoding or escaping rule. Step 4c also never says how `{KEY}` maps to `$ISSUE_NUMBER` (strip `#`), `$ISSUE_ID` or `$PAGE_ID`. These blocks were copied from plan.md Step 5b, but this change adds an unattended path to them."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 608,
+   "end_line": 608,
+   "message": "The `--afk`-without-`--push` decision is placed after Source parsing and key validation. An unattended run that is meant to stay local-only can therefore print a hard error and log `BOARD_PUSH_FAILED` or `BOARD_PUSH_SKIPPED_NO_TICKET` alongside or instead of `LOCAL_ONLY`. The documented order in Step 4c is: read Source (502) \u2192 parse and skip-no-ticket logging (520-546) \u2192 validate and hard-error, logging `BOARD_PUSH_FAILED | key-mismatch:{KEY}` (548-589) \u2192 decision matrix (608-627), where '`--afk` without `--push`' should 'Skip the push entirely'. No sentence moves the flag check ahead of the parse and validate sub-steps, so a mismatched Source key under plain `--afk` follows the hard-error path first."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/approve-plan.md",
+   "start_line": 396,
+   "end_line": 396,
+   "message": "The retry path claims auditors 'see one approval row', but Step 7 unconditionally re-renders '\u2705 Approved' and appends another `LOCAL_APPROVE_PLAN` row on every `--push` retry. Line 396: 'auditing tools see one approval row in `.clancy/progress.txt`, even if 4c was attempted multiple times.' Step 7 local mode (lines 1478-1516) always prints the approved block and 'Append to `.clancy/progress.txt`: ... LOCAL_APPROVE_PLAN | sha256=...' with no retry exception. Line 493's gate also still reads 'Step 4a wrote a marker successfully', which is false on the retry path."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/workflows.test.ts",
+   "start_line": 866,
+   "end_line": 866,
+   "message": "The diff rewrites an existing locked baseline test's expectation in the same change it judges. The baseline test `after writing the marker, Step 4a jumps to Step 7 (log) and skips board flow` asserted `content.toContain('jump to Step 7')`. The diff replaces it with `continues to Step 4c` assertions. The behaviour change is intended, but acceptance.md says the baseline tests are locked, and the edit carries no recorded approval."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/plan/src/workflows/workflows.test.ts",
+   "start_line": 1105,
+   "end_line": 1105,
+   "message": "The new tests only regex-match prose shape, and some are tautological, so they would pass with a wrong or contradictory workflow (for example, none catches the stale Step 2 'deferred' sentence or the --ticket ordering bug). 'command file --push doc references board push target' slices from the index of '`--push`' and then asserts `/push|board/i`, which the slice always matches because it begins with `--push`. 'documents the three brief Source formats' accepts `/file[- ]path|\\.md/`, and `.md` appears throughout. Every Step 4c test is a `toMatch` on markdown text, and none exercises behaviour."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

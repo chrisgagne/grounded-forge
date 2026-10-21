@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/EdV4H/usketch",
+  "pr_number": 534,
+  "base": "ff729b7dce02efaf7d1054780536289f86e8a5e7",
+  "head": "719aa8340584e714552d132a9ec6971582673a8b"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "Malformed client updates bypass the new rejection guard whenever the server document has not been created. doc starts as null, and the WebSocket upgrade only loads update buffers; applyClientUpdate skips Y.applyUpdate when doc is null and returns true. A malformed MSG_YJS_UPDATE received in that state therefore reaches pushUpdate, trackUpdate, broadcast and scheduleSave in BoardRoom.webSocketMessage, including delivery to clients whose ws-provider calls Y.applyUpdate on the payload."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "An update arriving during an outstanding save can remain unpersisted indefinitely. scheduleSave now keeps saveScheduled true until storage.put resolves. After line 62 snapshots the buffer, a new client update is appended but its scheduleSave call returns at line 57; finally only clears the flag and schedules no subsequent write. If no further updates arrive, that update is absent from storage. schedulePartitionSave in partition-manager.ts has the same sequence."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

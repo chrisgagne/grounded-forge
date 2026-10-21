@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/zircote/nsip-example",
+  "pr_number": 27,
+  "base": "c765b47b60b3d289f92ea4e49b4fe873af22024e",
+  "head": "b6e16d4e6d0553bc5b1d9634248cb11ad27bdd7b"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 114,
+   "end_line": 114,
+   "message": "The ram lamb's predicted WWT +1.98 and YWT +2.63 are described as amounts 'above breed midpoint', but they are raw midparent EBVs. Measured against the midpoints (+1.59 and +0.37), the margins are only +0.39 and +2.26. A reader judging EPC26005 as a sire candidate thinks he is 1.98 lbs above the breed midpoint for WWT. The table on the same page shows he is only 0.39 lbs above it, so his growth advantage is overstated about 5x."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 180,
+   "end_line": 180,
+   "message": "Next Steps item 3 says the predicted WWT is '+1.98 lbs above breed average'. The breed midpoint is +1.59, so the prediction is only about 0.4 lbs above average. A producer sets the weaning-weight expectation for the lamb using a ~2 lb genetic advantage that the data in the report's own table does not support."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 167,
+   "end_line": 167,
+   "message": "Highlight 2 says the predicted offspring BWT is 'well below breed average'. The prediction is +0.06 against a +0.18 midpoint, and line 112 of the same report calls it 'near breed average'. The report contradicts itself and overstates how much the sire's BWT lowers lambing risk. This can push future mating choices for yearling ewes toward this sire based on an inflated effect."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 149,
+   "end_line": 149,
+   "message": "The pedigree note calls USD318 the dam's 'maternal grandsire'. In the tree, USD318 is the sire of FLE382, who is FLE082's sire, so USD318 is her paternal grandsire. Anyone reading the note to trace lineage, or entering pedigree data from it, puts USD318 on the wrong side of the dam's pedigree."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "The inbreeding section says the dam and sire come from 'completely separate genetic backgrounds' and have 'no shared ancestors at any generation level'. But Hound River Farm (NWT) animals appear in both pedigrees (NWT063 on the dam side; NWT012 and NWT082 on the sire side), and only 3 generations were checked. COI is reported as 0.0% from a shallow pedigree. A related NWT ancestor deeper in the lines would go unnoticed, and the outcross/heterosis claim and the 'zero inbreeding risk' assurance would be wrong."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 178,
+   "end_line": 178,
+   "message": "Next Steps item 1 says recording birth weight is 'critical for updating ... the dam's NLB accuracy'. NLB is driven by the number of lambs born, which is already recorded; birth weight updates BWT, not NLB. This misinforms the producer about which records drive which EBVs. They may assume NLB accuracy depends on a pending weight measurement."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "reports/2026-04-15-lambing-event",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Every other report directory, including the parallel 2026-04-14-lambing-event, ships a data.csv with structured event, parent and EBV fields alongside report.md. This report does not. Any tooling or downstream analysis that reads reports/*/data.csv will miss this lambing event (issue #26) or fail on this directory."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 59000
+ }
+}

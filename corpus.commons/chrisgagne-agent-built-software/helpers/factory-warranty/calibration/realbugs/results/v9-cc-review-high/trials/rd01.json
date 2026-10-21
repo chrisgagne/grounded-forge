@@ -1,0 +1,86 @@
+{
+ "id": "rd01",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 428,
+   "end_line": 428,
+   "message": "FillDataRequest casts RequestedLength (long) to int, allocates the whole requested range in one buffer, and does one Stream.Read without looping, then FinishLoading reports success. AVFoundation often sends RequestsAllDataToEndOfResource with RequestedLength set to the full file size. A stream over 2 GB overflows to a negative int, so `new byte[negative]` throws, the exception is swallowed, and FinishLoading() marks the request complete with no data. Smaller files still allocate the whole file at once. Any stream whose Read returns fewer bytes than requested (network or buffered wrappers) also serves a truncated range that is reported as complete."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 412,
+   "end_line": 412,
+   "message": "FinishLoading() runs unconditionally even after FillDataRequest catches an exception, so read failures reach AVFoundation as successful empty responses instead of FinishLoadingWithError. A disposed or failing stream throws in Read. The catch only writes Debug output, then loadingRequest.FinishLoading() signals success. AVPlayer stalls or shows a generic decode failure, and MediaFailed never reports the real cause."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "start_line": 1015,
+   "end_line": 1015,
+   "message": "GetStreamContentType returns the 'public.mpeg-4' UTI for every stream that lacks an ftyp box, including MP3, WAV, FLAC and other audio streams. On iOS, MediaSource.FromStream(mp3Stream) tells AVFoundation the content is MPEG-4. It tries to parse the MP3 as an MP4 container and the item fails with an unknown or unsupported format error, while the same stream plays on Windows and Android."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "start_line": 633,
+   "end_line": 633,
+   "message": "When the new Source is a StreamMediaSource whose Stream is null, the old currentStreamDataSourceFactory is not cleared, and SetPlayerData falls through to return the stale `mediaItem` field. Set Source to StreamMediaSource A, then to a new StreamMediaSource whose Stream is null (for example, bound before it is assigned). The `is not StreamMediaSource` guard skips cleanup, CreateMediaItem returns the old builder, and the branch at line 648 builds a ProgressiveMediaSource from A's factory. The player restarts the previous stream instead of clearing."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.windows.cs",
+   "start_line": 1058,
+   "end_line": 1058,
+   "message": "AsRandomAccessStream() throws NotSupportedException for non-seekable streams, so StreamMediaSource crashes on Windows. Android explicitly supports non-seekable streams. Passing a network or decompression stream (CanSeek == false) to MediaSource.FromStream throws NotSupportedException from PlatformUpdateSource on Windows. The same code plays on Android, which handles the non-seekable case."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "start_line": 744,
+   "end_line": 744,
+   "message": "The previous StreamDataSourceFactory (a Java.Lang.Object passed to ExoPlayer) is disposed before the new media source replaces it on the player, and its StreamDataSource instances are never disposed. While switching between two StreamMediaSources, CreateMediaItemFromStream disposes the old factory and then awaits artwork. ExoPlayer still holds the old ProgressiveMediaSource, so a Java callback into the disposed peer can fail with 'No constructor found for StreamDataSourceFactory(IntPtr, JniHandleOwnership)'. The StreamDataSource instances keep the old Stream reachable."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "start_line": 952,
+   "end_line": 952,
+   "message": "The old StreamAssetResourceLoader is disposed before ReplaceCurrentItemWithPlayerItem swaps out the AVPlayerItem that still uses it as delegate on the background queue. Changing from one StreamMediaSource to another while the first is loading: the background dispatch queue can call ShouldWaitForLoadingOfRequestedResource on the disposed NSObject. That raises ObjectDisposedException or crashes natively before the player item is replaced."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+   "start_line": 149,
+   "end_line": 149,
+   "message": "The MP3 frame-sync check (0xFF, top 3 bits of byte 2 set) also matches AAC ADTS headers (0xFFF1/0xFFF9), and the MPEG-TS check fires on any stream whose first byte is 0x47 ('G'). A raw .aac ADTS stream is labelled audio/mpeg and handed to WinMediaSource.CreateFromStream with the wrong MIME type, which can make Media Foundation fail to open it. Any unknown payload starting with 'G' is reported as video/mp2t instead of application/octet-stream."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "start_line": 977,
+   "end_line": 977,
+   "message": "GetStreamContentType re-implements the magic-byte sniffing (position save/restore, ftyp brand parse) already in the shared StreamExtensions.GetMimeType added in the same PR. Two sniffers for the same job will drift. The macOS copy only knows MP4/QuickTime, which causes the audio misclassification above, and its finally block can throw from `stream.Position = originalPosition` where the shared version guards this. Call GetMimeType() and map the MIME type to a UTI instead."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 459,
+   "end_line": 459,
+   "message": "StreamAssetResourceLoader.Dispose(bool) contains an empty `if (disposing)` block that holds only a comment and does nothing beyond the base call. This is dead code that suggests cleanup happens when it does not. Remove the override; the comment about stream ownership belongs on the class or constructor. GetStreamContentType similarly ends with a hard-coded \"public.mpeg-4\" literal instead of DefaultContentType."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 94,
+  "cost_usd": 0.61239,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

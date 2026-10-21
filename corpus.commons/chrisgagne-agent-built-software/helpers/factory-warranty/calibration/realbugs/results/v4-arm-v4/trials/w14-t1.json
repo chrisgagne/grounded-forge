@@ -1,0 +1,64 @@
+{
+ "id": "w14",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.6354,
+ "codex_tokens": 39357,
+ "work": "<tmp>/replay-w14-t1-sysz89_r",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff replaces the imported constructFromSymbol with the literal Symbol.for(\"constructDateFrom\") at mini.js:234 and index.js:97. src/constants/index.ts:1, index.d.ts:1,123 and tests.ts:3 still use the shared constant. Behaviour is unchanged today because Symbol.for returns the same registry symbol, so this is a drift risk only and stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/date/mini.js",
+   "line": 234,
+   "claim": "The symbol key is copied in as a raw string literal instead of using the shared constructFromSymbol constant, so the runtime classes can drift from the types and tests.",
+   "evidence": "The diff removes `import { constructFromSymbol } from \"../constants/index.ts\"` from src/date/mini.js and src/date/index.js, and changes `[constructFromSymbol](date)` to `[Symbol.for(\"constructDateFrom\")](date)` (mini.js:234, index.js:97). src/constants/index.ts:1 still defines `constructFromSymbol = Symbol.for(\"constructDateFrom\")`, and src/date/index.d.ts:1,123 and src/date/tests.ts:3,1612-1637 still key on that constant. Behaviour is the same today only because Symbol.for returns the same registry symbol for the same string.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "mini.js:1 still has `import { tzOffset } from \"../index.ts\"`, so the fact holds. But the packet has no story.md stating that the change was meant to remove .ts imports from the JS files, so the code can't show whether this is incomplete.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/date/mini.js",
+   "line": 1,
+   "claim": "If the goal was to remove .ts imports from the runtime JS, the change is incomplete because mini.js still imports ../index.ts.",
+   "evidence": "After the change, mini.js:1 still reads `import { tzOffset } from \"../index.ts\";`. Grep finds this as the only remaining .ts import in a .js file. The packet has no story.md stating the intent, so this is unverified.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": ".factory/config.yaml:2 sets the test gate to an echo followed by `exit 0`, so vitest never runs. The locked constructDateFrom tests (src/date/tests.ts:1606-1637) are not shown passing against this change. This is a gap in the evidence, not a defect in the code, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".factory/config.yaml",
+   "line": 2,
+   "claim": "The factory test gate never runs the project suite, so nothing shows the locked tests pass on this change.",
+   "evidence": "config.yaml sets `test: 'echo ''replay: the project suite is not run; see factory/replay.py'' && exit 0'`, so the gate reports success without running vitest. src/date/tests.ts:1606-1637 has the tests that exercise the changed method.",
+   "axis_row": "L5.20",
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

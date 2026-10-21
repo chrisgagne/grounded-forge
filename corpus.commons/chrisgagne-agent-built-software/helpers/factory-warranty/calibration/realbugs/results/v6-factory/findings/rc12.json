@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/wspulse/client-kt",
+  "pr_number": 24,
+  "base": "5db235d5cc51aba5ddc3cc50f576a6f57a8bc308",
+  "head": "bc2ac1a4be2e0583597f65d48321802736e3d1a6"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 326,
+   "end_line": 326,
+   "message": "The change rewrites all five component test classes, which the packet says are locked acceptance tests. Nothing in the packet (there is no story.md) records why, so the judging tests were changed by the same change they judge, and some of their assertions were weakened. acceptance.md: \"The baseline's tests are the locked acceptance tests; tests.lock lists them.\" The diff edits BasicTest, CallbackTest, LifecycleTest, MiscTest and ReconnectTest. It replaces assertions such as `assertTrue(disconnectCalled.await(5, TimeUnit.SECONDS), \"onDisconnect must fire even when onTransportDrop throws\")` with a bare `disconnectCalled.await()`, removes the `\"onTransportRestore must fire after successful reconnect\"` assertion message, and drops the onDisconnect hook from `throwing onTransportDrop in reconnect loop does not abort reconnect`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "The 5-second limit on waiting for a callback is gone. If a callback stops firing, the test now hangs until runTest's own wall-clock timeout and fails with a generic timeout instead of a named assertion, so the suite gets slower and the failure is harder to diagnose. `CountDownLatch.await(5, TimeUnit.SECONDS)` inside `assertTrue(...)` was replaced by `CompletableDeferred.await()` with no `withTimeout`, here and in BasicTest:91-92, CallbackTest:68/193/196/243/244/294/326/379 and LifecycleTest:121. gradle/libs.versions.toml pins kotlinx-coroutines 1.10.2, where runTest's default timeout is 60 s."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 326,
+   "end_line": 326,
+   "message": "This replaced `assertTrue(disconnectCalled.await(5, SECONDS), \"onDisconnect must fire even when onTransportDrop throws\")` with a bare `disconnectCalled.await()`. If it regresses, the test now hangs until runTest's overall timeout and reports a generic timeout, not the specific message. The same applies to every other latch-to-`await()` conversion. Consider `assertTrue(x.isCompleted, msg)`, as MiscTest/ReconnectTest do, or wrap the await in `withTimeout` and keep the message. This replaced `assertTrue(disconnectCalled.await(5, SECONDS), \"onDisconnect must fire even when onTransportDrop throws\")` with a bare `disconnectCalled.await()`. If it regresses, the test now hangs until runTest's overall timeout and reports a generic timeout, not the specific message. The same applies to every other latch-to-`await()` conversion. Consider `assertTrue(x.isCompleted, msg)`, as MiscTest/ReconnectTest do, or wrap the await in `withTimeout` and keep the message."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 379,
+   "end_line": 379,
+   "message": "The assertion message \"onTransportRestore must fire after successful reconnect\" was dropped. A bare unbounded `restoreCalled.await()` turns a clear assertion failure into an unhelpful runTest timeout. The assertion message \"onTransportRestore must fire after successful reconnect\" was dropped. A bare unbounded `restoreCalled.await()` turns a clear assertion failure into an unhelpful runTest timeout."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 22,
+   "end_line": 22,
+   "message": "The constructor parameter `testScheduler` does nothing useful, and its name shadows TestScope.testScheduler inside every runTest block. The tests only work because the two happen to be the same object, which will mislead whoever maintains this next. Every subclass passes a fresh `ComponentTestBase(TestCoroutineScheduler())`. The test bodies call `runTest(StandardTestDispatcher(testScheduler)) { ... testScheduler.advanceTimeBy(...) }`, and inside that lambda `testScheduler` resolves to the TestScope receiver's property, not the base-class field. `waitUntil` and `tearDown` use the base-class field."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "Every subclass has to pass `TestCoroutineScheduler()` to the constructor, and each test has to remember to write `runTest(StandardTestDispatcher(testScheduler))`. If a new test uses plain `runTest {}`, it gets a separate scheduler, and `waitUntil`/`tearDown` drive the wrong clock without any error. Create the scheduler inside the base class, and add a helper such as `fun runComponentTest(block: suspend TestScope.() -> Unit) = runTest(StandardTestDispatcher(testScheduler), testBody = block)` so tests can't get this wrong. Every subclass has to pass `TestCoroutineScheduler()` to the constructor, and each test has to remember to write `runTest(StandardTestDispatcher(testScheduler))`. If a new test uses plain `runTest {}`, it gets a separate scheduler, and `waitUntil`/`tearDown` drive the wrong clock without any error. Create the scheduler inside the base class, and add a helper such as `fun runComponentTest(block: suspend TestScope.() -> Unit) = runTest(StandardTestDispatcher(testScheduler), testBody = block)` so tests can't get this wrong."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "CHANGELOG.md",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "The CHANGELOG still describes the old `waitUntil` helpers, which this change replaced, and has no entry for the test refactor. CHANGELOG.md:14 says \"`waitUntil` helpers gain a synchronous fast-path (`if (condition()) return`) that avoids releasing the test coroutine to `workRunner`\". The new `ComponentTestBase.waitUntil` (line 48) is a single synchronous loop that calls `testScheduler.advanceTimeBy(10)` up to 500 times, with no Dispatchers.Default or withTimeout path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 48,
+   "end_line": 48,
+   "message": "The new `waitUntil` changes what the tests check. The old helper polled in real time and never moved virtual time. This one calls `testScheduler.advanceTimeBy(10)` up to 500 times, so it can silently move the clock forward by as much as 5s whenever the condition isn't already true. That fires any timer the client has queued, such as the pong deadline (`resetPongDeadline`), reconnect backoff (`reconnectLoop` delay) or ping loop delays. Tests like CallbackTest/ReconnectTest call `waitForPing` and then use exact `advanceTimeBy(5/20/50)` values to reason about backoff. If a wait doesn't succeed on the fast path, those timing assumptions break without any error, and timers can fire that the test never meant to fire. Prefer `testScheduler.runCurrent()` (no time change) or `advanceUntilIdle()` with a clear limit. At minimum, document that `waitUntil` moves virtual time and can fire client timers. The new `waitUntil` changes what the tests check. The old helper polled in real time and never moved virtual time. This one calls `testScheduler.advanceTimeBy(10)` up to 500 times, so it can silently move the clock forward by as much as 5s whenever the condition isn't already true. That fires any timer the client has queued, such as the pong deadline (`resetPongDeadline`), reconnect backoff (`reconnectLoop` delay) or ping loop delays. Tests like CallbackTest/ReconnectTest call `waitForPing` and then use exact `advanceTimeBy(5/20/50)` values to reason about backoff. If a wait doesn't succeed on the fast path, those timing assumptions break without any error, and timers can fire that the test never meant to fire. Prefer `testScheduler.runCurrent()` (no time change) or `advanceUntilIdle()` with a clear limit. At minimum, document that `waitUntil` moves virtual time and can fire client timers."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 27,
+   "end_line": 27,
+   "message": "`tearDown` now runs `runBlocking(UnconfinedTestDispatcher(testScheduler))` after `runTest` has finished. Nothing advances the scheduler at that point. If `close()`/`done.await()` ever depends on a delayed or queued task on that scheduler (for example a client left mid-reconnect, or a test that never closes the client), teardown will block the JUnit thread forever with no timeout. The old version could also block, but it at least didn't tie teardown to a scheduler that has stopped running. The PR text says the client is always closed before teardown, but most tests don't close it and depend on teardown to do so. Consider adding a real-time `withTimeout` here, or closing the client inside `runTest`. `tearDown` now runs `runBlocking(UnconfinedTestDispatcher(testScheduler))` after `runTest` has finished. Nothing advances the scheduler at that point. If `close()`/`done.await()` ever depends on a delayed or queued task on that scheduler (for example a client left mid-reconnect, or a test that never closes the client), teardown will block the JUnit thread forever with no timeout. The old version could also block, but it at least didn't tie teardown to a scheduler that has stopped running. The PR text says the client is always closed before teardown, but most tests don't close it and depend on teardown to do so. Consider adding a real-time `withTimeout` here, or closing the client inside `runTest`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

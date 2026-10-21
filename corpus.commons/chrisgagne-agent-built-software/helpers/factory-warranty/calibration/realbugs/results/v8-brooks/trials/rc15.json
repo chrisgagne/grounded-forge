@@ -1,0 +1,40 @@
+{
+ "id": "rc15",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 189,
+   "end_line": 189,
+   "message": "Knowledge Duplication \u2014 Toolchain path is hardcoded in the step and also set per row in the matrix. Symptom: In `.github/workflows/ci.yaml:189`, the \"Setup MinGW path\" step always runs `echo \"C:/mingw32/bin\" >> $GITHUB_PATH`, for every `mingw == 'yes'` row. The matrix rows already set different prefixes: `mingw_prefix=C:/mingw64` at line 132 and `mingw_prefix=C:/mingw32` at line 144. So the x86_64 GCC job also gets `C:/mingw32/bin` put at the front of its PATH. Source: The Pragmatic Programmer \u2014 DRY; A Philosophy of Software Design \u2014 Information Leakage Consequence: The toolchain location is now defined in two places that already disagree. If `C:/mingw32/bin` exists on the runner, any tool SCons calls without a prefix (such as `gcc`, `ar` or `windres`) in the x86_64 job could come from the 32-bit toolchain instead. The next person to change a prefix has to know to update both places. Remedy: Add a matrix key such as `mingw_bin: C:/mingw64/bin` or `C:/mingw32/bin` to each row, and use `echo \"${{ matrix.mingw_bin }}\" >> $GITHUB_PATH`. You could also build `mingw_prefix` in `flags` from the same key so the path lives in one place."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Change Propagation \u2014 The 32-bit GCC toolchain is assumed to exist but nothing installs it. Symptom: The removed `msys2/setup-msys2` step used to install `mingw-w64-i686-gcc`. Nothing replaces it. The x86_32 job now relies on `C:/mingw32` already being on the `windows-2025` image. As far as I know, GitHub's Windows images include only the x86_64 MinGW in `C:\\mingw64`; I couldn't check the runner from here. Source: Software Engineering at Google \u2014 Dependency Management (an undeclared dependency on the environment) Consequence: If `C:/mingw32` isn't on the image, the \"\ud83c\udfc1 Windows - MinGW/GCC (MSVCRT) x86_32\" job fails at compile time. Even if it is there now, a future image update could remove it without warning, because the workflow never declares that it needs it. Remedy: Install the i686 toolchain explicitly in the x86_32 row, for example by downloading a pinned MinGW-w64 i686 release the same way the llvm-mingw step does. Or confirm the path from a CI run and add a comment citing the runner-image documentation."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Accidental Complexity \u2014 Leftover MSYS2 matrix keys. Symptom: Lines 134\u2013135 and 146\u2013147 still set `msys: mingw64/mingw32` and `msysenv: x86_64/i686`. The only step that used them (`setup-msys2`) was deleted. Source: Refactoring \u2014 Speculative Generality / dead configuration Consequence: A reader will assume MSYS2 is still involved in these builds, and the keys look like the place to change the architecture when they actually do nothing. Remedy: Remove `msys` and `msysenv` from both GCC matrix rows. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 42,
+  "cost_usd": 0.33750620000000003,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 2,
+  "health_score": "89"
+ }
+}

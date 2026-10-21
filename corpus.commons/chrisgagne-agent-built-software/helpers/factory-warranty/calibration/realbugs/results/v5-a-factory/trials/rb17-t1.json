@@ -1,0 +1,236 @@
+{
+ "id": "rb17",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 1.8006,
+ "codex_tokens": 53963,
+ "work": "<tmp>/replay-rb17-t1-8hulm_qs",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "disputed",
+   "reason": "NavigationMenu.swift:95-103 does register hidden buttons with `.keyboardShortcut(\"h\"/\"p\"/\"c\", modifiers: [])`, and the text-field guard added at AppDelegate.swift:98 covers only the arrow/delete NSEvent monitor. Whether AppKit sends these key equivalents to the buttons before the focused field editor is runtime behaviour the code doesn't settle, so the trigger is plausible but unproven.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "Pika/Views/NavigationMenu.swift",
+   "line": 103,
+   "claim": "Unmodified single-key shortcuts (h, p, c) may fire while the new palette-name TextField has focus, so typing 'h' could hide the drawer and the field.",
+   "evidence": "NavigationMenu has hidden buttons with `.keyboardShortcut(\"h\", modifiers: [])`, `(\"p\", modifiers: [])` and the new `.keyboardShortcut(\"c\", modifiers: [])`. The 'h' button runs `historyDrawerVisible.toggle()`, and ColorHistoryDrawer, which holds PaletteNameField, only renders when `historyDrawerVisible` is true (ContentView). The builder added a first-responder check (`responder is NSTextView || responder is NSTextField`) only to the arrow/delete NSEvent monitor in AppDelegate.swift:98. Nothing stops these key equivalents while PaletteNameField's TextField (ColorHistoryDrawer.swift, `.focused($isFocused)`) is focused.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only `.savePalette` subscriber is PaletteTabBar.onReceive (ColorHistoryDrawer.swift:153), and ContentView.swift:70 renders ColorHistoryDrawer only when historyDrawerVisible is true, so with the drawer closed the post from NavigationMenuItems.swift:102 has no receiver and the open-drawer branch never runs. Lowered from high to medium: opening the drawer first works around it.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "Pika/Views/ColorHistoryDrawer.swift",
+   "line": 153,
+   "claim": "The 'New palette\u2026' menu item does nothing when the palettes drawer is closed.",
+   "evidence": "NavigationMenuItems posts .savePalette, but its only receiver is PaletteTabBar.onReceive. ContentView creates ColorHistoryDrawer, and therefore PaletteTabBar, only when historyDrawerVisible is true. With the drawer closed, no receiver exists to execute the code that opens it.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C2",
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "deletePalette(at:) removes the entry and resets activePaletteIndex only when it is >= palettes.count. With [History, A, B, C], B selected at index 2, deleting A leaves index 2, which now points at C, so later add, export and delete actions go to C.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "line": 284,
+   "claim": "Deleting a named palette that sits before the active one silently moves the selection to a different palette.",
+   "evidence": "`deletePalette(at:)` runs `palettes.remove(at: index)` and only resets `activePaletteIndex` when `>= palettes.count`. Example: palettes [History, A, B, C] with B selected (index 2). Deleting A gives [History, B, C], and index 2 now points at C. `renamingIndex` in PaletteTabBar is index-based in the same way.",
+   "breaks": "story",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "swap() calls pushUndo(), which snapshots only `autoHistory`, then writes the swapped pair into palettes[activePaletteIndex]. undo()/redo() restore only autoHistory. addCurrentToPalette, deleteChipFromPalette and deletePalette never push undo, so \u2318Z leaves the saved chip changed.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "line": 96,
+   "claim": "Undo/redo covers only the auto-history palette, so swapping a chip in a saved palette (and adding, removing or deleting) can't be undone.",
+   "evidence": "`swap()` calls `pushUndo()`, which snapshots `autoHistory` only, then writes the swapped pair into `palettes[paletteIndex]` for whichever palette is active. `undo()`/`redo()` restore only `autoHistory = snapshot`. `addCurrentToPalette`, `deleteChipFromPalette` and `deletePalette` never call `pushUndo`.",
+   "breaks": "story",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The context-menu Delete button calls eyedroppers.deletePalette(at:) directly, and the undo stacks hold only [[ColorPair]] auto-history snapshots, so the delete can't be reversed. Clear-history goes through the isShowingClearConfirm alert. Lowered from medium to low because the missing confirmation is a design choice and not a code defect.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "Pika/Views/ColorHistoryDrawer.swift",
+   "line": 202,
+   "claim": "Deleting a palette is one click, with no confirmation and no undo, unlike clear-history.",
+   "evidence": "The context menu's `Button(PikaText.textPaletteDelete) { eyedroppers.deletePalette(at: index) }` calls straight into `palettes.remove(at:)`. By contrast, clear-history now goes through `isShowingClearConfirm` and an `.alert`. The undo/redo stacks (`undoStack: [[ColorPair]]`) only snapshot `autoHistory`, so a deleted palette can't be restored.",
+   "axis_row": "L2.4",
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "migrateHistoryToPalettes() sets Defaults[.palettes] = [history] and then Defaults[.colorHistory] = []. A downgrade would show an empty history, and no test covers the migration.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Pika/AppDelegate.swift",
+   "line": 132,
+   "claim": "The migration empties the old colorHistory key with no backup, so a downgrade would show an empty history.",
+   "evidence": "`migrateHistoryToPalettes()` writes `Defaults[.palettes] = [history]` and then `Defaults[.colorHistory] = []`. The old key is cleared rather than left in place, and no test covers the migration.",
+   "axis_row": "L2.4",
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The button action is `{ onSwap(); angle -= 180 }` (ColorPreview.swift:58). onSwap sends triggerSwap, which AppDelegate.swift:203 posts synchronously, and the new onReceive(.triggerSwap) at line 109 subtracts another 180.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Pika/Views/ColorPreview.swift",
+   "line": 109,
+   "claim": "Clicking the swap button rotates the icon 360\u00b0 instead of 180\u00b0.",
+   "evidence": "`swapButton`'s action is `{ onSwap(); angle -= 180 }`. ContentView's `onSwap` sends `triggerSwap`, which posts `.triggerSwap` synchronously, and the newly added `.onReceive(... .triggerSwap) { _ in angle -= 180 }` subtracts another 180.",
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "A search of Pika/Assets finds `palette.`/`compliance.toggle` only in en.lproj. ColorHistoryDrawer's alert uses the literals Button(\"Clear\") and Button(\"Cancel\").",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Pika/Assets/en.lproj/Localizable.strings",
+   "line": 416,
+   "claim": "New palette and compliance strings exist only in English, and the alert's Clear/Cancel buttons are hard-coded.",
+   "evidence": "A search for `palette.`/`compliance.toggle` finds them only in en.lproj. de, es, fr, hr, pl, zh-Hans and zh-Hant have only the old `history.toggle`/`history.clear` entries. ColorHistoryDrawer.swift:310 uses `Button(\"Clear\", role: .destructive)` and `Button(\"Cancel\", ...)` as literal strings.",
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "ColorHistoryChip always uses PikaText.textHistoryRemove. A search finds textPaletteRemoveChip and textPaletteNamePrompt only at their declarations in Constants.swift:216-217.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Pika/Views/ColorHistoryDrawer.swift",
+   "line": 43,
+   "claim": "Chips in named palettes still say 'Remove from history', and textPaletteRemoveChip and textPaletteNamePrompt are never used.",
+   "evidence": "ColorHistoryChip always uses `Button(PikaText.textHistoryRemove, action: onRemove)`. `textPaletteRemoveChip` and `textPaletteNamePrompt` are declared in Constants.swift:216-217 and have no references anywhere.",
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "The export handler runs `try? json.write(to: url, atomically: true, encoding: .utf8)` after the save panel returns OK, with no error path or feedback to the user.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Pika/Views/ContentView.swift",
+   "line": 152,
+   "claim": "A failed export write is silently discarded.",
+   "evidence": "`try? json.write(to: url, atomically: true, encoding: .utf8)` follows `savePanel.runModal() == .OK` with no error handling or user feedback.",
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The code reads `IconImage(name: showCompliance ? \"checkmark.shield\" : \"checkmark.shield\")`, so only the foreground colour shows the state. The preview toggle switches between eye and eye.slash.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Pika/Views/NavigationMenu.swift",
+   "line": 45,
+   "claim": "The compliance toggle icon has the same name in both branches.",
+   "evidence": "`IconImage(name: showCompliance ? \"checkmark.shield\" : \"checkmark.shield\")`. The neighbouring preview toggle switches between `\"eye\"` and `\"eye.slash\"`.",
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff shows `ISO8601DateFormatter().string(from:)` inside pairs.map, and the new `import Defaults` in Exporter.swift has no use in that file. This is a minor performance and cleanliness point.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Pika/Services/Exporter.swift",
+   "line": 81,
+   "claim": "Export creates an ISO8601DateFormatter per pair and adds an unused `import Defaults`.",
+   "evidence": "Inside `pairs.map`: `entry[\"date\"] = ISO8601DateFormatter().string(from: pair.date)`. Exporter.swift's new `import Defaults` is never used in that file.",
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds no test files. The index-handling bugs above (C2/X3) and the migration are therefore unchecked.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "line": 154,
+   "claim": "Palettes, the migration, the compliance toggle and the JSON export have no tests.",
+   "evidence": "PikaTests only has colour-conversion, compliance-algorithm and NotificationNames tests. Searching PikaTests for `toggleCompliance`, `savePalette` or palette names finds nothing, and the diff adds no test files.",
+   "axis_row": "L3.22",
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "C13"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes animation durations (0.4\u21920.3, 0.2/0.25\u21920.15), removes the `guard targetMode != displayMode`, `.clipped()` and `.clipShape`, swaps `.stroke` for `.strokeBorder` and raises the window height from 260 to 280. None of this is needed for palettes.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "Pika/Views/ColorPreview.swift",
+   "line": 112,
+   "claim": "The change includes unrelated visual and layout tweaks that widen what has to be reviewed.",
+   "evidence": "SwapButtonStyle and ColorPreview animation durations go from 0.4 to 0.3. The `guard targetMode != displayMode` is removed. `.clipped()` is removed in ColorPickers.swift and `.clipShape` in PreviewPill. `.stroke` becomes `.strokeBorder`. The WindowCoordinator minimum and ideal height go from 260 to 280.",
+   "axis_row": "L6.22",
+   "id": "F14"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

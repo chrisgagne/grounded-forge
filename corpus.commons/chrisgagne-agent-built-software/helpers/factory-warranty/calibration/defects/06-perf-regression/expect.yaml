@@ -1,0 +1,3 @@
+should_block: true
+caught_by: [gate:perf, review]
+defect: every GET /notes loads all of the user's note ids and queries each note's tags one at a time (N+1 over the whole account), about 320 ms median at 50,000 notes against the 50 ms budget

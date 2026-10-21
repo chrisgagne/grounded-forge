@@ -1,0 +1,86 @@
+{
+ "id": "rd22",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 146,
+   "end_line": 146,
+   "message": "resolveURL prefers status.endpoints.admin/public, which the operator always sets to http://{name}-keycloak.{ns}.svc.cluster.local:8080, so the CLI (run outside the cluster) always gets an unreachable URL; the spec.hostname fallback is dead because KeycloakSpec has no `hostname` field (it is spec.ingress.host / spec.tls.hostname). User runs the documented `import-users --keycloak my-keycloak --namespace keycloak-system --realm my-realm` from a laptop: target resolves to http://my-keycloak-keycloak.keycloak-system.svc.cluster.local:8080 and the token request fails with a DNS error. The default cluster-mode path never works without --server-url."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 177,
+   "end_line": 177,
+   "message": "decodeSecretKey base64-decodes any value that happens to look like base64 (length%4==0, alphanumeric), even though client-go already returns decoded bytes, so plain usernames and passwords get turned into garbage. The operator generates 16-char passwords from letters+digits+`!@#$%^&*`; about 14% are purely alphanumeric and decode \"successfully\" to random bytes, so auth fails with 401. Usernames like `test` or `root` and passwords like `Password1234` break the same way."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 198,
+   "end_line": 198,
+   "message": "Keycloak's PartialImportResults JSON has `added`, `skipped`, `overwritten`, `results` and `errorMessage`, but no `errors` field, and result actions are only ADDED/SKIPPED/OVERWRITTEN. So Errors is always 0, the `errors > 0` hard-fail and ERROR/FAILED detail collection never run, and overwritten counts are thrown away. An OVERWRITE run over 5000 existing users prints `Added: 0, Skipped: 0, Errors: 0`, which looks like nothing happened. The ADR's promised errors>0 failure detection never triggers; real failures only show up as non-200 HTTP codes."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "On token-refresh, HTTP 403/409/5xx or parse failures, ImportUsers returns `nil, err` and drops the totals collected so far, so the caller's \"print partial result before returning error\" prints nothing. In FAIL mode, batch 7/10 gets a 409. The user sees only the error and no count of the 3000 users already imported by batches 1-6, which is exactly the progress info the cmd comment promises."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 120,
+   "end_line": 120,
+   "message": "authenticate and importBatch use http.DefaultClient (no timeout), and the command passes context.Background() with no signal handling, so a stalled Keycloak or proxy hangs the import forever. A 500-user batch with credential hashes hits an ingress that accepts the connection but never answers. The CLI hangs with no timeout and no clean cancellation, so CI jobs sit until their global timeout."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 187,
+   "end_line": 187,
+   "message": "The 409 branch always says `mode=FAIL`, but Keycloak can return 409 in SKIP/OVERWRITE mode too (e.g. duplicate email or another unique-constraint clash inside the batch). A SKIP-mode run fails with \"HTTP 409 Conflict (mode=FAIL)\". The operator then hunts for a misconfigured --mode flag instead of the duplicate-email data problem."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 55,
+   "end_line": 55,
+   "message": "The importer writes dry-run and per-batch progress to stdout with fmt.Printf, while the command writes loading/summary lines with cobra's cmd.Printf (stderr by default), so output is split across streams and can't be captured or redirected together. `import-users --dry-run > plan.txt` puts the dry-run plan in plan.txt while the Loaded/Resolved/summary lines go to the terminal. In CI logs the two streams interleave out of order."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 78,
+   "end_line": 78,
+   "message": "The only explicit-credential path is `--password`, which docs recommend for CI. The admin password then shows up in process listings and shell history; there is no env-var or stdin option. In a CI runner or shared bastion, `ps aux` or /proc/<pid>/cmdline exposes the Keycloak master-realm admin password for the whole multi-batch import."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 201,
+   "end_line": 201,
+   "message": "currentKubeNamespace builds the same NonInteractiveDeferredLoadingClientConfig that ResolveFromCluster builds again. Namespace defaulting could live in ResolveFromCluster and use the same ClientConfig's Namespace(). Kubeconfig is loaded and parsed twice per run, and the two copies can drift (e.g. adding a --context/--kubeconfig override to one but not the other would resolve the namespace from a different cluster than the CR)."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/loader.go",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "LoadUsersFile unmarshals the whole file into json.RawMessage (a full validation scan) just to check the first byte, then unmarshals it again into []map[string]any. Unmarshalling straight into the slice already rejects objects and scalars. For a 50k-user export with credential hashes (hundreds of MB), parse work doubles for no gain. Trimming leading whitespace and checking for `[`, or just relying on the typed-unmarshal error, does the same job in one pass."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 135,
+  "cost_usd": 0.740362,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/mamu7211/feirb-mailclient",
+  "pr_number": 215,
+  "base": "76d9db59beaf6a0942c84522b9d33058f721ee86",
+  "head": "d15c6ca689e20a95a1c5468d0e87f71f8b5e7496"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 35,
+   "end_line": 37,
+   "message": "Sanitize converted Markdown before inserting it into the DOM. When a user pastes Markdown containing raw HTML and switches to rich text, `marked.parse` preserves that HTML and this assignment inserts it into the application's live DOM. An image with an `onerror` handler can execute JavaScript in the authenticated application's origin. Server-side outgoing-mail sanitization happens too late to prevent this; sanitize the converted HTML before DOM insertion."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 30,
+   "end_line": 32,
+   "message": "Export semantic HTML instead of Quill's internal markup. When composing bulleted or indented lists, Quill 2's editor DOM uses ordered-list elements with `data-list` attributes and Quill-specific classes to control their appearance. Sending `root.innerHTML` without Quill's stylesheet loses that formatting in recipients' mail clients, and Turndown also interprets bullet lists as numbered lists when switching modes. Export semantic HTML with Quill's `getSemanticHTML()` rather than its internal editor markup."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 26,
+   "end_line": 27,
+   "message": "Validate the request before dereferencing recipient fields. For authenticated requests with `To` omitted or null, this dereference throws and returns a server error; null elements in any recipient array similarly fail at `email.Trim()`. The DTO's validation annotations are not automatically enforced because this application does not register Minimal API validation with `AddValidation()`, so subject/body limits and content-type constraints are also bypassed. Enable request validation and explicitly reject null recipient elements before processing the request."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

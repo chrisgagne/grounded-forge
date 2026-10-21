@@ -1,0 +1,73 @@
+{
+ "id": "v09",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.7362,
+ "codex_tokens": 42124,
+ "work": "<tmp>/replay-v09-t2-injjjte1",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "C2",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "decimal.js:748-754 (and decimal.mjs:744-750 per diff) compute asin(x) at pr+6 and subtract it from halfPi, so the leading digits cancel as x\u21921. asin at decimal.js:940 also rounds 1\u2212x\u00b7x, while the old (1\u2212x)/(1+x) atan form computed 1\u2212x exactly. Codex's reproduction (9.99999984e-17 vs 1.414\u2026e-20) agrees with this.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "decimal.js",
+   "line": 748,
+   "claim": "acos now returns pi/2 \u2212 asin(x), which loses most of the requested digits for x near 1 due to cancellation; the same change is in decimal.mjs.",
+   "evidence": "The diff replaces `x = (new Ctor(1)).minus(x).div(x.plus(1)).sqrt().atan(); ... return x.times(2);` with `x = x.asin(); halfPi = getPi(Ctor, pr + 4, rm).times(0.5); ... return halfPi.minus(x);`. Near 1, asin(x) \u2248 pi/2, so the subtraction cancels the leading digits. Only 6 guard digits are kept (`Ctor.precision = pr + 6`), and pi is fetched at only pr+4 digits. Take x = 1 \u2212 1e-20 at precision 20: acos(x) \u2248 1.4e-10, but halfPi alone has an absolute error of about 1e-24, which leaves only about 14 good digits. On top of that, asin (decimal.js:940) evaluates `new Ctor(1).minus(x.times(x))` at pr+6 digits, and rounding x\u00b2 there pushes the relative error of the result to about 1e-7. The old path computed 1\u2212x exactly, so it kept full precision.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep for '0.9999' in test/modules/acos.js finds nothing, and diff.patch touches only decimal.js and decimal.mjs, so the ill-conditioned region is not tested.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/modules/acos.js",
+   "line": null,
+   "claim": "Locked acos tests have no inputs near \u00b11, so they cannot catch the precision regression; the diff adds no tests.",
+   "evidence": "A grep for inputs starting `0.99999` or `-0.99999` in test/modules/acos.js finds none. The closest active cases are `t('0.9976436658898658296', 14, 0, ...)` and `t('0.9981032', 18, 2, ...)`, where the result is about 0.06. At that size the 4\u20136 guard digits absorb the cancellation, so these tests pass under both formulas. The diff adds no tests.",
+   "axis_row": "L3.9",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "noise",
+   "reason": "The packet does lack story.md, but a missing rationale is not a code defect. The real harm, the unstable formula, is already covered by the C1/C2/X1 item.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "decimal.js",
+   "line": 749,
+   "claim": "Formula swap has no story or recorded rationale.",
+   "evidence": "acceptance.md says 'story.md is the spec', but no story.md exists in the packet or the export. The diff changes only the acos internals in decimal.js and decimal.mjs and adds no test or rationale.",
+   "axis_row": "L1.13",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

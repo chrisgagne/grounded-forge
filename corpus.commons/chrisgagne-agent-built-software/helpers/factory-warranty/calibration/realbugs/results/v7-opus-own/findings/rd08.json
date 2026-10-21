@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/Waferguard/waferguard-ml",
+  "pr_number": 17,
+  "base": "56411efab470a71e9ef342bc1e10fab767751de5",
+  "head": "62d4f66fbeaef3dd84578b7cd547f37d43086a26"
+ },
+ "agent": "v7-opus-own",
+ "findings": [
+  {
+   "producer": "v7-opus-own",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 257,
+   "end_line": 257,
+   "message": "The notebook calls `wg_fin.run_inference(...)`, but `financial_impact/financial.py` has no such function. The cell raises AttributeError and is re-raised, so the pipeline cannot run. The module docstring says inference was deliberately left out, so the committed outputs must come from different code that isn't in this change."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 289,
+   "end_line": 289,
+   "message": "The artifacts branch also calls the missing `wg_fin.run_inference`, so it fails the same way."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 185,
+   "end_line": 188,
+   "message": "`wg_fin.load_artifacts` is not defined in `financial.py`. The broad `except Exception` catches the AttributeError and prints \"No artifacts.pkl\", which hides the bug. As written, the artifacts path can never run."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 169,
+   "end_line": 174,
+   "message": "`from financial_impact import financial` runs before `repo_root` is added to `sys.path`. The notebook lives in `wafer_images/`, so the import fails unless the kernel was started at the repo root. `repo_root` is also hardcoded to one developer's home directory (`/Users/<author>/...`), so the notebook won't work on any other machine and the commit leaks a local path."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 116,
+   "end_line": 162,
+   "message": "The committed outputs are stale and don't match this code. They show en-dash yield ranges (\"18%\u201385%\") where the code produces hyphens, and the cell's `execution_count` is null. Readers will be misled about what the library produces. Clear the outputs or re-run the notebook with the committed code."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 228,
+   "end_line": 240,
+   "message": "`compute_financials` accepts a `financial_params` override, but `get_params` always reads the module-level `FINANCIAL_PARAMS`, so the argument is silently ignored. Callers such as a Streamlit app that pass custom cost tables will get the default numbers."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 250,
+   "end_line": 251,
+   "message": "`dt_cost = params['dt'] * repair_hours` treats `dt` as a cost per hour. With values like 2,050,000 \u00d7 8 that's about $16M of downtime per repair, which dominates EVoA and makes most patterns negative (see the notebook output). Check the unit of `dt` (per hour vs. per event or day). If the unit is wrong, the recommendations will be wrong."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 151,
+   "end_line": 152,
+   "message": "`decode_labels` maps any unknown class ID to \"00000000\" (Normal). A mapping mismatch would silently count defective wafers as passing, which understates the defect rate and the financial loss. Unknown IDs should raise an error or be flagged."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The summary `avg_confidence` is an unweighted mean of per-pattern averages, so a pattern with 3 wafers counts as much as one with 5,000. Use the mean over all wafers, or weight by count."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 293,
+   "end_line": 295,
+   "message": "`dominant_pattern` takes the first non-normal row of `df_batch`. That's only correct if the input is sorted by count descending, which `compute_financials` doesn't enforce. Use `idxmax` on `count` instead."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 201,
+   "end_line": 202,
+   "message": "For combinations, replacement costs with `replace=None` (e.g. Random) are skipped silently. The combined replacement cost then understates the real cost without saying so."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 261,
+   "end_line": 261,
+   "message": "`int(params['ylo'] * 100)` truncates float products, so some values display one percent low (e.g. 0.29*100 = 28.999\u2026 shows as 28%). Use `round()`."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 268,
+   "end_line": 268,
+   "message": "The output key is hardcoded as `evoa_30d`, but the value uses the configurable `PLANNING_HORIZON`. If the horizon changes, the key mislabels the metric."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": ".gitignore",
+   "start_line": 89,
+   "end_line": 90,
+   "message": "This change removes the ignore rules for `PresentationPDFs/` and `architecture_report.pdf`, which looks unintended and lets large binary PDFs be committed. It also adds `requirements.txt` to `.gitignore`, which keeps a dependency file out of version control; CI already has an 'Install requirements' step. Only one generated report JSON is ignored, while the CSVs written to the same directory are not."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 248,
+   "end_line": 249,
+   "message": "The 'batch' is the entire dataset, including training samples, so the reported defect rate and losses describe the training distribution, not a production lot. Label it as a demo, or use held-out or real lot data."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

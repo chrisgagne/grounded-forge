@@ -1,0 +1,23 @@
+[project]
+name = "factory"
+version = "0.1.0"
+description = "A harness that lets the accountable person warrant agent-built changes by reading evidence instead of code."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["pyyaml>=6"]
+
+[project.scripts]
+factory = "factory.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["factory"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

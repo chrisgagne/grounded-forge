@@ -1,0 +1,908 @@
+[
+  {
+    "pr_key": "AntManThePro_TwistedsCommandCenter_13-78f6157e",
+    "candidate_findings": []
+  },
+  {
+    "pr_key": "Imageomics_catalog_75-a8a7cdc7",
+    "candidate_findings": [
+      {
+        "file": "main.js",
+        "start_line": 765,
+        "end_line": 767,
+        "message": "Breaking Config. `ADDITIONAL_HF_REPOS` is now required. Any existing `config.yaml` that lacks the key fails validation (`!Array.isArray(undefined)`), even though the feature is optional. This README describes a template (\"your new catalog repo\"), so catalogs created from it will break when they pull this change unless they add `ADDITIONAL_HF_REPOS: []`. Treat a missing key as `[]` (e.g. `CONFIG.ADDITIONAL_HF_REPOS ??= []` before validation), and only reject values that are present but not arrays.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "scripts/export-tags.js",
+        "start_line": 48,
+        "end_line": 52,
+        "message": "Breaking Config. The export script has the same problem. It now throws if `ADDITIONAL_HF_REPOS` is absent, so tag export fails for any existing config that predates this key. Default a missing value to an empty array instead of erroring.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "scripts/export-tags.js",
+        "start_line": 132,
+        "end_line": 138,
+        "message": "Silent Failures. `.catch(() => null)` drops failed fetches with no log. A typo or private repo in `ADDITIONAL_HF_REPOS` is silently left out of the exported tags. This differs from `main.js`, which warns. Validation also checks `e.repo.trim()`, but the untrimmed `entry.repo` is used in the URL, so an entry with leading or trailing whitespace passes validation and then fails to fetch with no indication. Log the error, and trim `repo` before use (in both files).",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "OpenDevicePartnership_embedded-services_793-f63a0246",
+    "candidate_findings": [
+      {
+        "file": "partition-manager/partition-manager/src/lib.rs",
+        "start_line": 49,
+        "end_line": 80,
+        "message": "Self-deadlock hazard. Partitions from the same `PartitionManager` share one storage mutex, and `PartitionGuard` holds that mutex for as long as it lives. Suppose a task holds a guard from `factory.lock()` and then awaits an operation on a sibling partition, such as `slot_a.read(...)`, which calls `storage.lock().await` internally. That task will wait forever. With the default `NoopRawMutex` on a single executor, this hangs silently instead of returning an error.\n\nNeither `lock` nor `PartitionGuard` documents this. Consider adding a doc warning that no other partition from the same manager may be used while a guard is alive.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "documentation",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "documentation"
+      },
+      {
+        "file": "partition-manager/partition-manager/Cargo.toml",
+        "start_line": 29,
+        "end_line": 29,
+        "message": "Breaking default change. This PR removes `defmt` from the `default` features. It appears unrelated to the guard feature. Downstream crates that relied on default features for `defmt::Format` impls (for example, logging `Error` with defmt) will fail to compile until they enable `defmt` explicitly.\n\nIf the change is intentional, it should be called out as a breaking change. Otherwise, revert it.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "api-architecture",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "api-architecture"
+      }
+    ]
+  },
+  {
+    "pr_key": "Pushedskydiver_chief-clancy_216-6baec2ab",
+    "candidate_findings": [
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 388,
+        "end_line": 396,
+        "message": "Stale plan pushed. The `EEXIST + --push` retry path never checks that the existing marker's `sha256=` still matches the current plan file before going to Step 4c.\n\nScenario: a user approves, the push fails, the user edits `.clancy/plans/{stem}.md`, then runs the printed retry command. The edited, never-approved content gets posted to the board as the \"approved plan\", even though `/clancy:plan` inventory would show the plan as `Stale (re-approve)`.\n\nThe retry branch should re-hash the plan and refuse to push on mismatch.",
+        "status": "matched_tp",
+        "matched_golden_index": 31,
+        "covered_golden_indices": [
+          31
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 516,
+        "end_line": 538,
+        "message": "--ticket override bypassed. The ordering in Step 4c means `--ticket` is never reached when the plan has no usable Source:\n- A missing `**Source:**` header causes a silent skip.\n- An inline-quoted or file-path Source logs `BOARD_PUSH_SKIPPED_NO_TICKET` and continues to Step 7.\n\nBoth happen before key validation, which is the only place the override is consulted. This contradicts the documented purpose of `--ticket` (\"Useful when the brief Source field is missing, ambiguous\"). It also means `/clancy:approve-plan {stem} --push --ticket KEY` silently does nothing for these plans.\n\nThe override should be checked before Source parsing and should short-circuit it.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0,
+          29
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/plan/src/workflows/approve-plan.md",
+        "start_line": 742,
+        "end_line": 750,
+        "message": "Audit row inconsistency. The audit-row rules in Step 4c are inconsistent:\n- **Ordering:** Step 4c runs before Step 7, yet `LOCAL_APPROVE_PLAN_PUSH`, `BOARD_PUSH_SKIPPED_NO_TICKET` and `BOARD_PUSH_FAILED` are specified as written \"after\" the `LOCAL_APPROVE_PLAN` row that Step 7 appends.\n- **Retry duplicates:** the retry branch falls through 4c into Step 7, which appends `LOCAL_APPROVE_PLAN` again. That contradicts the claim that auditing tools \"see one approval row\" across retries.\n\nThe spec should say which step writes each row. It should also say that Step 7 skips the `LOCAL_APPROVE_PLAN` row on the EEXIST retry path.",
+        "status": "matched_fp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1,
+          2
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "YasserShkeir_django-smart-ratelimit_25-d7c5c7c2",
+    "candidate_findings": [
+      {
+        "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+        "start_line": 63,
+        "end_line": 83,
+        "message": "Unintended PK Change. This migration does more than add `data`. It also changes the `id` column of all three models to `BigAutoField`. That looks like makemigrations output picked up from the test project's `DEFAULT_AUTO_FIELD` (worth confirming against the app's `default_auto_field`).\nOn PostgreSQL and MySQL, changing a primary key's type rewrites the table and holds a lock. `RateLimitEntry` can be very large in production, so upgrades could block rate-limited traffic for a long time.\nIf the PK change isn't intended, drop these operations. If it is intended, ship them as a separate migration and document it.",
+        "status": "matched_tp",
+        "matched_golden_index": 21,
+        "covered_golden_indices": [
+          21
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+        "start_line": 19,
+        "end_line": 53,
+        "message": "Divergent Migration State. The index renames only run when Django supports `RenameIndex`. Two problems follow:\n- On Django 4.0, the migration state ends up with different index names than the model definitions, so `makemigrations` will keep reporting pending changes.\n- If a project applies this migration on Django 4.0 and later upgrades Django, the recomputed state will include the renames but the database never had them. Any later migration that references these index names will fail.\nMigration operations should not depend on the Django version at runtime.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "django_smart_ratelimit/backends/database.py",
+        "start_line": 286,
+        "end_line": 289,
+        "message": "Return Type Change. `get()` now returns the deserialized `data` payload (e.g., a dict) whenever `data` is set, and the `count` integer otherwise. Callers that treat the result as a number will break on token-bucket counters, for example by comparing it or adding to it.\nA single key can also return different types depending on how it was written. Consider keeping `get()` returning `count`, or adding a separate accessor for metadata.",
+        "status": "matched_fp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "api-architecture",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "api-architecture"
+      }
+    ]
+  },
+  {
+    "pr_key": "arolariu_arolariu.ro_615-ef4814f4",
+    "candidate_findings": [
+      {
+        "file": "sites/exp.arolariu.ro/project.json",
+        "start_line": 2,
+        "end_line": 2,
+        "message": "Project Name Mismatch. The Nx project is named `@arolariu/exp`, but `package.json` (`dev:exp`, `test:exp`) and `scripts/dev-local.ts` run `nx run exp:dev` and `nx run exp:test`. Nx resolves targets by the exact project name, so these commands would fail with \"project not found\". Every `dev:local` profile includes `exp`, so the whole orchestrator would break. This assumes no other naming convention or alias maps `exp` to this project; the other projects' `name` fields are not visible in the diff.",
+        "status": "novel_fp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "fp",
+        "classifier_severity": "low",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "scripts/dev-local.ts",
+        "start_line": 208,
+        "end_line": 343,
+        "message": "Orphaned Processes. Children are spawned with `shell: true`, so `p.kill()` signals only the intermediate shell on Linux/macOS, not the `npx nx` / `dotnet watch` / `uvicorn` grandchildren. On SIGTERM, or after the parent calls `process.exit(0)`, the dev servers can keep running and holding ports 3000, 5000 and 5002. The next `dev:local` run then fails with \"port in use\". Also, if one service exits, `Promise.race` resolves but the other children are neither killed nor reported. Consider spawning with `detached: true` and killing the process group (`process.kill(-pid)`), or avoiding the shell.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0,
+          18
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "scripts/dev-local.ts",
+        "start_line": 152,
+        "end_line": 190,
+        "message": "Cosmos Init Unauthenticated. The CosmosDB REST calls (`POST /dbs`, `POST /dbs/primary/colls`) send no `Authorization`, `x-ms-date` or `x-ms-version` headers. The Cosmos REST API normally rejects these with 401, so the database and containers are never created and the API later fails against missing containers. The failure only appears as a warning that blames emulator startup. Unless the emulator image in use accepts unauthenticated requests (not verifiable from the diff), sign the requests with the emulator's well-known master key or use `@azure/cosmos`.",
+        "status": "novel_fp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "fp",
+        "classifier_severity": "low",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "dotnet_efcore_38115-009f4190",
+    "candidate_findings": [
+      {
+        "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+        "start_line": 287,
+        "end_line": 292,
+        "message": "Masks illegal modifications. The fix overwrites the original value of every `AfterSaveBehavior.Throw` property with its current value whenever the entry moves to `Modified`. It applies to all such properties, not just the complex-type discriminator / shadow-property case described in the comment. That includes primary keys and any user-configured `Throw` properties.\n\nTrigger: load an entity, change a `Throw` property, then set `entry.State = EntityState.Modified` before DetectChanges runs. Previously, DetectChanges compared against the real snapshot and SaveChanges threw the expected \"property cannot be modified\" error. Now the snapshot is silently replaced, the Modified flag is cleared, and SaveChanges succeeds:\n- The user's change is silently dropped.\n- For key or concurrency-token properties, the original value used in the `WHERE` clause becomes the new, incorrect value. The update can then target the wrong row or fail with a misleading concurrency exception.\n\nConsider restricting this to the case being fixed, e.g. discriminators or shadow properties on complex types whose snapshot holds default values. Alternatively, only overwrite when the original value was never actually captured.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "godaddy_antares_142-12f376d0",
+    "candidate_findings": [
+      {
+        "file": "packages/@godaddy/antares/variables.css",
+        "start_line": 19,
+        "end_line": 23,
+        "message": "Global side effect. Changing the `--_fs-base` `@property` syntax from `<length>` to `\"*\"` is a global change that has nothing to do with the legend. With `<length>`, relative values such as `em` or `calc(...)` resolve to an absolute length on the element that declares them. With `\"*\"`, the raw tokens are passed through and resolve wherever they are used. Any component that overrides `--_fs-base` with a relative value can therefore end up with different font sizes. The property also stops being type-checked or animatable. I can't see from the diff which components override it, so check for typography regressions or move this change to a separate PR with a justification.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+        "start_line": 40,
+        "end_line": 58,
+        "message": "Ineffective assertions. `assume(list).exists()` and `assume(label).exists()` only check that the locator objects exist, and locators are always truthy. These assertions pass even when nothing matches. The vertical test also only counts list items and never checks the vertical layout, so a broken `orientation` implementation would still pass. Use `expect.element(...).toBeInTheDocument()` or an equivalent element query, and assert the layout, for example via computed `flex-direction` or item positions.",
+        "status": "matched_tp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "testing"
+      }
+    ]
+  },
+  {
+    "pr_key": "godotengine_godot-angle-static_18-71c01496",
+    "candidate_findings": [
+      {
+        "file": ".github/workflows/ci.yaml",
+        "start_line": 185,
+        "end_line": 189,
+        "message": "Wrong PATH entry. The `Setup MinGW path` step adds `C:/mingw32/bin` to PATH for every MinGW job, including the x86_64 job. That job sets `mingw_prefix=C:/mingw64`, but i686 tools such as `gcc`, `ar`, and `windres` come first on PATH. Any tool SCons runs without the prefix may then come from the wrong 32-bit toolchain.\n\nThe path should come from the matrix instead, e.g. `echo \"C:/${{ matrix.msys }}/bin\" >> $GITHUB_PATH`.",
+        "status": "matched_fp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": ".github/workflows/ci.yaml",
+        "start_line": 137,
+        "end_line": 147,
+        "message": "Missing toolchain. The `msys2/setup-msys2` install step was removed, and nothing installs a 32-bit MinGW toolchain anymore. The x86_32 job now assumes `C:/mingw32` already exists on the `windows-2025` runner. Hosted Windows images normally ship only a 64-bit MinGW in `C:/mingw64`, so this build will likely fail with compiler-not-found errors.\n\nUnverified: whether this runner image includes `C:/mingw32`. If it does not, the 32-bit toolchain needs an explicit install step, e.g. MSYS2 or a downloaded i686 MinGW.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "hughdidit_DAISy-Agency_274-1c88a238",
+    "candidate_findings": [
+      {
+        "file": "src/agents/tool-call-id.ts",
+        "start_line": 242,
+        "end_line": 275,
+        "message": "Possible ID collision. The latest assistant turn's tool call IDs are kept verbatim, but the `resolve` uniqueness tracking never reserves them. An older call could be rewritten to an ID the preserved turn already uses. Example: an older `call_1` is sanitized to `call1` while the latest turn already has `call1`. The transcript then contains duplicate tool call IDs, and the provider may reject it or mispair the results. Fix this by seeding the used-ID set with `preservedLatestToolCallIds` before rewriting older messages.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/agents/tool-call-id.ts",
+        "start_line": 283,
+        "end_line": 288,
+        "message": "Mismatched pairing. Tool results are skipped whenever their raw ID appears in `preservedLatestToolCallIds`, regardless of which turn they belong to. If an older turn reused the same raw ID, which can happen with providers that emit short or recycled IDs, the older assistant call is rewritten but its tool result is left unchanged. That breaks the older call/result pair. Consider limiting preservation to tool results that come after `latestAssistantIndex`.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "hughdidit_DAISy-Agency_294-690f26b6",
+    "candidate_findings": []
+  },
+  {
+    "pr_key": "jongalloway_DiagramForge_101-8be727e4",
+    "candidate_findings": [
+      {
+        "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+        "start_line": 151,
+        "end_line": 152,
+        "message": "Annotation-only overlap. The renderer draws annotations whenever `node.Annotations.Count > 0`. Layout only switches to `SizeClassNode` when `node.Compartments.Count > 0`. A node with a stereotype but no compartments (e.g. an empty `<<interface>>` class) is sized by the standard path, which reserves no header space and sets no `label:centerY`. The annotation is then drawn at the top while the class name is vertically centered, so the two texts can overlap or the annotation can sit outside the content area. The layout condition and the render condition should match.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+        "start_line": 348,
+        "end_line": 359,
+        "message": "Multi-line entry overlap. For each compartment entry, the renderer emits one `<text>` per line from `GetRenderedLabelLines(line)`, but it advances `currentY` by only one line height per entry. A compartment label containing `\\n` (or one that wraps) overlaps the following entry. Layout has the same gap: `compartment.Lines.Sum(...)` counts one line per label, so the node is also too short and text spills past the bottom border.",
+        "status": "matched_fp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+        "start_line": 490,
+        "end_line": 492,
+        "message": "Annotation height mismatch. `annotationsHeight` is computed as `Annotations.Count * fontSize * DefaultLabelLineHeight`. This ignores each annotation's own `FontSize` and its line count. The renderer advances by `annFontSize * DefaultLabelLineHeight` per rendered line. Two cases cause annotation text to collide with the class-name label positioned via `label:centerY`:\n- an annotation with a larger font size than the label\n- a multi-line annotation",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2,
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "konturio_disaster-ninja-fe_1081-d2c0c636",
+    "candidate_findings": [
+      {
+        "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+        "start_line": 2,
+        "end_line": 2,
+        "message": "Wrong import path. `LAYER_BIVARIATE_PREFIX` and `SOURCE_BIVARIATE_PREFIX` are now imported from `./constants`. The removed code imported them from `~core/logical_layers/constants`. The local `./constants` file is not changed in this diff, and before this PR it only exported `FALLBACK_BIVARIATE_*`, `H3_HOVER_LAYER` and `SOURCE_LAYER_BIVARIATE`. Unless these exports were added elsewhere, this fails type-checking or resolves to `undefined`. That would produce source and layer IDs like `undefined<id>`.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+        "start_line": 9,
+        "end_line": 41,
+        "message": "Step scale mismatch. `stepOverrides` reuses the raw bivariate axis steps (`legend.axis.x.steps` / `legend.axis.y.steps`, e.g. density thresholds like 0, 10, 1000). These are applied to scores computed from MCDA layers built by `createMCDALayersFromBivariateAxes`. If those MCDA layers normalize or transform values (MCDA scores are typically in the 0–1 range), the thresholds no longer match the score scale. Hexagons would then fall into the wrong legend cells and render with incorrect colors. This depends on how `createMCDALayersFromBivariateAxes` and `MultivariateRenderer` apply step overrides, which is not visible in this diff. Please verify that raw-value classification is preserved.",
+        "status": "matched_tp",
+        "matched_golden_index": 23,
+        "covered_golden_indices": [
+          23
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "konturio_disaster-ninja-fe_1234-2271e590",
+    "candidate_findings": [
+      {
+        "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+        "start_line": 37,
+        "end_line": 55,
+        "message": "Behavior Change. `CircleIcon` now renders a horizontal `line` whenever no fill color resolves. Before, it rendered an unfilled, stroked circle.\n\nThis affects every circle legend step that defines only a stroke, for example `circle-stroke-color` or `color` with no `fill-color` or `circle-color`. Those hollow-ring markers will silently become line markers, both in `SimpleLegend` and anywhere else `CircleIcon` is used.\n\nIf the line rendering is meant only for line-type layers, consider a separate shape or an explicit prop instead of keying off a missing fill.",
+        "status": "matched_tp",
+        "matched_golden_index": 10,
+        "covered_golden_indices": [
+          10
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "mikecubed_m3OS_84-5e9d78eb",
+    "candidate_findings": [
+      {
+        "file": "kernel/src/arch/x86_64/syscall.rs",
+        "start_line": 12472,
+        "end_line": 12479,
+        "message": "Uninit Bytes Leak. The safety comment assumes `_pad` removes all padding, but it only covers `TraceEntry`. `TraceEvent` still has padding:\n- inside variants, e.g. `Dispatch { task_idx: u32, core: u8, rsp: u64 }` has 3 bytes after `core`;\n- after the tag;\n- at the tail of smaller variants such as `YieldNow`, compared with the largest variant.\n\nEnum copies are not required to preserve padding, so `tmp` can hold indeterminate bytes after `copy_into`. Reinterpreting it with `from_raw_parts` as `&[u8]` is UB, and `copy_to_user` can leak stale kernel stack data. Serialize fields into a zeroed byte buffer, or use a fully explicit POD layout with no implicit padding.",
+        "status": "matched_tp",
+        "matched_golden_index": 17,
+        "covered_golden_indices": [
+          17,
+          18
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "kernel/src/arch/x86_64/syscall.rs",
+        "start_line": 12449,
+        "end_line": 12466,
+        "message": "Cross-core Data Race. `sys_ktrace` can read another core's `TraceRing` while the owning core is pushing to it. The ring uses plain non-atomic `write_idx`, `count` and entries, so this is a data race and UB, not just \"a torn entry\". A torn `TraceEvent` discriminant can produce an invalid enum value, which is immediate UB once the value is copied or matched.\n\nUnlike the crash dump, this path runs during normal operation and is reachable by any process on demand. Consider a seqlock or per-entry sequence counter, or restrict cross-core reads.",
+        "status": "matched_tp",
+        "matched_golden_index": 14,
+        "covered_golden_indices": [
+          14
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "kernel/src/arch/x86_64/interrupts.rs",
+        "start_line": 452,
+        "end_line": 456,
+        "message": "ISR Serial Stall. `dump_trace_rings()` is also added to the recoverable ring-3 page fault and GPF paths, which kill the user process and keep running. Every ordinary user segfault now prints up to 256 entries per core over serial from inside the exception handler, with interrupts disabled. With several cores that can be over a thousand lines, which can stall the system noticeably. A crashing or fork-looping program can trigger this repeatedly. Consider limiting the dump to fatal kernel-mode paths, or printing only the last few entries for user faults.",
+        "status": "matched_tp",
+        "matched_golden_index": 19,
+        "covered_golden_indices": [
+          19,
+          20
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "kernel/src/arch/x86_64/syscall.rs",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "Information disclosure: `sys_ktrace` (0x1002) is enabled by default and has no privilege check, so any unprivileged process can call it. It copies `TraceEntry` structs as raw bytes to userspace, which exposes two kinds of data:\n- Kernel stack pointers (`rsp`/`saved_rsp` from `Dispatch`/`SwitchOut`), which defeats kernel address randomization.\n- Possibly uninitialized padding bytes inside `TraceEvent` variants, which can leak stale kernel stack contents.\n\nSince the syscall also races with the owning core's writes, an unprivileged caller can trigger UB in the kernel on demand.",
+        "status": "matched_tp",
+        "matched_golden_index": 18,
+        "covered_golden_indices": [
+          14,
+          17,
+          18
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      }
+    ]
+  },
+  {
+    "pr_key": "rcrsr_rill_53-2ed44caf",
+    "candidate_findings": [
+      {
+        "file": "packages/core/src/runtime/core/types/runtime.ts",
+        "start_line": 173,
+        "end_line": 174,
+        "message": "Breaking Type Change. `hostContext` is a required field on the exported `RuntimeContext` interface. `metadata`, by comparison, is optional. Any object literal typed as `RuntimeContext` outside the places this PR updates will stop compiling. This PR already had to patch one such literal (`minimalContext` in `assertType`). Likely affected code includes test helpers, mock contexts in extension packages, and third-party hosts. This makes a feature listed under \"Added\" a breaking change for TypeScript consumers. I can't confirm from the diff whether other literals exist in the repo. Two fixes are possible: make the field optional, as `RuntimeContextLike` already does, and read it with `?? {}`. Or document the change as breaking.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "api-architecture",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "api-architecture"
+      }
+    ]
+  },
+  {
+    "pr_key": "scorbo2_ext-sn-statistics_20-12fad831",
+    "candidate_findings": [
+      {
+        "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+        "start_line": 437,
+        "end_line": 454,
+        "message": "Empty search set. `setAllowBlank(false)` only rejects blank text. Input like `,,,`, or text that `TagList.fromRawString` filters out entirely, passes validation but produces an empty `wordSet`.\n\n`findWords` treats an empty `specificWords` set as \"consider all words\". The user would then see the general top-25 word list presented as their \"Search results\" instead of an empty or no-input result. Check that `wordSet` is non-empty before starting the worker.",
+        "status": "matched_tp",
+        "matched_golden_index": 22,
+        "covered_golden_indices": [
+          22,
+          25
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/main/java/ca/corbett/snotes/extensions/statistics/WordSearchThread.java",
+        "start_line": 47,
+        "end_line": 47,
+        "message": "Truncated results. The search passes `TOP_N_WORDS` (25) as the limit, but nothing enforces the \"1-25 words\" stated in the help text.\n\nIf a user searches for more than 25 words, results are silently cut to the 25 most frequent. The \"combined occurrences\" total in `showWordSearchResults` is also summed only over those 25, so it under-reports. Either pass `searchWords.size()` as the limit, or validate the input count.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "wiyco_review-insights_31-e9c5280f",
+    "candidate_findings": [
+      {
+        "file": "src/analyze/bias-detector.ts",
+        "start_line": 76,
+        "end_line": 118,
+        "message": "Exclusive pairs unflaggable. The model is fit only on observed positive cells (`count === 0` is skipped, and unobserved pairs never enter the support). In that setup, any reviewer or author with a single partner is fitted exactly (`E_ij = M_ij`), so its residual is 0.\n\nThis means the strongest concentration pattern can never be flagged. Examples:\n- \"bob is the only reviewer of alice\" is always fitted exactly.\n- \"bob reviews only alice\" is always fitted exactly.\n- The same holds for any tree-shaped or otherwise sparse interaction graph, which is common in small teams.\n\nThe new self-review test, where nothing is flagged for a 10/10 exclusive pairing, shows this behavior. The old test's scenario (bob→alice ×10, plus two singleton pairs) would now produce no flags at all.\n\nReports will say \"No reviewer-author pair exceeds the threshold\" in exactly the cases users most want surfaced. Two possible fixes:\n- Fit over the full eligible reviewer×author grid, excluding only the true self-review diagonal.\n- Explicitly report that the model is saturated or has zero degrees of freedom instead of presenting \"no bias\".",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/analyze/bias-detector.ts",
+        "start_line": 322,
+        "end_line": 357,
+        "message": "Overbroad catch. The `try/catch` around model fitting and residual computation catches every exception and turns it into `modelFitError`. This includes programming errors such as a `TypeError` or a bug in the residual loop, not just non-convergence.\n\nAs a result, real defects are silently downgraded to a \"Bias warnings unavailable\" message. Meanwhile, `bias-detected` outputs `false`.\n\nConsider catching only the expected non-convergence error, for example with a dedicated error class, and letting unexpected errors propagate.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "wspulse_client-kt_24-bc2ac1a4",
+    "candidate_findings": [
+      {
+        "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+        "start_line": 190,
+        "end_line": 199,
+        "message": "Unbounded await. The bounded `CountDownLatch.await(5, SECONDS)` calls were replaced with bare `CompletableDeferred.await()`. Inside `runTest(StandardTestDispatcher(...))`, a suspended `await()` lets the scheduler auto-advance virtual time through every pending task. This has two consequences:\n- If the callback is not already complete, pending timers run before it does. These include reconnect backoff, which can dial `transport2` and fire `onTransportRestore`, and the heartbeat ping/pong deadlines.\n- In `close from onTransportDrop suppresses onTransportRestore`, this can let a reconnect happen during `disconnectCalled.await()`, which the test is meant to rule out.\nA regression where the callback never fires now surfaces as a generic `runTest` timeout instead of a clear assertion failure. The explicit message `onDisconnect must fire even when onTransportDrop throws` was also lost.\nConsider `withTimeout(...)` around the awaits, or `runCurrent()` followed by an `isCompleted` assertion with a message, as done in `ReconnectTest`/`MiscTest`.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "testing"
+      },
+      {
+        "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+        "start_line": 48,
+        "end_line": 54,
+        "message": "Virtual-only polling. `waitUntil` now only calls `testScheduler.advanceTimeBy(10)` 500 times. It never suspends or yields real time. The previous version polled on `Dispatchers.Default` with real delays.\nIf any condition depends on work that runs off the test scheduler, the 500 iterations finish almost instantly and the test fails with `condition not satisfied after 5s virtual time`. Examples would be a `MockTransport` or client path using real threads or another dispatcher.\nUncertain: this depends on whether all client/mock work is confined to `testScheduler`, which isn't visible in the diff. Worth confirming, especially for the concurrent-send test that previously used a 10s real timeout.",
+        "status": "matched_fp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "testing"
+      }
+    ]
+  },
+  {
+    "pr_key": "zircote_nsip-example_27-b6e16d4e",
+    "candidate_findings": [
+      {
+        "file": "reports/2026-04-15-lambing-event/report.md",
+        "start_line": 112,
+        "end_line": 114,
+        "message": "Incorrect Comparison. The report says the lamb's growth profile is \"WWT +1.98, YWT +2.63 above breed midpoint\". Those are the absolute predicted EBVs, not differences from the midpoint. Using the report's own midpoints (+1.59 and +0.37), the lamb is about +0.39 above on WWT and about +2.26 above on YWT. The same error appears in the next-steps section (\"+1.98 lbs above breed average\").\n\nRelated inconsistency: the predicted BWT (+0.06 vs. midpoint +0.18) is called \"near breed average\" in one place and \"well below breed average\" in another.\n\nThese overstatements could mislead retention or registration decisions for EPC26005.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1,
+          2,
+          17
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "documentation",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "documentation"
+      },
+      {
+        "file": "reports/2026-04-15-lambing-event/report.md",
+        "start_line": 144,
+        "end_line": 144,
+        "message": "Pedigree Error. USD318 is described as the dam's \"maternal grandsire\". The pedigree tree shows USD318 as the sire of FLE382, which is the dam's sire, so USD318 is her paternal grandsire.\n\nThe same note also claims \"No shared ancestors appear at any generation level\". The tree only covers two generations, so this claim goes beyond the available data.",
+        "status": "matched_tp",
+        "matched_golden_index": 16,
+        "covered_golden_indices": [
+          16
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "reports/2026-04-15-lambing-event/report.md",
+        "start_line": 92,
+        "end_line": 96,
+        "message": "Overstated Outcross. The report calls the parents \"completely separate genetic backgrounds\" with \"zero inbreeding risk\". However, both pedigrees include Hound River Farm animals (NWT063 on the dam side; NWT012 and NWT082 on the sire side), and the pedigree is only two generations deep.\n\nThe COI of 0.0% applies only to the recorded depth. The claims of zero risk and heterosis are stronger than the data supports and should be qualified.",
+        "status": "matched_tp",
+        "matched_golden_index": 14,
+        "covered_golden_indices": [
+          14,
+          15
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  }
+]

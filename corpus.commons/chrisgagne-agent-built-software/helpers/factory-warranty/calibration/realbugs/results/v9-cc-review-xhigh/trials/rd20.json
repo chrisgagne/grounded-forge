@@ -1,0 +1,121 @@
+{
+ "id": "rd20",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "parseGitHubUrl matches `tree/<branch>` but throws the branch away, so resolveIdentifier always installs from the repository's default branch. `spm install https://github.com/org/repo/tree/develop/path/to/skill` calls fetchDefaultBranch and resolves `ref: 'main'`, so it fetches main's skillset.yml (wrong content) or 404s if the path only exists on develop. The new test 'parses GitHub URL with non-main branch' asserts this lossy result. SkillIdentifier needs an optional `ref`, and resolveIdentifier should use it and skip the GitHub API call when it is present."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "Path containment is broken in two ways: `resolved.startsWith(baseDir)` has no trailing-separator check, and `tmpDir` is built from the untrusted manifest `skillset.name` without validation. A manifest with `name: ../../../Users/<author>/.claude` makes tmpDir resolve outside the system temp dir, and safePath only checks against that already-escaped base, so files get written there. Separately, with `name: fsd`, an `agents` entry like `../../../fsd-x/evil` resolves to `/tmp/spm/fsd-x/evil`, which still passes `startsWith('/tmp/spm/fsd')`. Validate name against something like /^[\\w.-]+$/ and compare with `baseDir + sep` (or use path.relative)."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "Every entry is downloaded with `location.ref`, the default branch of the skillset's own repo, including cross-repo `@owner/repo/path` skills that live in other repositories. Skillset repo `org/skillbox` uses `main` and a skill source is `@other/lib/skills/x` whose default branch is `master`. The fetch goes to raw.githubusercontent.com/other/lib/main/... and returns 404, so the whole install fails. FileEntry carries no per-repo ref, so cross-repo skills can't work unless both repos share a branch name."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "The regex assumes a single-segment branch and captures everything after it, including a trailing slash, query string or fragment, into the path. `.../tree/feature/new-skill/claude/fsd` gets branch=`feature` and path=`new-skill/claude/fsd`, giving a 404. `.../tree/main/claude/fsd/` (copied from the browser) gives path `claude/fsd/` and then `claude/fsd//skillset.yml`. `...?tab=readme` puts the query into the path. `www.github.com` URLs and repo-root URLs (`/tree/main` with no path) are rejected."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "Downloads go to a predictable, shared `os.tmpdir()/spm/<name>` directory. Nothing clears it first, and mkdir/writeFile follow symlinks. On a multi-user host, another user can pre-create `/tmp/spm/fsd` as a symlink to the victim's directory, and the recursive mkdir plus writeFile then write through it. Even single-user, files left over from an earlier version of the skillset stay next to the new ones, and two concurrent installs of the same skillset overwrite each other. Use mkdtemp (or write into the project's provider dir) and clean up."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "The traversal guard runs only in the bare-path branch, so `./` sources, `@` sources, `files[]`, `setup`, and agents/hooks/rules entries can still contain `..`. The substring test also rejects legitimate names like `foo..bar`. `source: './../../other'` or `files: ['../../../x']` pass unchecked. Because the WHATWG URL parser normalizes `..` in the raw.githubusercontent URL, they fetch arbitrary paths, and they reach the local write path that safePath guards imperfectly. Meanwhile a skill dir named `v1..2` is wrongly rejected. Validating each final entry path once, per segment (`seg === '..'`), in resolveSkillset is the general fix."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "The old 'Invalid skill source' error is gone. Any string that isn't `./` or `@` is now treated as a repo-root path, including empty strings and URLs. `source: ''` gives basePath '' and entry path `/SKILL.md`. The raw URL gets a `//`, and safePath resolves `/SKILL.md` as absolute and throws a misleading 'Path traversal detected'. `source: 'https://example.com/x'` turns into the path `https:/example.com/x` and 404s instead of reporting a clear validation error. Typos like `.claude/skill` (meant `./`) silently resolve to the wrong place."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 71,
+   "end_line": 71,
+   "message": "validateSkillset checks only the four top-level string fields. Now that install consumes `skills[].source`, `skills[].files`, `setup`, and agents/hooks, a malformed manifest crashes with an opaque TypeError. A manifest with `skills: { git: { source: './git' } }` (no `files`) prints `\u2716 Cannot read properties of undefined (reading 'forEach')`. With `source: 123` it prints `source.startsWith is not a function`. With `agents: 'a.md'` (a string, not a list) it prints `files.forEach is not a function`. None of these points the user at the bad manifest field."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "The output layout uses only `entry.path` and ignores owner/repository, and all writes run concurrently, so two entries that map to the same path race silently. Skill `@a/lib/skills/x` and skill `@b/lib/skills/x` both produce `skills/x/SKILL.md`, and the same happens if a file is listed twice. The two concurrent `writeFile` calls to one path leave whichever finishes last, and the success line still reports both as downloaded."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/bin/spm.ts",
+   "start_line": 36,
+   "end_line": 36,
+   "message": "The install action is now async, but the program still calls `program.parse()` rather than `await program.parseAsync()`, which Commander requires for async action handlers. The returned promise is not awaited by Commander. Today it only works because the action's try/catch swallows everything. Any rejection that escapes it, or any future post-parse code such as hooks or exit handling, runs before install finishes, and unhandled rejections bypass the formatted error output."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/downloader/download-from-github.ts",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "downloadFromGitHub re-implements the raw.githubusercontent.com URL construction already in fetchSkillset (fetch-skillset.ts:26), and neither encodes path segments. Two copies of the URL and error logic will drift; fetchSkillset could just call downloadFromGitHub. A file named `notes#1.md` or `a?b.md` has its path cut off as a fragment or query, and names with `%` or spaces fetch the wrong resource. Map each segment through encodeURIComponent."
+  },
+  {
+   "source": "cc-review",
+   "file": "tests/core/downloader/download-from-github.test.ts",
+   "start_line": 28,
+   "end_line": 28,
+   "message": "The downloader tests stub `fetch` with `vi.stubGlobal` but tear down with `vi.restoreAllMocks()`, which does not restore stubbed globals. The `mkdtempSync` temp dirs are never removed. After each test (and after the file, if isolation is ever turned off), the global `fetch` stays mocked, so later tests that expect real or differently stubbed fetch behavior see the stale mock. Use `vi.unstubAllGlobals()` (or `unstubGlobals: true` in config). The same pattern is in download-from-url.test.ts and download-file.test.ts, which also leave temp dirs behind in the OS temp directory."
+  },
+  {
+   "source": "cc-review",
+   "file": "vite.config.ts",
+   "start_line": 6,
+   "end_line": 6,
+   "message": "`__VERSION__` is defined only in vite.config.ts. vitest.config.ts takes precedence for tests and lacks the define, and the CLI version test was loosened to accept any semver. Any unit test that imports src/bin/spm.ts (directly or transitively) fails with `ReferenceError: __VERSION__ is not defined`. The integration test now passes even if the build embeds the wrong version (for example a stale dist or a broken define), because it no longer compares against package.json's version."
+  },
+  {
+   "source": "cc-review",
+   "file": ".spmrc.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The committed `.spmrc.yml` looks like the artifact `readConfig()` writes into the git root when the integration test runs `spm install`; it is not a real config for this CLI tool's repo. The integration test runs the built CLI from the repo, so readConfig auto-creates `.spmrc.yml` at the git root, and that file was committed. With it committed, the test no longer exercises the create-config path, and every developer's clone carries a config that detectProviders would regenerate differently based on local folders."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 24,
+   "end_line": 24,
+   "message": "downloadEntries wraps every entry in a GitHubSource, sends it through the generic downloadFile dispatcher, then spreads the result (carrying an unused `source`) and overwrites `path`. safePath also calls `normalize` before `resolve`, which already normalizes. Every entry is always GitHub, so `downloadFromGitHub({...})` returning `{ type, path, content }` does the same job with fewer layers. The URL and local downloaders (and their exports) have no producer anywhere, so they are dead code for now that still has to be maintained and tested."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 512,
+  "cost_usd": 0.9418398,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

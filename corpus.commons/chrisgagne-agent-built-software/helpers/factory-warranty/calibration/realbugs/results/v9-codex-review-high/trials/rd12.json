@@ -1,0 +1,52 @@
+{
+ "id": "rd12",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 437,
+   "end_line": 443,
+   "message": "Preserve phase boundaries when merging task proposals. When a quality-gate proposal verifies an Architect task for the same component and layer, this rule merges the verifier with its prerequisite while retaining their dependencies, creating a self-dependency that causes Phase 3.4 to abort. It can also collapse QA RED tasks into GREEN implementation tasks. Restrict merging to equivalent work in compatible phases, remove internal dependencies, and preserve separate test and verification tasks. This also preserves the mandatory Red\u2013Green\u2013Refactor cycle ([AGENTS.md:84](AGENTS.md#L84))."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 1,
+   "end_line": 6,
+   "message": "Regenerate golden fixtures for the new core skill. Adding this directory makes `SkillsAssembler.selectCoreSkills()` automatically include the skill for every profile. However, no golden fixtures are updated, and `GoldenFileTest.profile_whenCalled_matchesGoldenFiles()` rejects any extra generated paths. Consequently, `mvn verify` fails because the generated `x-story-plan` files are absent from the expected trees. Regenerate the affected fixtures alongside this addition."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 512,
+   "end_line": 518,
+   "message": "Persist the agent-produced plans before DoR validation. For a story without existing plans, the agents return summaries, but Phase 4 never writes the architecture, implementation, test, or security plans to their established paths. DoR checks 1 and 9 require files, so a clean planning run cannot satisfy them. Subsequent sessions also lose the agent outputs needed for validation, and `x-dev-implement` cannot discover these plans. Explicitly persist the agent-produced artifacts before running Phase 5."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 686,
+   "end_line": 688,
+   "message": "Finalize the freshness marker after updating the story. Phase 4.1 writes the tasks file before this mandatory story edit. The edit therefore makes `mtime(story) > mtime(tasks)`, which Phase 0.3 treats as stale on the next invocation even when the user changed nothing. Normal reruns consequently launch all five agents again instead of reusing the plan. Update the story before finalizing the tasks file, or record freshness after all story modifications."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 738,
+   "end_line": 742,
+   "message": "Include failed mandatory checks in the DoR total. When a mandatory check fails, using `mandatory_passed` in the denominator removes that failed check from the reported total. For example, nine passing mandatory checks and no conditional checks produce `Passed: 9/9` despite a `NOT_READY` verdict. Calculate `total_checks` as `10 + conditional_applicable` so the checklist accurately reports failures."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 140,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

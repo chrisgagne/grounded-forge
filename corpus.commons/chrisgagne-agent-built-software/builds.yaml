@@ -1,0 +1,151 @@
+# Build profiles for the chrisgagne-agent-built-software corpus. build.js discovers this file at load time.
+#
+# factory-warranty is the corpus's app: the warranting-agent-built-software distillations, their indexes and the
+# factory, the harness that reads them while it builds, gates and reviews a change. The factory's code lives at
+# helpers/factory-warranty/ and is copied into the app at factory/ (see the helpers note in the root builds.yaml).
+# It ships the 17 sources whose licences allow commercial use (max_scope: open). factory-warranty-full adds the one
+# non-commercial source (the DORA report, CC BY-NC-SA) for non-commercial use.
+
+builds:
+  factory-warranty: &factory-warranty
+    description: 'A software factory and its knowledge layer: coding agents build a change, deterministic gates
+      and two independent model-family reviewers check it against distillations of 17 open sources (NIST, OWASP,
+      CISA, UK government assurance guidance, and research on AI-assisted development), all licensed for commercial
+      use, and the accountable person signs or returns a warranty pack written for someone who doesn''t read the
+      code.'
+    source_dir: corpus.commons/chrisgagne-agent-built-software
+    output_dir: corpus.commons/chrisgagne-agent-built-software/apps/factory-warranty
+    helpers_dir: factory
+    helpers_exclude:
+    - calibration/realbugs/results
+    recommends_capabilities:
+    - name: delivery-metrics
+      purpose: Read the change ledger, CI runs and release records to see what was demonstrated
+      fallback: Practitioner pastes the ledger, warranty pack or run output
+    - name: issue-tracker
+      purpose: Read the story and its acceptance criteria
+      fallback: Practitioner pastes the story
+    max_scope: open
+    max_visibility: open
+    references:
+      include_patterns:
+      - '*.md'
+      exclude_patterns:
+      - _ingest_pass_*
+      - _ingest_*
+    distillations:
+      include:
+      - warranting-agent-built-software
+    lenses:
+      include: false
+    skills:
+      include:
+      - matching-references
+      - answer-from-corpus
+    agents:
+      include: []
+    claude_md:
+      template: factory-warranty
+    docs:
+      include:
+      - docs/architecture
+      - docs/reference
+      - docs/README.md
+    validation:
+      ignore_dangling:
+      - corpus.commons/chrisgagne-agent-built-software/
+      - _planning/*
+      - docs/how-to/*
+      - docs/how-to/
+      - docs/tutorial/*
+      - docs/tutorial/
+      - docs/sources/*
+      - docs/sources/
+      - docs/evals/*
+      - docs/evals/
+      - docs/assets/*
+      - deploy/*
+      - deploy/
+      - lenses/
+      - lenses/LENS-INDEX.md
+      - distillations/decision-making/*
+      - distillations/stakeholder-engagement/*
+      - distillations/software-business/*
+      - .claude/skills/ingesting-resources/*
+      - .claude/skills/creating-tasks/*
+      - .claude/skills/creating-applications/*
+      - .claude/skills/creating-distillations/*
+      - .claude/skills/creating-lenses/*
+      - .claude/skills/ingesting-images/*
+      - .claude/skills/finding-resources/*
+      - .claude/skills/creating-corpus/*
+      - .claude/skills/creating-corpus/SKILL.md
+      - .claude/agents/*
+      - .claude/hooks/
+      - .claude/hooks/validate-deep-ref.py
+      - .claude/settings.json
+      - .claude/settings.local.json
+      - .claude/skills/creating-applications/SKILL.md
+      - .claude/skills/creating-distillations/SKILL.md
+      - .claude/skills/creating-lenses/SKILL.md
+      - .claude/skills/gridmaker-interview/SKILL.md
+      - .claude/skills/ingesting-resources/9-pass-protocol.md
+      - .claude/skills/ingesting-resources/SKILL.md
+      - CONTRIBUTING.md
+      - build.js
+      - builds.yaml
+      - corpus.commons/demo/
+      - corpus.commons/demo/apps/aar-mode/
+      - corpus.commons/demo/apps/decision/
+      - corpus.commons/demo/apps/retro-mode/
+      - corpus.commons/demo/apps/software-business/
+      - corpus.commons/demo/apps/stakeholder/
+      - corpus.commons/demo/sources/converted/
+      - deploy/cloudflare-mcp/
+      - distillations/decision-making/openstax-organizational-behavior-decision-making.md
+      - distillations/decision-making/task-index.json
+      - distillations/stakeholder-engagement/openstax-organizational-behavior-stakeholder-engagement.md
+      - docs/THEORY.md
+      - docs/assets/9-pass-protocol.png
+      - docs/assets/cost-curves.png
+      - docs/assets/forge-hero.png
+      - docs/assets/gagne-larman.png
+      - docs/assets/the-matrix.png
+      - docs/assets/two-layer-indexes.png
+      - docs/audit-results/
+      - docs/audit-results/README.md
+      - docs/evals/harness/
+      - docs/evals/methodology.md
+      - docs/evals/rounds/2026-08-08-producer-head-to-head/
+      - docs/examples/marines-vs-business-admin-conversation.md
+      - docs/how-to/build-your-library.md
+      - docs/how-to/emit-okf.md
+      - docs/how-to/extend-or-clear-the-demo.md
+      - docs/tutorial/adding-a-lens.md
+      - docs/tutorial/adding-a-task-axis.md
+      - docs/tutorial/ingesting-one-source.md
+      - docs/tutorial/querying-the-library.md
+      - docs/tutorial/scaffolding-a-corpus.md
+      - docs/tutorial/scoping-a-source.md
+      - docs/tutorial/the-demo-app.md
+      - factory/calibration/showcase-2026-10-14/...
+      - factory/calibration/showcase-2026-10-14/x
+      - reference-index.json
+      - scripts/build_indexes/
+      - scripts/build_indexes/build_lens_index.py
+      - scripts/mcp/corpus-server.mjs
+      - scripts/mechanical_index/dispatch.py
+      - scripts/package.js
+      - scripts/pass_i/run.py
+      - scripts/setup-chroma.py
+      - scripts/validate/deep_ref_core.py
+      - tests/audit-fixtures/
+
+  factory-warranty-full:
+    <<: *factory-warranty
+    description: 'The factory-warranty app with all 18 sources, adding the DORA report (CC BY-NC-SA 4.0), which makes
+      this build non-commercial as a whole.'
+    output_dir: corpus.commons/chrisgagne-agent-built-software/apps/factory-warranty-full
+    helpers_from: factory-warranty
+    max_scope: open-nc
+    max_visibility: open-nc

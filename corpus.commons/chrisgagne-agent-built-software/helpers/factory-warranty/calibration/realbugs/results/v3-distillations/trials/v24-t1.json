@@ -1,0 +1,57 @@
+{
+ "id": "v24",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.4601,
+ "codex_tokens": 29139,
+ "work": "<tmp>/replay-v24-t1-8atfpc03",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff at lib/yargs-parser.ts:984 drops the boolean-negation guard, so negatedBoolean (line 112) is always passed to hasFlagsMatching. The parse branch at line 253 still requires configuration['boolean-negation'], so with negation off, '--no-foo' counts as known and is parsed as 'no-foo' instead of going to '_'.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 984,
+   "claim": "isUnknownOption treats negated flags as known even when boolean-negation is disabled, so with unknown-options-as-args those flags are parsed instead of passed through to '_'.",
+   "evidence": "The diff removes `if (configuration['boolean-negation']) patterns.push(negatedBoolean);` and replaces it with `return !hasFlagsMatching(arg, flagWithEquals, negatedBoolean, normalFlag)`. hasFlagsMatching (line 936) returns true if any pattern's capture is a known flag, so '--no-dice' matches negatedBoolean (line 112), captures 'dice', and is classed as known. The negation branch at line 253 still requires `configuration['boolean-negation']`, so the arg is never actually negated; it falls through to the plain long-flag handling and sets 'no-dice'. Before the change, negatedBoolean was only checked when negation was enabled.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "Neither reviewer reports a locked test that combines 'boolean-negation': false with 'unknown-options-as-args': true, and C2 cites test/yargs-parser.mjs:2536 as the only negation-off case. I didn't search the suite myself, so the gap isn't confirmed. Either way it's a test-coverage gap rather than a defect in the change itself.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/yargs-parser.mjs",
+   "line": null,
+   "claim": "No locked test covers boolean-negation off together with unknown-options-as-args on, so the regression passes the suite.",
+   "evidence": "The diff touches only lib/yargs-parser.ts. In test/yargs-parser.mjs, the only `'boolean-negation': false` case (line 2536) does not set 'unknown-options-as-args', and none of the unknown-options-as-args tests (lines 3047-3447, 4148+) disable boolean negation.",
+   "axis_row": "L3.9",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

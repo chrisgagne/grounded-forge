@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 309,
+  "base": "130fc084dcec4731e67de96162d1abccae44f7ce",
+  "head": "ac6e2196f5c307fd09fa6ad8a64ba9ada14ab385"
+ },
+ "agent": "v7-opus-factory",
+ "findings": [
+  {
+   "producer": "v7-opus-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "The generated probe for non-wrapper binaries looks up a name with literal double quotes around it (e.g. `\"jq\"`). `command -v` then finds nothing, so Check 3 fails on the first system binary (jq) for every GCE verification run, and the sandbox-image check fails the same way. The heredoc delimiter `<<SH` is unquoted. In an unquoted heredoc a backslash before `\"` is kept, so line 279 renders as `binary_path=\"$(command -v \\\"jq\\\" || true)\"`. Inside `$(...)` the remote `sh -c` parses `\\\"jq\\\"` as an escaped quote, so the argument becomes the literal string `\"jq\"`. `command -v` returns empty, and the script prints `missing_binary:jq` and exits 1. That makes `gce_ssh` fail at line 296 and `fail \"Failed to validate runtime binary jq ...\"` fire. jq is the first entry in scripts/docker/runtime-binaries.json and has no wrapper, so every run takes this path. The baseline used `command -v \"${binary}\"` inside a quoted `<<'SH'` heredoc, where this problem could not occur."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 252,
+   "end_line": 252,
+   "message": "The binary list now comes from the CI checkout, not from the image being verified. If the checked-out ref differs from the deployed app image or the separately built sandbox image, the gate checks the wrong set of binaries: it can fail on binaries the image never promised, or pass while missing ones the image's manifest lists. `entries_json=\"$(jq ... \"${runtime_binary_manifest_in_repo}\")\"` reads `${repo_root}/scripts/docker/runtime-binaries.json`. The in-image manifest (`/usr/local/share/openclaw/runtime-binaries.json`) is now only checked with `test -f` at lines 240-243 and its contents are ignored. In .github/workflows/verify.yml, `actions/checkout@v4` checks out the workflow ref, not `inputs.deployed_ref`. The baseline probe queried the manifest inside the target with `jq ... \"${manifest_path}\"`."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 358,
+   "end_line": 358,
+   "message": "The wrapper directory is now taken from the CI runner's environment, not the target's. The wrapper path checked can differ from where the image actually installed its wrappers. Line 358 sets `runtime_wrapper_bin=\"${OPENCLAW_RUNTIME_WRAPPER_BIN:-/opt/daisy/bin}\"` on the runner. The Dockerfile and Dockerfile.sandbox set `ENV OPENCLAW_RUNTIME_WRAPPER_BIN=/opt/daisy/bin` inside the images, and the baseline probe read that variable inside the container. Now the default is hard-coded on the runner side and can drift from the image's value."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "The image branch of build_target_direct_exec_command copies the smoke-command parsing, the unsafe-character blocklist and the argument quoting from build_direct_exec_smoke_command. A future fix to one copy can easily miss the other. Lines 186-206 repeat lines 91-113 almost line for line: the `case \"${smoke_command}\" in \"${binary}\"|\"${binary} \"*)` match, the same 8-character blocklist test, and the `read -r -a smoke_args` / `printf '%q'` loop. Only the command prefix differs."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "The diff adds about 240 lines of shell that build and quote remote commands, with no test exercising any of it. That is how the broken `command -v` quoting reached the head unnoticed. diff.patch changes only scripts/verify.sh. No test file references verify_runtime_binaries_for_target, build_target_*_command or build_direct_exec_smoke_command, and no *verify* test exists in the repo. The helpers are pure string builders that could be unit-tested without SSH."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1642238,
+  "duration_s": 43.9
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/t.mjs {tree}",
+  "because": "When the project's own dump() is called with forceQuotes on {s:'x', i:42, f:1.5, b:true, z:null}, head writes `i: !!int '42'`, `f: !!float '1.5'`, `b: !!bool 'true'` and `z: !!null 'null'`, while base quotes only the string; so head quotes and tags every non-string scalar, against the documented 'quotes all non-key strings'."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "\"s: 'x'\\ni: 42\\nf: 1.5\\nb: true\\nz: null\\n\"\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "\"s: 'x'\\ni: !!int '42'\\nf: !!float '1.5'\\nb: !!bool 'true'\\nz: !!null 'null'\\n\"\nFAIL: non-string scalars quoted/tagged; expected \"s: 'x'\\ni: 42\\nf: 1.5\\nb: true\\nz: null\\n\"\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "When the project's own dump() is called with forceQuotes on {s:'x', i:42, f:1.5, b:true, z:null}, head writes `i: !!int '42'`, `f: !!float '1.5'`, `b: !!bool 'true'` and `z: !!null 'null'`, while base quotes only the string; so head quotes and tags every non-string scalar, against the documented 'quotes all non-key strings'.",
+ "run": "v3-distillations",
+ "trial": "v13-t1",
+ "kind": "bug"
+}

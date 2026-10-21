@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/sw5005-sus/ceramicraft-argocd-deploy",
+  "pr_number": 89,
+  "base": "9cf42c1eecc554ca953c3685fa1b6a34eeed910c",
+  "head": "d7a4532170487a111654cf8aa742f4007334b6e2"
+ },
+ "agent": "v7-opus-own",
+ "findings": [
+  {
+   "producer": "v7-opus-own",
+   "file": "app-of-apps.yaml",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "The new `agent-app` Application tracks the feature branch `AI-20-AISecureAgent-Feature-collection`. Every other app tracks `HEAD` or a pinned version. Once this merges, production follows an unreviewed feature branch, so changes pushed there deploy automatically (automated sync with prune/selfHeal). If the branch is deleted after merge, the app breaks and can't sync. Use `HEAD` or a release tag."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 24,
+   "end_line": 41,
+   "message": "The container has no `envFrom: secretRef: ms-secret-vault`, which the shared chart injected into every service. The configmap sets MySQL (`admin_db`, user `root`), Kafka and Redis connection details but no password, so credentials must have come from that Vault-backed secret. Without it the service will likely fail to connect to MySQL and other middleware."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 24,
+   "end_line": 41,
+   "message": "The liveness/readiness probes (`/ai-secure-agent-ms/v1/ping`) were dropped in the move. Kubernetes will send traffic to the pod before it is ready and won't restart it if it hangs, which is worse than the chart-based setup."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 24,
+   "end_line": 41,
+   "message": "The resource requests/limits (100m/256Mi requests, 200m/345Mi limits) were dropped. The pod now runs unbounded (BestEffort QoS), so it can starve neighbours or be evicted first, and an HPA based on utilisation can't work. `MALLOC_ARENA_MAX` is still set, which suggests memory was a known concern."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 23,
+   "message": "The pod annotation `linkerd.io/inject: disabled` was dropped. If the default namespace or cluster has Linkerd auto-injection on, this pod now gets a sidecar, which changes networking and resource use without anyone intending it."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 42,
+   "end_line": 50,
+   "message": "The `applogs` hostPath volume (`/tmp/logs/ai-secure-agent-ms` mounted at `/app/logs`) and its fix-perm init container were dropped. If the app writes logs to `/app/logs`, they no longer reach the host path that log collection (log-ms) reads, and writes may fail if the directory doesn't exist or isn't writable."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "The Deployment `ai-secure-agent-ms` and Service `ai-secure-agent-ms-svc` keep the same names as the resources owned by the `helm-app` ApplicationSet app `ai-secure-agent-ms`. Removing the helm_backend directory makes the ApplicationSet delete that Application, and its prune cascade can delete these resources at the same moment `agent-app` creates them. The result is a race and SharedResourceWarning/ownership flapping, with possible downtime. Make the cutover deliberate, e.g. orphan the resources or sequence the two syncs."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "The image is hard-coded to a debug tag (`debug-202604071410`) in a plain manifest. The existing CI tag-bump automation targets helm_backend values files, so this service no longer gets automatic image updates and stays pinned to a debug build."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

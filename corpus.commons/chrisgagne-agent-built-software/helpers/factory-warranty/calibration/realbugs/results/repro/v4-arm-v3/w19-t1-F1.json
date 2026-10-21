@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.179847,
+  "duration_s": 51.2
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "With unknown-options-as-args and halt-at-non-option both on and foo declared as a boolean, head parses ['./file.js', '--foo'] into {_: ['./file.js'], foo: true}, while base stops at the positional and gives {_: ['./file.js', '--foo']}; so removing the /^-/ guard sends the plain positional through pushPositional and parsing never halts (the finding's exact input, with foo undeclared, gives the same output on both trees because '--foo' is then unknown too)."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[\"./file.js\",\"--foo\"]}\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[\"./file.js\"],\"foo\":true}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: halt-at-non-option should stop at the first positional\n+ actual - expected\n\n  [\n    './file.js',\n-   '--foo'\n  ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v3/w19-t1-F1/check/check.mjs:11:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [ './file.js' ],\n  expected: [ './file.js', '--foo' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "With unknown-options-as-args and halt-at-non-option both on and foo declared as a boolean, head parses ['./file.js', '--foo'] into {_: ['./file.js'], foo: true}, while base stops at the positional and gives {_: ['./file.js', '--foo']}; so removing the /^-/ guard sends the plain positional through pushPositional and parsing never halts (the finding's exact input, with foo undeclared, gives the same output on both trees because '--foo' is then unknown too).",
+ "run": "v4-arm-v3",
+ "trial": "w19-t1",
+ "kind": "bug"
+}

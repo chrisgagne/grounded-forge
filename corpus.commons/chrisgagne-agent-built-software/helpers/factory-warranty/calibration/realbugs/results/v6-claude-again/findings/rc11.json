@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/AntManThePro/TwistedsCommandCenter",
+  "pr_number": 13,
+  "base": "2b0966dec5579a66899f15bccabb6f93c1f3f47b",
+  "head": "78f6157eaec39a413d216616a44734ac53df3d6e"
+ },
+ "agent": "v5-claude-again",
+ "findings": [
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/Inventory/AddItemModal.tsx",
+   "start_line": 38,
+   "end_line": 39,
+   "message": "Saving an edit calls `updateItem`, which changes the item but never adds an activity entry. `ActivityEntry['action']` already includes `'updated'`, and `RecentActivity` has a config for it, but nothing ever emits it. As a result, edits (including quantity changes that move an item between In Stock, Low Stock and Out of Stock) never appear in the dashboard's Recent Activity feed, while adds and deletes do. Now that edits are reachable from the UI, `updateItem` should log an `'updated'` activity the same way `addItem` and `deleteItem` do."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/__tests__/useInventory.test.ts",
+   "start_line": 117,
+   "end_line": 129,
+   "message": "This test locks in a buggy implementation. `deleteItem` calls `setActivities` from inside the `setItems` updater function, which is a side effect inside a function that should be pure. The app runs under `<StrictMode>` (`src/main.tsx`), and in development StrictMode calls updater functions twice, so one delete logs two 'removed' activities. `renderHook` runs without StrictMode here, so the `+1` assertion passes and hides the problem. Fix `deleteItem` first: look up the item outside the updater, then call `setItems` and `setActivities` separately. Consider also running this test with a StrictMode wrapper."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/Inventory/AddItemModal.tsx",
+   "start_line": 38,
+   "end_line": 42,
+   "message": "If the modal gets `editItem` but no `onUpdate`, it falls through to `onAdd(form)`. Saving an edit would then silently create a duplicate item instead of updating the original. Since `onUpdate` is optional in the props, this misuse is easy to hit. Either make edit mode require `onUpdate` (for example, a discriminated union in the props type) or skip the add branch when `editItem` is set."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/Inventory/InventoryPage.tsx",
+   "start_line": 128,
+   "end_line": 166,
+   "message": "None of the new edit behaviour has tests. Nothing covers the Edit button, the pre-filled form, the 'Save Changes' path calling `onUpdate`, or the form resetting when the modal is reopened via the `modalKey` remount. These were the main goals of the PR, but only the delete-activity test was added. A component test for edit-and-save and for cancel-then-reopen would catch regressions here."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 30000
+ }
+}

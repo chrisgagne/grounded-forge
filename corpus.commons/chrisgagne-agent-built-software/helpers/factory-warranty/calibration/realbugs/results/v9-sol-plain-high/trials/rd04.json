@@ -1,0 +1,36 @@
+{
+ "id": "rd04",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "tasks.c",
+   "start_line": 5233,
+   "end_line": 5241,
+   "message": "This guard rejects voluntary context switches as well as preemption. For example, vTaskPreemptionDisable(NULL) followed by vTaskDelay(10) removes the current task from the ready list, but the resulting switch is rejected and vTaskDelay returns immediately while the task remains on the delayed list. Blocking queue/notification calls and task suspension/deletion are similarly affected. Disabling preemption must still permit switches when the current task blocks, yields, or stops."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "tasks.c",
+   "start_line": 5234,
+   "end_line": 5239,
+   "message": "Deferring a remote yield leaves xTaskRunState stuck at taskTASK_SCHEDULED_TO_YIELD. For example, changing a preemption-disabled task's core affinity from another core calls prvYieldCore(), which sets that marker and sends an interrupt. This branch consumes the interrupt without running the task-selection code that clears the marker. The task's next taskENTER_CRITICAL() then loops in prvCheckForRunStateChange() waiting for the switch; even vTaskPreemptionEnable(NULL) cannot reach the code that enables preemption. Deferred remote yields need to reconcile the run state so the task can continue."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "tasks.c",
+   "start_line": 8218,
+   "end_line": 8219,
+   "message": "An existing pending flag does not guarantee that a context switch has been requested. An ISR can legitimately notify one higher-priority task with a NULL wake pointer, then notify another with a valid pointer initialized to pdFALSE. The first call sets xYieldPendings but schedules no switch; this new transition check prevents the second call from setting its wake output, so portYIELD_FROM_ISR() does nothing and higher-priority work waits until a subsequent scheduling event. The equivalent checks in the other three functions have the same regression, including in SMP builds with task preemption disabling turned off."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 116,
+  "reasoning_effort": "high",
+  "tokens": 50741
+ }
+}

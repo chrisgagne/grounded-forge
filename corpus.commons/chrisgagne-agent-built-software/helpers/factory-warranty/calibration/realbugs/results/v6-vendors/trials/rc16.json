@@ -1,0 +1,158 @@
+{
+ "id": "rc16",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 94,
+   "end_line": 94,
+   "message": "Qualify the zero-inbreeding claim by pedigree coverage. Finding no shared ancestors in the available pedigree does not establish completely separate genetic backgrounds or zero inbreeding risk. The displayed pedigree covers only two ancestral generations, so shared ancestry outside that coverage remains possible. Describe the COI as calculated from available records and retain that limitation in the recommendations rather than treating it as proof of an unrelated mating."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 40,
+   "end_line": 45,
+   "message": "Distinguish range positions from population percentiles. The reported percentiles match linear positions between the breed minimum and maximum (for example, WWT: `(2.72 + 3.02) / (6.19 + 3.02) \u2248 62%`), which do not establish population percentiles. Likewise, the midpoint of the extremes is not necessarily the breed average. Use actual breed percentile statistics or label these figures as range positions and qualify the above-average claims; otherwise the report overstates the evidence used to recommend this lamb for breeding."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 120,
+   "end_line": 120,
+   "message": "The report says '(WWT +1.98, YWT +2.63 above breed midpoint)'. Those numbers are the predicted midparent EBVs themselves, not distances from the midpoint. Measured against the breed midpoints in this report, WWT is about +0.39 above (1.98 vs 1.59) and YWT about +2.26 above (2.63 vs 0.37). As written, the lamb's genetic advantage is misstated."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "'predicted WWT of +1.98 lbs above breed average' treats the midparent EBV as a gap from the breed average. The predicted WWT is only about 0.39 lbs above the breed midpoint of +1.59, so this overstates how much better the lamb should do at weaning."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 118,
+   "end_line": 118,
+   "message": "The BWT description is inconsistent across the report. This line says the predicted BWT is 'near breed average'. Line 112 and the first sentence of the same paragraph say it is below the midpoint, and line 174 says 'well below breed average'. +0.06 against a midpoint of +0.18 is a 0.12 lb gap in a 2.24 lb range, so 'well below' overstates it. Pick one accurate description and use it everywhere."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 174,
+   "end_line": 174,
+   "message": "'predicted offspring BWT well below breed average' is an overstatement. +0.06 is only 0.12 lbs under the +0.18 midpoint, about 5% of the breed range. It also contradicts line 118, which calls the prediction 'near breed average'."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 150,
+   "end_line": 150,
+   "message": "The pedigree note calls USD318 the dam's 'maternal grandsire'. According to the pedigree tree (lines 130-131), USD318 is the sire of FLE382, the dam's sire, so it is the paternal grandsire. The dam's maternal grandsire is NWT063. Getting this wrong in a pedigree record matters."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "The report claims the dam and sire 'come from completely separate genetic backgrounds' with 'zero inbreeding risk', and the PR says 'no shared ancestors at any generation'. Only two generations were checked, and both lines trace to Hound River Farm: NWT063 on the dam side, NWT012 and NWT082 on the sire side. Line 76 also says NCS310 already sired many lambs at Beyond Blessed Farm. A 0% COI from a two-generation pedigree does not support 'zero risk' or 'any generation'. The claim should be limited to the generations actually checked, and the shared Hound River Farm ancestry should be noted."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 150,
+   "end_line": 150,
+   "message": "'No shared ancestors appear at any generation level, confirming this is a clean outcross' goes beyond the two generations shown. Both pedigrees also include Hound River Farm (NWT) animals, so 'confirming' is too strong."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 47,
+   "end_line": 53,
+   "message": "The 'Percentile' column (also used in the Breed Context table and the summary) is not a population percentile. It is the EBV's linear position between the breed minimum and maximum, e.g. (0.34+0.94)/2.24 = 57%. Labelling this as '57th percentile' misleads readers about how the animal ranks against the breed. Rename it (e.g. 'Position in range') or compute real percentiles."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 40,
+   "end_line": 40,
+   "message": "'Total Progeny: 1 (this lamb)' is said to come from the NSIP database, which line 14 dates to March 22, 2026. That is before the April 14 lambing, so the database could not contain this lamb. Either the figure was not taken from the database, or the dam's database progeny count is 0. Mixing database values with the new event muddies where the data came from."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 76,
+   "end_line": 76,
+   "message": "'many from the 2025 lambing season at Beyond Blessed Farm' is presented as a fact but nothing in the report supports it. If it is true, it also contradicts the 'completely separate genetic backgrounds' / outcross framing used later. Either support it or remove it."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 184,
+   "end_line": 184,
+   "message": "Recording the lamb's birth weight would not update the dam's NLB accuracy. NLB depends on number of lambs born, which this lambing record already captures. Birth weight feeds BWT and maternal BWT evaluations instead."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 187,
+   "end_line": 187,
+   "message": "Using a high-NLB sire on FLE082 does not 'build her fertility record'. Her NLB record and accuracy come from her own lambings, not from the sire's EBV. The recommendation mixes up improving the offspring's genetics with building the dam's data."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 90,
+   "end_line": 90,
+   "message": "'among the most reliable of any sire evaluated in this flock' (repeated at line 180) is a comparison the report never backs with data. Other sires in the flock are not shown."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 43,
+   "end_line": 55,
+   "message": "These two lines disagree about where the dam's EBVs come from. Line 43 says they are 'derived primarily from relatives'; line 55 says they are 'driven by her own performance records and relatives'. The glossary (line 205) also describes 60-80% accuracy as 'good progeny data', but she has 63-65% accuracy and no progeny."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The previous lambing-event report (reports/2026-04-14-lambing-event/) includes a data.csv alongside report.md. This report directory has no data.csv, which breaks the established report layout and leaves the numbers without machine-readable source data."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 27,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 49,
+   "cost_usd": 0.21250060000000004,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 49
+ }
+}

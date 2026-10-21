@@ -1,0 +1,38 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "chronicle-daemon/src/main.rs",
+  "line": 24,
+  "claim": "Starting a second daemon can delete media being written by the running daemon before the duplicate instance is rejected.",
+  "evidence": "The startup sweep runs before IpcServer::start, which checks whether another daemon is listening. The running daemon's process_frame writes the image before inserting its database row, and process_audio_segment similarly moves audio before insertion. During either interval, sweep_media_orphans sees no matching row and deletes the active file."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "chronicle-daemon/crates/storage/src/media.rs",
+  "line": 64,
+  "claim": "The path validator accepts symlinks targeting files outside storage, allowing writes and permission changes outside its stated boundary.",
+  "evidence": "For a symlink base_dir/link pointing to an existing external file, canonicalize(path) succeeds but fails the starts_with check; validate_path then accepts its in-root parent. write_file follows the symlink with truncate(true), overwriting the external target, and harden_file follows it with set_permissions."
+ },
+ {
+  "id": "X3",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "chronicle-daemon/crates/storage/src/media.rs",
+  "line": 249,
+  "claim": "The public path allocator allows traversal through its extension argument and can return a path outside storage.",
+  "evidence": "allocate_path validates subdir and sanitizes id, but interpolates ext unchanged after checking only canonical_parent. An extension containing '/../../../../../../outside' introduces parent components into the returned path after that check. The Storage wrappers supply fixed extensions, but direct MediaManager callers can supply arbitrary strings."
+ },
+ {
+  "id": "X4",
+  "leg": "codex",
+  "severity": "low",
+  "file": "docs/guides/storage-engine.md",
+  "line": 142,
+  "claim": "The storage guide describes the opposite deletion order from the implementation, making its cleanup and crash-recovery explanation inaccurate.",
+  "evidence": "The guide says to DELETE rows before deleting files and explicitly attributes recovery behavior to that order. The changed cleanup_media deletes files first and only then opens the transaction that deletes database rows."
+ }
+]

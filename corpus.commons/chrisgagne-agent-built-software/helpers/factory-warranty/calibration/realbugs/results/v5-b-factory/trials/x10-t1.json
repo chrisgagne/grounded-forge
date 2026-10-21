@@ -1,0 +1,81 @@
+{
+ "id": "x10",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.9281,
+ "codex_tokens": 44482,
+ "work": "<tmp>/replay-x10-t1-58d5el67",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "base.js:133 and :143 test Date.now() only before each execEditLength() call. Neither the diagonal loop (lines 69-121) nor the seed extractCommon/identity return at lines 42-46 checks the deadline, so a slow comparator can overrun by up to one round. The overrun is real, but the code never promised a hard cap and the run still stops after that round, so I lowered X1's medium to low as a performance/robustness point.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/diff/base.js",
+   "line": 143,
+   "claim": "The timeout is only checked between edit-length rounds. Within a round, extractCommon and the seed/identity path at lines 42-46 can run past the deadline, and the diff can still return a result after it.",
+   "evidence": "`while (editLength <= maxEditLength && Date.now() <= abortAfterTimestamp)` (and the same test at line 133 in callback mode) is checked once per `execEditLength()` call. Each call loops over every diagonal from -editLength to editLength and runs `extractCommon` on each, with no time check inside that loop.",
+   "axis_row": "L5.41",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "base.js:36-37 computes `Date.now() + (options.timeout ?? Infinity)` with no type check. A string makes the + join two strings, and the <= / > comparisons at :133/:143 then convert that to a number far in the future, so the run never times out. This is input validation on misuse of the API, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/diff/base.js",
+   "line": 36,
+   "claim": "A timeout that isn't a number is not validated. A string like \"100\" is joined onto Date.now() as text, which silently turns the timeout off.",
+   "evidence": "`const maxExecutionTime = options.timeout ?? Infinity; const abortAfterTimestamp = Date.now() + maxExecutionTime;`: with a string, `+` joins the two as text (e.g. \"1700000000000100\"). The `Date.now() <= abortAfterTimestamp` comparison then turns that into a number about 1000 times larger than now, so the run never times out.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The README's 'Universal options' section (lines 162-169) lists only callback and maxEditLength. A grep for 'timeout' outside node_modules only hits base.js and the test. This is a documentation gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 169,
+   "claim": "The new public `timeout` option isn't documented (its units, and that it returns undefined when time runs out).",
+   "evidence": "Searching for 'timeout' finds no match in README.md or release-notes.md. The diff only touches src/diff/base.js, and the README options list at line 169 describes only `maxEditLength`.",
+   "axis_row": "L5.24",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "test/diff/array.js:78-99 hot-sleeps 10ms per comparison and asserts results at timeout 50 and 1000, which depends on how loaded the machine is. A grep finds no test that passes callback together with timeout, so the `Date.now() > abortAfterTimestamp` check at base.js:133 never runs under test. This is a test-quality point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/diff/array.js",
+   "line": 78,
+   "claim": "The only timeout test relies on wall-clock time with hot-sleeps, so it may be flaky. The timeout branch in callback mode has no test.",
+   "evidence": "The test hot-sleeps 10ms per comparison and asserts that `timeout: 50` returns undefined while `timeout: 1000` succeeds. No test passes `callback` together with `timeout`, so `Date.now() > abortAfterTimestamp` in the `exec()` setTimeout path never runs under test.",
+   "axis_row": "L3.19",
+   "id": "F4"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

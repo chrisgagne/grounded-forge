@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 294,
+  "base": "daa9f5234921318a97907361b3c464b914089949",
+  "head": "690f26b60a336e59f40204fd105c8ecd6c8cd115"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "If the runtime config is malformed or truncated, the new Node probe may print a fragment of the file's raw contents, which may include credential material, into the CI log through stderr. The jq it replaced did not echo file contents when it failed to parse. The new line runs `JSON.parse(fs.readFileSync(\"/home/node/.openclaw/.runtime-openclaw.json\",\"utf8\"))` with no try/catch. In recent Node versions (Check 10 says the container runs Node 22), the SyntaxError from a bad parse quotes the input near the failure point (`Unexpected token 'x', \"...\" is not valid JSON`). The uncaught exception goes to stderr. `gce_ssh_lastline` captures only stdout (`gce_ssh \"$1\" | tail -1`), so stderr goes straight into the workflow log. The old `jq -cer ... /home/node/.openclaw/.runtime-openclaw.json` reported only line and column on a parse error. Whether this file holds inline secrets isn't shown in the repo: nothing in the export writes `.runtime-openclaw.json`. The trigger is a corrupt or partly written file at verify time, so this is an unusual path. A fix is to wrap the parse in try/catch, print a fixed message and call `process.exit(1)`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "The new probe reads the runtime config with strict `JSON.parse`, so it rejects the same input that made jq fail. jq's `Invalid numeric literal` is what it prints for JSON5-style input such as unquoted keys or comments, and every other config reader in this repo uses `JSON5.parse` and resolves `$include` (browser_probe_js at verify.sh:372-383, deploy.sh:793/826). If `.runtime-openclaw.json` holds JSON5 or `$include` content, `JSON.parse` throws and verify still fails, now with the generic 'Failed to inspect active Google Workspace credential route mode' message. The fix only works if the error came from shell quoting, and nothing in the repo writes this file to show that. Use `JSON5` with `--input-type=module` and resolve includes, as the browser probe does, or first confirm the live file is strict JSON. The new probe reads the runtime config with strict `JSON.parse`, so it rejects the same input that made jq fail. jq's `Invalid numeric literal` is what it prints for JSON5-style input such as unquoted keys or comments, and every other config reader in this repo uses `JSON5.parse` and resolves `$include` (browser_probe_js at verify.sh:372-383, deploy.sh:793/826). If `.runtime-openclaw.json` holds JSON5 or `$include` content, `JSON.parse` throws and verify still fails, now with the generic 'Failed to inspect active Google Workspace credential route mode' message. The fix only works if the error came from shell quoting, and nothing in the repo writes this file to show that. Use `JSON5` with `--input-type=module` and resolve includes, as the browser probe does, or first confirm the live file is strict JSON."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "The new probe crams about 600 characters of JavaScript into one escaped line, even though the same file already has a readable pattern for remote Node probes. That makes it hard to review and easy to break. Check 8 (lines 239-390) keeps its script in a heredoc (`browser_probe_js=\"$(cat <<'NODE' ... NODE)\"`), escapes it with `printf '%q'` and runs it with `node --input-type=module -e ${browser_probe_js_escaped}`. Line 152 instead embeds the whole script inline in `bash -lc 'node -e '\\''const fs=require(\\\"node:fs\\\");...'\\'''`, with escaped quotes at every level."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "The JavaScript is still embedded in a three-level-quoted one-liner (local double quotes, then remote `bash -lc` single quotes, then `'\\''` splices). That is the shell-fragile pattern the PR says it removes, and Greptile's summary describes a `gws_route_probe_js` heredoc that is not in this diff. Moving the script into a quoted heredoc and passing it through `printf '%q'`, as Check 8 does at lines 239-390, would avoid the remaining quoting hazards and make the probe readable and reviewable. The JavaScript is still embedded in a three-level-quoted one-liner (local double quotes, then remote `bash -lc` single quotes, then `'\\''` splices). That is the shell-fragile pattern the PR says it removes, and Greptile's summary describes a `gws_route_probe_js` heredoc that is not in this diff. Moving the script into a quoted heredoc and passing it through `printf '%q'`, as Check 8 does at lines 239-390, would avoid the remaining quoting hazards and make the probe readable and reviewable."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "The jq-to-Node rewrite of the staging credential-route probe has no test and no stated reason, so whether it behaves the same as before is unverified. A quoting mistake would only show up as a failed staging deploy. diff.patch changes only this one line in scripts/verify.sh and adds no tests. acceptance.md points to story.md and tests.lock, but neither is in the packet. The repo has no test that runs scripts/verify.sh: grep finds it only in .github/workflows/verify.yml, docs and other scripts. The probe goes through three levels of quoting (local double quotes, the remote shell, then `bash -lc '...'`), and nothing runs it against a sample config. From reading it, the logic matches the old jq: null and array routes and a missing or empty mode all exit 1, and a non-string credentialsFile becomes null."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 153,
+   "end_line": 153,
+   "message": "When the probe fails because the route is missing or invalid, it calls `process.exit(1)` without printing anything, and a parse error only shows Node's stack trace on stderr. Either way the operator sees one generic failure message and can't tell 'file not parseable' from 'plugin or route not configured'. Also, the output is never checked to be JSON: if the last SSH line is noise, the local `jq -r '.mode'` at line 154 fails inside an assignment and `set -e` aborts with jq's error instead of a `fail` message, which is how the original incident showed up. Print a reason to stderr before exiting, and add `|| fail` / a `jq -e` check on the local parse. When the probe fails because the route is missing or invalid, it calls `process.exit(1)` without printing anything, and a parse error only shows Node's stack trace on stderr. Either way the operator sees one generic failure message and can't tell 'file not parseable' from 'plugin or route not configured'. Also, the output is never checked to be JSON: if the last SSH line is noise, the local `jq -r '.mode'` at line 154 fails inside an assignment and `set -e` aborts with jq's error instead of a `fail` message, which is how the original incident showed up. Print a reason to stderr before exiting, and add `|| fail` / a `jq -e` check on the local parse."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,345 @@
+{
+ "id": "rc08",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.3122,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc08-t1-m53nvk1o",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P1"
+   ],
+   "verdict": "disputed",
+   "reason": "Confirmed in the code: main.js:765-766 pushes the missing key and line 782 throws. The catch at 792-799 sets ORGANIZATION_NAME to '', and the guard at 897 stops all loading. However, ADDITIONAL_REPOS is already required the same way, and the README tells users to write [] when they have none. No story is in the packet to show the key was meant to be optional, so this may be a deliberate choice rather than a defect.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "main.js",
+   "line": 765,
+   "claim": "ADDITIONAL_HF_REPOS is required. A config.yaml without the key fails validation, and the page falls back to defaults with an empty ORGANIZATION_NAME, so no catalog is shown.",
+   "evidence": "main.js:765-766 pushes 'ADDITIONAL_HF_REPOS (must be a list)' when the key is absent, and lines 769-774 do the same for any bad entry. Line 782 then throws, and the catch at 792-799 replaces the whole CONFIG with ORGANIZATION_NAME: ''. The guard at main.js:897 ('if (!ORGANIZATION_NAME) return;') then stops the data loading. Before this change, a config without the key loaded normally. This repo is a template ('Welcome to your new catalog repo', README), so downstream catalogs that pick up the new main.js without editing their config.yaml hit this. Treating a missing key as [] would keep them working.",
+   "breaks": "story",
+   "axis_row": "L1.2",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "main.js",
+     "line": 765,
+     "claim": "ADDITIONAL_HF_REPOS is now a required config key, so an existing catalog whose config.yaml lacks it (or has one malformed entry) now fails config validation as a whole, and the site falls back to empty defaults and shows no catalog at all.",
+     "evidence": "main.js:765-766 pushes 'ADDITIONAL_HF_REPOS (must be a list)' when the key is absent, and lines 769-774 do the same for any bad entry. Line 782 then throws, and the catch at 792-799 replaces the whole CONFIG with ORGANIZATION_NAME: ''. The guard at main.js:897 ('if (!ORGANIZATION_NAME) return;') then stops the data loading. Before this change, a config without the key loaded normally. This repo is a template ('Welcome to your new catalog repo', README), so downstream catalogs that pick up the new main.js without editing their config.yaml hit this. Treating a missing key as [] would keep them working."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "high",
+     "file": "main.js",
+     "line": 765,
+     "claim": "The PR says ADDITIONAL_HF_REPOS is optional and defaults to [] when it's missing. The code doesn't do that. A missing key is pushed into `missing`, which throws a config error. The catch block then swaps the whole user config for the hard-coded defaults, including ORGANIZATION_NAME: ''. So any existing catalog (this is a template repo) whose config.yaml lacks the new key would show a configuration error and an empty catalog after this update. Default it when absent, e.g. `CONFIG.ADDITIONAL_HF_REPOS ??= []`, and only fail validation when the key is present but malformed.",
+     "evidence": "The PR says ADDITIONAL_HF_REPOS is optional and defaults to [] when it's missing. The code doesn't do that. A missing key is pushed into `missing`, which throws a config error. The catch block then swaps the whole user config for the hard-coded defaults, including ORGANIZATION_NAME: ''. So any existing catalog (this is a template repo) whose config.yaml lacks the new key would show a configuration error and an empty catalog after this update. Default it when absent, e.g. `CONFIG.ADDITIONAL_HF_REPOS ??= []`, and only fail validation when the key is present but malformed."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "P2"
+   ],
+   "verdict": "disputed",
+   "reason": "Confirmed in the code: export-tags.js:48-52 throws when the key is not an array. This matches how the script already treats ADDITIONAL_REPOS (lines 40-44), and whether the key should be optional can't be settled without the story. Lowered to low because this is a one-time dev script.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "scripts/export-tags.js",
+   "line": 48,
+   "claim": "export-tags.js now throws for any config.yaml that has no ADDITIONAL_HF_REPOS key.",
+   "evidence": "export-tags.js:48-52 says 'if (!Array.isArray(CONFIG.ADDITIONAL_HF_REPOS)) throw new Error(...)'. The requiredKeys list at line 32 and the header comment at line 11 don't mention the new key, so the script's documented contract and its behaviour disagree.",
+   "axis_row": "L1.2",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "scripts/export-tags.js",
+     "line": 48,
+     "claim": "export-tags.js now throws for any config.yaml that lacks ADDITIONAL_HF_REPOS, so the dev script stops working on existing configs even though the feature is optional.",
+     "evidence": "export-tags.js:48-52 says 'if (!Array.isArray(CONFIG.ADDITIONAL_HF_REPOS)) throw new Error(...)'. The requiredKeys list at line 32 and the header comment at line 11 don't mention the new key, so the script's documented contract and its behaviour disagree."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "scripts/export-tags.js",
+     "line": 48,
+     "claim": "Same contradiction as in main.js: the PR says the key is optional, but this throws when ADDITIONAL_HF_REPOS is absent. Existing configs without the key would break `node scripts/export-tags.js`. Default it to [] when undefined and validate only when it is present.",
+     "evidence": "Same contradiction as in main.js: the PR says the key is optional, but this throws when ADDITIONAL_HF_REPOS is absent. Existing configs without the key would break `node scripts/export-tags.js`. Default it to [] when undefined and validate only when it is present."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "P7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The comment at export-tags.js:11-12 lists only ORGANIZATION_NAME, API_BASE_URL and ADDITIONAL_REPOS, and requiredKeys at line 32 omits the new key, yet lines 48-62 now require it. This is a documentation issue, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/export-tags.js",
+   "line": 11,
+   "claim": "The header comment and the requiredKeys list don't mention ADDITIONAL_HF_REPOS, even though the script now reads and requires it.",
+   "evidence": "The header comment listing which config keys the script reads wasn't updated to include ADDITIONAL_HF_REPOS, which the script now also reads and requires.",
+   "members": [
+    {
+     "id": "P7",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "scripts/export-tags.js",
+     "line": 11,
+     "claim": "The header comment listing which config keys the script reads wasn't updated to include ADDITIONAL_HF_REPOS, which the script now also reads and requires.",
+     "evidence": "The header comment listing which config keys the script reads wasn't updated to include ADDITIONAL_HF_REPOS, which the script now also reads and requires."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C3",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "seenRepos at main.js:304-308 compares the raw strings. Line 326 filters fetched items only against existingIds (the org listing), so two fetches that return the same canonical id are both appended. The same code is in export-tags.js:127-139. A site owner has to misconfigure the list for this to happen, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "main.js",
+   "line": 326,
+   "claim": "Duplicate checks compare the raw entry.repo strings, and fetched items are not checked against each other. Two entries that differ only in case or whitespace can therefore produce duplicate cards.",
+   "evidence": "Deduplication at main.js:304-308 compares the raw entry.repo strings ('seenRepos.has(entry.repo)'), and line 326 filters only against existingIds, which holds the org listing alone. Hugging Face resolves repo paths case-insensitively and returns the canonical id. So 'User/x' and 'user/x' both get past seenRepos, both come back with id 'user/x', and both are appended. The same logic is in scripts/export-tags.js:127-139.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "low",
+     "file": "main.js",
+     "line": 326,
+     "claim": "Two config entries that name the same HF repo with different letter case are both fetched and both added, so the same repo can appear twice in the catalog.",
+     "evidence": "Deduplication at main.js:304-308 compares the raw entry.repo strings ('seenRepos.has(entry.repo)'), and line 326 filters only against existingIds, which holds the org listing alone. Hugging Face resolves repo paths case-insensitively and returns the canonical id. So 'User/x' and 'user/x' both get past seenRepos, both come back with id 'user/x', and both are appended. The same logic is in scripts/export-tags.js:127-139."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "main.js",
+     "line": 302,
+     "claim": "Deduplication is an exact string match on entry.repo, and fetched items are only checked against the org's existingIds, not against each other. Hugging Face repo IDs are case-insensitive, so two config entries that differ only in case (or one with trailing whitespace) are both fetched and appended. That produces duplicate cards. Also, entry.repo is validated with .trim() but the raw value goes into the URL. Dedupe the fetched items by their canonical item.id, and trim/normalise repo before building the URL.",
+     "evidence": "Deduplication is an exact string match on entry.repo, and fetched items are only checked against the org's existingIds, not against each other. Hugging Face repo IDs are case-insensitive, so two config entries that differ only in case (or one with trailing whitespace) are both fetched and appended. That produces duplicate cards. Also, entry.repo is validated with .trim() but the raw value goes into the URL. Dedupe the fetched items by their canonical item.id, and trim/normalise repo before building the URL."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C4",
+    "P3"
+   ],
+   "verdict": "confirmed",
+   "reason": "main.js:312 fetches `${API_BASE_URL}models/${repo}` and appends the result to hfItems. Step 2 at line 332 then fetches `models/${item.id}` again for every item in hfItems. This is a performance cost, not a defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "main.js",
+   "line": 332,
+   "claim": "Each additional model repo is fetched twice from the same models/<id> endpoint.",
+   "evidence": "The new code fetches `${API_BASE_URL}${repoType}/${entry.repo}` (line 312), which for models is `${API_BASE_URL}models/<id>`. It appends the result to hfItems, and the existing Step 2 at line 332 then fetches `${API_BASE_URL}models/${item.id}` for every item in hfItems, including those just fetched.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "main.js",
+     "line": 332,
+     "claim": "Each additional model is fetched from the same endpoint twice per page load: once in the new block, then again in the existing per-model detail step.",
+     "evidence": "The new code fetches `${API_BASE_URL}${repoType}/${entry.repo}` (line 312), which for models is `${API_BASE_URL}models/<id>`. It appends the result to hfItems, and the existing Step 2 at line 332 then fetches `${API_BASE_URL}models/${item.id}` for every item in hfItems, including those just fetched."
+    },
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "main.js",
+     "line": 299,
+     "claim": "Additional model repos are fetched from `${API_BASE_URL}models/${repo}`. They are merged into hfItems, and Step 2 then fetches `models/${item.id}` again for every item. Each additional model costs two identical requests. Skip the detail fetch for items that already came from the per-repo endpoint, or add the additional models after Step 2. The same duplication is in scripts/export-tags.js:132-151.",
+     "evidence": "Additional model repos are fetched from `${API_BASE_URL}models/${repo}`. They are merged into hfItems, and Step 2 then fetches `models/${item.id}` again for every item. Each additional model costs two identical requests. Skip the detail fetch for items that already came from the per-repo endpoint, or add the additional models after Step 2. The same duplication is in scripts/export-tags.js:132-151."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "A glob for *.test.* and *.spec.* finds no test files, and the diff adds none.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "main.js",
+   "line": 300,
+   "claim": "No tests cover the new merge, dedupe, fetch-failure or validation logic.",
+   "evidence": "The diff touches only README.md, main.js, public/config.yaml and scripts/export-tags.js. A glob for *.test.* / *.spec.* in the export finds no test files, so none of the new branches (main.js:300-327 and 765-775) is checked by anything automated.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "main.js",
+     "line": 300,
+     "claim": "No tests cover the new behaviour: merging extra repos per type, skipping duplicates, tolerating failed fetches, and validating config entries.",
+     "evidence": "The diff touches only README.md, main.js, public/config.yaml and scripts/export-tags.js. A glob for *.test.* / *.spec.* in the export finds no test files, so none of the new branches (main.js:300-327 and 765-775) is checked by anything automated."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6",
+    "P5"
+   ],
+   "verdict": "confirmed",
+   "reason": "export-tags.js:134-136 uses .catch(() => null) with no logging, while main.js:315 and 321 print console.warn for the same failure. A mistyped repo silently leaves its tags out of the export.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/export-tags.js",
+   "line": 136,
+   "claim": "export-tags.js drops failed fetches of additional HF repos without any log message.",
+   "evidence": "export-tags.js:134-136 uses `get(...).then(({ json }) => json).catch(() => null)` with no logging. The browser version at main.js:315 and 321 calls console.warn for the same failure.",
+   "axis_row": "L5.37",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "scripts/export-tags.js",
+     "line": 136,
+     "claim": "In the tag-export script, a failed fetch of an additional HF repo is dropped silently, so a typo in a repo name leaves its tags out of tag-export.txt with no warning.",
+     "evidence": "export-tags.js:134-136 uses `get(...).then(({ json }) => json).catch(() => null)` with no logging. The browser version at main.js:315 and 321 calls console.warn for the same failure."
+    },
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "scripts/export-tags.js",
+     "line": 132,
+     "claim": "Unlike main.js, this swallows failed fetches of additional HF repos with `.catch(() => null)` and logs nothing. A typo in a repo name or type in ADDITIONAL_HF_REPOS silently drops those tags from the export. Log a warning that names the failing repo.",
+     "evidence": "Unlike main.js, this swallows failed fetches of additional HF repos with `.catch(() => null)` and logs nothing. A typo in a repo name or type in ADDITIONAL_HF_REPOS silently drops those tags from the export. Log a warning that names the failing repo."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8",
+    "P6"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 773 puts the stringified entries into the message, and line 788 writes error.message with errorDiv.innerHTML, so markup in a config value would be rendered as HTML. The input is config.yaml, which the site owner controls, so the impact is minimal and it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "main.js",
+   "line": 773,
+   "claim": "Bad config entries are JSON.stringify'd into an error message that is rendered with innerHTML.",
+   "evidence": "Line 773 adds `bad entries: ${badEntries.map(e => JSON.stringify(e)).join(', ')}` to the message. main.js:788 renders it with `errorDiv.innerHTML = `<strong>Configuration Error:</strong> ${error.message}...``. The input is owner-controlled config, so impact is limited.",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "main.js",
+     "line": 773,
+     "claim": "The new validation message puts JSON.stringify of config entries into the error banner, which is rendered with innerHTML, so markup in a config value is interpreted as HTML.",
+     "evidence": "Line 773 adds `bad entries: ${badEntries.map(e => JSON.stringify(e)).join(', ')}` to the message. main.js:788 renders it with `errorDiv.innerHTML = `<strong>Configuration Error:</strong> ${error.message}...``. The input is owner-controlled config, so impact is limited."
+    },
+    {
+     "id": "P6",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "main.js",
+     "line": 772,
+     "claim": "Bad entries are JSON.stringify'd into the error message, which is then put into the page via `errorDiv.innerHTML` (line 788). Config values such as `<img src=x onerror=...>` would be rendered as HTML. config.yaml is usually trusted, but use textContent for the message, or escape it.",
+     "evidence": "Bad entries are JSON.stringify'd into the error message, which is then put into the page via `errorDiv.innerHTML` (line 788). Config values such as `<img src=x onerror=...>` would be rendered as HTML. config.yaml is usually trusted, but use textContent for the message, or escape it."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "noise",
+   "reason": "True: main.js:312 interpolates the raw value. But the value comes from config.yaml, which the site owner controls, and a value like '?', '#' or '../' only means the owner gets the wrong request from their own misconfiguration. There is no attacker path, so this isn't a problem for this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "main.js",
+   "line": 312,
+   "claim": "entry.repo goes into the API URL without encoding.",
+   "evidence": "main.js:312 builds `${API_BASE_URL}${repoType}/${entry.repo}`, and validation at line 770 checks only `typeof e.repo !== 'string' || !e.repo.trim()`, with no owner/name format check. The value comes from the site owner's config, so the risk is low. The same applies to scripts/export-tags.js:134.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "main.js",
+     "line": 312,
+     "claim": "entry.repo goes into the API URL unencoded and is only checked for being a non-empty string, so a value with '?', '#' or '../' would request a different API path than intended.",
+     "evidence": "main.js:312 builds `${API_BASE_URL}${repoType}/${entry.repo}`, and validation at line 770 checks only `typeof e.repo !== 'string' || !e.repo.trim()`, with no owner/name format check. The value comes from the site owner's config, so the risk is low. The same applies to scripts/export-tags.js:134."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "export-tags.js:53-61 repeats main.js:768-774, and export-tags.js:123-140 repeats main.js:300-327. The copies already differ in how they log errors (see C6). This is maintainability, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/export-tags.js",
+   "line": 53,
+   "claim": "The validation and the fetch-and-merge logic are copied between main.js and export-tags.js.",
+   "evidence": "export-tags.js:53-61 repeats main.js:768-774 nearly word for word, and export-tags.js:123-140 repeats main.js:300-327.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "scripts/export-tags.js",
+     "line": 53,
+     "claim": "The validation rules and the fetch-and-merge logic for additional HF repos are copied between main.js and scripts/export-tags.js, so the two can drift apart, and already differ in how they log errors.",
+     "evidence": "export-tags.js:53-61 repeats main.js:768-774 nearly word for word, and export-tags.js:123-140 repeats main.js:300-327."
+    }
+   ],
+   "id": "F10"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

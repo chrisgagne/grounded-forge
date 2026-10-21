@@ -1,0 +1,93 @@
+diff --git a/src/llm/routes.js b/src/llm/routes.js
+index 1ae69ac..aa82592 100644
+--- a/src/llm/routes.js
++++ b/src/llm/routes.js
+@@ -30,7 +30,7 @@ export function summaryRoutes(router, { db, auth, llm, mailer, log }) {
+       return sendJson(res, 200, { summary: 'There are no notes to summarise yet.', email: null });
+     }
+ 
+-    const tools = [sendEmailTool({ mailer, recipient: req.user.email })];
++    const tools = [sendEmailTool({ mailer, recipient: req.user.email, log })];
+     let result;
+     try {
+       result = await summariseNotes({ llm, notes, emailToUser, tools, log });
+diff --git a/src/llm/tools.js b/src/llm/tools.js
+index 6cbd86f..56911da 100644
+--- a/src/llm/tools.js
++++ b/src/llm/tools.js
+@@ -43,10 +43,11 @@ export function createToolDispatcher(tools, { allow }) {
+ 
+ /**
+  * Emails the signed-in user. The server binds the recipient; the model only writes the subject and body.
+- * @param {{ mailer: import('../mail/mailer.js').Mailer, recipient: string }} deps
++ * The message is handed to the mail provider in the background so a slow provider never holds up the summary.
++ * @param {{ mailer: import('../mail/mailer.js').Mailer, recipient: string, log?: import('../log.js').Logger }} deps
+  * @returns {Tool}
+  */
+-export function sendEmailTool({ mailer, recipient }) {
++export function sendEmailTool({ mailer, recipient, log }) {
+   return {
+     name: 'send_email',
+     description: "Email the summary to the signed-in user's own address.",
+@@ -60,8 +61,10 @@ export function sendEmailTool({ mailer, recipient }) {
+     },
+     async run({ subject, body }) {
+       if (subject.length > 200) throw new ToolError('Subject must be at most 200 characters');
+-      const { id } = await mailer.send({ to: recipient, subject, text: body });
+-      return { status: 'sent', id };
++      mailer.send({ to: recipient, subject, text: body }).catch((err) => {
++        log?.warn('summary email not delivered', { error: err.message });
++      });
++      return { status: 'sent' };
+     },
+   };
+ }
+diff --git a/src/mail/mailer.js b/src/mail/mailer.js
+index fff3c62..6a58d8e 100644
+--- a/src/mail/mailer.js
++++ b/src/mail/mailer.js
+@@ -6,7 +6,7 @@
+  * Sends mail through the provider's HTTP API.
+  * @returns {Mailer}
+  */
+-export function createMailer({ apiUrl, apiKey, from, timeoutMs = 5000, fetch = globalThis.fetch }) {
++export function createMailer({ apiUrl, apiKey, from, timeoutMs = 30_000, fetch = globalThis.fetch }) {
+   return {
+     async send({ to, subject, text }) {
+       const response = await fetch(apiUrl, {
+diff --git a/test/summary-email-slow.test.js b/test/summary-email-slow.test.js
+new file mode 100644
+index 0000000..c7012b4
+--- /dev/null
++++ b/test/summary-email-slow.test.js
+@@ -0,0 +1,30 @@
++import assert from 'node:assert/strict';
++import { test } from 'node:test';
++import { addNote, alice, signUpAndLogIn, startTestApp } from './helpers/app.js';
++import { scriptedLlm, text, toolUse } from './helpers/fakes.js';
++
++test('returns the summary without waiting for a slow mail provider', async (t) => {
++  const sent = [];
++  let deliver = () => {};
++  const slowMailer = {
++    send: (message) =>
++      new Promise((resolve) => {
++        sent.push(message);
++        deliver = () => resolve({ id: 'msg_slow' });
++      }),
++  };
++  const llm = scriptedLlm(toolUse('send_email', { subject: 'Your notes', body: 'Summary body' }), text('Emailed you the summary.'));
++  const app = await startTestApp({ llm, mailer: slowMailer });
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  await addNote(app, cookie, { title: 'Q3 planning' });
++
++  const started = Date.now();
++  const res = await app.request('POST', '/notes/summary', { cookie, body: { email: true } });
++  assert.ok(Date.now() - started < 1000);
++  assert.equal(res.status, 200);
++  assert.equal(res.body.summary, 'Emailed you the summary.');
++  assert.deepEqual(res.body.email, { to: alice.email, status: 'sent' });
++  assert.equal(sent.length, 1);
++  deliver();
++});

@@ -1,0 +1,84 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "fortran_to_rust/benchmarker.py",
+  "line": 185,
+  "claim": "The Rust benchmark never calls the converted routine, so reported speedups compare Fortran computation with an empty Rust loop.",
+  "evidence": "The generated benchmark comments out `{fn_lower}({call_args})` and only executes `black_box(&{first_array})`; run_benchmark nevertheless divides the Fortran timing by this timing and reports it as speedup."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "high",
+  "file": "fortran_to_rust/test_harness.py",
+  "line": 765,
+  "claim": "Accuracy checks report success when Rust fails to build or no numerical comparison completes.",
+  "evidence": "When the Fortran reference runs but crate_dir is None, Rust compilation fails, or output lengths differ, errors remains empty and run_accuracy_check returns passed=fortran_ok_count > 0. A mocked reference returning [1.0] with crate_dir=None reproduced passed=True and failed_cases=0. The reporter displays this as a successful accuracy result."
+ },
+ {
+  "id": "X3",
+  "leg": "codex",
+  "severity": "high",
+  "file": "fortran_to_rust/strategies/hybrid.py",
+  "line": 330,
+  "claim": "The offline fallback generates empty function bodies rather than conversions while reporting conversion success.",
+  "evidence": "With f2c unavailable and no LLM key, convert calls _direct_fortran_to_rust, which emits the source only as comments and returns a constant for functions; convert unconditionally sets success=True. DGEMM therefore leaves C unchanged rather than computing alpha*A*B + beta*C."
+ },
+ {
+  "id": "X4",
+  "leg": "codex",
+  "severity": "high",
+  "file": "fortran_to_rust/strategies/hybrid.py",
+  "line": 227,
+  "claim": "The f2c conversion path preserves C syntax and unmatched braces, producing invalid Rust for ordinary f2c output.",
+  "evidence": "_build_unsafe_rust opens a Rust function, then copies the C body's opening and closing braces through _translate_c_line before appending another closing brace. It also passes through C pointer expressions, labels and return values without valid Rust translation. With f2c installed and no LLM, this output is packaged directly."
+ },
+ {
+  "id": "X5",
+  "leg": "codex",
+  "severity": "high",
+  "file": "fortran_to_rust/test_harness.py",
+  "line": 557,
+  "claim": "Function accuracy checks compare return values against array elements because the two drivers print outputs in different orders.",
+  "evidence": "For a function with array arguments such as DDOT, generate_fortran_driver appends the function result after array print loops, while _RUST_EXAMPLE_TEMPLATE_FN prints _result before rust_prints. Equal-length streams are compared positionally, so a correct translation fails."
+ },
+ {
+  "id": "X6",
+  "leg": "codex",
+  "severity": "high",
+  "file": "fortran_to_rust/parser.py",
+  "line": 139,
+  "claim": "Continued Fortran routine headers lose all arguments, breaking generated signatures and test drivers.",
+  "evidence": "parse_source calls _extract_args on the first header line alone; _ARG_LIST requires the closing parenthesis on that line. Parsing `SUBROUTINE FOO(A,` followed by a fixed-form continuation `+ B)` reproduced args=[]. Subsequent hybrid conversion and driver generation use this empty list."
+ },
+ {
+  "id": "X7",
+  "leg": "codex",
+  "severity": "high",
+  "file": "fortran_to_rust/strategies/llm_first.py",
+  "line": 116,
+  "claim": "Failed compile-repair loops still mark the routine as successfully converted.",
+  "evidence": "When quick_check fails on all three attempts, or repair raises after a failed check, convert still returns success=True. AgenticStrategy likewise returns success=True and additionally replaces the checked source with an unchecked polish result. The CLI and report derive conversion status from this flag."
+ },
+ {
+  "id": "X8",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "setup.py",
+  "line": 17,
+  "claim": "The installed console command may fail because its target module is omitted from the package.",
+  "evidence": "The entry point targets convert:main, but setup declares only packages=find_packages() and no py_modules=['convert']; convert.py is a top-level module outside those packages. A wheel installation outside the checkout therefore lacks the entry point's target."
+ },
+ {
+  "id": "X9",
+  "leg": "codex",
+  "severity": "high",
+  "file": "fortran_to_rust/test_harness.py",
+  "line": 538,
+  "claim": "Model-generated Rust executes with the caller's filesystem, network access and credentials without an isolation boundary.",
+  "evidence": "LLM strategies pass returned Rust directly into scaffold_crate; cargo test runs its generated tests and _compile_run_rust_example executes a binary calling the generated function through subprocess.run. A model response containing filesystem reads or network requests in that function executes automatically during the normal pipeline; cargo check supplies no security validation or sandbox.",
+  "axis_row": "L5.43"
+ }
+]

@@ -1,0 +1,58 @@
+{
+ "id": "w20",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.4255,
+ "codex_tokens": 34451,
+ "work": "<tmp>/replay-w20-t1-3vsf67ke",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Operations.js:307 and :312 are arrow functions inside the module-level reverseFactory, so `this` at line 320 is undefined, not reversedSequence. Any reverse iteration over a non-keyed reversed sequence (e.g. Seq([1,2]).reverse().map(x=>x).reverse().entries().next()) now throws a TypeError. The old `reversedSequence.size` and the warning comment explaining it were removed in the diff.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/Operations.js",
+   "line": 320,
+   "claim": "Replacing reversedSequence.size with this.size in the arrow-function __iterator makes reverse iteration of a reversed indexed sequence throw a TypeError.",
+   "evidence": "`reversedSequence.__iterator = (type, reverse) => { ... return new Iterator(() => { ... useKeys ? entry[0] : reverse ? this.size - ++i : i++ ...` (lines 307-323). Both enclosing functions are arrows defined at the top level of an ES module, so `this` is `undefined` there and reading `this.size` throws \"Cannot read properties of undefined\". The diff also deletes the comment that warned about exactly this: \"`__iterator` is an arrow function, so `this` is not the reversed sequence here \u2014 read `reversedSequence.size` explicitly.\" The sibling `__iterate` at line 298 is a regular `function`, which is why `this.size` works at line 303 and not at 320. How it fails: any non-keyed reversed sequence iterated in reverse through an iterator hits the `reverse` branch. One example is `Seq([1,2,3]).reverse().map(x => x).reverse().values()`: the outer reverseFactory calls `mapped.__iterator(ITERATE_ENTRIES, true)`, which calls `reversed.__iterator(..., true)`. Existing tests such as `__tests__/KeyedSeq.ts:133` (`seq.reverse().toKeyedSeq().skip(10).take(5).reverse()`) exercise reverse iteration over a reversed sequence. Nothing else in the change computes this index, so no other code takes over the job the removed line did.",
+   "breaks": "story",
+   "axis_row": "L3.7",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only src/Operations.js and adds no test pinning the indices from the reverse __iterator path. I lowered severity to low because a missing test is a coverage gap, not a defect in its own right; the defect itself is the C1/X1 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/Operations.js",
+   "line": 320,
+   "claim": "No test covers the backward __iterator path of a reversed indexed sequence.",
+   "evidence": "diff.patch changes only `src/Operations.js` and adds or changes no test. The only change is replacing `reversedSequence.size` with `this.size` on the `__iterator` reverse path, and no test in the diff pins the indices that path yields.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

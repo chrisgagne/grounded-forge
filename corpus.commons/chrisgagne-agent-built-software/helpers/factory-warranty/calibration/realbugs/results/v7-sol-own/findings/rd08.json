@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/Waferguard/waferguard-ml",
+  "pr_number": 17,
+  "base": "56411efab470a71e9ef342bc1e10fab767751de5",
+  "head": "62d4f66fbeaef3dd84578b7cd547f37d43086a26"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 253,
+   "end_line": 253,
+   "message": "Replace calls to removed inference helpers. Even with the dataset and models available, this pipeline cannot complete: `financial.py` defines neither `load_artifacts` nor `run_inference`. The first missing attribute is swallowed by the broad exception handler, but the subsequent `run_inference` call raises `AttributeError` and aborts report generation. Load artifacts and run inference outside the financial library, or supply the missing helpers."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 155,
+   "end_line": 159,
+   "message": "Resolve the repository root before importing the package. On another checkout, the hard-coded developer directory points dataset and model loading at nonexistent files. Furthermore, when the notebook runs from its own directory, the `financial_impact` import occurs before the repository root is added to `sys.path`, so it can fail immediately. Discover the actual checkout root and configure the import path before importing the package."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 235,
+   "end_line": 240,
+   "message": "Apply the supplied financial parameter overrides. When a caller passes `financial_params`, it has no effect: `get_params` always reads the global `FINANCIAL_PARAMS`. Reports therefore silently use the default repair costs, downtime, and yield assumptions instead of the caller's values. Pass the selected mapping through parameter lookup and combination aggregation."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "Weight batch confidence by each pattern's wafer count. For batches with unequal pattern counts, averaging the per-pattern confidence means gives each pattern equal weight rather than each wafer. For example, 99 wafers at confidence 1.0 and one at 0.5 produce a reported batch confidence of 0.75 instead of 0.995. Weight these means by `count` when computing the summary."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,190 @@
+{
+ "id": "rb17",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "Pika/Views/ColorHistoryDrawer.swift",
+   "start_line": 153,
+   "end_line": 157,
+   "message": "Handle new-palette requests outside the conditional drawer. When the palettes drawer is hidden, `PaletteTabBar` is not mounted because `ContentView` creates it only when `historyDrawerVisible` is true. Consequently, selecting \u201cNew palette\u2026\u201d from the menu has no subscriber and does nothing; the code intended to open the drawer cannot run. Handle this notification in an always-mounted view."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 239,
+   "end_line": 241,
+   "message": "Restore snapshots without recording another history entry. When a named palette is selected, `undo()` and `redo()` reach this code through `applyRestoredSnapshot` and `applyHistoryEntry`. If the restored entry is not the snapshot's first entry, `recordHistory()` inserts it again, pushes another undo snapshot, and clears the redo stack. Thus undo can modify the snapshot it just restored and make redo unavailable. Snapshot restoration should apply colors without recording history."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 95,
+   "end_line": 100,
+   "message": "Include named-palette swaps in the undo snapshot. Swapping a selected chip in a named palette now permanently changes that palette, but `pushUndo()` captures only `autoHistory`, and `undo()` restores only that history. Pressing Undo after the swap therefore leaves the saved chip swapped. Capture and restore the palette being modified, or avoid modifying saved palettes as part of a history-only undoable operation."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 287,
+   "end_line": 290,
+   "message": "Adjust the active index when deleting an earlier palette. With palettes `[History, A, B, C]` and B selected, deleting A leaves `activePaletteIndex` at 2, silently selecting C. Deleting the selected middle palette likewise selects its successor while retaining the old chip selection. Update the index relative to the removed position and explicitly reset selection when the active palette is deleted."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "Pika/AppDelegate.swift",
+   "start_line": 131,
+   "end_line": 137,
+   "message": "`migrateHistoryToPalettes()` overwrites the palette list with `Defaults[.palettes] = [history]`. It does not merge legacy `colorHistory` into `palettes[0].pairs` as the description says. Any palettes that already exist (for example, from a build where both keys are populated) are silently wiped, including the user's named palettes. It should merge the legacy pairs into `palettes[0]` (dedupe, cap at maxHistory) and keep the other palettes."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 81,
+   "end_line": 102,
+   "message": "`swap()` still calls `pushUndo()` every time, before checking which palette is active. On a named palette, the swap edits the named palette but pushes an auto-history snapshot onto the undo stack and clears the redo stack. Cmd-Z then 'undoes' an unchanged auto-history instead of the swap, and the user's redo history is lost. The description says this was fixed (pushUndo only when the active index is 0), but it was not."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 263,
+   "end_line": 275,
+   "message": "`savePalette` switches `activePaletteIndex` to the new palette but never sets `activeHistoryID = current.id`. The new palette's only chip is not shown as selected, and arrow navigation treats the palette as having no selection. The description says this was fixed, but the change is missing."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 284,
+   "end_line": 292,
+   "message": "`deletePalette` only resets the index when it falls out of range. (1) If you delete a palette before the active one, `activePaletteIndex` is not decremented, so the active tab silently moves to a different palette. (2) When the index is clamped to 0, `restoreAutoHistorySelection()` is never called, so `activeHistoryID` still points at a chip from the deleted palette. The description says both cases were handled, but neither is in the code."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 308,
+   "end_line": 313,
+   "message": "`deleteChipFromPalette` never clears `activeHistoryID` when the removed pair was the active one. The selection keeps pointing at a pair that no longer exists. Swap then quietly does nothing to the palette, and navigation jumps to an end of the list. The description says this was fixed, but the change is missing."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "Pika/Services/Eyedroppers.swift",
+   "start_line": 236,
+   "end_line": 244,
+   "message": "When a named palette is active, `applyEntry` calls `recordHistory()` every time you apply or arrow through a chip. Just browsing a named palette pushes each chip into auto-history and can evict real history past maxHistory. Also, if `recordHistory` returns early because the pair is a duplicate, `lastAutoHistoryID` is set to the named-palette chip's id, not an auto-history id."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "Pika/Views/ColorHistoryDrawer.swift",
+   "start_line": 224,
+   "end_line": 226,
+   "message": "`isAutoHistory` is `activePaletteIndex == 0`, but `activePalette` falls back to `palettes.first` when the index is out of range, and nothing clamps the index back. With a stale index, the drawer shows auto-history chips but treats them as a named palette: the '+' button and chip removal call palette methods with an invalid index and do nothing, and Clear History is hidden. The description says `isAutoHistory` is derived from `activePalette?.isAutoHistory` with an async clamp, but neither is implemented."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "Pika/Views/ColorHistoryDrawer.swift",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The chip context menu always shows `textHistoryRemove` ('Remove from history'), even on named palettes. The new `textPaletteRemoveChip` string is never used. The description says the label switches on `isAutoHistory`, but it does not."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "Pika/Services/Exporter.swift",
+   "start_line": 78,
+   "end_line": 83,
+   "message": "A new `ISO8601DateFormatter` is created for every pair inside the `map` closure. These formatters are expensive to create. Create one before the map. The description says this was hoisted, but it was not."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "Pika/Services/Exporter.swift",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "`import Defaults` was added to Exporter, but nothing in the file uses it."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "Pika/Views/ContentView.swift",
+   "start_line": 143,
+   "end_line": 153,
+   "message": "The export filename only lowercases and replaces spaces. A palette name containing '/', ':' or '\\' produces an invalid or misleading save-panel filename. `try? json.write` also swallows write errors, so a failed export looks successful. The description says the characters are stripped and errors shown in an NSAlert, but neither is implemented."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "Pika/Views/NavigationMenu.swift",
+   "start_line": 45,
+   "end_line": 45,
+   "message": "Both branches of the ternary are \"checkmark.shield\", so the icon never changes with state. The active state should use \"checkmark.shield.fill\", as the description says."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "Pika/Views/NavigationMenu.swift",
+   "start_line": 40,
+   "end_line": 62,
+   "message": "The toolbar tooltips still use the plain strings without keyboard shortcuts. The description says preview (P), compliance (C) and history (H) are included."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "Pika/Views/NavigationMenu.swift",
+   "start_line": 95,
+   "end_line": 103,
+   "message": "Hidden buttons give 'h', 'p' and now 'c' no-modifier shortcuts. SwiftUI key equivalents are handled before the focused text field gets the keystroke. With the new inline `PaletteNameField`, typing a palette name containing these letters toggles compliance or preview, or closes the drawer (which removes the field mid-edit). The new first-responder check in the key monitor only covers the arrow and delete keys. These shortcuts need to be turned off while a palette name is being edited."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "Pika/Views/ColorPreview.swift",
+   "start_line": 58,
+   "end_line": 111,
+   "message": "The new `.onReceive(.triggerSwap) { angle -= 180 }` stacks with the button action `{ onSwap(); angle -= 180 }`. `onSwap` sends triggerSwap, so a click rotates the icon 360\u00b0, ending where it started, and the swap animation looks broken. Remove the `angle -= 180` from the button action now that the notification handles it."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "Pika/Views/ColorHistoryDrawer.swift",
+   "start_line": 115,
+   "end_line": 123,
+   "message": "The rename state is keyed by array index (`renamingIndex`), not palette id. If palettes change during a rename (for example, a delete from another tab's context menu), the field and `renamePalette(at:)` apply to whatever palette now sits at that index."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "Pika/Views/ColorHistoryDrawer.swift",
+   "start_line": 310,
+   "end_line": 313,
+   "message": "The alert buttons 'Clear' and 'Cancel' are hard-coded, not localized. The export's fallback name \"Color History\" in Exporter is also not localized, while every other new string goes through PikaText."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 53,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 80,
+   "cost_usd": 0.4763374000000001,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 80
+ }
+}

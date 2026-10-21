@@ -1,0 +1,140 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 198,
+  "base": "949c62fe2ace8c41d41dd9d7dfd7b51ab268d25f",
+  "head": "76a992582e9e73897987a43bd520bb581f0e7ce7"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 1,
+   "end_line": 4,
+   "message": "Refresh golden fixtures when adding the core skill. Adding this directory automatically includes the skill in generated Claude output through `SkillsAssembler.selectCoreSkills()`, but none of the golden fixtures are updated. `GoldenFileTest` rejects extra generated files, so the existing golden comparisons will fail. Regenerate the affected fixtures alongside the new resource."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 437,
+   "end_line": 442,
+   "message": "Keep test and implementation phases separate during merging. An Architect GREEN proposal and its QA RED proposal can target the same component and layer, so this rule merges them into one task while retaining their dependencies. This destroys the test-first pair and can introduce a self-dependency when the corresponding GREEN task is also merged. Restrict merging to compatible task purposes and TDD phases, and remap dependencies after consolidation."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 100,
+   "end_line": 104,
+   "message": "Avoid invalidating freshness with generated story updates. Phase 4.1 writes the tasks file before Phase 4.5 updates the story, making the story newer than the tasks file after a successful run. Consequently, the next invocation regenerates all five agents even when the user changed nothing. Record freshness after all generated story edits, or compare source content excluding generated sections."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 715,
+   "end_line": 717,
+   "message": "Persist the plans required by mandatory readiness checks. For a story without pre-existing plans, Phase 4 writes task artifacts and summary reports but never writes the architecture or implementation plan files required by checks 1 and 9. Those checks explicitly require files, so a successful planning run can still produce NOT_READY solely because its own required outputs were not generated. Persist the full agent plans and test/security assessments so both initial validation and reuse in a later session have the required evidence."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 686,
+   "end_line": 703,
+   "message": "The staleness check can never find a fresh plan. Phase 4.1 writes the tasks file, then Phase 4.5 rewrites the story file (Section 8.1). That leaves mtime(story) > mtime(tasks) after every run, so each later run counts as stale (rule at lines 97-104) and launches all 5 agents again. The idempotency rule (RULE-002) is broken. Fix: write or touch the tasks file after the story update, or base staleness on something other than the story's mtime."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 715,
+   "end_line": 723,
+   "message": "DoR checks 1 (architecture plan) and 9 (implementation plan) require a file with layer analysis or a component list. Phase 4 never writes the Architect's architecture or implementation plan to disk; it only writes tasks, task plans, the report and the DoR file. Unless x-dev-architecture-plan or x-dev-lifecycle ran earlier, these checks can only be answered from transient agent output, so the result depends on how the model reads the instructions. Persist the Architect's plans (e.g. architecture-story-XXXX-YYYY.md and plan-story-XXXX-YYYY.md) in Phase 4, or define the check against the planning report."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 104,
+   "end_line": 104,
+   "message": "On reuse, the skill jumps to Phase 5 without invoking any subagent. Checks 2, 3, 11 and 12 are defined against 'QA agent output', 'Security agent output' or an existing tests/security file. On the reuse path no agent output exists and those files usually don't either, so reuse either returns NOT_READY spuriously or cannot be evaluated. The QA and Security outputs need to be persisted (e.g. in the planning report) and the checks should read from there."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 279,
+   "end_line": 284,
+   "message": "The TPP ordering contradicts itself. The QA prompt numbers Level 4 = conditional and Level 5 = collection. The proposal enum (line 200), the ordering rule in 3.3 (line 494) and planning-guide.md put collection before conditional. DoR check 2 asks for 'TPP level ordering (1 through 6)', so QA output that follows its own prompt can be judged out of order. Use one canonical sequence everywhere."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 486,
+   "end_line": 495,
+   "message": "The final ordering puts every RED task first (all TPP levels and layers), then every GREEN task. That turns Red-Green-Refactor into 'write all failing tests up front', which conflicts with the incremental TDD cycles required by Rule 03/05 and with the PAIR intent of a RED immediately before its GREEN. Order by RED/GREEN/REFACTOR cycle, not by phase bucket."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 435,
+   "end_line": 445,
+   "message": "The MERGE rule (same component and same layer from different agents, merged into one task) also matches QA RED/GREEN tasks and the Architect's GREEN task for the same class. Example: QA-001 RED for UserValidator merged with ARCH-003 GREEN for UserValidator. The result is one task holding test-writing and implementation DoD, which destroys the RED/GREEN pairing. A GREEN that depended on the merged RED then depends on itself. Restrict MERGE to tasks with the same tdd_phase/type."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 502,
+   "end_line": 507,
+   "message": "The implicit 'all domain tasks before all application tasks before all adapter tasks' dependencies apply to every task, including RED tests and SEC/TL VERIFY tasks. They will conflict with explicit dependencies, e.g. a domain-layer SEC verify task that depends on an application-layer ARCH task. The result is spurious cycles, which hit the 'abort on circular dependency' path. Limit implicit layer edges to GREEN implementation tasks."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 195,
+   "end_line": 195,
+   "message": "The `type` enum (architecture|test|security|quality-gate|validation) has no `implementation` value. Section 3.1 (line 425) lists 'implementation' as an expected Architect type, and AUGMENT (line 449) keys on 'implementation task (from Architect)'. Consolidation rules that depend on the type are therefore ambiguous."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 474,
+   "end_line": 480,
+   "message": "Rule 5 says PO amendments are applied to the story's acceptance criteria section. Phase 4.5 only describes updating Section 8, and planning-guide.md says the amendments are captured in PO tasks. Rewriting the story's Gherkin also lets PO-added scenarios satisfy DoR check 7 (>= 4 scenarios) that the original story failed, and it further bumps the story mtime. Pick one behavior; do not let generated amendments satisfy the DoR scenario count."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 703,
+   "end_line": 703,
+   "message": "The rule 'if Section 8 already exists, preserve existing content and add Section 8.1' does not cover re-runs (stale or --force). A second run finds the 8.1 generated last time and adds another one, duplicating the table. Specify replacing an existing generated 8.1 section while keeping manual content."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 570,
+   "end_line": 570,
+   "message": "Per-task plan files are named by sequential TASK-NNN. When a regeneration produces fewer tasks, the old task-plan-TASK-NNN files for the removed IDs stay on disk and look current. Delete existing task-plan-*-story-XXXX-YYYY.md files before regenerating."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 97,
+   "end_line": 112,
+   "message": "The staleness check (0.3) compares mtime(story file) before 0.4 confirms the story file exists. It also ignores changes to the epic file and IMPLEMENTATION-MAP, both of which feed agent context, so plans built on an outdated epic or map are reused. Verify existence first and include the context inputs in the freshness comparison."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 848,
+   "end_line": 848,
+   "message": "The anti-pattern 'Do NOT reorder RED before GREEN pairs (test-first is mandatory)' can be read as forbidding RED before GREEN, which is the opposite of what is meant. Reword to 'Never place a GREEN task before its RED counterpart'."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 468,
+   "end_line": 472,
+   "message": "Rule 4 ('Tech Lead wins conflicts' with the Architect over implementation approaches) cannot trigger as specified. The Tech Lead prompt (lines 335-375) only produces VERIFY quality-gate tasks with no per-component approach, so there is nothing to compare against the Architect's proposals. Either have the TL emit per-component approach proposals or drop the rule."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 78000
+ }
+}

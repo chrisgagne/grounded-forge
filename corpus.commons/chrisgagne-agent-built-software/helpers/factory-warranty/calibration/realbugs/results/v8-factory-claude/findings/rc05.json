@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/wiyco/review-insights",
+  "pr_number": 31,
+  "base": "5614fbab711f17e800401d6bacca0200bd4eff0a",
+  "head": "e9c5280f80a69136f5f247f4ac7f1c0fa49f1e29"
+ },
+ "agent": "v8-factory-claude",
+ "findings": [
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/analyze/bias-detector.ts",
+   "start_line": 329,
+   "end_line": 329,
+   "message": "The quasi-independence model is fitted only on observed (positive) cells, so it exactly reproduces any reviewer-author pair where the reviewer reviews only one author or the author is reviewed by only one reviewer. Those pairs get a Pearson residual of 0 and can never be flagged, so the most exclusive reviewer-author concentrations, which are the classic bias pattern, now report \"No bias\". fitQuasiIndependenceModel builds its support only from cells with count > 0 (`if (count === 0) continue;`) and rescales each reviewer factor with `reviewerFactors[reviewerPosition] *= rowTotal / fittedRowTotal` (line 171). For a reviewer with a single support cell, that forces E_ij = rowTotal = M_ij, and the column step does the same for an author with a single reviewer. Trigger: 50 PRs by alice, each reviewed only by bob, plus any other unrelated pairs. Then E(bob,alice) = 50, `pearsonResidual = (count - fittedCount)/Math.sqrt(fittedCount)` = 0, and `count > fittedCount && pearsonResidual > threshold` is false at every allowed threshold (\u22650.5). The removed z-score code would have flagged bob\u2192alice. More generally, flagging is possible only when the support graph has a cycle. No locked test covers an exclusive pair, and docs/statistics.md and the HTML explanation don't disclose this blind spot."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "__tests__/analyze/bias-detector.test.ts",
+   "start_line": 263,
+   "end_line": 263,
+   "message": "The change rewrites and deletes baseline tests, which acceptance.md calls the locked acceptance tests, in the same change as the code they judge. Behaviour those tests pinned now goes unchecked, and the packet records no reason or approval. acceptance.md: \"The baseline's tests are the locked acceptance tests\". The diff deletes \"produces no false positives with a high threshold\", replaces \"flags pairs that exceed a low threshold\" and both threshold-boundary tests with new fixtures, and rewrites the sort test (diff lines ~261-835). There is no story.md or tests.lock in the packet or export to show that the spec required these edits."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "__tests__/analyze/bias-detector.test.ts",
+   "start_line": 480,
+   "end_line": 480,
+   "message": "The test \"respects the structural-zero self-review diagonal when fitting expected counts\" passes for a reason unrelated to the diagonal, so it would not catch a regression in self-review handling. The fixture is bob\u2192alice \u00d710 and alice\u2192bob \u00d710, two disconnected single-cell support components. The IPF fit is saturated, so E = M and the residual is 0 whatever the diagonal handling. `expect(result.flaggedPairs).toEqual([])` holds trivially."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "__tests__/analyze/bias-detector.test.ts",
+   "start_line": 98,
+   "end_line": 98,
+   "message": "The non-convergence and error-path tests force failure by globally mocking Math.abs and Math.sqrt. That ties them to internal implementation details, so a harmless refactor (for example, dropping Math.abs from the margin check) would break them or make them vacuous. `vi.spyOn(Math, \"abs\").mockReturnValue(1)` (lines 98 and 290) and `vi.spyOn(Math, \"sqrt\").mockImplementation(() => { throw \"sqrt failed\"; })` (line 318). The tests never build a matrix that genuinely fails to converge."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/visualize/html-report.ts",
+   "start_line": 147,
+   "end_line": 147,
+   "message": "The report explanation implies that only activity-explained pairs escape flagging. In fact, exclusive pairs can never be flagged, so readers may over-trust a \"No reviewer-author pair exceeds the configured activity-adjusted bias threshold\" result. The text reads \"The model matches each reviewer's total outgoing reviews and each author's total incoming reviews, so high-volume people are not flagged merely for being active.\" docs/statistics.md:112 likewise omits that pairs where the reviewer has a single author, or the author a single reviewer, are fitted exactly."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "src/main.ts",
+   "start_line": 61,
+   "end_line": 61,
+   "message": "The `bias-detected` output returns \"false\" both when no pair is flagged and when the model failed to fit, so a workflow that gates on this output cannot tell \"no bias\" from \"not computed\". src/main.ts only logs `logger.warning(`Bias warnings unavailable: ...`)` when modelFitError is set. docs/outputs.md now states that a \"false\" value does not distinguish the two states, and no separate output exposes modelFitError."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

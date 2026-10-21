@@ -1,0 +1,72 @@
+{
+ "id": "w01",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.7808,
+ "codex_tokens": 54166,
+ "work": "<tmp>/replay-w01-t1-5j3yi0ua",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "In apply.js:52-63 the loop now breaks at the first '\\' line. For '-foo', marker, '+bar', marker it sets only addEOFNL. The else-if at lines 70-72 then pushes '' because the last line is 'foo', so the result is 'bar\\n' instead of 'bar'. The diff also deletes the old both-flags branch that handled this case, and createPatch emits this two-marker hunk whenever both versions lack a trailing newline.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/patch/apply.js",
+   "line": 60,
+   "claim": "When the final line changes and neither the old nor the new file ends in a newline, the new break stops the scan at the first marker, so applyPatch adds a trailing newline the patch never asked for.",
+   "evidence": "Trigger: applyPatch('foo', '@@ -1,1 +1,1 @@\\n-foo\\n\\\\ No newline at end of file\\n+bar\\n\\\\ No newline at end of file\\n'). The loop at lines 52-63 sees the first marker after '-foo', sets `addEOFNL = true` and hits the new `break` at line 60, so it never sees the second marker after '+bar' and `removeEOFNL` stays false. The `else if (addEOFNL)` branch at lines 70-72 then runs: `lines[lines.length - 1]` is 'foo', not '', so it calls `lines.push('')`. The result is 'bar\\n' instead of 'bar'. The diff also deletes the old `if (addEOFNL)` branch inside `if (removeEOFNL)`, whose comment said that for this case 'we do nothing' to the EOFNL. Nothing else in the function replaces that handling. This is the hunk shape createPatch emits when the last line of a file with no trailing newline changes.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "With '+bar', marker, '-foo', marker, the first marker sets removeEOFNL and the loop breaks (lines 55-60). Lines 64-68 then return false for source 'foo' at fuzzFactor 0, or pop the newline from 'foo\\n'. The deleted branch used to only check that the source had no trailing newline. The locked tests at test/patch/apply.js:145-150 show that '+'-before-'-' ordering is supported.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/patch/apply.js",
+   "line": 64,
+   "claim": "When the '+' side comes before the '-' side and both end in a no-newline marker, the hunk is treated as a newline removal. A correct source is rejected at fuzzFactor 0, and a source with a trailing newline is wrongly accepted and stripped.",
+   "evidence": "For a hunk like '+bar\\n\\\\ No newline at end of file\\n-foo\\n\\\\ No newline at end of file\\n' (the existing tests at test/patch/apply.js:120-151 show '+'-before-'-' ordering is supported), the first marker sets `removeEOFNL` and the new `break` exits the loop. On source 'foo', lines 65-68 see that the last element is not '' and, with fuzzFactor 0, `return false`, rejecting a correct patch. On source 'foo\\n', line 66 calls `lines.pop()` and the patch applies. The removed code returned false here: `if (!fuzzFactor && lines[lines.length - 1] == '') { return false; }`. That fuzzFactor-0 validation is deleted and nothing replaces it on this path.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "I grepped every '\\ No newline at end of file' fixture in test/patch/apply.js (lines 133-1549). Each has the marker after a single '+', '-' or context line, and none has a marker after both a '-' line and a '+' line. Lowered from medium to low: this is a test-coverage gap, and the defect it hides is already raised in the items above.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/patch/apply.js",
+   "line": null,
+   "claim": "No locked test covers a final line that changes while both the old and new files lack a trailing newline, so the suite passes even though the change breaks that case.",
+   "evidence": "Every '\\\\ No newline at end of file' fixture in test/patch/apply.js (lines 133, 150, 166, 199, 326, 1417, 1505, 1519, 1535, 1549) has the marker on only one side of the change, or after a context line. None has the marker after both a '-' line and a '+' line, which is the only input where the deleted `if (addEOFNL)` sub-branch and the new `break` change the outcome. The 'should accept structured patches' test (line 1392) has a trailing newline in the old content, so it doesn't cover this either.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

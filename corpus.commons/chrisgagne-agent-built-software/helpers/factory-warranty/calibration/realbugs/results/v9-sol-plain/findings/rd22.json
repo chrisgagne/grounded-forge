@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/vriesdemichael/keycloak-operator",
+  "pr_number": 696,
+  "base": "bd0524bce599ccc367a4481f9b792305a8b074a1",
+  "head": "4db0ddeaea75e5d1d1a312473465153ed8f60661"
+ },
+ "agent": "v5-sol-plain",
+ "findings": [
+  {
+   "producer": "v5-sol-plain",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 174,
+   "end_line": 180,
+   "message": "Return the secret bytes without another base64 decode. client-go already decodes Secret.data, and ordinary credentials such as \"password\" also pass this heuristic. Those values are silently corrupted, causing cluster-mode authentication to fail for valid secrets."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 149,
+   "end_line": 153,
+   "message": "The operator populates both admin and public endpoints with http://{name}-keycloak.{namespace}.svc.cluster.local:8080. Selecting these before spec.hostname means the documented cluster-mode command uses an address unavailable outside Kubernetes, even when an externally reachable hostname is configured. Resolve an externally reachable endpoint or provide port-forwarding; otherwise the documented examples require an unexplained --server-url override."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 80,
+   "end_line": 82,
+   "message": "Return the accumulated result alongside the error instead of nil. If a later batch fails with an HTTP or transport error, earlier batches may already have committed, but this discards their counts and prevents runImportUsers from printing its intended partial summary. Preserve the same progress information when token refresh fails."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 194,
+   "end_line": 197,
+   "message": "Track overwritten users in the response and summary. Keycloak reports replacements separately as overwritten, so an overwrite run that replaces every user currently reports Added: 0, Skipped: 0, Errors: 0 without accounting for any completed work. See the [Keycloak response implementation](https://github.com/keycloak/keycloak/blob/main/server-spi-private/src/main/java/org/keycloak/partialimport/PartialImportResults.java)."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 62000
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/godotengine/godot-angle-static",
+  "pr_number": 18,
+  "base": "c7c2bb9a034bc6e31379a987fb2f461d31ec9362",
+  "head": "71c014962453f10d3d40ee8c6ff10ab517a1fa68"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 185,
+   "end_line": 189,
+   "message": "Wrong PATH entry. The `Setup MinGW path` step adds `C:/mingw32/bin` to PATH for every MinGW job, including the x86_64 job. That job sets `mingw_prefix=C:/mingw64`, but i686 tools such as `gcc`, `ar`, and `windres` come first on PATH. Any tool SCons runs without the prefix may then come from the wrong 32-bit toolchain.\n\nThe path should come from the matrix instead, e.g. `echo \"C:/${{ matrix.msys }}/bin\" >> $GITHUB_PATH`."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 137,
+   "end_line": 147,
+   "message": "Missing toolchain. The `msys2/setup-msys2` install step was removed, and nothing installs a 32-bit MinGW toolchain anymore. The x86_32 job now assumes `C:/mingw32` already exists on the `windows-2025` runner. Hosted Windows images normally ship only a 64-bit MinGW in `C:/mingw64`, so this build will likely fail with compiler-not-found errors.\n\nUnverified: whether this runner image includes `C:/mingw32`. If it does not, the 32-bit toolchain needs an explicit install step, e.g. MSYS2 or a downloaded i686 MinGW."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 16000
+ }
+}

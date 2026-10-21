@@ -1,0 +1,92 @@
+[
+ {
+  "sources": [
+   "C1",
+   "X1"
+  ],
+  "verdict": "confirmed",
+  "reason": "customRulesEngine.ts:138-153 only checks pattern length and normalises flags before `new RegExp`. matchLineIssues then calls `regex.exec(line)` synchronously at :184, with no timeout, isolation or check for nested quantifiers. So `(a+)+$` (6 chars) on `'a'.repeat(30)+'!'` gets past every new guard. CHANGELOG.md:36 claims the change prevents ReDoS for #127, and ROADMAP.md:184 lists #127 as 'ReDoS via user-controlled regex', so the change misses its own goal.",
+  "severity": "high",
+  "raw_severity": "high",
+  "file": "src/core/customRulesEngine.ts",
+  "line": 153,
+  "claim": "The length and flag caps do not prevent ReDoS. A short pattern with catastrophic backtracking passes validation and blocks the event loop when it runs.",
+  "evidence": "The only new runtime guard is `if (pattern.pattern.length > MAX_PATTERN_LENGTH)` before `new RegExp(pattern.pattern, safeFlags)` and `regex.exec(line)`. There is no timeout, no check for nested quantifiers, no worker isolation and no per-line length limit. Trigger: `add_custom_rule` with pattern `(a+)+$` (6 chars) gets through `validatePattern`, because it compiles and is under 1 000 chars. Then `execute_custom_rules` with code `'a'.repeat(40)+'!'` (far under 500 000) makes `regex.exec` backtrack exponentially. Even so, CHANGELOG.md line 36 says the caps are \"preventing ReDoS attacks (#127)\".",
+  "breaks": "story",
+  "axis_row": "L6.14",
+  "id": "F1"
+ },
+ {
+  "sources": [
+   "C2"
+  ],
+  "verdict": "confirmed",
+  "reason": "handlers.ts:441-454 checks only `stats.size > MAX_FILE_SIZE_BYTES` and then calls readFile, which is a plain `fs.promises.readFile(filePath, 'utf-8')` (fileUtils.ts:51-53). There is no `isFile()` check, so `path: '/dev/zero'` has size 0, passes, and is read without bound. That defeats the promised 'capped before reading' limit.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "src/server/handlers.ts",
+  "line": 448,
+  "claim": "The size guard never checks that the path is a regular file. A device or FIFO reports size 0, passes the guard, and is then read with no limit.",
+  "evidence": "`getFileStats` calls `fs.promises.stat(filePath)` (fileUtils.ts:157), and the handler checks only `stats.size > MAX_FILE_SIZE_BYTES` before `code = await readFile(path)`, which is `fs.promises.readFile(filePath, 'utf-8')` with no length limit. Trigger: `execute_custom_rules` with `path: '/dev/zero'`. `fileExists` passes, `stats.size` is 0, the guard passes, and `readFile` never reaches EOF. There is no `stats.isFile()` check, and the file can also grow between the stat and the read (TOCTOU).",
+  "breaks": "story",
+  "id": "F2"
+ },
+ {
+  "sources": [
+   "C3"
+  ],
+  "verdict": "confirmed",
+  "reason": "The claim holds: handleValidateCustomPattern (handlers.ts:490-496) builds the pattern without `flags`, and parseValidateCustomPatternInput (inputParser.ts:416-427) never parses them, so the flag allowlist can't fire for this tool. Lowered to low: the tool's schema never had a flags field and the README only claims the length cap, so this is a CHANGELOG inaccuracy rather than a runtime defect.",
+  "severity": "low",
+  "raw_severity": "medium",
+  "file": "src/server/handlers.ts",
+  "line": 490,
+  "claim": "validate_custom_pattern never checks flags, but the CHANGELOG says both tools enforce the flag allowlist.",
+  "evidence": "`handleValidateCustomPattern` builds `customPattern` without a `flags` field, and `parseValidateCustomPatternInput` (inputParser.ts:416-427) does not parse `flags`. So the `ALLOWED_FLAGS_RE` branch in `validatePattern` can never fire for this tool. CHANGELOG.md says \"user-supplied regex patterns in `add_custom_rule` and `validate_custom_pattern` are now validated for length (\u22641 000 chars) and flag allowlist\".",
+  "id": "F3"
+ },
+ {
+  "sources": [
+   "C4"
+  ],
+  "verdict": "confirmed",
+  "reason": "The same strip, dedupe and 'g'-fallback code appears at customRulesEngine.ts:148-152 (executePattern) and in validatePattern (diff lines 280-284), with no shared helper. This is a maintainability point only.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "src/core/customRulesEngine.ts",
+  "line": 266,
+  "claim": "The flag strip/dedupe/default logic appears twice, so validation and execution can drift apart.",
+  "evidence": "`pattern.flags.replace(/[^gimsuy]/g, '')`, `Array.from(new Set(stripped.split(''))).join('')` and the `'g'` fallback appear once in `executePattern` (lines 148-152) and again in `validatePattern` (lines 266-270). There is no shared helper.",
+  "axis_row": "L6.15",
+  "id": "F4"
+ },
+ {
+  "sources": [
+   "C5"
+  ],
+  "verdict": "disputed",
+  "reason": "ALLOWED_FLAGS_RE `/^[gimsuy]*$/` does reject `d` and `v`, and executePattern strips them. But the README and the tool descriptions in the diff now document the gimsuy-only allowlist and the stripping, so 'undocumented' is wrong. The change looks intended, and whether any existing rules depend on `v` can't be told from the code.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "src/core/customRulesEngine.ts",
+  "line": 32,
+  "claim": "The allowlist rejects the valid `d` and `v` flags and silently strips them at execution, which changes behaviour.",
+  "evidence": "`const ALLOWED_FLAGS_RE = /^[gimsuy]*$/;` makes `validatePattern` reject `flags: 'gd'` or `'v'`, which the old code (`new RegExp(pattern.pattern, pattern.flags || 'g')`) accepted. `executePattern` drops them with `replace(/[^gimsuy]/g, '')`.",
+  "id": "F5"
+ },
+ {
+  "sources": [
+   "C6"
+  ],
+  "verdict": "confirmed",
+  "reason": "The oversize test only asserts `.rejects.toThrow(McpError)` and never checks that the mocked readFile was not called. The boundary test only asserts `.resolves.toBeDefined()`. The capture condition in setRequestHandler is true for every handler, so the 'last call' lookup is what really picks the handler. This is a weakness in the tests, not a defect in the product.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "src/server/__tests__/handlers.test.ts",
+  "line": 382,
+  "claim": "The new handler tests don't show that the guard runs before the read, or that an accepted file is actually processed.",
+  "evidence": "The oversize test asserts only `.rejects.toThrow(McpError)` and never asserts that the mocked `readFile` was not called, so 'before reading' is untested. The boundary test asserts only `.resolves.toBeDefined()`. Also, `setRequestHandler`'s capture condition `schema?.method === 'tools/call' || typeof handler === 'function'` matches every call, so the handler is really chosen by the 'last call' lookup in `beforeEach`.",
+  "axis_row": "L3.15",
+  "id": "F6"
+ }
+]

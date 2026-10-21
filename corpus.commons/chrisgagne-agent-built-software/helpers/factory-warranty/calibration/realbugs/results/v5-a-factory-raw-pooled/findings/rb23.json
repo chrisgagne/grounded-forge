@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/wirechat/wirechat",
+  "pr_number": 183,
+  "base": "7f645146da1285f3817a9dfcb04be0a53ee50ecd",
+  "head": "6e3156e78da9b47cb4c6d596883b3ef0730b8cf8"
+ },
+ "agent": "v5-factory-raw-pooled",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "tests/Feature/ChatsTest.php",
+   "start_line": 762,
+   "end_line": 762,
+   "message": "A locked baseline test was rewritten to match the new implementation. Its name still promises that unread preview text de-emphasises immediately when a chat is opened, but its assertions now check that the reactive behaviour is gone, so the test no longer guards the behaviour it names. The diff removes `->toContain('showUnreadStatus && !false')` and `->toContain('font-normal text-gray-600')` and adds `->not->toContain('showUnreadStatus && !false')`. The test is still titled 'uses reactive preview classes so unread text de-emphasizes immediately when a chat is opened'. In message-body.blade.php the Alpine `:class=\"showUnreadStatus && ...\"` binding is replaced by a server-side `@class([...])`, so the preview only changes after a server re-render. acceptance.md says the baseline tests are locked."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "tests/Feature/ChatsTest.php",
+   "start_line": 801,
+   "end_line": 801,
+   "message": "Two locked baseline tests that checked the unread dot is absent were weakened to check only a data attribute. A regression that renders the dot for read conversations would now pass. In 'Doesnt show unread message Dot if message does not belong to Auth and is Read' (line 801) and 'Doesnt shows unread message Dot if message is READ and belongs to Participant of Different Model' (line 849), `->assertDontSeeHtml('dusk=\"unreadMessagesDot\"')` was replaced by `->assertSeeHtml('data-show-unread-status=\"0\"')`. The new attribute is set independently of the `@if ($showUnreadStatus)` block that renders the dot."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 652,
+   "end_line": 652,
+   "message": "When the loaded window is not the latest one (canLoadNewer is true, e.g. after jumpToMessage), sending or receiving a message appends it right after the window's last message. The messages in between are skipped, and because canLoadNewer is then recomputed as false they can never be loaded. `pushMessage` does `$this->loadedMessages->put($groupKey, ...->push($message))` and then `syncCursorsFromFlat($flat)` / `syncCanLoadFlags()`. The new message becomes `$newest`, so the `canLoadNewer` exists-query finds nothing after it. After `jumpToMessage` loads messages 2\u201322 of 30, `sendLike`/`sendMessage`/`appendNewMessage` pushes message 31, and 23\u201330 are silently dropped from the view. Rated medium because nothing in the views dispatches 'open-attachment' yet (see the separate finding)."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "resources/views/livewire/chat/partials/body.blade.php",
+   "start_line": 304,
+   "end_line": 304,
+   "message": "The old wait-for-media logic before revealing and pinning the chat to the bottom was replaced by a fixed 220ms window. Images or videos that finish loading after that push content down and leave the user scrolled above the latest message when the chat opens. x-init calls `scrollToBottom()` after 100ms and sets `initializing = false` after 220ms. `onAnyMediaLoad()` only re-scrolls to the bottom `if (this.initializing)`. The removed `waitForMedia()` resolved on every img/video load or error before `scrollToBottom(); booting = false;`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "resources/views/livewire/chats/chats.blade.php",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "With x-persist removed, the Chats component's x-init runs again on every wire:navigate. Each run adds another document-level 'livewire:navigated' listener that is never removed, so listeners pile up and each navigation fires N scrollToConversation calls, each retrying up to 10 times. `document.addEventListener('livewire:navigated', () => { setTimeout(() => scrollToConversation(), 400); });` sits inside x-init with no cleanup. The diff removes `x-persist=\"chats\"` from pages/chat.blade.php and pages/chats.blade.php, which had kept this element and its init alive across navigations."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 110,
+   "end_line": 110,
+   "message": "The new 'open-attachment' listener that triggers jumpToMessage is dead: nothing in the package dispatches that event, so jump-to-message and loadNewer cannot be reached from the UI, and the window/jump code is exercised only by tests. A grep for 'open-attachment' across src/ and resources/ finds only `'open-attachment' => 'jumpToMessage'` in getListeners(); no view or JS dispatches it."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 63,
+   "end_line": 63,
+   "message": "The new paging state is public and not #[Locked], so a client can raise `chunk` and make loadOlder/loadNewer fetch and hydrate a whole conversation in one request. They can also overwrite the cursor fields. `public int $chunk = 10;`, `public ?string $olderCreatedAt`, `public ?int $olderId`, `public bool $canLoadOlder` and the others have no #[Locked], while the existing `$totalMessageCount` does. `->take($this->chunk)` is used in loadOlder, loadNewer, loadLatestWindow and jumpToMessage. Queries stay scoped to `$this->conversation->messages()`, so no other user's data is exposed."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 686,
+   "end_line": 686,
+   "message": "Cursors are stored at whole-second precision while syncCanLoadFlags compares against the full Carbon value. If created_at keeps sub-second precision, loadOlder/loadNewer may skip or repeat messages that fall in the same second as the cursor. `$this->olderCreatedAt = $oldest->created_at->toDateTimeString();` is then used in `where('created_at', '=', $this->olderCreatedAt)->where('id', '<', $this->olderId)`, but `syncCanLoadFlags` uses `$oldest->created_at` directly."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/WirechatServiceProvider.php",
+   "start_line": 241,
+   "end_line": 241,
+   "message": "Every incoming NotifyParticipant broadcast now hard-resets the chats list. Any pages the user loaded with loadMore are thrown away and the list jumps back to the first page. The diff adds `window.Livewire.dispatch('refresh-chats');`, and Chats::refreshChats() calls `hardRefresh()`, which sets `conversationIds = []` and clears the cursors."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "tests/Feature/ChatsTest.php",
+   "start_line": 672,
+   "end_line": 672,
+   "message": "The new tests use real `sleep(1)` calls to separate timestamps, which slows the suite and depends on wall-clock timing instead of a controlled clock. 'refreshes unread dot\u2026', 'refreshes unread count badge\u2026' and 'shows unread indicator for another conversation\u2026' each call `sleep(1);` before `sendMessageTo`, while nearby tests already use `Carbon::setTestNow`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": ".DS_Store",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change includes macOS .DS_Store binaries in several directories, which are unrelated to the story. The diff shows binary changes to .DS_Store, .github/.DS_Store, database/.DS_Store, lang/.DS_Store, resources/.DS_Store, src/.DS_Store and tests/.DS_Store."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 65,
+   "end_line": 65,
+   "message": "Dead state is left behind: `paginate_var` and `totalMessageCount` are no longer used for paging, and `loadMore`/`loadMessages` stay as aliases. This makes it unclear which paging API is authoritative. `public int $paginate_var = 10;` and `#[Locked] public $totalMessageCount;` are kept, but loadMessages() now just calls loadLatestWindow(), and nothing reads `paginate_var` any more. The comment says '// Legacy alias kept for backward compatibility.'"
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/Livewire/Chat/Chat.php",
+   "start_line": 655,
+   "end_line": 655,
+   "message": "Receiving or sending a message after jumping into history skips intervening messages and disables loading them through loadNewer. With 100 chronological messages, jumpToMessage() targeting message 20 loads messages 10\u201330. If message 101 then arrives, appendNewMessage() calls pushMessage(), which appends 101 and synchronizes the newer cursor to it. syncCanLoadFlags() finds nothing after 101 and sets canLoadNewer=false, leaving messages 31\u2013100 absent from the displayed window."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "resources/views/livewire/chats/partials/message-body.blade.php",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "Duplicate class attributes prevent unread previews and timestamps from receiving their conditional font weight and color. The paragraph already has a literal class attribute on line 16, then @class emits another class attribute containing the conditional unread styles. The timestamp repeats this pattern on lines 27\u201328. HTML parsing retains the first attribute, so the conditional styles are discarded."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "resources/views/livewire/chat/partials/body.blade.php",
+   "start_line": 198,
+   "end_line": 198,
+   "message": "Programmatic jump scrolling cancels its own media correction lock, allowing subsequently loaded images to move the target out of position. scrollToMessageCenterWithRetry() sets jumpTargetId and a 1200ms lock, then scrollToMessageCenter() assigns container.scrollTop without updating lastScrollTop. The resulting scroll event enters onScroll(); any movement over eight pixels clears jumpTargetId and jumpLockUntil. onAnyMediaLoad() therefore cannot recenter that target when media subsequently changes the layout."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

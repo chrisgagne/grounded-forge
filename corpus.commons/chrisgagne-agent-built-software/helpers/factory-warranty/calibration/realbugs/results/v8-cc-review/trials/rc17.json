@@ -1,0 +1,37 @@
+{
+ "id": "rc17",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/DiagramForge/Rendering/SvgNodeWriter.cs",
+   "start_line": 356,
+   "end_line": 356,
+   "message": "For each compartment Label, the renderer draws every rendered line (Lines or '\\n'-split Text) but moves currentY down by only one line height. The layout (SizeClassNode) also counts just one line per Label. A compartment entry with Text \"+foo(a: int,\\n b: int): void\" draws two text rows, but the next entry is placed only one row lower, so the two overlap. The node is also sized one row too short, so the last row spills past the bottom border."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+   "start_line": 436,
+   "end_line": 436,
+   "message": "SizeClassNode only runs when Compartments.Count > 0. The renderer draws annotations whenever Annotations.Count > 0, so a node with annotations but no compartments gets no header space and no label:centerY. An interface node with <<interface>> and no members is sized as a standard node, and its name is centered at Height/2. The annotation is drawn at pad+0.85*fontSize, right on top of the class name, and long annotations are not counted in the width."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/DiagramForge/Layout/DefaultLayoutEngine.cs",
+   "start_line": 491,
+   "end_line": 491,
+   "message": "annotationsHeight is Count \u00d7 base fontSize \u00d7 lineHeight. The renderer instead advances by each annotation's own FontSize for every rendered line, and puts the first baseline at an offset based on the base fontSize. If an annotation has a larger FontSize (or contains a newline), the renderer pushes the annotation block lower than the space the layout reserved. The annotation then overlaps the class name, whose label:centerY was computed from the smaller reserved height."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 35,
+  "cost_usd": 0.2752328,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

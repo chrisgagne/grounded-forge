@@ -1,0 +1,28 @@
+{
+ "id": "rd17",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "Match the workspace folder to the actual repository mount. When the checkout directory is not named exactly `ProxmoxMCP-Plus`, Dev Containers mounts it under a different `/workspaces/<directory-name>` path. Setting `workspaceFolder` does not change that mount, so VS Code opens a nonexistent directory and the post-create command cannot install the project. Use the actual mounted directory or configure an explicit matching `workspaceMount`, and update the interpreter path accordingly."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "Install development dependencies from a supported definition. On a fresh container, this command installs only runtime dependencies: `pyproject.toml` uses Hatchling and declares no `dev` extra, so the development extras in `setup.py` are ignored. Consequently, pytest and pytest-asyncio are missing and the repository's tests cannot run. Install `requirements-dev.in` as part of setup or declare the extra in `pyproject.toml`."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 44,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

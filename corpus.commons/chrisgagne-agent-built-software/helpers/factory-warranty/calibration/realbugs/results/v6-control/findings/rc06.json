@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 274,
+  "base": "72ccdfaa52365466e9ce3a07b096f8c0f096b8a2",
+  "head": "1c88a2381c97cfc434d381876515f003078f83d9"
+ },
+ "agent": "v6-control",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 254,
+   "end_line": 258,
+   "message": "Reserve preserved IDs before sanitizing older calls. When preservation is enabled, an older call such as `a_b` is sanitized to `ab` even if the latest assistant already has a preserved call named `ab`. Because preserved IDs never enter `used`, this introduces duplicate call IDs and ambiguous result associations in an otherwise distinct transcript. Reserve the latest turn's IDs before resolving historical IDs so collision handling can choose a different ID for the older call."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 242,
+   "end_line": 261,
+   "message": "The latest assistant turn's tool-call ids are kept as-is, but they are never added to the `used` set that `makeUniqueToolId` checks to avoid collisions. An older id can therefore sanitize to the same value as a preserved one. Example: the latest call is `abc123` and an older call is `abc-123`, which becomes `abc123`. The request then contains two tool calls (and two tool results) with the same id, so the provider may reject it or pair results with the wrong call. This is the exact case the transcript-wide de-dup mapping exists to prevent. Fix: before the rewrite pass, add each preserved id to `used` and map it to itself, so older ids that collide with it get a suffix."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 282,
+   "end_line": 288,
+   "message": "A tool result is left unchanged whenever its id is in `preservedLatestToolCallIds`, wherever it sits in the transcript. If an older assistant turn used the same raw id (some providers reuse ids like `call_0` or emit duplicates), that older turn's tool call gets rewritten but its matching result keeps the raw id. That leaves an orphaned result and an unpaired tool call, the very failure this change is meant to prevent. Only results that come after `latestAssistantIndex` should be preserved; earlier results should still go through `resolve`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 219,
+   "end_line": 223,
+   "message": "The new `preserveLatestAssistantTurn` option changes sanitization for a production provider, but the change adds no unit tests. The author also says nothing was run locally. There is no test showing that the latest assistant turn stays byte-identical, that its paired tool results are preserved while older ones are rewritten, or that the collision and older-turn cases above are handled. CI can't catch regressions in behavior it doesn't exercise. Add cases to the tool-call-id tests, like the existing `dropThinkingBlocks` preserve test in thinking.test.ts."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 242,
+   "end_line": 261,
+   "message": "The latest assistant turn's tool-call ids are kept as they are, but they are never added to `used` (or to `map`). `makeUniqueToolId` therefore has no way to avoid them. An older id that sanitizes to the same string (for example older `call_1` becomes `call1` while the latest turn has `call1`, or two strict9 ids that truncate or hash to the same value) gets rewritten into a duplicate of a preserved id. The transcript then holds two tool_use blocks with the same id, and the older turn's tool result can be paired with the wrong call. Add the preserved ids to `used`, and map each one to itself, before the rewrite pass."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 282,
+   "end_line": 288,
+   "message": "The skip check compares only the raw id against `preservedLatestToolCallIds` and ignores the result's position. If an older assistant turn used the same raw id as the latest turn (duplicated or replayed messages, retries, providers that reuse ids), that older tool call is rewritten through `resolve` but its tool result is left with the raw id. The older pair then no longer matches. This is the orphaned or mismatched tool-result failure the change is meant to prevent. Only skip tool results that come after `latestAssistantIndex`, or that belong to the latest turn's result block."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 269,
+   "end_line": 272,
+   "message": "The latest assistant turn is skipped whenever the policy flag is set, without checking whether its ids are valid for the target. The flag depends only on the current provider/model (github-copilot + claude). If the latest assistant message came from another provider before a model switch (for example OpenAI Responses ids like `call_x|fc_y`, or ids that aren't alphanumeric), those raw ids are now sent to a strict-id endpoint with no sanitization. Consider preserving the turn only when its ids already pass `isValidCloudCodeAssistToolId`, or only when the message's provider/model matches the current one."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 244,
+   "end_line": 260,
+   "message": "This code picks the latest assistant as any message with role `assistant`. `dropThinkingBlocks` in `thinking.ts` instead requires `Array.isArray(content)`. If the last assistant message has non-array or missing content, the two sanitizers preserve different messages. One then rewrites the turn the other treated as the protected latest turn. Share one helper so both pick the same message."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/agents/pi-embedded-helpers/images.ts",
+   "start_line": 61,
+   "end_line": 65,
+   "message": "The flag only goes as far as tool-id sanitization. The rest of `sanitizeSessionMessagesImages` still rebuilds the latest assistant message: it always creates a new object, runs `sanitizeContentBlocksImages`, and in `full` mode also runs `stripThoughtSignatures` and drops empty text blocks. So the latest turn still isn't replayed verbatim in every case, even though the CodeRabbit release notes say image sanitization respects this policy. Either skip the latest assistant index here too, or correct the claim."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 219,
+   "end_line": 302,
+   "message": "No tests cover the new `preserveLatestAssistantTurn` path: latest turn left unchanged, its tool results left unchanged, older turns still sanitized, no collisions with preserved ids. The author also says TypeScript and Vitest were not run locally. The existing tool-call-id tests should be extended, especially since this is a fix for a live provider rejection."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 126000
+ }
+}

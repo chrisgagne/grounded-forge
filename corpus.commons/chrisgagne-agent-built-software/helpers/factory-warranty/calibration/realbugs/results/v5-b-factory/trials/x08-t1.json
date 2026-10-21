@@ -1,0 +1,34 @@
+{
+ "id": "x08",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.5878,
+ "codex_tokens": 32207,
+ "work": "<tmp>/replay-x08-t1-5ajzgd19",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "parser.ts:1105-1113 builds the same {type, start, anchor*, tag*, style} literal that addMappingEvent and insertFlowPairMappingEvent also build, so the shape is duplicated. The behaviour matches the old code: position is already past ':' after line 1096, the line didn't change, and the event lands at beforeKey.eventsLength. So this is only maintainability debt and stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/parser/parser.ts",
+   "line": 1105,
+   "claim": "The block MAPPING event is built as an inline object literal in splice, making a third copy of the event shape next to addMappingEvent (line 131) and insertFlowPairMappingEvent (line 151).",
+   "evidence": "Lines 1105-1113 call `state.events.splice(beforeKey.eventsLength, 0, { type: EVENT_ID.MAPPING, start: beforeKey.position, anchorStart: props.anchorStart, ... style: COLLECTION_STYLE.BLOCK })`. insertFlowPairMappingEvent (line 151) already does the same splice-at-snapshot, but it hard-codes NO_RANGE properties and FLOW style. addMappingEvent (line 131) builds the same object but pushes it instead of inserting it. I traced the logic and found it equivalent to the removed restore-and-reparse path: position ends just past ':', the event lands at index beforeKey.eventsLength as the callers at lines 1225 and 1289 expect, and `ch` is reassigned at line 1154 before it is read again. So this is maintainability debt only. Generalising insertFlowPairMappingEvent to take props and style would remove the copy.",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

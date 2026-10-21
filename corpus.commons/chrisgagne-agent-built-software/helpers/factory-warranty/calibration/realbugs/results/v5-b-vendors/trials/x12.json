@@ -1,0 +1,47 @@
+{
+ "id": "x12",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "conversions.js",
+   "start_line": 643,
+   "end_line": 643,
+   "message": "The new regex is unanchored, so it matches any run of 3 hex characters inside a longer string. Inputs that used to fall through to [0,0,0] now give wrong colors. For example, 4- or 5-digit strings like 'abcd' or '#12345' match their first 3 characters and get expanded ('abcd' becomes 'aabbcc'), and junk like 'bad-color' or 'face' now parses as a color. To accept only exact 3- or 6-digit hex, anchor the pattern, e.g. /^#?([a-f0-9]{6}|[a-f0-9]{3})$/i, or otherwise check the whole input."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "conversions.js",
+   "start_line": 643,
+   "end_line": 650,
+   "message": "This breaks numeric input. The function calls args.toString(16), and that output has no leading zeros. So the number 0x000FFF becomes 'fff', which is now treated as CSS shorthand and returns white [255,255,255] instead of [0,15,255]. Likewise 0x00ABCD becomes 'abcd', which now matches 'abc' and gives [170,187,204]. Before this change these inputs returned [0,0,0]; now they silently return a wrong color. Shorthand expansion should only apply to string input, and numbers should be converted directly or zero-padded to 6 digits."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "test/basic.js",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "There is only one test, for the plain 3-character case. Nothing covers '#abc', 4/5-digit or malformed strings, or numeric input. Those are exactly the cases where the new regex goes wrong, so the regressions above would not be caught."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 21,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 22,
+   "cost_usd": 0.057407799999999995,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 22
+ },
+ "stopped": false
+}

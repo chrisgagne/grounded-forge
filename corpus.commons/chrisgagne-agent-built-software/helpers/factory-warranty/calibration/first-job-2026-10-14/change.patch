@@ -1,0 +1,357 @@
+From 197e52c1faa897007d45083c7eca8b7f35a8585f Mon Sep 17 00:00:00 2001
+From: factory <factory@localhost>
+Date: Wed, 14 Oct 2026 14:11:00 +1300
+Subject: [PATCH 1/2] factory: acceptance tests for
+ 20261014-135052-flag-code-that-evaluates-strings
+
+---
+ tests/test_eval_rule.py | 259 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 259 insertions(+)
+ create mode 100644 tests/test_eval_rule.py
+
+diff --git a/tests/test_eval_rule.py b/tests/test_eval_rule.py
+new file mode 100644
+index 0000000..94bd069
+--- /dev/null
++++ b/tests/test_eval_rule.py
+@@ -0,0 +1,259 @@
++"""The pinned rules flag code that evaluates a string built at run time: JavaScript/TypeScript `eval` and
++`new Function`, Python `eval` and `exec`. A string literal argument isn't flagged, nor is a method that happens to share
++the name. The gate's static scan and the factory check block such a call on an added line."""
++import json
++import os
++import shutil
++import subprocess
++
++import pytest
++from conftest import make_app
++
++from factory import check
++from factory.ledger import Change
++from factory.stages import gate
++from factory.stages.tests import write_lock
++
++needs = pytest.mark.skipif(not shutil.which("semgrep"), reason="needs semgrep")
++
++
++def scan(tmp_path, files: dict) -> list[dict]:
++    """Every result the pinned rules report on `files` (name -> text), written to a fresh folder."""
++    src = tmp_path / "scan"
++    src.mkdir()
++    for name, text in files.items():
++        (src / name).write_text(text)
++    out = subprocess.run(["semgrep", "scan", "--config", str(gate.PINNED_RULES), "--metrics=off", "--json", "--quiet",
++                          "--disable-version-check", "--disable-nosem", *files], cwd=src, capture_output=True,
++                         text=True, env={**os.environ, "SEMGREP_SETTINGS_FILE": str(tmp_path / "s.yml"),
++                                         "SEMGREP_LOG_FILE": str(tmp_path / "log"),
++                                         "SEMGREP_VERSION_CACHE_PATH": str(tmp_path / "v")})
++    report = json.loads(out.stdout)
++    assert out.returncode == 0 and report["errors"] == []
++    return report["results"]
++
++
++def flagged(tmp_path, files: dict) -> set[tuple[str, int]]:
++    """(file, line) of every line the pinned rules report on."""
++    return {(r["path"].removeprefix("./"), r["start"]["line"]) for r in scan(tmp_path, files)}
++
++
++@needs
++def test_pinned_rules_flag_javascript_eval_of_a_built_string(tmp_path):
++    js = ('const code = "1 + 1";\n'
++          "eval(code);\n"
++          'eval("return " + code);\n'
++          "eval(`${code} * 2`);\n"
++          "module.exports = { code };\n")
++    assert flagged(tmp_path, {"run.js": js}) == {("run.js", 2), ("run.js", 3), ("run.js", 4)}
++
++
++@needs
++def test_pinned_rules_flag_javascript_new_function_of_a_built_string(tmp_path):
++    js = ('const body = "return a + b";\n'
++          "const n = 2;\n"
++          "const f1 = new Function(body);\n"
++          'const f2 = new Function("a", "b", body);\n'
++          'const f3 = new Function("a", "return a * " + n);\n'
++          'const f4 = new Function("a", `return a * ${n}`);\n'
++          'const f5 = new Function(body.slice(0, 1), "return 1");\n'
++          "module.exports = { f1, f2, f3, f4, f5 };\n")
++    assert flagged(tmp_path, {"make.js": js}) == {("make.js", line) for line in (3, 4, 5, 6, 7)}
++
++
++@needs
++def test_pinned_rules_flag_typescript_eval_and_new_function(tmp_path):
++    ts = ('const x: string = "1 + 1";\n'
++          "export const a: number = eval(x);\n"
++          "export const f = new Function(x);\n"
++          'export const g = new Function("a", x);\n')
++    assert flagged(tmp_path, {"run.ts": ts}) == {("run.ts", 2), ("run.ts", 3), ("run.ts", 4)}
++
++
++@needs
++def test_pinned_rules_flag_python_eval_and_exec_of_a_built_string(tmp_path):
++    py = ('code = "1 + 1"\n'
++          "eval(code)\n"
++          "exec(code)\n"
++          'eval(f"{code} * 2")\n'
++          'exec("x = " + code)\n'
++          "eval(code, {}, {})\n"
++          'exec(code, {"__builtins__": {}})\n'
++          "exec(code, globals(), locals())\n")
++    assert flagged(tmp_path, {"run.py": py}) == {("run.py", line) for line in range(2, 9)}
++
++
++@needs
++def test_pinned_rules_do_not_flag_eval_of_a_string_literal(tmp_path):
++    ok_js = ('export const a = eval("1 + 1");\n'
++             "export const b = eval('2 * 3');\n"
++             'export const f = new Function("return 1");\n'
++             'export const g = new Function("a", "b", "return a + b");\n')
++    ok_ts = ('export const a: number = eval("1 + 1");\n'
++             'export const f = new Function("return 1");\n')
++    ok_py = ('eval("1 + 1")\n'
++             "exec('x = 1')\n"
++             'exec("y = 2")\n')
++    # one built string per language shows the rules ran over these files
++    bad_js = "export const run = (input) => eval(input);\n"
++    bad_py = "def run(code):\n    exec(code)\n"
++    hits = flagged(tmp_path, {"ok.js": ok_js, "ok.ts": ok_ts, "ok.py": ok_py, "bad.js": bad_js, "bad.py": bad_py})
++    assert hits == {("bad.js", 1), ("bad.py", 2)}
++
++
++@needs
++def test_pinned_rules_do_not_flag_methods_named_eval_or_exec(tmp_path):
++    ok_js = ("const pattern = /a+/g;\n"
++             'const text = "aaa";\n'
++             "export const m = pattern.exec(text);\n"
++             "export const r = (calc, expr) => calc.eval(expr);\n")
++    ok_py = ("def run(obj, expr, engine, code):\n"
++             "    obj.eval(expr)\n"
++             "    engine.exec(code)\n"
++             "    return obj.eval(expr + '!')\n")
++    bad_js = "export const run = (input) => eval(input);\n"
++    bad_py = "def run(code):\n    exec(code)\n"
++    hits = flagged(tmp_path, {"ok.js": ok_js, "ok.py": ok_py, "bad.js": bad_js, "bad.py": bad_py})
++    assert hits == {("bad.js", 1), ("bad.py", 2)}
++
++
++@needs
++def test_sql_rule_results_are_unchanged_by_the_new_rule(tmp_path):
++    results = scan(tmp_path, {
++        "bad.js": "export const f = (db, q) => db.prepare(`SELECT * FROM notes WHERE title LIKE '%${q}%'`).all();\n",
++        "ok.js": "export const g = (db) => db.exec(`CREATE TABLE IF NOT EXISTS t (id INTEGER)`);\n"
++                 "export const h = (db, q) => db.prepare('SELECT * FROM t WHERE id = ?').get(q);\n",
++        "evil.js": "export const run = (input) => eval(input);\n"})
++    sql = [(r["path"], r["start"]["line"]) for r in results if r["check_id"].endswith("sql-built-from-strings")]
++    assert sql == [("bad.js", 1)]
++    assert [r["start"]["line"] for r in results if r["path"] == "bad.js"] == [1]  # once, by any pinned rule
++    assert not [r for r in results if r["path"] == "ok.js"]
++    assert [r["start"]["line"] for r in results if r["path"] == "evil.js"]  # the new rule is in the same scan
++
++
++def new_change(tmp_path, name="e1") -> Change:
++    app = make_app(tmp_path)
++    story = tmp_path / "s.md"
++    story.write_text("# Flag code that evaluates strings\n")
++    change = Change.create(app, story, change_id=name)
++    write_lock(change)
++    return change
++
++
++def commit(change, files: dict) -> None:
++    for rel, text in files.items():
++        p = change.worktree / rel
++        p.parent.mkdir(parents=True, exist_ok=True)
++        p.write_text(text)
++    change.commit_all("build")
++
++
++@needs
++def test_gate_fails_a_change_that_adds_javascript_eval_of_a_variable(tmp_path):
++    change = new_change(tmp_path)
++    commit(change, {"src/run.js": "const input = process.argv[2];\neval(input);\n"})
++    change.start("gate")
++    ev = gate.sast(change)
++    assert ev["status"] == "fail" and "src/run.js:2" in ev["reason"]
++
++
++@needs
++def test_gate_fails_a_change_that_adds_python_exec_of_a_variable(tmp_path):
++    change = new_change(tmp_path)
++    commit(change, {"src/run.py": "import sys\n\ncode = sys.argv[1]\nexec(code)\n"})
++    change.start("gate")
++    ev = gate.sast(change)
++    assert ev["status"] == "fail" and "src/run.py:4" in ev["reason"]
++
++
++@needs
++def test_gate_passes_a_change_that_adds_only_literal_eval(tmp_path):
++    change = new_change(tmp_path)
++    js = ('export const a = eval("1 + 1");\n'
++          'export const f = new Function("a", "return a * 2");\n')
++    py = 'eval("1 + 1")\nexec("x = 1")\n'
++    commit(change, {"src/calc.js": js, "src/calc.py": py})
++    change.start("gate")
++    ev = gate.sast(change)
++    assert ev["status"] == "pass" and ev["preexisting"] == 0 and not ev.get("findings")
++    commit(change, {"src/calc.py": py + "exec(input())\n"})  # the same scan does block a built string here
++    ev = gate.sast(change)
++    assert ev["status"] == "fail" and "src/calc.py:3" in ev["reason"]
++
++
++@needs
++def test_gate_does_not_block_an_eval_already_present_at_the_baseline(tmp_path):
++    change = new_change(tmp_path)
++    commit(change, {"src/run.js": "const input = process.argv[2];\neval(input);\n"})  # already there at the baseline...
++    change.baseline = change.head()
++    commit(change, {"src/run.js": "const input = process.argv[2];\neval(input);\nconsole.log('done');\n"})  # ...+1 line
++    change.start("gate")
++    ev = gate.sast(change)
++    assert ev["status"] == "pass" and ev["preexisting"] >= 1
++
++
++@needs
++def test_nosemgrep_comment_does_not_hide_an_eval_finding(tmp_path):
++    change = new_change(tmp_path)
++    commit(change, {"src/run.js": "const input = process.argv[2];\neval(input); // nosemgrep\n"})
++    change.start("gate")
++    ev = gate.sast(change)
++    assert ev["status"] == "fail" and "src/run.js:2" in ev["reason"]
++
++
++def sh(cwd, *args):
++    subprocess.run(args, cwd=cwd, check=True, capture_output=True)
++
++
++@pytest.fixture
++def wt(tmp_path):
++    w = tmp_path / "wt"
++    (w / "src").mkdir(parents=True)
++    (w / "src" / "a.js").write_text("const a = 1\nmodule.exports = { a }\n")
++    sh(w, "git", "init", "-q", "-b", "main")
++    sh(w, "git", "add", "-A")
++    sh(w, "git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "base")
++    return w
++
++
++def spec(tmp_path, wt):
++    base = subprocess.run(["git", "rev-parse", "HEAD"], cwd=wt, capture_output=True, text=True).stdout.strip()
++    f = tmp_path / "check.json"
++    f.write_text(json.dumps({"worktree": str(wt), "baseline": base, "semgrep_configs": [str(gate.PINNED_RULES)],
++                             "commands": {"test": "echo ran > ran.txt"}}))
++    return str(f)
++
++
++@needs
++def test_check_blocks_the_command_when_the_leg_adds_javascript_eval(tmp_path, wt, capsys):
++    f = spec(tmp_path, wt)
++    (wt / "src" / "run.js").write_text("module.exports = (input) => eval(input)\n")
++    capsys.readouterr()
++    assert check.main([f, "test"]) == check.BLOCKED
++    assert not (wt / "ran.txt").exists() and "src/run.js" in capsys.readouterr().out
++    (wt / "src" / "run.js").unlink()
++    (wt / "src" / "make.js").write_text('module.exports = (body) => new Function("a", body)\n')
++    assert check.main([f, "test"]) == check.BLOCKED
++    assert not (wt / "ran.txt").exists() and "src/make.js" in capsys.readouterr().out
++
++
++@needs
++def test_check_blocks_the_command_when_the_leg_adds_python_exec(tmp_path, wt):
++    f = spec(tmp_path, wt)
++    (wt / "src" / "run.py").write_text("def run(code):\n    exec(code)\n")
++    assert check.main([f, "test"]) == check.BLOCKED
++    assert not (wt / "ran.txt").exists()
++    (wt / "src" / "run.py").write_text("def run(code):\n    return eval(code)\n")
++    assert check.main([f, "test"]) == check.BLOCKED
++    assert not (wt / "ran.txt").exists()
++
++
++@needs
++def test_check_runs_the_command_when_the_leg_adds_only_literal_eval(tmp_path, wt):
++    f = spec(tmp_path, wt)
++    (wt / "src" / "calc.py").write_text("def run(code):\n    exec(code)\n")
++    assert check.main([f, "test"]) == check.BLOCKED  # a built string blocks...
++    (wt / "src" / "calc.py").write_text('def run():\n    exec("x = 1")\n    return eval("1 + 1")\n')
++    (wt / "src" / "calc.js").write_text('module.exports = { a: eval("1 + 1"), f: new Function("return 1") }\n')
++    assert check.main([f, "test"]) == 0  # ...and once every argument is a literal, the command runs
++    assert (wt / "ran.txt").exists()
+-- 
+2.50.1 (Apple Git-155)
+
+
+From e963be53a848f240d8c4e405ae7967ff2e29494c Mon Sep 17 00:00:00 2001
+From: factory <factory@localhost>
+Date: Wed, 14 Oct 2026 14:22:59 +1300
+Subject: [PATCH 2/2] factory: build
+ 20261014-135052-flag-code-that-evaluates-strings
+
+---
+ .../semgrep/code-evaluated-from-strings.yml   | 57 +++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+ create mode 100644 factory/rules/semgrep/code-evaluated-from-strings.yml
+
+diff --git a/factory/rules/semgrep/code-evaluated-from-strings.yml b/factory/rules/semgrep/code-evaluated-from-strings.yml
+new file mode 100644
+index 0000000..0e2c301
+--- /dev/null
++++ b/factory/rules/semgrep/code-evaluated-from-strings.yml
+@@ -0,0 +1,57 @@
++# factory's pinned semgrep rules, run by the gate alongside the configured ruleset.
++# OWASP Top 10 for Agentic Applications ASI05: code that evaluates a string assembled at run time runs something
++# nobody reviewed. Only a plain string literal argument is taken as fixed; a variable is flagged even if it holds one,
++# so constant propagation is off (with it on, "..." matches a variable assigned a literal).
++rules:
++  - id: factory.js-eval-of-a-built-string
++    languages: [javascript, typescript]
++    severity: ERROR
++    message: >-
++      eval runs a string built at run time. Whatever ends up in that string runs as code (ASI05); call the code
++      directly, or parse the data (JSON.parse) instead of evaluating it.
++    metadata:
++      cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
++      source: factory pinned ruleset
++    options:
++      constant_propagation: false
++    patterns:
++      - pattern: eval($CODE, ...)
++      - pattern-not: eval("...", ...)
++
++  - id: factory.js-new-function-of-a-built-string
++    languages: [javascript, typescript]
++    severity: ERROR
++    message: >-
++      new Function compiles a string built at run time. Whatever ends up in that string runs as code (ASI05); write
++      the function in the source instead.
++    metadata:
++      cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
++      source: factory pinned ruleset
++    options:
++      constant_propagation: false
++    patterns:
++      - pattern: new Function(..., $ARG, ...)
++      - metavariable-pattern:
++          metavariable: $ARG
++          patterns:
++            - pattern: $ANY
++            - pattern-not: '"..."'
++
++  - id: factory.python-eval-of-a-built-string
++    languages: [python]
++    severity: ERROR
++    message: >-
++      $FN runs a string built at run time. Whatever ends up in that string runs as code (ASI05); call the code
++      directly, or parse the data (json.loads, ast.literal_eval) instead of evaluating it.
++    metadata:
++      cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
++      source: factory pinned ruleset
++    options:
++      constant_propagation: false
++    patterns:
++      - pattern-either:
++          - pattern: eval($CODE, ...)
++          - pattern: exec($CODE, ...)
++      - pattern-not: eval("...", ...)
++      - pattern-not: exec("...", ...)
++      - pattern: $FN(...)
+-- 
+2.50.1 (Apple Git-155)
+

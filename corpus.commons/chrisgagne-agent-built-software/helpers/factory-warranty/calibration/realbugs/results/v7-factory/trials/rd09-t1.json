@@ -1,0 +1,337 @@
+{
+ "id": "rd09",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 1.5252,
+ "codex_tokens": 54429,
+ "work": "<tmp>/replay-rd09-t1-w4hylsz1",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The create.ts options schema has appleApiKeyFile and appleIssuerId but no appleApiKeyId. Line 53 declares appleApiKeyId as undefined and nothing ever sets it. When a run is non-interactive, the check at line 242 always exits 1, and it does so after appAppleApiKeysService.create has uploaded the key. The error text at line 212 says this path works.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "line": 242,
+   "claim": "An iOS destination that uses API-key auth can't be created non-interactively, because there is no --apple-api-key-id option. The .p8 key is uploaded before the command exits.",
+   "evidence": "The options schema (lines 17-35) declares appleApiKeyFile and appleIssuerId but no appleApiKeyId. Line 53 declares `let appleApiKeyId: string | undefined;` and nothing ever sets it from options. Trace: `apps:destinations:create --app-id A --name N --platform ios --apple-api-key-file k.p8 --apple-issuer-id I --apple-team-id T` in CI sets authMethod='apiKey' (line 194). It reads the file and calls appAppleApiKeysService.create (lines 233-240), then reaches `if (!appleApiKeyId) { if (!isInteractive()) { consola.error('You must provide the Apple API Key ID ...'); process.exit(1);` at lines 242-246. The non-interactive error message at line 212 tells users this path takes --apple-api-key-file and --apple-issuer-id, but it can never succeed.",
+   "breaks": "story",
+   "axis_row": "L3.9",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/commands/apps/destinations/create.ts",
+     "line": 242,
+     "claim": "You can't create an iOS destination that uses API-key authentication in a non-interactive (CI) run: the Apple API Key ID has no CLI option, so the command always exits with an error, and it only does so after the .p8 private key has already been uploaded.",
+     "evidence": "The options schema (lines 17-35) declares appleApiKeyFile and appleIssuerId but no appleApiKeyId. Line 53 declares `let appleApiKeyId: string | undefined;` and nothing ever sets it from options. Trace: `apps:destinations:create --app-id A --name N --platform ios --apple-api-key-file k.p8 --apple-issuer-id I --apple-team-id T` in CI sets authMethod='apiKey' (line 194). It reads the file and calls appAppleApiKeysService.create (lines 233-240), then reaches `if (!appleApiKeyId) { if (!isInteractive()) { consola.error('You must provide the Apple API Key ID ...'); process.exit(1);` at lines 242-246. The non-interactive error message at line 212 tells users this path takes --apple-api-key-file and --apple-issuer-id, but it can never succeed."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/commands/apps/destinations/create.ts",
+     "line": 53,
+     "claim": "Creating an iOS destination with API-key authentication always fails in non-interactive mode because the Apple API key ID cannot be supplied.",
+     "evidence": "The options schema omits appleApiKeyId and the action initializes it to undefined. With --platform ios, --apple-api-key-file and --apple-issuer-id, the action uploads the key, then reaches if (!appleApiKeyId) and exits with status 1 when non-interactive, before appDestinationsService.create is called."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The Apple key upload (line ~233) comes before the Key ID, Issuer ID and Team ID checks, each of which can call process.exit(1). The Google key upload comes before appDestinationsService.create, and certificates/create.ts uploads profiles before appCertificatesService.create. Nothing rolls these back, and the new key services expose only create. Combined with C1, every non-interactive API-key run leaves an orphaned key.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/commands/apps/destinations/create.ts",
+   "line": 233,
+   "claim": "Signing keys and provisioning profiles are uploaded before validation finishes and before the parent record is created, so a later failure leaves them orphaned on the server.",
+   "evidence": "The Apple key is uploaded by appAppleApiKeysService.create at lines 233-240, before the Key ID, Issuer ID and Team ID checks (lines 242-315), any of which can call process.exit(1). The Google key is uploaded at lines 180-187, before appDestinationsService.create at line 318. If that create fails, nothing cleans up. The new services (app-apple-api-keys.ts, app-google-service-account-keys.ts) expose only create, with no delete. The same ordering appears in certificates/create.ts lines 158-169: provisioning profiles are uploaded before appCertificatesService.create, and nothing rolls them back if that call fails.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/commands/apps/destinations/create.ts",
+     "line": 233,
+     "claim": "Signing credentials are uploaded to the server before the rest of the input is validated and before the destination is created, so any later failure leaves an orphaned Apple .p8 or Google service-account key on the server, linked to nothing and with no CLI command to remove it.",
+     "evidence": "The Apple key is uploaded by appAppleApiKeysService.create at lines 233-240, before the Key ID, Issuer ID and Team ID checks (lines 242-315), any of which can call process.exit(1). The Google key is uploaded at lines 180-187, before appDestinationsService.create at line 318. If that create fails, nothing cleans up. The new services (app-apple-api-keys.ts, app-google-service-account-keys.ts) expose only create, with no delete. The same ordering appears in certificates/create.ts lines 158-169: provisioning profiles are uploaded before appCertificatesService.create, and nothing rolls them back if that call fails."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the diff, certificates/create.ts calls prompt('Enter the certificate password:', { type: 'text' }), and does the same for the key password and for appleAppPassword in destinations/create.ts. The prompt wrapper in utils/prompt.ts passes the options straight to consola.prompt with no masking.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/commands/apps/certificates/create.ts",
+   "line": 119,
+   "claim": "Certificate password, key password and Apple app-specific password are prompted with an echoing text input.",
+   "evidence": "certificates/create.ts line 119 has `password = await prompt('Enter the certificate password:', { type: 'text' });` and line 139 has `keyPassword = await prompt('Enter the key password ...', { type: 'text' });`. destinations/create.ts line 296 has `appleAppPassword = await prompt('Enter the App-specific password:', { type: 'text' });`. None of these prompts masks its input.",
+   "axis_row": "L5.37",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/commands/apps/certificates/create.ts",
+     "line": 119,
+     "claim": "Secret values (certificate password, key password, Apple app-specific password) are prompted with an echoing text input, so they appear on screen and in any recorded terminal session.",
+     "evidence": "certificates/create.ts line 119 has `password = await prompt('Enter the certificate password:', { type: 'text' });` and line 139 has `keyPassword = await prompt('Enter the key password ...', { type: 'text' });`. destinations/create.ts line 296 has `appleAppPassword = await prompt('Enter the App-specific password:', { type: 'text' });`. None of these prompts masks its input."
+    },
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/commands/apps/certificates/create.ts",
+     "line": 119,
+     "claim": "Interactive password prompts expose signing and publishing credentials as visible terminal text.",
+     "evidence": "Certificate creation prompts for the certificate password with { type: 'text' } at line 119 and the key password the same way at line 139. Destination creation likewise prompts for appleAppPassword with type: 'text'. The shared prompt wrapper forwards these options to consola.prompt without masking them, exposing entered secrets to terminal observers or recordings."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "disputed",
+   "reason": "AppDestinationDto declares appleAppPassword: string | null, and get.ts and list.ts print the whole object with console.log or console.table. Whether the API actually returns the secret can't be determined from the client code.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/commands/apps/destinations/get.ts",
+   "line": 71,
+   "claim": "destinations get/list may print the Apple app-specific password, because the whole DTO is dumped with no redaction.",
+   "evidence": "The new AppDestinationDto in src/types/app-destination.ts declares `appleAppPassword: string | null;`. get.ts lines 72-75 run `console.log(JSON.stringify(destination, null, 2))` or `console.table(destination)`, and list.ts lines 43-46 do the same for every destination. If the API returns the field as the type says, the secret is written to output.",
+   "breaks": "story",
+   "axis_row": "L5.37",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/commands/apps/destinations/get.ts",
+     "line": 71,
+     "claim": "`destinations:get` and `destinations:list` may print the Apple app-specific password in plaintext to the terminal or CI log, because the whole response object goes to the console with no redaction.",
+     "evidence": "The new AppDestinationDto in src/types/app-destination.ts declares `appleAppPassword: string | null;`. get.ts lines 72-75 run `console.log(JSON.stringify(destination, null, 2))` or `console.table(destination)`, and list.ts lines 43-46 do the same for every destination. If the API returns the field as the type says, the secret is written to output."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "disputed",
+   "reason": "prompt.ts:46 now passes limit: 50, while the re-fetch at line 57 passes no limit. Whether this narrows the list depends on the server's default page size, which the repo doesn't show. Lowered to low because it's a scope or consistency issue with no proven trigger.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/utils/prompt.ts",
+   "line": 46,
+   "claim": "The unrequested limit: 50 caps interactive app selection for every command.",
+   "evidence": "The diff changes `appsService.findAll({ organizationId })` to `appsService.findAll({ organizationId, limit: 50 })` and adds limit support in services/apps.ts. There's no pagination or search fallback. The re-fetch after creating an app (line 57) still calls findAll without a limit, so the two calls are inconsistent. More than 20 commands call this helper, and none of them are certificate or destination commands.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/utils/prompt.ts",
+     "line": 46,
+     "claim": "An unrequested change caps interactive app selection at 50 apps for every command that uses promptAppSelection, so users in organizations with more apps silently can't pick the rest.",
+     "evidence": "The diff changes `appsService.findAll({ organizationId })` to `appsService.findAll({ organizationId, limit: 50 })` and adds limit support in services/apps.ts. There's no pagination or search fallback. The re-fetch after creating an app (line 57) still calls findAll without a limit, so the two calls are inconsistent. More than 20 commands call this helper, and none of them are certificate or destination commands."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "disputed",
+   "reason": "delete.ts takes certificates[0] from findAll({name, platform}), destinations/delete.ts does the same, and neither checks the match. Whether the server's name filter is exact can't be seen in the code, so a wrong-target delete isn't traced. Lowered to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/commands/apps/certificates/delete.ts",
+   "line": 37,
+   "claim": "Delete by --name/--platform removes the first match without checking for a unique, exact match.",
+   "evidence": "Lines 37-43: `const certificates = await appCertificatesService.findAll({ appId, name, platform }); const firstCertificate = certificates[0]; ... certificateId = firstCertificate.id;`. The command never checks that exactly one result came back or that its name matches exactly. The DTO's `nameLower` field suggests the server matches names case-insensitively. destinations/delete.ts lines 34-38 have the same pattern.",
+   "axis_row": "L2.4",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/commands/apps/certificates/delete.ts",
+     "line": 37,
+     "claim": "Deleting by --name and --platform removes whichever certificate the server returns first, without showing which one it matched. If the server's name filter is case-insensitive or partial, the wrong certificate may be deleted irreversibly, and with --yes or in CI nothing asks for confirmation first.",
+     "evidence": "Lines 37-43: `const certificates = await appCertificatesService.findAll({ appId, name, platform }); const firstCertificate = certificates[0]; ... certificateId = firstCertificate.id;`. The command never checks that exactly one result came back or that its name matches exactly. The DTO's `nameLower` field suggests the server matches names case-insensitively. destinations/delete.ts lines 34-38 have the same pattern."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds no *.test.ts files for the certificate or destination commands, while existing commands such as channels/delete have tests next to them. Lowered to low because missing tests are a maintainability point, not a defect in themselves.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/commands/apps/certificates/create.ts",
+   "line": 59,
+   "claim": "10 new commands and 4 new services ship with no tests.",
+   "evidence": "The diff adds src/commands/apps/certificates/{create,delete,get,list,update}.ts, src/commands/apps/destinations/{create,delete,get,list,update}.ts and new services, but no *.test.ts files. Existing commands such as channels/delete.ts and apps/delete.ts have tests next to them (channels/delete.test.ts, delete.test.ts).",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/commands/apps/certificates/create.ts",
+     "line": 59,
+     "claim": "The change adds 10 new commands and 4 new services that handle credentials and deletes, with no tests. None of the non-interactive validation paths, the upload ordering or the API-key destination flow are exercised, which is how the API-key destination defect above went unnoticed.",
+     "evidence": "The diff adds src/commands/apps/certificates/{create,delete,get,list,update}.ts, src/commands/apps/destinations/{create,delete,get,list,update}.ts and new services, but no *.test.ts files. Existing commands such as channels/delete.ts and apps/delete.ts have tests next to them (channels/delete.test.ts, delete.test.ts)."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The password, keyPassword and appleAppPassword options are plain z.string() flags in the create and update commands, and none of them is read from the environment.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/commands/apps/certificates/create.ts",
+   "line": 21,
+   "claim": "Passwords are accepted only as CLI flags, which exposes them in shell history and the process list.",
+   "evidence": "certificates/create.ts has `password: z.string().optional().describe('Password for the certificate.')` and `keyPassword: z.string().optional()`. destinations/create.ts has `appleAppPassword: z.string().optional()`. certificates/update.ts and destinations/update.ts have the same flags. No code reads these secrets from the environment.",
+   "axis_row": "L5.33",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/commands/apps/certificates/create.ts",
+     "line": 21,
+     "claim": "Passwords are accepted as command-line flags (--password, --key-password, --apple-app-password), which leaves them in shell history and the process list, and there's no environment-variable alternative.",
+     "evidence": "certificates/create.ts has `password: z.string().optional().describe('Password for the certificate.')` and `keyPassword: z.string().optional()`. destinations/create.ts has `appleAppPassword: z.string().optional()`. certificates/update.ts and destinations/update.ts have the same flags. No code reads these secrets from the environment."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "update.ts prompts for certificateId with no empty check, calls update even when every field is undefined, and then prints success. destinations/update.ts does the same.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/commands/apps/certificates/update.ts",
+   "line": 41,
+   "claim": "The update commands accept an empty ID and report success even when no field changes.",
+   "evidence": "certificates/update.ts line 41 is `certificateId = await prompt('Enter the certificate ID:', { type: 'text' });`, and nothing checks for an empty value. appCertificatesService.update is then called with every field undefined, followed by `consola.success('Certificate updated successfully.')`. destinations/update.ts lines 66-87 behave the same way.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/commands/apps/certificates/update.ts",
+     "line": 41,
+     "claim": "The update commands report success even when no field was supplied, and in interactive mode they accept an empty certificate or destination ID, which builds a request to a malformed URL.",
+     "evidence": "certificates/update.ts line 41 is `certificateId = await prompt('Enter the certificate ID:', { type: 'text' });`, and nothing checks for an empty value. appCertificatesService.update is then called with every field undefined, followed by `consola.success('Certificate updated successfully.')`. destinations/update.ts lines 66-87 behave the same way."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "fs.readFileSync is called on user-supplied paths in certificates/create.ts and destinations/create.ts with no existence check and no try/catch.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/commands/apps/certificates/create.ts",
+   "line": 154,
+   "claim": "A bad file path throws an uncaught ENOENT instead of a clear CLI error.",
+   "evidence": "Line 154 is `const buffer = fs.readFileSync(file);` and line 161 is `fs.readFileSync(profilePath)`, with no existence check or try/catch. destinations/create.ts lines 180 and 233 call fs.readFileSync on user-supplied paths the same way.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/commands/apps/certificates/create.ts",
+     "line": 154,
+     "claim": "A wrong certificate or profile path throws an uncaught ENOENT with a stack trace instead of a clear CLI error.",
+     "evidence": "Line 154 is `const buffer = fs.readFileSync(file);` and line 161 is `fs.readFileSync(profilePath)`, with no existence check or try/catch. destinations/create.ts lines 180 and 233 call fs.readFileSync on user-supplied paths the same way."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "certificates get/delete and destinations get/delete contain nearly identical name/platform/select branching. This is a maintainability point only.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/commands/apps/destinations/get.ts",
+   "line": 31,
+   "claim": "The lookup/select block is duplicated across the get and delete commands.",
+   "evidence": "certificates/get.ts lines 34-71, certificates/delete.ts lines 35-72, destinations/get.ts lines 31-62 and destinations/delete.ts lines 33-66 contain the same branching. Only the service and the label text differ.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/commands/apps/destinations/get.ts",
+     "line": 31,
+     "claim": "The get and delete commands repeat the same lookup-by-name, platform-select and certificate/destination-select block almost verbatim, so a fix to one copy (such as the first-match issue above) can easily miss the others.",
+     "evidence": "certificates/get.ts lines 34-71, certificates/delete.ts lines 35-72, destinations/get.ts lines 31-62 and destinations/delete.ts lines 33-66 contain the same branching. Only the service and the label text differ."
+    }
+   ],
+   "id": "F11"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5",
+  "F6",
+  "F7"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

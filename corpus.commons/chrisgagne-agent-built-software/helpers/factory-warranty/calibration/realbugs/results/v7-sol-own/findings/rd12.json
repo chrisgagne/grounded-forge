@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 198,
+  "base": "949c62fe2ace8c41d41dd9d7dfd7b51ab268d25f",
+  "head": "76a992582e9e73897987a43bd520bb581f0e7ce7"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 1,
+   "end_line": 4,
+   "message": "Refresh golden fixtures when adding the core skill. Adding this directory automatically includes the skill in generated Claude output through `SkillsAssembler.selectCoreSkills()`, but none of the golden fixtures are updated. `GoldenFileTest` rejects extra generated files, so the existing golden comparisons will fail. Regenerate the affected fixtures alongside the new resource."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 437,
+   "end_line": 442,
+   "message": "Keep test and implementation phases separate during merging. An Architect GREEN proposal and its QA RED proposal can target the same component and layer, so this rule merges them into one task while retaining their dependencies. This destroys the test-first pair and can introduce a self-dependency when the corresponding GREEN task is also merged. Restrict merging to compatible task purposes and TDD phases, and remap dependencies after consolidation."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 100,
+   "end_line": 104,
+   "message": "Avoid invalidating freshness with generated story updates. Phase 4.1 writes the tasks file before Phase 4.5 updates the story, making the story newer than the tasks file after a successful run. Consequently, the next invocation regenerates all five agents even when the user changed nothing. Record freshness after all generated story edits, or compare source content excluding generated sections."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 715,
+   "end_line": 717,
+   "message": "Persist the plans required by mandatory readiness checks. For a story without pre-existing plans, Phase 4 writes task artifacts and summary reports but never writes the architecture or implementation plan files required by checks 1 and 9. Those checks explicitly require files, so a successful planning run can still produce NOT_READY solely because its own required outputs were not generated. Persist the full agent plans and test/security assessments so both initial validation and reuse in a later session have the required evidence."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

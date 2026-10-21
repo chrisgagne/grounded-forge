@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/android",
+  "pr_number": 11084,
+  "base": "e67a3fd36ca5e24b0007a170ea77037e4437f9d3",
+  "head": "ac02d09a29b6492b0e1a01b48f5fcb3efa561a6c"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 276,
+   "end_line": 279,
+   "message": "Remove stale prelink copies before swapping publish items. If a legacy library is rebuilt or upgraded so it no longer needs designer rewriting, `ProcessAssemblyDesigner` returns false and leaves its previous prelink copy untouched. This existence-only check then replaces the current library with that obsolete copy, silently publishing old code. Track the current rewritten assemblies in a persisted manifest or remove obsolete copies when rerunning the task, rather than treating every existing file as valid."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+   "start_line": 268,
+   "end_line": 270,
+   "message": "`_AndroidRunNativeCompile` now has DependsOnTargets=`_PreTrimmingFixLegacyDesignerUpdateItems`, but that target is only defined in Microsoft.Android.Sdk.TypeMap.LlvmIr.targets. Xamarin.Android.Common.targets imports that file only when `_AndroidTypeMapImplementation != 'trimmable'`. NativeAOT supports the trimmable typemap (there is a Microsoft.Android.Sdk.TypeMap.Trimmable.NativeAOT.targets), and in that configuration the build fails with MSB4057 (target does not exist). Define the target where both typemaps can see it (for example in the designer or common targets), or hook it in with BeforeTargets/AfterTargets instead of a hard DependsOnTargets."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 246,
+   "end_line": 264,
+   "message": "The prelink copies are added to FileWrites only through the task's ModifiedAssemblies output. When the target is skipped as up to date (stamp newer than its inputs), the task doesn't run, so `_PreTrimmingModifiedAssembly` is empty and no FileWrites are added. IncrementalClean then treats `$(IntermediateOutputPath)prelink/*.dll` (listed in FileListAbsolute by the previous build) as orphaned and deletes them. The stamp is kept (Common.targets adds `$(_AndroidStampDirectory)*.stamp` to FileWrites), so later builds keep skipping the task, `_PreTrimmingFixLegacyDesignerUpdateItems` finds no prelink files, and the original libraries go to ILLink. Their designer fields are no longer rooted because the descriptor was removed, and are never redirected to the designer assembly, so resource IDs are wrong or missing at runtime. Always add `$(IntermediateOutputPath)prelink/**` to FileWrites, for example in the UpdateItems target or a target that is never skipped."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 271,
+   "end_line": 281,
+   "message": "The swap replaces any ResolvedFileToPublish .dll that has a same-named file in the prelink directory, not just the assemblies this build produced. Old prelink files are never removed, so stale copies get used. Example: a library is upgraded to a version that no longer needs rewriting (or the task now leaves it alone); the old rewritten copy from an earlier build is still swapped in, which publishes outdated library code. Matching by filename only also ignores the item's original path. Swap only items backed by a manifest of the current outputs (for example, write the modified list to a file next to the stamp and read it back), and clear the prelink directory before the task writes."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 250,
+   "end_line": 251,
+   "message": "Incrementality relies only on timestamps: Inputs=@(_PreTrimmingAssembly) against a single stamp. Adding or upgrading a package reference whose extracted assembly has an mtime older than the stamp (NuGet keeps package entry timestamps) won't rerun the task. A new library is then trimmed without having its Resource field loads rewritten (resource IDs are wrong at runtime). An upgraded library is replaced by the stale prelink copy of the old version. Add a hash or list of the input paths to the inputs (for example, write the item list to a file with WriteOnlyWhenDifferent and include that file in Inputs)."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 1,
+   "end_line": 94,
+   "message": "The change adds a new task, a stamp-based target and an item-swapping target, but the only test changes are updated apkdesc size baselines. No tests cover incremental builds (a second build with no changes, adding or upgrading a library, IncrementalClean) or a library with a legacy designer actually running against the trimmed designer assembly. Those are the scenarios most likely to break, as the issues above show."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 102000
+ }
+}

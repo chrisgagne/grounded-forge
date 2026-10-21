@@ -32,6 +32,8 @@ Each distillation is a markdown file at `corpus.commons/{corpus}/distillations/{
 - **`aar-mode`**: open-corpus After-Action Review assistant. Discipline borrowed-through LFUO 2024 + NHS Just Culture + SSDL + TC 25-20; ships an `aar-facilitator` runtime agent. 
 - **`retro-mode`**: open-corpus retrospective-facilitation assistant. Discipline borrowed-through the Approach Perfect Field Guide + Open Practice Library + Liberating Structures + Open Kanban; ships a `retro-facilitator` runtime agent. 
 
+- **`factory-warranty`**: a software factory for agent-built code, grounded in 18 open sources (NIST, OWASP, CISA, UK government assurance guidance, research on AI-assisted development). The app ships the factory's harness beside its distillations; its corpus has its own README with the measurements: [`corpus.commons/chrisgagne-agent-built-software/`](corpus.commons/chrisgagne-agent-built-software/).
+
 The two ceremony profiles cross-link: `aar-mode` is the event-triggered cross-functional axis, `retro-mode` is the iterative team-internal axis. Same underlying corpus, different projection.
 
 ## What you can do from here

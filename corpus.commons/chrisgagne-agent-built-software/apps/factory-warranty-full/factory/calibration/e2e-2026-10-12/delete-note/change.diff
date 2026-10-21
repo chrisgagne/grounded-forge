@@ -1,0 +1,312 @@
+diff --git a/docs/THEORY.md b/docs/THEORY.md
+index 452e009..a9df6ae 100644
+--- a/docs/THEORY.md
++++ b/docs/THEORY.md
+@@ -56,4 +56,5 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ | `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. |
+ | `POST /notes` | yes | Create a note (`title`, `body`, up to 10 `tags`). |
+ | `GET /notes/:id` | yes | One of your notes. |
++| `DELETE /notes/:id` | yes | Delete one of your notes and its tags (`204`); someone else's or a missing note is `404`. |
+ | `POST /notes/summary` | yes | Summarise your 50 newest notes (optionally one `tag`); `email: true` also emails you the summary. |
+diff --git a/rollback.md b/rollback.md
+new file mode 100644
+index 0000000..ed3a9fc
+--- /dev/null
++++ b/rollback.md
+@@ -0,0 +1,24 @@
++# Rollback: delete a note
++
++This change adds `DELETE /notes/:id`. It has no migration and changes no schema.
++
++## Undo the code
++
++Revert the commit that adds the route (`git revert <commit>`) and redeploy. Once that's done, nobody can delete notes. Nothing in the database needs to change.
++
++## Restore deleted notes
++
++A delete is a hard delete: the `notes` row and its `note_tags` rows are removed. Reverting the code does not bring them back. The only way to recover a deleted note is from a database backup taken before the delete:
++
++```sql
++ATTACH DATABASE '/path/to/backup.db' AS backup;
++BEGIN;
++INSERT INTO notes SELECT * FROM backup.notes WHERE id = :note_id AND user_id = :user_id;
++INSERT INTO note_tags SELECT * FROM backup.note_tags WHERE note_id = :note_id;
++COMMIT;
++DETACH DATABASE backup;
++```
++
++The rehearsal makes a backup of a throwaway database, deletes a note, restores the note with the steps above, and checks that the note and its tags match what was there before.
++
++rehearse: node --disable-warning=ExperimentalWarning scripts/rehearse-rollback.js
+diff --git a/scripts/rehearse-rollback.js b/scripts/rehearse-rollback.js
+new file mode 100644
+index 0000000..12f8d80
+--- /dev/null
++++ b/scripts/rehearse-rollback.js
+@@ -0,0 +1,40 @@
++// Rehearses rollback.md against a throwaway database: back up, delete a note, restore it from the backup.
++import assert from 'node:assert/strict';
++import { mkdtempSync, rmSync } from 'node:fs';
++import { tmpdir } from 'node:os';
++import { join } from 'node:path';
++import { openDatabase } from '../src/db/index.js';
++import { migrateUp } from '../src/db/migrate.js';
++import { createNote, deleteNote, getNote } from '../src/notes/repo.js';
++
++const dir = mkdtempSync(join(tmpdir(), 'notes-rollback-'));
++try {
++  const db = openDatabase(join(dir, 'notes.db'));
++  migrateUp(db);
++  const userId = Number(
++    db
++      .prepare('INSERT INTO users (email, password_hash, name, created_at) VALUES (?, ?, ?, ?)')
++      .run('rehearsal@example.com', 'not-a-real-hash', 'Rehearsal', Date.now()).lastInsertRowid,
++  );
++  const note = createNote(db, userId, { title: 'keep', body: 'restore me', tags: ['a', 'b'], now: Date.now() });
++  assert.ok(note);
++
++  const backup = join(dir, 'backup.db');
++  db.prepare('VACUUM INTO ?').run(backup);
++  assert.equal(deleteNote(db, userId, note.id), true);
++  assert.equal(getNote(db, userId, note.id), null);
++
++  // The restore step from rollback.md.
++  db.prepare('ATTACH DATABASE ? AS backup').run(backup);
++  db.exec('BEGIN');
++  db.prepare('INSERT INTO notes SELECT * FROM backup.notes WHERE id = ? AND user_id = ?').run(note.id, userId);
++  db.prepare('INSERT INTO note_tags SELECT * FROM backup.note_tags WHERE note_id = ?').run(note.id);
++  db.exec('COMMIT');
++  db.exec('DETACH DATABASE backup');
++
++  assert.deepEqual(getNote(db, userId, note.id), note);
++  db.close();
++  console.log('rollback rehearsal ok');
++} finally {
++  rmSync(dir, { recursive: true, force: true });
++}
+diff --git a/src/notes/repo.js b/src/notes/repo.js
+index 6358961..7169bd2 100644
+--- a/src/notes/repo.js
++++ b/src/notes/repo.js
+@@ -64,3 +64,18 @@ export function createNote(db, userId, { title, body, tags, now }) {
+     return getNote(db, userId, noteId);
+   });
+ }
++
++/**
++ * Deletes one of the user's notes and its tags.
++ * @returns {boolean} whether a note was deleted
++ */
++export function deleteNote(db, userId, noteId) {
++  return transaction(db, () => {
++    db.prepare('DELETE FROM note_tags WHERE note_id IN (SELECT id FROM notes WHERE id = ? AND user_id = ?)').run(
++      noteId,
++      userId,
++    );
++    const result = db.prepare('DELETE FROM notes WHERE id = ? AND user_id = ?').run(noteId, userId);
++    return Number(result.changes) > 0;
++  });
++}
+diff --git a/src/notes/routes.js b/src/notes/routes.js
+index d8cb0ff..3838466 100644
+--- a/src/notes/routes.js
++++ b/src/notes/routes.js
+@@ -1,5 +1,5 @@
+-import { HttpError, sendJson } from '../http.js';
+-import { createNote, getNote, listNotes } from './repo.js';
++import { HttpError, sendJson, sendNoContent } from '../http.js';
++import { createNote, deleteNote, getNote, listNotes } from './repo.js';
+ 
+ export const DEFAULT_PAGE_SIZE = 20;
+ export const MAX_PAGE_SIZE = 100;
+@@ -65,4 +65,11 @@ export function noteRoutes(router, { db, auth, now }) {
+     if (!note) return sendJson(res, 404, { error: 'Note not found' });
+     sendJson(res, 200, { note: toNoteResponse(note) });
+   });
++
++  router.delete('/notes/:id', auth, (req, res) => {
++    const id = Number(req.params.id);
++    const deleted = Number.isInteger(id) && deleteNote(db, req.user.id, id);
++    if (!deleted) return sendJson(res, 404, { error: 'Note not found' });
++    sendNoContent(res);
++  });
+ }
+diff --git a/test/notes.test.js b/test/notes.test.js
+index 70d9c93..b6406cd 100644
+--- a/test/notes.test.js
++++ b/test/notes.test.js
+@@ -89,3 +89,147 @@ test('reads a single note, but not someone else\'s', async (t) => {
+   assert.equal((await app.request('GET', `/notes/${note.id}`, { cookie: bobCookie })).status, 404);
+   assert.equal((await app.request('GET', '/notes/not-a-number', { cookie: aliceCookie })).status, 404);
+ });
++
++test('deletes one of the caller\'s own notes', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const note = await addNote(app, cookie, { title: 'scratch', body: 'throw away' });
++  const res = await app.request('DELETE', `/notes/${note.id}`, { cookie });
++  assert.equal(res.status, 204);
++  assert.equal(res.body, null);
++});
++
++test('a deleted note can no longer be read by id', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const note = await addNote(app, cookie, { title: 'scratch', body: 'throw away' });
++  assert.equal((await app.request('GET', `/notes/${note.id}`, { cookie })).status, 200);
++  assert.equal((await app.request('DELETE', `/notes/${note.id}`, { cookie })).status, 204);
++  const read = await app.request('GET', `/notes/${note.id}`, { cookie });
++  const neverExisted = await app.request('GET', `/notes/${note.id + 1000}`, { cookie });
++  assert.equal(read.status, 404);
++  assert.equal(neverExisted.status, 404);
++  assert.deepEqual(read.body, neverExisted.body);
++});
++
++test('a deleted note no longer appears in the list', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  await addNote(app, cookie, { title: 'first' });
++  const doomed = await addNote(app, cookie, { title: 'second' });
++  await addNote(app, cookie, { title: 'third' });
++  assert.equal((await app.request('DELETE', `/notes/${doomed.id}`, { cookie })).status, 204);
++  const res = await app.request('GET', '/notes', { cookie });
++  assert.equal(res.status, 200);
++  assert.deepEqual(
++    res.body.notes.map((note) => note.title),
++    ['third', 'first'],
++  );
++});
++
++test('deleting a note removes its tags', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const doomed = await addNote(app, cookie, { title: 'standup', tags: ['work', 'team'] });
++  await addNote(app, cookie, { title: 'retro', tags: ['work'] });
++  assert.equal((await app.request('DELETE', `/notes/${doomed.id}`, { cookie })).status, 204);
++  const work = await app.request('GET', '/notes?tag=work', { cookie });
++  assert.deepEqual(
++    work.body.notes.map((note) => note.title),
++    ['retro'],
++  );
++  const team = await app.request('GET', '/notes?tag=team', { cookie });
++  assert.deepEqual(team.body.notes, []);
++  const rows = app.db.prepare('SELECT tag FROM note_tags WHERE note_id = ?').all(doomed.id);
++  assert.equal(rows.length, 0);
++});
++
++test('deleting a missing note answers 404', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const res = await app.request('DELETE', '/notes/999999', { cookie });
++  const read = await app.request('GET', '/notes/999999', { cookie });
++  assert.equal(res.status, 404);
++  assert.equal(read.status, 404);
++  assert.deepEqual(res.body, read.body);
++});
++
++test('deleting a non-numeric note id answers 404', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  await addNote(app, cookie, { title: 'keep me' });
++  const res = await app.request('DELETE', '/notes/not-a-number', { cookie });
++  const read = await app.request('GET', '/notes/not-a-number', { cookie });
++  assert.equal(res.status, 404);
++  assert.deepEqual(res.body, read.body);
++  const list = await app.request('GET', '/notes', { cookie });
++  assert.deepEqual(
++    list.body.notes.map((note) => note.title),
++    ['keep me'],
++  );
++});
++
++test('deleting someone else\'s note answers 404 and leaves it intact', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const aliceCookie = await signUpAndLogIn(app, alice);
++  const bobCookie = await signUpAndLogIn(app, bob);
++  const note = await addNote(app, aliceCookie, { title: 'private', body: 'my diary', tags: ['personal', 'diary'] });
++  const res = await app.request('DELETE', `/notes/${note.id}`, { cookie: bobCookie });
++  const missing = await app.request('GET', '/notes/999999', { cookie: bobCookie });
++  assert.equal(res.status, 404);
++  assert.deepEqual(res.body, missing.body);
++  const own = await app.request('GET', `/notes/${note.id}`, { cookie: aliceCookie });
++  assert.equal(own.status, 200);
++  assert.equal(own.body.note.title, 'private');
++  assert.equal(own.body.note.body, 'my diary');
++  assert.deepEqual(own.body.note.tags, ['diary', 'personal']);
++});
++
++test('deleting a note requires a signed-in session', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const note = await addNote(app, cookie, { title: 'private', body: 'my diary' });
++  assert.equal((await app.request('DELETE', `/notes/${note.id}`)).status, 401);
++  assert.equal((await app.request('DELETE', `/notes/${note.id}`, { cookie: 'sid=forged-token' })).status, 401);
++  const own = await app.request('GET', `/notes/${note.id}`, { cookie });
++  assert.equal(own.status, 200);
++  assert.equal(own.body.note.body, 'my diary');
++});
++
++test('deleting a note leaves the caller\'s other notes untouched', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const first = await addNote(app, cookie, { title: 'first', body: 'one', tags: ['a'] });
++  const doomed = await addNote(app, cookie, { title: 'second', body: 'two', tags: ['a', 'b'] });
++  const third = await addNote(app, cookie, { title: 'third', body: 'three', tags: ['b', 'c'] });
++  const pick = (/** @type {any} */ note) => ({ id: note.id, title: note.title, body: note.body, tags: note.tags });
++  assert.equal((await app.request('DELETE', `/notes/${doomed.id}`, { cookie })).status, 204);
++  const list = await app.request('GET', '/notes', { cookie });
++  assert.deepEqual(list.body.notes.map(pick), [pick(third), pick(first)]);
++  for (const note of [first, third]) {
++    const read = await app.request('GET', `/notes/${note.id}`, { cookie });
++    assert.equal(read.status, 200);
++    assert.deepEqual(pick(read.body.note), pick(note));
++  }
++});
++
++test('deleting an already-deleted note answers 404', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const note = await addNote(app, cookie, { title: 'scratch' });
++  assert.equal((await app.request('DELETE', `/notes/${note.id}`, { cookie })).status, 204);
++  const again = await app.request('DELETE', `/notes/${note.id}`, { cookie });
++  const missing = await app.request('GET', `/notes/${note.id}`, { cookie });
++  assert.equal(again.status, 404);
++  assert.deepEqual(again.body, missing.body);
++});
+diff --git a/test/summary.test.js b/test/summary.test.js
+index c831c66..920490c 100644
+--- a/test/summary.test.js
++++ b/test/summary.test.js
+@@ -73,3 +73,22 @@ test('answers 502 when the model is unavailable', async (t) => {
+   assert.equal(res.status, 502);
+   assert.doesNotMatch(JSON.stringify(res.body), /529/);
+ });
++
++test('a deleted note is not included in later summaries', async (t) => {
++  const llm = scriptedLlm(text('Planning Q3.'));
++  const app = await startTestApp({ llm });
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  await addNote(app, cookie, { title: 'Q3 planning', body: 'Draft the roadmap.' });
++  const doomed = await addNote(app, cookie, { title: 'Old secret', body: 'Forget this entirely.' });
++  const del = await app.request('DELETE', `/notes/${doomed.id}`, { cookie });
++  assert.equal(del.status, 204);
++
++  const res = await app.request('POST', '/notes/summary', { cookie, body: {} });
++  assert.equal(res.status, 200);
++  assert.equal(llm.calls.length, 1);
++  const sent = JSON.stringify(llm.calls[0]);
++  assert.match(sent, /Q3 planning/);
++  assert.doesNotMatch(sent, /Old secret/);
++  assert.doesNotMatch(sent, /Forget this entirely/);
++});

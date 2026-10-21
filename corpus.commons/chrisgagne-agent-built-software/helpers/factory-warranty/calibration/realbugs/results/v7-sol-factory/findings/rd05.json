@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/Mirkiux/featkit",
+  "pr_number": 17,
+  "base": "471774c774a89902228a0b74b696ff7304332437",
+  "head": "de0187b0e5e781ca08ef7d7923e33cba6531c200"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "Requesting ENTROPY produces an invalid Spark expression and prevents the pipeline from completing. The ENTROPY branch emits F.sum(F.when(...)).otherwise(F.lit(0.0)); otherwise is applied to the aggregate rather than the when expression. Spark permits otherwise only on a Column produced by when, so executing the generated Layer 2B code fails."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 239,
+   "end_line": 239,
+   "message": "MODE returns an arbitrary category instead of the category with the greatest aggregated measurement. build_layer2b first aggregates measurements per category, but the MODE branch emits F.first(cat_col, ignorenulls=True) without ordering or comparing those aggregates. For categories A=1 and B=100, it can return A, and shuffle order can change the result."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "Categorical values containing quotation marks produce invalid generated Python. Pivot predicates interpolate cat_val directly inside double quotes, and aliases are interpolated similarly. Substituting the valid string value a\"b into a pivot combination causes ast.parse(build_layer2a(...).code) to raise SyntaxError; CategoricalField performs no escaping or restriction on allowed_values."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 94,
+   "end_line": 94,
+   "message": "Different source and target time granularities are ignored, producing features at the wrong temporal resolution. TimeField explicitly supports source_granularity, target_granularity and truncation_required, but build_layer2a groups by the original time column directly. build_mob_table and build_layer2b likewise use raw timestamps. With daily source data and a monthly target, two dates in one month remain separate periods and temporal windows count daily rows."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "tests/test_generators/test_pyspark.py",
+   "start_line": 282,
+   "end_line": 282,
+   "message": "The generator tests do not verify executable Spark behavior or calculated feature values. The distributional and temporal tests check keyword presence and ast.parse success; test_all_metrics_valid_python accepts expressions with invalid Spark API calls, including the ENTROPY expression. No test executes the generated transformations against a Spark session or checks expected metric values."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

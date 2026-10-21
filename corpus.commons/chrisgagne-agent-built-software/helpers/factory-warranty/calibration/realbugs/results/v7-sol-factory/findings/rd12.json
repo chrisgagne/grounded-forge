@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 198,
+  "base": "949c62fe2ace8c41d41dd9d7dfd7b51ab268d25f",
+  "head": "76a992582e9e73897987a43bd520bb581f0e7ce7"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "The freshness check uses the tasks file instead of the planning report, violating the specified reuse behavior. The locked story's freshness scenario specifies reusing artifacts when planning-report-story-0028-0001.md exists and is at least as new as the story. Lines 93\u2013104 instead regenerate whenever the tasks file is absent and compare only its mtime when present. Thus a fresh report with no tasks file launches agents, while a fresh tasks file with a missing report skips artifact generation."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 795,
+   "end_line": 795,
+   "message": "A READY verdict does not update the story status or its DoR checkmarks as required. The READY acceptance scenario in plans/epic-0028/story-0028-0002.md requires the story status to become 'Pronta para Desenvolvimento', and Section 3.3 requires Section 4 DoR checkmarks. The only story edit specified is Section 8.1 in Phase 4.5; Phase 5 updates the planning report and emits a verdict without updating either story status or Section 4."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 514,
+   "end_line": 514,
+   "message": "First-time planning never explicitly saves the architecture, implementation, test, or security plans required by the story and readiness checks. Phase 2 instructs agents to return summaries and proposals (lines 252, 298, and 333). Phase 4 writes only task breakdowns, individual task plans, a planning report, a DoR checklist, and story Section 8. On a story with no existing plans, no step writes architecture-story-XXXX-YYYY.md, plan-story-XXXX-YYYY.md, tests-story-XXXX-YYYY.md, or security-story-XXXX-YYYY.md; mandatory checks 1 and 9 nevertheless require files to exist."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 741,
+   "end_line": 741,
+   "message": "The readiness summary excludes failed mandatory checks from its denominator and can report full marks despite failures. total_checks is calculated as mandatory_passed + conditional_applicable rather than 10 + conditional_applicable. With nine mandatory checks passing and no conditional checks applicable, the generated checklist reports 'Passed: 9/9' even though one mandatory check failed."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 437,
+   "end_line": 437,
+   "message": "The MERGE rule collapses test-writing, implementation, and verification tasks for the same component, breaking their required execution order. When Architect proposes a GREEN task for UserValidator and QA proposes a RED test task for UserValidator in the same layer, Rule 1 requires merging them solely because their component and layer match. It preserves DoD and dependencies but supplies no phase compatibility rule. Rule 3 subsequently handles only QA GREEN tasks, so it cannot reliably restore the lost RED/GREEN separation."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/PierreJanineh/TechDebtMCP",
+  "pr_number": 135,
+  "base": "ea0385c7349bbaee04456c57bf0ec3f217d63532",
+  "head": "16a54f0f85a9091f220418850eac6b4122782be5"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 137,
+   "end_line": 153,
+   "message": "Incomplete ReDoS Mitigation. The 1,000-character pattern cap and the flag allowlist do not stop catastrophic backtracking. A short pattern such as `(a+)+$` or `(.*a){20}` passes validation. Run against a single long line, it can still block the event loop for seconds or minutes. The 500,000-character code cap still allows one line of that length, because content is split only on newlines.\n\nThe CHANGELOG entry says these limits are \"preventing ReDoS attacks\". That overstates the protection. Possible fixes:\n- Add a per-line length cap.\n- Use a safe-regex check (e.g. `safe-regex2` or `recheck`).\n- Use a linear-time engine such as RE2.\n- Run matching under a timeout or in a worker."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Regular expression DoS (ReDoS): the new limits cap pattern length and input size, but they do not prevent exponential-backtracking patterns. A client can register a short rule like `(a+)+$` via `add_custom_rule`. Calling `execute_custom_rules` with a long single-line input of up to 500,000 characters can then hang the server process."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 624000
+ }
+}

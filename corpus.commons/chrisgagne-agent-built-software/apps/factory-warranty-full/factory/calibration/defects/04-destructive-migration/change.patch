@@ -1,0 +1,105 @@
+diff --git a/migrations/0005_users_birth_date.up.sql b/migrations/0005_users_birth_date.up.sql
+new file mode 100644
+index 0000000..607f298
+--- /dev/null
++++ b/migrations/0005_users_birth_date.up.sql
+@@ -0,0 +1,10 @@
++ALTER TABLE users ADD COLUMN birth_date TEXT;
++
++UPDATE users
++SET birth_date = CASE
++  WHEN date_of_birth GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' THEN date_of_birth
++  WHEN date_of_birth GLOB '[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]'
++    THEN substr(date_of_birth, 7, 4) || '-' || substr(date_of_birth, 4, 2) || '-' || substr(date_of_birth, 1, 2)
++END;
++
++ALTER TABLE users DROP COLUMN date_of_birth;
+diff --git a/src/users/repo.js b/src/users/repo.js
+index a1256fd..3297e1c 100644
+--- a/src/users/repo.js
++++ b/src/users/repo.js
+@@ -8,7 +8,7 @@ function toUser(row) {
+     id: Number(row.id),
+     email: String(row.email),
+     name: String(row.name),
+-    dateOfBirth: row.date_of_birth === null ? null : String(row.date_of_birth),
++    dateOfBirth: row.birth_date === null ? null : String(row.birth_date),
+     createdAt: Number(row.created_at),
+   };
+ }
+@@ -27,20 +27,20 @@ export function toProfile(user) {
+ 
+ export function createUser(db, { email, passwordHash, name, dateOfBirth, createdAt }) {
+   const result = db
+-    .prepare('INSERT INTO users (email, password_hash, name, date_of_birth, created_at) VALUES (?, ?, ?, ?, ?)')
++    .prepare('INSERT INTO users (email, password_hash, name, birth_date, created_at) VALUES (?, ?, ?, ?, ?)')
+     .run(email, passwordHash, name, dateOfBirth, createdAt);
+   return findUserById(db, Number(result.lastInsertRowid));
+ }
+ 
+ /** @returns {User | null} */
+ export function findUserById(db, id) {
+-  const row = db.prepare('SELECT id, email, name, date_of_birth, created_at FROM users WHERE id = ?').get(id);
++  const row = db.prepare('SELECT id, email, name, birth_date, created_at FROM users WHERE id = ?').get(id);
+   return row ? toUser(row) : null;
+ }
+ 
+ /** @returns {User | null} */
+ export function findUserByEmail(db, email) {
+-  const row = db.prepare('SELECT id, email, name, date_of_birth, created_at FROM users WHERE email = ?').get(email);
++  const row = db.prepare('SELECT id, email, name, birth_date, created_at FROM users WHERE email = ?').get(email);
+   return row ? toUser(row) : null;
+ }
+ 
+@@ -55,6 +55,6 @@ export function updateProfile(db, id, changes) {
+   const current = findUserById(db, id);
+   if (!current) return null;
+   const next = { ...current, ...changes };
+-  db.prepare('UPDATE users SET name = ?, date_of_birth = ? WHERE id = ?').run(next.name, next.dateOfBirth, id);
++  db.prepare('UPDATE users SET name = ?, birth_date = ? WHERE id = ?').run(next.name, next.dateOfBirth, id);
+   return findUserById(db, id);
+ }
+diff --git a/test/birth-date-migration.test.js b/test/birth-date-migration.test.js
+new file mode 100644
+index 0000000..5a80395
+--- /dev/null
++++ b/test/birth-date-migration.test.js
+@@ -0,0 +1,38 @@
++import assert from 'node:assert/strict';
++import { copyFileSync, mkdtempSync, readdirSync, rmSync } from 'node:fs';
++import { tmpdir } from 'node:os';
++import { join } from 'node:path';
++import { test } from 'node:test';
++import { openDatabase } from '../src/db/index.js';
++import { MIGRATIONS_DIR, migrateUp } from '../src/db/migrate.js';
++
++function migrationsUpTo(t, lastVersion) {
++  const dir = mkdtempSync(join(tmpdir(), 'migrations-'));
++  t.after(() => rmSync(dir, { recursive: true, force: true }));
++  for (const file of readdirSync(MIGRATIONS_DIR)) {
++    if (file.slice(0, 4) <= lastVersion) copyFileSync(join(MIGRATIONS_DIR, file), join(dir, file));
++  }
++  return dir;
++}
++
++test('converts old DD/MM/YYYY dates of birth to ISO dates', (t) => {
++  const db = openDatabase();
++  migrateUp(db, { dir: migrationsUpTo(t, '0004') });
++  const insert = db.prepare(
++    'INSERT INTO users (email, password_hash, name, date_of_birth, created_at) VALUES (?, ?, ?, ?, ?)',
++  );
++  insert.run('old@example.com', 'x', 'Old Form', '12/04/1990', 0);
++  insert.run('new@example.com', 'x', 'New Form', '1985-11-30', 0);
++  insert.run('none@example.com', 'x', 'No Date', null, 0);
++
++  migrateUp(db);
++
++  const dates = Object.fromEntries(
++    db.prepare('SELECT email, birth_date FROM users').all().map((row) => [row.email, row.birth_date]),
++  );
++  assert.deepEqual(dates, {
++    'old@example.com': '1990-04-12',
++    'new@example.com': '1985-11-30',
++    'none@example.com': null,
++  });
++});

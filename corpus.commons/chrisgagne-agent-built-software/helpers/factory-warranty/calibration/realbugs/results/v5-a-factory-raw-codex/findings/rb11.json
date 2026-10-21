@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/scotthamilton77/agents-config",
+  "pr_number": 1,
+  "base": "3776d9195827d79efec978fb900573f3a5a53339",
+  "head": "1fc789709ae044579908fed58c8c14638d0db095"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/user/.agents/skills/self-improving-agent/SKILL.md",
+   "start_line": 36,
+   "end_line": 36,
+   "message": "The shared correction-handling skill directs Codex and Gemini to persist user preferences in Claude\u2019s configuration, so those tools may repeat the same mistakes in later sessions. install_tool() installs this skill into every selected tool\u2019s skills directory, and INSTRUCTIONS.md.template requires invoking it after user corrections. Its destination table nevertheless specifies ~/.claude/AGENTS.md for cross-project preferences and ~/.claude/projects/*/memory/MEMORY.md for remembered context."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "README.md",
+   "start_line": 109,
+   "end_line": 109,
+   "message": "The documented manual installation commands reference paths removed by this change and no longer install the required shared instructions. The diff moves agents/, skills/, AGENT-PERSONA.md.template, and USER-PERSONA.md.template from src/user/.claude/ to src/user/.agents/. README.md still copies them from their previous paths, and its template-copy instructions omit the new INSTRUCTIONS.md and CLAUDE-EXTENSIONS.md dependencies."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

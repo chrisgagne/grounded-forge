@@ -1,0 +1,94 @@
+{
+ "id": "rd19",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 126,
+   "end_line": 128,
+   "message": "Normalize credential keys alongside source URLs. When a user adds a scheme-less URL with a token, the UI keys `sourceURLCredentials` by the original input, but this loop normalizes only `SourceURLs`. The credential is then silently discarded by the active-URL check because its key lacks `https://`, so saving succeeds but private-repository synchronization fails. Normalize the credential keys consistently before filtering them."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 176,
+   "end_line": 180,
+   "message": "Preserve the stored token when editing a source URL. When an administrator changes a token-protected source URL, such as switching its branch, the UI sends `\"*\"` under the new URL and removes the old key. This lookup only checks the new URL in the existing credential map, where no token exists, and subsequently drops the old token because its URL is no longer active. Saving therefore silently removes authentication despite the UI promising to preserve it. Carry an explicit old-to-new mapping and resolve the token from the original key."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 176,
+   "end_line": 181,
+   "message": "Renaming a URL deletes its token. When the URL changes, the UI moves the '*' marker to the new URL key (McpServerGitSync.svelte ~L160-170). The backend then looks up `existingCred.Env[u]` under the new URL, finds nothing, and keeps no token. The old URL is no longer active, so its token is dropped too. The comment says a token is \"transferred from a renamed one\", but no code does this. Editing a private repo's URL (for example, to change the branch) silently removes its PAT, and the next sync fails. The request needs to say which old URL to carry the token over from (and the move should only be allowed between URLs on the same host)."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 124,
+   "end_line": 129,
+   "message": "Source URLs without a scheme are rewritten to start with `https://`, but the keys in `manifest.SourceURLCredentials` are left as typed. If an admin enters `gitlab.com/org/repo` with a token, the credential key never matches an active URL, so the token is skipped and never saved. Apply the same normalization to the credential keys."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 39,
+   "end_line": 47,
+   "message": "The `GITHUB_AUTH_TOKEN` fallback now only applies when the URL exactly equals the hardcoded `https://github.com/obot-platform/mcp-catalog`. Before, it applied to every github.com URL. This breaks existing deployments that rely on the env var for private GitHub catalogs, including a custom `DefaultMCPCatalogPath`, which is added to SourceURLs automatically and has no way to store a per-URL token. Forms like `.../mcp-catalog.git` or a trailing slash also don't match. At minimum, compare against the configured `defaultCatalogPath`, and normalize the URL before comparing. Without a token, the unauthenticated GitHub size check is also limited to 60 requests per hour."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 337,
+   "end_line": 345,
+   "message": "One shared `sizeLimitedFS` counts both the `.git` storage (packfile, index, temp files) and the checked-out working tree. Every byte is roughly counted twice: once compressed in the pack, then again uncompressed on checkout. So repos well under 100 MB can fail with 'repository too large'. This also disagrees with the GitHub API check, which measures repo size only. Count only object storage (or only the worktree), or adjust the limit to account for both."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 59,
+   "end_line": 61,
+   "message": "`isGitRepoURL` now returns true for every gitlab.com URL. Raw-file catalog URLs that used to work, like `https://gitlab.com/org/repo/-/raw/main/catalog.json`, now go to `readGitCatalog`. `parseGitURL` then reads the branch as `-/raw/main/...`, which `validateBranchName` rejects because it starts with '-'. Existing GitLab raw-file catalog sources stop syncing. Paths containing `.git/`, like `example.com/x.git/raw/file.json`, are also misclassified the same way."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 210,
+   "end_line": 234,
+   "message": "The catalog spec is saved before the credential is written or deleted. If `CreateCredential` or `DeleteCredential` fails, the API returns an error but the URL changes are already saved. That leaves URLs and tokens out of sync, for example a new private URL with no token. Write the credential first, or roll back the spec on failure."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+   "start_line": 955,
+   "end_line": 967,
+   "message": "`revealCatalogCredential` fetches the whole credential once per source URL on every sync, which is repeated round-trips to the credential store. If the store errors, the error is only logged and the sync goes ahead with no token. The user then sees an auth or clone error instead of the real cause. Fetch the credential once per sync, and record store errors in `SyncErrors`."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 339,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 151,
+   "cost_usd": 0.4867100000000001,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 339
+ }
+}

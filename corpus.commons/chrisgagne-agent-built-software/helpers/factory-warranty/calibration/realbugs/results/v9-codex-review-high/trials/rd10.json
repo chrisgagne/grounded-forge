@@ -1,0 +1,36 @@
+{
+ "id": "rd10",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "Expose the API entry point to the test assembly. Both new factories reference `Program`, but the API's top-level entry point is internal and has neither a public partial declaration nor `InternalsVisibleTo`. The new test project therefore fails to compile. Expose the entry point or use a public API assembly marker as the factory's type parameter."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/SentenceStudio.Api/appsettings.Development.json",
+   "start_line": 15,
+   "end_line": 15,
+   "message": "Allow the audience emitted by Entra v2 access tokens. When Entra authentication is enabled, v2 access tokens use the API's client GUID as `aud`, not `api://<client GUID>`. Explicitly configuring this URI overrides Microsoft.Identity.Web's version-aware audience handling, so valid v2 tokens receive 401 responses. Remove the explicit audience to use the library defaults, or configure the correct audience; update the duplicate Web and AppHost settings too."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 24,
+   "end_line": 29,
+   "message": "Read the mapped Entra tenant and object-ID claims. With the registered Bearer handler's default `MapInboundClaims=true`, `tid` and `oid` become URI-named claims. These lookups consequently return no tenant and fall back to the token's `sub` for the user ID, rather than its object ID. Bootstrap returns incorrect identity information, and vocabulary updates use the wrong user key. Use Microsoft.Identity.Web's `GetTenantId()`/`GetObjectId()` helpers before the dev fallbacks, or explicitly disable mapping and handle raw claims consistently. The test tokens' extra dev claims currently mask this failure."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 172,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

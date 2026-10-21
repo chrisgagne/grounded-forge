@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/OpenDevicePartnership/embedded-services",
+  "pr_number": 793,
+  "base": "90130bc3d3df2f186323d70a8f757a5dfa16c6a2",
+  "head": "f63a02462d1eebd5b06b45ebdf1d2705c919413a"
+ },
+ "agent": "v8-plain",
+ "findings": [
+  {
+   "producer": "v8-plain",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "`defmt` was removed from the default features, and the PR description doesn't mention it. Downstream crates that use the defaults and depend on `Error<E>: defmt::Format` (or log it with defmt) will stop compiling. This is a breaking API change unrelated to PartitionGuard. Revert it, or call it out and handle it as a semver-breaking change."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 49,
+   "end_line": 80,
+   "message": "`lock()`/`try_lock()` lock the mutex for the whole storage device, not just this partition. While a PartitionGuard is alive, every other partition (and the same `Partition` through its own trait methods, which call `self.storage.lock().await`) waits forever if used in the same task. That is an easy self-deadlock to hit, e.g. `let g = p.lock().await; p.read(..).await`. None of this is documented: the doc comments suggest the guard is per-partition. State clearly that the guard locks the whole device and that the partition (and its siblings) must not be used while it is held."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 59,
+   "end_line": 67,
+   "message": "The motivation is to let panic handlers reach storage. But every PartitionGuard operation is `async`, so a synchronous panic handler still needs an executor or `block_on` to use it. Also, if the panicking task held the lock in the middle of a flash operation, `try_lock` fails and the data can't be written anyway. The use case is only partly solved and this isn't documented. Consider documenting the limits, or offering a way to recover or force access."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "partition-manager/partition-manager/src/ext/bdd.rs",
+   "start_line": 52,
+   "end_line": 89,
+   "message": "`start_block` and `check_access` are copied word for word from the `Partition` impl, `within_bounds` is copied in lib.rs (lines 138-148), and the BlockDevice/NorFlash bodies are repeated too. Later fixes to the bounds logic can easily land in one copy and not the other. Move the shared logic into a helper that works on `(offset, size)`, and have both `Partition` and `PartitionGuard` call it."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "partition-manager/partition-manager/src/ext/esa.rs",
+   "start_line": 61,
+   "end_line": 61,
+   "message": "Behaviour change: `erase(from, to)` with `from > to` used to pass `saturating_sub` = 0 through the bounds check and let the underlying driver report its own error (usually NotAligned or another driver-specific error). It now returns `Error::OutOfBounds`. That may be fine, but it is a silent semantic change to the existing `Partition` API, and the PR doesn't mention or test it."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 74,
+   "end_line": 80,
+   "message": "`#[allow(unused)]` on the public `PartitionGuard` struct (and on its `within_bounds`) hides real dead-code warnings when the `esa`/`bdd` features are off. In that case the guard has no usable methods at all. Gate the guard with `cfg` on those features, or drop the blanket allow."
+  },
+  {
+   "producer": "v8-plain",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 82,
+   "end_line": 92,
+   "message": "`Partition<RW>` has `readonly()` to downgrade to RO, but `PartitionGuard<RW>` has no equivalent. So a write-capable guard can't be handed to code that expects a read-only one, and the API is inconsistent. Consider adding `PartitionGuard::readonly`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 134000
+ }
+}

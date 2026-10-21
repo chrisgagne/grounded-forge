@@ -1,0 +1,52 @@
+{
+ "id": "rd23",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 107,
+   "end_line": 107,
+   "message": "Await isRegistered before testing its result. It returns a Promise, which is always truthy, so this rejection branch never runs. Any participant with a valid QR code can therefore be checked into an event without being registered."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 315,
+   "message": "The scanner button is inside the !isRegistered block. Staff who are themselves registered for the event cannot open the check-in scanner. Render the staff control independently of the operator's registration status."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 18,
+   "end_line": 26,
+   "message": "The early return conditionally skips useTuyau and useForm even though the parent keeps this component mounted while isOpen changes. This violates React's hook ordering requirements and skips the form hooks' lifecycle when the dialog closes. Call hooks before the return, or conditionally mount the whole component in the parent."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "apps/website/database/seeders/8_staff_seeder.ts",
+   "start_line": 27,
+   "end_line": 30,
+   "message": "This unconditionally creates a verified staff account with publicly known credentials, including when seeders run in production. Anyone knowing staff@eneiconf.pt/password could access staff operations such as check-in and product collection. Restrict this test account to development."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "apps/website/database/seeders/mock_staff_profile_seeder.ts",
+   "start_line": 7,
+   "end_line": 11,
+   "message": "This seeder unconditionally grants staff privileges to user ID 1 in whichever database it runs against. On an existing database that ID can belong to a real user, silently authorizing staff operations for that account. Restrict mock data to development and select an explicitly created test user."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 44,
+  "reasoning_effort": "none",
+  "tokens": 32702
+ }
+}

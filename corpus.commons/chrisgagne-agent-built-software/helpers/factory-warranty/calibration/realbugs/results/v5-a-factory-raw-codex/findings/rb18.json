@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/gagneurlab/PROTRIDER",
+  "pr_number": 10,
+  "base": "22740c695315543a1064915930f806abf5b058ce",
+  "head": "b462b109b630dd1e1a9a78088b18429d2baaae9b"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 509,
+   "end_line": 509,
+   "message": "A failed checkpoint load causes training to be skipped and results to be computed from a newly initialized model. If an existing checkpoint is corrupt or has incompatible tensor shapes, load_model catches the error and returns (None, None). run then initializes a fresh model and assigns q, so checkpoint_path.exists() and q is not None become true at line 509. should_train is false despite loading having failed."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "The new grid-search output format breaks the encoding-dimension plotting command. GridSearchResult.to_csv writes grid_search_results.csv with enc_dim and auprc columns, and cli.run uses this writer. plots.plot_encoding_dim still reads grid_search.csv and accesses encod_dim and aucpr. After a fresh grid-search run, the documented encoding_dim plot fails because its expected file is absent."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "Checkpoint reuse can silently apply weights to different proteins or covariates and produce incorrect outlier results. Run once, then reorder protein rows in the input while retaining the same proteins and output directory. run automatically loads model.pt; save_model stores weights and architecture metadata but no protein or covariate identifiers. load_model checks tensor compatibility only, so the reordered dataset has matching shapes and loads successfully, while weight positions now refer to different proteins. Training is then skipped."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 78,
+   "end_line": 78,
+   "message": "Models trained with init_pca=False cannot be restored faithfully from their checkpoints. init_model passes dataset.prot_means_torch when init_wPCA is false. ConditionalEnDecoder consequently subtracts these means and creates an encoder without bias. save_model does not preserve prot_means, while load_model always constructs with prot_means=None, creating an encoder bias and removing centering. load_state_dict therefore rejects the missing bias key for these saved models."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 74,
+   "end_line": 74,
+   "message": "A nonfinite training loss crashes latent-dimension search instead of returning an unsuccessful candidate score. In train_and_eval_q, a NaN or infinite loss enters the branch assigning auc_prec_rec = np.nan, but the function returns auprc at line 86. auprc is assigned only in the finite-loss branch, so this path raises UnboundLocalError for both grid and binary search."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

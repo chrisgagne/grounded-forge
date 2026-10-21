@@ -1,0 +1,126 @@
+{
+ "id": "rb22",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "services/copilot-review-mcp/internal/auth/session.go",
+   "start_line": 91,
+   "end_line": 94,
+   "message": "Reject callbacks for already-completed sessions. If two successful GitHub authorization callbacks use the same state before token redemption, this code generates two internal codes pointing to the same mutable session. The second callback overwrites the access token associated with the first code, and redeeming either code leaves the other redeemable even after the session is deleted. Reject completion when the session already has an internal code so that a completed authorization cannot change identity or produce multiple redeemable grants."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "services/copilot-review-mcp/internal/auth/handler.go",
+   "start_line": 90,
+   "end_line": 94,
+   "message": "PKCE is optional. If `code_challenge` is missing, /authorize accepts the request, and ExchangeCode (session.go:111-115) skips verification entirely. Anyone who intercepts the internal code (for example, another local process listening on a localhost port, or through logs or history) can redeem it for the user's GitHub token. OAuth 2.1 and the MCP auth spec require PKCE for public clients, so /authorize should reject requests that lack `code_challenge`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "services/copilot-review-mcp/internal/auth/handler.go",
+   "start_line": 111,
+   "end_line": 111,
+   "message": "Sessions are keyed only by the `state` value the client supplies, and SaveSession overwrites any existing entry without checking. A second /authorize with the same state (an attacker who saw the state in the GitHub URL, or two clients using the same simple state) replaces the redirect_uri and code_challenge of a flow already in progress. The victim's callback then issues a code bound to the attacker's challenge and redirect. Generate an internal state server-side for the GitHub leg, or refuse to overwrite an existing state."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "services/copilot-review-mcp/internal/auth/session.go",
+   "start_line": 77,
+   "end_line": 95,
+   "message": "CompleteCallback does not consume or mark the session. Calling /callback again with the same state (and another GitHub code) mints another internal code on the same *Session and overwrites AccessToken, Scope and InternalCode in place. Earlier codes stay in `s.codes` and point to the mutated session, so an old code can redeem a newer token. ExchangeCode also deletes only the presented code, leaving the others redeemable. A session should complete only once."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "services/copilot-review-mcp/internal/auth/handler.go",
+   "start_line": 156,
+   "end_line": 162,
+   "message": "Callback reads the session through lookupByCode after CompleteCallback has released the lock, then uses `sess.RedirectURI` without synchronization. A concurrent /token or a second /callback can delete or mutate the same session in between, causing spurious 'session lost' errors or a data race. CompleteCallback should return the redirect_uri atomically along with the code."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "services/copilot-review-mcp/internal/auth/session.go",
+   "start_line": 57,
+   "end_line": 66,
+   "message": "/authorize is unauthenticated and stores a session for every request, keyed by an arbitrary-length client state. Nothing limits the number of sessions or the size of the state. A burst of requests can grow memory without bound until the janitor runs after the TTL, and the container has a 256M memory limit. Cap the state length, cap the number of pending sessions, or rate-limit the endpoint."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "services/copilot-review-mcp/internal/auth/handler.go",
+   "start_line": 216,
+   "end_line": 251,
+   "message": "ValidateToken accepts any token that GitHub's /user endpoint accepts: any PAT, or any OAuth token from any app and any user. It does not check that the token was issued by this fa\u00e7ade or has the expected audience or client. The MCP auth spec forbids this kind of token passthrough without an audience check, and the server is then reachable by any GitHub user. At minimum, restrict access to allowed logins, or issue fa\u00e7ade-owned tokens."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "services/copilot-review-mcp/internal/auth/handler.go",
+   "start_line": 231,
+   "end_line": 236,
+   "message": "Only status codes 5xx are treated as upstream errors. GitHub rate limiting returns 403 or 429, and those are reported to the client as 401 invalid_token. Clients will then drop valid tokens and restart the OAuth flow during a rate-limit window. Treat 403/429 with rate-limit headers as upstream errors (503)."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "services/copilot-review-mcp/internal/auth/handler.go",
+   "start_line": 60,
+   "end_line": 67,
+   "message": "The discovery metadata omits `token_endpoint_auth_methods_supported`. Under RFC 8414 the default is `client_secret_basic`, so compliant clients will assume they must authenticate with a client secret they don't have. It also omits `registration_endpoint`, so MCP clients cannot obtain a client_id. Advertise `[\"none\"]`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "services/copilot-review-mcp/internal/auth/handler.go",
+   "start_line": 130,
+   "end_line": 133,
+   "message": "When the user denies consent, GitHub redirects to /callback with `error=access_denied` and no code. That case returns a plain-text 400 'missing code or state' instead of redirecting the error and state back to the client's redirect_uri (RFC 6749 \u00a74.1.2.1), so the MCP client never learns that the flow failed."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "docker-compose.yml",
+   "start_line": 58,
+   "end_line": 65,
+   "message": "BASE_URL defaults to http://localhost:8083 regardless of COPILOT_REVIEW_MCP_PORT. If the port is changed, the discovery metadata and the GitHub callback URL point to the wrong port and the OAuth flow breaks. Derive the default from the same variable, e.g. `http://localhost:${COPILOT_REVIEW_MCP_PORT:-8083}`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "services/copilot-review-mcp/cmd/server/main.go",
+   "start_line": 91,
+   "end_line": 92,
+   "message": "SESSION_TTL_MIN and TOKEN_CACHE_TTL_MIN are not validated. Zero or negative values are accepted silently, so every session expires immediately and the OAuth flow always fails with 'invalid state'. Reject non-positive values or fall back to the default."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "services/copilot-review-mcp/cmd/server/main.go",
+   "start_line": 49,
+   "end_line": 54,
+   "message": "The placeholder MCP handler only registers `GET /mcp`. MCP Streamable HTTP clients send JSON-RPC over `POST /mcp`, so an authenticated client gets a 405 and the end-to-end flow cannot be exercised."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 37,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 79,
+   "cost_usd": 0.24486059999999998,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 79
+ }
+}

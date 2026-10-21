@@ -1,0 +1,270 @@
+{
+ "id": "rd21",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.193,
+ "codex_tokens": 49413,
+ "work": "<tmp>/replay-rd21-t1-px4qrv96",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The old chart injected ms-secret-vault via envFrom (charts/templates/deployment.yaml:76-78), and that secret comes from the Vault ExternalSecret (k8s-configs/eos-microservice.yaml:12). The new container has only five literal env vars and no envFrom. The mounted ConfigMap (backend/ai-secure-agent-config.yaml:14) sets MySQL user root with no password. Once agent-app syncs, the pod starts without the credentials it had before, so high is justified (X1 said medium).",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 31,
+   "claim": "The new Deployment drops the envFrom secretRef to ms-secret-vault, so the agent loses its Vault-supplied credentials.",
+   "evidence": "The old Helm path rendered `envFrom: - secretRef: name: {{ .Values.externalSecret.targetName | default \"ms-secret-vault\" }}` (charts/templates/deployment.yaml:76-78). That secret is created by the ExternalSecret in k8s-configs/eos-microservice.yaml from `secret/ceramicraft`. The new manifest's `env:` block (lines 31-41) lists only CONFIG_PATH, PYTHONUNBUFFERED, ENABLE_MLFLOW_TRACING, MLFLOW_TRACKING_URI and MALLOC_ARENA_MAX, and it has no `envFrom`. The mounted config (backend/ai-secure-agent-config.yaml:14) sets `username: \"root\"` for MySQL with no password. Every other service in the repo gets its password from the secret env. So once agent-app syncs, the pod connects to MySQL as root with no password.",
+   "axis_row": "L1.2",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 31,
+     "claim": "The new Deployment no longer injects the Vault-synced secret `ms-secret-vault`. The agent therefore starts without the MySQL password and any other credentials it got from Vault, so its database (and likely Kafka/Redis/LLM) connections will fail.",
+     "evidence": "The old Helm path rendered `envFrom: - secretRef: name: {{ .Values.externalSecret.targetName | default \"ms-secret-vault\" }}` (charts/templates/deployment.yaml:76-78). That secret is created by the ExternalSecret in k8s-configs/eos-microservice.yaml from `secret/ceramicraft`. The new manifest's `env:` block (lines 31-41) lists only CONFIG_PATH, PYTHONUNBUFFERED, ENABLE_MLFLOW_TRACING, MLFLOW_TRACKING_URI and MALLOC_ARENA_MAX, and it has no `envFrom`. The mounted config (backend/ai-secure-agent-config.yaml:14) sets `username: \"root\"` for MySQL with no password. Every other service in the repo gets its password from the secret env. So once agent-app syncs, the pod connects to MySQL as root with no password."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 25,
+     "claim": "The replacement Deployment omits secret injection, which may break connections requiring the previously supplied credentials.",
+     "evidence": "The deleted Helm values used charts/templates/deployment.yaml, which injects ms-secret-vault through envFrom.secretRef. The new container has only five explicit environment variables and no secret reference or secret mount. backend/ai-secure-agent-config.yaml configures MySQL but supplies no password; k8s-configs/eos-microservice.yaml still provisions ms-secret-vault."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "app-of-apps.yaml:433 sets targetRevision to the feature branch, while every other in-repo app uses HEAD (lines 10, 77, 100, 111, 137\u2026). With automated sync, any push to that branch deploys straight away, and deleting the branch after merge breaks the app's sync.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "app-of-apps.yaml",
+   "line": 433,
+   "claim": "agent-app tracks the feature branch AI-20-AISecureAgent-Feature-collection with automated prune/selfHeal.",
+   "evidence": "`targetRevision: AI-20-AISecureAgent-Feature-collection` together with `syncPolicy: automated: prune: true, selfHeal: true`. Every other in-repo Application and the helm-app ApplicationSet use `targetRevision: HEAD` / `revision: HEAD` (e.g. lines 10, 77, 100, 111, 137). This is a hard-coded branch name that nothing in the packet gives a reason for.",
+   "axis_row": "L4.31",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "high",
+     "file": "app-of-apps.yaml",
+     "line": 433,
+     "claim": "The new Argo CD Application deploys from the feature branch `AI-20-AISecureAgent-Feature-collection` with automated prune and selfHeal. The live cluster will follow an unmerged branch: any push to it deploys straight away, and deleting or merging the branch breaks the app's sync.",
+     "evidence": "`targetRevision: AI-20-AISecureAgent-Feature-collection` together with `syncPolicy: automated: prune: true, selfHeal: true`. Every other in-repo Application and the helm-app ApplicationSet use `targetRevision: HEAD` / `revision: HEAD` (e.g. lines 10, 77, 100, 111, 137). This is a hard-coded branch name that nothing in the packet gives a reason for."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The deleted values.yaml defined both probes, and the chart rendered them (deployment.yaml:55-68). The new container spec in the diff has neither, so an unready or hung pod stays in the Service endpoints and is never restarted.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 24,
+   "claim": "Liveness and readiness probes on /ai-secure-agent-ms/v1/ping are removed.",
+   "evidence": "The deleted helm_backend/ai-secure-agent-ms/values.yaml defined `livenessProbe`/`readinessProbe` on `/ai-secure-agent-ms/v1/ping` (10s delay, 5s period), and the chart rendered both (charts/templates/deployment.yaml:55-68). The new container spec (lines 25-46) has no `livenessProbe` or `readinessProbe`.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 24,
+     "claim": "The migration drops the liveness and readiness probes. Kubernetes will route traffic to the agent before it is ready, and will never restart it if it hangs.",
+     "evidence": "The deleted helm_backend/ai-secure-agent-ms/values.yaml defined `livenessProbe`/`readinessProbe` on `/ai-secure-agent-ms/v1/ping` (10s delay, 5s period), and the chart rendered both (charts/templates/deployment.yaml:55-68). The new container spec (lines 25-46) has no `livenessProbe` or `readinessProbe`."
+    },
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 24,
+     "claim": "Removing readiness and liveness probes allows an unready or hung agent process to remain a Service endpoint without automatic recovery.",
+     "evidence": "The previous Helm configuration checked /ai-secure-agent-ms/v1/ping every five seconds for both readiness and liveness. The replacement container defines neither probe, and the Service selects its app label directly. If the process remains running while its HTTP handler is unhealthy, no remaining application health check removes it from endpoints or restarts it."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The old values set requests of 100m/256Mi and limits of 200m/345Mi, rendered at deployment.yaml:69-75. The new container has no resources block, yet keeps MALLOC_ARENA_MAX=2, which shows memory was a known concern. The memory bound is now gone.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 24,
+   "claim": "CPU and memory requests and limits are removed from the agent container.",
+   "evidence": "The old values had `requests: cpu 100m, memory 256Mi` and `limits: cpu 200m, memory 345Mi`, rendered at charts/templates/deployment.yaml:69-75. The new container spec has no `resources:` block. The change keeps `MALLOC_ARENA_MAX: \"2\"` (lines 40-41), which shows memory was a known concern.",
+   "axis_row": "L5.13",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 24,
+     "claim": "The container's CPU and memory requests and limits are removed. The agent, which already needed a 345Mi cap and MALLOC_ARENA_MAX=2 to tame memory, can now use unbounded node memory, and the scheduler gives it no reservation.",
+     "evidence": "The old values had `requests: cpu 100m, memory 256Mi` and `limits: cpu 200m, memory 345Mi`, rendered at charts/templates/deployment.yaml:69-75. The new container spec has no `resources:` block. The change keeps `MALLOC_ARENA_MAX: \"2\"` (lines 40-41), which shows memory was a known concern."
+    },
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "low",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 19,
+     "claim": "The replacement container drops resource requests and limits, removing the previous scheduling reservation and resource bounds.",
+     "evidence": "The deleted values specified requests of 100m CPU and 256Mi memory and limits of 200m CPU and 345Mi memory, rendered by charts/templates/deployment.yaml. The replacement Deployment contains no resources configuration."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "disputed",
+   "reason": "Both produce the Deployment ai-secure-agent-ms and the Service ai-secure-agent-ms-svc. The ApplicationSet (prune on, revision HEAD) drops its app when the values.yaml is removed, while agent-app follows a different branch. Whether there is an overlap or a prune-then-recreate depends on sync order and Argo finalizers, which the repo does not settle.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "app-of-apps.yaml",
+   "line": 427,
+   "claim": "helm-app's ai-secure-agent-ms Application and the new agent-app may both own, then prune, the same Deployment and Service during cutover.",
+   "evidence": "The deleted helm_backend/ai-secure-agent-ms/values.yaml removes the `helm_backend/*` directory entry, so the ApplicationSet (app-of-apps.yaml:96-125, automated prune) drops the `ai-secure-agent-ms` Application. Meanwhile agent-app (`name: agent-app`) creates a Deployment named `ai-secure-agent-ms` and a Service `ai-secure-agent-ms-svc`, the same names the chart produced from `{{ .Release.Name }}` / `{{ .Release.Name }}-svc`. Nothing in the diff orders or coordinates the handover. Also, the ApplicationSet watches `revision: HEAD` while agent-app watches the feature branch, so until merge both may run at once.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "app-of-apps.yaml",
+     "line": 427,
+     "claim": "Moving the same Deployment and Service names from the helm-app ApplicationSet to the new agent-app may leave two Argo CD apps owning, then pruning, the same resources during the cutover. That could cause downtime or a delete-and-recreate.",
+     "evidence": "The deleted helm_backend/ai-secure-agent-ms/values.yaml removes the `helm_backend/*` directory entry, so the ApplicationSet (app-of-apps.yaml:96-125, automated prune) drops the `ai-secure-agent-ms` Application. Meanwhile agent-app (`name: agent-app`) creates a Deployment named `ai-secure-agent-ms` and a Service `ai-secure-agent-ms-svc`, the same names the chart produced from `{{ .Release.Name }}` / `{{ .Release.Name }}-svc`. Nothing in the diff orders or coordinates the handover. Also, the ApplicationSet watches `revision: HEAD` while agent-app watches the feature branch, so until merge both may run at once."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The chart mounted the applogs hostPath and exposed grpcPort (deployment.yaml:48-54, 87-90). The new manifest has only the config volume and port 8080. No in-repo consumer of 5001 was found, so the impact is limited.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 47,
+   "claim": "The hostPath /app/logs volume and the gRPC port 5001 are dropped without explanation.",
+   "evidence": "The chart mounted `applogs` hostPath `/tmp/logs/ai-secure-agent-ms` at /app/logs (charts/templates/deployment.yaml:48-49, 87-90). It also exposed a `grpc` containerPort and service port from `grpcPort: 5001`. The new volumes list (lines 47-50) has only `config`, and the Service (lines 63-66) exposes only 8080. I found no in-repo consumer of 5001 on this service, so the port removal may be harmless.",
+   "axis_row": "L1.2",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 47,
+     "claim": "The hostPath log volume and the gRPC port 5001 are silently dropped. Logs the agent writes to /app/logs are lost when the pod restarts, and anything that used port 5001 on ai-secure-agent-ms-svc would stop resolving. The diff gives no reason for either removal.",
+     "evidence": "The chart mounted `applogs` hostPath `/tmp/logs/ai-secure-agent-ms` at /app/logs (charts/templates/deployment.yaml:48-49, 87-90). It also exposed a `grpc` containerPort and service port from `grpcPort: 5001`. The new volumes list (lines 47-50) has only `config`, and the Service (lines 63-66) exposes only 8080. I found no in-repo consumer of 5001 on this service, so the port removal may be harmless."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "noise",
+   "reason": "The deleted values.yaml already used lian1280/ceramicraft-ai-secure-agent:debug-202604071410 with IfNotPresent (diff lines 107-110). The change carries the same image over unchanged, so this risk is not introduced by this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 20,
+   "claim": "The image is a mutable debug tag from a personal registry with no digest.",
+   "evidence": "`image: lian1280/ceramicraft-ai-secure-agent:debug-202604071410` with `imagePullPolicy: IfNotPresent`. There is no `@sha256:` digest. The value is carried over from the deleted values.yaml, so the tag is not new, but the change keeps it in a new hand-written manifest.",
+   "axis_row": "L5.40",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 20,
+     "claim": "The image is a mutable `debug-` tag from a personal Docker Hub account with `IfNotPresent`. What runs is not pinned to the artefact anyone reviewed, and it is a debug build.",
+     "evidence": "`image: lian1280/ceramicraft-ai-secure-agent:debug-202604071410` with `imagePullPolicy: IfNotPresent`. There is no `@sha256:` digest. The value is carried over from the deleted values.yaml, so the tag is not new, but the change keeps it in a new hand-written manifest."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The chart supplies anti-affinity, envFrom, probes and resources (deployment.yaml:21-82), and the raw manifest re-implements only part of that. The ConfigMap also stays under backend/, which splits one service across two apps. This is a maintainability point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 1,
+   "claim": "Hand-writing the Deployment outside the shared chart makes this service drift from the conventions every other microservice gets.",
+   "evidence": "All other services (helm_backend/*/values.yaml) render through charts/templates/deployment.yaml, which supplies podAntiAffinity, envFrom, probes, resources and the hpa.tpl. agent/ai-secure-agent.yaml re-implements a subset by hand. Its ConfigMap stays in backend/ai-secure-agent-config.yaml under a different Argo app (backend-app), which splits one service across two apps.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 1,
+     "claim": "Copying the Deployment out of the shared Helm chart into raw YAML duplicates the chart's job. This one service now drifts from the conventions every other microservice gets: anti-affinity, the HPA, the secret env and probes.",
+     "evidence": "All other services (helm_backend/*/values.yaml) render through charts/templates/deployment.yaml, which supplies podAntiAffinity, envFrom, probes, resources and the hpa.tpl. agent/ai-secure-agent.yaml re-implements a subset by hand. Its ConfigMap stays in backend/ai-secure-agent-config.yaml under a different Argo app (backend-app), which splits one service across two apps."
+    }
+   ],
+   "id": "F8"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast",
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

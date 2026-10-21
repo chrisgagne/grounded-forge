@@ -1,0 +1,154 @@
+{
+ "pr": {
+  "repo": "https://github.com/DisciplinedSoftware/Codebase-Conversion",
+  "pr_number": 1,
+  "base": "ed10728c91f7858a0bd95a97c754f4bd6c0487ec",
+  "head": "4b46d68c215dd2448a62f751e81218a0da789165"
+ },
+ "agent": "v5-factory-raw-claude",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/benchmarker.py",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "The Rust benchmark never calls the converted function, so the reported Rust time and the 'Rust is Nx faster' speedup measure an empty loop rather than the conversion. _RUST_BENCH_TEMPLATE times a loop whose body is `// {fn_lower}({call_args});  // uncomment once the Rust signature is known` followed by `std::hint::black_box(&{first_array});`. run_benchmark then computes `speedup = fortran_ms / rust_ms` (line 326), and BenchResult.summary prints 'Rust is {ratio:.2f}x faster than Fortran'. That figure goes into the report and the CLI summary table."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 765,
+   "end_line": 765,
+   "message": "The accuracy check reports a function as passed when no numerical comparison ran (no Rust binary, crate build failed, or length mismatch), so the report shows \u2705 accuracy for code that was never checked. When `errors` is empty, run_accuracy_check returns `AccuracyResult(passed=fortran_ok_count > 0, ...)`, so a Fortran-only run counts as a pass. Line 676 also returns `passed=True` when no routine or source is given. convert.py and cli.py are called with `crate_dir if build_ok else None`, so a failed cargo build sends every function down this path. convert.py prints `\"\u2705\" if acc.passed` and reporter.py renders `\u2705` in the accuracy table."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 557,
+   "end_line": 557,
+   "message": "For Fortran FUNCTIONs that take array arguments (ddot, dasum, dnrm2, idamax, \u2026), the Rust and Fortran drivers print their values in different orders, so the element-wise comparison lines up the wrong values and reports errors for a correct translation. In generate_fortran_driver the array print loops are added first and the result is appended last (`print_lines.append(f\"      WRITE(*,'{print_fmt}') {result_var}\")`, line 471). _RUST_EXAMPLE_TEMPLATE_FN prints `_result` first and the arrays after (`println!(\"{{:.15e}}\", _result as f64);` then `{rust_prints}`). Both outputs have the same length, so run_accuracy_check compares `rust_out[i]` against `fortran_out[i]` across shifted positions."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/strategies/hybrid.py",
+   "start_line": 276,
+   "end_line": 276,
+   "message": "The default strategy (3) passes f2c's C statements through unchanged into the Rust body, so the generated code does not compile wherever f2c is installed (it is installed in the devcontainer). The result is still marked a successful conversion. _translate_c_line falls through to `return s + \"  // TODO: verify\"` for every C statement it does not recognise. f2c output such as `a_dim1 = *lda;` or `c__[i__ + j * c_dim1] = 0.;` is emitted verbatim inside `pub unsafe fn`, with i32/&mut [f64] parameters. convert() then sets `success=True` (line 100) without running any compile check, even though the module docstring promises 'Run cargo check and report results'. A single broken module fails `cargo build` for the whole crate."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/strategies/llm_first.py",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "The LLM strategies report success even when the code still fails to compile after the repair rounds, so the report shows '\u2705 OK' for broken output. LLMFirstStrategy.convert returns `ConversionResult(..., success=True, ...)` whether or not the final `quick_check` passed; it only prints 'Could not fully compile\u2026'. AgenticStrategy.convert does the same (agentic.py line 143) and then runs `polish_unsafe_rust` after the compile loop (line 135) without compiling again, so the final source was never checked."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/llm_client.py",
+   "start_line": 177,
+   "end_line": 177,
+   "message": "The GitHub token found automatically (via `gh auth token` or the Copilot hosts.json) is sent as a Bearer header to whatever LLM_BASE_URL says, and that value can come from a `.env` in the current directory. Running the tool inside an untrusted checkout can therefore send the user's GitHub token to an attacker's endpoint. _resolve_api_key returns `_load_token_from_gh_cli()` / `_load_token_from_vscode_store()` for provider github_models (line 142). `self.base_url = base_url or os.environ.get(\"LLM_BASE_URL\") or self._default_url()` is not restricted to the provider's endpoint. _load_dotenv and convert.py both load `.env` from the CWD, and chat() posts with `headers[\"Authorization\"] = f\"Bearer {self.api_key}\"`."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/fetcher.py",
+   "start_line": 41,
+   "end_line": 41,
+   "message": "Fortran sources are downloaded over plain HTTP, and from an unpinned `master` branch, then compiled and executed by gfortran and sent to the LLM. Someone who can tamper with the network or the upstream can inject code that runs on the host or instructions that reach the model. `_NETLIB_BASE = \"http://www.netlib.org/blas/\"`, `_BLAS_TARBALL = \"http://www.netlib.org/blas/blas-3.11.0.tgz\"`, and `_LAPACK_BLAS_GITHUB_RAW = \".../lapack/master/BLAS/SRC/\"`, with no hash check. _compile_run_fortran and _run_fortran_bench compile and run the fetched files, and the strategies pass `routine.source` into the LLM prompts."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/rust_project.py",
+   "start_line": 120,
+   "end_line": 120,
+   "message": "LLM output is written into the crate, compiled, and executed by the accuracy and benchmark binaries without human review or sandboxing. A prompt injection in the source the model reads could cause host code to run. scaffold_crate writes `r.rust_source` (the model's reply after _strip_fences) straight into `src/{mod}.rs`. build_crate, test_crate and _compile_run_rust_example then run `cargo build`/`cargo test` and execute the example binary with the user's privileges."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/fetcher.py",
+   "start_line": 85,
+   "end_line": 85,
+   "message": "The path-traversal guard on tarball extraction does not handle symlink or hardlink members, so a malicious tarball (fetched over HTTP) can still write outside output_dir. _try_download_tarball checks only that `(output_dir / member.name).resolve()` lies under output_dir, then calls `t.extractall(output_dir, members=safe_members)` with no `filter='data'` and no check of `member.issym()/islnk()` or `linkname`."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "convert.py",
+   "start_line": 42,
+   "end_line": 42,
+   "message": "convert.py's own `.env` loader keeps surrounding quotes and runs before LLMClient's loader, so a quoted `LLM_API_KEY=\"\u2026\"` is stored with the quotes and authentication fails. At module import, convert.py does `os.environ.setdefault(_key.strip(), _val.strip())` with no quote stripping. llm_client._load_dotenv does strip quotes, but it skips any key already in os.environ (`if key and key not in os.environ`), so the quoted value wins."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/strategies/agentic.py",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "Strategy 2's 'Questioner LLM' is a fixed list of keyword-triggered questions rather than an LLM, unlike what the README and strategy description say. _generate_questions builds `questions` from `if \"LSAME\" in routine.source.upper()`, `if \"IMPLICIT\" not in ...` and similar checks, with no LLM call. The README says 'Questioner LLM asks up to 3 clarifying questions'."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/strategies/hybrid.py",
+   "start_line": 88,
+   "end_line": 88,
+   "message": "The hybrid strategy's LLM polish output is used without removing markdown fences, so a reply wrapped in ```rust fences produces a .rs file that does not compile. `polished = self.llm.polish_unsafe_rust(...)`; `if polished.strip(): rust_source = polished`. The other strategies pass the same call through `_strip_fences`."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "README.md",
+   "start_line": 180,
+   "end_line": 180,
+   "message": "The README marks Milestone 1 (full automation of dgemm in all three strategies) as done and calls the output a 'ready-to-use crate', but the code does not support either claim. `- [x] Milestone 1 \u2014 Automate dgemm conversion (all three strategies)`. Meanwhile the hybrid path emits uncompilable or TODO-stub bodies (`// TODO: translate from Fortran source`), and the Rust benchmark call is commented out."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "About 3,000 lines of new pipeline code were added with no tests at all; the README defers them to later. The export contains no test files (no tests/ directory or test_*.py). README says `# Run the test suite (once tests are added)` / `# pytest`. The harness logic that decides pass/fail (run_accuracy_check, _fortran_call, parse_arg_declarations) has no unit coverage."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "requirements.txt",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "Three new runtime dependencies are never imported, and every dependency is unpinned (`>=`), which widens the supply-chain surface for no benefit. requirements.txt and setup.py list `click>=8.1.0`, `colorama>=0.4.6` and `fparser>=0.2.1`; grepping the package finds no import of click, colorama or fparser."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "The devcontainer installs Rust by piping an unpinned remote script into sh and updates the toolchain on every start, so builds cannot be reproduced and tool versions change silently. `RUN curl ... https://sh.rustup.rs | sh -s -- -y --profile minimal`, and devcontainer.json has `\"postStartCommand\": \"rustup update stable --no-self-update 2>/dev/null || true\"`."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/llm_client.py",
+   "start_line": 243,
+   "end_line": 243,
+   "message": "The 429 handling sleeps for whatever Retry-After the server sends, with no upper limit, and each 429 uses up a retry. Run after run can stall, and the final error message reads 'None'. `wait = int(resp.headers.get(\"Retry-After\", \"5\")); time.sleep(wait); continue` has no cap. After all attempts end in 429, `last_exc` is still None in `raise LLMError(f\"... {last_exc}\")`."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/reporter.py",
+   "start_line": 34,
+   "end_line": 34,
+   "message": "generate_report opens a browser by default, including in the `--non-interactive` CI mode. `open_browser: bool = True`, then `webbrowser.open(html_path.as_uri())`. convert.py's _run_non_interactive calls generate_report without passing `open_browser=False`."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "fortran_to_rust/cli.py",
+   "start_line": 289,
+   "end_line": 289,
+   "message": "The '10-function sample' takes the first N Level-1 routines instead of the curated BLAS_SAMPLE, so the sample never includes dgemm. Several helpers are dead code. _parse_sample_input returns `BLAS_FUNCTIONS[:n]`. `BLAS_SAMPLE`, `topological_order`, `clippy_crate` and `add_rust_tests` are defined but never referenced."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 101,
+   "end_line": 101,
+   "message": "The documented provider names disagree: the devcontainer and convert.py's docstring use 'copilot' as the default, while llm_client says github_models. `\"containerEnv\": {\"LLM_PROVIDER\": \"copilot\"}` and convert.py's docstring has `LLM_PROVIDER copilot | openai | openai_compatible (default: copilot)`, whereas llm_client.py's default is `\"github_models\"` and treats copilot as a legacy alias."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

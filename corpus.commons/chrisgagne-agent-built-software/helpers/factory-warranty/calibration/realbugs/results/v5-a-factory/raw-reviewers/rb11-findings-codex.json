@@ -1,0 +1,21 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "src/user/.agents/skills/self-improving-agent/SKILL.md",
+  "line": 36,
+  "claim": "The shared correction-handling skill directs Codex and Gemini to persist user preferences in Claude\u2019s configuration, so those tools may repeat the same mistakes in later sessions.",
+  "evidence": "install_tool() installs this skill into every selected tool\u2019s skills directory, and INSTRUCTIONS.md.template requires invoking it after user corrections. Its destination table nevertheless specifies ~/.claude/AGENTS.md for cross-project preferences and ~/.claude/projects/*/memory/MEMORY.md for remembered context.",
+  "axis_row": "L2.7"
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "low",
+  "file": "README.md",
+  "line": 109,
+  "claim": "The documented manual installation commands reference paths removed by this change and no longer install the required shared instructions.",
+  "evidence": "The diff moves agents/, skills/, AGENT-PERSONA.md.template, and USER-PERSONA.md.template from src/user/.claude/ to src/user/.agents/. README.md still copies them from their previous paths, and its template-copy instructions omit the new INSTRUCTIONS.md and CLAUDE-EXTENSIONS.md dependencies."
+ }
+]

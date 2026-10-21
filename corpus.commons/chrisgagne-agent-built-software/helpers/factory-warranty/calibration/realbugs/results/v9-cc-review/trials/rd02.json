@@ -1,0 +1,37 @@
+{
+ "id": "rd02",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 85,
+   "end_line": 85,
+   "message": "When install method is 'git' (a source checkout with .git) but the bundled ao-update.sh can't be found, the code falls back to `npm install -g @aoagents/ao@latest`, which installs a separate global package next to the user's npm-linked source checkout. A developer builds the CLI with plain `tsc` (skipping `cp -r src/assets dist/`), so dist/assets/scripts/ao-update.sh is missing. `ao update` then says 'using package-manager update flow' and offers or runs `npm install -g @aoagents/ao@latest`. That global package takes over or conflicts with the linked source launcher, and the checkout itself is never updated (no git pull or rebuild). It should fail with an error like 'rebuild the CLI' instead."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "classifyInstallPath used to require both scripts/ao-update.sh and .git. Now it returns 'git' whenever any `.git` exists four directories above the module, so an unrelated parent git repo is treated as an AO source checkout. The CLI is extracted or built outside node_modules, e.g. /home/u/work/tools/cli/dist/lib, inside a user repo /home/u/work that has .git. It is classified as 'git', and `ao update` runs ao-update.sh with AO_REPO_ROOT pointing at that unrelated repo. The script does `cd $REPO_ROOT` and runs git fetch, pnpm install and build there. Before this change it returned 'unknown'."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "The scripts moved from <repo>/scripts to packages/cli/src/assets/scripts (and dist/assets/scripts), but the default `REPO_ROOT=$(dirname BASH_SOURCE)/..` was not updated. It now resolves to packages/cli/src/assets instead of the repo or package root (ao-update.sh line 43 has the same problem). Running `bash packages/cli/src/assets/scripts/ao-doctor.sh` directly, without AO_REPO_ROOT, as the docs/design notes still describe for scripts/ao-doctor.sh: REPO_ROOT becomes .../src/assets, layout detection picks source-checkout, and node_modules, launcher and runtime checks all fail falsely. Running ao-update.sh directly would `cd` into the assets dir and run git and pnpm there."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 189,
+  "cost_usd": 0.37663379999999996,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "medium",
+  "fallback_file": 0
+ }
+}

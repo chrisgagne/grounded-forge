@@ -1,0 +1,170 @@
+{
+ "id": "rd15",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.0415,
+ "codex_tokens": 40715,
+ "work": "<tmp>/replay-rd15-t1-gq4l92yn",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "verify.sh:277 opens an unquoted `<<SH` heredoc, where `\\\"` keeps its backslash. Line 279 therefore comes out as `command -v \\\"jq\\\"` inside `\"$(...)\"`, and the remote sh reads that as the literal argument `\"jq\"`. The lookup returns empty and the probe exits on missing_binary. jq is the first entry in runtime-binaries.json:4, so every run takes this path, for both the container and the sandbox image.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "scripts/verify.sh",
+   "line": 279,
+   "claim": "Non-wrapper probe runs `command -v` on a name with literal double quotes around it, so Check 3 and the sandbox-image check fail on jq for correctly installed images.",
+   "evidence": "The heredoc delimiter `<<SH` is unquoted. In an unquoted heredoc a backslash before `\"` is kept, so line 279 renders as `binary_path=\"$(command -v \\\"jq\\\" || true)\"`. Inside `$(...)` the remote `sh -c` parses `\\\"jq\\\"` as an escaped quote, so the argument becomes the literal string `\"jq\"`. `command -v` returns empty, and the script prints `missing_binary:jq` and exits 1. That makes `gce_ssh` fail at line 296 and `fail \"Failed to validate runtime binary jq ...\"` fire. jq is the first entry in scripts/docker/runtime-binaries.json and has no wrapper, so every run takes this path. The baseline used `command -v \"${binary}\"` inside a quoted `<<'SH'` heredoc, where this problem could not occur.",
+   "breaks": "story",
+   "axis_row": "L4.5",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "scripts/verify.sh",
+     "line": 279,
+     "claim": "The generated probe for non-wrapper binaries looks up a name with literal double quotes around it (e.g. `\"jq\"`). `command -v` then finds nothing, so Check 3 fails on the first system binary (jq) for every GCE verification run, and the sandbox-image check fails the same way.",
+     "evidence": "The heredoc delimiter `<<SH` is unquoted. In an unquoted heredoc a backslash before `\"` is kept, so line 279 renders as `binary_path=\"$(command -v \\\"jq\\\" || true)\"`. Inside `$(...)` the remote `sh -c` parses `\\\"jq\\\"` as an escaped quote, so the argument becomes the literal string `\"jq\"`. `command -v` returns empty, and the script prints `missing_binary:jq` and exits 1. That makes `gce_ssh` fail at line 296 and `fail \"Failed to validate runtime binary jq ...\"` fire. jq is the first entry in scripts/docker/runtime-binaries.json and has no wrapper, so every run takes this path. The baseline used `command -v \"${binary}\"` inside a quoted `<<'SH'` heredoc, where this problem could not occur."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "scripts/verify.sh",
+     "line": 279,
+     "claim": "The generated non-wrapper probe looks up binary names containing literal quotation marks, causing verification to fail for correctly installed binaries.",
+     "evidence": "The unquoted heredoc emits `command -v \\\"jq\\\"` for the manifest's first entry, jq. The remote shell treats the escaped quotes as characters in the command name, so the lookup returns empty; lines 280\u2013282 then report missing_binary:jq and exit. Both container and sandbox-image verification use this probe."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "verify.sh:357 points at ${repo_root}/scripts/docker/runtime-binaries.json, and the in-image manifest is now only checked with `test -f`. verify.yml:35 checks out the workflow ref without `ref: inputs.deployed_ref`, so the list can differ from the deployed image's manifest. The baseline read the manifest inside the target.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "scripts/verify.sh",
+   "line": 252,
+   "claim": "Binary list is read from the CI checkout's manifest, not the manifest inside the image being verified.",
+   "evidence": "`entries_json=\"$(jq ... \"${runtime_binary_manifest_in_repo}\")\"` reads `${repo_root}/scripts/docker/runtime-binaries.json`. The in-image manifest (`/usr/local/share/openclaw/runtime-binaries.json`) is now only checked with `test -f` at lines 240-243 and its contents are ignored. In .github/workflows/verify.yml, `actions/checkout@v4` checks out the workflow ref, not `inputs.deployed_ref`. The baseline probe queried the manifest inside the target with `jq ... \"${manifest_path}\"`.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "scripts/verify.sh",
+     "line": 252,
+     "claim": "The binary list now comes from the CI checkout, not from the image being verified. If the checked-out ref differs from the deployed app image or the separately built sandbox image, the gate checks the wrong set of binaries: it can fail on binaries the image never promised, or pass while missing ones the image's manifest lists.",
+     "evidence": "`entries_json=\"$(jq ... \"${runtime_binary_manifest_in_repo}\")\"` reads `${repo_root}/scripts/docker/runtime-binaries.json`. The in-image manifest (`/usr/local/share/openclaw/runtime-binaries.json`) is now only checked with `test -f` at lines 240-243 and its contents are ignored. In .github/workflows/verify.yml, `actions/checkout@v4` checks out the workflow ref, not `inputs.deployed_ref`. The baseline probe queried the manifest inside the target with `jq ... \"${manifest_path}\"`."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "verify.sh:358 resolves OPENCLAW_RUNTIME_WRAPPER_BIN on the runner with a hard-coded default. The baseline probe read it inside the container. The values match today, so this is only a drift risk; it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/verify.sh",
+   "line": 358,
+   "claim": "Wrapper directory now comes from the runner's environment, not the target image's.",
+   "evidence": "Line 358 sets `runtime_wrapper_bin=\"${OPENCLAW_RUNTIME_WRAPPER_BIN:-/opt/daisy/bin}\"` on the runner. The Dockerfile and Dockerfile.sandbox set `ENV OPENCLAW_RUNTIME_WRAPPER_BIN=/opt/daisy/bin` inside the images, and the baseline probe read that variable inside the container. Now the default is hard-coded on the runner side and can drift from the image's value.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "low",
+     "file": "scripts/verify.sh",
+     "line": 358,
+     "claim": "The wrapper directory is now taken from the CI runner's environment, not the target's. The wrapper path checked can differ from where the image actually installed its wrappers.",
+     "evidence": "Line 358 sets `runtime_wrapper_bin=\"${OPENCLAW_RUNTIME_WRAPPER_BIN:-/opt/daisy/bin}\"` on the runner. The Dockerfile and Dockerfile.sandbox set `ENV OPENCLAW_RUNTIME_WRAPPER_BIN=/opt/daisy/bin` inside the images, and the baseline probe read that variable inside the container. Now the default is hard-coded on the runner side and can drift from the image's value."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff shows the image branch repeating the case match, the 8-character blocklist and the read/printf %q loop from build_direct_exec_smoke_command almost line for line. This is a maintainability point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/verify.sh",
+   "line": 185,
+   "claim": "The image branch of build_target_direct_exec_command duplicates the smoke-command parsing, blocklist and quoting from build_direct_exec_smoke_command.",
+   "evidence": "Lines 186-206 repeat lines 91-113 almost line for line: the `case \"${smoke_command}\" in \"${binary}\"|\"${binary} \"*)` match, the same 8-character blocklist test, and the `read -r -a smoke_args` / `printf '%q'` loop. Only the command prefix differs.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "scripts/verify.sh",
+     "line": 185,
+     "claim": "The image branch of build_target_direct_exec_command copies the smoke-command parsing, the unsafe-character blocklist and the argument quoting from build_direct_exec_smoke_command. A future fix to one copy can easily miss the other.",
+     "evidence": "Lines 186-206 repeat lines 91-113 almost line for line: the `case \"${smoke_command}\" in \"${binary}\"|\"${binary} \"*)` match, the same 8-character blocklist test, and the `read -r -a smoke_args` / `printf '%q'` loop. Only the command prefix differs."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch changes only scripts/verify.sh and adds no tests for the new builder helpers, which is how the C1 quoting bug got through. This is a test-coverage point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/verify.sh",
+   "line": 232,
+   "claim": "About 240 new lines of remote-command-building shell have no tests.",
+   "evidence": "diff.patch changes only scripts/verify.sh. No test file references verify_runtime_binaries_for_target, build_target_*_command or build_direct_exec_smoke_command, and no *verify* test exists in the repo. The helpers are pure string builders that could be unit-tested without SSH.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "scripts/verify.sh",
+     "line": 232,
+     "claim": "The diff adds about 240 lines of shell that build and quote remote commands, with no test exercising any of it. That is how the broken `command -v` quoting reached the head unnoticed.",
+     "evidence": "diff.patch changes only scripts/verify.sh. No test file references verify_runtime_binaries_for_target, build_target_*_command or build_direct_exec_smoke_command, and no *verify* test exists in the repo. The helpers are pure string builders that could be unit-tested without SSH."
+    }
+   ],
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast",
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

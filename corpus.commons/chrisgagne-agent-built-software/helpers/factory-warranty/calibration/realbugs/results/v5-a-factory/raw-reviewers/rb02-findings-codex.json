@@ -1,0 +1,20 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "critical",
+  "file": "packages/auth-atproto/src/routes/callback.ts",
+  "line": 130,
+  "claim": "Concurrent setup callbacks can link a second person's AT Protocol account to the initial administrator account.",
+  "evidence": "Two callbacks for different DIDs can both read setup_complete as false at lines 130\u2013131. Both then use the setup wizard's email and set emailVerified=true. If the second callback reaches findOrCreateOAuthUser after the first creates the user, that function finds the same email and automatically links the second DID to the administrator. Neither the flag read nor account creation is protected by an atomic setup claim; finalizeSetup runs only afterward."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "high",
+  "file": "packages/auth-atproto/src/routes/login.ts",
+  "line": 34,
+  "claim": "AT Protocol login and setup generate incorrect OAuth URLs behind a TLS-terminating reverse proxy.",
+  "evidence": "When request.url has an internal origin such as http://localhost:4321 while config.siteUrl specifies the public HTTPS origin, login.ts passes url.origin directly to getAtprotoOAuthClient. That client constructs client_id and redirect_uris from this internal address and treats localhost as a loopback client. setup-admin.ts and callback.ts use the same internal-origin calculation, and client-metadata.ts also advertises it. None uses the change's getPublicOrigin helper, so the browser or PDS receives internal URLs instead of the configured public URLs."
+ }
+]

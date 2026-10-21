@@ -1,0 +1,114 @@
+{
+ "id": "rd02",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 85,
+   "end_line": 85,
+   "message": "When a git/source install lacks the bundled ao-update.sh, `ao update` falls back to `handleNpmUpdate(opts, \"npm-global\")`, which installs `@aoagents/ao@latest` globally from npm instead of updating the checkout. Source-checkout user (launcher installed via `npm link` of packages/ao) whose dist/assets lacks ao-update.sh (built with plain `tsc`, or assets copy skipped) runs `ao update` in a TTY and confirms. `npm install -g @aoagents/ao@latest` replaces the global `@aoagents/ao` symlink with the registry build, so `ao` silently stops running their checkout. If the checkout version is already >= the npm latest, the user sees 'Already on latest' and the source is never pulled. pnpm users are also hard-coded to npm. The new test locks in this behavior."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 61,
+   "end_line": 61,
+   "message": "run_smoke_tests runs `node $REPO_ROOT/packages/agent-orchestrator/bin/ao.js`, but the launcher package is now `packages/ao/bin/ao.js` (renamed in 4fcdc674), so smoke tests always fail under `set -e`. In a real checkout, `ao update` without --skip-smoke does the full fetch, clean, rebuild, and npm link, then fails with 'Cannot find module .../packages/agent-orchestrator/bin/ao.js'. The script exits 1, executeScriptCommand calls process.exit(1), and invalidateCache never runs. `ao update --smoke-only` always fails. Tests miss this because update-script fixtures create the stale directory."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 325,
+   "end_line": 325,
+   "message": "check_runtime_sanity (touched by this diff) still checks `$REPO_ROOT/packages/agent-orchestrator/bin/ao.js`, which does not exist in the repo; the launcher is `packages/ao/bin/ao.js`. Every `ao doctor` on a real source checkout prints 'FAIL launcher entrypoint is missing. Fix: reinstall from a clean checkout' and exits 1. The doctor-script fixture `createHealthyRepo` creates both `packages/ao` and `packages/agent-orchestrator/bin/ao.js` (doctor-script.test.ts:35-43), which hides the bug."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The fallback `REPO_ROOT=$(cd $(dirname BASH_SOURCE)/.. && pwd)` assumed the script lived at `<repo>/scripts/`. After the move it resolves to `packages/cli/{src,dist}/assets`, not the repo root. If a failed rebuild leaves dist removed, the recovery path is running the script directly (`bash packages/cli/src/assets/scripts/ao-update.sh`). It then cds into `.../src/assets`, runs git and pnpm from there, and fails at `cd \"$REPO_ROOT/packages/ao\"` (`.../assets/packages/ao` does not exist). Smoke-test paths are wrong too. Before the move, `bash scripts/ao-update.sh` worked standalone."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "ao-doctor.sh's default REPO_ROOT (`dirname BASH_SOURCE/..`) now resolves to `.../assets` instead of the repo or package root. The new layout heuristic at lines 33-39 then always picks source-checkout when the script runs without AO_REPO_ROOT. Running `bash packages/cli/dist/assets/scripts/ao-doctor.sh` directly, or any wrapper that doesn't set AO_REPO_ROOT, reports FAIL for `.../assets/node_modules`, `.../assets/packages/core/dist/index.js`, and so on, then exits 1 on a healthy install. A packaged install run directly is never detected as package-install. Docs (docs/design-onboarding-improvements.html) still point to scripts/ao-doctor.sh."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "classifyInstallPath dropped the `scripts/ao-update.sh` checkout marker without adding a replacement, so any non-node_modules path whose 4th ancestor has a `.git` is classified as `git`. A CLI build vendored or copied into another git repo (e.g. `<other-repo>/tools/ao/dist/lib/update-check.js`) is classified `git`. `ao update` then runs ao-update.sh with REPO_ROOT set to that unrelated repo: `git pull --ff-only origin main`, `pnpm install`, `pnpm --filter ... clean`, and `cd packages/ao && npm link` all run against the wrong repository. The removed tests had covered the '.git exists but not an AO checkout' case."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "In the new fallback, `--smoke-only` (documented as 'Run smoke tests without fetching or rebuilding') is ignored and the npm update flow runs, which can prompt for and perform `npm install -g`. The flow also prints '--skip-smoke and --smoke-only only apply to git source installs', which contradicts the git classification. A user on a git checkout with no bundled update script runs `ao update --smoke-only` to verify their install. Instead they get a version comparison and a prompt to run `npm install -g @aoagents/ao@latest`. Accepting it changes the install, which is the opposite of what smoke-only promises. Previously, smoke-only never changed anything."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 68,
+   "end_line": 68,
+   "message": "Using `cwd: process.cwd()` instead of the repo root adds a synchronous `process.cwd()` call that throws ENOENT when the shell's working directory has been deleted. The option is also redundant, since spawn already inherits the cwd. A user sits in an AO worktree that `ao` cleanup has removed and runs `ao doctor`. `process.cwd()` throws `ENOENT: uv_cwd` inside the Promise executor. Doctor catches it, prints the error, and skips every shell check (shellExitCode=1). Before this change the spawn used an explicit repo-root cwd. Omitting `cwd` avoids the throw."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/__tests__/lib/script-runner.test.ts",
+   "start_line": 40,
+   "end_line": 40,
+   "message": "The character class in `/[.*+?^${}()|[\\\\]\\\\\\\\]/g` closes at the first `\\\\]`, so the pattern only matches a special char followed by literal `\\\\]` and never escapes anything. The scripts dir path goes into `new RegExp` unescaped. Checked with node: '/tmp/a+b(c)/x.y/scripts'.replace(<test regex>) returns the input unchanged. A checkout path containing `+`, `(`, `[`, or `?` (e.g. `~/code/ao (copy)/`) makes the test fail or throw 'Invalid regular expression'. Unescaped `.` also matches any character, which weakens the assertion. Intended pattern: `/[.*+?^${}()|[\\]\\\\]/g`."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "getScriptPath now always uses the module-relative CLI_DIST_ROOT and ignores the AO_REPO_ROOT override. That override is still passed to the script, so the script version and the repo it acts on can come from different trees. A developer sets AO_REPO_ROOT=~/ao-dev to test a modified ao-update.sh or ao-doctor.sh in another checkout. The globally installed CLI runs its own bundled copy against ~/ao-dev, so their changes never run and the old script logic acts on the new tree. Before this change, resolveScriptPath used resolveRepoRoot(), so the override chose the script too."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "Install layout is now decided in three places that can disagree: script-runner's node_modules check, update-check's classifyInstallPath (now .git-only), and this shell heuristic. The update.ts hasRepoScript fallback works around the mismatch instead of fixing classification. A source tarball without .git gives layout=source-checkout but install=unknown. npx gives layout=package-install but install=unknown. A stale dist gives install=git but no script, which hits the npm fallback. Each new case needs another special case. Simpler fix: have classifyInstallPath require the bundled `assets/scripts/ao-update.sh` (or `packages/cli/package.json`) next to `.git`, derive ScriptLayout from that one classifier, and drop the shell heuristic, since the TS caller always passes AO_SCRIPT_LAYOUT."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 12,
+   "end_line": 12,
+   "message": "resolveScriptLayoutFromPath and resolveDefaultRepoRootFromPath repeat the `/node_modules/` / `\\\\node_modules\\\\` check and the `resolve(dirname(p), \"../../../../\")` repo-root walk from update-check.ts classifyInstallPath. Two copies of the same path heuristics must stay in sync. A fix to one (e.g. Windows separators, pnpm store layout) won't reach the other, so `ao doctor` and `ao update` can disagree about the same install. Reuse `classifyInstallPath` (or extract a shared `isNodeModulesPath`/`sourceRepoRootFrom` helper in update-check.ts)."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 277,
+   "end_line": 277,
+   "message": "The package-install branch checks that ao-doctor.sh exists (it is the running script) and that package.json and dist/index.js exist (required for the CLI to have started). It also FAILs on a missing ao-update.sh, which package installs never use, and checks dist/index.js again in check_runtime_sanity, which double-counts FAILs. These checks add output and maintenance without catching anything real. A missing dist/index.js produces two FAIL lines. Doctor exits 1 over a missing source-update script that npm/pnpm installs never call. Keep only the runtime `node dist/index.js --version` check."
+  },
+  {
+   "source": "cc-review",
+   "file": "CLAUDE.md",
+   "start_line": 184,
+   "end_line": 184,
+   "message": "Commit 76652c7c is titled 'Fix packaged doctor and update fallback', which breaks the repo CLAUDE.md rule 'Conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`, `perf:`, `ci:`'. Violates /CLAUDE.md (Conventions \u2192 Commits). The subject has no `fix(cli):` prefix, unlike the sibling commits 89427ee5 and c2358798, which can break changelog and changeset tooling that keys on the prefix."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 327,
+  "cost_usd": 1.7524494,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

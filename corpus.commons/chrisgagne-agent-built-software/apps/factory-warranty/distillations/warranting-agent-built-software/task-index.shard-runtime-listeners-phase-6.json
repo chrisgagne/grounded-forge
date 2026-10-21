@@ -1,0 +1,153 @@
+{
+  "section": "Runtime listeners: Phase 6",
+  "columns": [
+    "trigger",
+    "response"
+  ],
+  "rows": [
+    [
+      "The same session that wrote the code reviews it",
+      "Route the change to a reviewer outside the build: the assurer and the analyst shall be independent, and the roles shall be separate in all cases (`uk-aqua-book-2025`) [D9] [D11] • Route to a reviewer outside the writing session; the source defines peer review as done by a developer other than the code's author (`uk-duck-book-qa-of-code`) [D9] [D10] • Route to a reviewer who took no part in writing it: the playbook puts review outside the pair (`microsoft-code-with-engineering-playbook`) [D10] • Require a reviewer not involved in the work: design review is by uninvolved people and/or automated processes, and a developer's own review only complements other reviewers and tools (`nist-ssdf-1-1`) [D11] [D12] • Route to a reviewer who had no part in the design and keep the automated checks too: design review takes both a qualified person not involved with the design and automation (`nist-sp-800-218a`, transfer from design review) [D12] • Route to a fresh reviewer with only the diff and the claims: validation is independent reproduction, and a verifier exposed to the builder's reasoning may simply agree (`openssf-finding-fixing-vulnerabilities-ai`) • Require a reviewer outside the writing context: hallucinations compound through reflection and self-critique (`owasp-agentic-threats-mitigations`) • Route at least the scenarios to other roles (the client's side for scope, a tester for how it breaks): the documentation holds that each role sees the product differently and calls single-author discovery \"not BDD\" (`cucumber-bdd-gherkin`; extending it from discovery to review is the distillation's inference)"
+    ],
+    [
+      "The reviewer's findings are long and nobody sorts them",
+      "Require a response to each finding and a re-review before the pack: the assurer reports errors, the analyst acts on recommendations as appropriate, and the assurer re-reviews as required. The sorting itself is a harness rule (`uk-aqua-book-2025`) • Block until each finding is acted on or justified and recorded against the reviewed version; the source requires this before the analysis is used (`uk-duck-book-qa-of-code`) • Give every finding an outcome (fixed, \"won't fix\" with a reason, or a new work item); in-scope fixes are not deferred (`microsoft-code-with-engineering-playbook`) • Require a triage decision per finding in the tracker before the pack: findings and remediations are recorded and triaged in the team's workflow (`nist-ssdf-1-1`) • Record each finding and its recommended fix in the tracker with a triage decision (`nist-sp-800-218a`) • Deduplicate by root cause, then confirm or refute each before it blocks or passes: a finding is a possible problem, not a confirmed one (`openssf-finding-fixing-vulnerabilities-ai`) • Sort by risk before anyone approves: unsorted queues are how high-impact items get rubber-stamped (transfer of Playbook 5's risk-prioritised queues) (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "The builder approves because reading the diff is too slow",
+      "Sign on the reviewer's evidence, not the diff: the approver shall review the assurance evidence, with an independent assurer confirming the work was scoped, executed, validated, verified and documented (`uk-aqua-book-2025`) • Allow only if the pack shows the agreed practices were done, otherwise add output checks or hold; the source says a manager need not read the code to trust it when the team's approach and proportionate assurance are sound, and supplements shortfalls with assurance of outputs (`uk-duck-book-qa-of-code`) [D16] [D17] • Split the change: reviewers read every changed line, and review effectiveness falls with size; automation clears the mechanical checks (`microsoft-code-with-engineering-playbook`) [D14] [D16] • Follow the written review policy and record what reviewed the change: review is human and/or tool-based, chosen by policy and the software's stage (`nist-ssdf-1-1`) [D14] • Record the choice of analysis over review and show the analysis ran: all code is evaluated before use, AI-generated or not, and review and/or analysis is chosen by policy (`nist-sp-800-218a`) [D19] • Keep human review where failure would be serious, aimed by an AI first pass at the three watch-points (`openssf-finding-fixing-vulnerabilities-ai`) [D15] [D19] • Tier by impact and read the high-impact items in full: when human capacity cannot keep up, approvals are rushed and scrutiny drops (`owasp-agentic-threats-mitigations`) • Name who checks what the tests can't (reuse, callers, footprint, readability): the authors state that execution-based testing alone is insufficient to guarantee reliable model output (`jimenez-swe-bench`) • Name the check that covers what reading caught, or read the parts it doesn't cover: developers who read AI code found convention and style problems and modified all of it (`becker-metr-ai-developer-productivity-2025`) • If nobody reads it, the gates carry it (warnings by category, a complexity check); if someone reads it, ask whether a simpler implementation exists: the authors say AI-generated code needs extra scrutiny unless development is fully automated without review (`he-cursor-velocity-complexity-2025`) • Read the scenarios and the run record instead, and have the client's side confirm the scenarios say what they need: Gherkin is written to be read by people as well as machines (`cucumber-bdd-gherkin`) • The signer need not read every line, but the security verification the signature rests on must have the source, documentation, configuration and people, especially at L2 and L3; black-box testing is discouraged (`owasp-asvs-5-0`) [D17] • Approve only if something other than the agent's explanation checked it: the risk grows when humans approve on unverifiable rationales without independent validation (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The reviewer and builder agree too quickly",
+      "Ask the reviewer what it checked beyond the build's own report: suitable challenge reduces bias, and the approver should challenge the analysts enough to gain assurance (`uk-aqua-book-2025`) • Ask whether the change was reviewed or its author trusted: passing code because its author is usually right is named biased decision-making (`microsoft-code-with-engineering-playbook`) • Require one executable demonstration: agreement among AI reviewers is not proof, and the guide reports ten AI reviewers endorsing a flaw one test killed (`openssf-finding-fixing-vulnerabilities-ai`) [D23] • Ask what each side actually ran: approval granted on assumed prior validation and forged consensus are named escalation paths (transfer) (`owasp-agentic-threats-mitigations`) [D23] • Sample the reviewer agent's passes against something that isn't a model: model judges can mark incorrect long answers as correct (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "The change \"looks fine\" but touches something with a history of incidents",
+      "Pull the bugs linked to earlier changes in this area and review against the checklist items they produced (`microsoft-code-with-engineering-playbook`) • Pull the earlier reports, their root causes and the regression tests before review: earlier vulnerability reports feed risk modelling and regression tests cover them (`nist-ssdf-1-1`) • Check the root-cause record for patterns in this area and look for the same class in the change (`nist-sp-800-218a`) • Have the agent cluster past defects in the area and check each earlier fix was complete (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "On a quick change, the builder proposes reviewing their own agent's work because it is small",
+      "Refuse: one person may hold several roles on quick work, except analyst and assurer, which shall be separate in all cases (`uk-aqua-book-2025`)"
+    ],
+    [
+      "The method changed mid-build and the reviewer was set up for the old one",
+      "Re-brief or replace the reviewer before relying on its pass: the assurer should consider whether they are qualified to assure a revised method (`uk-aqua-book-2025`)"
+    ],
+    [
+      "A change reached the main branch without an approved pull request",
+      "Make approval a branch rule the agent cannot bypass and review what got through; the source advises preventing merges onto `main` without an approved pull request (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "A finding outside the change's scope is holding up the merge, or an in-scope finding is answered \"later\"",
+      "Move out-of-scope findings to new work items; resolve in-scope ones now (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "Review or scan findings live in a chat transcript or the agent's summary, not the tracker",
+      "File and triage them in the tracker before sign-off (`nist-sp-800-218a`)"
+    ],
+    [
+      "AI-written code is held to a different bar from human-written code",
+      "Same gates for the agent's code: the source does not distinguish them, since all source code should be evaluated before use (`nist-sp-800-218a`) [D19]"
+    ],
+    [
+      "Two agents with repository permissions can approve each other's changes",
+      "Remove the path: the guide reports agents approving each other's pull requests and silently undermining the human gate (`openssf-finding-fixing-vulnerabilities-ai`) [D23] [D24]"
+    ],
+    [
+      "A review agent runs in CI on outside pull requests with secrets or write tokens",
+      "Strip secrets, write tokens and tools to read-and-report: the guide reports demonstrations of such agents leaking their own repositories' keys (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The fix adds a check at one call site, or blocks only the exact failing input",
+      "Return for the root cause and have a separate agent try variations: a fix that blocks only the exact input is not a full fix (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The diff adds its own helper, cast or generic workaround beside a facility the codebase or an existing library already provides",
+      "Return to reuse the existing construct: duplicated code is easier for the AI but a maintenance burden (`openssf-finding-fixing-vulnerabilities-ai`) • Require the reuse or a stated reason: model patches skipped existing libraries and the rest of the codebase, and the authors call one passing fix of this kind \"lucky\" (`jimenez-swe-bench`)"
+    ],
+    [
+      "A reviewer agent passes a change on another agent's word",
+      "Return it; each gate runs its own check, since access granted on assumed prior validation is a named escalation path (`owasp-agentic-threats-mitigations`) [D23]"
+    ],
+    [
+      "An agentic feature's threat model uses only the LLM list or an unextended general methodology",
+      "Extend it with the decision path over T1–T17: the guide holds both partial for agentic threats (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "A reviewer agent can only say pass or fail and never reports being unsure",
+      "Let it abstain, and score a false finding below an abstention at a stated threshold; carrying the paper's scoring rule to a reviewer agent is the distillation's inference (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "The model behind a builder or reviewer agent is swapped on the strength of a pass-rate leaderboard",
+      "Ask for error and abstention rates under scoring that puts a wrong answer below an abstention: on binary evaluations a model that always guesses can outscore one that abstains (`why-language-models-hallucinate-kalai`) [D5]"
+    ],
+    [
+      "The diff is much smaller than the spec's scope, often a single file",
+      "Ask what a wider fix would handle: applied model patches ran shorter than human fixes and rarely touched more than one file (`jimenez-swe-bench`)"
+    ],
+    [
+      "The change adds a branch to a widely used, already complex class",
+      "Ask whether the logic belongs in a simpler function: the authors' preliminary complexity metric flagged such a patch even though it passed (`jimenez-swe-bench`)"
+    ],
+    [
+      "The diff touches files or modules the task never named",
+      "Review those hunks first and require a reason in the spec for each, or revert: developers reported AI making unwanted changes elsewhere in large codebases (`becker-metr-ai-developer-productivity-2025`)"
+    ],
+    [
+      "The reviewer's or assessor's brief names the hypothesis it is meant to check",
+      "Rewrite the brief to ask what the change does: the trial's authors could not rule out bias in evidence gathered with questions that probed their hypotheses (`becker-metr-ai-developer-productivity-2025`)"
+    ],
+    [
+      "New warnings in an agent diff are dismissed as style noise",
+      "Sort by category and read logic-error and security warnings first: those rose too in the descriptive sample (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "The diff carries commented-out code, stray TODOs or unused variables",
+      "Send it back for cleanup: code hygiene was among the largest rises in new warnings after adoption (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "\"Have a second agent write more tests\"",
+      "Direct the extra effort at named gaps rather than another general pass: pooling three agents' suites raised the killed share from 54% to 59%, leaving 41% none caught (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "A test asserts only the shape of the output (length, non-empty, a keyword appears)",
+      "Route back to the builder with the requirement the assertion fails to pin: a shape-only check passed a script for the wrong shell (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "The pen test or security review ran black-box, without the source or the decision records",
+      "Re-run it documentation- or source-led; testing without the necessary information is called inefficient and ineffective (`owasp-asvs-5-0`) [D18]"
+    ],
+    [
+      "A scanner's clean result is the only evidence for an authorization or business-logic requirement",
+      "Require an application-specific test; tools cannot entirely verify access control or business logic (`owasp-asvs-5-0`) [D20]"
+    ],
+    [
+      "The documented security decision was checked but its implementation was not, or the reverse",
+      "Check both and record each result; the standard treats them as two separate verification activities (`owasp-asvs-5-0`)"
+    ],
+    [
+      "A review's injection analysis covers only the chat input",
+      "Extend it to retrieved content, tool output and memory: defenses that focus only on the chat surface miss indirect injection (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "The agent's generated code is compiled and deployed with no human review or security testing",
+      "Route it to review and security testing before it ships: the source names this as an attack scenario and folds the insecure code assistants generate into improper output handling (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "The reason to approve is a rationale the agent wrote",
+      "Set it aside and write a plain-language risk summary that is not the model's: fabricated rationales get unsafe actions approved whatever their root cause (`owasp-agentic-top10-2026`) [D27]"
+    ],
+    [
+      "A preview or read-only view in an agentic feature makes network or state-changing calls",
+      "Block: keep preview apart from effect (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "Agents in the change pass free-text instructions to each other with no schema or audience",
+      "Require versioned, typed schemas with per-message audiences, and signed messages (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "A long agent workflow checks the user's authorisation only at its start",
+      "Require re-verification of each privileged step: authorisation checked at the start can be stale by the time the agent acts (`owasp-agentic-top10-2026`)"
+    ]
+  ]
+}

@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/EdV4H/usketch",
+  "pr_number": 534,
+  "base": "ff729b7dce02efaf7d1054780536289f86e8a5e7",
+  "head": "719aa8340584e714552d132a9ec6971582673a8b"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 34,
+   "message": "Apply rotation in the active rendering paths. The application registers `createDomRendererPlugin()` and `createGpuRendererPlugin()`, neither of which uses this deprecated `ShapeLayer`. `DomShapeLayer` and the GPU pipelines still render shapes without rotation, while the updated plugins now inverse-rotate hit-test points. Consequently, a non-square shape with nonzero rotation is displayed in one position but selectable in another. Update the active renderers too, or route rotated shapes through a rotation-capable fallback."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 109000
+ }
+}

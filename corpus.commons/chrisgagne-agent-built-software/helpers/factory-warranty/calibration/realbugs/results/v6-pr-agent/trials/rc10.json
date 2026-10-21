@@ -1,0 +1,40 @@
+{
+ "id": "rc10",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "sites/exp.arolariu.ro/project.json",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "Project Name Mismatch. The Nx project is named `@arolariu/exp`, but `package.json` (`dev:exp`, `test:exp`) and `scripts/dev-local.ts` run `nx run exp:dev` and `nx run exp:test`. Nx resolves targets by the exact project name, so these commands would fail with \"project not found\". Every `dev:local` profile includes `exp`, so the whole orchestrator would break. This assumes no other naming convention or alias maps `exp` to this project; the other projects' `name` fields are not visible in the diff."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "scripts/dev-local.ts",
+   "start_line": 208,
+   "end_line": 343,
+   "message": "Orphaned Processes. Children are spawned with `shell: true`, so `p.kill()` signals only the intermediate shell on Linux/macOS, not the `npx nx` / `dotnet watch` / `uvicorn` grandchildren. On SIGTERM, or after the parent calls `process.exit(0)`, the dev servers can keep running and holding ports 3000, 5000 and 5002. The next `dev:local` run then fails with \"port in use\". Also, if one service exits, `Promise.race` resolves but the other children are neither killed nor reported. Consider spawning with `detached: true` and killing the process group (`process.kill(-pid)`), or avoiding the shell."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "scripts/dev-local.ts",
+   "start_line": 152,
+   "end_line": 190,
+   "message": "Cosmos Init Unauthenticated. The CosmosDB REST calls (`POST /dbs`, `POST /dbs/primary/colls`) send no `Authorization`, `x-ms-date` or `x-ms-version` headers. The Cosmos REST API normally rejects these with 401, so the database and containers are never created and the API later fails against missing containers. The failure only appears as a warning that blames emulator startup. Unless the emulator image in use accepts unauthenticated requests (not verifiable from the diff), sign the requests with the emulator's well-known master key or use `@azure/cosmos`."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 31,
+  "usage": {
+   "prompt_tokens": 43368,
+   "completion_tokens": 2385,
+   "total_tokens": 45753
+  },
+  "security_concern": false
+ }
+}

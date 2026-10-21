@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.12415359999999999,
+  "duration_s": 21.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "The check builds the tree's own yargs-parser and parses ['-ab'] with boolean ['a','b'] and {'short-option-groups': false, 'unknown-options-as-args': true}. On base it gives {_:['-ab']}, but on head it gives {_:[], ab:true}: the unknown option is dropped from argv._ and set as the undeclared option 'ab', as the finding says."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[\"-ab\"]}\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[],\"ab\":true}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: unknown option -ab should be kept in argv._\n+ actual - expected\n\n+ []\n- [\n-   '-ab'\n- ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v4/w18-t1-F1/check/test.mjs:10:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [],\n  expected: [ '-ab' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The check builds the tree's own yargs-parser and parses ['-ab'] with boolean ['a','b'] and {'short-option-groups': false, 'unknown-options-as-args': true}. On base it gives {_:['-ab']}, but on head it gives {_:[], ab:true}: the unknown option is dropped from argv._ and set as the undeclared option 'ab', as the finding says.",
+ "run": "v4-arm-v4",
+ "trial": "w18-t1",
+ "kind": "bug"
+}

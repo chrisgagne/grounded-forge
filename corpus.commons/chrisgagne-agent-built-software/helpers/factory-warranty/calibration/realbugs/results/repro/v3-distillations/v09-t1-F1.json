@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.14759799999999998,
+  "duration_s": 23.3
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/acos_near_one.js {tree}",
+  "because": "For exact inputs x = 1 - 10^-n, head's acos (pi/2 - asin(x)) loses most of its digits to cancellation: at precision 20 with x = 1-1e-20 it returns 1.414213562373079e-10 (relative error 1e-14), and with x = 1-1e-60 it returns 9.99999984e-17 when the true value is 1.414e-30 (off by about 14 orders of magnitude), while base matches a high-precision 2*asin(sqrt((1-x)/2)) reference to full precision."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "pr=20 x=1-1e-20 got=1.4142135623730950488e-10 ref=1.4142135623730950488e-10 relErr=2.027e-21 OK\npr=20 x=1-1e-30 got=1.4142135623730950488e-15 ref=1.4142135623730950488e-15 relErr=1.194e-21 OK\npr=30 x=1-1e-40 got=1.41421356237309504880168872421e-20 ref=1.41421356237309504880168872421e-20 relErr=2.135e-31 OK\npr=20 x=1-1e-60 got=1.4142135623730950488e-30 ref=1.4142135623730950488e-30 relErr=1.194e-21 OK\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "pr=20 x=1-1e-20 got=1.414213562373079e-10 ref=1.4142135623730950488e-10 relErr=1.135e-14 FAIL\npr=20 x=1-1e-30 got=1.4142135607e-15 ref=1.4142135623730950488e-15 relErr=1.183e-9 FAIL\npr=30 x=1-1e-40 got=1.414213562373101e-20 ref=1.41421356237309504880168872421e-20 relErr=4.208e-15 FAIL\npr=20 x=1-1e-60 got=9.99999984e-17 ref=1.4142135623730950488e-30 relErr=7.071e+13 FAIL\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "For exact inputs x = 1 - 10^-n, head's acos (pi/2 - asin(x)) loses most of its digits to cancellation: at precision 20 with x = 1-1e-20 it returns 1.414213562373079e-10 (relative error 1e-14), and with x = 1-1e-60 it returns 9.99999984e-17 when the true value is 1.414e-30 (off by about 14 orders of magnitude), while base matches a high-precision 2*asin(sqrt((1-x)/2)) reference to full precision.",
+ "run": "v3-distillations",
+ "trial": "v09-t1",
+ "kind": "bug"
+}

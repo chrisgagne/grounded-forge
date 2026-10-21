@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/scotthamilton77/agents-config",
+  "pr_number": 1,
+  "base": "3776d9195827d79efec978fb900573f3a5a53339",
+  "head": "1fc789709ae044579908fed58c8c14638d0db095"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "scripts/install.sh",
+   "start_line": 492,
+   "end_line": 509,
+   "message": "Overlapping dir sync. Phases 2/3 sync shared `skills/` and `agents/` into the same `~/.<tool>/skills|agents` directories that Phase 5 later syncs tool-specific `skills/` and `agents/` into. This has two effects.\n\nFirst, the \"exists in dest but not in source\" check runs against each source separately. So every tool-specific item is warned as \"not in shared source\", and every shared item is warned as \"not in claude-specific source\". The warnings become misleading noise.\n\nSecond, if an item name exists in both `.agents/skills/` and `.<tool>/skills/`, the two phases overwrite each other's copy. The user is prompted to replace it twice on every run, and the installed result never stabilizes.\n\nA fix is to compute the stale-item check against the union of both sources, and to detect name collisions or let the tool-specific copy take precedence."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/user/.codex/AGENTS.md.template",
+   "start_line": 6,
+   "end_line": 11,
+   "message": "Unresolved references. The Codex instruction file now holds no rules itself. Everything depends on the agent resolving `@INSTRUCTIONS.md`, `@AGENT-PERSONA.md`, and `@CODEX-EXTENSIONS.md`.\n\nClaude and Gemini support `@file` imports relative to the memory file. Codex CLI, as far as I know, does not expand them. The model would then have to locate these files itself, likely relative to the project cwd rather than `~/.codex/`. In that case, the laws, constraints, and persona would silently not load.\n\nI have not verified Codex's current import behavior. Consider using absolute paths (e.g. `~/.codex/INSTRUCTIONS.md`) or inlining the content for Codex."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 626000
+ }
+}

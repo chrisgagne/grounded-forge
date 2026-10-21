@@ -1,0 +1,73 @@
+{
+ "id": "v18",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5918,
+ "codex_tokens": 61013,
+ "work": "<tmp>/replay-v18-t1-7_6lqauy",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "yargs-parser.ts:1107-1108 shows increment() returns 1 when called with no argument. setKey at line 853 checks `value === increment()` before the array and duplicate branches and doesn't look at flags.counts. So an ordinary coerced 1 adds to the existing value (e.g. 2 then 1 gives 3), and an array-typed key gets a bare 1 instead of [1]. The diff removes the Symbol sentinel that used to prevent this.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/yargs-parser.ts",
+   "line": 853,
+   "claim": "Swapping the unique Symbol sentinel for increment() (which returns 1) makes setKey treat any numeric value 1 as a count increment, for every key.",
+   "evidence": "processValue now sets `value = increment()` (line 629), and increment() returns `orig !== undefined ? orig + 1 : 1` (line 1107-1108), so the marker is the plain number 1. setKey tests `if (value === increment()) { o[key] = increment(o[key]) }` (lines 853-854) before the duplicate/array branches, for every key, not only keys in flags.counts. maybeCoerceNumber (lines 640-651) turns the string '1' into the number 1 for any non-string, non-boolean key, so an ordinary `--foo 1` reaches this branch. The removed lines in the diff show the previous code used `const INCREMENT_SENTINEL = Symbol('count-increment')`, which no user value could equal.",
+   "breaks": "story",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "noise",
+   "reason": "The real harm here is the collision already confirmed in the C1/X1 item. Whether the change was requested can't be checked, because story.md isn't in the packet. As its own finding this adds nothing new, so I lowered it to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "lib/yargs-parser.ts",
+   "line": 623,
+   "claim": "The sentinel removal and type change were not requested.",
+   "evidence": "diff.patch changes `let value: any = Array.isArray(val)` to `let value = Array.isArray(val)`, replaces `INCREMENT_SENTINEL` with `increment()` in two places, and deletes `const INCREMENT_SENTINEL = Symbol('count-increment')`. acceptance.md says only that story.md is the spec and the baseline tests are locked, and no story.md is present in the packet or export to justify the change.",
+   "axis_row": "L4.27",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "I didn't run the suite. The reviewer's search found no duplicate-scalar-1 test, which is plausible, but the code alone doesn't settle whether the locked tests catch the regression.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/yargs-parser.mjs",
+   "line": null,
+   "claim": "The locked tests may not cover a value of 1 given to a non-count flag more than once.",
+   "evidence": "Count tests (e.g. around lines 1540-1640, 'should increment regardless of arg value') use only bare flags or 'true'/'false' values. A search of test/yargs-parser.mjs for duplicate scalar values of 1 (e.g. `[1, 1]`) found none. The duplicate-argument tests at lines 2670-2846 use array or number flags with multi-value input, which reach setKey as arrays rather than the scalar 1.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

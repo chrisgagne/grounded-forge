@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/PierreJanineh/TechDebtMCP",
+  "pr_number": 135,
+  "base": "ea0385c7349bbaee04456c57bf0ec3f217d63532",
+  "head": "16a54f0f85a9091f220418850eac6b4122782be5"
+ },
+ "agent": "v5-factory-raw-claude",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 138,
+   "end_line": 138,
+   "message": "The change says it prevents ReDoS, but it only caps the length of the pattern and the input. A short pattern with catastrophic backtracking passes validation, and running it against a few dozen characters still blocks the single-threaded MCP server. The only new runtime guard is `if (pattern.pattern.length > MAX_PATTERN_LENGTH)` before `new RegExp(pattern.pattern, safeFlags)` and `regex.exec(line)`. There is no timeout, no check for nested quantifiers, no worker isolation and no per-line length limit. Trigger: `add_custom_rule` with pattern `(a+)+$` (6 chars) gets through `validatePattern`, because it compiles and is under 1 000 chars. Then `execute_custom_rules` with code `'a'.repeat(40)+'!'` (far under 500 000) makes `regex.exec` backtrack exponentially. Even so, CHANGELOG.md line 36 says the caps are \"preventing ReDoS attacks (#127)\"."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/server/handlers.ts",
+   "start_line": 448,
+   "end_line": 448,
+   "message": "The size guard runs `stat` without checking that the path is a regular file. A character device, FIFO or procfs entry reports size 0, passes the check, and is then read with no bound, so the 'capped before reading' promise can be bypassed and memory exhausted. `getFileStats` calls `fs.promises.stat(filePath)` (fileUtils.ts:157), and the handler checks only `stats.size > MAX_FILE_SIZE_BYTES` before `code = await readFile(path)`, which is `fs.promises.readFile(filePath, 'utf-8')` with no length limit. Trigger: `execute_custom_rules` with `path: '/dev/zero'`. `fileExists` passes, `stats.size` is 0, the guard passes, and `readFile` never reaches EOF. There is no `stats.isFile()` check, and the file can also grow between the stat and the read (TOCTOU)."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/server/handlers.ts",
+   "start_line": 490,
+   "end_line": 490,
+   "message": "`validate_custom_pattern` never checks flags, yet the CHANGELOG says both tools now enforce the flag allowlist. A pattern can be reported valid there and then fail, or compile differently, in `add_custom_rule`. `handleValidateCustomPattern` builds `customPattern` without a `flags` field, and `parseValidateCustomPatternInput` (inputParser.ts:416-427) does not parse `flags`. So the `ALLOWED_FLAGS_RE` branch in `validatePattern` can never fire for this tool. CHANGELOG.md says \"user-supplied regex patterns in `add_custom_rule` and `validate_custom_pattern` are now validated for length (\u22641 000 chars) and flag allowlist\"."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 266,
+   "end_line": 266,
+   "message": "The flag strip/dedupe/default logic appears twice, so validation and execution can drift apart if one copy is edited. `pattern.flags.replace(/[^gimsuy]/g, '')`, `Array.from(new Set(stripped.split(''))).join('')` and the `'g'` fallback appear once in `executePattern` (lines 148-152) and again in `validatePattern` (lines 266-270). There is no shared helper."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "The allowlist rejects valid JavaScript regex flags (`d`, `v`) that were accepted before, and at execution time silently strips them. That is a behaviour change the docs don't mention. `const ALLOWED_FLAGS_RE = /^[gimsuy]*$/;` makes `validatePattern` reject `flags: 'gd'` or `'v'`, which the old code (`new RegExp(pattern.pattern, pattern.flags || 'g')`) accepted. `executePattern` drops them with `replace(/[^gimsuy]/g, '')`."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/server/__tests__/handlers.test.ts",
+   "start_line": 382,
+   "end_line": 382,
+   "message": "The new handler tests don't show that the guard runs before the file is read, or that an accepted file is actually processed. They check only that an error was thrown or that a result exists. The oversize test asserts only `.rejects.toThrow(McpError)` and never asserts that the mocked `readFile` was not called, so 'before reading' is untested. The boundary test asserts only `.resolves.toBeDefined()`. Also, `setRequestHandler`'s capture condition `schema?.method === 'tools/call' || typeof handler === 'function'` matches every call, so the handler is really chosen by the 'last call' lookup in `beforeEach`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

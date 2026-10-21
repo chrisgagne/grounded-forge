@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/capawesome-team/cli",
+  "pr_number": 126,
+  "base": "a03825128b8380f86dcf85e8d3507b3a41d9f775",
+  "head": "2d997db6e53c75213cbb13f2d3fdb636984eead4"
+ },
+ "agent": "v7-opus-factory",
+ "findings": [
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "You can't create an iOS destination that uses API-key authentication in a non-interactive (CI) run: the Apple API Key ID has no CLI option, so the command always exits with an error, and it only does so after the .p8 private key has already been uploaded. The options schema (lines 17-35) declares appleApiKeyFile and appleIssuerId but no appleApiKeyId. Line 53 declares `let appleApiKeyId: string | undefined;` and nothing ever sets it from options. Trace: `apps:destinations:create --app-id A --name N --platform ios --apple-api-key-file k.p8 --apple-issuer-id I --apple-team-id T` in CI sets authMethod='apiKey' (line 194). It reads the file and calls appAppleApiKeysService.create (lines 233-240), then reaches `if (!appleApiKeyId) { if (!isInteractive()) { consola.error('You must provide the Apple API Key ID ...'); process.exit(1);` at lines 242-246. The non-interactive error message at line 212 tells users this path takes --apple-api-key-file and --apple-issuer-id, but it can never succeed."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 233,
+   "end_line": 233,
+   "message": "Signing credentials are uploaded to the server before the rest of the input is validated and before the destination is created, so any later failure leaves an orphaned Apple .p8 or Google service-account key on the server, linked to nothing and with no CLI command to remove it. The Apple key is uploaded by appAppleApiKeysService.create at lines 233-240, before the Key ID, Issuer ID and Team ID checks (lines 242-315), any of which can call process.exit(1). The Google key is uploaded at lines 180-187, before appDestinationsService.create at line 318. If that create fails, nothing cleans up. The new services (app-apple-api-keys.ts, app-google-service-account-keys.ts) expose only create, with no delete. The same ordering appears in certificates/create.ts lines 158-169: provisioning profiles are uploaded before appCertificatesService.create, and nothing rolls them back if that call fails."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "Secret values (certificate password, key password, Apple app-specific password) are prompted with an echoing text input, so they appear on screen and in any recorded terminal session. certificates/create.ts line 119 has `password = await prompt('Enter the certificate password:', { type: 'text' });` and line 139 has `keyPassword = await prompt('Enter the key password ...', { type: 'text' });`. destinations/create.ts line 296 has `appleAppPassword = await prompt('Enter the App-specific password:', { type: 'text' });`. None of these prompts masks its input."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/destinations/get.ts",
+   "start_line": 71,
+   "end_line": 71,
+   "message": "`destinations:get` and `destinations:list` may print the Apple app-specific password in plaintext to the terminal or CI log, because the whole response object goes to the console with no redaction. The new AppDestinationDto in src/types/app-destination.ts declares `appleAppPassword: string | null;`. get.ts lines 72-75 run `console.log(JSON.stringify(destination, null, 2))` or `console.table(destination)`, and list.ts lines 43-46 do the same for every destination. If the API returns the field as the type says, the secret is written to output."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/utils/prompt.ts",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "An unrequested change caps interactive app selection at 50 apps for every command that uses promptAppSelection, so users in organizations with more apps silently can't pick the rest. The diff changes `appsService.findAll({ organizationId })` to `appsService.findAll({ organizationId, limit: 50 })` and adds limit support in services/apps.ts. There's no pagination or search fallback. The re-fetch after creating an app (line 57) still calls findAll without a limit, so the two calls are inconsistent. More than 20 commands call this helper, and none of them are certificate or destination commands."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/certificates/delete.ts",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "Deleting by --name and --platform removes whichever certificate the server returns first, without showing which one it matched. If the server's name filter is case-insensitive or partial, the wrong certificate may be deleted irreversibly, and with --yes or in CI nothing asks for confirmation first. Lines 37-43: `const certificates = await appCertificatesService.findAll({ appId, name, platform }); const firstCertificate = certificates[0]; ... certificateId = firstCertificate.id;`. The command never checks that exactly one result came back or that its name matches exactly. The DTO's `nameLower` field suggests the server matches names case-insensitively. destinations/delete.ts lines 34-38 have the same pattern."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 59,
+   "end_line": 59,
+   "message": "The change adds 10 new commands and 4 new services that handle credentials and deletes, with no tests. None of the non-interactive validation paths, the upload ordering or the API-key destination flow are exercised, which is how the API-key destination defect above went unnoticed. The diff adds src/commands/apps/certificates/{create,delete,get,list,update}.ts, src/commands/apps/destinations/{create,delete,get,list,update}.ts and new services, but no *.test.ts files. Existing commands such as channels/delete.ts and apps/delete.ts have tests next to them (channels/delete.test.ts, delete.test.ts)."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "Passwords are accepted as command-line flags (--password, --key-password, --apple-app-password), which leaves them in shell history and the process list, and there's no environment-variable alternative. certificates/create.ts has `password: z.string().optional().describe('Password for the certificate.')` and `keyPassword: z.string().optional()`. destinations/create.ts has `appleAppPassword: z.string().optional()`. certificates/update.ts and destinations/update.ts have the same flags. No code reads these secrets from the environment."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/certificates/update.ts",
+   "start_line": 41,
+   "end_line": 41,
+   "message": "The update commands report success even when no field was supplied, and in interactive mode they accept an empty certificate or destination ID, which builds a request to a malformed URL. certificates/update.ts line 41 is `certificateId = await prompt('Enter the certificate ID:', { type: 'text' });`, and nothing checks for an empty value. appCertificatesService.update is then called with every field undefined, followed by `consola.success('Certificate updated successfully.')`. destinations/update.ts lines 66-87 behave the same way."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 154,
+   "end_line": 154,
+   "message": "A wrong certificate or profile path throws an uncaught ENOENT with a stack trace instead of a clear CLI error. Line 154 is `const buffer = fs.readFileSync(file);` and line 161 is `fs.readFileSync(profilePath)`, with no existence check or try/catch. destinations/create.ts lines 180 and 233 call fs.readFileSync on user-supplied paths the same way."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/commands/apps/destinations/get.ts",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "The get and delete commands repeat the same lookup-by-name, platform-select and certificate/destination-select block almost verbatim, so a fix to one copy (such as the first-match issue above) can easily miss the others. certificates/get.ts lines 34-71, certificates/delete.ts lines 35-72, destinations/get.ts lines 31-62 and destinations/delete.ts lines 33-66 contain the same branching. Only the service and the label text differ."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/ComposioHQ/agent-orchestrator",
+  "pr_number": 1277,
+  "base": "ba77929c9345a0dc897d53115504d0ae32745ce5",
+  "head": "76652c7ccefa3a371be74e8648c5204adc7f09a5"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "After the move, the scripts' fallback repo root (used when AO_REPO_ROOT is unset) points at `packages/cli/src/assets` or `dist/assets` instead of the repository root, so running a script directly gives wrong results: ao-update.sh does a partial update and then fails. Both scripts still compute `REPO_ROOT=\"${AO_REPO_ROOT:-$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)}\"` (ao-update.sh:43, ao-doctor.sh:31). That was correct at `scripts/` but is now one directory below `assets/`. When ao-update.sh runs directly, it `cd`s into that directory, passes the `git rev-parse` check (it is still inside the work tree), runs `git pull --ff-only`, `pnpm install` and the filtered builds, and then exits at `cd \"$REPO_ROOT/packages/ao\"`. When ao-doctor.sh runs directly, it picks source-checkout layout and FAILs every node_modules, core-build and launcher check. Only the CLI path, which now always exports AO_REPO_ROOT from runRepoScript, is correct."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The relocated scripts retain the old relative root calculation, so direct execution without AO_REPO_ROOT targets the assets directory and fails. ao-update.sh still calculates REPO_ROOT as the script directory's parent, which is now packages/cli/src/assets (or dist/assets), then changes there and resolves smoke-test and launcher paths beneath it. ao-doctor.sh:31 uses the same calculation, causing false missing-install failures. runRepoScript supplies an override, but direct bash execution does not; the script tests always set AO_REPO_ROOT and therefore miss this regression."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "When a git source checkout lacks the bundled update script, `ao update` quietly switches to the npm-global flow instead of failing with a rebuild hint, so the checkout is never updated and the user may be offered a global npm install that shadows their source launcher. handleGitUpdate does `if (!hasRepoScript(\"ao-update.sh\")) { ... await handleNpmUpdate(opts, \"npm-global\"); return; }`. hasRepoScript only checks `<CLI_DIST_ROOT>/assets/scripts`, so a checkout whose dist was built without the `cp -r src/assets dist/` step reaches this branch. handleNpmUpdate then compares against the npm registry. If a source checkout on main is not behind the published version, it prints \"Already on latest version\" and returns without running git pull or a rebuild. Otherwise it prompts to run `npm install -g @aoagents/ao@latest` (hard-coded npm, even for pnpm users). It also prints \"--skip-smoke and --smoke-only only apply to git source installs. Ignoring.\" to a user who is on a git source install. No spec line or test shows this fallback was asked for; the new test only mocks hasRepoScript to false."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 110,
+   "end_line": 110,
+   "message": "The update script now runs from `packages/cli/dist/assets/scripts/`, which the script itself deletes (`clean`) and recreates (`build`) partway through. It keeps working only because bash holds the unlinked inode open, which is fragile if the build ever overwrites files in place. runRepoScript resolves the script under CLI_DIST_ROOT (`dist/assets/scripts/ao-update.sh` for a built checkout). The script then runs `pnpm --filter @aoagents/ao-cli clean` (package.json: `rm -rf dist`) and `pnpm --filter @aoagents/ao-cli build` (`tsc && cp -r src/assets dist/`) while bash is still reading that same file."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/__tests__/lib/update-check.test.ts",
+   "start_line": 151,
+   "end_line": 151,
+   "message": "The change deletes two existing negative tests for git-install detection and rewrites a third, which weakens the locked baseline coverage for classifyInstallPath to a single all-false case. The diff removes \"returns 'unknown' when .git exists but scripts/ao-update.sh does not\" and \"returns 'unknown' when scripts/ao-update.sh exists but .git does not\", and renames the neither-exists case. classifyInstallPath now returns \"git\" on `existsSync(resolve(repoRoot, \".git\"))` alone. Acceptance.md says the baseline's tests are the locked acceptance tests."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/__tests__/scripts/doctor-script.test.ts",
+   "start_line": 234,
+   "end_line": 234,
+   "message": "The packaged-install doctor test forces `AO_SCRIPT_LAYOUT=package-install`, so the shell's own layout auto-detection is never exercised and a wrong detection rule would pass. The test env sets `AO_SCRIPT_LAYOUT: \"package-install\"`, which skips the `if [ -z \"$SCRIPT_LAYOUT\" ]` branch in ao-doctor.sh:33-39 (`package.json` && `dist/index.js` && no `packages` dir). No test runs the script without the override against a package-shaped directory."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "docs/design-onboarding-improvements.html",
+   "start_line": 693,
+   "end_line": 693,
+   "message": "Documentation still lists the update and doctor scripts at their old `scripts/` paths, which no longer exist. docs/design-onboarding-improvements.html lines 693, 694 and 1182 list `scripts/ao-update.sh` and `scripts/ao-doctor.sh`. The diff renames both to `packages/cli/src/assets/scripts/`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

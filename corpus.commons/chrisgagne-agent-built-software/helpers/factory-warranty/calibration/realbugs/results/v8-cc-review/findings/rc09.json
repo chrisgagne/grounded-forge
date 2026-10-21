@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/konturio/disaster-ninja-fe",
+  "pr_number": 1234,
+  "base": "3c1900acccaae22cb69adb02dd8351f24fe4e8b5",
+  "head": "2271e59046b1afe806dfc49d92435d40131df30f"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "CircleIcon now draws a horizontal line instead of a ring whenever there is no fill color, which changes every stroke-only circle legend in the app, not just the new case. Both built-in circle legends set only `color` and no fill: DEFAULT_USER_LAYER_LEGEND (src/features/create_layer/constants.ts:39, a point layer with a marker icon) and registerNewGeometryLayer.ts:34 (`style: { color: mainColor }`). For both, fillColor resolves to 'none', so the legend shows a line where it used to show a circle outline. Any backend-configured `stepShape: 'circle'` step with only `circle-stroke-color` gets the same wrong line icon."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 29000
+ }
+}

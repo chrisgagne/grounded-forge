@@ -1,0 +1,49 @@
+[
+ {
+  "id": "C1",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "src/API/Services/DeviceMonitoringService.cs",
+  "line": 184,
+  "claim": "Now that the stopping token is passed to SendPingAsync, a shutdown during a ping cycle is treated as an unexpected ping failure: each in-flight device logs a Warning and is reported offline, and the code then tries to write that false 'offline' state to the database.",
+  "evidence": "SendPingAsync(..., cancellationToken: cancellationToken) throws OperationCanceledException when the token is cancelled. The only handler that catches it is `catch (Exception ex) { _logger.LogWarning(ex, \"Unexpected error pinging {IpAddress}\", ipAddress); return false; }`, so the exception is not rethrown. CheckDeviceAsync then sees `device.IsOnline != isOnline`, sets IsOnline=false and OnlineSince=null, and calls UpdatePcDeviceAsync(device, cancellationToken). The save is probably stopped only because SaveChangesAsync throws on the already-cancelled token. Nothing filters this case, e.g. `catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }`."
+ },
+ {
+  "id": "C2",
+  "leg": "claude",
+  "severity": "low",
+  "file": "src/API/Services/DeviceMonitoringService.cs",
+  "line": 182,
+  "claim": "The new troubleshooting hint (install iputils-ping, grant CAP_NET_RAW) is logged only at Debug, so on the shipped configuration a deployment where ping keeps failing just shows every device as offline and the hint never appears.",
+  "evidence": "`_logger.LogDebug(ex, \"Ping failed for {IpAddress}. If running on Linux, ensure 'iputils-ping' is installed and the process has CAP_NET_RAW ...\")`. Both docker-compose.yaml and dev/docker/docker-compose.yaml set `Serilog__MinimumLevel__Default=Information`. The PlatformNotSupportedException branch warns only once per process (`Interlocked.CompareExchange(ref _platformNotSupportedLogged, 1, 0)`) and then returns false silently on every later cycle."
+ },
+ {
+  "id": "C3",
+  "leg": "claude",
+  "severity": "low",
+  "file": "src/API/Dockerfile",
+  "line": 33,
+  "claim": "The change adds an unpinned OS package to the final runtime image. iputils-ping installs a capability-bearing ping binary, which widens the image's attack surface, and nothing records the package's version or why it is needed beyond a comment.",
+  "evidence": "`apt-get install -y --no-install-recommends gosu iputils-ping` has no version pin. The app runs as appuser via `exec gosu appuser \"$@\"` in docker-entrypoint.sh, so .NET's Ping falls back to the external ping utility, and this package supplies it. It is a necessary new runtime dependency and should be recorded as one.",
+  "axis_row": "L4.4"
+ },
+ {
+  "id": "C4",
+  "leg": "claude",
+  "severity": "low",
+  "file": "docs/INSTALLATION.md",
+  "line": null,
+  "claim": "The change introduces a runtime requirement for device status monitoring (a ping utility, and possibly CAP_NET_RAW) but no install or troubleshooting doc mentions it, so manual-setup users on Linux and anyone running with a custom compose that drops capabilities get no guidance.",
+  "evidence": "The only reference to the requirement is inside the Debug log string at DeviceMonitoringService.cs:182. A search for iputils, NET_RAW, ICMP and cap_add across the README, docs/ and the compose files finds nothing."
+ },
+ {
+  "id": "C5",
+  "leg": "claude",
+  "severity": "low",
+  "file": "src/API/Services/DeviceMonitoringService.cs",
+  "line": 176,
+  "claim": "No test covers the new behaviour: the one-time PlatformNotSupportedException warning or the cancellation now passed into the ping. The existing ping test cannot tell whether a ping succeeded.",
+  "evidence": "The diff changes no test files. In test/API/DeviceMonitoringServiceTests.cs, CheckAllDevicesAsync_PingsDevicesWithIpAddress pings loopback and asserts `UpdatePcDeviceAsync(..., Times.AtMostOnce)`, which passes whether ping succeeds, fails or is unsupported.",
+  "axis_row": "L3.22"
+ }
+]

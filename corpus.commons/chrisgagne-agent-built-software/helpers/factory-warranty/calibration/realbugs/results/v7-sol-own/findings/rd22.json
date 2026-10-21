@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/vriesdemichael/keycloak-operator",
+  "pr_number": 696,
+  "base": "bd0524bce599ccc367a4481f9b792305a8b074a1",
+  "head": "4db0ddeaea75e5d1d1a312473465153ed8f60661"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 176,
+   "end_line": 180,
+   "message": "Preserve already-decoded Kubernetes secret values. When a valid username or password happens to look like base64 (for example, `test` or `password`), this heuristic decodes it again and sends corrupted credentials to Keycloak. Kubernetes client-go already decodes Secret data, so ordinary existing secrets and some automatically generated passwords fail authentication. Return the stored bytes unchanged rather than guessing whether another decoding pass is needed."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 147,
+   "end_line": 150,
+   "message": "Resolve a host-accessible endpoint for cluster-mode imports. For operator-managed instances, `keycloak_reconciler.py` populates both admin and public endpoints with `http://{name}-keycloak.{namespace}.svc.cluster.local:8080`. Returning that URL makes the documented cluster-mode command fail DNS resolution when run outside Kubernetes, even when an ingress is configured. Resolve a reachable ingress endpoint or establish a port-forward; otherwise detect the internal URL and require `--server-url` with an actionable error."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

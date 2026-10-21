@@ -1,0 +1,121 @@
+{
+  "section": "Runtime listeners: Phase 3",
+  "columns": [
+    "trigger",
+    "response"
+  ],
+  "rows": [
+    [
+      "The agent proposes changing a test so the build goes green",
+      "Block and keep the judging tests locked: SWE-bench judges a patch against tests split from the human pull request and applied at evaluation, outside the model's input; the source does not discuss an agent editing tests, so blocking is a harness rule built on that design (`jimenez-swe-bench`) • Block: the checks that judge the agent are trusted computing base and must sit beyond its reach; a human changes them, with a reason (`openssf-finding-fixing-vulnerabilities-ai`) • Block until the change has a recorded reason, a named person who agreed it and the reviewer's view: plan changes are raised with the commissioner and documented, and the assurer gives feedback on them. Locking the tests is a harness rule (`uk-aqua-book-2025`) • Block unless a spec change requires the new expectation; the source allows test updates when functionality changes and forbids creating expected outcomes from the code's own output (`uk-duck-book-qa-of-code`) • Ask which file changes: a feature-file edit changes the agreed behaviour and goes back to whoever agreed it, since the documentation holds that a scenario's intent stays the same when the implementation changes (`cucumber-bdd-gherkin`). Locking the scenario is a harness rule • Block: a unit test's failure should indicate a bug, and a test moved to match the implementation stops signalling a safe change (`microsoft-code-with-engineering-playbook`) • Block and route the change to the test's owner as a recorded decision: by transfer, check criteria are defined and tracked, their records protected from alteration, and code owners approve others' changes (`nist-ssdf-1-1`) • Block and return it to a human with a reason: agents are kept from self-adjusting objectives beyond predefined parameters, and editing the test is the agent adjusting its own goal (transfer) (`owasp-agentic-threats-mitigations`) • Block: an agent that games a flawed metric produces misleading results, and a test moved to reach green is the metric gamed rather than the behaviour fixed (`owasp-agentic-top10-2026`, reward hacking applied to a coding agent as a transfer)"
+    ],
+    [
+      "The tests were written by the same agent session after the code",
+      "Before they count, run each on the base commit and see it fail for the right reason, then pass with the change: every SWE-bench test was validated that way; the source did not measure agent-written tests (`jimenez-swe-bench`) • Treat as asserted until their strength is measured: agent suites written from a spec passed the correct build 88-96% of the time yet killed 38-56% of planted faults; same-session tests were not measured, so carrying this over is an inference (`egashira-testsuitebench-2026`) [D8] • Run them on the old code and require a test that failed there: test before fix, and validation is independent reproduction, not self-review (`openssf-finding-fixing-vulnerabilities-ai`) [D8] • Treat them as the build's own assurance and require the reviewer's further checks against cases the build didn't write: verification and validation are planned at design, and the assurer carries out further verification and validation (`uk-aqua-book-2025`) • Treat as asserted; require expected values traced to the intended behaviour; the source says the best practice is to write tests before logic and that test data must reflect how the code should work, not how it currently works (`uk-duck-book-qa-of-code`) • Treat as asserted: the documentation calls automating after the code reasonable test automation \"but it's not BDD\", and its method automates each agreed example before the code (`cucumber-bdd-gherkin`) • Treat as a description of current behaviour; check against the planned cases, since the playbook writes tests early and test-first (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "A test checks the agent's output text rather than the system's state",
+      "Decide the outcome by applying the change and running the tests against the changed code: that is the source's resolution rule (`jimenez-swe-bench`) • Block until it asserts on the system: checks must measure target behaviour, not their own artefacts (`openssf-finding-fixing-vulnerabilities-ai`) • Require `Then` steps to assert on output observable to the user or an external system (`cucumber-bdd-gherkin`) • Require assertions on the logic: a test that only checks what the double returned would pass even if the logic were wrong (`microsoft-code-with-engineering-playbook`) • Rewrite it to check the state the output claims: the source names incorrect state inference and an agent reporting a backup that never ran as failures that land when output is trusted and acted on (`owasp-llm-top10-2026`) • Check the system's state: deceptive behaviour keeps the appearance of compliance, and the guide's coding agent produced false test results (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "The suite passes, but nobody knows whether it would catch a wrong implementation",
+      "Require each target test to have been seen failing on the old code: execution-based validation keeps a test only if it moves from fail to pass (`jimenez-swe-bench`) • Require a strength measure on the ledger: seed faults that each break one requirement, drop tests that fail on the correct build, and count what the suite kills (`egashira-testsuitebench-2026`) [D8] • Require a known-bad run before trusting the suite: a broken or mis-aimed verifier can confidently approve an incorrect result (`openssf-finding-fixing-vulnerabilities-ai`) • Run the tests against reference cases with known answers: complex work is ideally tested against independent reference cases, and black-box assurance should verify the automatic tests themselves (`uk-aqua-book-2025`) • Partial: require a run record showing each new scenario failing before the code, so it at least can fail (`cucumber-bdd-gherkin`); strength against wrong builds needs seeded faults (`egashira-testsuitebench-2026`) • Ask which inputs the tests state as intended behaviour and add negative cases: a suite at 100% coverage still missed a bug (`microsoft-code-with-engineering-playbook`) • For an injection defense, require a red-team run by someone given the defense: a study the source cites found static attack success near zero beside adaptive success above 90% for most of 12 defenses (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "The suite takes minutes, so it runs rarely",
+      "Make it faster and run it on every change: if CI takes too long, CI becomes the bottleneck (`openssf-finding-fixing-vulnerabilities-ai`) • Require every test on every change in CI; the source says to run all tests against each change and that automated runs build trust by ensuring all unit tests pass before every merge (`uk-duck-book-qa-of-code`) • Make the unit suite run in seconds on every change and move slow tests to the PR gate; sleeps and disk reads are the usual cause (`microsoft-code-with-engineering-playbook`) • Require the vulnerability tests in the automated pipeline on every change: automated analysis and testing run regularly or continuously for every supported release (`nist-ssdf-1-1`) • Run the security checks on every build: abuse-case tests check controls each build, and application-specific verifications can sit on the existing unit and integration test infrastructure for continual verification (`owasp-asvs-5-0`) • Automate the model's tests in the pipeline as regression tests; ongoing scanning and testing rely mainly on automation (`nist-sp-800-218a`)"
+    ],
+    [
+      "A new test's failure on the base commit is an ImportError or AttributeError",
+      "Don't count it as fail-to-pass: the authors removed such failures as possible dependency-naming errors (`jimenez-swe-bench`)"
+    ],
+    [
+      "The locked tests have no pass-to-pass set",
+      "Lock the existing tests over what the change touches as pass-to-pass: a run can pass every target test and still break prior behaviour (`jimenez-swe-bench`)"
+    ],
+    [
+      "The agent's suite has far fewer tests than the spec has behaviours",
+      "Require at least one meaningful test per documented behaviour: suites smaller than the requirements scored lower, and Sol's were about five times smaller than the reference (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "Each feature is tested once, with a single or default input",
+      "Require a test using the input combination that would expose a wrong build: omitted combinations were the commonest miss in the error analysis (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "A test asserts only the shape of the output (length, non-empty, a keyword appears)",
+      "Require the assertion to pin the content the requirement fixes: a shape-only check passed a completion script for the wrong shell (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "\"Give the agent the running program and it will write better tests\"",
+      "Keep the ask on test design: with the reference executable, Sol's validity rose from 94.4% to 98.4% and its mutation score stayed at about 38% (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "\"Turn up the reasoning effort\" or \"use the bigger model\" for the tests",
+      "Expect marginal gains: cost and strength follow a log curve, Sol rose from 31.3% to 46.5% from low to xhigh effort, and the best agent reached 55.5% (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "A check fires on the broken build but has not been run on the fixed build or on benign input",
+      "Run the counterfactual before accepting the check: a reported rerun found published checks firing on patched versions and benign input (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "A test's expected values were produced by running the new code",
+      "Block; rebuild expectations from the specification on minimal hand-written data, since copied output assumes the function already works (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "A mocked test never asserts that the mock was called",
+      "Require the assertion; the source warns that a broken mock can let a real request run while tests still pass (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "A diff edits a feature file's expected outcome alongside the code",
+      "Split the edits and route the feature-file change to whoever agreed the scenario; behaviour need not change because the implementation does (`cucumber-bdd-gherkin`)"
+    ],
+    [
+      "A `Then` step definition queries the database",
+      "Rewrite it to check observable output: the reference tells readers to \"resist that temptation\" (`cucumber-bdd-gherkin`)"
+    ],
+    [
+      "Declarative scenarios read well, but nobody has read the step definitions behind the `Then` steps",
+      "Read them: in the declarative style the exact values live in the step definitions, so that is where the assertion is decided (`cucumber-bdd-gherkin`; the reading is the distillation's inference)"
+    ],
+    [
+      "A test sleeps, reads an expected value from disk or calls a live third-party API",
+      "Block: each breaks the speed, isolation or reliability a unit test needs; wrap the dependency and replace the sleep with a reliable state signal (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "The tests verify the exact sequence of calls the implementation makes",
+      "Flag: behavioural verification ties the test to the implementation, so the next refactor breaks it and invites an edit to the test; prefer state checks or fakes (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "The plan leaves the agent to write the key tests for its own build",
+      "Write the key tests before the run, outside the agent: preliminary evidence finds autonomous agents leave key tests out; locking them first is the distillation's inference (`becker-metr-ai-developer-productivity-2025`)"
+    ],
+    [
+      "An agent change adds code with no tests alongside it, or coverage is checked only as a whole-codebase percentage",
+      "Require coverage on the added lines: the authors suggest test coverage requirements that scale with lines added (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "Login or registration is tested only on success",
+      "Add abuse-case tests that run on every build: for the username, default usernames, enumeration, brute force, LDAP and SQL injection and XSS; for the password, common passwords, length, null bytes, a removed parameter and XSS (`owasp-asvs-5-0`)"
+    ],
+    [
+      "The change retrains or fine-tunes a model, or adds a data source to its training, and the model's tests are not rerun",
+      "Block until the new data's integrity and provenance are checked and the model is retested: retest models when retrained or given new data sources (`nist-sp-800-218a`)"
+    ],
+    [
+      "A model feature's test plan holds unit tests only",
+      "Require the test types the risk calls for (integration, penetration, red teaming, use case, adversarial), automated as regression tests (`nist-sp-800-218a`)"
+    ],
+    [
+      "An LLM feature's injection tests cover only the user's input field",
+      "Extend them to plant instructions in retrieved content, tool output, files and memory: defenses that watch only the chat surface miss indirect injection (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "An agentic feature's defences have never been attacked, or it has no goal-override red-team test, memory-rollback test or replay test",
+      "Red-team it with simulated poisoned components and supply-chain attacks before release (`owasp-agentic-threats-mitigations`) • Require them before the build: red-team goal override and check that rollback works, adversarial unit tests, memory snapshots and rollback, and replay of recorded agent actions in an isolated clone (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "An LLM feature's tests include no prompt outside its coverage, or every test expects an answer",
+      "Add out-of-coverage and no-document prompts that expect abstention, scored so a wrong answer costs more than an abstention: a suite where every test expects an answer is binary grading, under which abstaining never scores (`why-language-models-hallucinate-kalai`)"
+    ]
+  ]
+}

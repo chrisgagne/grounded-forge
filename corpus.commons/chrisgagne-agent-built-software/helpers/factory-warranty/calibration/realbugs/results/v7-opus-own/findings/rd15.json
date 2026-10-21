@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 309,
+  "base": "130fc084dcec4731e67de96162d1abccae44f7ce",
+  "head": "ac6e2196f5c307fd09fa6ad8a64ba9ada14ab385"
+ },
+ "agent": "v7-opus-own",
+ "findings": [
+  {
+   "producer": "v7-opus-own",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "Every non-wrapper binary will fail this check. The heredoc is unquoted (`<<SH`), and in an unquoted heredoc a backslash only escapes `$`, `` ` `` and `\\`. So `\\\"${binary}\\\"` keeps its backslashes, and the script sent to the container reads `binary_path=\"$(command -v \\\"jq\\\" || true)\"`. Inside `$(...)`, `\\\"` is a literal quote character, so `command -v` looks up `\"jq\"` with the quotes included. That lookup always fails and the probe exits with `missing_binary:jq`. Check 3 then fails for jq, rg, ffmpeg, uv, gh and the rest, in both the gateway container and the sandbox image. The author's checks (`bash -n`, `git diff --check`) can't catch this. Use `command -v ${binary}` or `command -v \"${binary}\"` without the backslashes, and ideally quote the value with `shell_single_quote`/`%q`."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "scripts/verify.sh",
+   "start_line": 252,
+   "end_line": 255,
+   "message": "The expected binaries now come from the repo checkout (`scripts/docker/runtime-binaries.json`), not from the manifest baked into the deployed image. The image manifest is only checked for existence and never read. When verify runs from a commit other than the one the image was built from, it checks the wrong set of binaries. A binary added to the repo manifest fails verify against an older image, and a binary dropped from the repo manifest is no longer checked even if the image still ships it. Before this change, verify read the manifest from inside the image. Read the image's manifest instead (for example `docker exec ... cat` it and parse it with jq on the runner), or at least compare it with the repo copy."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "scripts/verify.sh",
+   "start_line": 263,
+   "end_line": 264,
+   "message": "`runtime_wrapper_bin` now comes from `OPENCLAW_RUNTIME_WRAPPER_BIN` in the verifier's own environment, defaulting to `/opt/daisy/bin`. The old probe read that variable inside the container, so it matched the image's actual configuration. If an image sets a different wrapper dir, verify now tests the wrong path. The wrapper existence test and the smoke test also each start a new `docker run` (in image mode), which means two extra container launches per wrapper binary."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "scripts/verify.sh",
+   "start_line": 221,
+   "end_line": 221,
+   "message": "The sandbox image probe used to run as `sh -lc` (a login shell). `build_target_shell_command` image mode now uses `sh -c`, so `/etc/profile` and profile.d PATH additions are no longer loaded. Binaries that are only on PATH in a login shell inside the sandbox image will now be reported as `missing_binary`. Agents in the sandbox likely run with a login environment, so this check no longer matches how they find binaries."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "scripts/verify.sh",
+   "start_line": 182,
+   "end_line": 210,
+   "message": "The `image` branch of `build_target_direct_exec_command` copies the smoke-suffix parsing, the metacharacter guard and the arg re-quoting from `build_direct_exec_smoke_command`, so a change to one copy can miss the other. The guard is also incomplete: `*'\\\\'*` inside single quotes matches two backslashes in a row, not one, so a single backslash gets past it. `%q` quoting still keeps this safe, but the guard doesn't do what it appears to."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

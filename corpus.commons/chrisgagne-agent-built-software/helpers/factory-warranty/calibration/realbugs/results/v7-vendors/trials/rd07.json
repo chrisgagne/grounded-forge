@@ -1,0 +1,118 @@
+{
+ "id": "rd07",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 134,
+   "message": "Update the company schema when removing ownerName. Company edits now omit `ownerName`, but `companySchema` still requires it. Consequently, `DynamicDetailSidebar.handleSave()` always fails validation and never invokes `onSave`, even when every visible field is valid. The creation form also uses this schema after removing its owner-name input. Update the shared schema to match the new company fields."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Allow Escape events to reach the modal close handler. When focus is inside the dialog, such as on the close button after keyboard navigation, this handler stops Escape from reaching the window-level `handleKeydown` listener. Escape therefore fails to close the modal in that state. Handle Escape on the dialog itself or allow its keydown events to propagate."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 743,
+   "end_line": 755,
+   "message": "`ownerName`, `email` and `phone` were removed from `prepareForValidation` and `validationMapping`, but `companySchema` (src/lib/schemas.ts:153) still requires `ownerName` (min 2 chars). Validating an edited company will therefore always fail on an empty `ownerName`. Because `ownerName` is no longer in `validationMapping`, that error has no field to show on, so Save is blocked with no visible reason. Update `companySchema` to match the new `Company` shape (drop `ownerName`/`email`/`phone`, add `description`)."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 190,
+   "end_line": 212,
+   "message": "The creation form no longer has an Owner Name field, but it is still validated against `companySchema`, which requires `ownerName`. Creating a company can never pass validation. The schema needs to be updated together with these form fields."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 717,
+   "end_line": 726,
+   "message": "`location` is still an editable plain-text field, but its value is now a raw WKT string such as `POINT(lon lat)`. Users would have to hand-type WKT, and anything else they enter will just display as text and break the map link. Make it read-only, or add a proper map/coordinate picker (the `renderer` hook)."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 529,
+   "end_line": 540,
+   "message": "The map-link branch is triggered for any entity that has a field with key `location`, not just companies. It also reads `data[field.key]`, not the edited value that `getFieldValue` uses, so after an inline save the link opens the old coordinates. Use an explicit field type or renderer (e.g. `type: 'wktPoint'`) and read from the same source as the other fields."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 179,
+   "end_line": 187,
+   "message": "`parseWKTPoint`'s regex `[\\d.\\-]+` accepts malformed numbers like `1-2` (parseFloat silently turns that into 1). It also rejects valid forms such as `+` signs, exponent notation and `POINT Z (...)`. The function runs on every render and has no tests."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 323,
+   "end_line": 330,
+   "message": "`on:keydown|stopPropagation` on the focusable dialog (tabindex=0) stops keydown events from bubbling to the `svelte:window` handler. Once focus is inside the modal (e.g. after clicking it), pressing Escape no longer closes it. Remove the `stopPropagation` on keydown, or handle Escape on the dialog itself."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 1285,
+   "end_line": 1295,
+   "message": "When the API gives no total, `totalItems` is set to `fetchedCount + 1` whenever a page is full. Pagination then only ever offers one page beyond the current one, and the final page can come back empty, which forces a second request through the recursive step-back. Prefer having the backend return a total count, or use a simple next/previous control."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 1269,
+   "end_line": 1270,
+   "message": "The table shows IDs as `COMP-<id>` and the search placeholder says users can search by ID. However, the search term goes straight to the backend `search` param, so typing the displayed `COMP-12` probably won't match. Either strip the prefix and send it as `id`, or don't advertise ID search."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 1499,
+   "end_line": 1507,
+   "message": "The spinner overlay has a hard-coded white translucent background (`rgba(255,255,255,0.5)`), while the rest of the UI uses theme variables. It will flash white in dark mode."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 935,
+   "end_line": 937,
+   "message": "The `.location-display` CSS rule is never used. Svelte will report an unused-selector warning."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 42,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 64,
+   "cost_usd": 0.4302538,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 64
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "id": "rc14",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "packages/core/src/runtime/core/types/runtime.ts",
+   "start_line": 173,
+   "end_line": 174,
+   "message": "Breaking Type Change. `hostContext` is a required field on the exported `RuntimeContext` interface. `metadata`, by comparison, is optional. Any object literal typed as `RuntimeContext` outside the places this PR updates will stop compiling. This PR already had to patch one such literal (`minimalContext` in `assertType`). Likely affected code includes test helpers, mock contexts in extension packages, and third-party hosts. This makes a feature listed under \"Added\" a breaking change for TypeScript consumers. I can't confirm from the diff whether other literals exist in the repo. Two fixes are possible: make the field optional, as `RuntimeContextLike` already does, and read it with `?? {}`. Or document the change as breaking."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 18,
+  "usage": {
+   "prompt_tokens": 6360,
+   "completion_tokens": 952,
+   "total_tokens": 7312
+  },
+  "security_concern": false
+ }
+}

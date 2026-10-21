@@ -1,0 +1,30 @@
+[
+ {
+  "sources": [
+   "C1"
+  ],
+  "verdict": "confirmed",
+  "reason": "rollback.md:96 says to run `migrate -- down` before deploying the reverted code. The down SQL rebuilds notes as `id INTEGER PRIMARY KEY` with no AUTOINCREMENT and clears sqlite_sequence (down.sql:23,34), so the route at routes.js:212 runs with id reuse during that window. The same paragraph says leaving the migration in place after the code revert does no harm, so the order should be reversed. Low because the risk lasts only for the deploy window and the stale delete must come from the same user (deleteNote filters on user_id).",
+  "severity": "low",
+  "file": "rollback.md",
+  "line": 96,
+  "claim": "The runbook says to run the down migration before deploying the reverted code. That leaves the live DELETE route running on a table that reuses ids again, so a repeated DELETE of a stale id could remove a newer note.",
+  "evidence": "rollback.md:96 says \"Run `npm run migrate -- down` before deploying the reverted code\". The down migration rebuilds notes with `id INTEGER PRIMARY KEY` (no AUTOINCREMENT) and runs `DELETE FROM sqlite_sequence WHERE name = 'notes'`. rollback.md:88 says that without AUTOINCREMENT \"a repeated `DELETE` of the old id would remove the newer note\". The same file also says leaving the migration in place after the code revert \"does no harm\", so the safe order is to revert the code first and then run the migration down.",
+  "axis_row": "P2.4",
+  "id": "F1"
+ },
+ {
+  "sources": [
+   "X1"
+  ],
+  "verdict": "confirmed",
+  "reason": "down.sql:34 deletes the sqlite_sequence row for notes. up.sql:66-67 copies only the surviving rows with explicit ids, so AUTOINCREMENT restarts at MAX(id) of the surviving notes, and a previously deleted highest id can be reused after down then up. The rehearsal (rehearse-rollback.js:165-166) deletes the highest note only after reapplying, and note-ids.test.js runs down before creating any notes, so neither covers this case.",
+  "severity": "medium",
+  "file": "migrations/0005_notes_ids_never_reused.down.sql",
+  "line": 34,
+  "claim": "Reverting and reapplying migration 0005 loses the id allocation history, so a deleted id can be given to a new note and a repeated delete of the stale id removes it.",
+  "evidence": "The down migration drops the AUTOINCREMENT table without preserving its sqlite_sequence value; the up migration rebuilds the sequence from surviving notes only. An in-memory reproduction created and deleted note 1, ran migrateDown then migrateUp, and created another note with ID 1; deleteNote with the stale ID returned true and removed the new note. The rollback rehearsal deletes its highest-ID note only after reapplying, so it misses this case.",
+  "axis_row": "P2.4",
+  "id": "F2"
+ }
+]

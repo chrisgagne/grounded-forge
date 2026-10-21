@@ -1,0 +1,31 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+  "line": 35,
+  "claim": "The test calls its own mock instead of send_request_to_llm, so broken chat orchestration will still pass.",
+  "evidence": "Lines 18\u201322 replace send_request_to_open_ai with llm_side_effect, and line 35 calls that replacement directly. The side effect supplies every asserted return value and appends the asserted history itself; the production send_request_to_llm never executes.",
+  "axis_row": "L3.3"
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+  "line": 33,
+  "claim": "The avatar-loader patch misses the imported reference, leaving the test dependent on the real application database.",
+  "evidence": "Line 2 imports _load_avatar_infos_for_chat directly, while line 26 patches only chat_interface._load_avatar_infos_for_chat. Line 33 invokes the original imported function, which opens TinyDB(DB_PATH) and calls avatar_page_settings.get without checking whether the settings record exists; an empty database therefore causes an AttributeError before the assertions.",
+  "axis_row": "L3.19"
+ },
+ {
+  "id": "X3",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "aafactory/src/tests/test_chat/test_mock_chat.py",
+  "line": 6,
+  "claim": "The new test requires undeclared pytest plugins and cannot run with the project's declared development dependencies.",
+  "evidence": "The test requests the mocker fixture and uses pytest.mark.asyncio, requiring pytest-mock and pytest-asyncio. pyproject.toml declares only pytest and pytest-cov as development dependencies, and neither required plugin has a package entry in poetry.lock. A clean project installation cannot provide the mocker fixture."
+ }
+]

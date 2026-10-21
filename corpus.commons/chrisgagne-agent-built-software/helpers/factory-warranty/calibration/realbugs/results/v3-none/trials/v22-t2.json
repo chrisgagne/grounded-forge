@@ -1,0 +1,55 @@
+{
+ "id": "v22",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.2316,
+ "codex_tokens": 22706,
+ "work": "<tmp>/replay-v22-t2-erigpayr",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff at entity.mjs:36 swaps decodeHTMLStrict for decodeHTML, and package.json pins entities ^4.4.0, where decodeHTML uses legacy mode and decodes semicolon-less prefixes like `&not`. So `&notit;` becomes `\u00acit;`, which differs from match[0], and the rule emits it as a token. This goes against the CommonMark rule in spec.txt:718 (`&MadeUpEntity;` stays literal).",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/rules_inline/entity.mjs",
+   "line": 36,
+   "claim": "Switching from decodeHTMLStrict to decodeHTML makes invalid named references that start with a legacy entity name (e.g. `&notit;`) get partly decoded instead of staying literal.",
+   "evidence": "The diff swaps `decodeHTMLStrict(match[0])` for `decodeHTML(match[0])`. NAMED_RE `/^&([a-z][a-z0-9]{1,31});/i` matches the whole `&notit;`. Non-strict decodeHTML (entities legacy mode) decodes the semicolon-less legacy prefix `&not`, so it returns `\u00acit;`. That differs from match[0], so the rule consumes the text and emits a text_special token with content `\u00acit;` where it should leave `&notit;` literal. Before the change, strict decoding returned the input unchanged and the rule returned false.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch only touches the import and the call in entity.mjs. The packet has no story.md, and a grep of test/ finds no `&notit;`-style fixture, so the locked suite will not catch the prefix-decoding regression. This is a process gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/rules_inline/entity.mjs",
+   "line": 3,
+   "claim": "The change adds no test for the new decoding behaviour, and the packet has no story.md stating what it is for.",
+   "evidence": "diff.patch touches only the import and call in entity.mjs and adds no fixtures or tests. A grep of the repo for fixtures like `&notit;` or `&ampx;` finds none, so nothing exercises the prefix-decoding case.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

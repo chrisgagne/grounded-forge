@@ -1,0 +1,52 @@
+{
+ "id": "rd01",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "start_line": 67,
+   "end_line": 70,
+   "message": "Allow the unknown-length sentinel in Android stream sources. For a non-seekable stream opened with an unspecified length, `bytesRemaining` becomes `C.LengthUnset` (-1). This check then throws before playback can begin, even though `Read` explicitly supports that sentinel. Exclude `C.LengthUnset` from the negative-length validation so network streams can be opened."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 65,
+   "end_line": 72,
+   "message": "Fill the requested byte range before finishing an Apple load. A valid `Stream.Read` can return fewer bytes than requested without reaching EOF, particularly for custom or network-backed streams. This implementation responds with that partial read and then unconditionally calls `FinishLoading`, prematurely completing AVFoundation's requested range and causing truncated reads or playback failures. Continue reading and responding until the requested range is satisfied or actual EOF is reached."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "start_line": 543,
+   "end_line": 545,
+   "message": "Detect audio content types for Apple stream sources. For MP3, WAV, and other non-MP4 media streams, this fallback reports `public.mpeg-4` to AVFoundation. Because the synthetic URL has no usable extension, this supplies incorrect container information and prevents otherwise supported audio from loading. Detect the actual format and return its corresponding UTI rather than labeling every unrecognized stream as MP4."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 58,
+   "end_line": 59,
+   "message": "Catch failures from the initial sample download. Opening this page without connectivity, or when the server returns an error, makes `GetStreamAsync` throw outside the error handler in `UpdateSourceStream`. Since `OnAppearing` is `async void`, the exception escapes to the UI synchronization context and can terminate the sample application. Include stream acquisition in the handled download operation so the page remains usable for local videos."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 173,
+   "end_line": 178,
+   "message": "Detach the active source before disposing its stream. When a video is already playing and the user opens another one, `ReleaseSourceStream` disposes the stream still referenced by `MediaElement.Source`. The old player remains attached throughout the asynchronous copy and can read the disposed stream, causing playback errors; if copying fails, it remains attached indefinitely. Keep the active stream alive until its player source has been detached or replaced."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 1115,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "id": "x02",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "ranges/simplify.js",
+   "start_line": 41,
+   "end_line": 43,
+   "message": "Matches Everything. If no version in `versions` satisfies `range`, or `versions` is empty, `set` stays empty and `simplified` becomes `''`. Because `''` is shorter than any non-empty original range, the function returns it. In semver, an empty range string means `*` and matches every version. A range that matched nothing gets \"simplified\" into one that matches everything. Return the original `range`, or another non-matching range, when `set` is empty."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "ranges/simplify.js",
+   "start_line": 10,
+   "end_line": 10,
+   "message": "Input Mutation. `versions.sort(...)` sorts the caller's array in place. Any caller that passes an array it reuses later, such as a packument's version list, will find it silently reordered. Sort a copy instead, e.g. `[...versions].sort(...)`."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 16,
+  "usage": {
+   "prompt_tokens": 3118,
+   "completion_tokens": 865,
+   "total_tokens": 3983
+  },
+  "security_concern": false
+ },
+ "stopped": true
+}

@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.140573,
+  "duration_s": 32.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "The check uses a and b as declared booleans, turns short-option groups off and turns unknown-options-as-args on, then parses `-ab x`: base keeps `-ab` and `x` in argv._, but head returns `{\"_\":[],\"ab\":\"x\"}`, so it treats '-ab' as the undeclared option 'ab' and takes 'x' as its value, which is exactly what the finding claims."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[\"-ab\",\"x\"]}\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[],\"ab\":\"x\"}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: '-ab' should stay in argv._ when short-option-groups is off\n+ actual - expected\n\n+ []\n- [\n-   '-ab',\n-   'x'\n- ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v3/w18-t1-F1/check/test.mjs:15:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [],\n  expected: [ '-ab', 'x' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The check uses a and b as declared booleans, turns short-option groups off and turns unknown-options-as-args on, then parses `-ab x`: base keeps `-ab` and `x` in argv._, but head returns `{\"_\":[],\"ab\":\"x\"}`, so it treats '-ab' as the undeclared option 'ab' and takes 'x' as its value, which is exactly what the finding claims.",
+ "run": "v4-arm-v3",
+ "trial": "w18-t1",
+ "kind": "bug"
+}

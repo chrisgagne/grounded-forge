@@ -1,0 +1,30 @@
+{
+ "id": "rc15",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 144,
+   "end_line": 144,
+   "message": "The x86_32 GCC job sets mingw_prefix=C:/mingw32, but the stock windows-2025 runner image only preinstalls a 64-bit MinGW at C:\\mingw64. The step that used to provision the i686 toolchain (msys2/setup-msys2) was removed, and nothing installs it now. On the 'MinGW/GCC (MSVCRT) x86_32' job, godot-tools/windows.py:82-104 sets CC=C:/mingw32/bin/i686-w64-mingw32-gcc. That file doesn't exist on the runner, so scons fails right away and the godot-angle-static-x86_32-gcc-release artifact (and any tagged release) is never produced."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 189,
+   "end_line": 189,
+   "message": "'Setup MinGW path' always adds C:/mingw32/bin to PATH, even for the x86_64 job whose prefix is C:/mingw64. It should be derived from the matrix (e.g. C:/${{ matrix.msys }}/bin). In the x86_64 GCC job, C:/mingw64/bin is never explicitly added. The job only works if the image's default PATH happens to include it. If a 32-bit toolchain were present at C:/mingw32, its bin would be put ahead of the 64-bit one, so the x86_64 gcc driver could pick up the wrong-arch helper tools and DLLs (as, ld, libgcc/libstdc++ DLLs)."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 30,
+  "cost_usd": 0.2074824,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

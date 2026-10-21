@@ -1,0 +1,112 @@
+{
+ "pr": {
+  "repo": "https://github.com/konturio/disaster-ninja-fe",
+  "pr_number": 1234,
+  "base": "3c1900acccaae22cb69adb02dd8351f24fe4e8b5",
+  "head": "2271e59046b1afe806dfc49d92435d40131df30f"
+ },
+ "agent": "v6-control",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 37,
+   "end_line": 39,
+   "message": "Preserve unfilled circles for point legends. The absence of a fill color does not imply a line geometry. `DEFAULT_USER_LAYER_LEGEND` in `src/features/create_layer/constants.ts` explicitly labels its circle step \u201cPoint\u201d and supplies only `color` and `width`, so this change renders that point legend as a horizontal line. Preserve hollow circles for circle steps and use an explicit shape or geometry discriminator for line legends."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 176,
+   "end_line": 194,
+   "message": "With this change, every `circle` legend step that has no fill now renders as a horizontal line. That includes point layers. `DEFAULT_USER_LAYER_LEGEND` (src/features/create_layer/constants.ts:37-46, a 'Point' step with only `color`/`width`) and `registerNewGeometryLayer` (src/core/logical_layers/utils/registerNewGeometryLayer.ts:33-39, only `color`) both reach this branch, as do backend legends that style point markers with only `circle-stroke-color`. Users would see a line symbol for point features, which is misleading. Make the line an explicit opt-in instead of switching on missing fill, e.g. a new `line` step shape or a flag."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "This deep-imports an internal build path (`@konturio/default-icons/tslib/figma-icons/Letter.js`). The rest of the codebase, including MultivariateLegend.tsx:2, uses the public `import { Letter } from '@konturio/default-icons'`. Internal paths can move or be blocked by package `exports` in any version bump, which breaks the build or the vitest mock resolution. Import from the package root instead."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "start_line": 16,
+   "end_line": 19,
+   "message": "When `text-color` is missing, the letter icon is forced to `#000000`, but the label gets no color and inherits the theme color. That contradicts the stated goal that the icon matches the label, and it shows as black-on-dark in dark contexts. Omit the color, or use `currentColor`/inherit, when `text-color` is absent."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/SimpleLegend/SimpleLegend.test.tsx",
+   "start_line": 34,
+   "end_line": 37,
+   "message": "The test asserts the exact SVG path data (`M6 6H18V9.08508...`) from the third-party icon package. Any harmless icon redesign in a dependabot bump will fail this test. Assert on something stable instead, e.g. mock the icon or check that an svg is rendered with the expected color."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.test.tsx",
+   "start_line": 11,
+   "end_line": 19,
+   "message": "Only the no-fill branch is tested. No test checks that a circle (with the correct fill/stroke) still renders when `fill` or `circle-color` is provided, so a regression in the main path would go unnoticed."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 147,
+   "end_line": 147,
+   "message": "The line branch triggers only on the exact sentinel string 'none'. Callers or styles that pass `fill-color: 'transparent'` or an rgba with zero alpha still get an outline circle, so outline circles are not fully replaced as the PR intends. The behavior is inconsistent."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 37,
+   "end_line": 45,
+   "message": "CircleIcon now draws a horizontal line whenever no fill is set, and this applies to every circle legend step. Existing point legends have no fill: `DEFAULT_USER_LAYER_LEGEND` (src/features/create_layer/constants.ts:37-46, step name 'Point', only `color`/`width`) and the drawn-geometry layer legend in registerNewGeometryLayer.ts:33-39 (only `color`). Both will now show a line next to a 'Point' label, which tells users the wrong geometry type. Make the line an explicit opt-in (for example a new 'line' stepShape, or a flag on the step) instead of changing what 'circle' means everywhere."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "The line-or-circle decision is a plain string check `fillColor === 'none'`. Transparent fills such as 'transparent' or 'rgba(0,0,0,0)' still draw an outline circle, while `fill=\"none\"` passed in from a caller is also treated as 'no fill'. The two cases behave differently even though both mean no visible fill."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "The rest of the codebase uses named imports from the package root (`import { X } from '@konturio/default-icons'`). This line deep-imports the package's internal build path (`tslib/figma-icons/Letter.js`). That path isn't part of the public API, so a dependabot version bump can break it without warning. Exhaustive or bundler `exports` maps may also reject it. Import the icon from the package root if it's exported there."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "start_line": 16,
+   "end_line": 19,
+   "message": "The letter icon gets its color only from CSS `color` on the svg. That works only if the Figma Letter icon uses `currentColor` for its fill or stroke. If its paths hardcode a fill, the icon stays its default color and the stated goal (icon matches label color) fails. The test can't catch this because it only checks the svg's `style` attribute, not the color actually applied to the path. Check the icon's markup, or test the path's fill/stroke against `currentColor`."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "When `text-color` is missing, the icon falls back to a hardcoded '#000000', while the label (lines 51-54) inherits the theme text color. On dark themes or with non-black default text, the icon and label won't match, which contradicts the 'matches the label' goal. Leave `color` unset or use 'currentColor' so both inherit the same color. Also, `stepIconFill`/`stepIconStroke` are silently ignored for letter steps."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/SimpleLegend/SimpleLegend.test.tsx",
+   "start_line": 34,
+   "end_line": 41,
+   "message": "The test depends on implementation details: an exact SVG path prefix from a third-party icon, which any icon package update can change, and the raw `style` attribute string. If the DOM normalizes colors to rgb() it fails, and it passes even when the color doesn't actually reach the drawn path. Also, nothing tests the fallback when `text-color` is absent, and the existing circle-with-fill path isn't covered."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.test.tsx",
+   "start_line": 11,
+   "end_line": 19,
+   "message": "Only the no-fill case is tested. Nothing checks that a filled circle still renders a `<circle>` with the right fill and stroke, or that the line gets the expected stroke color and width. A regression in the default (filled) branch would go unnoticed."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 33000
+ }
+}

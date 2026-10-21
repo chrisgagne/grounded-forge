@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/CommunityToolkit/Maui",
+  "pr_number": 3181,
+  "base": "c7cb65bc98e429401e4f792f6b7aa21f94e81933",
+  "head": "1e8d2e2f880cfe1d9bcbdfbc6078cb6b72fd35ce"
+ },
+ "agent": "v5-sol-plain",
+ "findings": [
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "start_line": 67,
+   "end_line": 70,
+   "message": "This rejects C.LengthUnset (-1) as an invalid remaining length. Opening a non-seekable stream with an unspecified DataSpec.Length therefore always throws, so ordinary network streams cannot play. Exclude the unknown-length sentinel from this validation."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 65,
+   "end_line": 72,
+   "message": "A Stream.Read call may return fewer bytes than requested before EOF. The loader responds with that partial result and then unconditionally calls FinishLoading, which makes AVFoundation treat the resource as truncated. Read and respond repeatedly until the requested range is satisfied or EOF is reached. See [Apple's data request contract](https://developer.apple.com/documentation/avfoundation/avassetresourceloadingdatarequest)."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 50,
+   "end_line": 51,
+   "message": "RequestsAllDataToEndOfResource is ignored, and RequestedLength is narrowed to int and used for a single allocation. For an all-to-end request, that length must be disregarded; large requests can also overflow or exhaust memory even for a small backing stream. Serve bounded chunks through EOF when requested. See [Apple's all-to-end request contract](https://developer.apple.com/documentation/avfoundation/avassetresourceloadingdatarequest/requestsalldatatoendofresource)."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "start_line": 543,
+   "end_line": 545,
+   "message": "Every unrecognized format is advertised as MPEG-4, including supported audio formats such as MP3 and WAV. Because the custom URL has no extension and the loader supplies this incorrect content type, those streams can fail format recognition on iOS/macOS. Detect their actual UTI or expose a content-type hint instead of declaring all streams to be MP4."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 75,
+   "end_line": 78,
+   "message": "Read and seek exceptions are swallowed, after which the caller reports successful completion with FinishLoading. An I/O failure is consequently presented as successful EOF, concealing the actual failure and potentially truncating playback. Propagate the error to the loading request using FinishLoadingWithError."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 173,
+   "end_line": 178,
+   "message": "Replacing a video disposes the currently playing stream before detaching it from MediaElement. The old source remains active throughout the asynchronous copy, so native playback can read a disposed stream and fail. Detach the previous source before disposing its stream, and prepare the replacement in a local variable before assigning it."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 54,
+   "end_line": 59,
+   "message": "GetStreamAsync runs outside any exception handler in an async void lifecycle override. Opening this sample offline, or when the server returns an error, produces an unhandled exception and can terminate the sample app. Include the download in the error handling used for loading media."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 62000
+ }
+}

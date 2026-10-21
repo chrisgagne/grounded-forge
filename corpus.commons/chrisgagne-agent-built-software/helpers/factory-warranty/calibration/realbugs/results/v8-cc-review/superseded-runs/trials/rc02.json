@@ -1,0 +1,23 @@
+{
+ "id": "rc02",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "django_smart_ratelimit/backends/database.py",
+   "start_line": 112,
+   "end_line": 112,
+   "message": "The token bucket row's window_end is set once at creation (now + 365 days), and later saves only update count/data/updated_at, so cleanup_expired() (window_end__lt=now) will delete a bucket that is still in use. A client hits a token-bucket-limited endpoint all year. 365 days after the row was created, cleanup_expired() deletes it because window_end was never moved forward. On the next request get_or_create recreates the bucket with initial_tokens, so a client that had drained the bucket instantly gets a full allowance again. Fix: add window_end to the saves (e.g. now + a TTL based on bucket_size/refill_rate) and include it in update_fields."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 42,
+  "cost_usd": 0.2666462,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

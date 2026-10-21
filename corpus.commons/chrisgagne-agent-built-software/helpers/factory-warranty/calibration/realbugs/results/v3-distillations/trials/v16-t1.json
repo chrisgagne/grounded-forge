@@ -1,0 +1,59 @@
+{
+ "id": "v16",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.443,
+ "codex_tokens": 42323,
+ "work": "<tmp>/replay-v16-t1-c_k6i1kv",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "json.ts:100 now reads `if (obj && obj.toJSON)`, and line 101 calls `obj.toJSON()` with no type check. An input like {toJSON:'x'} reaches that call (arrays return earlier at line 97) and throws 'obj.toJSON is not a function'. The baseline's `typeof obj.toJSON === 'function'` guard skipped such inputs, so this is a regression.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/diff/json.ts",
+   "line": 100,
+   "claim": "The toJSON guard was loosened from a function check to a truthiness check. canonicalize, and so diffJson, now throws a TypeError on any object whose toJSON property is truthy but not a function.",
+   "evidence": "The diff swaps `if (obj && typeof obj.toJSON === 'function')` for `if (obj && obj.toJSON)`, then calls `obj = obj.toJSON();` at line 101. For `{toJSON: 'x'}` or `{toJSON: {}}` that call throws 'obj.toJSON is not a function'. This also breaks with JSON.stringify semantics, which only calls toJSON when it is a function. diffJson reaches this code through castInput -> canonicalize (line 17).",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "A search of the export outside node_modules finds toJSON only at json.ts:100-101, and the diff adds no tests, so nothing exercises a toJSON method or a non-function toJSON property. I lowered the severity to low because this is a test gap, and the defect itself is tracked in the C1/X1 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/diff/json.ts",
+   "line": 100,
+   "claim": "No test covers the toJSON branch, so the suite cannot catch this regression.",
+   "evidence": "Searching the export for `toJSON` outside node_modules finds only json.ts lines 100-101. No test exercises an object that has a toJSON method or a non-function toJSON property. The diff changes no tests, and no story.md is present to say this change was asked for.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

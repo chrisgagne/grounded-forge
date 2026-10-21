@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/scottlz0310/Mcp-Docker",
+  "pr_number": 29,
+  "base": "63baf3dbbc10d271710706f56150dd8425dd4b4a",
+  "head": "e7705d269ea374d49e7999bdb8bc42e9480a6b37"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "services/copilot-review-mcp/internal/auth/session.go",
+   "start_line": 91,
+   "end_line": 91,
+   "message": "Completing a state twice leaves multiple redeemable codes and can return a different account's token for an earlier code. Before redemption, two successful GitHub callbacks with the same state both pass HasSession. CompleteCallback overwrites the shared Session.AccessToken and adds another codes entry without removing the first. ExchangeCode then returns the latest token for either code; redeeming one deletes only that codes entry, so the other remains usable."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "services/copilot-review-mcp/internal/auth/handler.go",
+   "start_line": 91,
+   "end_line": 91,
+   "message": "Authorization without a PKCE challenge is accepted, allowing an intercepted authorization code to be redeemed without proof of possession. Authorize rejects the challenge method only when code_challenge is nonempty. A request omitting both PKCE parameters creates a session, and ExchangeCode skips verification when Session.CodeChallenge is empty. Token requires only the code and matching redirect URI and performs no client authentication."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "services/copilot-review-mcp/internal/auth/session.go",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new authentication service has no automated tests or Go test integration, leaving its security transitions without regression coverage. The diff adds the OAuth handlers, session store and authentication middleware without any test files. The exported service contains no *_test.go files, and .github/workflows/lint-test.yml runs only Node tests, shell lint and Bats tests."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

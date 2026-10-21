@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1632914,
+  "duration_s": 38.5
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/packed-preload.sh {tree}",
+  "because": "The script runs the real `npm pack` on the tree, unpacks the tarball as node_modules/semver, then requires `semver` and, if the tree has a preload.js, `semver/preload`; on head the packed file list has no preload.js and `require('semver/preload')` throws MODULE_NOT_FOUND, so the 'files' allowlist leaves the new module out of the published package, while on base `semver` loads and there is no preload.js to check."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "packed files:\nLICENSE\nREADME.md\nbin\nclasses\nfunctions\nindex.js\ninternal\npackage.json\nrange.bnf\nranges\nrequire(\"semver\") ok\ntree has no preload.js; nothing more to check\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "packed files:\nLICENSE\nREADME.md\nbin\nclasses\nfunctions\nindex.js\ninternal\npackage.json\nrange.bnf\nranges\nrequire(\"semver\") ok\nnode:internal/modules/cjs/loader:1404\n  throw err;\n  ^\n\nError: Cannot find module 'semver/preload'\nRequire stack:\n- <tmp>/factory-run-j4jbt_fx/semver-pack.8TeeKJ/app/[eval]\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1401:15)\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)\n    at Function._load (node:internal/modules/cjs/loader:1211:37)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Module.require (node:internal/modules/cjs/loader:1487:12)\n    at require (node:internal/modules/helpers:135:16)\n    at [eval]:1:11\n    at runScriptInThisContext (node:internal/vm:209:10) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [\n    '<tmp>/factory-run-j4jbt_fx/semver-pack.8TeeKJ/app/[eval]'\n  ]\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The script runs the real `npm pack` on the tree, unpacks the tarball as node_modules/semver, then requires `semver` and, if the tree has a preload.js, `semver/preload`; on head the packed file list has no preload.js and `require('semver/preload')` throws MODULE_NOT_FOUND, so the 'files' allowlist leaves the new module out of the published package, while on base `semver` loads and there is no preload.js to check.",
+ "run": "v3-distillations",
+ "trial": "v05-t1",
+ "kind": "control"
+}

@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/capawesome-team/cli",
+  "pr_number": 126,
+  "base": "a03825128b8380f86dcf85e8d3507b3a41d9f775",
+  "head": "2d997db6e53c75213cbb13f2d3fdb636984eead4"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 53,
+   "end_line": 53,
+   "message": "Accept the Apple API key ID as a create option. When creating an iOS destination with API-key authentication in CI, this command always exits with \u201cYou must provide the Apple API Key ID\u201d after uploading the key file. `appleApiKeyId` is initialized to `undefined`, but is neither declared in the options schema nor read from `options`, so callers cannot supply it. Add the option and initialize this variable from it so non-interactive creation can succeed."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 89000
+ }
+}

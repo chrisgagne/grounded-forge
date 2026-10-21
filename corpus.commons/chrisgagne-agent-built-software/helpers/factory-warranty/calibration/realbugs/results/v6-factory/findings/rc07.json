@@ -1,0 +1,126 @@
+{
+ "pr": {
+  "repo": "https://github.com/godaddy/antares",
+  "pr_number": 142,
+  "base": "f910afef727b67f484a672fcae7a94d86272aed9",
+  "head": "12f376d05689fdecb86096f51f7ab2f7169c3f0a"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/variables.css",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "The change loosens the type of the global `--_fs-base` font-size token from `<length>` to `*`. That affects every `--fs-*` size in the library, and nothing in the Legend work explains why it was needed. An invalid override now breaks every derived font size instead of falling back to 1rem. The diff changes `@property --_fs-base { syntax: \"<length>\"` to `syntax: \"*\"`. Every token from `--fs-2xs` to `--fs-6xl` is built as `calc(var(--_fs-base) * pow(...))` (variables.css:76-86). With the `<length>` type, a non-length override such as `--_fs-base: 16` or `large` was rejected and the 1rem initial value was kept. With `*` the value is substituted as written, so the `calc` is invalid wherever it is used. Relative overrides such as `em` are also no longer resolved once at the root; they pass down as unresolved text. No Legend file reads `--_fs-base`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/variables.css",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "This changes `--_fs-base` from `<length>` to the universal `*` syntax, which affects every component's font-size tokens. The Legend feature doesn't need it. With `*`, the browser no longer checks the value or resolves it to a length, so a bad override (for example a unitless `16`) gets passed straight into every `--fs-*` calc() and breaks all typography, where before it fell back to `1rem`. It also stops the property from being animated or transitioned as a length. Revert it, or split it into its own PR with a reason and a changeset. This changes `--_fs-base` from `<length>` to the universal `*` syntax, which affects every component's font-size tokens. The Legend feature doesn't need it. With `*`, the browser no longer checks the value or resolves it to a length, so a bad override (for example a unitless `16`) gets passed straight into every `--fs-*` calc() and breaks all typography, where before it fell back to `1rem`. It also stops the property from being animated or transitioned as a length. Revert it, or split it into its own PR with a reason and a changeset."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 74,
+   "end_line": 74,
+   "message": "Legend's default layout has changed: it used to be a full-width, centred row and is now an `inline-flex` column aligned to `flex-start`. Anyone rendering `<Legend>` directly loses the centring with no warning. Only the in-repo charts were updated to add `alignSelf=\"center\"`. The old root was `<Flex role=\"list\" ... justifyContent=\"center\" gap=\"lg\">`. The new root is `<Flex {...rootFlexProps} direction=\"column\" alignItems=\"flex-start\" display=\"inline-flex\" ...>` with no `justifyContent`. The JSDoc line \"Renders a horizontally centered legend\" was removed. bar-chart/src/index.tsx:444,619 and line-chart/src/index.tsx:491 now pass `alignSelf=\"center\"` to compensate. Snapshot changes confirm the old `justify-content:center` is gone."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 73,
+   "end_line": 73,
+   "message": "This changes the default look for anyone already using `Legend` on its own. Before, the list was a block-level flex with `justify-content: center`. Now the root is `display: inline-flex` with `align-items: flex-start` and the list has no justify. So legends that used to be centered now sit at the start. Only BarChart and LineChart were updated (with `alignSelf=\"center\"`); other consumers silently change. Either keep centering as the default or mark this as a breaking change in a changeset. The checklist shows no changeset was added. This changes the default look for anyone already using `Legend` on its own. Before, the list was a block-level flex with `justify-content: center`. Now the root is `display: inline-flex` with `align-items: flex-start` and the list has no justify. So legends that used to be centered now sit at the start. Only BarChart and LineChart were updated (with `alignSelf=\"center\"`); other consumers silently change. Either keep centering as the default or mark this as a breaking change in a changeset. The checklist shows no changeset was added."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+   "start_line": 50,
+   "end_line": 50,
+   "message": "The new orientation test says it checks that items stack vertically, but it only counts list items. It would still pass if `orientation=\"vertical\"` were ignored and the items were laid out in a row. `verticalOrientation` asserts only `assume(list).exists()` and `assume(items.length).equals(3)`. It never checks `flex-direction`, element positions or bounding boxes. A horizontal list also has three `listitem`s."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+   "start_line": 51,
+   "end_line": 51,
+   "message": "The test named 'stacks items vertically' only checks that there are 3 list items, which a horizontal legend would also pass. It should check the layout, e.g. that each item's top is below the previous item's bottom, or that the list's computed `flex-direction` is `column`. The test named 'stacks items vertically' only checks that there are 3 list items, which a horizontal legend would also pass. It should check the layout, e.g. that each item's top is below the previous item's bottom, or that the list's computed `flex-direction` is `column`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+   "start_line": 45,
+   "end_line": 45,
+   "message": "The new label test's assertions call `exists()` on Locator objects, which are always non-null. The test therefore can't fail if the accessible name or the visible label is missing. `const list = locator.getByRole('list', { name: 'Sales by product' }); ... assume(list).exists(); assume(label).exists();` A vitest-browser locator is a lazy query object, and nothing awaits it, calls `.element()` or uses `expect.element(...).toBeInTheDocument()`. So `assume(...).exists()` is true whatever the DOM contains."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/bar-chart/test/__snapshots__/bar-chart.node.test.tsx.snap",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change rewrites the expected output of existing locked tests to match the new rendering: the BarChart, LineChart and Legend node snapshots, plus 11 visual screenshot baselines. Those regressions now pass by definition instead of being judged against the old output. The diff replaces the existing snapshot entries for bar-chart multi-series, horizontal-multi-series, rtl-multi-series and rtl-horizontal-multi-series. It does the same for line-chart browser-usage, city-temperature, legend and multiple-series, and for legend single-series and multi-series. It also updates PNG baselines under bar-chart/test/__screenshots__ and line-chart/test/__screenshots__. acceptance.md says the baseline's tests are the locked acceptance tests. No packet entry records who approved the new expectations."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.node.test.tsx",
+   "start_line": 395,
+   "end_line": 395,
+   "message": "The `size` prop is covered only by a snapshot of the `data-size` attribute. No test checks that sizes actually change the rendered font or swatch size, so a broken CSS selector would go unnoticed. The `#size` test is `expect(renderToString(<LegendSizeChartExample />)).toMatchSnapshot()`, and that snapshot (generated from the new code) shows only `data-size=\"sm|md|lg|xl\"`. The CSS in index.module.css (`.root[data-size=...] { font-size }`, `.root .swatch { width: 1em }`) is never exercised by a computed-style assertion."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "When `label` is set, screen readers announce it twice: once as the visible text and again as the list's `aria-label`. The visible text is not programmatically tied to the list. `{label ? <Text className={styles.label}>{label}</Text> : null}` is followed by `<Flex role=\"list\" aria-label={label ?? 'Chart legend'}>`. Giving the label an id and pointing `aria-labelledby` at it would name the list without repeating the text."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "The visible label and the list's accessible name are two separate copies of the same text: a plain `<Text>` sibling plus `aria-label={label}`. Screen readers may read the heading twice, and the two can drift apart if the markup changes. Give the label an id (`useId`) and point to it with `aria-labelledby`. The visible label and the list's accessible name are two separate copies of the same text: a plain `<Text>` sibling plus `aria-label={label}`. Screen readers may read the heading twice, and the two can drift apart if the markup changes. Give the label an id (`useId`) and point to it with `aria-labelledby`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "LegendProps now accepts every Flex/Box prop and spreads them onto the outer wrapper rather than the list. ARIA props a caller passes, such as `aria-label` or `role`, land on a div with no role and don't rename the list. `extends Omit<FlexProps<'div'>, 'children' | 'direction' | 'display' | 'alignItems' | 'gap'>` and `<Flex {...rootFlexProps} ...>` on the wrapper. The list's `aria-label` is hard-wired to `label ?? 'Chart legend'` on the inner Flex."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 16,
+   "end_line": 16,
+   "message": "`LegendProps` now inherits all of `FlexProps`, including `role`, `aria-label`, `justifyContent`, `flexWrap` and similar. These go to the outer wrapper, not the `role=\"list\"` element, so props like `flexWrap` or `justifyContent` won't affect how the items lay out, and a passed `aria-label` labels the wrapper instead of the list. Either narrow the public surface or document clearly that these props apply to the outer container. `LegendProps` now inherits all of `FlexProps`, including `role`, `aria-label`, `justifyContent`, `flexWrap` and similar. These go to the outer wrapper, not the `role=\"list\"` element, so props like `flexWrap` or `justifyContent` won't affect how the items lay out, and a passed `aria-label` labels the wrapper instead of the list. Either narrow the public surface or document clearly that these props apply to the outer container."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 52,
+   "end_line": 52,
+   "message": "The `useMemo` around the legend items adds complexity but saves little. Callers usually pass an inline `series` array, which changes identity on every render, and mapping a handful of items is cheap. `const items = useMemo(function getLegendItems() { return series.map(...) }, [series]);` The examples and the charts pass `series` arrays straight through, for example `const series = [...]` inside `LegendVerticalExample`, which is recreated on each render."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "The two checks treat an empty `label` differently. `label ? ...` hides the visible label when `label` is `''`, but `label ?? 'Chart legend'` still uses `''`, so the list gets `aria-label=\"\"` and has no accessible name. Use the same truthiness check for both, e.g. `label || 'Chart legend'`. The two checks treat an empty `label` differently. `label ? ...` hides the visible label when `label` is `''`, but `label ?? 'Chart legend'` still uses `''`, so the list gets `aria-label=\"\"` and has no accessible name. Use the same truthiness check for both, e.g. `label || 'Chart legend'`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "The horizontal list now uses `align-items: flex-start` (it used to be the default, stretch) and still has no wrapping. In the charts the root is an inline-flex shrunk to fit and centered with `alignSelf`, inside a parent with `overflow: hidden`. A legend with many series in a narrow chart overflows on both sides and gets clipped. Consider `flexWrap=\"wrap\"` now that the layout is being reworked. The horizontal list now uses `align-items: flex-start` (it used to be the default, stretch) and still has no wrapping. In the charts the root is an inline-flex shrunk to fit and centered with `alignSelf`, inside a parent with `overflow: hidden`. A legend with many series in a narrow chart overflows on both sides and gets clipped. Consider `flexWrap=\"wrap\"` now that the layout is being reworked."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

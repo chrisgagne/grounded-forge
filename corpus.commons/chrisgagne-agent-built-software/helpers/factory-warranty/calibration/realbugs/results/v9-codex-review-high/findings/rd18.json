@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 4,
+   "message": "Add a deployment workflow for the new Kafka topics. On a normal dev/main deployment, this manifest is never applied: no workflow references it, and the existing topic workflows each deploy an explicitly named file. The new streams start unconditionally, but their input topics and ACLs will therefore be missing, preventing income-report submissions from being processed. Add a workflow invoking `reusable-topic-workflow.yml` for this manifest, as done for the existing topic files."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 159000
+ }
+}

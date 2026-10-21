@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/Mirkiux/featkit",
+  "pr_number": 17,
+  "base": "471774c774a89902228a0b74b696ff7304332437",
+  "head": "de0187b0e5e781ca08ef7d7923e33cba6531c200"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "Apply the entropy fallback inside the conditional expression. For any pipeline requesting ENTROPY, the generated code calls `.otherwise()` on the result of `F.sum()`, rather than on `F.when()`. PySpark rejects this because `otherwise()` is only valid on a conditional column, so the generated script fails while building Layer 2B. Move the fallback inside the sum."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 238,
+   "end_line": 239,
+   "message": "Select the dominant category instead of an arbitrary first row. When MODE is requested, `F.first()` returns an arbitrary category after the shuffle, without considering the aggregated category values. For example, categories with totals 1 and 100 can return the category with total 1. Select the category associated with the largest aggregated value, with a deterministic tie policy, instead."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 101,
+   "end_line": 101,
+   "message": "Escape categorical values when emitting Python literals. An allowed categorical value containing a double quote, backslash, or newline is inserted directly into a double-quoted Python literal. This can make the generated script invalid or silently change the value being matched (for example, a literal backslash followed by `n` becomes a newline). Emit categorical values using Python literal escaping, such as `repr`, rather than interpolating them between quotes."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 234,
+   "end_line": 238,
+   "message": "The ENTROPY expression calls `.otherwise(...)` on the result of `F.sum(...)`. PySpark only allows `.otherwise()` on a Column built by `F.when()`, so `F.sum(F.when(...)).otherwise(...)` raises at runtime. Any pipeline with an ENTROPY metric fails when the script runs, even though `ast.parse` accepts it. The `.otherwise(F.lit(0.0))` belongs inside the `F.sum(...)`, or should be dropped."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 243,
+   "end_line": 244,
+   "message": "MODE is generated as `F.first(category, ignorenulls=True)`, which returns an arbitrary category from each group, not the dominant one. It should return the category with the largest `<agg>_cat_val`, for example `F.max_by(cat, cat_val)` or `F.max(F.struct(cat_val, cat))[cat]`. As written the feature is non-deterministic and semantically wrong."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 356,
+   "end_line": 357,
+   "message": "RATIO is generated as a plain windowed sum, which gives the same value as SUM_U. No ratio is computed. These features would be silently mislabeled duplicates."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 320,
+   "end_line": 327,
+   "message": "PROM_P generates the same expression as PROM_U, and SUM_P the same as SUM_U. The enum and the output contracts treat them as different operators, so the `_P` variants come out as redundant copies of the `_U` features under different names instead of their intended semantics."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 339,
+   "end_line": 348,
+   "message": "XM generates the same expression as FREQ: a count of non-null values in the window. If XM means something different, every XM feature is a duplicate of FREQ. The operator's semantics need confirming and implementing."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 336,
+   "end_line": 338,
+   "message": "CREC ignores `window_size`. It always compares against `lag(1)`, so CREC features with different windows (for example 3 and 6) come out identical. CREC is also allowed on TEMPORAL (FECHA) columns by TemporalOutputContract, and subtracting and dividing date columns fails at runtime."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 354,
+   "end_line": 355,
+   "message": "MEDIA_ABS is generated as a windowed approximate median (`percentile_approx(..., 0.5)`). The operator name ('media' means mean) and its pairing with RATIO under `composed_windows` suggest a composed metric such as mean absolute deviation, not a median. This needs confirming against the spec, and the median is approximate in any case."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 107,
+   "end_line": 111,
+   "message": "Categorical values are interpolated into the generated code as `\"{cat_val}\"` without escaping. A value containing a double quote or backslash produces broken or injectable Python, and numeric categories are compared as strings. Use `{cat_val!r}` or `F.lit(...)` with proper quoting, as the code already does for table names."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 313,
+   "end_line": 319,
+   "message": "`frame_w` is only assigned when `w is not None`. Windowed operators currently always have a `window_size`, but any future operator or override that reaches a `frame_w` branch without one raises `UnboundLocalError` instead of a clear error. Also, the `col_ref` conditional on lines 300-304 produces the same expression on both branches, so it is dead logic."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 401,
+   "end_line": 415,
+   "message": "`generate()` narrows its return type from `FeatureStoreOutput` to `object`, which breaks the base-class contract for type checkers. It also relies on `assert` for runtime type checks, and asserts are removed under `python -O`. It would be cleaner to override `_combine_code` and prepend the header there, or keep the `FeatureStoreOutput` return annotation."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 25,
+   "end_line": 29,
+   "message": "The header imports `SparkSession` but never creates `spark`, while the rest of the script uses `spark` throughout. Outside a Databricks notebook the script fails with a NameError. Either add `spark = SparkSession.builder.getOrCreate()` or drop the unused import."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tests/test_generators/test_pyspark.py",
+   "start_line": 556,
+   "end_line": 560,
+   "message": "The tests only check `ast.parse` and substring presence, so runtime-invalid PySpark (the ENTROPY `.otherwise` bug) and wrong semantics (MODE, RATIO, duplicate operators) pass. Asserting the expression generated for each operator and metric, or running against a local SparkSession, would catch these."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 62000
+ }
+}

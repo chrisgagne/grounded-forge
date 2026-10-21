@@ -1,0 +1,354 @@
+{
+ "id": "rc07",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests"
+ ],
+ "first": "gate",
+ "cost_usd": 1.9958,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc07-t1-2ld0hh6j",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes `syntax: \"<length>\"` to `\"*\"` at variables.css:20. Every `--fs-2xs` to `--fs-6xl` is `calc(var(--_fs-base) * pow(...))` (lines 76-86), and no Legend file reads `--_fs-base`. So the change is out of scope and drops validation for the whole library. Breakage needs someone to override a variable the file header marks as internal, so it stays medium rather than high.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/@godaddy/antares/variables.css",
+   "line": 20,
+   "claim": "`--_fs-base` was retyped from `<length>` to `*`. This global change has nothing to do with the Legend work, and it removes the type check and the 1rem fallback that every `--fs-*` token depends on.",
+   "evidence": "The diff changes `@property --_fs-base { syntax: \"<length>\"` to `syntax: \"*\"`. Every token from `--fs-2xs` to `--fs-6xl` is built as `calc(var(--_fs-base) * pow(...))` (variables.css:76-86). With the `<length>` type, a non-length override such as `--_fs-base: 16` or `large` was rejected and the 1rem initial value was kept. With `*` the value is substituted as written, so the `calc` is invalid wherever it is used. Relative overrides such as `em` are also no longer resolved once at the root; they pass down as unresolved text. No Legend file reads `--_fs-base`.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "packages/@godaddy/antares/variables.css",
+     "line": 20,
+     "claim": "The change loosens the type of the global `--_fs-base` font-size token from `<length>` to `*`. That affects every `--fs-*` size in the library, and nothing in the Legend work explains why it was needed. An invalid override now breaks every derived font size instead of falling back to 1rem.",
+     "evidence": "The diff changes `@property --_fs-base { syntax: \"<length>\"` to `syntax: \"*\"`. Every token from `--fs-2xs` to `--fs-6xl` is built as `calc(var(--_fs-base) * pow(...))` (variables.css:76-86). With the `<length>` type, a non-length override such as `--_fs-base: 16` or `large` was rejected and the 1rem initial value was kept. With `*` the value is substituted as written, so the `calc` is invalid wherever it is used. Relative overrides such as `em` are also no longer resolved once at the root; they pass down as unresolved text. No Legend file reads `--_fs-base`."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "packages/@godaddy/antares/variables.css",
+     "line": 19,
+     "claim": "This changes `--_fs-base` from `<length>` to the universal `*` syntax, which affects every component's font-size tokens. The Legend feature doesn't need it. With `*`, the browser no longer checks the value or resolves it to a length, so a bad override (for example a unitless `16`) gets passed straight into every `--fs-*` calc() and breaks all typography, where before it fell back to `1rem`. It also stops the property from being animated or transitioned as a length. Revert it, or split it into its own PR with a reason and a changeset.",
+     "evidence": "This changes `--_fs-base` from `<length>` to the universal `*` syntax, which affects every component's font-size tokens. The Legend feature doesn't need it. With `*`, the browser no longer checks the value or resolves it to a length, so a bad override (for example a unitless `16`) gets passed straight into every `--fs-*` calc() and breaks all typography, where before it fell back to `1rem`. It also stops the property from being animated or transitioned as a length. Revert it, or split it into its own PR with a reason and a changeset."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "P2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The old root had `justifyContent=\"center\"`. The new root uses `display=\"inline-flex\" alignItems=\"flex-start\"` with no justify, and the \"horizontally centered\" JSDoc line was removed. bar-chart and line-chart now pass `alignSelf=\"center\"` to compensate, and the Legend snapshots no longer contain `justify-content:center`.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "line": 74,
+   "claim": "Legend's default layout changed from a full-width centred row to an `inline-flex` column aligned to `flex-start`. Anyone rendering `<Legend>` directly loses the centring. Only the in-repo charts were updated to compensate.",
+   "evidence": "The old root was `<Flex role=\"list\" ... justifyContent=\"center\" gap=\"lg\">`. The new root is `<Flex {...rootFlexProps} direction=\"column\" alignItems=\"flex-start\" display=\"inline-flex\" ...>` with no `justifyContent`. The JSDoc line \"Renders a horizontally centered legend\" was removed. bar-chart/src/index.tsx:444,619 and line-chart/src/index.tsx:491 now pass `alignSelf=\"center\"` to compensate. Snapshot changes confirm the old `justify-content:center` is gone.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+     "line": 74,
+     "claim": "Legend's default layout has changed: it used to be a full-width, centred row and is now an `inline-flex` column aligned to `flex-start`. Anyone rendering `<Legend>` directly loses the centring with no warning. Only the in-repo charts were updated to add `alignSelf=\"center\"`.",
+     "evidence": "The old root was `<Flex role=\"list\" ... justifyContent=\"center\" gap=\"lg\">`. The new root is `<Flex {...rootFlexProps} direction=\"column\" alignItems=\"flex-start\" display=\"inline-flex\" ...>` with no `justifyContent`. The JSDoc line \"Renders a horizontally centered legend\" was removed. bar-chart/src/index.tsx:444,619 and line-chart/src/index.tsx:491 now pass `alignSelf=\"center\"` to compensate. Snapshot changes confirm the old `justify-content:center` is gone."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+     "line": 73,
+     "claim": "This changes the default look for anyone already using `Legend` on its own. Before, the list was a block-level flex with `justify-content: center`. Now the root is `display: inline-flex` with `align-items: flex-start` and the list has no justify. So legends that used to be centered now sit at the start. Only BarChart and LineChart were updated (with `alignSelf=\"center\"`); other consumers silently change. Either keep centering as the default or mark this as a breaking change in a changeset. The checklist shows no changeset was added.",
+     "evidence": "This changes the default look for anyone already using `Legend` on its own. Before, the list was a block-level flex with `justify-content: center`. Now the root is `display: inline-flex` with `align-items: flex-start` and the list has no justify. So legends that used to be centered now sit at the start. Only BarChart and LineChart were updated (with `alignSelf=\"center\"`); other consumers silently change. Either keep centering as the default or mark this as a breaking change in a changeset. The checklist shows no changeset was added."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "P7"
+   ],
+   "verdict": "confirmed",
+   "reason": "legend.browser.test.tsx:50-58 asserts only `assume(list).exists()` and `items.length === 3`. A horizontal list also has three listitems, and nothing checks `flex-direction` or item positions.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+   "line": 51,
+   "claim": "The vertical-orientation test only counts list items, so it would still pass if `orientation=\"vertical\"` were ignored.",
+   "evidence": "`verticalOrientation` asserts only `assume(list).exists()` and `assume(items.length).equals(3)`. It never checks `flex-direction`, element positions or bounding boxes. A horizontal list also has three `listitem`s.",
+   "axis_row": "L3.10",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+     "line": 50,
+     "claim": "The new orientation test says it checks that items stack vertically, but it only counts list items. It would still pass if `orientation=\"vertical\"` were ignored and the items were laid out in a row.",
+     "evidence": "`verticalOrientation` asserts only `assume(list).exists()` and `assume(items.length).equals(3)`. It never checks `flex-direction`, element positions or bounding boxes. A horizontal list also has three `listitem`s."
+    },
+    {
+     "id": "P7",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+     "line": 51,
+     "claim": "The test named 'stacks items vertically' only checks that there are 3 list items, which a horizontal legend would also pass. It should check the layout, e.g. that each item's top is below the previous item's bottom, or that the list's computed `flex-direction` is `column`.",
+     "evidence": "The test named 'stacks items vertically' only checks that there are 3 list items, which a horizontal legend would also pass. It should check the layout, e.g. that each item's top is below the previous item's bottom, or that the list's computed `flex-direction` is `column`."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "legend.browser.test.tsx:42-46 builds lazy locators and calls `assume(...).exists()` without awaiting `.element()` or using `expect.element`, so both assertions pass whatever the DOM contains. The older tests at lines 16 and 23 use the same empty pattern.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+   "line": 45,
+   "claim": "The label test calls `exists()` on Locator objects, which are always non-null, so the test can't fail if the accessible name or the visible label is missing.",
+   "evidence": "`const list = locator.getByRole('list', { name: 'Sales by product' }); ... assume(list).exists(); assume(label).exists();` A vitest-browser locator is a lazy query object, and nothing awaits it, calls `.element()` or uses `expect.element(...).toBeInTheDocument()`. So `assume(...).exists()` is true whatever the DOM contains.",
+   "axis_row": "L3.3",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "packages/@godaddy/antares/components/chart/legend/test/legend.browser.test.tsx",
+     "line": 45,
+     "claim": "The new label test's assertions call `exists()` on Locator objects, which are always non-null. The test therefore can't fail if the accessible name or the visible label is missing.",
+     "evidence": "`const list = locator.getByRole('list', { name: 'Sales by product' }); ... assume(list).exists(); assume(label).exists();` A vitest-browser locator is a lazy query object, and nothing awaits it, calls `.element()` or uses `expect.element(...).toBeInTheDocument()`. So `assume(...).exists()` is true whatever the DOM contains."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff does rewrite the BarChart, LineChart and Legend snapshot entries and 11 screenshot baselines. acceptance.md says the baseline tests are locked, but story.md and tests.lock aren't in the export. So I can't tell whether the story's layout change justifies the new expectations or who approved them.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/@godaddy/antares/components/chart/bar-chart/test/__snapshots__/bar-chart.node.test.tsx.snap",
+   "line": null,
+   "claim": "Existing locked snapshots and 11 PNG baselines were rewritten to match the new rendering.",
+   "evidence": "The diff replaces the existing snapshot entries for bar-chart multi-series, horizontal-multi-series, rtl-multi-series and rtl-horizontal-multi-series. It does the same for line-chart browser-usage, city-temperature, legend and multiple-series, and for legend single-series and multi-series. It also updates PNG baselines under bar-chart/test/__screenshots__ and line-chart/test/__screenshots__. acceptance.md says the baseline's tests are the locked acceptance tests. No packet entry records who approved the new expectations.",
+   "axis_row": "L3.1",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "packages/@godaddy/antares/components/chart/bar-chart/test/__snapshots__/bar-chart.node.test.tsx.snap",
+     "line": null,
+     "claim": "The change rewrites the expected output of existing locked tests to match the new rendering: the BarChart, LineChart and Legend node snapshots, plus 11 visual screenshot baselines. Those regressions now pass by definition instead of being judged against the old output.",
+     "evidence": "The diff replaces the existing snapshot entries for bar-chart multi-series, horizontal-multi-series, rtl-multi-series and rtl-horizontal-multi-series. It does the same for line-chart browser-usage, city-temperature, legend and multiple-series, and for legend single-series and multi-series. It also updates PNG baselines under bar-chart/test/__screenshots__ and line-chart/test/__screenshots__. acceptance.md says the baseline's tests are the locked acceptance tests. No packet entry records who approved the new expectations."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The `#size` test at legend.node.test.tsx:395-399 is a renderToString snapshot, which only shows `data-size`. The `.root[data-size]` font-size rules in index.module.css are never checked with a computed-style assertion.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/@godaddy/antares/components/chart/legend/test/legend.node.test.tsx",
+   "line": 395,
+   "claim": "The `size` prop is covered only by a snapshot of the `data-size` attribute. No test checks that font or swatch size actually changes.",
+   "evidence": "The `#size` test is `expect(renderToString(<LegendSizeChartExample />)).toMatchSnapshot()`, and that snapshot (generated from the new code) shows only `data-size=\"sm|md|lg|xl\"`. The CSS in index.module.css (`.root[data-size=...] { font-size }`, `.root .swatch { width: 1em }`) is never exercised by a computed-style assertion.",
+   "axis_row": "L3.14",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/@godaddy/antares/components/chart/legend/test/legend.node.test.tsx",
+     "line": 395,
+     "claim": "The `size` prop is covered only by a snapshot of the `data-size` attribute. No test checks that sizes actually change the rendered font or swatch size, so a broken CSS selector would go unnoticed.",
+     "evidence": "The `#size` test is `expect(renderToString(<LegendSizeChartExample />)).toMatchSnapshot()`, and that snapshot (generated from the new code) shows only `data-size=\"sm|md|lg|xl\"`. The CSS in index.module.css (`.root[data-size=...] { font-size }`, `.root .swatch { width: 1em }`) is never exercised by a computed-style assertion."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7",
+    "P3"
+   ],
+   "verdict": "confirmed",
+   "reason": "index.tsx renders `<Text className={styles.label}>{label}</Text>` and then `aria-label={label ?? 'Chart legend'}` on the list, with no id or `aria-labelledby`. This is an accessibility point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "line": 83,
+   "claim": "The visible label and the list's `aria-label` are two copies of the same text and aren't linked, so screen readers may read the label twice.",
+   "evidence": "`{label ? <Text className={styles.label}>{label}</Text> : null}` is followed by `<Flex role=\"list\" aria-label={label ?? 'Chart legend'}>`. Giving the label an id and pointing `aria-labelledby` at it would name the list without repeating the text.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+     "line": 83,
+     "claim": "When `label` is set, screen readers announce it twice: once as the visible text and again as the list's `aria-label`. The visible text is not programmatically tied to the list.",
+     "evidence": "`{label ? <Text className={styles.label}>{label}</Text> : null}` is followed by `<Flex role=\"list\" aria-label={label ?? 'Chart legend'}>`. Giving the label an id and pointing `aria-labelledby` at it would name the list without repeating the text."
+    },
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+     "line": 83,
+     "claim": "The visible label and the list's accessible name are two separate copies of the same text: a plain `<Text>` sibling plus `aria-label={label}`. Screen readers may read the heading twice, and the two can drift apart if the markup changes. Give the label an id (`useId`) and point to it with `aria-labelledby`.",
+     "evidence": "The visible label and the list's accessible name are two separate copies of the same text: a plain `<Text>` sibling plus `aria-label={label}`. Screen readers may read the heading twice, and the two can drift apart if the markup changes. Give the label an id (`useId`) and point to it with `aria-labelledby`."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8",
+    "P5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The interface extends `Omit<FlexProps<'div'>, ...>` and `{...rootFlexProps}` is spread on the outer Flex, while the list's `aria-label` is hard-wired. This is an API-design point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "line": 17,
+   "claim": "LegendProps now accepts every Flex prop and spreads them onto the outer wrapper rather than the list, so props like `aria-label`, `role` and `justifyContent` land on the wrong element.",
+   "evidence": "`extends Omit<FlexProps<'div'>, 'children' | 'direction' | 'display' | 'alignItems' | 'gap'>` and `<Flex {...rootFlexProps} ...>` on the wrapper. The list's `aria-label` is hard-wired to `label ?? 'Chart legend'` on the inner Flex.",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+     "line": 17,
+     "claim": "LegendProps now accepts every Flex/Box prop and spreads them onto the outer wrapper rather than the list. ARIA props a caller passes, such as `aria-label` or `role`, land on a div with no role and don't rename the list.",
+     "evidence": "`extends Omit<FlexProps<'div'>, 'children' | 'direction' | 'display' | 'alignItems' | 'gap'>` and `<Flex {...rootFlexProps} ...>` on the wrapper. The list's `aria-label` is hard-wired to `label ?? 'Chart legend'` on the inner Flex."
+    },
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+     "line": 16,
+     "claim": "`LegendProps` now inherits all of `FlexProps`, including `role`, `aria-label`, `justifyContent`, `flexWrap` and similar. These go to the outer wrapper, not the `role=\"list\"` element, so props like `flexWrap` or `justifyContent` won't affect how the items lay out, and a passed `aria-label` labels the wrapper instead of the list. Either narrow the public surface or document clearly that these props apply to the outer container.",
+     "evidence": "`LegendProps` now inherits all of `FlexProps`, including `role`, `aria-label`, `justifyContent`, `flexWrap` and similar. These go to the outer wrapper, not the `role=\"list\"` element, so props like `flexWrap` or `justifyContent` won't affect how the items lay out, and a passed `aria-label` labels the wrapper instead of the list. Either narrow the public surface or document clearly that these props apply to the outer container."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "`useMemo(..., [series])` wraps a cheap map. vertical.tsx builds `series` inside the component, so the memo never hits there. This is maintainability or performance, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "line": 52,
+   "claim": "The `useMemo` around the legend items adds complexity for little gain, because callers usually pass a new `series` array each render.",
+   "evidence": "`const items = useMemo(function getLegendItems() { return series.map(...) }, [series]);` The examples and the charts pass `series` arrays straight through, for example `const series = [...]` inside `LegendVerticalExample`, which is recreated on each render.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+     "line": 52,
+     "claim": "The `useMemo` around the legend items adds complexity but saves little. Callers usually pass an inline `series` array, which changes identity on every render, and mapping a handful of items is cheap.",
+     "evidence": "`const items = useMemo(function getLegendItems() { return series.map(...) }, [series]);` The examples and the charts pass `series` arrays straight through, for example `const series = [...]` inside `LegendVerticalExample`, which is recreated on each render."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "`label ? ... : null` is a truthiness check, but `label ?? 'Chart legend'` keeps `''`. So `label=\"\"` renders no label and an empty accessible name. It's an edge-case accessibility point, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "line": 83,
+   "claim": "An empty `label` hides the visible label but still sets `aria-label=\"\"`, so the list has no accessible name.",
+   "evidence": "The two checks treat an empty `label` differently. `label ? ...` hides the visible label when `label` is `''`, but `label ?? 'Chart legend'` still uses `''`, so the list gets `aria-label=\"\"` and has no accessible name. Use the same truthiness check for both, e.g. `label || 'Chart legend'`.",
+   "members": [
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+     "line": 83,
+     "claim": "The two checks treat an empty `label` differently. `label ? ...` hides the visible label when `label` is `''`, but `label ?? 'Chart legend'` still uses `''`, so the list gets `aria-label=\"\"` and has no accessible name. Use the same truthiness check for both, e.g. `label || 'Chart legend'`.",
+     "evidence": "The two checks treat an empty `label` differently. `label ? ...` hides the visible label when `label` is `''`, but `label ?? 'Chart legend'` still uses `''`, so the list gets `aria-label=\"\"` and has no accessible name. Use the same truthiness check for both, e.g. `label || 'Chart legend'`."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "P6"
+   ],
+   "verdict": "noise",
+   "reason": "The old list in the removed snapshot lines was also `display:flex;flex-direction:row;justify-content:center` with no wrap, inside the same `overflow:hidden` parent. So the overflow in narrow charts existed before this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+   "line": 84,
+   "claim": "A horizontal legend with many series still doesn't wrap, so it overflows and gets clipped in narrow charts.",
+   "evidence": "The horizontal list now uses `align-items: flex-start` (it used to be the default, stretch) and still has no wrapping. In the charts the root is an inline-flex shrunk to fit and centered with `alignSelf`, inside a parent with `overflow: hidden`. A legend with many series in a narrow chart overflows on both sides and gets clipped. Consider `flexWrap=\"wrap\"` now that the layout is being reworked.",
+   "members": [
+    {
+     "id": "P6",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "packages/@godaddy/antares/components/chart/legend/src/index.tsx",
+     "line": 84,
+     "claim": "The horizontal list now uses `align-items: flex-start` (it used to be the default, stretch) and still has no wrapping. In the charts the root is an inline-flex shrunk to fit and centered with `alignSelf`, inside a parent with `overflow: hidden`. A legend with many series in a narrow chart overflows on both sides and gets clipped. Consider `flexWrap=\"wrap\"` now that the layout is being reworked.",
+     "evidence": "The horizontal list now uses `align-items: flex-start` (it used to be the default, stretch) and still has no wrapping. In the charts the root is an inline-flex shrunk to fit and centered with `alignSelf`, inside a parent with `overflow: hidden`. A legend with many series in a narrow chart overflows on both sides and gets clipped. Consider `flexWrap=\"wrap\"` now that the layout is being reworked."
+    }
+   ],
+   "id": "F11"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests"
+  ],
+  "review": []
+ }
+}

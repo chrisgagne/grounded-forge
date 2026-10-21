@@ -1,0 +1,142 @@
+{
+ "id": "rb02",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "packages/core/src/astro/routes/api/search/index.ts",
+   "start_line": 25,
+   "end_line": 27,
+   "message": "Restrict anonymous search to published content. Removing authorization makes `/_emdash/api/search?q=secret&status=draft` accessible anonymously. The schema accepts arbitrary `status` strings, and the route passes that value to `searchWithDb`, whose SQL uses it instead of hardcoding `published`. Consequently, visitors can retrieve draft titles and snippets from search-enabled collections. Force published status for public requests or retain authorization for other statuses."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "packages/core/src/astro/routes/api/auth/oauth/[provider]/callback.ts",
+   "start_line": 141,
+   "end_line": 144,
+   "message": "Atomically claim the initial OAuth administrator. During setup, two OAuth callbacks for different accounts can both read an unset `setup_complete` flag and receive ADMIN privileges. `findOrCreateOAuthUser` creates users without a surrounding transaction, and `finalizeSetup` only sets the flag afterward, so replacing the user-count check with this flag does not prevent the race. Atomically claim initial-admin creation together with the user write so only one callback bypasses domain restrictions."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "packages/core/src/astro/routes/sitemap-[collection].xml.ts",
+   "start_line": 38,
+   "end_line": 39,
+   "message": "Resolve the public origin in child sitemaps. Behind a reverse proxy, when the stored site URL is absent but `config.siteUrl` or `EMDASH_SITE_URL` is configured, the sitemap index correctly uses the public origin while this child sitemap emits internal URLs such as `http://localhost:4321/posts/example`. Use `getPublicOrigin(url, emdash.config)` as the fallback here too, keeping indexed content URLs consistent with the sitemap index."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "packages/core/src/astro/routes/api/auth/oauth/[provider]/callback.ts",
+   "start_line": 137,
+   "end_line": 145,
+   "message": "Until `emdash:setup_complete` is set, anyone who finishes GitHub/Google OAuth is created as ADMIN. Nothing ties this to the person running the setup wizard: no setup-session token is checked, the wizard's admin email is ignored, and `/_emdash/api/auth/oauth/*` is public. On a fresh deploy, anyone who reaches the public OAuth endpoints before the operator can take over the site. Before this change, the same callback denied signup because no allowed_domains were configured. Bind first-admin creation to the wizard session (for example a nonce stored in setup_state and carried in OAuth state), or require the OAuth email to match the wizard email."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "start_line": 129,
+   "end_line": 162,
+   "message": "The AT Protocol callback has the same first-user hole. While setup is incomplete, any DID that finishes the flow becomes ADMIN, and this includes flows started from the public `/_emdash/api/auth/atproto/login`, not only the wizard's setup-admin route. The handle saved in setup_state by `setup-admin.ts` is never compared with the DID that authorized, so the wizard's choice of identity is not enforced. Verify that the callback's DID matches the handle/DID from the setup step before granting Admin."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "packages/core/src/astro/routes/api/auth/oauth/[provider]/callback.ts",
+   "start_line": 185,
+   "end_line": 194,
+   "message": "The PR says first-admin creation 'uses a database transaction to prevent TOCTOU race conditions', but there is no transaction here or in the atproto callback. The comment 'Finalize setup outside the transaction' refers to a transaction that doesn't exist. Two concurrent callbacks can both read setup_complete as unset, and both identities get ADMIN. `finalizeSetup` being idempotent doesn't stop the second admin from being created. Use an atomic claim, such as a conditional insert/update of setup_complete inside a transaction together with createUser."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "start_line": 134,
+   "end_line": 149,
+   "message": "For the first user, the email is whatever was typed into the setup wizard (setup_state.email, never verified), yet the profile is created with `emailVerified: true`. The user record then claims a verified email the person may not own. That email is trusted by email-based features (magic link, recovery, and auto-linking in `findOrCreateOAuthUser` for later OAuth logins). Set emailVerified to false, or don't use an unverified address."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "packages/auth-atproto/src/oauth-client.ts",
+   "start_line": 850,
+   "end_line": 864,
+   "message": "The client requests `atproto transition:generic`, which grants broad write access to the user's PDS repository. The provider only needs identity. The resulting DPoP keys and refresh tokens are kept indefinitely in `_plugin_storage`: StoredSession has no top-level `expiresAt`, so `createDbStore` never expires it, and nothing deletes the session after login. A database leak would expose write-capable tokens for every admin's Bluesky/AT Protocol account. Request only the `atproto` scope and delete the session after resolving identity."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "packages/auth-atproto/src/routes/login.ts",
+   "start_line": 27,
+   "end_line": 29,
+   "message": "All the atproto routes (login, callback, setup-admin, client-metadata) build client_id and redirect_uri from `new URL(request.url).origin` rather than `getPublicOrigin()`, which this same change adopts everywhere else for reverse-proxy deployments. Behind a TLS-terminating proxy the origin is `http://localhost:\u2026`, so `isLoopback()` picks the dev loopback client in production, and redirect_uri/client_id point at an internal 127.0.0.1 address. AT Protocol login breaks."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "packages/auth-atproto/src/oauth-client.ts",
+   "start_line": 66,
+   "end_line": 89,
+   "message": "The OAuthClient is a module-level singleton, and its DB stores read the module-global `_currentStorage`, which each request overwrites. With concurrent requests in one isolate, request A's state/session reads and writes can go through request B's Kysely/D1 session binding (the middleware creates per-request D1 sessions). That can cause cross-request I/O errors on Workers or lost read-your-writes consistency. Build the stores per request instead, or pass storage explicitly."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/auth-atproto/src/routes/callback.ts",
+   "start_line": 169,
+   "end_line": 181,
+   "message": "The user's display name is updated in the database before the disabled check runs. A disabled account still modifies its user record on every login attempt. Check `user.disabled` first."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "packages/core/src/astro/integration/index.ts",
+   "start_line": 232,
+   "end_line": 240,
+   "message": "Auth-provider routes are injected even when transparent external auth (e.g. Cloudflare Access) is active, unlike the built-in auth routes, which are skipped. The atproto login/callback routes are also marked public in the middleware. With external auth configured, these routes still accept logins, create users and set Astro sessions, outside the external identity provider. Skip provider route injection under external auth, or reject the configuration."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/core/src/astro/middleware/auth.ts",
+   "start_line": 93,
+   "end_line": 116,
+   "message": "Any `publicRoutes` prefix declared by a provider descriptor is accepted without validation. A descriptor that declares, for example, `/_emdash/api/` or `/_emdash/admin` silently disables authentication for those paths. Restrict provider public routes to the provider's own namespace (e.g. `/_emdash/api/auth/<id>/`)."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/auth-atproto/src/db-store.ts",
+   "start_line": 66,
+   "end_line": 72,
+   "message": "`clear()` deletes only the first 10,000 items, so it silently leaves state behind on larger stores. Loop until the query returns no more rows."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/core/package.json",
+   "start_line": 205,
+   "end_line": 217,
+   "message": "Core now lists `@emdash-cms/auth-atproto` as an optional peer dependency, while that package peers on `emdash`. This creates a circular package relationship for a plugin that core never imports. The PR description also documents the import path as `@emdash-cms/plugin-atproto/auth`, but the package actually created is `@emdash-cms/auth-atproto`, so the documented configuration won't resolve."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 116,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 447,
+   "cost_usd": 1.8387297999999999,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 447
+ }
+}

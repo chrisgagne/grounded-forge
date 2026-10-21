@@ -1,0 +1,110 @@
+{
+ "id": "rb01",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 266,
+   "end_line": 268,
+   "message": "Validate flag types before normalizing config-loaded patterns. When a `.techdebtrc.json` custom pattern contains a non-string `flags` value such as `null` or `123`, `validate_config` now throws a TypeError here instead of returning its validation report. `isCustomPatternShape()` checks only required fields, so these values reach `validatePattern()`, and the allowlist check records an error but continues into `.replace()` outside the try block. Check the flag type and skip normalization for invalid values so malformed configuration produces actionable validation errors."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 137,
+   "end_line": 155,
+   "message": "This PR says it guards against ReDoS (#127), but capping pattern length and allowlisting flags doesn't stop catastrophic backtracking. Short patterns like `(a+)+$`, `(.*a){20}` or `(\\w|\\w)*x` pass `validatePattern` and still run synchronously on every line of up to 500k characters of user input. That blocks the Node event loop and takes the whole MCP server down. Nothing here checks for nested quantifiers (safe-regex / recheck) or bounds execution time (RE2/linear engine, worker thread with timeout, or per-line length cap). The CHANGELOG wording 'preventing ReDoS attacks' overstates the protection, so the issue shouldn't be closed on this change alone."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/server/handlers.ts",
+   "start_line": 443,
+   "end_line": 446,
+   "message": "The new error message `Could not read file stats for: ${path}` puts the raw user-supplied (possibly absolute) path in a response sent to the MCP client. That breaks the project's security rule (#129): use `getRelativePath()` in client-facing errors."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/server/handlers.ts",
+   "start_line": 437,
+   "end_line": 454,
+   "message": "The new size guard runs on a `path` that was never checked with `path.isAbsolute()` or normalized with `path.resolve()` before `fileExists`, `getFileStats` and `readFile`. The CLAUDE.md security rules (#125/#126) require this. Since this block is being hardened anyway, the path should be validated before any filesystem access."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/server/handlers.ts",
+   "start_line": 448,
+   "end_line": 454,
+   "message": "There's a TOCTOU gap between `stat` and `readFile`. The file can grow or be replaced (for example by a symlink swap) after the size check, so `readFile` can still load an unbounded file. Either check the length of the content actually read, or read through a bounded stream or file handle."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 147,
+   "end_line": 153,
+   "message": "The flag-normalization logic (strip, dedupe, default to 'g') is copied verbatim in `executePattern` and `validatePattern` (lines 265-270). Move it into a single private helper so validation and execution can't drift apart. The comment 'Compile with the same normalized flags used at execution time' depends on them staying identical."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/core/customRulesEngine.ts",
+   "start_line": 147,
+   "end_line": 148,
+   "message": "`content.split(/\\r?\\n/)` now runs before the flag normalization and `RegExp` construction. This ordering is harmless, but each rule re-splits up to 500k characters of content. Split the content once in `executeRules` instead, so the work doesn't multiply by the number of rules on the size the PR is trying to bound."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/server/handlers.ts",
+   "start_line": 438,
+   "end_line": 458,
+   "message": "With this change `handlers.ts` grows to about 508 lines. That exceeds the CLAUDE.md limit ('Keep handlers.ts under 500 lines'). The custom-rules handlers should be moved into a dedicated file, as the conventions require."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/server/__tests__/handlers.test.ts",
+   "start_line": 347,
+   "end_line": 352,
+   "message": "The capture condition `schema?.method === 'tools/call' || typeof handler === 'function'` is always true, so every handler overwrites `callToolHandler`. The `beforeEach` at 364-365 then relies on the CallTool handler being registered last. The test also adds several `any` types (`callToolHandler: (request: any) => Promise<any>`, `as any`), which the project's no-`any` convention forbids. Capture by schema identity (`schema === CallToolRequestSchema`) and use typed mocks."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/server/__tests__/handlers.test.ts",
+   "start_line": 382,
+   "end_line": 397,
+   "message": "The 'accepts at exactly MAX_FILE_SIZE_BYTES' test only checks `.resolves.toBeDefined()`, and `readFile` is mocked so it ignores size. The test would pass even if the boundary comparison were wrong in some other way. It also never asserts that `readFile` is NOT called in the rejection case, which is the actual safety property (the file must not be read into memory)."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "README.md",
+   "start_line": 35,
+   "end_line": 37,
+   "message": "The README describes the runtime flag stripping/dedup and the pattern-length cap only under `add_custom_rule`. Rules loaded from `.techdebtrc.json` go through `configValidator`, which now rejects bad flags and over-length patterns, so the runtime fallback is effectively for programmatic `addRule` callers only. Also, `validate_custom_pattern` doesn't accept `flags` at all (`handleValidateCustomPattern` drops it), so the 'same validation' claim is only partially true. The docs should say what is actually enforced and where."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 28,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 301,
+   "cost_usd": 0.23971420000000002,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 301
+ }
+}

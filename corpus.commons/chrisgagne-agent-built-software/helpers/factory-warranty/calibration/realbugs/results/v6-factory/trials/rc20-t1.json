@@ -1,0 +1,480 @@
+{
+ "id": "rc20",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:surface",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 2.3404,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc20-t1-yuv5vf79",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P1",
+    "R1"
+   ],
+   "verdict": "confirmed",
+   "reason": "trace_ring.rs declares TraceEvent as a #[repr(C)] enum. Dispatch {u32,u8,u64} has interior padding, and small variants such as YieldNow and RecvBlock leave the union tail unset. Only TraceEntry::_pad is zeroed. sys_ktrace then does from_raw_parts on the typed copies in tmp and calls copy_to_user, so any process that calls ktrace after such an event can read those bytes. The code comment saying there are 'no uninit bytes' is wrong.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "line": 12472,
+   "claim": "sys_ktrace reinterprets TraceEntry values, including the padding and unused union tail of the repr(C) TraceEvent enum, as bytes and copies them to userspace. This leaks uninitialised kernel stack bytes and is undefined behaviour.",
+   "evidence": "A repr(C) enum is laid out as a tag plus a union of the variant structs. Dispatch{u32,u8,u64} has 3 padding bytes after `core`, YieldNow{u32,u8} leaves about 19 union bytes unset, and there are 4 bytes of padding between the tag and the 8-aligned union. Only TraceEntry::_pad is zeroed explicitly. trace_event builds each event on the kernel stack and pushes it by value. sys_ktrace then does `core::slice::from_raw_parts(tmp.as_ptr() as *const u8, write_count * entry_size)` followed by copy_to_user (syscall.rs:12475). The comment there, 'raw byte reinterpretation is safe \u2014 no uninit bytes', is false. Trigger: a user process calls ktrace(0, buf) after a YieldNow/RunQueueEnqueue entry has been recorded.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "kernel-core/src/trace_ring.rs",
+     "line": 11,
+     "claim": "TraceEvent is a #[repr(C)] enum, so its variants carry internal padding and the shorter variants leave the union tail uninitialised. sys_ktrace reinterprets whole entries as bytes and copies them to userspace, which can leak kernel stack bytes to any process (and reading padding as u8 is undefined behaviour).",
+     "evidence": "A repr(C) enum is laid out as a tag plus a union of the variant structs. Dispatch{u32,u8,u64} has 3 padding bytes after `core`, YieldNow{u32,u8} leaves about 19 union bytes unset, and there are 4 bytes of padding between the tag and the 8-aligned union. Only TraceEntry::_pad is zeroed explicitly. trace_event builds each event on the kernel stack and pushes it by value. sys_ktrace then does `core::slice::from_raw_parts(tmp.as_ptr() as *const u8, write_count * entry_size)` followed by copy_to_user (syscall.rs:12475). The comment there, 'raw byte reinterpretation is safe \u2014 no uninit bytes', is false. Trigger: a user process calls ktrace(0, buf) after a YieldNow/RunQueueEnqueue entry has been recorded."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "high",
+     "file": "kernel-core/src/trace_ring.rs",
+     "line": 463,
+     "claim": "The `_pad` field only covers the padding between `core` and `event` in `TraceEntry`. The `#[repr(C)]` `TraceEvent` enum still has uninitialized padding. For example, `Dispatch{u32,u8,u64}` and `SwitchOut` have 3 padding bytes before the u64. `BlockCurrent`, `RunQueueEnqueue` and the IPC variants are smaller than the largest variant, so their union bytes after the payload are uninitialized. There is also padding between the discriminant and the payload union. Copying a value does not preserve padding, so `tmp` in `sys_ktrace` contains uninitialized kernel stack bytes. `from_raw_parts` turns them into a `&[u8]`, which is UB, and `copy_to_user` then leaks them to userspace. This contradicts the PR's claim that no uninit memory leaks. Fix: serialize to an explicit fixed-layout wire struct (e.g. tag: u32 plus fixed u64 fields), or zero the memory and write fields in place.",
+     "evidence": "The `_pad` field only covers the padding between `core` and `event` in `TraceEntry`. The `#[repr(C)]` `TraceEvent` enum still has uninitialized padding. For example, `Dispatch{u32,u8,u64}` and `SwitchOut` have 3 padding bytes before the u64. `BlockCurrent`, `RunQueueEnqueue` and the IPC variants are smaller than the largest variant, so their union bytes after the payload are uninitialized. There is also padding between the discriminant and the payload union. Copying a value does not preserve padding, so `tmp` in `sys_ktrace` contains uninitialized kernel stack bytes. `from_raw_parts` turns them into a `&[u8]`, which is UB, and `copy_to_user` then leaks them to userspace. This contradicts the PR's claim that no uninit memory leaks. Fix: serialize to an explicit fixed-layout wire struct (e.g. tag: u32 plus fixed u64 fields), or zero the memory and write fields in place."
+    },
+    {
+     "id": "R1",
+     "leg": "codex-review",
+     "severity": "high",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 12472,
+     "claim": "Serialize trace events without copying enum padding",
+     "evidence": "When `sys_ktrace` returns entries, it exposes uninitialized kernel bytes: `_pad` covers only the padding before `event`, while `TraceEvent` itself contains alignment padding and unused payload space for smaller variants. `#[repr(C)]` does not initialize those bytes, and typed copies need not preserve zeroed padding. Serialize each variant into an explicitly initialized byte representation instead of copying the Rust enum's raw storage."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "P2"
+   ],
+   "verdict": "confirmed",
+   "reason": "sys_ktrace checks only core_id, buf_ptr and buf_len, and never looks at the caller's euid. The kernel does have a uid model: procfs.rs:155-158 filters by caller_euid. The ring stores Dispatch.rsp, SwitchOut.saved_rsp and ForkCtxPublish/ForkTrampolineExit rip/rsp for every process.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "line": 12432,
+   "claim": "sys_ktrace has no privilege check, so any process can read every core's ring, including kernel stack pointers and other processes' user RIP/RSP.",
+   "evidence": "sys_ktrace checks only core_id < core_count(), buf_ptr != 0 and buf_len before copying. It never calls current_process_ids()/euid, although the kernel has a uid model (procfs.rs:155-158 filters by caller_euid). The ring stores Dispatch.rsp and SwitchOut.saved_rsp (kernel task stack addresses from scheduler run()) and ForkCtxPublish/ForkTrampolineExit rip/rsp for every process.",
+   "axis_row": "L5.36",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "high",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 12432,
+     "claim": "sys_ktrace has no privilege check. Any unprivileged process can read every core's trace ring, which holds kernel stack pointers and the user RIP/RSP and PIDs of other users' processes.",
+     "evidence": "sys_ktrace checks only core_id < core_count(), buf_ptr != 0 and buf_len before copying. It never calls current_process_ids()/euid, although the kernel has a uid model (procfs.rs:155-158 filters by caller_euid). The ring stores Dispatch.rsp and SwitchOut.saved_rsp (kernel task stack addresses from scheduler run()) and ForkCtxPublish/ForkTrampolineExit rip/rsp for every process."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "high",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 899,
+     "claim": "Any unprivileged process can call `sys_ktrace` without a permission check. The returned events include kernel stack pointers (`Dispatch.rsp`, `SwitchOut.saved_rsp`) and the user RIP/RSP of every other process's fork child. This defeats kernel address hiding and exposes other processes' state. Restrict the syscall to privileged callers (e.g. uid 0), or redact pointer fields.",
+     "evidence": "Any unprivileged process can call `sys_ktrace` without a permission check. The returned events include kernel stack pointers (`Dispatch.rsp`, `SwitchOut.saved_rsp`) and the user RIP/RSP of every other process's fork child. This defeats kernel address hiding and exposes other processes' state. Restrict the syscall to privileged callers (e.g. uid 0), or redact pointer fields."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "P5",
+    "R2"
+   ],
+   "verdict": "confirmed",
+   "reason": "TraceRing::push writes buf, write_idx and count without atomics, and sys_ktrace and dump_trace_rings read them from other cores with no synchronisation, so this is a real Rust data race. Indexing is taken mod N, so the visible effect is torn or misordered entries, not out-of-bounds access. I lowered R2 from high to medium.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "line": 12465,
+   "claim": "Reading another core's ring through UnsafeCell while that core pushes with plain non-atomic stores is a data race (UB), and write_idx and count can be read inconsistently.",
+   "evidence": "`sys_ktrace` reads another core's ring through a shared reference created from `UnsafeCell::get()`. Meanwhile, the owning core may be writing `buf`, `write_idx` and `count` with plain non-atomic stores. That is a data race and therefore UB in Rust, not just a \"torn entry\". `write_idx` and `count` can also be read inconsistently, which produces out-of-order or stale snapshots. Use atomics for the indices, or a seqlock/per-entry sequence number, if cross-core reads are intended outside crash context.",
+   "members": [
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 916,
+     "claim": "`sys_ktrace` reads another core's ring through a shared reference created from `UnsafeCell::get()`. Meanwhile, the owning core may be writing `buf`, `write_idx` and `count` with plain non-atomic stores. That is a data race and therefore UB in Rust, not just a \"torn entry\". `write_idx` and `count` can also be read inconsistently, which produces out-of-order or stale snapshots. Use atomics for the indices, or a seqlock/per-entry sequence number, if cross-core reads are intended outside crash context.",
+     "evidence": "`sys_ktrace` reads another core's ring through a shared reference created from `UnsafeCell::get()`. Meanwhile, the owning core may be writing `buf`, `write_idx` and `count` with plain non-atomic stores. That is a data race and therefore UB in Rust, not just a \"torn entry\". `write_idx` and `count` can also be read inconsistently, which produces out-of-order or stale snapshots. Use atomics for the indices, or a seqlock/per-entry sequence number, if cross-core reads are intended outside crash context."
+    },
+    {
+     "id": "R2",
+     "leg": "codex-review",
+     "severity": "high",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 12465,
+     "claim": "Synchronize trace snapshots with concurrent writers",
+     "evidence": "On SMP, reading another active core's ring here races with its non-atomic writes. `UnsafeCell` permits interior mutation but does not make concurrent reads and writes sound; this is undefined behavior, not merely a bounded torn diagnostic entry. The crash dump has the same problem. Use a synchronization scheme that protects both ring metadata and entries, or stop the owning core before reading."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C5",
+    "P3",
+    "R3"
+   ],
+   "verdict": "confirmed",
+   "reason": "batch = max_entries.min(64), and copy_into always starts at the oldest entry. The syscall has no cursor argument, so the comment 'callers can call again for more' is false: every call returns the same oldest slice.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "line": 12463,
+   "claim": "sys_ktrace returns at most the oldest 64 entries and takes no offset, so the newest 192 entries of a full ring can never be read.",
+   "evidence": "`const MAX_BATCH: usize = 64; let batch = max_entries.min(MAX_BATCH); ... copy_into(&mut tmp[..batch])`. copy_into always starts at the oldest entry (`start = if self.count < N { 0 } else { self.write_idx }`). The comment reads 'callers can call again for more', but repeated calls return the same oldest slice.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 12463,
+     "claim": "sys_ktrace always returns the oldest (at most 64) entries and takes no offset, so the newest 192 entries of a full 256-entry ring can never be read, despite the comment saying callers can call again.",
+     "evidence": "`const MAX_BATCH: usize = 64; let batch = max_entries.min(MAX_BATCH); ... copy_into(&mut tmp[..batch])`. copy_into always starts at the oldest entry (`start = if self.count < N { 0 } else { self.write_idx }`). The comment reads 'callers can call again for more', but repeated calls return the same oldest slice."
+    },
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 928,
+     "claim": "Each call is capped at 64 entries and `copy_into` always starts from the oldest entry. The comment says \"callers can call again for more\", but the syscall has no offset or cursor argument, so a repeat call returns the same oldest 64 entries. With a 256-entry ring, userspace can never read the most recent 192 events, which are the ones that matter most for diagnosis. Add an offset argument, or return the newest entries.",
+     "evidence": "Each call is capped at 64 entries and `copy_into` always starts from the oldest entry. The comment says \"callers can call again for more\", but the syscall has no offset or cursor argument, so a repeat call returns the same oldest 64 entries. With a 256-entry ring, userspace can never read the most recent 192 events, which are the ones that matter most for diagnosis. Add an offset argument, or return the newest entries."
+    },
+    {
+     "id": "R3",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 12461,
+     "claim": "Allow callers to retrieve entries beyond the first batch",
+     "evidence": "Once a ring contains more than 64 entries, this cap makes the remaining entries inaccessible even when the supplied buffer can hold the entire ring. Repeating the syscall does not retrieve another batch: `copy_into` always starts at the oldest entry, and there is no cursor or consumption. Copy the full buffer-sized snapshot or provide an explicit pagination mechanism."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "dump_trace_rings loops over cores and calls for_each_chronological on each, with no merge. The task doc at line 263 requires 'Merges all entries into a single timeline sorted by tick'. This is a spec miss, not a runtime fault, so I lowered it from high to medium.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "kernel/src/trace.rs",
+   "line": 1328,
+   "claim": "The crash dump prints each core's ring as a separate block instead of one timeline merged and sorted by tick, as task F.1 requires.",
+   "evidence": "dump_trace_rings loops `for core_id in 0..core_count` and calls for_each_chronological per core, with no merge. The task doc F.1 requires 'Merges all entries into a single timeline sorted by `tick`'. A heap-free k-way merge over per-core indices would satisfy both the no-allocation goal and the criterion.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "high",
+     "file": "kernel/src/trace.rs",
+     "line": 1328,
+     "claim": "The crash dump prints each core's ring as a separate block rather than one timeline merged and sorted by tick, so the task list's F.1 acceptance criterion is not met.",
+     "evidence": "dump_trace_rings loops `for core_id in 0..core_count` and calls for_each_chronological per core, with no merge. The task doc F.1 requires 'Merges all entries into a single timeline sorted by `tick`'. A heap-free k-way merge over per-core indices would satisfy both the no-allocation goal and the criterion."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C4",
+    "P10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The wrapper is `ktrace(core_id: u32, buf: &mut [u8]) -> u64`. Task doc lines 313-314 require `buf: &mut [TraceEntry]) -> Result<usize, ()>` plus a TraceEntry re-exported or mirrored in syscall-lib, and the diff adds no such type. I lowered it from high to medium because it is an API-shape miss with no traced fault.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "userspace/syscall-lib/src/lib.rs",
+   "line": 1468,
+   "claim": "The ktrace wrapper takes raw bytes and returns a raw u64, and no TraceEntry type is mirrored for userspace. This does not match G.2 and leaves callers with no stable way to decode results.",
+   "evidence": "The wrapper is `pub fn ktrace(core_id: u32, buf: &mut [u8]) -> u64`. The task doc G.2 requires `ktrace(core_id: u32, buf: &mut [TraceEntry]) -> Result<usize, ()>` and '`TraceEntry` type re-exported or mirrored in syscall-lib'. The diff adds no TraceEntry to syscall-lib.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "high",
+     "file": "userspace/syscall-lib/src/lib.rs",
+     "line": 1468,
+     "claim": "The userspace wrapper does not match the G.2 criterion and gives callers no way to decode results: it takes raw bytes, returns a raw u64 that mixes counts, u64::MAX and -ENOSYS, and no TraceEntry type is mirrored for userspace.",
+     "evidence": "The wrapper is `pub fn ktrace(core_id: u32, buf: &mut [u8]) -> u64`. The task doc G.2 requires `ktrace(core_id: u32, buf: &mut [TraceEntry]) -> Result<usize, ()>` and '`TraceEntry` type re-exported or mirrored in syscall-lib'. The diff adds no TraceEntry to syscall-lib."
+    },
+    {
+     "id": "P10",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "userspace/syscall-lib/src/lib.rs",
+     "line": 1460,
+     "claim": "`ktrace` returns raw bytes, but userspace has no shared definition of the `TraceEntry` or `TraceEvent` layout, including discriminant values and size. Callers can only parse the result by hard-coding kernel-internal Rust enum layout, so the ABI is fragile and undocumented. Expose a stable wire format and a decoder in syscall-lib.",
+     "evidence": "`ktrace` returns raw bytes, but userspace has no shared definition of the `TraceEntry` or `TraceEvent` layout, including discriminant values and size. Callers can only parse the result by hard-coding kernel-internal Rust enum layout, so the ABI is fragile and undocumented. Expose a stable wire format and a decoder in syscall-lib."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "kernel/Cargo.toml adds `trace = []` with no `kernel-core/trace`. kernel-core/Cargo.toml and xtask/src contain no 'trace' at all, and lib.rs adds trace_ring without a gate. Task doc lines 341 and 355 require both.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "kernel/Cargo.toml",
+   "line": 820,
+   "claim": "The feature gate is only partly built: kernel-core has no trace feature, the kernel feature does not forward to it, and xtask has no trace-off path.",
+   "evidence": "The diff adds only `[features] default = [\"trace\"] trace = []` to kernel/Cargo.toml. Task doc H.1 requires a `trace` feature in kernel-core/Cargo.toml with trace_ring.rs gated. H.2 requires the kernel feature to enable `kernel-core/trace`. H.3 requires an xtask `--no-trace`/release path. xtask/src/main.rs is unchanged, and lib.rs adds `pub mod trace_ring;` ungated.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "kernel/Cargo.toml",
+     "line": 820,
+     "claim": "The feature-gate track is only partly implemented: kernel-core has no `trace` feature, the kernel feature does not forward to it, and xtask has no trace-off build or check. The 'xtask check passes with trace on and off' criterion is unverified by any script.",
+     "evidence": "The diff adds only `[features] default = [\"trace\"] trace = []` to kernel/Cargo.toml. Task doc H.1 requires a `trace` feature in kernel-core/Cargo.toml with trace_ring.rs gated. H.2 requires the kernel feature to enable `kernel-core/trace`. H.3 requires an xtask `--no-trace`/release path. xtask/src/main.rs is unchanged, and lib.rs adds `pub mod trace_ring;` ungated."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C7",
+    "P7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds dump_trace_rings() on the recoverable user-fault paths (around 453 and 528), before the FAULT_KILL_PID redirect. Each core can print up to 256 lines via _panic_print, so a process that segfaults repeatedly can stall the core and flood the log.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "kernel/src/arch/x86_64/interrupts.rs",
+   "line": 453,
+   "claim": "Every ring-3 page fault or GPF that kills a user process now dumps every core's full trace ring over serial from inside the exception handler.",
+   "evidence": "`crate::trace::dump_trace_rings();` is added on the user-fault kill paths at lines 453 and 528, before the FAULT_KILL_PID redirect. Each dump prints up to 256 lines per core via _panic_print. At serial speeds that is roughly 20 KB per core per fault, emitted while the exception handler runs.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "kernel/src/arch/x86_64/interrupts.rs",
+     "line": 453,
+     "claim": "Every ring-3 page fault or GPF that kills a user process now prints the full trace ring of every core over serial from inside the exception handler. A process that segfaults repeatedly can stall cores for long periods.",
+     "evidence": "`crate::trace::dump_trace_rings();` is added on the user-fault kill paths at lines 453 and 528, before the FAULT_KILL_PID redirect. Each dump prints up to 256 lines per core via _panic_print. At serial speeds that is roughly 20 KB per core per fault, emitted while the exception handler runs."
+    },
+    {
+     "id": "P7",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "kernel/src/arch/x86_64/interrupts.rs",
+     "line": 831,
+     "claim": "`dump_trace_rings()` now runs on the recoverable userspace page-fault path, and also on the user GPF path at line 847. Every user segfault therefore prints up to 256 \u00d7 core-count lines over serial from inside the ISR with interrupts disabled. That can stall the core for a long time and floods the logs on a routine user crash, which can hide the next failure. Limit the dump to fatal kernel faults and panics, or print only the last few entries for user faults.",
+     "evidence": "`dump_trace_rings()` now runs on the recoverable userspace page-fault path, and also on the user GPF path at line 847. Every user segfault therefore prints up to 256 \u00d7 core-count lines over serial from inside the ISR with interrupts disabled. That can stall the core for a long time and floods the logs on a routine user crash, which can hide the next failure. Limit the dump to fatal kernel faults and panics, or print only the last few entries for user faults."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C8",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "`let core_id = core_id as u8;` comes before `core_id >= core_count()`, so the high bits are dropped first.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "line": 12433,
+   "claim": "core_id is truncated to u8 before the bounds check, so values such as 256 read core 0 instead of returning an error.",
+   "evidence": "`let core_id = core_id as u8; if core_id >= crate::smp::core_count() { return u64::MAX; }` drops the high bits before the bounds check.",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 12433,
+     "claim": "core_id is truncated to u8 before validation, so out-of-range values such as 256 silently read core 0 instead of returning the documented u64::MAX error.",
+     "evidence": "`let core_id = core_id as u8; if core_id >= crate::smp::core_count() { return u64::MAX; }` drops the high bits before the bounds check."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "kernel/src/arch/x86_64/syscall.rs",
+     "line": 900,
+     "claim": "`core_id` is truncated with `as u8` before the bounds check. Values such as 256 or 0x100000001 wrap to a valid core and succeed instead of returning an error. Check `core_id` as a u64 before narrowing it.",
+     "evidence": "`core_id` is truncated with `as u8` before the bounds check. Values such as 256 or 0x100000001 wrap to a valid core and succeed instead of returning an error. Check `core_id` as a u64 before narrowing it."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "docs/43b says 'Events appear in chronological order across all cores' and 'prints the merged timeline', yet its own lines 109-113 say entries are not merged. The roadmap doc says 15 sites but lists 6+4+7=17. The task doc is marked Complete while its checkboxes, including 'atomic write index', remain unmet.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "docs/43b-kernel-trace-ring.md",
+   "line": 136,
+   "claim": "The new docs contradict the implementation and each other on whether rings are merged, and on the instrumentation-site count.",
+   "evidence": "docs/43b-kernel-trace-ring.md:136 says 'Events appear in chronological order across all cores' and :155 says 'prints the merged timeline', but lines 111-113 and trace.rs print per core. docs/roadmap/43b-kernel-trace-ring.md says 'merges all per-core rings into a sorted timeline' in both the Milestone Goal and the Crash Auto-Dump sections and cites '15 instrumentation sites', while its outline lists 6+4+7=17. The tasks doc is marked Complete with every acceptance checkbox still unchecked, and its A.1 'atomic write index' is not what was built.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "docs/43b-kernel-trace-ring.md",
+     "line": 136,
+     "claim": "The new docs contradict the implementation and each other, which will mislead readers of crash dumps.",
+     "evidence": "docs/43b-kernel-trace-ring.md:136 says 'Events appear in chronological order across all cores' and :155 says 'prints the merged timeline', but lines 111-113 and trace.rs print per core. docs/roadmap/43b-kernel-trace-ring.md says 'merges all per-core rings into a sorted timeline' in both the Milestone Goal and the Crash Auto-Dump sections and cites '15 instrumentation sites', while its outline lists 6+4+7=17. The tasks doc is marked Complete with every acceptance checkbox still unchecked, and its A.1 'atomic write index' is not what was built."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff's only tests are host unit tests in trace_ring.rs. There is no QEMU/xtask test, no size_of assertion, and copy_into is tested only on a wrapped ring.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "kernel-core/src/trace_ring.rs",
+   "line": 101,
+   "claim": "No test covers the end-to-end panic dump, the entry size bound, the sys_ktrace byte ABI, or copy_into on a partially filled ring.",
+   "evidence": "The diff's only tests are host unit tests in trace_ring.rs (snapshot ordering, for_each, and one copy_into on a wrapped ring). There is no QEMU/xtask test of the panic dump, no `size_of::<TraceEntry>() <= 64` assertion, and no test that the bytes sys_ktrace copies are fully initialised.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "kernel-core/src/trace_ring.rs",
+     "line": 101,
+     "claim": "No test covers the I.3 end-to-end requirement (forced panic shows the dump with at least 5 events), the B.2 size bound, the sys_ktrace byte ABI, or copy_into on a partially filled ring.",
+     "evidence": "The diff's only tests are host unit tests in trace_ring.rs (snapshot ordering, for_each, and one copy_into on a wrapped ring). There is no QEMU/xtask test of the panic dump, no `size_of::<TraceEntry>() <= 64` assertion, and no test that the bytes sys_ktrace copies are fully initialised."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "P8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The RecvWake trace sits in the shared take_message match after both the matched-sender and blocking branches, so the non-blocking path records MessageDelivered followed by RecvWake.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "kernel/src/ipc/endpoint.rs",
+   "line": 958,
+   "claim": "recv_msg emits RecvWake even when a pending sender was matched and the receiver never blocked, which makes RecvWake misleading.",
+   "evidence": "When a sender is already waiting, `recv_msg` records `MessageDelivered` and then, after `take_message`, also records `RecvWake`, even though the receiver never blocked. `RecvWake` therefore no longer means a wake after `RecvBlock`, which makes the timeline misleading when debugging lost-wakeup issues. Emit `RecvWake` only on the blocking path.",
+   "members": [
+    {
+     "id": "P8",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "kernel/src/ipc/endpoint.rs",
+     "line": 958,
+     "claim": "When a sender is already waiting, `recv_msg` records `MessageDelivered` and then, after `take_message`, also records `RecvWake`, even though the receiver never blocked. `RecvWake` therefore no longer means a wake after `RecvBlock`, which makes the timeline misleading when debugging lost-wakeup issues. Emit `RecvWake` only on the blocking path.",
+     "evidence": "When a sender is already waiting, `recv_msg` records `MessageDelivered` and then, after `take_message`, also records `RecvWake`, even though the receiver never blocked. `RecvWake` therefore no longer means a wake after `RecvBlock`, which makes the timeline misleading when debugging lost-wakeup issues. Emit `RecvWake` only on the blocking path."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "P9"
+   ],
+   "verdict": "confirmed",
+   "reason": "scheduler.rs:102 maps TaskId to an index with tasks.iter().position(|t| t.id == id), so the two are different values. Yet endpoint.rs records receiver.0 and scheduler.rs records idx under the same field name.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "kernel/src/ipc/endpoint.rs",
+   "line": 958,
+   "claim": "IPC events store TaskId.0 in task_idx fields while scheduler events store the tasks-vector index, so the two can't be correlated.",
+   "evidence": "IPC events put `TaskId.0` into fields named `task_idx`. Scheduler events use the scheduler's vector index (`idx`) in fields with the same name. If `TaskId` is not the same as the tasks-vector index, IPC and scheduler events can't be correlated, and the dumps are actively misleading. Either convert to the index or rename the field to `task_id`.",
+   "members": [
+    {
+     "id": "P9",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "kernel/src/ipc/endpoint.rs",
+     "line": 958,
+     "claim": "IPC events put `TaskId.0` into fields named `task_idx`. Scheduler events use the scheduler's vector index (`idx`) in fields with the same name. If `TaskId` is not the same as the tasks-vector index, IPC and scheduler events can't be correlated, and the dumps are actively misleading. Either convert to the index or rename the field to `task_id`.",
+     "evidence": "IPC events put `TaskId.0` into fields named `task_idx`. Scheduler events use the scheduler's vector index (`idx`) in fields with the same name. If `TaskId` is not the same as the tasks-vector index, IPC and scheduler events can't be correlated, and the dumps are actively misleading. Either convert to the index or rename the field to `task_id`."
+    }
+   ],
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "P6"
+   ],
+   "verdict": "disputed",
+   "reason": "The ISR paths I checked avoid traced code: signal_irq in notification.rs:164-180 explicitly does not call wake_task. That leaves only a kernel fault inside push itself, which is already a crash. I could not find a concrete re-entry trigger, so I lowered it from medium to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "kernel/src/trace.rs",
+   "line": 1290,
+   "claim": "trace_event takes &mut on the current core's ring with interrupts possibly enabled, so a re-entrant interrupt or fault could alias it mid-push.",
+   "evidence": "`trace_event` creates a `&mut TraceRing` on the current core's ring with interrupts possibly enabled; it is called from syscall paths like `send`, `recv` and `wake_task`. The safety comment assumes a single writer. However, an interrupt or exception on the same core that reaches a traced path (or `dump_trace_rings` from a fault handler) would create an aliasing `&mut` or `&` in the middle of a push. Either disable interrupts around the push or document and enforce that traced paths never run in interrupt context.",
+   "members": [
+    {
+     "id": "P6",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "kernel/src/trace.rs",
+     "line": 1290,
+     "claim": "`trace_event` creates a `&mut TraceRing` on the current core's ring with interrupts possibly enabled; it is called from syscall paths like `send`, `recv` and `wake_task`. The safety comment assumes a single writer. However, an interrupt or exception on the same core that reaches a traced path (or `dump_trace_rings` from a fault handler) would create an aliasing `&mut` or `&` in the middle of a push. Either disable interrupts around the push or document and enforce that traced paths never run in interrupt context.",
+     "evidence": "`trace_event` creates a `&mut TraceRing` on the current core's ring with interrupts possibly enabled; it is called from syscall paths like `send`, `recv` and `wake_task`. The safety comment assumes a single writer. However, an interrupt or exception on the same core that reaches a traced path (or `dump_trace_rings` from a fault handler) would create an aliasing `&mut` or `&` in the middle of a push. Either disable interrupts around the push or document and enforce that traced paths never run in interrupt context."
+    }
+   ],
+   "id": "F14"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F5",
+  "F6"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:surface"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,3727 @@
+[
+ {
+  "id": "e001",
+  "stage": "new",
+  "status": "info",
+  "note": "change created from story.md",
+  "baseline": "d2a55a5e6b8db26811d7f0032828525c75ff65d3",
+  "worktree": "/private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/20261014-172821-flag-code-that-evaluates-strings",
+  "config_from": "d2a55a5e6b8db26811d7f0032828525c75ff65d3:.factory/config.yaml",
+  "artefacts": {
+   "story.md": "11dc5c2c0790b4438cf8858e93a11073fd6ac2d9a2cd40daed5c43d6a184e829",
+   "config.yaml": "5287f6e6e60dee17c207c12cce0c2437cf0eaaf8fe2224513bebc0bac806827d",
+   "change.json": "02cc7a1fe68da96bc1c0bb69a3a559e0517780994b27a2a656857b38216c4831"
+  },
+  "recorded": "2026-10-14T17:28:21+13:00",
+  "prev": "0000000000000000000000000000000000000000000000000000000000000000"
+ },
+ {
+  "id": "e002",
+  "stage": "spec",
+  "status": "info",
+  "check": "start",
+  "commit": "d2a55a5e6b8db26811d7f0032828525c75ff65d3",
+  "tree": "f1e5559a8bcaf6d54c1ea2790e53dcfa7fce2db3",
+  "clean": true,
+  "recorded": "2026-10-14T17:28:21+13:00",
+  "prev": "ade37fc80735d2cfba4e24bd16e3aa1040328b33ce54ed3461be29069805c842"
+ },
+ {
+  "id": "e003",
+  "stage": "spec",
+  "status": "pass",
+  "check": "leg:spec",
+  "leg": "spec",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/spec/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/spec-brief-o5k_zzey",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.2952682,
+  "turns": 12,
+  "started": "2026-10-14T17:28:21+13:00",
+  "finished": "2026-10-14T17:29:12+13:00",
+  "duration_s": 51.1,
+  "prompt_sha256": "390460edc843d87d531ce960b763b622f27e8053643340f3b1e0ba9a06fa8e6d",
+  "output_sha256": "9976c78bc19542839e7a54fc5f50135c012e033cd74007cda3b1dc22fdb98504",
+  "evidence": [
+   "spec/brief.md",
+   "spec/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "spec/brief.md": "390460edc843d87d531ce960b763b622f27e8053643340f3b1e0ba9a06fa8e6d",
+   "spec/leg-log.jsonl": "e969fd866a3e7897e9c029a9f44e7f1f8f2586304e0c3d96c922e81ee9f65300"
+  },
+  "recorded": "2026-10-14T17:29:12+13:00",
+  "prev": "90b76cd2adabbc0ec4aaa2d66d8db52654b7f883e420cceefdc4865cb9fd1ede"
+ },
+ {
+  "id": "e004",
+  "stage": "spec",
+  "status": "pass",
+  "check": "criteria",
+  "criteria": 16,
+  "artefacts": {
+   "acceptance.md": "e2a607f5b37b1ec6ba6d7d898e28cb0bfe1e99da5ed18f74cb10c8c8ee3110e9"
+  },
+  "recorded": "2026-10-14T17:29:12+13:00",
+  "prev": "61beafa8b1c23b30ed30c317d4c8ffb4e55a73326c83010aed81b3bc686ac0f9"
+ },
+ {
+  "id": "e005",
+  "stage": "spec",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "d2a55a5e6b8db26811d7f0032828525c75ff65d3",
+  "tree": "f1e5559a8bcaf6d54c1ea2790e53dcfa7fce2db3",
+  "clean": true,
+  "recorded": "2026-10-14T17:29:13+13:00",
+  "prev": "43d18935510eee08c0baf3e197b84719b8e3e8b021e906d33b620ad0d22c58c9"
+ },
+ {
+  "id": "e006",
+  "stage": "triage",
+  "status": "info",
+  "check": "start",
+  "commit": "d2a55a5e6b8db26811d7f0032828525c75ff65d3",
+  "tree": "f1e5559a8bcaf6d54c1ea2790e53dcfa7fce2db3",
+  "clean": true,
+  "recorded": "2026-10-14T17:29:13+13:00",
+  "prev": "b06f4ef52b95e3929590a80e9b3e40dbfe01fca63b7befb801160aa404137747"
+ },
+ {
+  "id": "e007",
+  "stage": "triage",
+  "status": "info",
+  "check": "classes",
+  "phase": "plan",
+  "classes": [
+   "llm-agent"
+  ],
+  "artefacts": {
+   "risk.json": "2ec32d964b1be29427eaca0729e50cb3dc48dee9d56cf84249d25cea64152c2d"
+  },
+  "recorded": "2026-10-14T17:29:13+13:00",
+  "prev": "b4939b61ca1c80b6146e7e69efb77b88124c65481ea82d2d3b7f6c1d482bd476"
+ },
+ {
+  "id": "e008",
+  "stage": "triage",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "d2a55a5e6b8db26811d7f0032828525c75ff65d3",
+  "tree": "f1e5559a8bcaf6d54c1ea2790e53dcfa7fce2db3",
+  "clean": true,
+  "phase": "plan",
+  "recorded": "2026-10-14T17:29:13+13:00",
+  "prev": "71d6dccf85d84d070cec599b57609d4d2136dd5d70bd6741ba8097e3a4e83a45"
+ },
+ {
+  "id": "e009",
+  "stage": "tests",
+  "status": "info",
+  "check": "start",
+  "commit": "d2a55a5e6b8db26811d7f0032828525c75ff65d3",
+  "tree": "f1e5559a8bcaf6d54c1ea2790e53dcfa7fce2db3",
+  "clean": true,
+  "recorded": "2026-10-14T17:29:13+13:00",
+  "prev": "25c111cf14894bff30662ed4e1008f07e5071f9b62675779f088b9e2091d2106"
+ },
+ {
+  "id": "e010",
+  "stage": "tests",
+  "status": "pass",
+  "check": "baseline-tests",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 0,
+  "started": "2026-10-14T17:29:13+13:00",
+  "finished": "2026-10-14T17:32:30+13:00",
+  "duration_s": 195.7,
+  "output_tail": "est_triage.py::test_keywords_in_the_story_map_to_classes\nPASSED tests/test_triage.py::test_path_rules_builtin_and_configured\nPASSED tests/test_triage.py::test_planned_classes_are_not_unplanned\nPASSED tests/test_triage.py::test_diff_patterns_outside_tests\nPASSED tests/test_triage.py::test_a_drop_in_a_down_migration_is_the_rollback_not_an_irreversible_step\nPASSED tests/test_triage.py::test_llm_client_imports_beyond_openai_and_anthropic\nPASSED tests/test_triage.py::test_story_keywords_alone_never_block\nPASSED tests/test_triage.py::test_triage_stage_blocks_on_unplanned_class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\n207 passed, 5 skipped in 195.34s (0:03:15)\n",
+  "output_sha256": "771f3af28e50c39da0430fb7ccec6443903beaf6274967c033e3dd3fba9aeeb7",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "tests/baseline-tests.log"
+  ],
+  "artefacts": {
+   "tests/baseline-tests.log": "771f3af28e50c39da0430fb7ccec6443903beaf6274967c033e3dd3fba9aeeb7"
+  },
+  "recorded": "2026-10-14T17:32:30+13:00",
+  "prev": "5089845356ab2ea42720c7ff4c0cbb2eaca84837412da81043817465e061d7b3"
+ },
+ {
+  "id": "e011",
+  "stage": "tests",
+  "status": "info",
+  "check": "check-command",
+  "names": [
+   "test"
+  ],
+  "artefacts": {
+   "tests/check.json": "47e890305239388a54ffe38abe114c8a819fd88e4e89919b3eb9ef8cb5c31192",
+   "tests/check": "1f3d2ddbfb97b497a6ceec27f97382c486b2774ef1dcea59ed60ed6b63dda6a9"
+  },
+  "recorded": "2026-10-14T17:32:30+13:00",
+  "prev": "3ed9d632efd307ec2f0f59f277a0e4392c2c6121298d0df770076275c7bd2805"
+ },
+ {
+  "id": "e012",
+  "stage": "tests",
+  "status": "pass",
+  "check": "leg:tests",
+  "leg": "tests",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Bash,Edit,Write,Read,Grep,Glob,NotebookEdit --permission-mode acceptEdits --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/tests/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/tests-brief-eho6hk_b",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.8545094,
+  "turns": 21,
+  "started": "2026-10-14T17:32:30+13:00",
+  "finished": "2026-10-14T17:38:54+13:00",
+  "duration_s": 384.2,
+  "prompt_sha256": "da10023ab5ce5f41377cc98b1e2dfba60746e943a2e46e5aba685ddc9bf2d3cb",
+  "output_sha256": "878e94fc9fac689e470e73cd95efd6e36b900d7150dbff349275ec4dbb882678",
+  "evidence": [
+   "tests/brief.md",
+   "tests/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "tests/brief.md": "da10023ab5ce5f41377cc98b1e2dfba60746e943a2e46e5aba685ddc9bf2d3cb",
+   "tests/leg-log.jsonl": "95e80b4aa858b3888dd7e8fb41ab5610257bb101021188639f444e7143da226c"
+  },
+  "recorded": "2026-10-14T17:38:54+13:00",
+  "prev": "ccff757b4406633bfd859325bb3b26fa4f4479bdd7d691789df5bef9be5446a6"
+ },
+ {
+  "id": "e013",
+  "stage": "tests",
+  "status": "info",
+  "check": "guard",
+  "blocked_calls": 2,
+  "reasons": [
+   "Blocked command: this leg's shell runs only the factory check, exactly as written: /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forg"
+  ],
+  "evidence": [
+   "tests/guard.jsonl"
+  ],
+  "artefacts": {
+   "tests/guard.jsonl": "6a201db9a5ba51ba112de100d80e37318c0e79d8cd28e80af10e8489eb7eb0be"
+  },
+  "recorded": "2026-10-14T17:38:54+13:00",
+  "prev": "f2f832aa21b0c965e5ab38af68d30d348bbf2bcb0a4bbb692434839b0ec89ad7"
+ },
+ {
+  "id": "e014",
+  "stage": "tests",
+  "status": "pass",
+  "check": "scan",
+  "note": "invisible characters, secrets and semgrep on the tests leg's work",
+  "recorded": "2026-10-14T17:38:57+13:00",
+  "prev": "564189623acaff406b4c319435ffb055b4412cd41f1b826085e94e22ced02034"
+ },
+ {
+  "id": "e015",
+  "stage": "tests",
+  "status": "fail",
+  "check": "new-tests",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 1,
+  "started": "2026-10-14T17:38:57+13:00",
+  "finished": "2026-10-14T17:42:39+13:00",
+  "duration_s": 220.8,
+  "output_tail": "claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\nFAILED tests/test_check.py::test_an_added_eval_of_a_variable_stops_the_command\nFAILED tests/test_gate_hardening.py::test_gate_sast_fails_on_an_added_js_eval_of_a_variable\nFAILED tests/test_gate_hardening.py::test_gate_sast_fails_on_an_added_python_exec_of_a_variable\nFAILED tests/test_gate_hardening.py::test_a_preexisting_eval_does_not_block_a_change\nFAILED tests/test_gate_hardening.py::test_nosemgrep_does_not_hide_an_eval_finding\nFAILED tests/test_pinned_eval_rule.py::test_js_eval_of_a_variable_is_flagged\nFAILED tests/test_pinned_eval_rule.py::test_js_new_function_of_a_built_string_is_flagged\nFAILED tests/test_pinned_eval_rule.py::test_js_eval_of_a_concatenated_or_interpolated_string_is_flagged\nFAILED tests/test_pinned_eval_rule.py::test_ts_eval_and_new_function_of_a_variable_are_flagged\nFAILED tests/test_pinned_eval_rule.py::test_python_eval_and_exec_of_a_built_string_are_flagged\nFAILED tests/test_pinned_eval_rule.py::test_eval_finding_is_blocking_and_says_what_it_found\n11 failed, 211 passed, 5 skipped in 220.52s (0:03:40)\n",
+  "output_sha256": "f2230f245152d998947613750ce5389aadc3b016d1f7481aa96eb6db2c4a6055",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "tests/new-tests.log"
+  ],
+  "artefacts": {
+   "tests/new-tests.log": "f2230f245152d998947613750ce5389aadc3b016d1f7481aa96eb6db2c4a6055"
+  },
+  "reason": "exit 1",
+  "recorded": "2026-10-14T17:42:39+13:00",
+  "prev": "a14704616be4c951432cbad2f9b638b510b3c283e1a62870407bdd38d0a65481"
+ },
+ {
+  "id": "e016",
+  "stage": "tests",
+  "status": "pass",
+  "check": "red",
+  "note": "the suite fails with the new tests (event e015), as it must before the build",
+  "recorded": "2026-10-14T17:42:39+13:00",
+  "prev": "8b119e5ff5fd1e7a6a4a09ecf90c4d78b48d34cf75b7209cea60c7ce5aa0a132"
+ },
+ {
+  "id": "e017",
+  "stage": "tests",
+  "status": "info",
+  "check": "lock",
+  "files": 21,
+  "lock_commit": "be7c76504f3e42e3e1b80d482345b1d30cb0b568",
+  "artefacts": {
+   "tests.lock": "bc4ca3c63e47372eeeeb7c7f35abea82da3bf14eceec499c0b4aa3e13cdb3157"
+  },
+  "recorded": "2026-10-14T17:42:39+13:00",
+  "prev": "b7e5473ec47836aa256693785820382c8aee66ae88311259fd10295730c71920"
+ },
+ {
+  "id": "e018",
+  "stage": "tests",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "be7c76504f3e42e3e1b80d482345b1d30cb0b568",
+  "tree": "eb8ada3f87cadd27bb35b20abb4ed37a0e8fb833",
+  "clean": true,
+  "recorded": "2026-10-14T17:42:39+13:00",
+  "prev": "da6a5b8fa620a8430380f9fba2e684fb4974bdf0a9407c06d571a4d622f3ab73"
+ },
+ {
+  "id": "e019",
+  "stage": "build",
+  "status": "info",
+  "check": "start",
+  "commit": "be7c76504f3e42e3e1b80d482345b1d30cb0b568",
+  "tree": "eb8ada3f87cadd27bb35b20abb4ed37a0e8fb833",
+  "clean": true,
+  "recorded": "2026-10-14T17:42:39+13:00",
+  "prev": "480b87885be4b2e93accbaad376388390098e10d7c7151b309151ba1a33aa34f"
+ },
+ {
+  "id": "e020",
+  "stage": "build",
+  "status": "info",
+  "check": "check-command",
+  "names": [
+   "test"
+  ],
+  "artefacts": {
+   "build/check.json": "b2ca2bbb1f94459ce88cb0cef70f3314a4f8fb2a4e089c7329efc0424bdb020b",
+   "build/check": "8c0be2676f09685c8ae0b9fe364e5fb256ca8a134278a73a7cbc2658955bc666"
+  },
+  "recorded": "2026-10-14T17:42:39+13:00",
+  "prev": "2866634ff3ed6e7b48688d484a709412135276308f970b94f90649ffe05f007b"
+ },
+ {
+  "id": "e021",
+  "stage": "build",
+  "status": "pass",
+  "check": "leg:build",
+  "leg": "build",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Bash,Edit,Write,Read,Grep,Glob,NotebookEdit --permission-mode acceptEdits --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/build/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/build-brief-m1aqmkfz",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.609228,
+  "turns": 12,
+  "started": "2026-10-14T17:42:39+13:00",
+  "finished": "2026-10-14T17:52:19+13:00",
+  "duration_s": 580.0,
+  "prompt_sha256": "7540c6447edaa4dcf60930b3e60f73a8e62ffd4807967b979371ec65d499a583",
+  "output_sha256": "59439f0f75c2e8212c26b527549c2076240b04f02f611fd6aebd0708f1073853",
+  "evidence": [
+   "build/brief.md",
+   "build/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "build/brief.md": "7540c6447edaa4dcf60930b3e60f73a8e62ffd4807967b979371ec65d499a583",
+   "build/leg-log.jsonl": "1a3d9204410ad693fd6ce0464c6a98fcbf32b9aaf16e6240c0ab1d595a8214eb"
+  },
+  "recorded": "2026-10-14T17:52:19+13:00",
+  "prev": "d055384aba8896caff3621612e224c438c15255c8c5c726dc815bde570ad82a4"
+ },
+ {
+  "id": "e022",
+  "stage": "build",
+  "status": "info",
+  "check": "guard",
+  "blocked_calls": 1,
+  "reasons": [
+   "Blocked command: this leg's shell runs only the factory check, exactly as written: /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forg"
+  ],
+  "evidence": [
+   "build/guard.jsonl"
+  ],
+  "artefacts": {
+   "build/guard.jsonl": "978da36892c36273a5b7d84b7577e92be6c79c5d107382ec651147a6181b7e23"
+  },
+  "recorded": "2026-10-14T17:52:19+13:00",
+  "prev": "e9096da5d93ec6b6653cf93c24066731fac0fe5519a361831142526a5285df26"
+ },
+ {
+  "id": "e023",
+  "stage": "build",
+  "status": "info",
+  "check": "builder-summary",
+  "note": "the builder's own account: asserted, not evidence",
+  "artefacts": {
+   "builder-summary.md": "59439f0f75c2e8212c26b527549c2076240b04f02f611fd6aebd0708f1073853"
+  },
+  "recorded": "2026-10-14T17:52:19+13:00",
+  "prev": "7e24d2e764ae00672264fdd3338133183570d9e50c3864872111bc012e2c6592"
+ },
+ {
+  "id": "e024",
+  "stage": "build",
+  "status": "info",
+  "check": "commit",
+  "head": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "files": [
+   "factory/rules/semgrep/eval-of-built-strings.yml"
+  ],
+  "recorded": "2026-10-14T17:52:19+13:00",
+  "prev": "bd281e9130439897f92fe22f8b219ee7e82e43fa55b710cdbcbf83ce2db6af5a"
+ },
+ {
+  "id": "e025",
+  "stage": "build",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T17:52:19+13:00",
+  "prev": "80d5310f4777e447001823d9a19fe782f1d6d488f8bc92788eaeed307ee8a959"
+ },
+ {
+  "id": "e026",
+  "stage": "triage",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T17:52:19+13:00",
+  "prev": "b5145726396fe2cc01b0e78b3b2ef895f739bae747b40a7b5f87836c7225e9be"
+ },
+ {
+  "id": "e027",
+  "stage": "triage",
+  "status": "info",
+  "check": "classes",
+  "phase": "diff",
+  "classes": [
+   "llm-agent"
+  ],
+  "artefacts": {
+   "risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe"
+  },
+  "recorded": "2026-10-14T17:52:19+13:00",
+  "prev": "a363dc6c530791a6b263da145069e0d62ad6da617adae33506f22e96882061b8"
+ },
+ {
+  "id": "e028",
+  "stage": "triage",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "phase": "diff",
+  "recorded": "2026-10-14T17:52:19+13:00",
+  "prev": "952a01a21fb8f5182faa7dd57dd12a585c8101607a016a7158d05823c13cdfbc"
+ },
+ {
+  "id": "e029",
+  "stage": "gate",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T17:52:20+13:00",
+  "prev": "241a8935c6095c06809a827b39666b57ead92f622ac980f7c7baa844f20aeae3"
+ },
+ {
+  "id": "e030",
+  "stage": "gate",
+  "status": "info",
+  "check": "tools",
+  "tools": [
+   {
+    "name": "gitleaks",
+    "path": "/opt/homebrew/Cellar/gitleaks/8.30.1/bin/gitleaks",
+    "version": "gitleaks version 8.30.1",
+    "sha256": "f414bc2fb952be6c9072b75cb411e3368614ef4b16d48dbd9ad238034afd2302"
+   },
+   {
+    "name": "osv-scanner",
+    "path": "/opt/homebrew/Cellar/osv-scanner/2.6.0/bin/osv-scanner",
+    "version": "osv-scanner version: 2.6.0",
+    "sha256": "60a7bf0b7981a6542e0df2f144d621736d4181852c18a10305169d1cd81a8889"
+   },
+   {
+    "name": "semgrep",
+    "path": "/opt/homebrew/Cellar/semgrep/1.180.0/libexec/bin/semgrep",
+    "version": "1.180.0",
+    "sha256": "fb9ac434aa9c553b67cd491c17658623a877f773a87d3401907a0242ca92cc58"
+   }
+  ],
+  "recorded": "2026-10-14T17:52:21+13:00",
+  "prev": "640f0d61a0998fa8d8560516633f2f132e0059a6f3366d8e54518ca915cff0e1"
+ },
+ {
+  "id": "e031",
+  "stage": "gate",
+  "status": "pass",
+  "check": "locked-tests",
+  "locked": 21,
+  "lock_sha256": "bc4ca3c63e47372eeeeb7c7f35abea82da3bf14eceec499c0b4aa3e13cdb3157",
+  "recorded": "2026-10-14T17:52:21+13:00",
+  "prev": "797bc293f491cd23f0e8db3d9b88a50c1c7f345ae69fce07a21ed18717f67ed7"
+ },
+ {
+  "id": "e032",
+  "stage": "gate",
+  "status": "pass",
+  "check": "secrets",
+  "cmd": "gitleaks git --no-banner --redact --ignore-gitleaks-allow --log-opts=d2a55a5e6b8db26811d7f0032828525c75ff65d3..HEAD --report-format json --report-path /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/gate/gitleaks.json .",
+  "exit": 0,
+  "started": "2026-10-14T17:52:21+13:00",
+  "finished": "2026-10-14T17:52:21+13:00",
+  "duration_s": 0.1,
+  "output_tail": "\u001b[90m5:52PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mUnknown SCM platform. Use --platform to include links in findings.\u001b[0m \u001b[36mhost=\u001b[0m\n\u001b[90m5:52PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1m2 commits scanned.\u001b[0m\n\u001b[90m5:52PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mscanned ~11175 bytes (11.18 KB) in 57.2ms\u001b[0m\n\u001b[90m5:52PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mno leaks found\u001b[0m\n",
+  "output_sha256": "6465df5353a1426fb1760e7b66d734f378eb4b49fd372b5b7543104808b4231a",
+  "sandbox": "none",
+  "evidence": [
+   "gate/secrets.log"
+  ],
+  "artefacts": {
+   "gate/secrets.log": "6465df5353a1426fb1760e7b66d734f378eb4b49fd372b5b7543104808b4231a"
+  },
+  "recorded": "2026-10-14T17:52:21+13:00",
+  "prev": "8e043af26ea3292ce032fe473f7b98012d152802fd67a711737abf6d5c257fda"
+ },
+ {
+  "id": "e033",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "deps",
+  "reason": "the change touches no lockfile",
+  "applies": false,
+  "recorded": "2026-10-14T17:52:21+13:00",
+  "prev": "926f19821c0756e2754d19bc7eb336747d9312f90ce3d9c8c988bbf483a4c9db"
+ },
+ {
+  "id": "e034",
+  "stage": "gate",
+  "status": "pass",
+  "check": "sast-scan",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet --severity ERROR --severity WARNING -- ./factory/rules/semgrep/eval-of-built-strings.yml ./tests/test_check.py ./tests/test_gate_hardening.py ./tests/test_pinned_eval_rule.py",
+  "exit": 0,
+  "started": "2026-10-14T17:52:21+13:00",
+  "finished": "2026-10-14T17:52:24+13:00",
+  "duration_s": 3.0,
+  "output_tail": ":2021 - Injection\",\"A05:2025 - Injection\"],\"cwe2022-top25\":true,\"subcategory\":[\"audit\"],\"likelihood\":\"LOW\",\"impact\":\"HIGH\",\"license\":\"Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license\",\"vulnerability_class\":[\"Code Injection\"],\"source\":\"https://semgrep.dev/r/generic.unicode.security.bidi.contains-bidirectional-characters\",\"shortlink\":\"https://sg.run/nK4r\"},\"severity\":\"WARNING\",\"fingerprint\":\"requires login\",\"lines\":\"requires login\",\"validation_state\":\"NO_VALIDATOR\",\"engine_kind\":\"OSS\"}}],\"errors\":[],\"paths\":{\"scanned\":[\"factory/rules/semgrep/eval-of-built-strings.yml\",\"tests/test_check.py\",\"tests/test_gate_hardening.py\",\"tests/test_pinned_eval_rule.py\"]},\"time\":{\"rules\":[],\"rules_parse_time\":0.27100086212158203,\"profiling_times\":{\"config_time\":1.2016632556915283,\"core_time\":0.6302387714385986,\"ignores_time\":0.0009911060333251953,\"total_time\":1.8439242839813232},\"parsing_time\":{\"total_time\":0.0,\"per_file_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"scanning_time\":{\"total_time\":0.3260512351989746,\"per_file_time\":{\"mean\":0.02717093626658122,\"std_dev\":0.0021132117725133842},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"matching_time\":{\"total_time\":0.0,\"per_file_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_files\":[]},\"tainting_time\":{\"total_time\":0.0,\"per_def_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_defs\":[]},\"fixpoint_timeouts\":[],\"prefiltering\":{\"project_level_time\":0.0,\"file_level_time\":0.0,\"rules_with_project_prefilters_ratio\":0.0,\"rules_with_file_prefilters_ratio\":0.9566160520607375,\"rules_selected_ratio\":0.08893709327548807,\"rules_matched_ratio\":0.08893709327548807},\"targets\":[],\"total_bytes\":0,\"max_memory_bytes\":750636096},\"engine_requested\":\"OSS\",\"skipped_rules\":[],\"profiling_results\":[]}\n",
+  "output_sha256": "ab2d8857c7f0ad518730aea367eb18d06f0d6159de8a621594e71e5d436772bb",
+  "sandbox": "none",
+  "evidence": [
+   "gate/sast-scan.log"
+  ],
+  "artefacts": {
+   "gate/sast-scan.log": "ab2d8857c7f0ad518730aea367eb18d06f0d6159de8a621594e71e5d436772bb"
+  },
+  "recorded": "2026-10-14T17:52:24+13:00",
+  "prev": "fbf9cf309d8abca367d26599e1a70e7809de368be9c6f647db18e8b2ba4a1769"
+ },
+ {
+  "id": "e035",
+  "stage": "gate",
+  "status": "pass",
+  "check": "sast",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet --severity ERROR --severity WARNING -- ./factory/rules/semgrep/eval-of-built-strings.yml ./tests/test_check.py ./tests/test_gate_hardening.py ./tests/test_pinned_eval_rule.py",
+  "after_event": "e034",
+  "evidence": [
+   "gate/sast-scan.log"
+  ],
+  "preexisting": 1,
+  "note": "no finding on an added line; 1 finding(s) already in the touched files",
+  "recorded": "2026-10-14T17:52:24+13:00",
+  "prev": "385b833738c37a095e45a3cde351086f28d767b834b90810b3d52729e877445d"
+ },
+ {
+  "id": "e036",
+  "stage": "gate",
+  "status": "pass",
+  "check": "invisible",
+  "note": "no invisible or control characters added",
+  "recorded": "2026-10-14T17:52:24+13:00",
+  "prev": "8748ac13782314917b046eb941e3db470319fd8e59e07216c43190f4998d683f"
+ },
+ {
+  "id": "e037",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "install",
+  "reason": "commands.install is not configured",
+  "recorded": "2026-10-14T17:52:24+13:00",
+  "prev": "2d746f95d81ef621732bd8861d40968600d46adae7c283dcb9e850e5c2a4f509"
+ },
+ {
+  "id": "e038",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "typecheck",
+  "reason": "commands.typecheck is not configured",
+  "recorded": "2026-10-14T17:52:24+13:00",
+  "prev": "2263a64a9068505d618312c5064e4dde58b79640ba46c7da7d2dc0745b38132e"
+ },
+ {
+  "id": "e039",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "lint",
+  "reason": "commands.lint is not configured",
+  "recorded": "2026-10-14T17:52:24+13:00",
+  "prev": "ad21749d4b7ceff7dfebafeff5e348491054fe2bc7396210cebb49c25b6b5253"
+ },
+ {
+  "id": "e040",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "build",
+  "reason": "commands.build is not configured",
+  "recorded": "2026-10-14T17:52:24+13:00",
+  "prev": "919971897073deb832a356a864163573806ab43bd6d7e5dcf5d35ee8768e3142"
+ },
+ {
+  "id": "e041",
+  "stage": "gate",
+  "status": "pass",
+  "check": "tests",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 0,
+  "started": "2026-10-14T17:52:24+13:00",
+  "finished": "2026-10-14T17:56:03+13:00",
+  "duration_s": 217.6,
+  "output_tail": "est_triage.py::test_keywords_in_the_story_map_to_classes\nPASSED tests/test_triage.py::test_path_rules_builtin_and_configured\nPASSED tests/test_triage.py::test_planned_classes_are_not_unplanned\nPASSED tests/test_triage.py::test_diff_patterns_outside_tests\nPASSED tests/test_triage.py::test_a_drop_in_a_down_migration_is_the_rollback_not_an_irreversible_step\nPASSED tests/test_triage.py::test_llm_client_imports_beyond_openai_and_anthropic\nPASSED tests/test_triage.py::test_story_keywords_alone_never_block\nPASSED tests/test_triage.py::test_triage_stage_blocks_on_unplanned_class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\n222 passed, 5 skipped in 217.27s (0:03:37)\n",
+  "output_sha256": "95637ec595fe105b1509c60b7814d0953764ab211962b199ad85a39a0a2c425b",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "gate/tests.log"
+  ],
+  "artefacts": {
+   "gate/tests.log": "95637ec595fe105b1509c60b7814d0953764ab211962b199ad85a39a0a2c425b"
+  },
+  "recorded": "2026-10-14T17:56:03+13:00",
+  "prev": "76b91316941a53611f99077d542e85909f9ec4bac68babee9f79ac3fcd59e510"
+ },
+ {
+  "id": "e042",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "perf",
+  "reason": "commands.perf is not configured",
+  "recorded": "2026-10-14T17:56:03+13:00",
+  "prev": "e27fa81649f4218e22bcbc161c9a4023146731123e4d3cf39bc9cc208a021cad"
+ },
+ {
+  "id": "e043",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "rollback",
+  "applies": false,
+  "reason": "no class in risk.json requires a rollback (no migration or irreversible path or pattern)",
+  "recorded": "2026-10-14T17:56:03+13:00",
+  "prev": "a383a56d8cf258664c267aafb21af4bfb6cab6046d1c80005cd373c3eac28b3f"
+ },
+ {
+  "id": "e044",
+  "stage": "gate",
+  "status": "pass",
+  "check": "surface",
+  "note": "the change edits no test-runner, scanner or agent-instruction file",
+  "recorded": "2026-10-14T17:56:03+13:00",
+  "prev": "dda50f97eafde97623b096677fd90981adc2dae5be531f17867a3b895850525a"
+ },
+ {
+  "id": "e045",
+  "stage": "gate",
+  "status": "pass",
+  "check": "added-tests",
+  "note": "the build added no test files",
+  "recorded": "2026-10-14T17:56:03+13:00",
+  "prev": "e05aa009ea796f4cfd69f5dba56625f55a8239a20a4fe8e8e1d35651857ec356"
+ },
+ {
+  "id": "e046",
+  "stage": "gate",
+  "status": "pass",
+  "check": "ratchet:semgrep_findings",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet -- .",
+  "mode": "absolute",
+  "before": 4,
+  "after": 4,
+  "runs": {
+   "baseline": {
+    "count": 4,
+    "exit": 0,
+    "output_sha256": "640278a4787550f5dcab4bd16cccb0b3e96057b93ca76cd349674a2589f3a56d",
+    "log": "gate/ratchet-semgrep_findings-baseline.json",
+    "errors": 0,
+    "problem": null
+   },
+   "after": {
+    "count": 4,
+    "exit": 0,
+    "output_sha256": "de544ac64a8f4bd0448e4d930a4e74271f664b92259ba173340207eb3007aca0",
+    "log": "gate/ratchet-semgrep_findings-after.json",
+    "errors": 0,
+    "problem": null
+   }
+  },
+  "evidence": [
+   "gate/ratchet-semgrep_findings-baseline.json",
+   "gate/ratchet-semgrep_findings-after.json"
+  ],
+  "artefacts": {
+   "gate/ratchet-semgrep_findings-baseline.json": "640278a4787550f5dcab4bd16cccb0b3e96057b93ca76cd349674a2589f3a56d",
+   "gate/ratchet-semgrep_findings-after.json": "de544ac64a8f4bd0448e4d930a4e74271f664b92259ba173340207eb3007aca0"
+  },
+  "recorded": "2026-10-14T17:56:16+13:00",
+  "prev": "809d4bc3069cc5de6192143eb83d9ad4a3368773434705fedbd23e7e78b1ddd0"
+ },
+ {
+  "id": "e047",
+  "stage": "gate",
+  "status": "pass",
+  "check": "required",
+  "recorded": "2026-10-14T17:56:16+13:00",
+  "prev": "1c211396b46c088657109a8d202b52ee7e63bd3b9e91928dc1674a58e4e10085"
+ },
+ {
+  "id": "e048",
+  "stage": "gate",
+  "status": "pass",
+  "check": "unchanged",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T17:56:16+13:00",
+  "prev": "7bffe4a2fcdfff9a41f72acf1a4f9ac379f4bce729c373d7b4b5f4ddd29139a9"
+ },
+ {
+  "id": "e049",
+  "stage": "gate",
+  "status": "info",
+  "check": "theory-doc",
+  "path": "DESIGN.md",
+  "exists": true,
+  "changed": false,
+  "doc_sha256": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a",
+  "recorded": "2026-10-14T17:56:16+13:00",
+  "prev": "8d940ad9765c45021c8b02ad665ba4c05eec292a21c58a6a8b84b44a63fc3190"
+ },
+ {
+  "id": "e050",
+  "stage": "gate",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T17:56:16+13:00",
+  "prev": "599cbb1890fabe1faa65e9393c8e563ce4b63026c6f8b5440ab2f5d56e0a4fa1"
+ },
+ {
+  "id": "e051",
+  "stage": "review",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T17:56:16+13:00",
+  "prev": "f833d95009ed6a232852437aef365f81a9597fd7841d7f2175b10faab1653070"
+ },
+ {
+  "id": "e052",
+  "stage": "review",
+  "status": "info",
+  "check": "tools",
+  "tools": [
+   {
+    "name": "claude",
+    "path": "/Users/cgagne/.local/share/claude/versions/2.1.288",
+    "version": "2.1.288 (Claude Code)",
+    "sha256": "bbe93063f7a0879a1021b2891e5c9354e5b3b98433e32efe6750f7710afed750"
+   },
+   {
+    "name": "codex",
+    "path": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+    "version": "codex-cli 0.162.0-alpha.17.2",
+    "sha256": "0d5ac7aae20c4eda6242428d5e218c55ba96d8763fda2a271088ff37104b9d28"
+   }
+  ],
+  "recorded": "2026-10-14T17:56:16+13:00",
+  "prev": "58eb30c873b746a59388f3386c3b95e43dbe0bd953cfaac485c7cc83d678ec0e"
+ },
+ {
+  "id": "e053",
+  "stage": "review",
+  "status": "info",
+  "check": "packet",
+  "grounding": "seeds",
+  "axis_rows": 27,
+  "theory_doc": "DESIGN.md",
+  "artefacts": {
+   "review/packet-claude/acceptance.md": "e2a607f5b37b1ec6ba6d7d898e28cb0bfe1e99da5ed18f74cb10c8c8ee3110e9",
+   "review/packet-claude/axis-rows.md": "1824cfa53f8daee14897a9aebb539feede3bda9f32f5ac69c56d2b40ac8e887d",
+   "review/packet-claude/brief.md": "90871c30a9341e37354fae095ef07ebac89ee119df08da7c5174ad2c2c459e7a",
+   "review/packet-claude/diff.patch": "2d3c9259856801fafbc91d80bf17622e23d148ee5f74b4207bc365acbb4ca07d",
+   "review/packet-claude/risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe",
+   "review/packet-claude/theory.md": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a",
+   "review/packet-codex/acceptance.md": "e2a607f5b37b1ec6ba6d7d898e28cb0bfe1e99da5ed18f74cb10c8c8ee3110e9",
+   "review/packet-codex/axis-rows.md": "1824cfa53f8daee14897a9aebb539feede3bda9f32f5ac69c56d2b40ac8e887d",
+   "review/packet-codex/brief.md": "bf82171885438f54c53479599b98795b7c8de46eb90ca023028897649dfb4d81",
+   "review/packet-codex/diff.patch": "2d3c9259856801fafbc91d80bf17622e23d148ee5f74b4207bc365acbb4ca07d",
+   "review/packet-codex/risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe",
+   "review/packet-codex/theory.md": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a"
+  },
+  "recorded": "2026-10-14T17:56:17+13:00",
+  "prev": "a0a1c0adddf2e2ef0efa17e324a87131e8e6db91d8ce64c47b4bb909ade69efa"
+ },
+ {
+  "id": "e054",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:reviewer-claude",
+  "leg": "reviewer-claude",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/review/reviewer-claude-settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-sjdzi6_9/claude/packet --json-schema '{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"findings\"], \"properties\": {\"findings\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"severity\", \"claim\", \"evidence\"], \"properties\": {\"severity\": {\"type\": \"string\", \"enum\": [\"critical\", \"high\", \"medium\", \"low\"]}, \"file\": {\"type\": \"string\"}, \"line\": {\"type\": \"integer\"}, \"claim\": {\"type\": \"string\"}, \"evidence\": {\"type\": \"string\"}, \"axis_row\": {\"type\": \"string\"}}}}}}'",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.7171076,
+  "turns": 14,
+  "started": "2026-10-14T17:56:17+13:00",
+  "finished": "2026-10-14T17:58:10+13:00",
+  "duration_s": 113.0,
+  "prompt_sha256": "90871c30a9341e37354fae095ef07ebac89ee119df08da7c5174ad2c2c459e7a",
+  "output_sha256": "ff8503b7ebe4bafeae18e3b34b6e26dc2cd2768be21e16440b9419de20c6d8ad",
+  "evidence": [
+   "review/packet-claude/brief.md",
+   "review/claude-log.jsonl"
+  ],
+  "artefacts": {
+   "review/packet-claude/brief.md": "90871c30a9341e37354fae095ef07ebac89ee119df08da7c5174ad2c2c459e7a",
+   "review/claude-log.jsonl": "2b7652bd9edb667fd0cf02c5eb096cee20fe55e8726fccfddb0420543b705c4f"
+  },
+  "recorded": "2026-10-14T17:58:10+13:00",
+  "prev": "7a259b471f84a97646f0f2d44f4e14deaedaeac7dc657a317ccfc291ce45d76b"
+ },
+ {
+  "id": "e055",
+  "stage": "review",
+  "status": "info",
+  "check": "findings:claude",
+  "count": 4,
+  "artefacts": {
+   "review/findings-claude.json": "ee163e3657008adca8b1b14e666912b4e8fb2a9f718427499ac907a606755b2c"
+  },
+  "recorded": "2026-10-14T17:58:10+13:00",
+  "prev": "c1f93b16fa134604ea102c9cc9e094b356968162a2b2864642b226c60c87b828"
+ },
+ {
+  "id": "e056",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:reviewer-codex",
+  "leg": "reviewer-codex",
+  "family": "codex",
+  "cmd": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex exec -m gpt-6.1-sol -s read-only --skip-git-repo-check --ephemeral --ignore-user-config -C /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-sjdzi6_9/codex/export -o /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-sjdzi6_9/codex/logs/codex-final.md --output-schema /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-sjdzi6_9/codex/logs/findings-schema.json '<prompt>'",
+  "exit": 0,
+  "model": "gpt-6.1-sol",
+  "tokens": 48637,
+  "started": "2026-10-14T17:56:17+13:00",
+  "finished": "2026-10-14T17:57:15+13:00",
+  "duration_s": 57.8,
+  "prompt_sha256": "bf82171885438f54c53479599b98795b7c8de46eb90ca023028897649dfb4d81",
+  "output_sha256": "cff516c1119a468e86ac637ff5e6fbc8da1df610439892a331cdb577e28aac75",
+  "evidence": [
+   "review/packet-codex/brief.md",
+   "review/codex-log.txt"
+  ],
+  "artefacts": {
+   "review/packet-codex/brief.md": "bf82171885438f54c53479599b98795b7c8de46eb90ca023028897649dfb4d81",
+   "review/codex-log.txt": "688b4deabaf21aed2700c331f3c5e430c58b6c9bae434ff3c97bd0d26778a0b2"
+  },
+  "recorded": "2026-10-14T17:58:10+13:00",
+  "prev": "d629f4fbec7dd18581047b9ab990cba33e2993714875ade55eb23617db34e36d"
+ },
+ {
+  "id": "e057",
+  "stage": "review",
+  "status": "info",
+  "check": "findings:codex",
+  "count": 1,
+  "artefacts": {
+   "review/findings-codex.json": "941048831e2da25e3fb5b5dab6629210dc61d6deb2abee1f493e66f6557b91e3"
+  },
+  "recorded": "2026-10-14T17:58:10+13:00",
+  "prev": "921387baed302659c84197cb9ca6381c4e1c16f74eb10711edb56ab9b4051a56"
+ },
+ {
+  "id": "e058",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:sort",
+  "leg": "sort",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/review/sort-settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-sjdzi6_9/sort/packet --json-schema '{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"items\"], \"properties\": {\"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"sources\", \"verdict\", \"reason\"], \"properties\": {\"sources\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"verdict\": {\"type\": \"string\", \"enum\": [\"confirmed\", \"disputed\", \"noise\"]}, \"reason\": {\"type\": \"string\"}, \"severity\": {\"type\": \"string\", \"enum\": [\"critical\", \"high\", \"medium\", \"low\"]}, \"file\": {\"type\": \"string\"}, \"line\": {\"type\": \"integer\"}, \"claim\": {\"type\": \"string\"}}}}}}'",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.27405240000000003,
+  "turns": 11,
+  "started": "2026-10-14T17:58:10+13:00",
+  "finished": "2026-10-14T18:00:04+13:00",
+  "duration_s": 113.2,
+  "prompt_sha256": "6cbae71e3336e6a8b0cca4a16111c9d0e6c070fa1f728fa266654d9885d6fa44",
+  "output_sha256": "213a4dcfdf34670132ca67d59519ee29ef17ed116fbffea91abf7d3652994504",
+  "evidence": [
+   "review/packet-sort/sort-brief.md",
+   "review/sort-log.jsonl"
+  ],
+  "artefacts": {
+   "review/packet-sort/sort-brief.md": "6cbae71e3336e6a8b0cca4a16111c9d0e6c070fa1f728fa266654d9885d6fa44",
+   "review/sort-log.jsonl": "4b19c360142a19ef0a12a6fe40459fdd1f98269dc1d6b5702488061f5497eef3"
+  },
+  "recorded": "2026-10-14T18:00:04+13:00",
+  "prev": "36b032d668fc110b5073184ded9d8fd4f343fe4a82f7331da6de7a4df18de3b8"
+ },
+ {
+  "id": "e059",
+  "stage": "review",
+  "status": "info",
+  "check": "sorted",
+  "confirmed": 4,
+  "disputed": 0,
+  "noise": 0,
+  "artefacts": {
+   "review/findings.json": "3e8739143e236b79b81e3b88f85be95ae8ded5e508e844790d46e5ab54e6d734"
+  },
+  "recorded": "2026-10-14T18:00:04+13:00",
+  "prev": "57e1e069860359d4e8f10acac53e063eddde193670669b1879e7febb667119ca"
+ },
+ {
+  "id": "e060",
+  "stage": "review",
+  "status": "info",
+  "check": "bar",
+  "severities": [
+   "critical",
+   "high"
+  ],
+  "recorded": "2026-10-14T18:00:04+13:00",
+  "prev": "5c62e58b3176ffb102ac4fb950922a280d72c4684d7e982b39b5704525691902"
+ },
+ {
+  "id": "e061",
+  "stage": "review",
+  "status": "blocked",
+  "check": "outcome",
+  "reason": "F1 a reviewer rated it high; the sort made it confirmed medium, so a human decides: The Python rule flags fixed raw, triple-quoted or prefixed string literals (exec(r\"x = 1\"), eval(\"\"\"1 + 1\"\"\")) as built strings, and the gate gives no way to accept the finding. (factory/rules/semgrep/eval-of-built-strings.yml:53)",
+  "blocking": [
+   "F1"
+  ],
+  "acceptable": true,
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:00:04+13:00",
+  "prev": "35a4718b107fe513879842a63aadcf3b9d579cc69f84e511519be1e047bd9b0c"
+ },
+ {
+  "id": "e062",
+  "stage": "warrant",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:00:56+13:00",
+  "prev": "eebd7e8c08e7e650c2f93bfb3e34bbda7889d2221c50b09c40ef0b55e0d8f82e"
+ },
+ {
+  "id": "e063",
+  "stage": "warrant",
+  "status": "blocked",
+  "check": "outcome",
+  "reason": "review: review blocked on F1 (accept or resolve)",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "pack_sha256": "922651eb5b07a0b34af78ba285bc41c43c8dac6c1065a99006147ead034d2e9d",
+  "artefacts": {
+   "warranty.md": "922651eb5b07a0b34af78ba285bc41c43c8dac6c1065a99006147ead034d2e9d"
+  },
+  "recorded": "2026-10-14T18:00:56+13:00",
+  "prev": "a3f61b724a0b380bdd003a3c9fc5b71a51714f4c8e85837933f596f10fac4d0c"
+ },
+ {
+  "id": "e064",
+  "stage": "warrant",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:06:12+13:00",
+  "prev": "94a02ca0fc13167db369844634ba44964922a5ae9836baeaedbb8d81052b419a"
+ },
+ {
+  "id": "e065",
+  "stage": "warrant",
+  "status": "blocked",
+  "check": "outcome",
+  "reason": "review: review blocked on F1 (accept or resolve)",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "pack_sha256": "3c260669e0cf951962ebf93101458cbe97a89621b9c065cc328965981ad99791",
+  "artefacts": {
+   "warranty.md": "3c260669e0cf951962ebf93101458cbe97a89621b9c065cc328965981ad99791"
+  },
+  "recorded": "2026-10-14T18:06:12+13:00",
+  "prev": "980e8592d46e7030b1800df428fea2d3606b3f801ea0249730deafb7769317c0"
+ },
+ {
+  "id": "e066",
+  "stage": "return",
+  "status": "blocked",
+  "check": "outcome",
+  "reason": "returned by Chris Gagn\u00e9: It flags fixed text it shouldn't. Do what the story says: flag only text built at run time, however fixed text happens to be written. Also catch the other easy ways of calling eval the reviewers named.",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "by": "Chris Gagn\u00e9",
+  "request": "It flags fixed text it shouldn't. Do what the story says: flag only text built at run time, however fixed text happens to be written. Also catch the other easy ways of calling eval the reviewers named.",
+  "pack_sha256": "3c260669e0cf951962ebf93101458cbe97a89621b9c065cc328965981ad99791",
+  "recorded": "2026-10-14T18:29:31+13:00",
+  "prev": "cf1c3fcddf79fe09e04a1a0498414db3e0d8fdb4f129567a65cb970727a124e3"
+ },
+ {
+  "id": "e067",
+  "stage": "spec",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:33:37+13:00",
+  "prev": "1297f45c7d95b15ea18a60d39cc77335ffc990524840b53c08ffc1be979b71fc"
+ },
+ {
+  "id": "e068",
+  "stage": "spec",
+  "status": "pass",
+  "check": "leg:spec",
+  "leg": "spec",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/spec/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/spec-brief-lumiu9ur",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.2354584,
+  "turns": 5,
+  "started": "2026-10-14T18:33:37+13:00",
+  "finished": "2026-10-14T18:34:40+13:00",
+  "duration_s": 62.5,
+  "prompt_sha256": "e7b4b6759d88aafa39568ecac66fef2d99fd34c017815f23b7a9a40d8f0fe96f",
+  "output_sha256": "fbff3a8fc3456f31f4a9f74e76eb0866052b85e4d2286dc7f3f0f61db53f47b1",
+  "evidence": [
+   "spec/brief.md",
+   "spec/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "spec/brief.md": "e7b4b6759d88aafa39568ecac66fef2d99fd34c017815f23b7a9a40d8f0fe96f",
+   "spec/leg-log.jsonl": "60a85849aba32fe63abfa10d7ba1d8b95ca82c7e338223ac33f87109901ac4e8"
+  },
+  "recorded": "2026-10-14T18:34:40+13:00",
+  "prev": "f3086e34b2a7cdfd52ea8f5200b676f7a672bb517b68c58c78bfff081e1387f7"
+ },
+ {
+  "id": "e069",
+  "stage": "spec",
+  "status": "info",
+  "check": "amend",
+  "answers": "e066",
+  "added": [
+   "AC-17",
+   "AC-18",
+   "AC-19",
+   "AC-20",
+   "AC-21",
+   "AC-22"
+  ],
+  "recorded": "2026-10-14T18:34:40+13:00",
+  "prev": "d2fcf9e3ead455b8da2dd52078283e37ddcdf47eabb81573077b3b1a9f328b67"
+ },
+ {
+  "id": "e070",
+  "stage": "spec",
+  "status": "pass",
+  "check": "criteria",
+  "criteria": 22,
+  "artefacts": {
+   "acceptance.md": "993b7c5610cc59e9f67704abaa1a3a3ad1d8d757dfb92ef5348c2aa2e1a0270b"
+  },
+  "recorded": "2026-10-14T18:34:40+13:00",
+  "prev": "ccf2c1f0c389007db3be88c21305828cd80cff344fbb7c1a58f52929b8d7d47c"
+ },
+ {
+  "id": "e071",
+  "stage": "spec",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:34:40+13:00",
+  "prev": "758ec268a4f7ffde771aa7c172a16bc1823635cb1514a5b0cc956a2ee634bb32"
+ },
+ {
+  "id": "e072",
+  "stage": "triage",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:34:40+13:00",
+  "prev": "c02bc432c84b8eed8cb932cfe2c923c61ceb0efc770b9b704d87454442e2db65"
+ },
+ {
+  "id": "e073",
+  "stage": "triage",
+  "status": "info",
+  "check": "classes",
+  "phase": "diff",
+  "classes": [
+   "llm-agent"
+  ],
+  "artefacts": {
+   "risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe"
+  },
+  "recorded": "2026-10-14T18:34:40+13:00",
+  "prev": "46eb55f7005c842da1f75c0f4d8d0d7814173d0a836163afc02006e087b9099b"
+ },
+ {
+  "id": "e074",
+  "stage": "triage",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "phase": "diff",
+  "recorded": "2026-10-14T18:34:40+13:00",
+  "prev": "ffe943861a98de9b48e56ff34bb4ccc4dbec3e38c3ee7f9741c695174d150047"
+ },
+ {
+  "id": "e075",
+  "stage": "tests",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:34:40+13:00",
+  "prev": "ceaf398d95de3a924386052c0d821d1ef63f263915fffbc166afb63070782ee9"
+ },
+ {
+  "id": "e076",
+  "stage": "tests",
+  "status": "pass",
+  "check": "suite-before",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 0,
+  "started": "2026-10-14T18:34:40+13:00",
+  "finished": "2026-10-14T18:37:51+13:00",
+  "duration_s": 189.8,
+  "output_tail": "est_triage.py::test_keywords_in_the_story_map_to_classes\nPASSED tests/test_triage.py::test_path_rules_builtin_and_configured\nPASSED tests/test_triage.py::test_planned_classes_are_not_unplanned\nPASSED tests/test_triage.py::test_diff_patterns_outside_tests\nPASSED tests/test_triage.py::test_a_drop_in_a_down_migration_is_the_rollback_not_an_irreversible_step\nPASSED tests/test_triage.py::test_llm_client_imports_beyond_openai_and_anthropic\nPASSED tests/test_triage.py::test_story_keywords_alone_never_block\nPASSED tests/test_triage.py::test_triage_stage_blocks_on_unplanned_class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\n222 passed, 5 skipped in 189.62s (0:03:09)\n",
+  "output_sha256": "0dd7d8e4a939194b89a6cc336b80b1ab01aebc1a52b6533827aee71ba142ac5b",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "tests/suite-before.log"
+  ],
+  "artefacts": {
+   "tests/suite-before.log": "0dd7d8e4a939194b89a6cc336b80b1ab01aebc1a52b6533827aee71ba142ac5b"
+  },
+  "recorded": "2026-10-14T18:37:51+13:00",
+  "prev": "b584063eafc321fdc5ccfe27a98299833d28ff76c7e0a5a3e2a76c1125599492"
+ },
+ {
+  "id": "e077",
+  "stage": "tests",
+  "status": "info",
+  "check": "check-command",
+  "names": [
+   "test"
+  ],
+  "artefacts": {
+   "tests/check.json": "b612cc9b01cda12027d5681544011225d1f4b44108b24a4c887fdb9ecb8cce8d",
+   "tests/check": "1f3d2ddbfb97b497a6ceec27f97382c486b2774ef1dcea59ed60ed6b63dda6a9"
+  },
+  "recorded": "2026-10-14T18:37:51+13:00",
+  "prev": "bdcf363c66e3548b5f016da16bf79e2b32927b212ac763e0cdd02248428daaab"
+ },
+ {
+  "id": "e078",
+  "stage": "tests",
+  "status": "pass",
+  "check": "leg:tests",
+  "leg": "tests",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Bash,Edit,Write,Read,Grep,Glob,NotebookEdit --permission-mode acceptEdits --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/tests/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/tests-brief-gxfz7ce7",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.7022497999999999,
+  "turns": 18,
+  "started": "2026-10-14T18:37:51+13:00",
+  "finished": "2026-10-14T18:40:07+13:00",
+  "duration_s": 136.0,
+  "prompt_sha256": "922e673d29610791a6d055fbe8cd59ee4a8a065f529f0f82621ee179b9299712",
+  "output_sha256": "4c99915da4559718eb823e4bfc76b35fa22fa3e0889236caffc35316e06e32f8",
+  "evidence": [
+   "tests/brief.md",
+   "tests/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "tests/brief.md": "922e673d29610791a6d055fbe8cd59ee4a8a065f529f0f82621ee179b9299712",
+   "tests/leg-log.jsonl": "319d69229edfd5b4407cb4c3ac61fef7373f069433e1e8036595153f72b3ba48"
+  },
+  "recorded": "2026-10-14T18:40:07+13:00",
+  "prev": "ec00c6fe5ea124bd41db891a722a9a0a5931407ed6cb6eafacc9c7fab3d9d257"
+ },
+ {
+  "id": "e079",
+  "stage": "tests",
+  "status": "info",
+  "check": "guard",
+  "blocked_calls": 3,
+  "reasons": [
+   "Blocked command: this leg's shell runs only the factory check, exactly as written: /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forg",
+   "Blocked: /tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/fact"
+  ],
+  "evidence": [
+   "tests/guard.jsonl"
+  ],
+  "artefacts": {
+   "tests/guard.jsonl": "be4eb813f7278280bd2ea906004fe8bf8bd1b31717db2407319af093f431a1db"
+  },
+  "recorded": "2026-10-14T18:40:07+13:00",
+  "prev": "c8e201cc931f57e0a0be69683138df8ce36d0cd65be84ebe6e39402c525f3915"
+ },
+ {
+  "id": "e080",
+  "stage": "tests",
+  "status": "fail",
+  "check": "only-tests",
+  "touched": [],
+  "reason": "the tests leg wrote no test files",
+  "recorded": "2026-10-14T18:40:07+13:00",
+  "prev": "ed50989569dcfad80c5b9e9ef73da8666e5102aab46314af2faa1cb7918080fd"
+ },
+ {
+  "id": "e081",
+  "stage": "tests",
+  "status": "blocked",
+  "check": "outcome",
+  "reason": "the tests leg wrote no test files",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:40:07+13:00",
+  "prev": "29f54459182949a7201cc9dbd1284d65e7931f8a20e129597669d922752d715f"
+ },
+ {
+  "id": "e082",
+  "stage": "spec",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:49:51+13:00",
+  "prev": "3bc0ae8964e86be151cbf1b50462d9726e5f9aeb2d221c88dd06d40e4c64d2cf"
+ },
+ {
+  "id": "e083",
+  "stage": "spec",
+  "status": "pass",
+  "check": "leg:spec",
+  "leg": "spec",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/spec/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/spec-brief-ra24br68",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.1541628,
+  "turns": 4,
+  "started": "2026-10-14T18:49:51+13:00",
+  "finished": "2026-10-14T18:50:35+13:00",
+  "duration_s": 43.1,
+  "prompt_sha256": "bcbe1b5bb8cb481e949e5efb7136a1f2df80c72b449b1a6159e5c429103e735d",
+  "output_sha256": "1b703d2cab2c79897e38cf452744d8901bfb0aa32d00be5252f687b317d830b0",
+  "evidence": [
+   "spec/brief.md",
+   "spec/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "spec/brief.md": "bcbe1b5bb8cb481e949e5efb7136a1f2df80c72b449b1a6159e5c429103e735d",
+   "spec/leg-log.jsonl": "8c645c3b66dda1eaab4a0af8c0349bb637830dcfcd063d975365fa108193820d"
+  },
+  "recorded": "2026-10-14T18:50:35+13:00",
+  "prev": "b81c010e2f0819b80753ea820207f4d5e6633d4ff4a94b0bc582450b7e2123f3"
+ },
+ {
+  "id": "e084",
+  "stage": "spec",
+  "status": "info",
+  "check": "amend",
+  "answers": "e066",
+  "added": [
+   "AC-17",
+   "AC-18",
+   "AC-19",
+   "AC-20",
+   "AC-21",
+   "AC-22"
+  ],
+  "recorded": "2026-10-14T18:50:35+13:00",
+  "prev": "3f645edbd7a01a145effcb6a55d93dd6af3baafa3a003713c10fac36176ef719"
+ },
+ {
+  "id": "e085",
+  "stage": "spec",
+  "status": "pass",
+  "check": "criteria",
+  "criteria": 22,
+  "artefacts": {
+   "acceptance.md": "f4299d17359871d0a86e4e6fbeba1cbca5c7abcb483f2360e9a922e03f977849"
+  },
+  "recorded": "2026-10-14T18:50:35+13:00",
+  "prev": "9b67d94cc380c1329d716ffabaf293c7cffc5bef22a4bd4d0a11b8a57250325f"
+ },
+ {
+  "id": "e086",
+  "stage": "spec",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:50:35+13:00",
+  "prev": "a7040282f3b3eaec7e034231ad3394914fa22ec10227b9ad4acd3615b453a123"
+ },
+ {
+  "id": "e087",
+  "stage": "triage",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:50:35+13:00",
+  "prev": "33ce036b5fa9a6927dfb47791988191277affe8deb5724581697337c7922424d"
+ },
+ {
+  "id": "e088",
+  "stage": "triage",
+  "status": "info",
+  "check": "classes",
+  "phase": "diff",
+  "classes": [
+   "llm-agent"
+  ],
+  "artefacts": {
+   "risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe"
+  },
+  "recorded": "2026-10-14T18:50:35+13:00",
+  "prev": "3926903b89df29b0aeb7b649b73f90ab809aa825c4a883491ba2f1c2a306f6d1"
+ },
+ {
+  "id": "e089",
+  "stage": "triage",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "phase": "diff",
+  "recorded": "2026-10-14T18:50:35+13:00",
+  "prev": "50e0e12ebb18b3d16cbedf834bd63b03ef19b0c11400b0ea1fd37c00fa82d0a0"
+ },
+ {
+  "id": "e090",
+  "stage": "tests",
+  "status": "info",
+  "check": "start",
+  "commit": "adc6b0571c18076d5205fbd213711a7ee638a1b5",
+  "tree": "1b6aa5cd41459c5e4e5cf61243715446afcb79ce",
+  "clean": true,
+  "recorded": "2026-10-14T18:50:35+13:00",
+  "prev": "14a1a58fac6a7e6fe442eec3ad411bfa064f20cef2ce20cd307c98c5f9d6cdb3"
+ },
+ {
+  "id": "e091",
+  "stage": "tests",
+  "status": "pass",
+  "check": "suite-before",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 0,
+  "started": "2026-10-14T18:50:35+13:00",
+  "finished": "2026-10-14T18:53:53+13:00",
+  "duration_s": 197.4,
+  "output_tail": "est_triage.py::test_keywords_in_the_story_map_to_classes\nPASSED tests/test_triage.py::test_path_rules_builtin_and_configured\nPASSED tests/test_triage.py::test_planned_classes_are_not_unplanned\nPASSED tests/test_triage.py::test_diff_patterns_outside_tests\nPASSED tests/test_triage.py::test_a_drop_in_a_down_migration_is_the_rollback_not_an_irreversible_step\nPASSED tests/test_triage.py::test_llm_client_imports_beyond_openai_and_anthropic\nPASSED tests/test_triage.py::test_story_keywords_alone_never_block\nPASSED tests/test_triage.py::test_triage_stage_blocks_on_unplanned_class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\n222 passed, 5 skipped in 197.19s (0:03:17)\n",
+  "output_sha256": "8466d9c22e15e985d17a8a28ba78985ee0fc46f75e05f05cc5648c1e9ce5f26a",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "tests/suite-before.log"
+  ],
+  "artefacts": {
+   "tests/suite-before.log": "8466d9c22e15e985d17a8a28ba78985ee0fc46f75e05f05cc5648c1e9ce5f26a"
+  },
+  "recorded": "2026-10-14T18:53:53+13:00",
+  "prev": "26f1476a5064a73a4f1299d106ab335e318a57ac69c1f01169ab29ffe325c2fb"
+ },
+ {
+  "id": "e092",
+  "stage": "tests",
+  "status": "info",
+  "check": "check-command",
+  "names": [
+   "test"
+  ],
+  "artefacts": {
+   "tests/check.json": "b612cc9b01cda12027d5681544011225d1f4b44108b24a4c887fdb9ecb8cce8d",
+   "tests/check": "1f3d2ddbfb97b497a6ceec27f97382c486b2774ef1dcea59ed60ed6b63dda6a9"
+  },
+  "recorded": "2026-10-14T18:53:53+13:00",
+  "prev": "b305bddc0f86ddca967bbc3bfd4aa4dd29ed9f3d0bbac1b697f7e60530b6c6c2"
+ },
+ {
+  "id": "e093",
+  "stage": "tests",
+  "status": "pass",
+  "check": "leg:tests",
+  "leg": "tests",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Bash,Edit,Write,Read,Grep,Glob,NotebookEdit --permission-mode acceptEdits --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/tests/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/tests-brief-0ouy2b2r",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.5544036000000001,
+  "turns": 13,
+  "started": "2026-10-14T18:53:53+13:00",
+  "finished": "2026-10-14T18:58:43+13:00",
+  "duration_s": 289.2,
+  "prompt_sha256": "5cba9c139bc61bce1fd0ebe3aa7a442b97ce17902ec0297ddf6ed4e35194593b",
+  "output_sha256": "35cdf6248123e4919c2dc5f2a3a5a8ee3915061ac363855a51e577baea934e02",
+  "evidence": [
+   "tests/brief.md",
+   "tests/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "tests/brief.md": "5cba9c139bc61bce1fd0ebe3aa7a442b97ce17902ec0297ddf6ed4e35194593b",
+   "tests/leg-log.jsonl": "350fef26bcf656af4cd1572be1c7daa95fc4927e4c2f512593c79f2a17de73f7"
+  },
+  "recorded": "2026-10-14T18:58:43+13:00",
+  "prev": "7ed0eba39857fb663697f9f5da903d49d84db7db43a9ea8571dae1d9bed647ac"
+ },
+ {
+  "id": "e094",
+  "stage": "tests",
+  "status": "info",
+  "check": "guard",
+  "blocked_calls": 1,
+  "reasons": [
+   "Blocked command: this leg's shell runs only the factory check, exactly as written: /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forg"
+  ],
+  "evidence": [
+   "tests/guard.jsonl"
+  ],
+  "artefacts": {
+   "tests/guard.jsonl": "76c264c5244b9dbc87efda6ae12e9caccbf74adfb35d7ca94636a4542dc1e3e1"
+  },
+  "recorded": "2026-10-14T18:58:43+13:00",
+  "prev": "42db25d4a0d63957fa2487cf3f57b2ea7561f4d3a70358e8c3c7755bc1adc1b5"
+ },
+ {
+  "id": "e095",
+  "stage": "tests",
+  "status": "pass",
+  "check": "scan",
+  "note": "invisible characters, secrets and semgrep on the tests leg's work",
+  "recorded": "2026-10-14T18:58:45+13:00",
+  "prev": "d24998bdf32d765df6acb88c3ec7b2d8c9be0511aef49a1886c0db13b3305ea8"
+ },
+ {
+  "id": "e096",
+  "stage": "tests",
+  "status": "fail",
+  "check": "new-tests",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 1,
+  "started": "2026-10-14T18:58:45+13:00",
+  "finished": "2026-10-14T19:02:06+13:00",
+  "duration_s": 199.7,
+  "output_tail": "class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\nFAILED tests/test_eval_rule_after_send_back.py::test_python_fixed_text_in_any_literal_form_is_not_flagged\nFAILED tests/test_eval_rule_after_send_back.py::test_js_other_ways_of_calling_eval_on_a_built_string_are_flagged\nFAILED tests/test_eval_rule_after_send_back.py::test_python_builtins_eval_and_exec_of_a_built_string_are_flagged\nFAILED tests/test_eval_rule_after_send_back.py::test_gate_sast_passes_on_eval_of_fixed_text_in_any_literal_form\nFAILED tests/test_eval_rule_after_send_back.py::test_gate_sast_fails_on_an_added_qualified_eval_or_exec_of_a_variable\n5 failed, 223 passed, 5 skipped in 199.48s (0:03:19)\n",
+  "output_sha256": "48203e771e733043107a2a5b5400057b3d9c27267961b76448469c656432d678",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "tests/new-tests.log"
+  ],
+  "artefacts": {
+   "tests/new-tests.log": "48203e771e733043107a2a5b5400057b3d9c27267961b76448469c656432d678"
+  },
+  "reason": "exit 1",
+  "recorded": "2026-10-14T19:02:06+13:00",
+  "prev": "9aaf7f44555e7c90d320893fc24f1386c003bff9006958a1ba8bc8202b9fa101"
+ },
+ {
+  "id": "e097",
+  "stage": "tests",
+  "status": "pass",
+  "check": "red",
+  "note": "the suite fails with the new tests (event e096), as it must before the build",
+  "recorded": "2026-10-14T19:02:06+13:00",
+  "prev": "2a96414aa9acb402a60b67a23de36090e0c7fe9cb3eb46bfffb2966c15f50cbc"
+ },
+ {
+  "id": "e098",
+  "stage": "tests",
+  "status": "info",
+  "check": "lock",
+  "files": 22,
+  "lock_commit": "27083bd788c113f2b110db283fa79c72d4d7558a",
+  "artefacts": {
+   "tests.lock": "54c2b443eb06506e67cca19a2e77d0f7017d602c32fc885e169abe862f8ce956"
+  },
+  "recorded": "2026-10-14T19:02:06+13:00",
+  "prev": "2aca2f882263ea34171f25c0d2d8cc6f558d8320284199c2971bedcbdee9db78"
+ },
+ {
+  "id": "e099",
+  "stage": "tests",
+  "status": "info",
+  "check": "acceptance-locked",
+  "artefacts": {
+   "tests/acceptance-locked.md": "f4299d17359871d0a86e4e6fbeba1cbca5c7abcb483f2360e9a922e03f977849"
+  },
+  "recorded": "2026-10-14T19:02:06+13:00",
+  "prev": "e30e14419ff528d7b736353cf0c076a45a1b5247651ba4aa1a0831d0df5e5632"
+ },
+ {
+  "id": "e100",
+  "stage": "tests",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "27083bd788c113f2b110db283fa79c72d4d7558a",
+  "tree": "e99b90a38b6cb73b99e220f558006eecab71c268",
+  "clean": true,
+  "recorded": "2026-10-14T19:02:06+13:00",
+  "prev": "7429263e857259b2e8dca0927824db493542d479fef52ac85a9493527c226751"
+ },
+ {
+  "id": "e101",
+  "stage": "build",
+  "status": "info",
+  "check": "start",
+  "commit": "27083bd788c113f2b110db283fa79c72d4d7558a",
+  "tree": "e99b90a38b6cb73b99e220f558006eecab71c268",
+  "clean": true,
+  "recorded": "2026-10-14T19:02:06+13:00",
+  "prev": "22a976b35c0737885f4335b9c7d4990b18eb009de00c5de93974b941d5cf5bf6"
+ },
+ {
+  "id": "e102",
+  "stage": "build",
+  "status": "info",
+  "check": "check-command",
+  "names": [
+   "test"
+  ],
+  "artefacts": {
+   "build/check.json": "30a9f6ce7ace45404ce9a47e084ab15354d39db9d54e4f44f08e1f682da5c418",
+   "build/check": "8c0be2676f09685c8ae0b9fe364e5fb256ca8a134278a73a7cbc2658955bc666"
+  },
+  "recorded": "2026-10-14T19:02:06+13:00",
+  "prev": "34beb734f64fa55786a3681a2c93544232bc845a17f61e76ec7ce8d422734a51"
+ },
+ {
+  "id": "e103",
+  "stage": "build",
+  "status": "pass",
+  "check": "leg:build",
+  "leg": "build",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Bash,Edit,Write,Read,Grep,Glob,NotebookEdit --permission-mode acceptEdits --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/build/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/build-brief-3hpp3m00",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.6807016000000001,
+  "turns": 9,
+  "started": "2026-10-14T19:02:06+13:00",
+  "finished": "2026-10-14T19:07:54+13:00",
+  "duration_s": 347.5,
+  "prompt_sha256": "cf998fae7b69f9e8b8d585cea20e799fc69d46761ae3e5e17d7b1129640144c5",
+  "output_sha256": "39ae3b42d986c97ce108887f0a595b40067cfd65b282a509141739e874435dbd",
+  "evidence": [
+   "build/brief.md",
+   "build/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "build/brief.md": "cf998fae7b69f9e8b8d585cea20e799fc69d46761ae3e5e17d7b1129640144c5",
+   "build/leg-log.jsonl": "c1f718b6145ef8dfbfa269f224e4f4f01f83e4c3d27bdbd004b60648e600468d"
+  },
+  "recorded": "2026-10-14T19:07:54+13:00",
+  "prev": "ae9553e5a5672bf68f6367ac59c2dd0707ccfa597b7399277c0386d00aa6a62f"
+ },
+ {
+  "id": "e104",
+  "stage": "build",
+  "status": "info",
+  "check": "builder-summary",
+  "note": "the builder's own account: asserted, not evidence",
+  "artefacts": {
+   "builder-summary.md": "39ae3b42d986c97ce108887f0a595b40067cfd65b282a509141739e874435dbd"
+  },
+  "recorded": "2026-10-14T19:07:54+13:00",
+  "prev": "029830a1c4b2886823f7d40b2becec6d413fdae845adc844155c264f38b0a0a7"
+ },
+ {
+  "id": "e105",
+  "stage": "build",
+  "status": "info",
+  "check": "commit",
+  "head": "993660146ccae934e7e553267da83e83f4b8c373",
+  "files": [
+   "factory/rules/semgrep/eval-of-built-strings.yml"
+  ],
+  "recorded": "2026-10-14T19:07:54+13:00",
+  "prev": "31f7f9fc1a4761982de061c0ce34fa02b34844370977e9909873b72a00040f4b"
+ },
+ {
+  "id": "e106",
+  "stage": "build",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:07:54+13:00",
+  "prev": "35ea79b8b301c242a6a39aed4f0a6c583b574fb8997fe7749d75337f97dbf346"
+ },
+ {
+  "id": "e107",
+  "stage": "triage",
+  "status": "info",
+  "check": "start",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:07:54+13:00",
+  "prev": "ed0f693dc7976d0fa909963a635e844163600cffe3fd208ff752a8ea6cde4d4c"
+ },
+ {
+  "id": "e108",
+  "stage": "triage",
+  "status": "info",
+  "check": "classes",
+  "phase": "diff",
+  "classes": [
+   "llm-agent"
+  ],
+  "artefacts": {
+   "risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe"
+  },
+  "recorded": "2026-10-14T19:07:54+13:00",
+  "prev": "b5fc9fad96c1359de2a492f2816bfeb7323b36fd7389d91ee5c0cdc6543322b2"
+ },
+ {
+  "id": "e109",
+  "stage": "triage",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "phase": "diff",
+  "recorded": "2026-10-14T19:07:54+13:00",
+  "prev": "15d718d0c650bceb130ffa283d4f028d6bb6fbad664702f49f99d81aad88d56b"
+ },
+ {
+  "id": "e110",
+  "stage": "gate",
+  "status": "info",
+  "check": "start",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:07:54+13:00",
+  "prev": "dba2c03f83b5e52bb0e253ecda75eecf08fcf28fa19a6ee7fc0ea2bd19054d62"
+ },
+ {
+  "id": "e111",
+  "stage": "gate",
+  "status": "info",
+  "check": "tools",
+  "tools": [
+   {
+    "name": "gitleaks",
+    "path": "/opt/homebrew/Cellar/gitleaks/8.30.1/bin/gitleaks",
+    "version": "gitleaks version 8.30.1",
+    "sha256": "f414bc2fb952be6c9072b75cb411e3368614ef4b16d48dbd9ad238034afd2302"
+   },
+   {
+    "name": "osv-scanner",
+    "path": "/opt/homebrew/Cellar/osv-scanner/2.6.0/bin/osv-scanner",
+    "version": "osv-scanner version: 2.6.0",
+    "sha256": "60a7bf0b7981a6542e0df2f144d621736d4181852c18a10305169d1cd81a8889"
+   },
+   {
+    "name": "semgrep",
+    "path": "/opt/homebrew/Cellar/semgrep/1.180.0/libexec/bin/semgrep",
+    "version": "1.180.0",
+    "sha256": "fb9ac434aa9c553b67cd491c17658623a877f773a87d3401907a0242ca92cc58"
+   }
+  ],
+  "recorded": "2026-10-14T19:07:55+13:00",
+  "prev": "b8394552a58e42d2498334285feed1657fc8c0a860e382b6db2e1475cea20596"
+ },
+ {
+  "id": "e112",
+  "stage": "gate",
+  "status": "pass",
+  "check": "locked-tests",
+  "locked": 22,
+  "lock_sha256": "54c2b443eb06506e67cca19a2e77d0f7017d602c32fc885e169abe862f8ce956",
+  "recorded": "2026-10-14T19:07:55+13:00",
+  "prev": "bdeb1716fbb21ed3f6f8accd5fb9aec964c852dd70eb3798bd3520efe6677085"
+ },
+ {
+  "id": "e113",
+  "stage": "gate",
+  "status": "pass",
+  "check": "secrets",
+  "cmd": "gitleaks git --no-banner --redact --ignore-gitleaks-allow --log-opts=d2a55a5e6b8db26811d7f0032828525c75ff65d3..HEAD --report-format json --report-path /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/gate/gitleaks.json .",
+  "exit": 0,
+  "started": "2026-10-14T19:07:55+13:00",
+  "finished": "2026-10-14T19:07:55+13:00",
+  "duration_s": 0.1,
+  "output_tail": "\u001b[90m7:07PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mUnknown SCM platform. Use --platform to include links in findings.\u001b[0m \u001b[36mhost=\u001b[0m\n\u001b[90m7:07PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1m4 commits scanned.\u001b[0m\n\u001b[90m7:07PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mscanned ~21222 bytes (21.22 KB) in 53.5ms\u001b[0m\n\u001b[90m7:07PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mno leaks found\u001b[0m\n",
+  "output_sha256": "5a2575d15d433156a53fb3634d3605c091949a52d52359d3728a3f67eea2a443",
+  "sandbox": "none",
+  "evidence": [
+   "gate/secrets.log"
+  ],
+  "artefacts": {
+   "gate/secrets.log": "5a2575d15d433156a53fb3634d3605c091949a52d52359d3728a3f67eea2a443"
+  },
+  "recorded": "2026-10-14T19:07:55+13:00",
+  "prev": "cfe5b57938122cd54228b4a58ca15e71c52d9cf9cf1454e3823b042c652147ea"
+ },
+ {
+  "id": "e114",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "deps",
+  "reason": "the change touches no lockfile",
+  "applies": false,
+  "recorded": "2026-10-14T19:07:55+13:00",
+  "prev": "8ec2845c67ddcefe36734056910e5287ae787f8c60db0f4989e5034f5ee09046"
+ },
+ {
+  "id": "e115",
+  "stage": "gate",
+  "status": "pass",
+  "check": "sast-scan",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet --severity ERROR --severity WARNING -- ./factory/rules/semgrep/eval-of-built-strings.yml ./tests/test_check.py ./tests/test_eval_rule_after_send_back.py ./tests/test_gate_hardening.py ./tests/test_pinned_eval_rule.py",
+  "exit": 0,
+  "started": "2026-10-14T19:07:55+13:00",
+  "finished": "2026-10-14T19:07:58+13:00",
+  "duration_s": 2.9,
+  "output_tail": ",\"cwe2022-top25\":true,\"subcategory\":[\"audit\"],\"likelihood\":\"LOW\",\"impact\":\"HIGH\",\"license\":\"Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license\",\"vulnerability_class\":[\"Code Injection\"],\"source\":\"https://semgrep.dev/r/generic.unicode.security.bidi.contains-bidirectional-characters\",\"shortlink\":\"https://sg.run/nK4r\"},\"severity\":\"WARNING\",\"fingerprint\":\"requires login\",\"lines\":\"requires login\",\"validation_state\":\"NO_VALIDATOR\",\"engine_kind\":\"OSS\"}}],\"errors\":[],\"paths\":{\"scanned\":[\"factory/rules/semgrep/eval-of-built-strings.yml\",\"tests/test_check.py\",\"tests/test_eval_rule_after_send_back.py\",\"tests/test_gate_hardening.py\",\"tests/test_pinned_eval_rule.py\"]},\"time\":{\"rules\":[],\"rules_parse_time\":0.2718319892883301,\"profiling_times\":{\"config_time\":1.2448861598968506,\"core_time\":0.6100378036499023,\"ignores_time\":0.0009112358093261719,\"total_time\":1.8654811382293701},\"parsing_time\":{\"total_time\":0.0,\"per_file_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"scanning_time\":{\"total_time\":0.3695645332336426,\"per_file_time\":{\"mean\":0.024637635548909506,\"std_dev\":0.0017479013955416023},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"matching_time\":{\"total_time\":0.0,\"per_file_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_files\":[]},\"tainting_time\":{\"total_time\":0.0,\"per_def_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_defs\":[]},\"fixpoint_timeouts\":[],\"prefiltering\":{\"project_level_time\":0.0,\"file_level_time\":0.0,\"rules_with_project_prefilters_ratio\":0.0,\"rules_with_file_prefilters_ratio\":0.9642560266001663,\"rules_selected_ratio\":0.08229426433915212,\"rules_matched_ratio\":0.08229426433915212},\"targets\":[],\"total_bytes\":0,\"max_memory_bytes\":726285632},\"engine_requested\":\"OSS\",\"skipped_rules\":[],\"profiling_results\":[]}\n",
+  "output_sha256": "bdb9b25cb9c2f91e326f3943fefa6cf5dade37d7d99c6b3c18a0e1550d0c8a18",
+  "sandbox": "none",
+  "evidence": [
+   "gate/sast-scan.log"
+  ],
+  "artefacts": {
+   "gate/sast-scan.log": "bdb9b25cb9c2f91e326f3943fefa6cf5dade37d7d99c6b3c18a0e1550d0c8a18"
+  },
+  "recorded": "2026-10-14T19:07:58+13:00",
+  "prev": "68092d140f70268f531efafb7464ea98e11bff5057ffa9e537df0063bb58b2f1"
+ },
+ {
+  "id": "e116",
+  "stage": "gate",
+  "status": "pass",
+  "check": "sast",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet --severity ERROR --severity WARNING -- ./factory/rules/semgrep/eval-of-built-strings.yml ./tests/test_check.py ./tests/test_eval_rule_after_send_back.py ./tests/test_gate_hardening.py ./tests/test_pinned_eval_rule.py",
+  "after_event": "e115",
+  "evidence": [
+   "gate/sast-scan.log"
+  ],
+  "preexisting": 1,
+  "note": "no finding on an added line; 1 finding(s) already in the touched files",
+  "recorded": "2026-10-14T19:07:58+13:00",
+  "prev": "13f1c9ed301c96b6f1076c78cdaf5d9f683a0103f2119e2dca600aa3bd31663f"
+ },
+ {
+  "id": "e117",
+  "stage": "gate",
+  "status": "pass",
+  "check": "invisible",
+  "note": "no invisible or control characters added",
+  "recorded": "2026-10-14T19:07:58+13:00",
+  "prev": "39408a0841593d6c9525de6d546965d68648204d427deed42c1689795b198cf6"
+ },
+ {
+  "id": "e118",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "install",
+  "reason": "commands.install is not configured",
+  "recorded": "2026-10-14T19:07:58+13:00",
+  "prev": "707add713970b97c518bd6803c1221dba9704fc868956c9a5557334256327b1e"
+ },
+ {
+  "id": "e119",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "typecheck",
+  "reason": "commands.typecheck is not configured",
+  "recorded": "2026-10-14T19:07:58+13:00",
+  "prev": "7e252f928912e59b5807a6448db4c5b3913f36601772da583e997ed7c92a8fd0"
+ },
+ {
+  "id": "e120",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "lint",
+  "reason": "commands.lint is not configured",
+  "recorded": "2026-10-14T19:07:58+13:00",
+  "prev": "a35484b0a314fc61483083bb1d4ed200a3609d78626532a356099e03455a975a"
+ },
+ {
+  "id": "e121",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "build",
+  "reason": "commands.build is not configured",
+  "recorded": "2026-10-14T19:07:58+13:00",
+  "prev": "061d1a900df2a0a551482724b9860816b45b7ca71e3b56a90d4113faafd391ea"
+ },
+ {
+  "id": "e122",
+  "stage": "gate",
+  "status": "pass",
+  "check": "tests",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 0,
+  "started": "2026-10-14T19:07:58+13:00",
+  "finished": "2026-10-14T19:11:18+13:00",
+  "duration_s": 199.1,
+  "output_tail": "est_triage.py::test_keywords_in_the_story_map_to_classes\nPASSED tests/test_triage.py::test_path_rules_builtin_and_configured\nPASSED tests/test_triage.py::test_planned_classes_are_not_unplanned\nPASSED tests/test_triage.py::test_diff_patterns_outside_tests\nPASSED tests/test_triage.py::test_a_drop_in_a_down_migration_is_the_rollback_not_an_irreversible_step\nPASSED tests/test_triage.py::test_llm_client_imports_beyond_openai_and_anthropic\nPASSED tests/test_triage.py::test_story_keywords_alone_never_block\nPASSED tests/test_triage.py::test_triage_stage_blocks_on_unplanned_class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\n228 passed, 5 skipped in 198.83s (0:03:18)\n",
+  "output_sha256": "4cba3659619167ee0e55e5abfdd768e6d68ffcd42630689e799adabce9e7e5f7",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "gate/tests.log"
+  ],
+  "artefacts": {
+   "gate/tests.log": "4cba3659619167ee0e55e5abfdd768e6d68ffcd42630689e799adabce9e7e5f7"
+  },
+  "recorded": "2026-10-14T19:11:18+13:00",
+  "prev": "632b6ac4a3b341178f0b9c529866997fa361ebcf3019235f1ffe2c2ad2a29f98"
+ },
+ {
+  "id": "e123",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "perf",
+  "reason": "commands.perf is not configured",
+  "recorded": "2026-10-14T19:11:18+13:00",
+  "prev": "3c2829e99d1b9717f9c3459da4e9bf537803631d6999c99509b1dfdcc772f289"
+ },
+ {
+  "id": "e124",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "rollback",
+  "applies": false,
+  "reason": "no class in risk.json requires a rollback (no migration or irreversible path or pattern)",
+  "recorded": "2026-10-14T19:11:18+13:00",
+  "prev": "3179002eb5747dbff96269f016d861f6a01d2056c2148fefbd874df6715ad639"
+ },
+ {
+  "id": "e125",
+  "stage": "gate",
+  "status": "pass",
+  "check": "surface",
+  "note": "the change edits no test-runner, scanner or agent-instruction file",
+  "recorded": "2026-10-14T19:11:18+13:00",
+  "prev": "fb12bb89316894947093342c66d0d264e2940990f0331bd8ced76eeb77c3b8e2"
+ },
+ {
+  "id": "e126",
+  "stage": "gate",
+  "status": "pass",
+  "check": "added-tests",
+  "note": "the build added no test files",
+  "recorded": "2026-10-14T19:11:19+13:00",
+  "prev": "f958c2d3bf7629c963085714421fd19f28849407cf89e44668d63e2bea0164b2"
+ },
+ {
+  "id": "e127",
+  "stage": "gate",
+  "status": "pass",
+  "check": "ratchet:semgrep_findings",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet -- .",
+  "mode": "absolute",
+  "before": 4,
+  "after": 4,
+  "runs": {
+   "baseline": {
+    "count": 4,
+    "exit": 0,
+    "output_sha256": "7b85cdad0c1e517ab517a4ed0c175601aba499817571fb484368170a5217f957",
+    "log": "gate/ratchet-semgrep_findings-baseline.json",
+    "errors": 0,
+    "problem": null
+   },
+   "after": {
+    "count": 4,
+    "exit": 0,
+    "output_sha256": "c5b47b1c93b22ad62803de43f3059f50a768b92e9cc96f661e1327410cb4a743",
+    "log": "gate/ratchet-semgrep_findings-after.json",
+    "errors": 0,
+    "problem": null
+   }
+  },
+  "evidence": [
+   "gate/ratchet-semgrep_findings-baseline.json",
+   "gate/ratchet-semgrep_findings-after.json"
+  ],
+  "artefacts": {
+   "gate/ratchet-semgrep_findings-baseline.json": "7b85cdad0c1e517ab517a4ed0c175601aba499817571fb484368170a5217f957",
+   "gate/ratchet-semgrep_findings-after.json": "c5b47b1c93b22ad62803de43f3059f50a768b92e9cc96f661e1327410cb4a743"
+  },
+  "recorded": "2026-10-14T19:11:29+13:00",
+  "prev": "ae65593c5748e2229514e72ad173e7797209fd1473f2ace9fbced7d7a17aacae"
+ },
+ {
+  "id": "e128",
+  "stage": "gate",
+  "status": "pass",
+  "check": "required",
+  "recorded": "2026-10-14T19:11:29+13:00",
+  "prev": "4c8064feaccec6a5ea31ab82cc667bc38c04dba371ebc6165fe0789fd490763d"
+ },
+ {
+  "id": "e129",
+  "stage": "gate",
+  "status": "pass",
+  "check": "unchanged",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:11:29+13:00",
+  "prev": "1e46117fa024500ba25bdfbb1aa1b67ac956dcb6a0a9e7cc112fb62920efd13b"
+ },
+ {
+  "id": "e130",
+  "stage": "gate",
+  "status": "info",
+  "check": "theory-doc",
+  "path": "DESIGN.md",
+  "exists": true,
+  "changed": false,
+  "doc_sha256": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a",
+  "recorded": "2026-10-14T19:11:29+13:00",
+  "prev": "901da1a2d617d69ce3092b598c11c4f7c35169bdefdf9c62fc23c1d4f8f44548"
+ },
+ {
+  "id": "e131",
+  "stage": "gate",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:11:29+13:00",
+  "prev": "2ca4277b094b41bba0349e316fe9e9de0d444d9aba53b5acb444ed15b81376b0"
+ },
+ {
+  "id": "e132",
+  "stage": "review",
+  "status": "info",
+  "check": "start",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:11:29+13:00",
+  "prev": "7eac3a065089e3f6a63c3420264e2b070f6ee42a7439d0be750baa9cc38b7b90"
+ },
+ {
+  "id": "e133",
+  "stage": "review",
+  "status": "info",
+  "check": "tools",
+  "tools": [
+   {
+    "name": "claude",
+    "path": "/Users/cgagne/.local/share/claude/versions/2.1.288",
+    "version": "2.1.288 (Claude Code)",
+    "sha256": "bbe93063f7a0879a1021b2891e5c9354e5b3b98433e32efe6750f7710afed750"
+   },
+   {
+    "name": "codex",
+    "path": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+    "version": "codex-cli 0.162.0-alpha.17.2",
+    "sha256": "0d5ac7aae20c4eda6242428d5e218c55ba96d8763fda2a271088ff37104b9d28"
+   }
+  ],
+  "recorded": "2026-10-14T19:11:30+13:00",
+  "prev": "dc70d7b5de678b8965ce13be20f9de00064e05db7460b4479f655b9d0996b92b"
+ },
+ {
+  "id": "e134",
+  "stage": "review",
+  "status": "info",
+  "check": "packet",
+  "grounding": "seeds",
+  "axis_rows": 27,
+  "theory_doc": "DESIGN.md",
+  "artefacts": {
+   "review/packet-claude/acceptance.md": "f4299d17359871d0a86e4e6fbeba1cbca5c7abcb483f2360e9a922e03f977849",
+   "review/packet-claude/axis-rows.md": "1824cfa53f8daee14897a9aebb539feede3bda9f32f5ac69c56d2b40ac8e887d",
+   "review/packet-claude/brief.md": "cf4a62229a03d0c17cd0cb001101ab851bb66508bae023ca18c33126748ea9e3",
+   "review/packet-claude/diff.patch": "090d937da674e7fff631c45a5b49801b8ec3e92bcf939226472858546a12a53b",
+   "review/packet-claude/risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe",
+   "review/packet-claude/theory.md": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a",
+   "review/packet-codex/acceptance.md": "f4299d17359871d0a86e4e6fbeba1cbca5c7abcb483f2360e9a922e03f977849",
+   "review/packet-codex/axis-rows.md": "1824cfa53f8daee14897a9aebb539feede3bda9f32f5ac69c56d2b40ac8e887d",
+   "review/packet-codex/brief.md": "885827bfdcca13a1b1c3b1031f2a5ab8e1f454912428ee13668a7d9515218294",
+   "review/packet-codex/diff.patch": "090d937da674e7fff631c45a5b49801b8ec3e92bcf939226472858546a12a53b",
+   "review/packet-codex/risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe",
+   "review/packet-codex/theory.md": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a"
+  },
+  "recorded": "2026-10-14T19:11:30+13:00",
+  "prev": "b5b850f075c0e612317593c1c51c36dd82c0e9c3deb560c98b641aaf714bc4ce"
+ },
+ {
+  "id": "e135",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:reviewer-claude",
+  "leg": "reviewer-claude",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/review/reviewer-claude-settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-_djqslhc/claude/packet --json-schema '{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"findings\"], \"properties\": {\"findings\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"severity\", \"claim\", \"evidence\"], \"properties\": {\"severity\": {\"type\": \"string\", \"enum\": [\"critical\", \"high\", \"medium\", \"low\"]}, \"file\": {\"type\": \"string\"}, \"line\": {\"type\": \"integer\"}, \"claim\": {\"type\": \"string\"}, \"evidence\": {\"type\": \"string\"}, \"axis_row\": {\"type\": \"string\"}}}}}}'",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.7066167999999998,
+  "turns": 15,
+  "started": "2026-10-14T19:11:30+13:00",
+  "finished": "2026-10-14T19:13:19+13:00",
+  "duration_s": 108.1,
+  "prompt_sha256": "cf4a62229a03d0c17cd0cb001101ab851bb66508bae023ca18c33126748ea9e3",
+  "output_sha256": "ad836ad35f9526ab7a20e833e86a73ef68ebc3b0b3ee86c134ae2438f21707e9",
+  "evidence": [
+   "review/packet-claude/brief.md",
+   "review/claude-log.jsonl"
+  ],
+  "artefacts": {
+   "review/packet-claude/brief.md": "cf4a62229a03d0c17cd0cb001101ab851bb66508bae023ca18c33126748ea9e3",
+   "review/claude-log.jsonl": "4c3673938ecb861e1a56bf87136faffa2aff27d49dcdd775d70621cf42ed935b"
+  },
+  "recorded": "2026-10-14T19:13:21+13:00",
+  "prev": "4134ae10324a4d23e4fa54867cbee7894236e25b5f538ba8b712168d07812b3c"
+ },
+ {
+  "id": "e136",
+  "stage": "review",
+  "status": "info",
+  "check": "findings:claude",
+  "count": 4,
+  "artefacts": {
+   "review/findings-claude.json": "f4c94065b315ec57945becb3ffd7d67978fb4127b4d5df0c8ceb7dcc38306ef6"
+  },
+  "recorded": "2026-10-14T19:13:21+13:00",
+  "prev": "987abaad2ba8e78090a73c88c8f6f2b47ab7a2e8677f75dd7f43b5d7ccb403f2"
+ },
+ {
+  "id": "e137",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:reviewer-codex",
+  "leg": "reviewer-codex",
+  "family": "codex",
+  "cmd": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex exec -m gpt-6.1-sol -s read-only --skip-git-repo-check --ephemeral --ignore-user-config -C /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-_djqslhc/codex/export -o /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-_djqslhc/codex/logs/codex-final.md --output-schema /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-_djqslhc/codex/logs/findings-schema.json '<prompt>'",
+  "exit": 0,
+  "model": "gpt-6.1-sol",
+  "tokens": 53419,
+  "started": "2026-10-14T19:11:30+13:00",
+  "finished": "2026-10-14T19:13:21+13:00",
+  "duration_s": 110.1,
+  "prompt_sha256": "885827bfdcca13a1b1c3b1031f2a5ab8e1f454912428ee13668a7d9515218294",
+  "output_sha256": "d1e195e540dfac1fc75fd6dba4d3b256946b5a41a205128f46d08fea944c23bd",
+  "evidence": [
+   "review/packet-codex/brief.md",
+   "review/codex-log.txt"
+  ],
+  "artefacts": {
+   "review/packet-codex/brief.md": "885827bfdcca13a1b1c3b1031f2a5ab8e1f454912428ee13668a7d9515218294",
+   "review/codex-log.txt": "1a56d6bea6fe75d5ed06dbbdcabbc96b940c712b96c080c47f94d9674c222eef"
+  },
+  "recorded": "2026-10-14T19:13:21+13:00",
+  "prev": "fbacd9a5edc668b68341084be6607d210b5bbe1be8ef5eb46f28a9d05e36c04a"
+ },
+ {
+  "id": "e138",
+  "stage": "review",
+  "status": "info",
+  "check": "findings:codex",
+  "count": 1,
+  "artefacts": {
+   "review/findings-codex.json": "2e8e62e6a4cbdea9d05609a019df92a98dc25b0772a70a867625a8c0fcf2f46e"
+  },
+  "recorded": "2026-10-14T19:13:21+13:00",
+  "prev": "1bd3340371c7ef9230fa8a2f879fa3f06fff5b3f335409c1f5ad17a9339fc9fc"
+ },
+ {
+  "id": "e139",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:sort",
+  "leg": "sort",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/review/sort-settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-_djqslhc/sort/packet --json-schema '{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"items\"], \"properties\": {\"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"sources\", \"verdict\", \"reason\"], \"properties\": {\"sources\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"verdict\": {\"type\": \"string\", \"enum\": [\"confirmed\", \"disputed\", \"noise\"]}, \"reason\": {\"type\": \"string\"}, \"severity\": {\"type\": \"string\", \"enum\": [\"critical\", \"high\", \"medium\", \"low\"]}, \"file\": {\"type\": \"string\"}, \"line\": {\"type\": \"integer\"}, \"claim\": {\"type\": \"string\"}, \"breaks\": {\"type\": \"string\"}}}}}}'",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.49823759999999995,
+  "turns": 15,
+  "started": "2026-10-14T19:13:21+13:00",
+  "finished": "2026-10-14T19:15:31+13:00",
+  "duration_s": 130.7,
+  "prompt_sha256": "ca7e054a2f08db35028d4fa8e61c2c2a04c0461575c023e1fefc3b9cb9720e0d",
+  "output_sha256": "c730baf48982f75d50afb3856597a749ff034fae24ceaabbe586eece0094be67",
+  "evidence": [
+   "review/packet-sort/sort-brief.md",
+   "review/sort-log.jsonl"
+  ],
+  "artefacts": {
+   "review/packet-sort/sort-brief.md": "ca7e054a2f08db35028d4fa8e61c2c2a04c0461575c023e1fefc3b9cb9720e0d",
+   "review/sort-log.jsonl": "b608c58ffa98cb8e3851d498d2d5676e7772ca297a2ff380a28f2ac4614009ff"
+  },
+  "recorded": "2026-10-14T19:15:31+13:00",
+  "prev": "b4a523a41f2d315d549f6d0bc11a65060bf1f57f3fda84eabaa6e525baf2d35c"
+ },
+ {
+  "id": "e140",
+  "stage": "review",
+  "status": "info",
+  "check": "sorted",
+  "confirmed": 4,
+  "disputed": 0,
+  "noise": 0,
+  "artefacts": {
+   "review/findings.json": "0aa745aed00e4d2c601c2c296b15765f8ef5a866ee34b445ffab7be6a23249ca"
+  },
+  "recorded": "2026-10-14T19:15:31+13:00",
+  "prev": "38d25dc65af36647c2e4957dba5644f7959ce6619183bfd375bc8abe7aaa7981"
+ },
+ {
+  "id": "e141",
+  "stage": "review",
+  "status": "info",
+  "check": "bar",
+  "severities": [
+   "critical",
+   "high"
+  ],
+  "recorded": "2026-10-14T19:15:31+13:00",
+  "prev": "b5e24ad5ed469d538aefb892055750f4901d457a93bbc2828fad2f6b934a86f6"
+ },
+ {
+  "id": "e142",
+  "stage": "review",
+  "status": "blocked",
+  "check": "outcome",
+  "reason": "F1 a reviewer rated it high; the sort made it confirmed medium, so a human decides: The JS rule claims to cover the global eval 'however reached' (header lines 8-9: globalThis.eval, window.eval, (0, eval) or an alias), but it misses common indirect and alias forms: eval.call/apply, Reflect.apply(eval, ...), computed globalThis['eval'], aliases of globalThis.eval, destructured aliases, aliases of Function, and aliases assigned after declaration (`let run; run = eval; run(x)`). (factory/rules/semgrep/eval-of-built-strings.yml:28)",
+  "blocking": [
+   "F1"
+  ],
+  "acceptable": true,
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:15:31+13:00",
+  "prev": "82efebf247a56ce99ea9c96cd3cccf59a5a83cde379c3f74cd63f2d1389785b3"
+ },
+ {
+  "id": "e143",
+  "stage": "warrant",
+  "status": "info",
+  "check": "start",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:16:31+13:00",
+  "prev": "44b49cd8dc5ce9bf6941c21606e35996cbc7a0fa5094e33d4b43db6613223f52"
+ },
+ {
+  "id": "e144",
+  "stage": "warrant",
+  "status": "blocked",
+  "check": "outcome",
+  "reason": "build/guard.jsonl no longer matches the sha256 recorded in e022; review: review blocked on F1 (accept or resolve)",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "pack_sha256": "94e7d993cbd585b0e802ca15ee4fbcd2f6bf1f8953fd6c01ed73f34f2d4f7ce5",
+  "artefacts": {
+   "warranty.md": "94e7d993cbd585b0e802ca15ee4fbcd2f6bf1f8953fd6c01ed73f34f2d4f7ce5"
+  },
+  "recorded": "2026-10-14T19:16:32+13:00",
+  "prev": "5d265ecf938e707139cb3745740dbf2fd87b5f456a79a91aa17a3a6f3e84d5b6"
+ },
+ {
+  "id": "e145",
+  "stage": "return",
+  "status": "blocked",
+  "check": "outcome",
+  "reason": "returned by Chris Gagn\u00e9: Don't claim more than it catches. Catch the common other ways of calling eval the reviewers named (eval.call, eval.apply, Reflect.apply, globalThis['eval']), and say plainly in the rule what it can't follow.",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "by": "Chris Gagn\u00e9",
+  "request": "Don't claim more than it catches. Catch the common other ways of calling eval the reviewers named (eval.call, eval.apply, Reflect.apply, globalThis['eval']), and say plainly in the rule what it can't follow.",
+  "pack_sha256": "94e7d993cbd585b0e802ca15ee4fbcd2f6bf1f8953fd6c01ed73f34f2d4f7ce5",
+  "recorded": "2026-10-14T19:29:47+13:00",
+  "prev": "64bdbeeccf62eb3141b521410049f55cf9b764cf57fb3f338b6e30a43409efe6"
+ },
+ {
+  "id": "e146",
+  "stage": "spec",
+  "status": "info",
+  "check": "start",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:30:03+13:00",
+  "prev": "c9b9c3dcdbd4786cc8d37e08d3eff0221eef64ab81c424ca6d0624e87b906dfb"
+ },
+ {
+  "id": "e147",
+  "stage": "spec",
+  "status": "pass",
+  "check": "leg:spec",
+  "leg": "spec",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/spec/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/spec-brief-iax6l338",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.1960574,
+  "turns": 4,
+  "started": "2026-10-14T19:30:03+13:00",
+  "finished": "2026-10-14T19:30:54+13:00",
+  "duration_s": 51.2,
+  "prompt_sha256": "8bb439889158bbe4d381c591ed082f5c45d2a0b3089ad797c710c0c00a2ff416",
+  "output_sha256": "8be27f303b50cf484c2712578c6e2c200bf2d7502c189ac6d33afaf95359665e",
+  "evidence": [
+   "spec/brief.md",
+   "spec/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "spec/brief.md": "8bb439889158bbe4d381c591ed082f5c45d2a0b3089ad797c710c0c00a2ff416",
+   "spec/leg-log.jsonl": "9060b11d9200ff6a457b84c4d3daf6cdbc097c2ccc2a691c4df96e8ae5cf4d0f"
+  },
+  "recorded": "2026-10-14T19:30:54+13:00",
+  "prev": "17301ffc1c490cb57752c3bc6cd538857ed98a5304072817771c456c179ea982"
+ },
+ {
+  "id": "e148",
+  "stage": "spec",
+  "status": "info",
+  "check": "amend",
+  "answers": "e145",
+  "added": [
+   "AC-23",
+   "AC-24",
+   "AC-25",
+   "AC-26",
+   "AC-27"
+  ],
+  "recorded": "2026-10-14T19:30:54+13:00",
+  "prev": "21c69a02c57caee0bef510dcfc6af4409f6a65b6a98046c9153559269cf85239"
+ },
+ {
+  "id": "e149",
+  "stage": "spec",
+  "status": "pass",
+  "check": "criteria",
+  "criteria": 27,
+  "artefacts": {
+   "acceptance.md": "911f80a9b27d5ca4b4fa7142a3a3c6384638734c277f3166750f642aef8f3276"
+  },
+  "recorded": "2026-10-14T19:30:54+13:00",
+  "prev": "068ceb808c9202f4ef333c8b2bcba8f58527dda8c4b73ada6757e2fac8e412c8"
+ },
+ {
+  "id": "e150",
+  "stage": "spec",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:30:54+13:00",
+  "prev": "754fb716b03f69a8f4d849c513886d4191ff05f81a63a166f835475b45204618"
+ },
+ {
+  "id": "e151",
+  "stage": "triage",
+  "status": "info",
+  "check": "start",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:30:54+13:00",
+  "prev": "efc59a37af17b38aa6ef824236f000496e7681b0de5a78f5a97a7d76b799c69a"
+ },
+ {
+  "id": "e152",
+  "stage": "triage",
+  "status": "info",
+  "check": "classes",
+  "phase": "diff",
+  "classes": [
+   "irreversible",
+   "llm-agent"
+  ],
+  "artefacts": {
+   "risk.json": "297fd0bf000d5e23c05b0c1262715667c58a49446b6b2c00f5b6da4411bf76f8"
+  },
+  "recorded": "2026-10-14T19:30:54+13:00",
+  "prev": "4329d228742d1a322c7b8c923e9f51ca73a12cfa58b337ca80e3d6717fa0341e"
+ },
+ {
+  "id": "e153",
+  "stage": "triage",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "phase": "diff",
+  "recorded": "2026-10-14T19:30:54+13:00",
+  "prev": "96c18c3f64dbe6b93eb783cbe8690390e1108e973a75bb1f7c33d96d7d88fa47"
+ },
+ {
+  "id": "e154",
+  "stage": "tests",
+  "status": "info",
+  "check": "start",
+  "commit": "993660146ccae934e7e553267da83e83f4b8c373",
+  "tree": "9d4fe5236994a4a57be5ba37d096f705bc2923ed",
+  "clean": true,
+  "recorded": "2026-10-14T19:30:54+13:00",
+  "prev": "b3bb1d9def09c4771e61dd597cd53d96c09659432d39039bd26e01db934bd883"
+ },
+ {
+  "id": "e155",
+  "stage": "tests",
+  "status": "pass",
+  "check": "suite-before",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 0,
+  "started": "2026-10-14T19:30:55+13:00",
+  "finished": "2026-10-14T19:34:04+13:00",
+  "duration_s": 189.1,
+  "output_tail": "est_triage.py::test_keywords_in_the_story_map_to_classes\nPASSED tests/test_triage.py::test_path_rules_builtin_and_configured\nPASSED tests/test_triage.py::test_planned_classes_are_not_unplanned\nPASSED tests/test_triage.py::test_diff_patterns_outside_tests\nPASSED tests/test_triage.py::test_a_drop_in_a_down_migration_is_the_rollback_not_an_irreversible_step\nPASSED tests/test_triage.py::test_llm_client_imports_beyond_openai_and_anthropic\nPASSED tests/test_triage.py::test_story_keywords_alone_never_block\nPASSED tests/test_triage.py::test_triage_stage_blocks_on_unplanned_class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\n228 passed, 5 skipped in 188.85s (0:03:08)\n",
+  "output_sha256": "f734a732241633714b5a89dbfd7267d369599d61077049430d177ea2bd4c852d",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "tests/suite-before.log"
+  ],
+  "artefacts": {
+   "tests/suite-before.log": "f734a732241633714b5a89dbfd7267d369599d61077049430d177ea2bd4c852d"
+  },
+  "recorded": "2026-10-14T19:34:04+13:00",
+  "prev": "5832e085c4226ddb81c95f856d1d54c27021152c4cdce3c621a957b5b250fb07"
+ },
+ {
+  "id": "e156",
+  "stage": "tests",
+  "status": "info",
+  "check": "check-command",
+  "names": [
+   "test"
+  ],
+  "artefacts": {
+   "tests/check.json": "0d0f51db006d29c2a7f6f5a8446084973d840b5e7db1e9f72894ac5d38112730",
+   "tests/check": "1f3d2ddbfb97b497a6ceec27f97382c486b2774ef1dcea59ed60ed6b63dda6a9"
+  },
+  "recorded": "2026-10-14T19:34:05+13:00",
+  "prev": "01cffa5313edf7fe783210b77032ecd14f40d3682f71ed6b01c779cc3e3c8a62"
+ },
+ {
+  "id": "e157",
+  "stage": "tests",
+  "status": "pass",
+  "check": "leg:tests",
+  "leg": "tests",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Bash,Edit,Write,Read,Grep,Glob,NotebookEdit --permission-mode acceptEdits --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/tests/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/tests-brief-l65qbux1",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.4646686,
+  "turns": 13,
+  "started": "2026-10-14T19:34:05+13:00",
+  "finished": "2026-10-14T19:38:57+13:00",
+  "duration_s": 292.7,
+  "prompt_sha256": "ab9c5d0d1da0c154ec85362232d0d51718e77a727460bcc49a4ab9121718fa9a",
+  "output_sha256": "3d7b03f6b17c894dc577d44cc3b99454ad9488b73973822f345ff5681720b206",
+  "evidence": [
+   "tests/brief.md",
+   "tests/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "tests/brief.md": "ab9c5d0d1da0c154ec85362232d0d51718e77a727460bcc49a4ab9121718fa9a",
+   "tests/leg-log.jsonl": "9d29ad398dd722310ddd622fc74f03f5261974021bc4685d3c576783d2a18a69"
+  },
+  "recorded": "2026-10-14T19:38:57+13:00",
+  "prev": "a9bd767b19771444037a1986252cede56b6c126534e82330ca835913a0e1b30c"
+ },
+ {
+  "id": "e158",
+  "stage": "tests",
+  "status": "info",
+  "check": "guard",
+  "blocked_calls": 1,
+  "reasons": [
+   "Blocked command: this leg's shell runs only the factory check, exactly as written: /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forg"
+  ],
+  "evidence": [
+   "tests/guard.jsonl"
+  ],
+  "artefacts": {
+   "tests/guard.jsonl": "db6f1fb985e908154224928097c1944cfe62a424f1cc57abe466349dff3a1be0"
+  },
+  "recorded": "2026-10-14T19:38:57+13:00",
+  "prev": "9d77ae8fa70c976b253514e9186002701e0aea4304031da358ae9a9c615323db"
+ },
+ {
+  "id": "e159",
+  "stage": "tests",
+  "status": "pass",
+  "check": "scan",
+  "note": "invisible characters, secrets and semgrep on the tests leg's work",
+  "recorded": "2026-10-14T19:38:59+13:00",
+  "prev": "9d52ebd7b02fb4083e745522886221c3832d69b41658b6500a941b8e00b68da9"
+ },
+ {
+  "id": "e160",
+  "stage": "tests",
+  "status": "fail",
+  "check": "new-tests",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 1,
+  "started": "2026-10-14T19:38:59+13:00",
+  "finished": "2026-10-14T19:42:17+13:00",
+  "duration_s": 197.0,
+  "output_tail": "ests/test_triage.py::test_llm_client_imports_beyond_openai_and_anthropic\nPASSED tests/test_triage.py::test_story_keywords_alone_never_block\nPASSED tests/test_triage.py::test_triage_stage_blocks_on_unplanned_class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\nFAILED tests/test_eval_rule_second_send_back.py::test_js_eval_reached_through_call_apply_reflect_or_a_computed_name_is_flagged\nFAILED tests/test_eval_rule_second_send_back.py::test_gate_sast_fails_on_an_added_eval_call_apply_or_reflect_apply_of_a_variable\nFAILED tests/test_eval_rule_second_send_back.py::test_the_rule_file_states_what_it_does_not_follow\n3 failed, 230 passed, 5 skipped in 196.82s (0:03:16)\n",
+  "output_sha256": "04fb910059fbe223232bd64bd255e874806083b7a2baf415f82d7fa261a9caba",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "tests/new-tests.log"
+  ],
+  "artefacts": {
+   "tests/new-tests.log": "04fb910059fbe223232bd64bd255e874806083b7a2baf415f82d7fa261a9caba"
+  },
+  "reason": "exit 1",
+  "recorded": "2026-10-14T19:42:17+13:00",
+  "prev": "89a7a258543b6c8af79e0e8ad70ff2334421781a653271a778996c5902ae14b8"
+ },
+ {
+  "id": "e161",
+  "stage": "tests",
+  "status": "pass",
+  "check": "red",
+  "note": "the suite fails with the new tests (event e160), as it must before the build",
+  "recorded": "2026-10-14T19:42:17+13:00",
+  "prev": "c2b13b69c62e3488b337ce7e14d60afaef43763067d239cfdf2d314837c1c0d7"
+ },
+ {
+  "id": "e162",
+  "stage": "tests",
+  "status": "info",
+  "check": "lock",
+  "files": 23,
+  "lock_commit": "232fc38304255c2a405c3fc36d92837d68646cf6",
+  "artefacts": {
+   "tests.lock": "7d010825375e9a6cfe0645563eff288ef5e980d5518f5eba20f664cf21d72ad1"
+  },
+  "recorded": "2026-10-14T19:42:17+13:00",
+  "prev": "f55eb96b6c298b0ef10b766a8d86b43701027486829848bda7320f45315292bc"
+ },
+ {
+  "id": "e163",
+  "stage": "tests",
+  "status": "info",
+  "check": "acceptance-locked",
+  "artefacts": {
+   "tests/acceptance-locked.md": "911f80a9b27d5ca4b4fa7142a3a3c6384638734c277f3166750f642aef8f3276"
+  },
+  "recorded": "2026-10-14T19:42:17+13:00",
+  "prev": "2ce7e900f316c7c42c3d58b5c308444a06bde0136f72de244e4e886877f601bb"
+ },
+ {
+  "id": "e164",
+  "stage": "tests",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "232fc38304255c2a405c3fc36d92837d68646cf6",
+  "tree": "b027a35c0077e7d8f7e1d44445905b5664b1a42b",
+  "clean": true,
+  "recorded": "2026-10-14T19:42:17+13:00",
+  "prev": "a0e49cf20fb135792e10c7a25ebd25718cd141d6e3f060e1750201a00b4fd20c"
+ },
+ {
+  "id": "e165",
+  "stage": "build",
+  "status": "info",
+  "check": "start",
+  "commit": "232fc38304255c2a405c3fc36d92837d68646cf6",
+  "tree": "b027a35c0077e7d8f7e1d44445905b5664b1a42b",
+  "clean": true,
+  "recorded": "2026-10-14T19:42:18+13:00",
+  "prev": "2d3a314de1e66447399c10532a5ae951f8aa73b71b946a5b96408a772fd0a2ff"
+ },
+ {
+  "id": "e166",
+  "stage": "build",
+  "status": "info",
+  "check": "check-command",
+  "names": [
+   "test"
+  ],
+  "artefacts": {
+   "build/check.json": "a4000319ff54f9af90a4054683f4f9881c853594f757c4c8ddc3587f015fc250",
+   "build/check": "8c0be2676f09685c8ae0b9fe364e5fb256ca8a134278a73a7cbc2658955bc666"
+  },
+  "recorded": "2026-10-14T19:42:18+13:00",
+  "prev": "49c2e8c47ba2be21b8b1e1c3d5ffc036fb1b643c7819031ab7073b32b17f0688"
+ },
+ {
+  "id": "e167",
+  "stage": "build",
+  "status": "pass",
+  "check": "leg:build",
+  "leg": "build",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Bash,Edit,Write,Read,Grep,Glob,NotebookEdit --permission-mode acceptEdits --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/build/settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/build-brief-9gnac_gy",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.32789999999999997,
+  "turns": 9,
+  "started": "2026-10-14T19:42:18+13:00",
+  "finished": "2026-10-14T19:46:33+13:00",
+  "duration_s": 255.8,
+  "prompt_sha256": "fe6cdb76b1bef490a3804fce8cb8436a16ae1f3aa53000939b89f5e0547aae56",
+  "output_sha256": "528af26f6df5fb61b4d56f31f961c33d9a0d6a3cecc9abe591d83268dd5fe270",
+  "evidence": [
+   "build/brief.md",
+   "build/leg-log.jsonl"
+  ],
+  "artefacts": {
+   "build/brief.md": "fe6cdb76b1bef490a3804fce8cb8436a16ae1f3aa53000939b89f5e0547aae56",
+   "build/leg-log.jsonl": "18566420939c1a42c52eb184d595e2b8832ef2427b5175515bb69c7cbbb02564"
+  },
+  "recorded": "2026-10-14T19:46:33+13:00",
+  "prev": "cdf09c052b75ebc878f78593a90ee6a72bce6335fc8beeeb7909549a5cd573ad"
+ },
+ {
+  "id": "e168",
+  "stage": "build",
+  "status": "info",
+  "check": "guard",
+  "blocked_calls": 0,
+  "reasons": [],
+  "evidence": [
+   "build/guard.jsonl"
+  ],
+  "artefacts": {
+   "build/guard.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "recorded": "2026-10-14T19:46:33+13:00",
+  "prev": "4dbfb2066b855d746cbba7f396002a864a9251e1229464f15b3699cd805bcc9c"
+ },
+ {
+  "id": "e169",
+  "stage": "build",
+  "status": "info",
+  "check": "builder-summary",
+  "note": "the builder's own account: asserted, not evidence",
+  "artefacts": {
+   "builder-summary.md": "528af26f6df5fb61b4d56f31f961c33d9a0d6a3cecc9abe591d83268dd5fe270"
+  },
+  "recorded": "2026-10-14T19:46:33+13:00",
+  "prev": "f67d9e575cfcc60e74491e1466a50f6990f5eb2fb669f2df0dcbec33539d3aa8"
+ },
+ {
+  "id": "e170",
+  "stage": "build",
+  "status": "info",
+  "check": "commit",
+  "head": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "files": [
+   "factory/rules/semgrep/eval-of-built-strings.yml"
+  ],
+  "recorded": "2026-10-14T19:46:34+13:00",
+  "prev": "bba06a00a9b889f7f60b70e477e820a67c434ea0792b4823f71a9a3548257b76"
+ },
+ {
+  "id": "e171",
+  "stage": "build",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T19:46:34+13:00",
+  "prev": "80f63881bb54cf43e5216f2851a261325be44ca645c67cdb6691bb05194548c5"
+ },
+ {
+  "id": "e172",
+  "stage": "triage",
+  "status": "info",
+  "check": "start",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T19:46:34+13:00",
+  "prev": "a20f93837d4d72151ff7ed33faf37905515b5a70c11e62cd1c600418af6a590f"
+ },
+ {
+  "id": "e173",
+  "stage": "triage",
+  "status": "info",
+  "check": "classes",
+  "phase": "diff",
+  "classes": [
+   "irreversible",
+   "llm-agent"
+  ],
+  "artefacts": {
+   "risk.json": "297fd0bf000d5e23c05b0c1262715667c58a49446b6b2c00f5b6da4411bf76f8"
+  },
+  "recorded": "2026-10-14T19:46:34+13:00",
+  "prev": "e025bbdcfa561c8357abb3a37913208d90d9bea7420635afb6bc660a34818b9a"
+ },
+ {
+  "id": "e174",
+  "stage": "triage",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "phase": "diff",
+  "recorded": "2026-10-14T19:46:34+13:00",
+  "prev": "3be0c28cd45055ba614c7f9c227ee8925c935118e35342c01b8bf9d2e7b415d6"
+ },
+ {
+  "id": "e175",
+  "stage": "gate",
+  "status": "info",
+  "check": "start",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T19:46:34+13:00",
+  "prev": "a69b0b75dfdb0b4daf87818423f28ead96b69d8b34ca2013667d7c9f6301870c"
+ },
+ {
+  "id": "e176",
+  "stage": "gate",
+  "status": "info",
+  "check": "tools",
+  "tools": [
+   {
+    "name": "gitleaks",
+    "path": "/opt/homebrew/Cellar/gitleaks/8.30.1/bin/gitleaks",
+    "version": "gitleaks version 8.30.1",
+    "sha256": "f414bc2fb952be6c9072b75cb411e3368614ef4b16d48dbd9ad238034afd2302"
+   },
+   {
+    "name": "osv-scanner",
+    "path": "/opt/homebrew/Cellar/osv-scanner/2.6.0/bin/osv-scanner",
+    "version": "osv-scanner version: 2.6.0",
+    "sha256": "60a7bf0b7981a6542e0df2f144d621736d4181852c18a10305169d1cd81a8889"
+   },
+   {
+    "name": "semgrep",
+    "path": "/opt/homebrew/Cellar/semgrep/1.180.0/libexec/bin/semgrep",
+    "version": "1.180.0",
+    "sha256": "fb9ac434aa9c553b67cd491c17658623a877f773a87d3401907a0242ca92cc58"
+   }
+  ],
+  "recorded": "2026-10-14T19:46:36+13:00",
+  "prev": "9554906d2a0eda01dc3b6c60d51f11ddafd5e1fe25697764500f176f4d253cd4"
+ },
+ {
+  "id": "e177",
+  "stage": "gate",
+  "status": "pass",
+  "check": "locked-tests",
+  "locked": 23,
+  "lock_sha256": "7d010825375e9a6cfe0645563eff288ef5e980d5518f5eba20f664cf21d72ad1",
+  "recorded": "2026-10-14T19:46:36+13:00",
+  "prev": "0ad1b7d8a533b35736931d76dff2c049f2922d9d9311a74545ef4d15d9574c71"
+ },
+ {
+  "id": "e178",
+  "stage": "gate",
+  "status": "pass",
+  "check": "secrets",
+  "cmd": "gitleaks git --no-banner --redact --ignore-gitleaks-allow --log-opts=d2a55a5e6b8db26811d7f0032828525c75ff65d3..HEAD --report-format json --report-path /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/gate/gitleaks.json .",
+  "exit": 0,
+  "started": "2026-10-14T19:46:36+13:00",
+  "finished": "2026-10-14T19:46:36+13:00",
+  "duration_s": 0.1,
+  "output_tail": "\u001b[90m7:46PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mUnknown SCM platform. Use --platform to include links in findings.\u001b[0m \u001b[36mhost=\u001b[0m\n\u001b[90m7:46PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1m6 commits scanned.\u001b[0m\n\u001b[90m7:46PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mscanned ~28890 bytes (28.89 KB) in 59.6ms\u001b[0m\n\u001b[90m7:46PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mno leaks found\u001b[0m\n",
+  "output_sha256": "d3f1430c17980ebce6793cf68bf895406e3d63e78b541ab7dc5508e685816a5c",
+  "sandbox": "none",
+  "evidence": [
+   "gate/secrets.log"
+  ],
+  "artefacts": {
+   "gate/secrets.log": "d3f1430c17980ebce6793cf68bf895406e3d63e78b541ab7dc5508e685816a5c"
+  },
+  "recorded": "2026-10-14T19:46:36+13:00",
+  "prev": "95d7b110c68a179e14498072040df81e9b78185b10c04805a9123b133d144125"
+ },
+ {
+  "id": "e179",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "deps",
+  "reason": "the change touches no lockfile",
+  "applies": false,
+  "recorded": "2026-10-14T19:46:37+13:00",
+  "prev": "2b77faa6205f4b7f8b0eac24942addaea947a5dcb541a18bd7f916629daccc73"
+ },
+ {
+  "id": "e180",
+  "stage": "gate",
+  "status": "pass",
+  "check": "sast-scan",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet --severity ERROR --severity WARNING -- ./factory/rules/semgrep/eval-of-built-strings.yml ./tests/test_check.py ./tests/test_eval_rule_after_send_back.py ./tests/test_eval_rule_second_send_back.py ./tests/test_gate_hardening.py ./tests/test_pinned_eval_rule.py",
+  "exit": 0,
+  "started": "2026-10-14T19:46:37+13:00",
+  "finished": "2026-10-14T19:46:39+13:00",
+  "duration_s": 2.9,
+  "output_tail": "t\"],\"likelihood\":\"LOW\",\"impact\":\"HIGH\",\"license\":\"Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license\",\"vulnerability_class\":[\"Code Injection\"],\"source\":\"https://semgrep.dev/r/generic.unicode.security.bidi.contains-bidirectional-characters\",\"shortlink\":\"https://sg.run/nK4r\"},\"severity\":\"WARNING\",\"fingerprint\":\"requires login\",\"lines\":\"requires login\",\"validation_state\":\"NO_VALIDATOR\",\"engine_kind\":\"OSS\"}}],\"errors\":[],\"paths\":{\"scanned\":[\"factory/rules/semgrep/eval-of-built-strings.yml\",\"tests/test_check.py\",\"tests/test_eval_rule_after_send_back.py\",\"tests/test_eval_rule_second_send_back.py\",\"tests/test_gate_hardening.py\",\"tests/test_pinned_eval_rule.py\"]},\"time\":{\"rules\":[],\"rules_parse_time\":0.2840738296508789,\"profiling_times\":{\"config_time\":1.2363109588623047,\"core_time\":0.627640962600708,\"ignores_time\":0.0008959770202636719,\"total_time\":1.8754849433898926},\"parsing_time\":{\"total_time\":0.0,\"per_file_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"scanning_time\":{\"total_time\":0.5736877918243408,\"per_file_time\":{\"mean\":0.031871543990241155,\"std_dev\":0.0023192863883832126},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"matching_time\":{\"total_time\":0.0,\"per_file_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_files\":[]},\"tainting_time\":{\"total_time\":0.0,\"per_def_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_defs\":[]},\"fixpoint_timeouts\":[],\"prefiltering\":{\"project_level_time\":0.0,\"file_level_time\":0.0,\"rules_with_project_prefilters_ratio\":0.0,\"rules_with_file_prefilters_ratio\":0.9690026954177897,\"rules_selected_ratio\":0.07749326145552561,\"rules_matched_ratio\":0.07749326145552561},\"targets\":[],\"total_bytes\":0,\"max_memory_bytes\":727043392},\"engine_requested\":\"OSS\",\"skipped_rules\":[],\"profiling_results\":[]}\n",
+  "output_sha256": "6cc790b4ef87606f2dc9bee67447546e845da0a58e641f9cdd1e99059a87e779",
+  "sandbox": "none",
+  "evidence": [
+   "gate/sast-scan.log"
+  ],
+  "artefacts": {
+   "gate/sast-scan.log": "6cc790b4ef87606f2dc9bee67447546e845da0a58e641f9cdd1e99059a87e779"
+  },
+  "recorded": "2026-10-14T19:46:39+13:00",
+  "prev": "b906166c9227111b711042ca383efcc25b9fced17c76bf1ff9f310b8f0ffd5e3"
+ },
+ {
+  "id": "e181",
+  "stage": "gate",
+  "status": "pass",
+  "check": "sast",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet --severity ERROR --severity WARNING -- ./factory/rules/semgrep/eval-of-built-strings.yml ./tests/test_check.py ./tests/test_eval_rule_after_send_back.py ./tests/test_eval_rule_second_send_back.py ./tests/test_gate_hardening.py ./tests/test_pinned_eval_rule.py",
+  "after_event": "e180",
+  "evidence": [
+   "gate/sast-scan.log"
+  ],
+  "preexisting": 1,
+  "note": "no finding on an added line; 1 finding(s) already in the touched files",
+  "recorded": "2026-10-14T19:46:39+13:00",
+  "prev": "5a36cc6d49f689f793367085541001226b91fdf85197d4e1ce76db267e83b1ce"
+ },
+ {
+  "id": "e182",
+  "stage": "gate",
+  "status": "pass",
+  "check": "invisible",
+  "note": "no invisible or control characters added",
+  "recorded": "2026-10-14T19:46:40+13:00",
+  "prev": "abb0cf6f0b4c355dc77507b0b2fefcfd9f8b98c58713927161009426b855c3ae"
+ },
+ {
+  "id": "e183",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "install",
+  "reason": "commands.install is not configured",
+  "recorded": "2026-10-14T19:46:40+13:00",
+  "prev": "6795dbe9c78cd37966f43ef118fb2708b478283d7a3fc7bc598bc8568dec5d38"
+ },
+ {
+  "id": "e184",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "typecheck",
+  "reason": "commands.typecheck is not configured",
+  "recorded": "2026-10-14T19:46:40+13:00",
+  "prev": "29fc9ad22451c6d84bf4613a40aa4c77763352c2be18efd15206b8e9672be332"
+ },
+ {
+  "id": "e185",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "lint",
+  "reason": "commands.lint is not configured",
+  "recorded": "2026-10-14T19:46:40+13:00",
+  "prev": "7fdb96033f8a708d883e79549e38b1cb98bf9f75b3c3e9a8a45b40eca6ba7f66"
+ },
+ {
+  "id": "e186",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "build",
+  "reason": "commands.build is not configured",
+  "recorded": "2026-10-14T19:46:40+13:00",
+  "prev": "7b0ba1588e02023f2e23364d4a639460771f846eb867ac5bd95937742b11d646"
+ },
+ {
+  "id": "e187",
+  "stage": "gate",
+  "status": "pass",
+  "check": "tests",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 0,
+  "started": "2026-10-14T19:46:40+13:00",
+  "finished": "2026-10-14T19:50:11+13:00",
+  "duration_s": 210.2,
+  "output_tail": "est_triage.py::test_keywords_in_the_story_map_to_classes\nPASSED tests/test_triage.py::test_path_rules_builtin_and_configured\nPASSED tests/test_triage.py::test_planned_classes_are_not_unplanned\nPASSED tests/test_triage.py::test_diff_patterns_outside_tests\nPASSED tests/test_triage.py::test_a_drop_in_a_down_migration_is_the_rollback_not_an_irreversible_step\nPASSED tests/test_triage.py::test_llm_client_imports_beyond_openai_and_anthropic\nPASSED tests/test_triage.py::test_story_keywords_alone_never_block\nPASSED tests/test_triage.py::test_triage_stage_blocks_on_unplanned_class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\n233 passed, 5 skipped in 209.89s (0:03:29)\n",
+  "output_sha256": "b4ca3ff3d0791a584f336734efb95fa4d02edd1a736b3e07e5485520c39b12f5",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "gate/tests.log"
+  ],
+  "artefacts": {
+   "gate/tests.log": "b4ca3ff3d0791a584f336734efb95fa4d02edd1a736b3e07e5485520c39b12f5"
+  },
+  "recorded": "2026-10-14T19:50:11+13:00",
+  "prev": "242f5e9b864b327c442812e8192539ae0f63dc5eb3eb853427b0f1fd061a6cb0"
+ },
+ {
+  "id": "e188",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "perf",
+  "reason": "commands.perf is not configured",
+  "recorded": "2026-10-14T19:50:11+13:00",
+  "prev": "0fa55d4b1d7a168013227c68b3b7241895d16d1f705cafb6d9eb3d503b57c29d"
+ },
+ {
+  "id": "e189",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "rollback",
+  "applies": false,
+  "reason": "no class in risk.json requires a rollback (no migration or irreversible path or pattern)",
+  "recorded": "2026-10-14T19:50:11+13:00",
+  "prev": "82e34cc559306c6b3340e10bce128165a03a293a09f68d437b97f94f29171a33"
+ },
+ {
+  "id": "e190",
+  "stage": "gate",
+  "status": "pass",
+  "check": "surface",
+  "note": "the change edits no test-runner, scanner or agent-instruction file",
+  "recorded": "2026-10-14T19:50:11+13:00",
+  "prev": "b1e667228197aae03e23dc666c61b390c602e57732abb6c4bf41f7416db8a58a"
+ },
+ {
+  "id": "e191",
+  "stage": "gate",
+  "status": "pass",
+  "check": "added-tests",
+  "note": "the build added no test files",
+  "recorded": "2026-10-14T19:50:11+13:00",
+  "prev": "0dd2a55d8af7f00b7ebf1c24f94b187a181e9234241864cb6f0fc7c7079b676e"
+ },
+ {
+  "id": "e192",
+  "stage": "gate",
+  "status": "pass",
+  "check": "ratchet:semgrep_findings",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet -- .",
+  "mode": "absolute",
+  "before": 4,
+  "after": 4,
+  "runs": {
+   "baseline": {
+    "count": 4,
+    "exit": 0,
+    "output_sha256": "929aec3d9f230295081f3eaa6c819a4198b4b04fafc45cf305805b4df21499de",
+    "log": "gate/ratchet-semgrep_findings-baseline.json",
+    "errors": 0,
+    "problem": null
+   },
+   "after": {
+    "count": 4,
+    "exit": 0,
+    "output_sha256": "eb65567a609437faf5d214a39711dadc8f54a5c5c254899c31dbb83f173884a4",
+    "log": "gate/ratchet-semgrep_findings-after.json",
+    "errors": 0,
+    "problem": null
+   }
+  },
+  "evidence": [
+   "gate/ratchet-semgrep_findings-baseline.json",
+   "gate/ratchet-semgrep_findings-after.json"
+  ],
+  "artefacts": {
+   "gate/ratchet-semgrep_findings-baseline.json": "929aec3d9f230295081f3eaa6c819a4198b4b04fafc45cf305805b4df21499de",
+   "gate/ratchet-semgrep_findings-after.json": "eb65567a609437faf5d214a39711dadc8f54a5c5c254899c31dbb83f173884a4"
+  },
+  "recorded": "2026-10-14T19:50:23+13:00",
+  "prev": "8badfea0e7ed53c358306b2fecfe352106dc2cdf2bf7914811ea2bef86627696"
+ },
+ {
+  "id": "e193",
+  "stage": "gate",
+  "status": "pass",
+  "check": "required",
+  "recorded": "2026-10-14T19:50:23+13:00",
+  "prev": "2c9674fa9bd25c534038f5081d2d1267d0bbaadb596f14f03b3f3820c920a791"
+ },
+ {
+  "id": "e194",
+  "stage": "gate",
+  "status": "pass",
+  "check": "unchanged",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T19:50:23+13:00",
+  "prev": "30e55eba072909bf16742e76a17023cf419a86984c5010f4dbf9c60674d50545"
+ },
+ {
+  "id": "e195",
+  "stage": "gate",
+  "status": "info",
+  "check": "theory-doc",
+  "path": "DESIGN.md",
+  "exists": true,
+  "changed": false,
+  "doc_sha256": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a",
+  "recorded": "2026-10-14T19:50:23+13:00",
+  "prev": "e9ee25b1f97c6aea43d3bfd8dbd34c34a329b7f7f7434979321e2f72debbb328"
+ },
+ {
+  "id": "e196",
+  "stage": "gate",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T19:50:23+13:00",
+  "prev": "0a3c14381f773217612679a60c37b7d66f95e6a30f968a1605f04d443966f266"
+ },
+ {
+  "id": "e197",
+  "stage": "review",
+  "status": "info",
+  "check": "start",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T19:50:23+13:00",
+  "prev": "2a414feb371b232f68459bb9e351bea2506cd440946fa0ed74e92c7f6ccbf78c"
+ },
+ {
+  "id": "e198",
+  "stage": "review",
+  "status": "info",
+  "check": "tools",
+  "tools": [
+   {
+    "name": "claude",
+    "path": "/Users/cgagne/.local/share/claude/versions/2.1.288",
+    "version": "2.1.288 (Claude Code)",
+    "sha256": "bbe93063f7a0879a1021b2891e5c9354e5b3b98433e32efe6750f7710afed750"
+   },
+   {
+    "name": "codex",
+    "path": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+    "version": "codex-cli 0.162.0-alpha.17.2",
+    "sha256": "0d5ac7aae20c4eda6242428d5e218c55ba96d8763fda2a271088ff37104b9d28"
+   }
+  ],
+  "recorded": "2026-10-14T19:50:24+13:00",
+  "prev": "78e665edaed1145ed46a3e84583af85ef766718dc4a1cc5a795d00542c4b96b7"
+ },
+ {
+  "id": "e199",
+  "stage": "review",
+  "status": "info",
+  "check": "packet",
+  "grounding": "seeds",
+  "axis_rows": 28,
+  "theory_doc": "DESIGN.md",
+  "artefacts": {
+   "review/packet-claude/acceptance.md": "911f80a9b27d5ca4b4fa7142a3a3c6384638734c277f3166750f642aef8f3276",
+   "review/packet-claude/axis-rows.md": "7fde9ae8fdfeb50f810fb2582f36904a9d5626016572bf61e531ff763a9e569b",
+   "review/packet-claude/brief.md": "b17e3566b5f4d9b9ef56a1db9f1380bccc6b56ab706f1109872c104a87803a45",
+   "review/packet-claude/diff.patch": "4a9e04f74e086f65015e7737f5ae412097e93f6e70e3ab36d5d8a0b92c3dd8d9",
+   "review/packet-claude/risk.json": "297fd0bf000d5e23c05b0c1262715667c58a49446b6b2c00f5b6da4411bf76f8",
+   "review/packet-claude/theory.md": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a",
+   "review/packet-codex/acceptance.md": "911f80a9b27d5ca4b4fa7142a3a3c6384638734c277f3166750f642aef8f3276",
+   "review/packet-codex/axis-rows.md": "7fde9ae8fdfeb50f810fb2582f36904a9d5626016572bf61e531ff763a9e569b",
+   "review/packet-codex/brief.md": "2fa6c0231c1ea08b5402b94f85dae3cbc3becfcae07e3ba949052b12ba36d4d0",
+   "review/packet-codex/diff.patch": "4a9e04f74e086f65015e7737f5ae412097e93f6e70e3ab36d5d8a0b92c3dd8d9",
+   "review/packet-codex/risk.json": "297fd0bf000d5e23c05b0c1262715667c58a49446b6b2c00f5b6da4411bf76f8",
+   "review/packet-codex/theory.md": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a"
+  },
+  "recorded": "2026-10-14T19:50:24+13:00",
+  "prev": "0a166d6978931023ea8196a581f149b54135cbeb9fecda740f0dc7a2ad28a71f"
+ },
+ {
+  "id": "e200",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:reviewer-claude",
+  "leg": "reviewer-claude",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/review/reviewer-claude-settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-09mzwydy/claude/packet --json-schema '{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"findings\"], \"properties\": {\"findings\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"severity\", \"claim\", \"evidence\"], \"properties\": {\"severity\": {\"type\": \"string\", \"enum\": [\"critical\", \"high\", \"medium\", \"low\"]}, \"file\": {\"type\": \"string\"}, \"line\": {\"type\": \"integer\"}, \"claim\": {\"type\": \"string\"}, \"evidence\": {\"type\": \"string\"}, \"axis_row\": {\"type\": \"string\"}}}}}}'",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.8457498000000001,
+  "turns": 19,
+  "started": "2026-10-14T19:50:24+13:00",
+  "finished": "2026-10-14T19:52:23+13:00",
+  "duration_s": 118.4,
+  "prompt_sha256": "b17e3566b5f4d9b9ef56a1db9f1380bccc6b56ab706f1109872c104a87803a45",
+  "output_sha256": "b248740a6c0f1164e0e920843f91c76d276e3072a6808ed6a88f41cafd5edff9",
+  "evidence": [
+   "review/packet-claude/brief.md",
+   "review/claude-log.jsonl"
+  ],
+  "artefacts": {
+   "review/packet-claude/brief.md": "b17e3566b5f4d9b9ef56a1db9f1380bccc6b56ab706f1109872c104a87803a45",
+   "review/claude-log.jsonl": "c485415d78fb93d0a0a45f7bcc163ecf0b8b1c5b530778e871f66fd70970913b"
+  },
+  "recorded": "2026-10-14T19:57:37+13:00",
+  "prev": "6e476f53353f8f383979cd4079a8e6c1a702d7698fd1ed19a5e48e03df22bacb"
+ },
+ {
+  "id": "e201",
+  "stage": "review",
+  "status": "info",
+  "check": "findings:claude",
+  "count": 3,
+  "artefacts": {
+   "review/findings-claude.json": "e74cd89e82f7d08807899a9020cff50a617297537b77d5c128305266d10d5cf1"
+  },
+  "recorded": "2026-10-14T19:57:37+13:00",
+  "prev": "7dba8505338edabefb36d004b89e57d155fe14d66d993fb1dec856ce107f529f"
+ },
+ {
+  "id": "e202",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:reviewer-codex",
+  "leg": "reviewer-codex",
+  "family": "codex",
+  "cmd": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex exec -m gpt-6.1-sol -s read-only --skip-git-repo-check --ephemeral --ignore-user-config -C /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-09mzwydy/codex/export -o /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-09mzwydy/codex/logs/codex-final.md --output-schema /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-09mzwydy/codex/logs/findings-schema.json '<prompt>'",
+  "exit": 0,
+  "model": "gpt-6.1-sol",
+  "tokens": 50039,
+  "started": "2026-10-14T19:50:24+13:00",
+  "finished": "2026-10-14T19:57:37+13:00",
+  "duration_s": 432.5,
+  "prompt_sha256": "2fa6c0231c1ea08b5402b94f85dae3cbc3becfcae07e3ba949052b12ba36d4d0",
+  "output_sha256": "66e406d36d780db3a186dadc3292db698da9d3f8b6218ab4258986057b888929",
+  "evidence": [
+   "review/packet-codex/brief.md",
+   "review/codex-log.txt"
+  ],
+  "artefacts": {
+   "review/packet-codex/brief.md": "2fa6c0231c1ea08b5402b94f85dae3cbc3becfcae07e3ba949052b12ba36d4d0",
+   "review/codex-log.txt": "b64c1df79a22ac57390cc2fcdc9431ceab87bb7939648a0f83ff8950225bef62"
+  },
+  "recorded": "2026-10-14T19:57:37+13:00",
+  "prev": "06b06d03a24805dff0a01828d7c14b7df5017f5afce86e27ba7d3d4d36f65285"
+ },
+ {
+  "id": "e203",
+  "stage": "review",
+  "status": "info",
+  "check": "findings:codex",
+  "count": 2,
+  "artefacts": {
+   "review/findings-codex.json": "44ae8d667a872752d32042f67be52bb236bf98d86db8806dbb8b47b6dca4c5c7"
+  },
+  "recorded": "2026-10-14T19:57:37+13:00",
+  "prev": "ce034820a5ad10d8dfb5e3e94728367a037701f399ef6342725a391f5a17a50a"
+ },
+ {
+  "id": "e204",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:sort",
+  "leg": "sort",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/review/sort-settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-09mzwydy/sort/packet --json-schema '{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"items\"], \"properties\": {\"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"sources\", \"verdict\", \"reason\"], \"properties\": {\"sources\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"verdict\": {\"type\": \"string\", \"enum\": [\"confirmed\", \"disputed\", \"noise\"]}, \"reason\": {\"type\": \"string\"}, \"severity\": {\"type\": \"string\", \"enum\": [\"critical\", \"high\", \"medium\", \"low\"]}, \"file\": {\"type\": \"string\"}, \"line\": {\"type\": \"integer\"}, \"claim\": {\"type\": \"string\"}, \"breaks\": {\"type\": \"string\"}}}}}}'",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.35983560000000003,
+  "turns": 12,
+  "started": "2026-10-14T19:57:37+13:00",
+  "finished": "2026-10-14T19:58:21+13:00",
+  "duration_s": 43.8,
+  "prompt_sha256": "85a3c7f4ab460b011e2a7fdc540040070123a6bc923012486daa1052ddc83967",
+  "output_sha256": "b97b7a10d63b89e9c386ee20858c6c594ecce88d49ecf4e4c26f8b729368dcd1",
+  "evidence": [
+   "review/packet-sort/sort-brief.md",
+   "review/sort-log.jsonl"
+  ],
+  "artefacts": {
+   "review/packet-sort/sort-brief.md": "85a3c7f4ab460b011e2a7fdc540040070123a6bc923012486daa1052ddc83967",
+   "review/sort-log.jsonl": "dc08f9676dca73660498506a237355fba1397a062baab4d3426b20fddeec055f"
+  },
+  "recorded": "2026-10-14T19:58:21+13:00",
+  "prev": "7c06cba5ac00385114a4a911d7b9e61fd652483635450d75340f045efa4f5274"
+ },
+ {
+  "id": "e205",
+  "stage": "review",
+  "status": "info",
+  "check": "sorted",
+  "confirmed": 3,
+  "disputed": 1,
+  "noise": 0,
+  "artefacts": {
+   "review/findings.json": "9fbf5375f378405ed783ec3a17aec1f61b5164c8c220bb477679226d9686469b"
+  },
+  "recorded": "2026-10-14T19:58:21+13:00",
+  "prev": "f621de012107cb75d512b8e1bfcd0f2d23d9152bd78bc0976c58777d909c510f"
+ },
+ {
+  "id": "e206",
+  "stage": "review",
+  "status": "info",
+  "check": "bar",
+  "severities": [
+   "critical",
+   "high",
+   "medium"
+  ],
+  "classes": [
+   "irreversible"
+  ],
+  "recorded": "2026-10-14T19:58:21+13:00",
+  "prev": "c99dee3bae45838bd5f93380611b358c2029c7266faf1ce9b65e004db0b975d9"
+ },
+ {
+  "id": "e207",
+  "stage": "review",
+  "status": "blocked",
+  "check": "outcome",
+  "reason": "F2 a reviewer rated it medium; the sort made it confirmed low, so a human decides (medium blocks: the change reaches irreversible): If an eval alias is later reassigned to an ordinary function, calls through it are still flagged as eval, which blocks harmless code. (factory/rules/semgrep/eval-of-built-strings.yml:74)",
+  "blocking": [
+   "F2"
+  ],
+  "acceptable": true,
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T19:58:21+13:00",
+  "prev": "0a6a082b718fbcdad5b6f712b8f33dcdce67339b244142b412fa49bf7e9df2b9"
+ },
+ {
+  "id": "e208",
+  "stage": "triage",
+  "status": "info",
+  "check": "start",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T20:06:57+13:00",
+  "prev": "c5c9845c69a2d7514104ef57aaaec9357c520fae67b50d398ed4ec05e2ff69f1"
+ },
+ {
+  "id": "e209",
+  "stage": "triage",
+  "status": "info",
+  "check": "classes",
+  "phase": "diff",
+  "classes": [
+   "llm-agent"
+  ],
+  "artefacts": {
+   "risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe"
+  },
+  "recorded": "2026-10-14T20:06:57+13:00",
+  "prev": "9b5767859c5e76bf0d87d4c3fec55246c0347b719628e5a97619a25868570bf9"
+ },
+ {
+  "id": "e210",
+  "stage": "triage",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "phase": "diff",
+  "recorded": "2026-10-14T20:06:57+13:00",
+  "prev": "65c5cd0f8edd06ca35bc24297719dda62daad29156a4608b859b0afa5003b910"
+ },
+ {
+  "id": "e211",
+  "stage": "gate",
+  "status": "info",
+  "check": "start",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T20:06:58+13:00",
+  "prev": "6f55f135726abafda58d0b930cdeada5b86344bab2be608563fac2b641b2342c"
+ },
+ {
+  "id": "e212",
+  "stage": "gate",
+  "status": "info",
+  "check": "tools",
+  "tools": [
+   {
+    "name": "gitleaks",
+    "path": "/opt/homebrew/Cellar/gitleaks/8.30.1/bin/gitleaks",
+    "version": "gitleaks version 8.30.1",
+    "sha256": "f414bc2fb952be6c9072b75cb411e3368614ef4b16d48dbd9ad238034afd2302"
+   },
+   {
+    "name": "osv-scanner",
+    "path": "/opt/homebrew/Cellar/osv-scanner/2.6.0/bin/osv-scanner",
+    "version": "osv-scanner version: 2.6.0",
+    "sha256": "60a7bf0b7981a6542e0df2f144d621736d4181852c18a10305169d1cd81a8889"
+   },
+   {
+    "name": "semgrep",
+    "path": "/opt/homebrew/Cellar/semgrep/1.180.0/libexec/bin/semgrep",
+    "version": "1.180.0",
+    "sha256": "fb9ac434aa9c553b67cd491c17658623a877f773a87d3401907a0242ca92cc58"
+   }
+  ],
+  "recorded": "2026-10-14T20:07:00+13:00",
+  "prev": "1eaa6ae3de5a546e2932269d4f08031d7a91a0ba2c008a13cf8fb0004f96bfac"
+ },
+ {
+  "id": "e213",
+  "stage": "gate",
+  "status": "pass",
+  "check": "locked-tests",
+  "locked": 23,
+  "lock_sha256": "7d010825375e9a6cfe0645563eff288ef5e980d5518f5eba20f664cf21d72ad1",
+  "recorded": "2026-10-14T20:07:00+13:00",
+  "prev": "f5f23d348475c60fa7c5d3de004dd7cae5d53f9439a05de9007472e0e31e8878"
+ },
+ {
+  "id": "e214",
+  "stage": "gate",
+  "status": "pass",
+  "check": "secrets",
+  "cmd": "gitleaks git --no-banner --redact --ignore-gitleaks-allow --log-opts=d2a55a5e6b8db26811d7f0032828525c75ff65d3..HEAD --report-format json --report-path /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/gate/gitleaks.json .",
+  "exit": 0,
+  "started": "2026-10-14T20:07:00+13:00",
+  "finished": "2026-10-14T20:07:00+13:00",
+  "duration_s": 0.1,
+  "output_tail": "\u001b[90m8:07PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mUnknown SCM platform. Use --platform to include links in findings.\u001b[0m \u001b[36mhost=\u001b[0m\n\u001b[90m8:07PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1m6 commits scanned.\u001b[0m\n\u001b[90m8:07PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mscanned ~28890 bytes (28.89 KB) in 54.5ms\u001b[0m\n\u001b[90m8:07PM\u001b[0m \u001b[32mINF\u001b[0m \u001b[1mno leaks found\u001b[0m\n",
+  "output_sha256": "bd56dca3830f9a84ad503d8ab7f11d92acb88fa2a8a90cb07c4d90106723a1e7",
+  "sandbox": "none",
+  "evidence": [
+   "gate/secrets.log"
+  ],
+  "artefacts": {
+   "gate/secrets.log": "bd56dca3830f9a84ad503d8ab7f11d92acb88fa2a8a90cb07c4d90106723a1e7"
+  },
+  "recorded": "2026-10-14T20:07:00+13:00",
+  "prev": "142d6e5b8376e8dad8f2965c9b0f9f3ea906e9e0970a688099763a90b7572e93"
+ },
+ {
+  "id": "e215",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "deps",
+  "reason": "the change touches no lockfile",
+  "applies": false,
+  "recorded": "2026-10-14T20:07:00+13:00",
+  "prev": "a161e6d4b5ee42b54af30d77d42487045639733ffac6a81ed4fa262ca5060401"
+ },
+ {
+  "id": "e216",
+  "stage": "gate",
+  "status": "pass",
+  "check": "sast-scan",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet --severity ERROR --severity WARNING -- ./factory/rules/semgrep/eval-of-built-strings.yml ./tests/test_check.py ./tests/test_eval_rule_after_send_back.py ./tests/test_eval_rule_second_send_back.py ./tests/test_gate_hardening.py ./tests/test_pinned_eval_rule.py",
+  "exit": 0,
+  "started": "2026-10-14T20:07:00+13:00",
+  "finished": "2026-10-14T20:07:02+13:00",
+  "duration_s": 2.8,
+  "output_tail": "t\"],\"likelihood\":\"LOW\",\"impact\":\"HIGH\",\"license\":\"Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license\",\"vulnerability_class\":[\"Code Injection\"],\"source\":\"https://semgrep.dev/r/generic.unicode.security.bidi.contains-bidirectional-characters\",\"shortlink\":\"https://sg.run/nK4r\"},\"severity\":\"WARNING\",\"fingerprint\":\"requires login\",\"lines\":\"requires login\",\"validation_state\":\"NO_VALIDATOR\",\"engine_kind\":\"OSS\"}}],\"errors\":[],\"paths\":{\"scanned\":[\"factory/rules/semgrep/eval-of-built-strings.yml\",\"tests/test_check.py\",\"tests/test_eval_rule_after_send_back.py\",\"tests/test_eval_rule_second_send_back.py\",\"tests/test_gate_hardening.py\",\"tests/test_pinned_eval_rule.py\"]},\"time\":{\"rules\":[],\"rules_parse_time\":0.2645549774169922,\"profiling_times\":{\"config_time\":1.1664812564849854,\"core_time\":0.5823779106140137,\"ignores_time\":0.0008330345153808594,\"total_time\":1.760378122329712},\"parsing_time\":{\"total_time\":0.0,\"per_file_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"scanning_time\":{\"total_time\":0.4631311893463135,\"per_file_time\":{\"mean\":0.025729510519239638,\"std_dev\":0.0016322445546162049},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_files\":[]},\"matching_time\":{\"total_time\":0.0,\"per_file_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_files\":[]},\"tainting_time\":{\"total_time\":0.0,\"per_def_and_rule_time\":{\"mean\":0.0,\"std_dev\":0.0},\"very_slow_stats\":{\"time_ratio\":0.0,\"count_ratio\":0.0},\"very_slow_rules_on_defs\":[]},\"fixpoint_timeouts\":[],\"prefiltering\":{\"project_level_time\":0.0,\"file_level_time\":0.0,\"rules_with_project_prefilters_ratio\":0.0,\"rules_with_file_prefilters_ratio\":0.9690026954177897,\"rules_selected_ratio\":0.07749326145552561,\"rules_matched_ratio\":0.07749326145552561},\"targets\":[],\"total_bytes\":0,\"max_memory_bytes\":740428160},\"engine_requested\":\"OSS\",\"skipped_rules\":[],\"profiling_results\":[]}\n",
+  "output_sha256": "ce8a1eb904916fe0ba31b80b63b4b420ea07c1ff780f5f1e962db42ca37989f7",
+  "sandbox": "none",
+  "evidence": [
+   "gate/sast-scan.log"
+  ],
+  "artefacts": {
+   "gate/sast-scan.log": "ce8a1eb904916fe0ba31b80b63b4b420ea07c1ff780f5f1e962db42ca37989f7"
+  },
+  "recorded": "2026-10-14T20:07:02+13:00",
+  "prev": "1e273f3cc0cb3ddac46ac9eb7d1ff43641af1625805ac8141d448e1eef9975f5"
+ },
+ {
+  "id": "e217",
+  "stage": "gate",
+  "status": "pass",
+  "check": "sast",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet --severity ERROR --severity WARNING -- ./factory/rules/semgrep/eval-of-built-strings.yml ./tests/test_check.py ./tests/test_eval_rule_after_send_back.py ./tests/test_eval_rule_second_send_back.py ./tests/test_gate_hardening.py ./tests/test_pinned_eval_rule.py",
+  "after_event": "e216",
+  "evidence": [
+   "gate/sast-scan.log"
+  ],
+  "preexisting": 1,
+  "note": "no finding on an added line; 1 finding(s) already in the touched files",
+  "recorded": "2026-10-14T20:07:03+13:00",
+  "prev": "0dab2041f9f8ad6af6e5c2e2e6410b1b1ca1e57423921ef35c84d585e2f8d445"
+ },
+ {
+  "id": "e218",
+  "stage": "gate",
+  "status": "pass",
+  "check": "invisible",
+  "note": "no invisible or control characters added",
+  "recorded": "2026-10-14T20:07:03+13:00",
+  "prev": "65f663c1485b02c3f545426cfd8e02a8ae7ce05c51808f6502527d6b68b5d573"
+ },
+ {
+  "id": "e219",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "install",
+  "reason": "commands.install is not configured",
+  "recorded": "2026-10-14T20:07:03+13:00",
+  "prev": "1b1d8db8cd7e87807fecddb28bc7ba58ae8c759f21db590262d4d5fb4dbebb64"
+ },
+ {
+  "id": "e220",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "typecheck",
+  "reason": "commands.typecheck is not configured",
+  "recorded": "2026-10-14T20:07:03+13:00",
+  "prev": "7b86cbc4b55424efa9dca4e059541012629fb9dc35b8035f826a27cf25634fd0"
+ },
+ {
+  "id": "e221",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "lint",
+  "reason": "commands.lint is not configured",
+  "recorded": "2026-10-14T20:07:03+13:00",
+  "prev": "4e34afce82797efec50f22aa5af0eb44e145d490604607c8d16a95563dcd389d"
+ },
+ {
+  "id": "e222",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "build",
+  "reason": "commands.build is not configured",
+  "recorded": "2026-10-14T20:07:03+13:00",
+  "prev": "4c66ccbf328ab776effeeac6e77120bf03a9d0c542d955cffd562385d1497fb1"
+ },
+ {
+  "id": "e223",
+  "stage": "gate",
+  "status": "pass",
+  "check": "tests",
+  "cmd": "PYTHONPATH=. \"/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python\" -m pytest -q -rA -p no:cacheprovider",
+  "exit": 0,
+  "started": "2026-10-14T20:07:03+13:00",
+  "finished": "2026-10-14T20:10:36+13:00",
+  "duration_s": 212.2,
+  "output_tail": "est_triage.py::test_keywords_in_the_story_map_to_classes\nPASSED tests/test_triage.py::test_path_rules_builtin_and_configured\nPASSED tests/test_triage.py::test_planned_classes_are_not_unplanned\nPASSED tests/test_triage.py::test_diff_patterns_outside_tests\nPASSED tests/test_triage.py::test_a_drop_in_a_down_migration_is_the_rollback_not_an_irreversible_step\nPASSED tests/test_triage.py::test_llm_client_imports_beyond_openai_and_anthropic\nPASSED tests/test_triage.py::test_story_keywords_alone_never_block\nPASSED tests/test_triage.py::test_triage_stage_blocks_on_unplanned_class_until_accepted\nPASSED tests/test_triage.py::test_a_word_in_the_story_adds_focus_but_not_gates\nPASSED tests/test_triage.py::test_secret_matches_are_redacted_in_evidence\nPASSED tests/test_warrant.py::test_pack_separates_demonstrated_from_asserted\nPASSED tests/test_warrant.py::test_confirmed_findings_below_the_bar_are_residual_risks\nPASSED tests/test_warrant.py::test_a_return_that_names_a_finding_hands_the_builder_its_claim\nPASSED tests/test_warrant.py::test_assessor_lines_must_cite_real_events\nPASSED tests/test_warrant.py::test_sign_needs_an_unchanged_pack\nPASSED tests/test_warrant.py::test_sign_refuses_a_pack_that_is_not_ready_or_stale\nPASSED tests/test_warrant.py::test_pack_not_ready_when_an_artefact_changed_after_recording\nPASSED tests/test_warrant.py::test_pack_not_ready_when_a_command_log_changed_after_recording\nPASSED tests/test_warrant.py::test_the_assessor_summary_is_filed_as_asserted\nPASSED tests/test_warrant.py::test_the_pack_opens_with_a_decision_page_in_plain_words\nPASSED tests/test_warrant.py::test_the_decision_page_names_a_second_person_for_personal_data\nSKIPPED [1] tests/test_isolation.py:41: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:69: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:82: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:90: needs sandbox-exec\nSKIPPED [1] tests/test_isolation.py:226: needs sandbox-exec\n233 passed, 5 skipped in 212.01s (0:03:32)\n",
+  "output_sha256": "6ad19124ab8478d3167feb5bb3f0581615344575bdcd744013d07b93878a68f0",
+  "sandbox": "sandbox-exec",
+  "evidence": [
+   "gate/tests.log"
+  ],
+  "artefacts": {
+   "gate/tests.log": "6ad19124ab8478d3167feb5bb3f0581615344575bdcd744013d07b93878a68f0"
+  },
+  "recorded": "2026-10-14T20:10:36+13:00",
+  "prev": "f3ce1c3563c2e61a49823f976102e36ff709115c4545d93de48416d7773a0a1a"
+ },
+ {
+  "id": "e224",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "perf",
+  "reason": "commands.perf is not configured",
+  "recorded": "2026-10-14T20:10:36+13:00",
+  "prev": "0575060083ecb5f37357e4428cd4812088d70c4dcd4a8442deb176c850da45c3"
+ },
+ {
+  "id": "e225",
+  "stage": "gate",
+  "status": "skipped",
+  "check": "rollback",
+  "applies": false,
+  "reason": "no class in risk.json requires a rollback (no migration or irreversible path or pattern)",
+  "recorded": "2026-10-14T20:10:36+13:00",
+  "prev": "1dcd99a4510319f607064367546125f819a5042c2f6172ef925dd649d599a477"
+ },
+ {
+  "id": "e226",
+  "stage": "gate",
+  "status": "pass",
+  "check": "surface",
+  "note": "the change edits no test-runner, scanner or agent-instruction file",
+  "recorded": "2026-10-14T20:10:36+13:00",
+  "prev": "7609ea747700a9d5c23b16988c60f746f7cabd2ea357d2df440d16c10b482736"
+ },
+ {
+  "id": "e227",
+  "stage": "gate",
+  "status": "pass",
+  "check": "added-tests",
+  "note": "the build added no test files",
+  "recorded": "2026-10-14T20:10:36+13:00",
+  "prev": "01ae60a5e0c9074898c53b5c71dd3d21661adbd9384ab0935a93d672920672ec"
+ },
+ {
+  "id": "e228",
+  "stage": "gate",
+  "status": "pass",
+  "check": "ratchet:semgrep_findings",
+  "cmd": "SEMGREP_SETTINGS_FILE=\"${TMPDIR:-/tmp}/semgrep-settings.yml\" SEMGREP_LOG_FILE=\"${TMPDIR:-/tmp}/semgrep.log\" SEMGREP_VERSION_CACHE_PATH=\"${TMPDIR:-/tmp}/semgrep-version\" semgrep scan --config p/default --config '/Users/cgagne/Documents/LLM Repos/repos/factory/factory/rules/semgrep' --metrics=off --disable-version-check --disable-nosem --json --quiet -- .",
+  "mode": "absolute",
+  "before": 4,
+  "after": 4,
+  "runs": {
+   "baseline": {
+    "count": 4,
+    "exit": 0,
+    "output_sha256": "8cdbf47086033df71d12a561e14ae3a63a3945945592689a05748facc53da451",
+    "log": "gate/ratchet-semgrep_findings-baseline.json",
+    "errors": 0,
+    "problem": null
+   },
+   "after": {
+    "count": 4,
+    "exit": 0,
+    "output_sha256": "989bf28a596ccf595dfefd8cb4b546390aaa70a773cf56aa32ed919fa6844682",
+    "log": "gate/ratchet-semgrep_findings-after.json",
+    "errors": 0,
+    "problem": null
+   }
+  },
+  "evidence": [
+   "gate/ratchet-semgrep_findings-baseline.json",
+   "gate/ratchet-semgrep_findings-after.json"
+  ],
+  "artefacts": {
+   "gate/ratchet-semgrep_findings-baseline.json": "8cdbf47086033df71d12a561e14ae3a63a3945945592689a05748facc53da451",
+   "gate/ratchet-semgrep_findings-after.json": "989bf28a596ccf595dfefd8cb4b546390aaa70a773cf56aa32ed919fa6844682"
+  },
+  "recorded": "2026-10-14T20:10:46+13:00",
+  "prev": "ff94799c10ce8338d2dac8d5bdfe33c342ee66dcf2e82a1c8cd2f7291418e04e"
+ },
+ {
+  "id": "e229",
+  "stage": "gate",
+  "status": "pass",
+  "check": "required",
+  "recorded": "2026-10-14T20:10:46+13:00",
+  "prev": "bc903e147baffbe72197de9dc5f4ebc9d2e915062a5d7fcc449210a5607b600d"
+ },
+ {
+  "id": "e230",
+  "stage": "gate",
+  "status": "pass",
+  "check": "unchanged",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T20:10:46+13:00",
+  "prev": "c327dcc5edc16ab25a4e36f1a093089264bef76eb434f190208b557ab6053409"
+ },
+ {
+  "id": "e231",
+  "stage": "gate",
+  "status": "info",
+  "check": "theory-doc",
+  "path": "DESIGN.md",
+  "exists": true,
+  "changed": false,
+  "doc_sha256": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a",
+  "recorded": "2026-10-14T20:10:46+13:00",
+  "prev": "a3a85d284354df0294720cafb4f968f4ba622da3509cf3420b39c2117a594470"
+ },
+ {
+  "id": "e232",
+  "stage": "gate",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T20:10:47+13:00",
+  "prev": "8b66db6610973b21cfcc68d56f1e389b156a9717c537122227f8c2ae433fecd5"
+ },
+ {
+  "id": "e233",
+  "stage": "review",
+  "status": "info",
+  "check": "start",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T20:10:47+13:00",
+  "prev": "7ff134ee4a70a1d5fbc64c149262bdacaeb0341189cf44144267170245675bd6"
+ },
+ {
+  "id": "e234",
+  "stage": "review",
+  "status": "info",
+  "check": "tools",
+  "tools": [
+   {
+    "name": "claude",
+    "path": "/Users/cgagne/.local/share/claude/versions/2.1.288",
+    "version": "2.1.288 (Claude Code)",
+    "sha256": "bbe93063f7a0879a1021b2891e5c9354e5b3b98433e32efe6750f7710afed750"
+   },
+   {
+    "name": "codex",
+    "path": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+    "version": "codex-cli 0.162.0-alpha.17.2",
+    "sha256": "0d5ac7aae20c4eda6242428d5e218c55ba96d8763fda2a271088ff37104b9d28"
+   }
+  ],
+  "recorded": "2026-10-14T20:10:47+13:00",
+  "prev": "7db19e108757da676ec700cdf3566420098fd8c23d5530de7fc9f792aa3d0d66"
+ },
+ {
+  "id": "e235",
+  "stage": "review",
+  "status": "info",
+  "check": "packet",
+  "grounding": "seeds",
+  "axis_rows": 27,
+  "theory_doc": "DESIGN.md",
+  "artefacts": {
+   "review/packet-claude/acceptance.md": "911f80a9b27d5ca4b4fa7142a3a3c6384638734c277f3166750f642aef8f3276",
+   "review/packet-claude/axis-rows.md": "1824cfa53f8daee14897a9aebb539feede3bda9f32f5ac69c56d2b40ac8e887d",
+   "review/packet-claude/brief.md": "125a87023b3dafc8caf8daec58a558f054c9f2ec61e40c8b798b5abc89d5fa16",
+   "review/packet-claude/diff.patch": "4a9e04f74e086f65015e7737f5ae412097e93f6e70e3ab36d5d8a0b92c3dd8d9",
+   "review/packet-claude/risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe",
+   "review/packet-claude/theory.md": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a",
+   "review/packet-codex/acceptance.md": "911f80a9b27d5ca4b4fa7142a3a3c6384638734c277f3166750f642aef8f3276",
+   "review/packet-codex/axis-rows.md": "1824cfa53f8daee14897a9aebb539feede3bda9f32f5ac69c56d2b40ac8e887d",
+   "review/packet-codex/brief.md": "17651393b103f51628608ca9d2a135ab2d7314c4179bdf893d4ca033ddbda288",
+   "review/packet-codex/diff.patch": "4a9e04f74e086f65015e7737f5ae412097e93f6e70e3ab36d5d8a0b92c3dd8d9",
+   "review/packet-codex/risk.json": "e36b3895f23a06528c6d92833b25af6b11abfbcc9d51c14de930a3cedeeb68fe",
+   "review/packet-codex/theory.md": "611fe5c52002e76e82650e47de46b371e24b783449ea4a0403680078889cc04a"
+  },
+  "recorded": "2026-10-14T20:10:48+13:00",
+  "prev": "56b0ebf043ac01a28887061f919d594ba39352e6d36fd68603eaadeca4decae0"
+ },
+ {
+  "id": "e236",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:reviewer-claude",
+  "leg": "reviewer-claude",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/review/reviewer-claude-settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-ru2fvwe8/claude/packet --json-schema '{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"findings\"], \"properties\": {\"findings\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"severity\", \"claim\", \"evidence\"], \"properties\": {\"severity\": {\"type\": \"string\", \"enum\": [\"critical\", \"high\", \"medium\", \"low\"]}, \"file\": {\"type\": \"string\"}, \"line\": {\"type\": \"integer\"}, \"claim\": {\"type\": \"string\"}, \"evidence\": {\"type\": \"string\"}, \"axis_row\": {\"type\": \"string\"}}}}}}'",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.7507108,
+  "turns": 16,
+  "started": "2026-10-14T20:10:48+13:00",
+  "finished": "2026-10-14T20:13:05+13:00",
+  "duration_s": 137.1,
+  "prompt_sha256": "125a87023b3dafc8caf8daec58a558f054c9f2ec61e40c8b798b5abc89d5fa16",
+  "output_sha256": "1fe6768c0b6f58df312d026bb0cc381741b3e106fd0fbbf9b142080e1985e4c2",
+  "evidence": [
+   "review/packet-claude/brief.md",
+   "review/claude-log.jsonl"
+  ],
+  "artefacts": {
+   "review/packet-claude/brief.md": "125a87023b3dafc8caf8daec58a558f054c9f2ec61e40c8b798b5abc89d5fa16",
+   "review/claude-log.jsonl": "8b3587a0ac7172cf0be3962a36f4b1c034f29d627dc1d2d01f9a265bd7f2ebe3"
+  },
+  "recorded": "2026-10-14T20:13:54+13:00",
+  "prev": "b88cfc978ca5668b0f0e12a6efe26dd281ba368886b882cbf7693976315c6b81"
+ },
+ {
+  "id": "e237",
+  "stage": "review",
+  "status": "info",
+  "check": "findings:claude",
+  "count": 4,
+  "artefacts": {
+   "review/findings-claude.json": "28f7b93b4333987ea9e62556842ac6c71978a38d3b043679dc95e5a2dc6c69c7"
+  },
+  "recorded": "2026-10-14T20:13:54+13:00",
+  "prev": "4d35b65fdb04727de8af21837ade27edafc481dd4dc11b0873ae3f8d672bf2ca"
+ },
+ {
+  "id": "e238",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:reviewer-codex",
+  "leg": "reviewer-codex",
+  "family": "codex",
+  "cmd": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex exec -m gpt-6.1-sol -s read-only --skip-git-repo-check --ephemeral --ignore-user-config -C /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-ru2fvwe8/codex/export -o /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-ru2fvwe8/codex/logs/codex-final.md --output-schema /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-ru2fvwe8/codex/logs/findings-schema.json '<prompt>'",
+  "exit": 0,
+  "model": "gpt-6.1-sol",
+  "tokens": 61858,
+  "started": "2026-10-14T20:11:55+13:00",
+  "finished": "2026-10-14T20:13:54+13:00",
+  "duration_s": 119.3,
+  "prompt_sha256": "17651393b103f51628608ca9d2a135ab2d7314c4179bdf893d4ca033ddbda288",
+  "output_sha256": "863c1e14c71f9a532ed1e52edbc08668d3c3f641767ac896a19ea2490fe09af5",
+  "evidence": [
+   "review/packet-codex/brief.md",
+   "review/codex-log.txt"
+  ],
+  "artefacts": {
+   "review/packet-codex/brief.md": "17651393b103f51628608ca9d2a135ab2d7314c4179bdf893d4ca033ddbda288",
+   "review/codex-log.txt": "03de415352db1056c11bbb0d9ca2d912baf53f1e2873726e8109d0d6fa088531"
+  },
+  "recorded": "2026-10-14T20:13:54+13:00",
+  "prev": "2c91c62f68ab0a4a56a5039343e5748a2477e15ffd1bf554c7a8074ad4eadca0"
+ },
+ {
+  "id": "e239",
+  "stage": "review",
+  "status": "info",
+  "check": "findings:codex",
+  "count": 2,
+  "artefacts": {
+   "review/findings-codex.json": "72ec9b5b5a8513aa76655d33ea5895715d4de811beba8a769578c808f2008bd6"
+  },
+  "recorded": "2026-10-14T20:13:54+13:00",
+  "prev": "d63da2d53abf018ebf46e5b81bf2d679c54c54a4c33b2bd141c83feeae158799"
+ },
+ {
+  "id": "e240",
+  "stage": "review",
+  "status": "pass",
+  "check": "leg:sort",
+  "leg": "sort",
+  "family": "claude",
+  "cmd": "claude -p '<prompt>' --output-format stream-json --verbose --model opus --no-session-persistence --strict-mcp-config --setting-sources project --tools Read,Grep,Glob --allowedTools Read,Grep,Glob --permission-mode dontAsk --settings /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/factory/.factory/changes/20261014-172821-flag-code-that-evaluates-strings/review/sort-settings.json --add-dir /private/tmp/claude-501/-Users-cgagne-Documents-LLM-Repos-repos-grounded-forge/9a408a34-2ce9-4109-807c-d2906a4c9c3a/scratchpad/showcase/.factory-worktrees/factory/.factory-tmp/review-ru2fvwe8/sort/packet --json-schema '{\"type\": \"object\", \"additionalProperties\": false, \"required\": [\"items\"], \"properties\": {\"items\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"required\": [\"sources\", \"verdict\", \"reason\"], \"properties\": {\"sources\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"verdict\": {\"type\": \"string\", \"enum\": [\"confirmed\", \"disputed\", \"noise\"]}, \"reason\": {\"type\": \"string\"}, \"severity\": {\"type\": \"string\", \"enum\": [\"critical\", \"high\", \"medium\", \"low\"]}, \"file\": {\"type\": \"string\"}, \"line\": {\"type\": \"integer\"}, \"claim\": {\"type\": \"string\"}, \"breaks\": {\"type\": \"string\"}}}}}}'",
+  "exit": 0,
+  "model": "claude-opus-5-5",
+  "cost_usd": 0.2080554,
+  "turns": 13,
+  "started": "2026-10-14T20:13:54+13:00",
+  "finished": "2026-10-14T20:23:15+13:00",
+  "duration_s": 560.3,
+  "prompt_sha256": "63e52bde730a1e6473024a238bfa18451f660d9ec073e83d1799b24d1611b182",
+  "output_sha256": "d3376e42646c11e62bd7ed7f1d7b2fc250233b4275f35b1d51a8362438c7a7ed",
+  "evidence": [
+   "review/packet-sort/sort-brief.md",
+   "review/sort-log.jsonl"
+  ],
+  "artefacts": {
+   "review/packet-sort/sort-brief.md": "63e52bde730a1e6473024a238bfa18451f660d9ec073e83d1799b24d1611b182",
+   "review/sort-log.jsonl": "d1854711c0950fc5f502f4b759014a73032c0a4a75d228aebb7f76ebecad80b6"
+  },
+  "recorded": "2026-10-14T20:23:15+13:00",
+  "prev": "a5c6f81cfbdb4b478ac8ab65eef9d9c1570810f52b3999adf099c128c649ed51"
+ },
+ {
+  "id": "e241",
+  "stage": "review",
+  "status": "info",
+  "check": "sorted",
+  "confirmed": 3,
+  "disputed": 1,
+  "noise": 1,
+  "artefacts": {
+   "review/findings.json": "0ab26472a04ea6a7329884bab016d4857f21a8586b6b42f6d7827b09d48cce10"
+  },
+  "recorded": "2026-10-14T20:23:15+13:00",
+  "prev": "3e7525a1d655252a1fe190fa3d77c8e84cff6e23ce356fd84feecd52fabc90ca"
+ },
+ {
+  "id": "e242",
+  "stage": "review",
+  "status": "info",
+  "check": "bar",
+  "severities": [
+   "critical",
+   "high"
+  ],
+  "recorded": "2026-10-14T20:23:15+13:00",
+  "prev": "c32ce9a8bfadbcc0c874922e57a987d3eda3455e144c60bb0d3fa5a5dd752505"
+ },
+ {
+  "id": "e243",
+  "stage": "review",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T20:23:15+13:00",
+  "prev": "19caefed7f1f45a6122b167df595a1b9c58af783308e3c221b6e3866c88af29c"
+ },
+ {
+  "id": "e244",
+  "stage": "warrant",
+  "status": "info",
+  "check": "start",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "recorded": "2026-10-14T20:23:15+13:00",
+  "prev": "c8943cd5880f4de466d5ea8e97a0ac894094b43af72d83b61294b998e558724c"
+ },
+ {
+  "id": "e245",
+  "stage": "warrant",
+  "status": "pass",
+  "check": "outcome",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "clean": true,
+  "pack_sha256": "7639e5861fbf0f55b10f0933b2b68b50bbb4dc176ff28a72840ccfb007a754da",
+  "artefacts": {
+   "warranty.md": "7639e5861fbf0f55b10f0933b2b68b50bbb4dc176ff28a72840ccfb007a754da"
+  },
+  "recorded": "2026-10-14T20:23:15+13:00",
+  "prev": "548491fe7b651964d5df904356c6a281495f71ea8d764e7c1ecb6a4f80afd662"
+ },
+ {
+  "id": "e246",
+  "stage": "sign",
+  "status": "pass",
+  "check": "signature",
+  "change": "20261014-172821-flag-code-that-evaluates-strings",
+  "by": "Chris Gagn\u00e9",
+  "at": "2026-10-15T06:00:45+13:00",
+  "pack_sha256": "7639e5861fbf0f55b10f0933b2b68b50bbb4dc176ff28a72840ccfb007a754da",
+  "commit": "efb202e1d675713ca3aaa291d4ea59192efd1375",
+  "tree": "7c2ad4528be2dbd63dd1827ccd35d35eef2e7d93",
+  "warrant_event": "e245",
+  "seal": "d68c27d1d180c49927da03b15360ee600619362fcc38c24891cd1c4dc1ace837",
+  "recorded": "2026-10-15T06:00:45+13:00",
+  "prev": "1e2f5c6256f0ad84b16339dc7aa0bfc2466cbe14383565ccb63447d2981ab089"
+ }
+]

@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/capawesome-team/cli",
+  "pr_number": 126,
+  "base": "a03825128b8380f86dcf85e8d3507b3a41d9f775",
+  "head": "2d997db6e53c75213cbb13f2d3fdb636984eead4"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 242,
+   "end_line": 245,
+   "message": "Expose the Apple API key ID as a create option. For non-interactive iOS destination creation using API-key authentication, `appleApiKeyId` is always undefined: it is initialized locally and has no corresponding command option. Consequently, the command uploads the key file and then unconditionally exits here, even when all available authentication flags are supplied. Add an `appleApiKeyId` option and read it from `options` so this authentication method works in CI."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 242,
+   "end_line": 252,
+   "message": "There is no `--apple-api-key-id` option, and `appleApiKeyId` is declared as a local `undefined` (line 53) and never set from options. Because of this, API Key auth for iOS can never work in a non-interactive environment such as CI: the command always fails with 'You must provide the Apple API Key ID\u2026', even when `--apple-api-key-file` and `--apple-issuer-id` are passed. The non-interactive error message at line 212 tells users that those two flags are enough, which is wrong. Add an `appleApiKeyId` option and include it in the auth-method detection."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 233,
+   "end_line": 240,
+   "message": "The .p8 Apple API key is uploaded to the server before the Key ID, Issuer ID and Team ID are collected and checked. If any later step fails (a non-interactive missing flag, an empty prompt, or Ctrl+C), the private key is left uploaded with nothing using it. Collect and check every input first, then upload the key just before creating the destination."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 158,
+   "end_line": 182,
+   "message": "Provisioning profiles are uploaded before the certificate is created and linked to it afterwards. If certificate creation fails (for example a wrong password or an invalid file) or `updateMany` fails, the uploaded profiles are left orphaned and nothing is rolled back or reported. The certificate file is also read only after all prompts, so a mistyped path ends in an unhandled ENOENT stack trace instead of a clear error. Check that all file paths exist up front and create the certificate before uploading the profiles, or clean up on failure."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 160,
+   "end_line": 171,
+   "message": "Provisioning profiles passed with `--provisioning-profile` are uploaded and linked whatever the platform is, including android and web, where they make no sense. Only the interactive prompt checks for iOS. Reject this flag or ignore it when the platform is not ios."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 27,
+   "end_line": 30,
+   "message": "`provisioningProfile` is defined as `z.array(z.string())`, but no other command uses an array option. If zli passes a single `--provisioning-profile path` as a plain string, Zod validation fails and the documented flag is unusable. Check how zli parses repeated or single flags, or accept `z.union([z.string(), z.array(z.string())])` and normalize it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 120,
+   "end_line": 144,
+   "message": "The certificate password and key password are prompted with `type: 'text'`, so the secrets are echoed on screen and stay in terminal scrollback and screen recordings. Use a masked or password input."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 296,
+   "end_line": 296,
+   "message": "The Apple app-specific password is prompted with `type: 'text'`, so the secret is echoed on screen. Use a masked input."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/destinations/get.ts",
+   "start_line": 72,
+   "end_line": 79,
+   "message": "`AppDestinationDto` includes `appleAppPassword`, and `get` prints the whole object with `console.table` or JSON. If the API returns this field, the command prints the app-specific password in plain text. Leave secret fields out of the output."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/utils/prompt.ts",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "`promptAppSelection` now loads at most 50 apps and has no pagination or search. This affects every command that uses app selection, not just the new ones. In organizations with more than 50 apps, some apps silently disappear from the picker, and the user cannot select them interactively."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/certificates/delete.ts",
+   "start_line": 37,
+   "end_line": 45,
+   "message": "Delete by `--name`/`--platform` takes the first result of `findAll({ name })` without checking that the name matches exactly or that there is only one match. If the server's `name` filter matches partially, case-insensitively (note `nameLower`) or returns several rows, the wrong certificate can be deleted, and with `--yes` there is no confirmation. Require exactly one exact match. The same pattern is in `destinations/delete.ts`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/certificates/delete.ts",
+   "start_line": 45,
+   "end_line": 67,
+   "message": "In interactive mode, a `--name` given without `--platform` is silently ignored and the user gets the full picker. The picker also calls `findAll` without a limit, so it only shows the server's default page and some certificates may not be selectable. The same applies to `get.ts` and the destination delete and get commands."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/certificates/update.ts",
+   "start_line": 42,
+   "end_line": 53,
+   "message": "The interactively entered certificate ID is not checked, so an empty answer becomes a PATCH to `/certificates/`. Nothing checks that at least one field to update was given either, so the command sends an empty PATCH and still reports 'Certificate updated successfully.' Unlike `delete` and `get`, this command also cannot pick a certificate from a list. `destinations/update.ts` has the same problems."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/commands/apps/destinations/update.ts",
+   "start_line": 20,
+   "end_line": 34,
+   "message": "`update` asks for raw server IDs (`--app-apple-api-key-id`, `--app-google-service-account-key-id`), but no command lists or creates those keys on their own. `create` only accepts key file paths. This makes it practically impossible to rotate a destination's key with the CLI. Accept file paths here and upload them, as `create` does."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/types/app-provisioning-profile.ts",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "`CreateAppProvisioningProfileDto.certificateId` is never set by any caller. It is also named inconsistently with the `appCertificateId` field used elsewhere for the same API, so the service would probably send a form field the API does not recognize. Remove it or rename it to `appCertificateId`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 48000
+ }
+}

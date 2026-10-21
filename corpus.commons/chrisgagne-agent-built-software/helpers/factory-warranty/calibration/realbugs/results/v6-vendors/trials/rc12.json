@@ -1,0 +1,78 @@
+{
+ "id": "rc12",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 326,
+   "end_line": 326,
+   "message": "`assertTrue(disconnectCalled.await(5, SECONDS), \"onDisconnect must fire even when onTransportDrop throws\")` became a bare `disconnectCalled.await()`. This test checks exactly this one thing, and now it has no bound and no message. The PR says the deferred is always completed synchronously by UnconfinedTestDispatcher. If so, the clear check is `assertTrue(disconnectCalled.isCompleted, \"...\")`, which ReconnectTest/MiscTest already use. If a regression stops onDisconnect from firing, the body suspends forever on an idle scheduler. The test then only fails when runTest's wall-clock timeout fires (60s by default in kotlinx-coroutines 1.10), with a generic error. That is slower and less useful than the old 5s assertion."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 379,
+   "end_line": 379,
+   "message": "The assertion message \"onTransportRestore must fire after successful reconnect\" was dropped, along with the bounded wait. A bare `restoreCalled.await()` turns a failed reconnect into a 60s runTest timeout with no explanation. Use `assertTrue(restoreCalled.isCompleted, ...)` (after runCurrent) to match the other migrated tests."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/test/kotlin/com/wspulse/client/component/CallbackTest.kt",
+   "start_line": 67,
+   "end_line": 68,
+   "message": "Same pattern here and at lines 193-196, 243-244 and 294, plus BasicTest.kt:83-84 and LifecycleTest.kt:121. Bounded latch waits became unbounded `CompletableDeferred.await()`. That contradicts the PR's goal of deterministic, fast-failing tests: a missing callback now hangs until the runTest timeout. The PR says these deferreds are always already completed, so `assertTrue(x.isCompleted, msg)` states that directly and fails immediately. ReconnectTest/MiscTest already do this, so the migration is also inconsistent across files."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 504,
+   "end_line": 513,
+   "message": "tearDown calls `runBlocking(UnconfinedTestDispatcher(testScheduler))` and then `done.await()` with no timeout. The PR's safety argument (\"the client is already closed by the time teardown runs\") only holds for passing tests. When an assertion fails before `client.close()`, teardown is the code that does the close. If shutdown needs any work queued on the test scheduler (delayed or dispatched tasks), nothing advances the scheduler outside runTest, so `done.await()` can block the JUnit thread forever and hang the whole test run. Advance the scheduler (e.g. `testScheduler.advanceUntilIdle()` after close) and/or wrap the wait in a real-time timeout."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 526,
+   "end_line": 532,
+   "message": "The new waitUntil changes behaviour, not just mechanism. The old helper only polled; this one moves virtual time forward by up to 5s as a side effect. Any pending client timers due in that window (reconnect backoff, ping period, pong deadline) can fire while the test thinks it is just waiting. That silently shifts the timeline for later precise `advanceTimeBy(...)` windows such as the 200/500 ms 'no erroneous second call' checks. Today the helper mostly hits the fast path, but this hidden time advance makes future tests fragile. Consider `testScheduler.runCurrent()` first, and document that it advances time, or have it take an explicit step/budget."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/test/kotlin/com/wspulse/client/component/ComponentTestBase.kt",
+   "start_line": 499,
+   "end_line": 501,
+   "message": "Every subclass passes `TestCoroutineScheduler()` through the constructor, so the parameter adds nothing; the base class could own `protected val testScheduler = TestCoroutineScheduler()`. The scheduler is also only isolated per test because of JUnit's default PER_METHOD lifecycle. A subclass annotated `@TestInstance(PER_CLASS)` would share virtual time and `testClient` across tests with no warning."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/test/kotlin/com/wspulse/client/component/MiscTest.kt",
+   "start_line": 124,
+   "end_line": 124,
+   "message": "`assertTrue(disconnectCalled.isCompleted)` (also at ReconnectTest.kt:87, 149, 225) has no failure message, so a failure just reports 'expected true'. Add a message such as \"onDisconnect should fire after pong timeout\" so a failure in these timing-sensitive tests can be diagnosed."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 31,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 74,
+   "cost_usd": 0.5323122,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 74
+ }
+}

@@ -1,0 +1,168 @@
+{
+ "pr": {
+  "repo": "https://github.com/gagneurlab/PROTRIDER",
+  "pr_number": 10,
+  "base": "22740c695315543a1064915930f806abf5b058ce",
+  "head": "b462b109b630dd1e1a9a78088b18429d2baaae9b"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 509,
+   "end_line": 510,
+   "message": "Track successful checkpoint loading explicitly. When a checkpoint exists but loading fails (for example, because its architecture is incompatible), the pipeline initializes a replacement model and assigns a new `q`. This condition then incorrectly marks that model as loaded and skips training, silently producing results from untrained weights. Set the loaded flag from the actual outcome of `load_model`, before initializing any replacement."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 30,
+   "end_line": 32,
+   "message": "Preserve the grid-search plotting file contract. After a grid-search run, `plot_encoding_dim` still reads `grid_search.csv` with columns `encod_dim` and `aucpr`, but this writer now emits `grid_search_results.csv` with different column names. Consequently, the documented encoding-dimension plotting command fails with `FileNotFoundError` on fresh output. Update the reader alongside the writer or retain the existing file contract."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 78,
+   "end_line": 78,
+   "message": "Restore centering metadata for non-PCA checkpoints. With `init_pca=False`, training constructs the encoder with protein means and no encoder bias, whereas loading always constructs it with `prot_means=None` and an encoder bias. Its state dictionary therefore cannot load, and the means used to center inputs are not saved either. Persist and restore the centering mode and means so checkpoints from this supported configuration can actually be reused."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/stats.py",
+   "start_line": 229,
+   "end_line": 229,
+   "message": "Refit location and scale when replacing fitted degrees of freedom. When `common_degrees_freedom=False` and a protein's fitted degrees of freedom are below 3 or rejected as non-converged, this branch replaces them but retains location and scale estimated for the original distribution. P-values are then calculated using a distribution that was never fitted to the residuals, compromising outlier calibration. Refit location and scale with the replacement degrees of freedom, as the common-DF branch does."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 443,
+   "end_line": 452,
+   "message": "This change does not make checkpointing opt-in, though the description says it does. When `checkpoint_path` is unset, the code falls back to `out_dir/model.pt` and `checkpoint_path` is always truthy. So every run still writes a checkpoint, and every later run with the same `out_dir` silently loads it and skips latent-dim search and training. Commenting the key out of config.yaml has no effect on this. If the goal is opt-in, skip save and load when `config.checkpoint_path` is None."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 54,
+   "end_line": 91,
+   "message": "A loaded checkpoint is never checked against the current run. Only the shape of the state_dict has to match. It does not store or compare the protein IDs and their order, the sample/covariate setup, init_pca, h_dim, log_func or the find_q_method. If a user reruns with new data that has the same number of proteins, or with changed hyperparameters, into the same out_dir, the old model is reused and the outlier calls are silently wrong. Store a fingerprint of the protein index and the relevant config in the checkpoint and refuse to load on a mismatch."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 71,
+   "end_line": 81,
+   "message": "`load_model` always rebuilds the model with `prot_means=None`. A model trained with `init_pca=False` is built with prot_means: its encoder has no bias and it subtracts the means in forward. Loading that checkpoint fails on missing/unexpected keys, the broad `except` hides the error, and the model is retrained on every run. Because prot_means is not saved in the state_dict, even a load that succeeded would run the forward pass without centering."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "`torch.load(..., weights_only=False)` unpickles arbitrary objects, so a crafted .pt file can execute code. The file is loaded automatically from out_dir or a user-supplied path. The checkpoint only holds tensors and primitives, so use `weights_only=True`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 89,
+   "end_line": 91,
+   "message": "Any exception while loading becomes a warning and a silent retrain, and the retrain then overwrites the checkpoint. Real errors such as a corrupt file or a device problem are hidden from the user."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 73,
+   "end_line": 86,
+   "message": "In `train_and_eval_q`, the non-finite-loss branch assigns `auc_prec_rec = np.nan`, but the function returns `auprc`. Any diverged fit during grid or binary search raises UnboundLocalError and the whole run crashes. Assign `auprc = np.nan` instead."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 107,
+   "end_line": 107,
+   "message": "`max(enc2auprc, key=enc2auprc.get)` behaves unpredictably when some AUPRC values are NaN, because NaN comparisons are always False. The result depends on iteration order and can pick a NaN entry. Filter out NaN values first, or use `np.nanargmax`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 121,
+   "end_line": 123,
+   "message": "The binary search starts with `R = int(q * 3)` and never bounds it. `k_max` is computed but never used, so R (and later midpoints) can go past the number of proteins or samples. That leads to invalid latent dims, or PCA init with a Vt_q that is too large. Clamp R to `min(k_max, n_samples - 1)`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 132,
+   "end_line": 161,
+   "message": "The binary-search loop has logic bugs. (1) After the 'shrink' branch runs, control falls through into the 'shift' `if fR > fM / else` in the same iteration, which moves M using the newly evaluated L/R. An `elif`/`continue` is missing. (2) `best_q/best_f` is only updated at the top of each iteration, so points evaluated in the last iteration are never considered. (3) The loop variable `q` shadows the OHT `q`. The search can return a sub-optimal latent dim."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 44,
+   "end_line": 45,
+   "message": "`perform_svd()` and OHT now run unconditionally, even when the user gives a fixed integer q. For 'gs' they run a second time at line 92. This adds a full SVD of extra cost to every run."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 188,
+   "end_line": 188,
+   "message": "A leftover debug `print(data_shape)` is in library code. Remove it, or use logger.debug."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/plots.py",
+   "start_line": 101,
+   "end_line": 112,
+   "message": "Grid-search results are now written to `grid_search_results.csv` with columns `enc_dim`/`auprc`. The old `grid_search.csv` (`encod_dim`/`aucpr`) is no longer written. `plot_encoding_dim` still reads `grid_search.csv` and the old column names, so `protrider plot encoding_dim` (and `all`) fails with FileNotFoundError or KeyError."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/cli.py",
+   "start_line": 259,
+   "end_line": 262,
+   "message": "`find_latent_dim` always returns a GridSearchResult, so `gs_results is not None` is always true on a fresh run. For OHT or a fixed q this writes an empty grid_search_results.csv. When a checkpoint is loaded, gs_result is None and no file is written, so output files differ between identical configs depending on whether a checkpoint exists."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "config.yaml",
+   "start_line": 56,
+   "end_line": 56,
+   "message": "config.yaml sets `common_degrees_freedom: False`, but the dataclass default in config.py is `True` and both comments say common df is 'more stable for small datasets'. The template therefore enables the less stable per-protein df path by default, and CLI and Python-API users get different p-values from the same settings."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/stats.py",
+   "start_line": 217,
+   "end_line": 229,
+   "message": "In the `use_common_df=False` branch, the fallback `df0` is recomputed inside the loop from the partly filled `df` array. Early proteins always fall back to 10, and later ones use a median of whatever was filled so far, including earlier fallback values. The p-values for non-converged proteins then depend on column order. Compute df0 once from all first-pass dfs before the loop."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/stats.py",
+   "start_line": 192,
+   "end_line": 197,
+   "message": "The common-df path now clamps the median df to at least 3 (`max(df0, 3.0)`). This is an unannounced change to p-values for existing users, and the PR describes nothing beyond two small fixes."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/model/model.py",
+   "start_line": 237,
+   "end_line": 268,
+   "message": "`train` now adds ReduceLROnPlateau and early stopping on the training loss, then restores the best weights. It also still returns the last epoch's `running_loss`, which no longer matches the restored model. Together with the ReLU\u2192GELU switch and the newly added biases in multi-layer models, this changes model results for all users without being mentioned in the PR. The description claims only two one-line fixes, but the diff includes CV removal, checkpointing, wandb, binary search, per-protein df and a public `run()` return-signature change (2-tuple \u2192 4-tuple, which breaks API callers). It should be split up or described properly so these changes can be reviewed."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/protrider/model/model.py",
+   "start_line": 161,
+   "end_line": 175,
+   "message": "For n_layers > 1, PCA init now writes PCA weights into only the first encoder layer and the last decoder layer. The GELU and the randomly initialized middle layers sit in between, so the 'PCA initialization' no longer approximates a PCA reconstruction, yet it is applied without any warning."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 116000
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "id": "rc14",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "RuntimeContext.h",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 the two declarations of the context shape now disagree on `hostContext`. Symptom: `RuntimeContext.hostContext` is declared required (`Record<string, unknown>`, `types/runtime.ts:174`), and `createRuntimeContext` always sets it to `options.hostContext ?? {}`. But `CallableFn` passes `ctx: RuntimeContextLike`, and that type declares `hostContext?: Record<string, unknown> | undefined` (`callable.ts:63`). The new tests only reach the field through `(ctx as RuntimeContext).hostContext`, the same cast pattern used in `metadata.test.ts`. Source: Hunt & Thomas, *The Pragmatic Programmer* \u2014 DRY; Ousterhout, *A Philosophy of Software Design* \u2014 Information Leakage Consequence: Extension authors see an optional field at the type they're given. They either add defensive `?? {}` checks the runtime doesn't need, or copy the unchecked `as RuntimeContext` cast. Either way the \"defaults to `{}`\" guarantee isn't enforced where it's used. Making the field required on the exported `RuntimeContext` also breaks any external code that builds a `RuntimeContext` literal; `assertType` in `eval/index.ts:119` already needed a patch for this reason. That's a breaking change at the type level, filed under \"Added\" in the CHANGELOG. Remedy: Make the two declarations agree. Either make `RuntimeContextLike.hostContext` required (the runtime always provides it), or keep both optional and drop the `{}` default. Note the required-field change in the CHANGELOG for anyone constructing contexts by hand."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "context.ts",
+   "start_line": 314,
+   "end_line": 314,
+   "message": "Change Propagation \u2014 a test pins the host's mutable object as shared runtime state. Symptom: `context.ts:314` stores the host's object by reference, `createChildContext` shares it, and the test asserts `expect(refs[0]).toBe(sharedContext)`. The field is `readonly`, but the contents of the bag aren't. Source: Winters et al., *Software Engineering at Google* \u2014 Hyrum's Law Consequence: Any extension can change the bag, and that change is visible to the host and to every later call. If a host reuses one options object across runs, those runs share state silently. Because the test asserts object identity, adding `Object.freeze` or a defensive copy later would be a visible breaking change. Remedy: Decide whether shared mutability is part of the contract. If it is, say so in the JSDoc. If it isn't, freeze a shallow copy at creation and change the test to check `toEqual` instead of `toBe`."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "CHANGELOG.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 two host-to-extension channels with different semantics. Symptom: `metadata` (optional, string values only) and `hostContext` (always present, `unknown` values) both carry \"arbitrary values from the host to extensions\". Anything `metadata` holds, `hostContext` can also hold. Source: Brooks, *The Mythical Man-Month* \u2014 Conceptual Integrity Consequence: Extension authors have to work out which channel a given value travels on. Over time, hosts will put the same request ID in both. Remedy: Add a JSDoc line on each field saying when to use it (for example, `metadata` for serializable, loggable tags and `hostContext` for live objects). Consider marking `metadata` as a candidate for deprecation."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "host-context.test.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Test Code Duplication \u2014 an identical parameter fixture is copied five times. Symptom: The same `params: [{ name: 'input', type: { kind: 'string' }, defaultValue: undefined, annotations: {} }]` block appears in all five host-function tests in `host-context.test.ts`. The two \"backward compatibility\" tests also repeat earlier cases: `createRuntimeContext()` not throwing is already covered by the third `createRuntimeContext` test. Source: Meszaros, *xUnit Test Patterns* \u2014 Test Code Duplication Consequence: If the `params` shape changes, all five copies need the same edit, and the setup buries what each test is actually checking. Remedy: Extract a `hostFn(fn)` helper that returns `{ params: [stringInput], fn }`, and delete the redundant compatibility test. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 59,
+  "cost_usd": 0.43425840000000004,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 1,
+  "health_score": "92"
+ }
+}

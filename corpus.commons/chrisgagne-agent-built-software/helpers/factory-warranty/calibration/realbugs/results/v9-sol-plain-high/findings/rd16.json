@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/mamu7211/feirb-mailclient",
+  "pr_number": 215,
+  "base": "76d9db59beaf6a0942c84522b9d33058f721ee86",
+  "head": "d15c6ca689e20a95a1c5468d0e87f71f8b5e7496"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 35,
+   "end_line": 37,
+   "message": "Switching from Markdown to rich text inserts marked.parse output directly into the live DOM. Marked does not sanitize HTML ([documentation](https://raw.githubusercontent.com/markedjs/marked/v15.0.7/README.md)), so pasted Markdown containing an image with an onerror handler can execute JavaScript with access to the user's tokens in localStorage. The server-side sanitizer runs too late to protect this path. Sanitize the generated HTML before inserting it."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 24,
+   "end_line": 27,
+   "message": "The request's validation attributes are never enforced: this Minimal API registers neither AddValidation nor an explicit validation filter ([ASP.NET documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-10.0#validation-support-in-minimal-apis)). Consequently, callers can send empty subjects/bodies and exceed the declared length limits, while a null To array or null recipient produces a 500. Validate the complete request, including recipient elements, before accessing it or invoking SMTP."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 30,
+   "end_line": 32,
+   "message": "Quill's internal DOM is not portable email HTML. Quill 2 represents bullet lists using OL elements with data-list attributes ([implementation](https://raw.githubusercontent.com/slab/quill/v2.0.3/packages/quill/src/formats/list.ts)); without Quill's stylesheet, recipients see numbered lists. This also changes bullets into numbers when switching to Markdown through Turndown. Export semantic HTML and convert any remaining stylesheet-dependent formatting into email-compatible markup."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 104,
+   "end_line": 106,
+   "message": "The folder-name fallback is unreachable on IMAP servers without SPECIAL-USE or XLIST support. GetFolder(SpecialFolder.Sent) throws NotSupportedException on those servers rather than returning null ([MailKit documentation](https://mimekit.net/docs/html/M_MailKit_Net_Imap_ImapClient_GetFolder_1.htm)). The outer catch then skips the append entirely, even when a Sent folder exists. Check capabilities or handle this exception before attempting the folder-name lookup."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 114,
+   "end_line": 116,
+   "message": "A mailbox without an existing Sent folder never receives a saved copy: this branch only logs a warning and still reports successful sending. Fresh mailboxes can legitimately contain only INBOX, and the supplied seed data creates no Sent folder. Resolve or create a writable Sent folder when none exists; otherwise every outgoing message from such a mailbox permanently loses its sender-side copy."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 210000
+ }
+}

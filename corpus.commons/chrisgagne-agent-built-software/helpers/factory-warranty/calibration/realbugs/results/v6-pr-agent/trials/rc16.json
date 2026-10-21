@@ -1,0 +1,40 @@
+{
+ "id": "rc16",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 112,
+   "end_line": 114,
+   "message": "Incorrect Comparison. The report says the lamb's growth profile is \"WWT +1.98, YWT +2.63 above breed midpoint\". Those are the absolute predicted EBVs, not differences from the midpoint. Using the report's own midpoints (+1.59 and +0.37), the lamb is about +0.39 above on WWT and about +2.26 above on YWT. The same error appears in the next-steps section (\"+1.98 lbs above breed average\").\n\nRelated inconsistency: the predicted BWT (+0.06 vs. midpoint +0.18) is called \"near breed average\" in one place and \"well below breed average\" in another.\n\nThese overstatements could mislead retention or registration decisions for EPC26005."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 144,
+   "end_line": 144,
+   "message": "Pedigree Error. USD318 is described as the dam's \"maternal grandsire\". The pedigree tree shows USD318 as the sire of FLE382, which is the dam's sire, so USD318 is her paternal grandsire.\n\nThe same note also claims \"No shared ancestors appear at any generation level\". The tree only covers two generations, so this claim goes beyond the available data."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "reports/2026-04-15-lambing-event/report.md",
+   "start_line": 92,
+   "end_line": 96,
+   "message": "Overstated Outcross. The report calls the parents \"completely separate genetic backgrounds\" with \"zero inbreeding risk\". However, both pedigrees include Hound River Farm animals (NWT063 on the dam side; NWT012 and NWT082 on the sire side), and the pedigree is only two generations deep.\n\nThe COI of 0.0% applies only to the recorded depth. The claims of zero risk and heterosis are stronger than the data supports and should be qualified."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 22,
+  "usage": {
+   "prompt_tokens": 8670,
+   "completion_tokens": 1801,
+   "total_tokens": 10471
+  },
+  "security_concern": false
+ }
+}

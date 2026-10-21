@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/konturio/disaster-ninja-fe",
+  "pr_number": 1081,
+  "base": "9f04fad3b614c5bad660916916d4f1f5ff0e8b9e",
+  "head": "d2c0c636fc49cb7e318c17ad8e4a96aaddba9511"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "Wrong import path. `LAYER_BIVARIATE_PREFIX` and `SOURCE_BIVARIATE_PREFIX` are now imported from `./constants`. The removed code imported them from `~core/logical_layers/constants`. The local `./constants` file is not changed in this diff, and before this PR it only exported `FALLBACK_BIVARIATE_*`, `H3_HOVER_LAYER` and `SOURCE_LAYER_BIVARIATE`. Unless these exports were added elsewhere, this fails type-checking or resolves to `undefined`. That would produce source and layer IDs like `undefined<id>`."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+   "start_line": 9,
+   "end_line": 41,
+   "message": "Step scale mismatch. `stepOverrides` reuses the raw bivariate axis steps (`legend.axis.x.steps` / `legend.axis.y.steps`, e.g. density thresholds like 0, 10, 1000). These are applied to scores computed from MCDA layers built by `createMCDALayersFromBivariateAxes`. If those MCDA layers normalize or transform values (MCDA scores are typically in the 0\u20131 range), the thresholds no longer match the score scale. Hexagons would then fall into the wrong legend cells and render with incorrect colors. This depends on how `createMCDALayersFromBivariateAxes` and `MultivariateRenderer` apply step overrides, which is not visible in this diff. Please verify that raw-value classification is preserved."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 22000
+ }
+}

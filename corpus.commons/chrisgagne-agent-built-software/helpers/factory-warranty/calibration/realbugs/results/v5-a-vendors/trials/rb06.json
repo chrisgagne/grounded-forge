@@ -1,0 +1,302 @@
+{
+ "id": "rb06",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "fortran_to_rust/benchmarker.py",
+   "start_line": 185,
+   "end_line": 186,
+   "message": "Execute the converted routine in the Rust benchmark. The generated benchmark comments out the routine call and times only `black_box` on a reference. Consequently, even a correct conversion receives a speedup comparing actual Fortran computation against an effectively empty Rust loop. Import and invoke the converted function inside the timed loop before reporting performance ratios."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 763,
+   "end_line": 767,
+   "message": "Do not pass accuracy checks without a Rust comparison. When the Rust crate fails to build, the pipeline passes `crate_dir=None`, yet this branch marks accuracy as passed whenever the Fortran reference runs. Rust compilation failures and output-length mismatches therefore produce successful accuracy results without validating any converted output. Treat uncompleted comparisons as failed or explicitly skipped rather than passed, including cases where only some test cases complete."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "fortran_to_rust/strategies/hybrid.py",
+   "start_line": 226,
+   "end_line": 232,
+   "message": "Exclude the C function's outer braces from the Rust body. When f2c succeeds, the body loop translates and retains the C function's closing `}`, then this code appends another closing brace for the Rust wrapper. For a single-line C signature this produces an unmatched closing delimiter; multiline signatures also leak their remaining parameter declarations into the body. Parse the complete C signature and outer body boundary before translating statements, otherwise the default hybrid path cannot produce compilable Rust without LLM intervention."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "setup.py",
+   "start_line": 14,
+   "end_line": 17,
+   "message": "Include the console entry point module in distributions. `find_packages()` includes the `fortran_to_rust` packages but not the top-level `convert.py` module. A regular wheel installation therefore installs a `fortran-to-rust` command that raises `ModuleNotFoundError: No module named 'convert'` outside the checkout. Include `convert` through `py_modules` or move the entry point into the installed package."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "fortran_to_rust/strategies/hybrid.py",
+   "start_line": 215,
+   "end_line": 232,
+   "message": "The f2c\u2192Rust skeleton is broken in two ways. For SUBROUTINEs, f2c writes the prototype as `/* Subroutine */ int dgemm_(...`, but `_c_to_rust` drops every line that starts with `/*`. As a result `in_body` never becomes true and the output is an empty stub. For FUNCTIONs such as ddot, dasum, dnrm2 and idamax, the prototype line survives, so raw C is copied in almost verbatim: `static integer ...;`, pointer derefs like `*n` on by-value i32 params, the C function's own `{`/`}` plus ours, and `return ret_val;` followed by the `0.0` default. That code cannot compile. f2c is installed in the devcontainer and Hybrid is the default strategy, so any FUNCTION in the selection breaks `cargo build` for the whole crate."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/strategies/hybrid.py",
+   "start_line": 97,
+   "end_line": 102,
+   "message": "Hybrid always returns `success=True`, even when the result is an empty or TODO stub that does nothing, or C-ish code that doesn't compile. The report and CLI then show these functions as \"\u2705 OK\" or converted, which hides that nothing was actually translated."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/strategies/hybrid.py",
+   "start_line": 82,
+   "end_line": 93,
+   "message": "The LLM polish output is used as-is. It is not passed through `_strip_fences` or `_ensure_top_level_pub_fn`, and it is not compile-checked. Markdown fences, prose, a renamed or `mod`-wrapped function, or `char` instead of `u8` all go straight into the crate. The polish prompt doesn't require the `pub fn {name}` signature or u8 CHARACTER args either."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/strategies/llm_first.py",
+   "start_line": 100,
+   "end_line": 107,
+   "message": "`success=True` is reported even when the code still fails `cargo check` after all repair rounds. That module is still written into the crate, so one bad function makes `cargo build` fail for every function and blocks all accuracy and benchmark checks. Meanwhile the report shows the function as OK."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/strategies/agentic.py",
+   "start_line": 132,
+   "end_line": 149,
+   "message": "The idiomisation (polish) pass runs after the compile/repair loop, and its output is never re-checked. `_ensure_top_level_pub_fn` is also never applied in this strategy. Code that compiled can be replaced with code that doesn't (or with a renamed or wrapped function), and the result is still marked `success=True`."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 756,
+   "end_line": 769,
+   "message": "If no Rust output was compared (no crate, Rust build failed, length mismatch on every test, or the routine prints nothing), the result is still `passed = fortran_ok_count > 0`. The Markdown and HTML reports and convert.py then show \u2705 for accuracy even though no comparison happened. Earlier exits (around lines 673\u2013695) also return `passed=True` when the routine can't be resolved. A failed or skipped comparison should not count as a pass."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 554,
+   "end_line": 560,
+   "message": "For FUNCTIONs, the Rust example prints the return value first and the arrays after. The Fortran driver does the opposite: it prints the arrays first and appends the result last (line 471). For functions with array args like DDOT or DASUM, the outputs are compared at the wrong positions, so a correct translation is reported as FAIL with a large error."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 56,
+   "end_line": 58,
+   "message": "`is_real` treats REAL the same as DOUBLE PRECISION, and `_TYPE_PATTERNS` has no COMPLEX entry. COMPLEX args fall back to a DOUBLE PRECISION scalar. Drivers for DSDOT (REAL SX/SY) and DZASUM/DZNRM2 (COMPLEX*16 arrays), which are all in BLAS_FUNCTIONS, therefore pass the wrong types or shapes, and the Fortran reference results are garbage or the run crashes."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 192,
+   "end_line": 202,
+   "message": "Every `*` or unknown dimension resolves to 4. Packed arrays (AP(*) for DSPMV/DTPMV/DSPR need N*(N+1)/2 = 10) and banded LDA requirements (DSBMV/DTBMV need LDA \u2265 K+1 with K=4) are under-sized. That causes out-of-bounds access in the Fortran reference or an XERBLA STOP, so these routines are never meaningfully tested."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 446,
+   "end_line": 449,
+   "message": "Only real arrays are printed and compared. Scalar outputs (for example DROTG's DA, DB, C, S and DROTMG's scalars) are never checked, and the Rust example passes those scalars by value. Routines whose only outputs are scalars end up with 0 vs 0 values and are reported as passed without any check."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "fortran_to_rust/benchmarker.py",
+   "start_line": 184,
+   "end_line": 187,
+   "message": "The Rust benchmark never calls the converted function; the call is commented out and only `black_box(&array)` runs. The reported Rust time is an empty loop, so the 'Rust is Nx faster than Fortran' speedup in the report and summary is fabricated."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/benchmarker.py",
+   "start_line": 71,
+   "end_line": 77,
+   "message": "10 reps at 4\u00d74 sizes timed with `CPU_TIME` is usually below the timer's resolution, so it typically measures 0.0 ms. `summary` and the report check `fortran_time_ms` for truthiness, so 0.0 shows as N/A or 'Incomplete'. Benchmarks need realistic sizes or adaptive repetition counts."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 513,
+   "end_line": 516,
+   "message": "The `subprocess.run` calls for gfortran, cargo and the built executables don't catch `FileNotFoundError` or `TimeoutExpired`. The same applies in benchmarker.py `_run_fortran_bench`/`_run_rust_bench` and rust_project.py `quick_check`/`build_crate`/`test_crate`. On a local setup without gfortran, or after a slow cargo build, the whole pipeline crashes with a traceback after conversion instead of reporting a skipped check."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/rust_project.py",
+   "start_line": 64,
+   "end_line": 71,
+   "message": "All converted modules go into one crate unconditionally, so a single module that fails to compile makes `build_ok` False. Callers then pass `crate_dir=None` to accuracy and benchmark for every function. With 10+ functions, one bad translation blocks validation of all of them. Consider excluding modules that fail `quick_check`, or validating each function on its own."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/rust_project.py",
+   "start_line": 51,
+   "end_line": 76,
+   "message": "`scaffold_crate` reuses an existing crate directory without clearing `examples/` or old `src/*.rs`. On a re-run, stale `accuracy_*.rs`/`bench_*.rs` examples for functions that are no longer in the crate, or whose signatures changed, get compiled by `cargo test` and make it fail."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/strategies/llm_first.py",
+   "start_line": 113,
+   "end_line": 119,
+   "message": "The prompt context tells the LLM that `lsame(ca: u8, cb: u8) -> bool` and `xerbla(&str, i32)` exist, but the crate and the `quick_check` snippet never provide them. The LLM will call undefined functions (E0425) and spend its repair rounds on that. Either provide these helpers in the crate or tell the LLM to define them inline."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/strategies/llm_first.py",
+   "start_line": 122,
+   "end_line": 127,
+   "message": "The indexing guidance contradicts itself: it says 'Convert to 0-based row-major' and in the same sentence says column-major is kept (`a[j*lda+i]`). The harness feeds column-major data, so any row-major translation will fail the accuracy check."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/strategies/llm_first.py",
+   "start_line": 152,
+   "end_line": 168,
+   "message": "`_ensure_top_level_pub_fn` only fixes a bare `fn name` at column 0. `unsafe fn name`, `pub(crate) fn name`, and indented or `mod`-wrapped definitions are left alone, so the E0425 problem it targets can still happen."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/fetcher.py",
+   "start_line": 43,
+   "end_line": 45,
+   "message": "The primary GitHub source builds the URL with `fn.upper()` (e.g. `DGEMM.f`), but files in Reference-LAPACK/lapack/BLAS/SRC are lowercase (`dgemm.f`). Every GitHub download 404s, and the code always falls back to plain-HTTP netlib (line 41). That means unauthenticated, MITM-able source that is then compiled and executed."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/fetcher.py",
+   "start_line": 77,
+   "end_line": 93,
+   "message": "Tarball extraction only checks member paths, not symlink or hardlink targets. A link member can still write outside `output_dir`; use `extractall(filter='data')` on Python \u2265 3.12. Also, `output_dir.rglob('*.f')` includes files already in the cache, so `shutil.copy2` raises SameFileError. The bare `except` then returns False partway through copying."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/fetcher.py",
+   "start_line": 63,
+   "end_line": 67,
+   "message": "A failed or truncated download (\u2264100 bytes, or an exception after a partial write) leaves `dest` on disk. Later runs treat any existing `{fn}.f` as cached, and `fetch_blas` returns it in `result`, so a corrupt file is used permanently."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/llm_client.py",
+   "start_line": 187,
+   "end_line": 190,
+   "message": "`is_available` requires an API key. With `LLM_PROVIDER=openai_compatible` and a local Ollama/LM Studio server that needs no key (the README marks the key as optional), the client counts as unavailable, and Strategies 1 and 2 silently fall back to Hybrid."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "fortran_to_rust/llm_client.py",
+   "start_line": 110,
+   "end_line": 132,
+   "message": "The client silently reads the Copilot extension's `oauth_token` from `~/.config/github-copilot/hosts.json` and sends it to a third-party endpoint. That token belongs to another app, and using it without telling the user is a credential-handling concern. Also, if `LLM_BASE_URL` is set while the provider is github_models (lines 176\u2013178), the auto-discovered GitHub token is sent to that arbitrary URL."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/llm_client.py",
+   "start_line": 243,
+   "end_line": 246,
+   "message": "On HTTP 429, the code sleeps for the server-supplied `Retry-After` with no cap. If every attempt gets a 429, `last_exc` is still None, so the raised error reads 'failed after N attempts: None'."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "convert.py",
+   "start_line": 36,
+   "end_line": 42,
+   "message": "convert.py has its own .env loader that runs first and doesn't strip quotes. `LLM_API_KEY=\"abc\"` gets stored with the quotes, and because `llm_client._load_dotenv` only sets missing keys, the quoted value is what gets used, so authentication fails."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "setup.py",
+   "start_line": 14,
+   "end_line": 18,
+   "message": "The console script points to `convert:main`, but `convert.py` is a top-level module that `find_packages()` doesn't include, and `py_modules` isn't declared. A non-editable install creates a `fortran-to-rust` command that fails with ModuleNotFoundError."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/reporter.py",
+   "start_line": 162,
+   "end_line": 166,
+   "message": "`open_browser` defaults to True, and convert.py's `--non-interactive` (CI) path doesn't override it, so headless and CI runs try to launch a browser."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/parser.py",
+   "start_line": 142,
+   "end_line": 142,
+   "message": "Args are taken only from the first header line. A SUBROUTINE or FUNCTION header continued onto the next line (allowed in fixed-form) gets an empty or truncated arg list, which breaks driver, signature and accuracy generation for that routine."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 557,
+   "end_line": 557,
+   "message": "`_result as f64` doesn't compile for LOGICAL functions (bool can't be cast to f64), and the Fortran side prints `(L5)` T/F, which `float()` can't parse. LOGICAL-returning functions can never be compared."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/cli.py",
+   "start_line": 287,
+   "end_line": 289,
+   "message": "The 'sample' scope uses `BLAS_FUNCTIONS[:n]`, which with the default of 10 is all Level-1 routines and excludes dgemm, the primary milestone target. The curated `BLAS_SAMPLE` list is defined but never used."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "fortran_to_rust/strategies/agentic.py",
+   "start_line": 153,
+   "end_line": 193,
+   "message": "The 'Questioner' is a fixed set of keyword-triggered questions, not an LLM reviewing the draft (`rust_draft` is unused). The 'IMPLICIT' check also fires for every BLAS routine, since they declare all variables explicitly but don't contain IMPLICIT NONE. This doesn't deliver the Questioner\u2013Solver behaviour described."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 44,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 184,
+   "cost_usd": 1.1355920000000002,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 184
+ }
+}

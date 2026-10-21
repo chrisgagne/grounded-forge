@@ -1,0 +1,18 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.2361796,
+  "duration_s": 55.0
+ },
+ "answer": {
+  "kind": "not_shown",
+  "because": "I ran check/create-file.test.js (`TREE={tree} node check/create-file.test.js`) against each tree's own src/patch/apply.js. On both base and head, it applies '@@ -0,0 +1,4 @@ +line1..+line4' to '' and gets 'line1\\nline2\\nline3\\nline4\\n', and a zero-context insertion at the start of a file comes out correct too, because head's parsePatch (src/patch/parse.js:90) already turns oldStart 0 into 1 when oldLines is 0, so toPos is never -1 for any string patch; the only way to reach the wrong order is to hand-build a hunk object with oldStart 0, which parsePatch never produces."
+ },
+ "outcome": "not shown",
+ "why": "I ran check/create-file.test.js (`TREE={tree} node check/create-file.test.js`) against each tree's own src/patch/apply.js. On both base and head, it applies '@@ -0,0 +1,4 @@ +line1..+line4' to '' and gets 'line1\\nline2\\nline3\\nline4\\n', and a zero-context insertion at the start of a file comes out correct too, because head's parsePatch (src/patch/parse.js:90) already turns oldStart 0 into 1 when oldLines is 0, so toPos is never -1 for any string patch; the only way to reach the wrong order is to hand-build a hunk object with oldStart 0, which parsePatch never produces.",
+ "run": "v4-arm-v4",
+ "trial": "w12-t2",
+ "kind": "control"
+}

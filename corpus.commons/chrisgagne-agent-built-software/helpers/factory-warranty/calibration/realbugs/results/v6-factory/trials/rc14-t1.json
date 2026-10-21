@@ -1,0 +1,192 @@
+{
+ "id": "rc14",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "gate:added-tests"
+ ],
+ "first": "gate",
+ "cost_usd": 0.9794,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc14-t1-oacim84a",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P1"
+   ],
+   "verdict": "confirmed",
+   "reason": "callable.ts:63 adds `readonly hostContext?: Record<string, unknown> | undefined` to RuntimeContextLike, while runtime.ts declares it required and context.ts:314 always defaults it to {}. Every new test casts `(ctx as RuntimeContext)` to reach it. This is an API-typing point and nothing breaks at runtime, so P1's medium is lowered to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "packages/core/src/runtime/core/callable.ts",
+   "line": 63,
+   "claim": "The host-function ctx type (RuntimeContextLike) declares hostContext as optional, even though the runtime always sets it, so extension authors have to cast or null-check.",
+   "evidence": "`CallableFn` receives `ctx: RuntimeContextLike`, which declares `readonly hostContext?: Record<string, unknown> | undefined`, while `RuntimeContext` declares `readonly hostContext: Record<string, unknown>` (types/runtime.ts:174). Every new test has to write `(ctx as RuntimeContext).hostContext` to reach it without a null check (host-context.test.ts lines 55, 85, 113, 138, 170).",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/core/src/runtime/core/callable.ts",
+     "line": 63,
+     "claim": "The public host-function signature types `ctx.hostContext` as optional and possibly undefined, but the runtime always sets it. Extension authors have to cast or null-check to use the new bag, which works against the 'defaults to {}' guarantee.",
+     "evidence": "`CallableFn` receives `ctx: RuntimeContextLike`, which declares `readonly hostContext?: Record<string, unknown> | undefined`, while `RuntimeContext` declares `readonly hostContext: Record<string, unknown>` (types/runtime.ts:174). Every new test has to write `(ctx as RuntimeContext).hostContext` to reach it without a null check (host-context.test.ts lines 55, 85, 113, 138, 170)."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "packages/core/src/runtime/core/callable.ts",
+     "line": 63,
+     "claim": "`CallableFn` gives host functions a `ctx` of type `RuntimeContextLike`, and there `hostContext` is optional (`Record<string, unknown> | undefined`). The runtime always sets it to an object, but extension authors can't see that from the type. They have to cast to `RuntimeContext`, as every new test does with `(ctx as RuntimeContext).hostContext`, or add pointless `?.` checks. That undercuts the stated goal of letting extensions use this bag at call time. Make it non-optional here (`readonly hostContext: Record<string, unknown>`) to match `RuntimeContext`.",
+     "evidence": "`CallableFn` gives host functions a `ctx` of type `RuntimeContextLike`, and there `hostContext` is optional (`Record<string, unknown> | undefined`). The runtime always sets it to an object, but extension authors can't see that from the type. They have to cast to `RuntimeContext`, as every new test does with `(ctx as RuntimeContext).hostContext`, or add pointless `?.` checks. That undercuts the stated goal of letting extensions use this bag at call time. Make it non-optional here (`readonly hostContext: Record<string, unknown>`) to match `RuntimeContext`."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep for hostContext under docs/ finds nothing. integration-host.md:262-288 documents only ctx.metadata, and the diff touches only CHANGELOG and source. This is a documentation gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "docs/integration-host.md",
+   "line": 262,
+   "claim": "The host integration docs cover ctx.metadata but never mention the new hostContext option or field.",
+   "evidence": "A grep for `hostContext` under docs/ returns nothing. integration-host.md:257-288 lists the `ctx` contents as 'variables, pipeValue, and session metadata' and documents only `ctx.metadata`. The change edits only CHANGELOG.md and source files.",
+   "axis_row": "L5.24",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "low",
+     "file": "docs/integration-host.md",
+     "line": 262,
+     "claim": "The host integration docs describe `ctx.metadata` for host functions but never mention the new `hostContext` option or field, so hosts and extension authors have no documentation for the feature.",
+     "evidence": "A grep for `hostContext` under docs/ returns nothing. integration-host.md:257-288 lists the `ctx` contents as 'variables, pipeValue, and session metadata' and documents only `ctx.metadata`. The change edits only CHANGELOG.md and source files."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "docs/integration-host.md",
+     "line": 257,
+     "claim": "The host integration docs cover `ctx.metadata` for host functions, but there is nothing about the new `hostContext` option or `ctx.hostContext`. They also don't explain how it differs from `metadata` (it holds any value type, always defaults to `{}`, and is shared by reference). Without that, the feature only shows up in the CHANGELOG.",
+     "evidence": "The host integration docs cover `ctx.metadata` for host functions, but there is nothing about the new `hostContext` option or `ctx.hostContext`. They also don't explain how it differs from `metadata` (it holds any value type, always defaults to `{}`, and is shared by reference). Without that, the feature only shows up in the CHANGELOG."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "P2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds `readonly hostContext: Record<string, unknown>;` with no `?`. The in-repo literal in eval/index.ts assertType had to gain `hostContext: {}`, which shows any such literal now needs the field. This only affects type-checking of hand-built contexts, so it stays a low API-design point.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/core/src/runtime/core/types/runtime.ts",
+   "line": 174,
+   "claim": "Adding a required hostContext member to the exported RuntimeContext interface breaks downstream code that builds RuntimeContext object literals. The CHANGELOG lists it only under Added.",
+   "evidence": "`readonly hostContext: Record<string, unknown>;` has no `?`, unlike the neighbouring `metadata?`. Inside this repo, the only literal builder, `assertType`'s `minimalContext` (eval/index.ts:89-119), had to be patched to add `hostContext: {}`. `RuntimeContext` is exported from '@rcrsr/rill', as the test import shows.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/core/src/runtime/core/types/runtime.ts",
+     "line": 174,
+     "claim": "Adding `hostContext` as a required member of the exported `RuntimeContext` interface breaks type-checking for any downstream code that builds a `RuntimeContext` object literal. The CHANGELOG lists the change only under 'Added'.",
+     "evidence": "`readonly hostContext: Record<string, unknown>;` has no `?`, unlike the neighbouring `metadata?`. Inside this repo, the only literal builder, `assertType`'s `minimalContext` (eval/index.ts:89-119), had to be patched to add `hostContext: {}`. `RuntimeContext` is exported from '@rcrsr/rill', as the test import shows."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "packages/core/src/runtime/core/types/runtime.ts",
+     "line": 173,
+     "claim": "`RuntimeContext` is a public exported interface, and this adds a required field to it. Any downstream code that builds a `RuntimeContext` object literal (test mocks, custom harnesses) will stop compiling. Note this in the CHANGELOG, or consider whether it should be optional on the public type the way `metadata` is.",
+     "evidence": "`RuntimeContext` is a public exported interface, and this adds a required field to it. Any downstream code that builds a `RuntimeContext` object literal (test mocks, custom harnesses) will stop compiling. Note this in the CHANGELOG, or consider whether it should be optional on the public type the way `metadata` is."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "P3"
+   ],
+   "verdict": "confirmed",
+   "reason": "context.ts:314 stores `options.hostContext ?? {}` as-is, and createChildContext copies `parent.hostContext`. The test asserts identity with the host's object. The sharing appears intended (functions and objects are passed to extensions), so this is an undocumented design point rather than a defect, and it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/core/src/runtime/core/context.ts",
+   "line": 314,
+   "claim": "hostContext is stored by reference, not copied or frozen, and shared with every child context, so any extension can mutate it and the change is undocumented.",
+   "evidence": "`hostContext: options.hostContext ?? {}` stores the caller's object as-is, and `createChildContext` copies the same reference (`hostContext: parent.hostContext`). The test 'child context shares same hostContext reference as parent' asserts `refs[0]` is `sharedContext`. The type is `Record<string, unknown>`; the `readonly` applies only to the property, not to the object's contents.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/core/src/runtime/core/context.ts",
+     "line": 314,
+     "claim": "The host's `hostContext` object is passed by reference and is not frozen, so any extension or host function can add, replace or delete entries. Those changes are seen by every other extension in the run and by the host's original object. The change does not document this sharing.",
+     "evidence": "`hostContext: options.hostContext ?? {}` stores the caller's object as-is, and `createChildContext` copies the same reference (`hostContext: parent.hostContext`). The test 'child context shares same hostContext reference as parent' asserts `refs[0]` is `sharedContext`. The type is `Record<string, unknown>`; the `readonly` applies only to the property, not to the object's contents."
+    },
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "packages/core/src/runtime/core/context.ts",
+     "line": 314,
+     "claim": "The context stores the host's object by reference with no copy or freeze, and every child context shares that same reference. Any extension or host function can mutate it, and the change is visible to all later calls in the run. If the host reuses the same options object across `execute()` calls, the changes also carry over into other runs and sessions. If shared mutable state isn't intended, freeze or shallow-copy the object. Either way, document the sharing semantics.",
+     "evidence": "The context stores the host's object by reference with no copy or freeze, and every child context shares that same reference. Any extension or host function can mutate it, and the change is visible to all later calls in the run. If the host reuses the same options object across `execute()` calls, the changes also carry over into other runs and sessions. If shared mutable state isn't intended, freeze or shallow-copy the object. Either way, document the sharing semantics."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "P5"
+   ],
+   "verdict": "noise",
+   "reason": "control-flow.ts:119 and :133 call createChildContext for the then and else branches and set this.ctx to the child, so the conditional test does exercise the createChildContext path. Every createChildContext call site goes through the same function, which copies hostContext.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/core/tests/runtime/host-context.test.ts",
+   "line": 236,
+   "claim": "The child-context propagation test uses a conditional, which may not actually go through createChildContext.",
+   "evidence": "The 'child context propagation' test runs a conditional branch, which may not actually create a child context through `createChildContext`. It never checks propagation into closures or other scopes that do create child contexts, such as closure invocation or loop bodies. Add a test that calls the host function from inside a closure body or a loop, so the `createChildContext` path is really covered.",
+   "members": [
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "packages/core/tests/runtime/host-context.test.ts",
+     "line": 236,
+     "claim": "The 'child context propagation' test runs a conditional branch, which may not actually create a child context through `createChildContext`. It never checks propagation into closures or other scopes that do create child contexts, such as closure invocation or loop bodies. Add a test that calls the host function from inside a closure body or a loop, so the `createChildContext` path is really covered.",
+     "evidence": "The 'child context propagation' test runs a conditional branch, which may not actually create a child context through `createChildContext`. It never checks propagation into closures or other scopes that do create child contexts, such as closure invocation or loop bodies. Add a test that calls the host function from inside a closure body or a loop, so the `createChildContext` path is really covered."
+    }
+   ],
+   "id": "F5"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast",
+   "gate:added-tests"
+  ],
+  "review": []
+ }
+}

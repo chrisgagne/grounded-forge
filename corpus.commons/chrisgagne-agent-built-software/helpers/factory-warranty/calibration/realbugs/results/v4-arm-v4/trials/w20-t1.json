@@ -1,0 +1,42 @@
+{
+ "id": "w20",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.4741,
+ "codex_tokens": 63835,
+ "work": "<tmp>/replay-w20-t1-ycgchr04",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Operations.js:307 defines `__iterator` as an arrow function, so `this` comes from `reverseFactory`. Every caller (CollectionImpl.js:259 and 573, Operations.js:61) calls `reverseFactory` as a plain function inside an ES module, so `this` is undefined. Line 320 now reads `this.size` when reverse=true and useKeys=false. That means `Seq([1,2,3]).reverse().map(x=>x).reverse().values().next()` throws. The diff removed the `reversedSequence.size` reference that avoided this.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/Operations.js",
+   "line": 320,
+   "claim": "Reverse iteration of a reversed indexed sequence throws TypeError because `this.size` is read inside the arrow function `reversedSequence.__iterator`, where `this` is undefined.",
+   "evidence": "The diff swaps `reversedSequence.size - ++i` for `this.size - ++i` and deletes the comment that explained why: \"`__iterator` is an arrow function, so `this` is not the reversed sequence here \u2014 read `reversedSequence.size` explicitly.\" At line 307, `reversedSequence.__iterator = (type, reverse) => {...}` is an arrow function, and so is the callback passed to `new Iterator`. Both take `this` lexically from `reverseFactory`. Every caller invokes `reverseFactory` as a plain function: `reverseFactory(this, false)` at CollectionImpl.js:573, `reverseFactory(this, true)` at CollectionImpl.js:259 and Operations.js:61. In this strict-mode ES module that makes `this` undefined. Trigger: `Seq([1,2,3]).reverse().map(x => x).reverse().values().next()`. The outer reversed sequence's `__iterator(type, false)` calls `mapped.__iterator(ITERATE_ENTRIES, true)`, which calls the inner `reversedSequence.__iterator(\u2026, true)`. With `useKeys` false and `reverse` true, that evaluates `this.size` and throws \"Cannot read properties of undefined\". By contrast, `__iterate` at line 298 is a `function` expression, so `this.size` at line 303 works there; the `__iterator` path is different. No test in the repo exercises this reverse-iterator path, which is how the change passes the suite.",
+   "breaks": "story",
+   "id": "F1"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

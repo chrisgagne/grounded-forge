@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/NightHawkATL/ntp-dashboard",
+  "pr_number": 96,
+  "base": "28cb0f12873107287c8f2ba7b7c330339d432c9c",
+  "head": "2378227172859b977f576fa1a1e3dfd4b52fa524"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "The duplicate env key makes the remediation workflow invalid, preventing automatic and manual remediation reports. The Resolve source workflow run ID step declares env twice, at lines 29 and 32, in the same YAML mapping; GitHub Actions rejects duplicate mapping keys."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 94,
+   "end_line": 94,
+   "message": "The run-ID resolution script has shell syntax errors that prevent remediation processing even after the YAML is repaired. The conditional already has an else at line 41 and introduces another else at line 94 without closing the conditional. Both Python heredoc terminators also retain indentation after the YAML block indentation is removed. Extracting the run block, replacing GitHub expressions with literal values, and running bash -n returns exit code 2 with 'syntax error: unexpected end of file'."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 76,
+   "end_line": 76,
+   "message": "Manual dispatch without a run ID may fail to find the scheduled weekly scans because it filters by the checked-out branch rather than the workflow run's branch. The fallback query filters workflow runs with branch='pre-update-release' in both duplicated implementations. weekly-security-grype.yml schedules the workflow and separately checks out pre-update-release at lines 26\u201329; that checkout does not set the workflow run's branch. Scheduled runs associated with a different default branch are therefore excluded, causing 'No successful runs found'."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

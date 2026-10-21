@@ -1,0 +1,58 @@
+{
+ "id": "rd23",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "`this.eventService.isRegistered(...)` is async but is called without `await`, so `!promise` is always false and the registration check never rejects anyone. A staff member scans the QR code of a participant who never registered for the event. The guard is skipped, `checkin` attaches the row, and an unregistered participant ends up checked in."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "`if (!isOpen) return null;` runs before `useTuyau()`/`useForm()`, so the number of hooks changes between renders. The page always renders the dialog for staff. On first render isOpen=false and no hooks run. When the staff member clicks the QR icon, isOpen becomes true and useForm's internal useState runs, so React throws 'Rendered more hooks than during the previous render' and the page crashes."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 104,
+   "end_line": 104,
+   "message": "`User.findBy(\"participantProfileId\", ...)` can return null, but the result is used with `user!` straight away (`user.id` in isCheckedIn/checkin). If a participant profile exists without a linked user (an orphan profile, or a slug from another profile type), `user.id` throws a TypeError and the request returns a 500 instead of a flash error."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 313,
+   "message": "The staff QR scanner button sits inside the `{!isRegistered && ...}` block, so it only shows when the *viewing* staff user is not registered for the event. A staff user who is also registered for the event (isRegistered=true) opens the event page. The QR icon never renders and they cannot run check-in for that event."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/website/inertia/components/credentials/scanner.tsx",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "The scanner uses `allowMultiple` with `scanDelay={0}`, and each detection posts a check-in. Server-side the isCheckedIn-then-attach sequence isn't atomic, and the unique (event_id,user_id) constraint makes the losing request fail. A QR code held in front of the camera fires onScan several times within milliseconds. Two requests both pass `isCheckedIn` and both call attach. The second hits the unique constraint and returns a 500, and the staff member sees an error toast even though the check-in worked."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/website/database/seeders/mock_staff_profile_seeder.ts",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "This unconditional seeder runs on every `db:seed`. It calls `User.findOrFail(1)` and turns that user into staff with no department. On a fresh database where no user with id 1 exists yet (depending on seeder order), `db:seed` aborts with E_ROW_NOT_FOUND. Otherwise it silently gives staff privileges to whichever account has id 1."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 51,
+  "cost_usd": 0.266058,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": null,
+  "fallback_file": 0
+ }
+}

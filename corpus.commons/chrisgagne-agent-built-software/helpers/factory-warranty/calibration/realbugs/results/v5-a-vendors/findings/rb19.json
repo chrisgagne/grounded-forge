@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/allan-mobley-jr/gimmes",
+  "pr_number": 468,
+  "base": "08efd0bbc34fd29de2a4077f07d24f3dc02a63b6",
+  "head": "e1477f8b3f18c1de6ff87dbca9465a7b106dc193"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/gimmes/strategy/staleness.py",
+   "start_line": 79,
+   "end_line": 79,
+   "message": "Exclude historical volume from the activity check. When a market has zero trades in the last 24 hours but lifetime volume of at least 10, the existing fallback selects `m.volume`, so this new check resets its stale count forever even when price and open interest remain frozen. Such markets also pass the scanner's volume filter, so genuinely inactive markets now bypass staleness filtering. Use recent volume or a positive cumulative-volume delta rather than treating lifetime volume as ongoing activity."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/gimmes/strategy/staleness.py",
+   "start_line": 79,
+   "end_line": 82,
+   "message": "This turns the staleness filter off. `check_staleness` only runs on the output of `filter_markets`, which drops any market where `volume_24h or volume` is below `scanner.min_volume` (default 100, scanner.py:71-73). So every market that reaches this code has volume >= 100, which is above `volume_floor=10`. `has_volume` is therefore always True, every count resets to 0, and nothing is ever skipped. The filter only works when min_volume is set below 10. The expected ~80 candidates is just the full pre-filter list. To catch real inactivity, compare against the previous cycle (e.g. `volume - entry['volume']`, or an OI delta) instead of checking an absolute level."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/gimmes/strategy/staleness.py",
+   "start_line": 72,
+   "end_line": 79,
+   "message": "`volume` is a 24h rolling total, and when `volume_24h` is 0 it falls back to `m.volume`, which is lifetime cumulative volume. Neither measures activity since the last scan cycle. One trade up to 24h ago, or any market whose lifetime volume is >= 10, counts as 'active' forever. Lifetime volume never drops, so a dead market whose 24h volume falls to 0 still passes the floor."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/gimmes/strategy/staleness.py",
+   "start_line": 89,
+   "end_line": 95,
+   "message": "`entry['volume']` is still written every cycle but never read now that the spike comparison is gone. The previous-cycle volume needed to detect new trades is being thrown away. It should be used for a per-cycle delta check, or the field should be removed."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/gimmes/cli.py",
+   "start_line": 312,
+   "end_line": 315,
+   "message": "`volume_floor` is hard-coded as a function default. It isn't exposed in ScannerConfig and isn't passed from the CLI, so operators can't tune it or line it up with `min_volume`. That mismatch is what makes the floor meaningless in production."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tests/unit/test_staleness.py",
+   "start_line": 137,
+   "end_line": 166,
+   "message": "The tests that check the count increments or reaches the threshold use markets with volume=0 or 9. `filter_markets` (default min_volume=100) would never pass such markets to `check_staleness`. So the tests pass while the production path can never mark anything stale. Add a test that runs filter_markets and then check_staleness with default config, or one that uses volumes at or above min_volume."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/gimmes/config.py",
+   "start_line": 624,
+   "end_line": 635,
+   "message": "The description says markets with 'no volume' are skipped. In practice it's an absolute 24h/lifetime volume floor of 10, below the scanner's own min_volume, so the documented behavior (skipping inactive markets) never happens."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 33000
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "id": "rd03",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 34,
+   "message": "The application does not render through this ShapeLayer: apps/web registers DomShapeLayer and GpuShapeLayer instead. DomShapeLayer still has no rotation transform, and the active GPU pipelines ignore rotation. Consequently, rotated shapes remain visually unrotated while the newly wrapped hit tests and spatial bounds treat them as rotated, causing clicks to miss visible shapes and hit empty space. Apply rotation in the active renderers, or route rotated shapes through a rotation-capable DOM fallback."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 34,
+   "message": "This unconditional transform also rotates shape types whose hit tests were not updated, including freedraw, connector, counter, frame, and board-portal. When this exported layer renders one of those shapes with a nonzero rotation, its visible geometry and clickable area diverge. Wrap the remaining applicable hit tests or explicitly restrict rotation rendering to supported types."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 62,
+   "end_line": 67,
+   "message": "saveScheduled now remains true until storage.put resolves. An update arriving after the serialized snapshot is captured but before that promise settles has its scheduleSave call discarded; clearing the flag afterward does not schedule another write. If no further updates arrive, that edit is never persisted and can be lost on restart. Clear the scheduling flag before capturing the snapshot or track dirty updates and reschedule after completion. The same race exists in the new partition-save debounce."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 41,
+  "reasoning_effort": "none",
+  "tokens": 38301
+ }
+}

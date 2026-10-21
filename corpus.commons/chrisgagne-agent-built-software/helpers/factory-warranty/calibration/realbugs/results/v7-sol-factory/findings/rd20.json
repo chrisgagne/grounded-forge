@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/supa-magic/spm",
+  "pr_number": 19,
+  "base": "35ba12abad66326fe01c152803a23fc282368d67",
+  "head": "c60d2e03d217cbe8abaed6d12c4fb7b0bdb0049f"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "A remote manifest can escape the temporary directory and overwrite files accessible to the user. validateSkillset only checks that name is a string. With name '../../home/user', join('/tmp', 'spm', skillset.name) becomes '/home/user'; a downloaded entry 'skills/payload.md' then passes safePath and writeFile overwrites '/home/user/skills/payload.md'. The guard trusts this attacker-selected base. Its startsWith check also accepts sibling paths such as '/tmp/spm/demo-other/file' for base '/tmp/spm/demo'."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "Installing from a GitHub URL silently uses the default branch instead of the requested branch. For https://github.com/org/repo/tree/develop/path, parseGitHubUrl discards 'develop' and returns only owner, repository and path. resolveIdentifier then obtains the repository's default branch, and fetchSkillset and downloadEntries use that ref. If the default is main, the command downloads main's content or fails when the manifest exists only on develop."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "Cross-repository skills use the manifest repository's branch, causing downloads to fail when the repositories have different default branches. resolveSkillSource supports '@owner/repo/path' and produces entries with that repository's identity, but downloadEntries passes location.ref to every toGitHubSource call. A manifest on main referencing a skill in a repository whose files exist only on master therefore requests that second repository's nonexistent main ref."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

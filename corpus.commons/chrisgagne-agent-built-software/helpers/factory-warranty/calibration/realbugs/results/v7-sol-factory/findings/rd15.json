@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 309,
+  "base": "130fc084dcec4731e67de96162d1abccae44f7ce",
+  "head": "ac6e2196f5c307fd09fa6ad8a64ba9ada14ab385"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "The generated non-wrapper probe looks up binary names containing literal quotation marks, causing verification to fail for correctly installed binaries. The unquoted heredoc emits `command -v \\\"jq\\\"` for the manifest's first entry, jq. The remote shell treats the escaped quotes as characters in the command name, so the lookup returns empty; lines 280\u2013282 then report missing_binary:jq and exit. Both container and sandbox-image verification use this probe."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,161 @@
+{
+ "pr": {
+  "repo": "https://github.com/gagneurlab/PROTRIDER",
+  "pr_number": 10,
+  "base": "22740c695315543a1064915930f806abf5b058ce",
+  "head": "b462b109b630dd1e1a9a78088b18429d2baaae9b"
+ },
+ "agent": "v5-factory-raw-pooled",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 509,
+   "end_line": 509,
+   "message": "If a checkpoint file exists but fails to load, the pipeline skips training. It then reports p-values from an untrained, freshly initialised model and never overwrites the bad checkpoint. `load_model` catches every exception and returns `(None, None)`. The `model is None` branch then sets `q` from `find_latent_dim` and builds a new model with `init_model`. `model_was_loaded = (checkpoint_path and checkpoint_path.exists() and q is not None)` only checks that the file exists and that `q` is set, so it is True, `should_train` is False and `save_model` is never reached. Trigger: run once with the default out_dir (model.pt is saved), then rerun with input whose protein count differs after filtering. `load_state_dict` raises a size mismatch, the error is swallowed, and results come from the untrained model. A second trigger is `init_pca=False`: the saved encoder has no bias, but `load_model` builds with `prot_means=None`, so the encoder has a bias, the strict load fails, and the same path runs on every rerun."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/plots.py",
+   "start_line": 101,
+   "end_line": 101,
+   "message": "`protrider plot encoding_dim` now fails after a grid-search run. The change no longer writes the file the plot reads and renamed its columns. The diff removes `df_gs.to_csv(f'{out_dir}/grid_search.csv')` from `find_latent_dim`. The new `GridSearchResult.to_csv` writes `grid_search_results.csv` with columns `enc_dim`/`auprc`. `plot_encoding_dim` still runs `pd.read_csv(output_dir + \"/grid_search.csv\")` and uses the `encod_dim`/`aucpr` columns, so it raises FileNotFoundError on new output."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/config.py",
+   "start_line": 212,
+   "end_line": 212,
+   "message": "Removing the cross-validation fields breaks every existing user config that still has `cross_val`. The repo's previous `config.yaml` template shipped `cross_val: False`. The diff deletes `cross_val`, `n_folds`, `early_stopping_patience`, `early_stopping_min_delta` and `fit_every_fold` from `ProtriderConfig`. `load_config` calls `ProtriderConfig(**config_dict)` and turns the TypeError into `ValueError(\"Invalid configuration ...\")`, so `protrider run --config old.yaml` fails at startup. The whole CV mode (cv.py, `train_val`, `plot_cv_loss`, `_run_protrider_cv`) is removed with no deprecation path."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "tests/test_pipeline_cv.py",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change deletes and edits locked baseline acceptance tests so the build passes, instead of keeping them as the judge. acceptance.md says the baseline's tests are the locked acceptance tests. The diff deletes all of tests/test_pipeline_cv.py (k-fold, LOOCV, early stopping, fit_every_fold), removes the `cross_val`/`n_folds`/... arguments from tests/test_config.py, and rewrites the unpacking of `run()` in test_pipeline_features/misc/standard to `result, *_ = run(config)`. Nothing else now checks the removed CV behaviour."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "In grid or binary search, a candidate q whose training loss is non-finite crashes the search instead of being skipped. In `train_and_eval_q`, the `if ~np.isfinite(loss):` branch assigns `auc_prec_rec = np.nan`, but the function returns `auprc`, which is only assigned in the else branch. The result is UnboundLocalError. The old loop simply did not append that q."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 139,
+   "end_line": 139,
+   "message": "The new 'bs' (binary search) logic is wrong. After the shrink step it always runs a shift step too, it never uses the computed upper bound, and it can miss the best evaluated q. The `if fM >= fL and fM >= fR:` shrink block is followed by an unconditional `if fR > fM: ... else: ...` rather than `elif`, so each iteration both shrinks and shifts. `k_max = injected_dataset.X.shape[1]` and `tol` are computed but never used, and `R = int(q * 3)` can exceed the number of samples or proteins. `best_q` is updated only at the top of each iteration, so points evaluated in the last iteration are recorded in `enc2auprc` but never compared. The loop variable `q` also shadows the outer `q`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/stats.py",
+   "start_line": 221,
+   "end_line": 221,
+   "message": "With `common_degrees_freedom=False`, the fallback degrees of freedom depends on protein order. Non-converged proteins also get a df that does not match their fitted mu and sigma. Inside `for j, _mu, _sigma, _df in results:`, `df0` is recomputed from `np.nanmedian(df)` over the entries filled so far. The first 10 proteins always fall back to 10, later ones get a running median, and this costs O(n\u00b2) work. When the first-pass df exceeded `max_df` (set to NaN), `mu[j]`/`sigma[j]` keep the jointly fitted values from the huge df, but `df[j]` is set to `df0` without refitting."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 61,
+   "end_line": 61,
+   "message": "A checkpoint is loaded with `torch.load(..., weights_only=False)` from `out_dir/model.pt` automatically. This may let a crafted or swapped .pt file run arbitrary code through pickle. In `load_model`, the call is `checkpoint = torch.load(checkpoint_path, map_location=config.device_torch, weights_only=False)`. The checkpoint only holds a state_dict plus ints and bools, which `weights_only=True` can load. `run()` calls it whenever `<out_dir>/model.pt` exists, without the user opting in."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 450,
+   "end_line": 450,
+   "message": "A previous run's model is silently reused even when the input data or model config has changed, as long as the tensor shapes match. Results can come from a model trained on different data or settings. Checkpointing is on by default (`checkpoint_path = Path(config.out_dir) / 'model.pt'`). The checkpoint stores only `q`, `n_layers` and `presence_absence`. `find_q_method`, `lr`, `n_epochs`, `cov_used`, `init_pca` and the input file are not compared, and `h_dim` is taken from the current config. Training is skipped whenever loading succeeds, so rerunning with new samples or settings into the same out_dir reuses the stale model."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/model/model.py",
+   "start_line": 237,
+   "end_line": 237,
+   "message": "Unrequested behaviour changes alter results for every run: early stopping on training loss with weight restore, an LR scheduler, and a changed multi-layer architecture (bias added, GELU instead of ReLU). `train()` now adds `ReduceLROnPlateau(... patience=patience // 4)` and early stopping on `running_loss` that restores `best_model_wts`. It still returns the last epoch's `running_loss`, not the restored model's loss. `ConditionalEnDecoder` changes `nn.Linear(in_dim, h_dim, bias=False)` + `nn.ReLU()` to `nn.Linear(in_dim, h_dim)` + `nn.GELU()`. Separately, the df floor `df0 = max(df0, 3.0)` is added to the common-df path."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "pyproject.toml",
+   "start_line": 53,
+   "end_line": 53,
+   "message": "A new dependency (wandb, with its transitive stack) is added and the lockfile regenerated, and nothing in the change shows it was vetted. pyproject adds `[project.optional-dependencies] wandb = [\"wandb\"]`, unpinned. uv.lock adds wandb 0.24.0 plus sentry-sdk, gitpython, protobuf, pydantic, requests, urllib3 and others, and rewrites resolution markers to split on sys_platform. risk.json flags this dependency class as unplanned."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/config.py",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "The default for `common_degrees_freedom` differs between the Python API and the shipped config template, so CLI and API users get different p-value models by default. config.py sets `common_degrees_freedom: bool = True`, but config.yaml sets `common_degrees_freedom: False`. Both carry the comment 'more stable for small datasets'. The README does not document the parameter."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "tests/test_model_save_load.py",
+   "start_line": 2156,
+   "end_line": 2156,
+   "message": "The end-to-end checkpoint tests cannot detect whether the model was actually loaded, or whether training was wrongly skipped. `test_default_checkpoint_behavior` and `test_custom_checkpoint_path` use `find_q_method='5'` and assert only `model_info1.q == model_info2.q`. That holds whether or not the second run loaded the checkpoint. No test covers a checkpoint that exists but fails to load, which is the path in the model_was_loaded finding."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "`find_latent_dim` always runs SVD and OHT, even for a fixed integer q, and for non-search methods it returns an empty GridSearchResult instead of None. The CLI then writes an empty grid_search_results.csv. `dataset.perform_svd(); q = dataset.find_enc_dim_optht()` runs unconditionally at the top (and again in the 'gs' branch). `gs_result = GridSearchResult(enc_dim=np.array(list(enc2auprc.keys())), ...)` is always built, so the cli.py guard `if gs_results is not None: gs_results.to_csv(...)` always fires."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 188,
+   "end_line": 188,
+   "message": "A leftover debug `print` writes to stdout during grid search. `_get_gs_params` begins with `print(data_shape)`. Also, `a = max(a, oht_q//2)` can exceed `b`, which yields a descending or degenerate grid."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/datasets/protein_intensities.py",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "Parquet reading is forced to the fastparquet engine, an unexplained change from pandas' default (pyarrow), which is also a dependency. `pd.read_parquet(input_intensities)` became `pd.read_parquet(input_intensities, engine='fastparquet')`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 509,
+   "end_line": 509,
+   "message": "A failed checkpoint load causes training to be skipped and results to be computed from a newly initialized model. If an existing checkpoint is corrupt or has incompatible tensor shapes, load_model catches the error and returns (None, None). run then initializes a fresh model and assigns q, so checkpoint_path.exists() and q is not None become true at line 509. should_train is false despite loading having failed."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "The new grid-search output format breaks the encoding-dimension plotting command. GridSearchResult.to_csv writes grid_search_results.csv with enc_dim and auprc columns, and cli.run uses this writer. plots.plot_encoding_dim still reads grid_search.csv and accesses encod_dim and aucpr. After a fresh grid-search run, the documented encoding_dim plot fails because its expected file is absent."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "Checkpoint reuse can silently apply weights to different proteins or covariates and produce incorrect outlier results. Run once, then reorder protein rows in the input while retaining the same proteins and output directory. run automatically loads model.pt; save_model stores weights and architecture metadata but no protein or covariate identifiers. load_model checks tensor compatibility only, so the reordered dataset has matching shapes and loads successfully, while weight positions now refer to different proteins. Training is then skipped."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/pipeline.py",
+   "start_line": 78,
+   "end_line": 78,
+   "message": "Models trained with init_pca=False cannot be restored faithfully from their checkpoints. init_model passes dataset.prot_means_torch when init_wPCA is false. ConditionalEnDecoder consequently subtracts these means and creates an encoder without bias. save_model does not preserve prot_means, while load_model always constructs with prot_means=None, creating an encoder bias and removing centering. load_state_dict therefore rejects the missing bias key for these saved models."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "src/protrider/model/model_helper.py",
+   "start_line": 74,
+   "end_line": 74,
+   "message": "A nonfinite training loss crashes latent-dimension search instead of returning an unsuccessful candidate score. In train_and_eval_q, a NaN or infinite loss enters the branch assigning auc_prec_rec = np.nan, but the function returns auprc at line 86. auprc is assigned only in the finite-loss branch, so this path raises UnboundLocalError for both grid and binary search."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

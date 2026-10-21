@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/vriesdemichael/keycloak-operator",
+  "pr_number": 696,
+  "base": "bd0524bce599ccc367a4481f9b792305a8b074a1",
+  "head": "4db0ddeaea75e5d1d1a312473465153ed8f60661"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 149,
+   "end_line": 149,
+   "message": "The default cluster connection uses an internal service address that prevents the documented command from working outside the cluster. The documented import command supplies --keycloak without --server-url. resolveURL selects status.endpoints.admin, but keycloak_reconciler.py populates both admin and public with http://{name}-keycloak.{namespace}.svc.cluster.local:8080. The standalone CLI then sends its token request directly to that cluster-only address without port forwarding or another external connection mechanism."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 177,
+   "end_line": 177,
+   "message": "Cluster credential resolution corrupts valid credentials that happen to look like base64, causing authentication to fail. ResolveFromCluster passes the already-decoded Secret.Data values through decodeSecretKey, which decodes them again whenever isBase64 succeeds. A legitimate password such as \"YWJjZGVm\" becomes \"abcdef\" before authenticate sends it to Keycloak; there is no explicit indication that the secret was double-encoded."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "An HTTP failure after successful batches discards the accumulated import result, hiding how many users were already changed. ImportUsers accumulates successful batch counts in result, but returns nil on importBatch errors and token-refresh failures. For example, if batch 1 succeeds and batch 2 returns HTTP 403 or 409, runImportUsers receives a nil result and printImportSummary immediately returns, despite the completed first batch remaining imported."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

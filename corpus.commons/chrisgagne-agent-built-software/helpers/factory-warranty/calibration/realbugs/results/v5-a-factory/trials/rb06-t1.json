@@ -1,0 +1,386 @@
+{
+ "id": "rb06",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:deps",
+  "gate:sast",
+  "gate:ratchet:semgrep_findings",
+  "gate:required",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 2.6755,
+ "codex_tokens": 86992,
+ "work": "<tmp>/replay-rb06-t1-lz0w7hzm",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "In _RUST_BENCH_TEMPLATE (benchmarker.py:806-807) the call is a comment, `// {fn_lower}({call_args});`, and the loop only runs black_box(&first_array). run_benchmark still computes `speedup = fortran_ms / rust_ms` and summary prints 'Rust is Nx faster'. So whenever the crate builds, the reported speedup is false.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "fortran_to_rust/benchmarker.py",
+   "line": 806,
+   "claim": "The Rust benchmark never calls the converted function, so the reported Rust time and speedup measure an empty loop.",
+   "evidence": "_RUST_BENCH_TEMPLATE times a loop whose body is `// {fn_lower}({call_args});  // uncomment once the Rust signature is known` followed by `std::hint::black_box(&{first_array});`. run_benchmark then computes `speedup = fortran_ms / rust_ms` (line 326), and BenchResult.summary prints 'Rust is {ratio:.2f}x faster than Fortran'. That figure goes into the report and the CLI summary table.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "When `errors` is empty, test_harness.py:765 returns `passed=fortran_ok_count > 0`. convert.py and cli.py pass `crate_dir if build_ok else None`, so a failed cargo build sends every function down this path. reporter.py:82 then renders \u2705 for a.passed. Lines 676 and 691 also return passed=True when the check is skipped.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "fortran_to_rust/test_harness.py",
+   "line": 765,
+   "claim": "The accuracy check reports a pass when no Rust-vs-Fortran comparison ran (crate build failed, no binary, or length mismatch).",
+   "evidence": "When `errors` is empty, run_accuracy_check returns `AccuracyResult(passed=fortran_ok_count > 0, ...)`, so a Fortran-only run counts as a pass. Line 676 also returns `passed=True` when no routine or source is given. convert.py and cli.py are called with `crate_dir if build_ok else None`, so a failed cargo build sends every function down this path. convert.py prints `\"\u2705\" if acc.passed` and reporter.py renders `\u2705` in the accuracy table.",
+   "breaks": "story",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "generate_fortran_driver appends the result WRITE after the array print loops (test_harness.py:471). _RUST_EXAMPLE_TEMPLATE_FN prints _result first and the arrays after (lines 557-560). Both streams have the same length, so the comparison at line 736 runs on shifted values and a correct translation fails.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "fortran_to_rust/test_harness.py",
+   "line": 557,
+   "claim": "For FUNCTIONs with array arguments (ddot, dasum, idamax\u2026), the Fortran and Rust drivers print values in different orders, so the positional comparison lines up the wrong values.",
+   "evidence": "In generate_fortran_driver the array print loops are added first and the result is appended last (`print_lines.append(f\"      WRITE(*,'{print_fmt}') {result_var}\")`, line 471). _RUST_EXAMPLE_TEMPLATE_FN prints `_result` first and the arrays after (`println!(\"{{:.15e}}\", _result as f64);` then `{rust_prints}`). Both outputs have the same length, so run_accuracy_check compares `rust_out[i]` against `fortran_out[i]` across shifted positions.",
+   "breaks": "story",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "_translate_c_line falls through to `return s + \"  // TODO: verify\"` (hybrid.py:276) for any unrecognised C statement, such as f2c's `a_dim1 = *lda;` or pointer offsets, inside a `pub unsafe fn` whose parameters are i32/&mut [f64]. convert() sets success=True (line 100) and never runs a compile check. The devcontainer installs f2c, so default `convert.py --non-interactive` takes this path, the crate build fails, and that triggers the false accuracy pass above.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "fortran_to_rust/strategies/hybrid.py",
+   "line": 276,
+   "claim": "The default Hybrid f2c path copies C statements into the Rust body untranslated, so the output doesn't compile, yet the conversion is marked successful.",
+   "evidence": "_translate_c_line falls through to `return s + \"  // TODO: verify\"` for every C statement it does not recognise. f2c output such as `a_dim1 = *lda;` or `c__[i__ + j * c_dim1] = 0.;` is emitted verbatim inside `pub unsafe fn`, with i32/&mut [f64] parameters. convert() then sets `success=True` (line 100) without running any compile check, even though the module docstring promises 'Run cargo check and report results'. A single broken module fails `cargo build` for the whole crate.",
+   "breaks": "story",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "_direct_fortran_to_rust writes the Fortran source as `//` comments plus a constant return (hybrid.py:330-338). convert() still sets success=True (line 100), and reporter.py:63 shows '\u2705 OK' for that dgemm stub, even though C is left unchanged.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "fortran_to_rust/strategies/hybrid.py",
+   "line": 330,
+   "claim": "Without f2c or an LLM key, the Hybrid fallback emits an empty stub body (source only as comments) and still reports conversion success.",
+   "evidence": "With f2c unavailable and no LLM key, convert calls _direct_fortran_to_rust, which emits the source only as comments and returns a constant for functions; convert unconditionally sets success=True. DGEMM therefore leaves C unchanged rather than computing alpha*A*B + beta*C.",
+   "breaks": "story",
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5",
+    "X7"
+   ],
+   "verdict": "confirmed",
+   "reason": "llm_first.py:100-103 returns success=True whatever the last quick_check result was, and agentic.py:141-144 does the same after running polish_unsafe_rust (line 135) without compiling again. The report's '\u2705 OK' comes from this flag. Kept at medium because the cargo build failure is still reported separately.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "fortran_to_rust/strategies/llm_first.py",
+   "line": 100,
+   "claim": "The LLM strategies return success=True even when the code still fails to compile after the repair rounds; Agentic also replaces the checked source with an unchecked polish result.",
+   "evidence": "LLMFirstStrategy.convert returns `ConversionResult(..., success=True, ...)` whether or not the final `quick_check` passed; it only prints 'Could not fully compile\u2026'. AgenticStrategy.convert does the same (agentic.py line 143) and then runs `polish_unsafe_rust` after the compile loop (line 135) without compiling again, so the final source was never checked.",
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "_resolve_api_key returns gh CLI or VS Code store tokens for github_models (llm_client.py:141-148). base_url takes LLM_BASE_URL with no check against the provider (line 177). _load_dotenv and convert.py both read .env from the CWD, and _headers adds `Bearer {api_key}`.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "fortran_to_rust/llm_client.py",
+   "line": 177,
+   "claim": "An automatically found GitHub token (gh auth token / Copilot hosts.json) is sent as a Bearer header to any LLM_BASE_URL, which a .env file in the CWD can set.",
+   "evidence": "_resolve_api_key returns `_load_token_from_gh_cli()` / `_load_token_from_vscode_store()` for provider github_models (line 142). `self.base_url = base_url or os.environ.get(\"LLM_BASE_URL\") or self._default_url()` is not restricted to the provider's endpoint. _load_dotenv and convert.py both load `.env` from the CWD, and chat() posts with `headers[\"Authorization\"] = f\"Bearer {self.api_key}\"`.",
+   "axis_row": "L5.33",
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "fetcher.py:41-44 uses an HTTPS raw GitHub URL on `master` as the primary source, with http://www.netlib.org files and tarball as fallbacks (lines 128, 74). Nothing checks a hash before gfortran compiles and runs the files. The primary source is HTTPS, but it is unpinned.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "fortran_to_rust/fetcher.py",
+   "line": 41,
+   "claim": "Fortran sources come from an unpinned `master` branch or over plain-HTTP fallbacks with no integrity check, and are then compiled, run and sent to the LLM.",
+   "evidence": "`_NETLIB_BASE = \"http://www.netlib.org/blas/\"`, `_BLAS_TARBALL = \"http://www.netlib.org/blas/blas-3.11.0.tgz\"`, and `_LAPACK_BLAS_GITHUB_RAW = \".../lapack/master/BLAS/SRC/\"`, with no hash check. _compile_run_fortran and _run_fortran_bench compile and run the fetched files, and the strategies pass `routine.source` into the LLM prompts.",
+   "axis_row": "L4.4",
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C8",
+    "X9"
+   ],
+   "verdict": "confirmed",
+   "reason": "scaffold_crate writes rust_source straight to src/<mod>.rs (rust_project.py:68). test_crate runs `cargo test`, and _compile_run_rust_example (test_harness.py:636-645) builds and runs a binary that calls the generated function. Nothing isolates this. Kept at medium (X9 said high) because the trigger needs attacker-influenced model output.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "fortran_to_rust/rust_project.py",
+   "line": 68,
+   "claim": "LLM-generated Rust is written into the crate, built and executed with the user's privileges, with no sandbox.",
+   "evidence": "scaffold_crate writes `r.rust_source` (the model's reply after _strip_fences) straight into `src/{mod}.rs`. build_crate, test_crate and _compile_run_rust_example then run `cargo build`/`cargo test` and execute the example binary with the user's privileges.",
+   "axis_row": "L5.43",
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "fetcher.py:81-85 only checks the resolved path of member.name, then calls extractall with no filter='data' and no issym/islnk/linkname check. A symlink member followed by a file under it passes the check. The tarball is fetched over HTTP (line 42).",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "fortran_to_rust/fetcher.py",
+   "line": 85,
+   "claim": "The tarball path-traversal guard ignores symlink and hardlink members, so a malicious tarball can still write outside output_dir.",
+   "evidence": "_try_download_tarball checks only that `(output_dir / member.name).resolve()` lies under output_dir, then calls `t.extractall(output_dir, members=safe_members)` with no `filter='data'` and no check of `member.issym()/islnk()` or `linkname`.",
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "convert.py runs `os.environ.setdefault(_key.strip(), _val.strip())` at import, without stripping quotes. llm_client._load_dotenv does strip quotes but skips keys already in os.environ (llm_client.py:81), so the quoted value wins.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "convert.py",
+   "line": 42,
+   "claim": "convert.py's .env loader keeps surrounding quotes and runs first, so a quoted LLM_API_KEY reaches the API with the quotes and authentication fails.",
+   "evidence": "At module import, convert.py does `os.environ.setdefault(_key.strip(), _val.strip())` with no quote stripping. llm_client._load_dotenv does strip quotes, but it skips any key already in os.environ (`if key and key not in os.environ`), so the quoted value wins.",
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "_generate_questions (agentic.py:152-192) builds its questions from substring checks such as 'LSAME' and 'IMPLICIT' and makes no LLM call. The README and the module docstring both describe a Questioner LLM. The answers do come from the LLM.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "fortran_to_rust/strategies/agentic.py",
+   "line": 152,
+   "claim": "Strategy 2's 'Questioner LLM' is a fixed list of keyword-triggered questions, not an LLM.",
+   "evidence": "_generate_questions builds `questions` from `if \"LSAME\" in routine.source.upper()`, `if \"IMPLICIT\" not in ...` and similar checks, with no LLM call. The README says 'Questioner LLM asks up to 3 clarifying questions'.",
+   "breaks": "story",
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "hybrid.py:86-88 assigns `polished` directly. polish_unsafe_rust (llm_client.py:343-362) returns the raw chat reply, and its prompt doesn't forbid fences. agentic.py:137 wraps the same call in _strip_fences.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "fortran_to_rust/strategies/hybrid.py",
+   "line": 88,
+   "claim": "The Hybrid strategy uses the LLM polish output without stripping markdown fences, so a fenced reply produces an invalid .rs file.",
+   "evidence": "`polished = self.llm.polish_unsafe_rust(...)`; `if polished.strip(): rust_source = polished`. The other strategies pass the same call through `_strip_fences`.",
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "X8"
+   ],
+   "verdict": "confirmed",
+   "reason": "setup.py uses only packages=find_packages() with no py_modules=['convert']. convert.py is a top-level module, so a wheel install has no `convert` module for the `fortran-to-rust=convert:main` entry point. Editable installs, as in the devcontainer, still work.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "setup.py",
+   "line": 16,
+   "claim": "The console_scripts entry point targets convert:main, but convert.py isn't packaged, so a non-editable install fails.",
+   "evidence": "The entry point targets convert:main, but setup declares only packages=find_packages() and no py_modules=['convert']; convert.py is a top-level module outside those packages. A wheel installation outside the checkout therefore lacks the entry point's target.",
+   "id": "F14"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "parse_source calls _extract_args(line) on the first header line only (parser.py:142), and _ARG_LIST needs the closing paren on that line, so `SUBROUTINE FOO(A,` continued on the next line gives args=[]. Lowered from high to medium: the reference BLAS headers in scope, such as dgemm, fit on one line, so no in-scope trigger was traced.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "fortran_to_rust/parser.py",
+   "line": 142,
+   "claim": "Routine headers with fixed-form continuation lines lose all their arguments.",
+   "evidence": "parse_source calls _extract_args on the first header line alone; _ARG_LIST requires the closing parenthesis on that line. Parsing `SUBROUTINE FOO(A,` followed by a fixed-form continuation `+ B)` reproduced args=[]. Subsequent hybrid conversion and driver generation use this empty list.",
+   "id": "F15"
+  },
+  {
+   "sources": [
+    "C13"
+   ],
+   "verdict": "confirmed",
+   "reason": "The README has `- [x] Milestone 1`, but the hybrid paths emit stub or uncompilable bodies (hybrid.py:276, 330) and the Rust benchmark call is commented out. Lowered to low as a documentation point; the underlying defects are tracked in other items.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "README.md",
+   "line": 180,
+   "claim": "The README marks Milestone 1 (dgemm automated in all three strategies) as done and calls the output a 'ready-to-use crate'.",
+   "evidence": "`- [x] Milestone 1 \u2014 Automate dgemm conversion (all three strategies)`. Meanwhile the hybrid path emits uncompilable or TODO-stub bodies (`// TODO: translate from Fortran source`), and the Rust benchmark call is commented out.",
+   "id": "F16"
+  },
+  {
+   "sources": [
+    "C14"
+   ],
+   "verdict": "confirmed",
+   "reason": "The export has no test files (the glob found no test_*.py or tests/), and the README says '# Run the test suite (once tests are added)'. Lowered to low as a maintainability point, since it isn't a defect on its own.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "fortran_to_rust/test_harness.py",
+   "line": null,
+   "claim": "About 3,000 lines of new pipeline code were added with no tests.",
+   "evidence": "The export contains no test files (no tests/ directory or test_*.py). README says `# Run the test suite (once tests are added)` / `# pytest`. The harness logic that decides pass/fail (run_accuracy_check, _fortran_call, parse_arg_declarations) has no unit coverage.",
+   "axis_row": "L5.24",
+   "id": "F17"
+  },
+  {
+   "sources": [
+    "C15"
+   ],
+   "verdict": "confirmed",
+   "reason": "setup.py:8-12 lists them with `>=` and no upper bound, and grepping the export finds no import of click, colorama or fparser.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "requirements.txt",
+   "line": 4,
+   "claim": "click, colorama and fparser are declared but never imported, and every dependency is unpinned.",
+   "evidence": "requirements.txt and setup.py list `click>=8.1.0`, `colorama>=0.4.6` and `fparser>=0.2.1`; grepping the package finds no import of click, colorama or fparser.",
+   "axis_row": "L4.4",
+   "id": "F18"
+  },
+  {
+   "sources": [
+    "C16"
+   ],
+   "verdict": "confirmed",
+   "reason": "Dockerfile:29-30 pipes curl of sh.rustup.rs into sh, and devcontainer.json has postStartCommand `rustup update stable`. Builds are not reproducible.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".devcontainer/Dockerfile",
+   "line": 29,
+   "claim": "Rust is installed by piping an unpinned remote script to sh, and the toolchain updates on every container start.",
+   "evidence": "`RUN curl ... https://sh.rustup.rs | sh -s -- -y --profile minimal`, and devcontainer.json has `\"postStartCommand\": \"rustup update stable --no-self-update 2>/dev/null || true\"`.",
+   "axis_row": "L5.10",
+   "id": "F19"
+  },
+  {
+   "sources": [
+    "C17"
+   ],
+   "verdict": "confirmed",
+   "reason": "llm_client.py:243-245 sleeps for int(Retry-After) with no cap and calls continue without setting last_exc, so the raise at line 254 formats None.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "fortran_to_rust/llm_client.py",
+   "line": 243,
+   "claim": "The 429 handling sleeps for whatever Retry-After the server sends, and if every attempt hits 429 the error message reads 'None'.",
+   "evidence": "`wait = int(resp.headers.get(\"Retry-After\", \"5\")); time.sleep(wait); continue` has no cap. After all attempts end in 429, `last_exc` is still None in `raise LLMError(f\"... {last_exc}\")`.",
+   "axis_row": "L5.41",
+   "id": "F20"
+  },
+  {
+   "sources": [
+    "C18"
+   ],
+   "verdict": "confirmed",
+   "reason": "reporter.py:34 sets open_browser: bool = True and line 164 calls webbrowser.open. convert.py's _run_non_interactive calls generate_report without open_browser=False.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "fortran_to_rust/reporter.py",
+   "line": 34,
+   "claim": "generate_report opens a browser by default, including in --non-interactive mode.",
+   "evidence": "`open_browser: bool = True`, then `webbrowser.open(html_path.as_uri())`. convert.py's _run_non_interactive calls generate_report without passing `open_browser=False`.",
+   "id": "F21"
+  },
+  {
+   "sources": [
+    "C19"
+   ],
+   "verdict": "confirmed",
+   "reason": "_parse_sample_input returns BLAS_FUNCTIONS[:n] (cli.py:321), which are all Level-1 and never include dgemm. Grep finds only the definitions of BLAS_SAMPLE, topological_order, clippy_crate and add_rust_tests, with no references.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "fortran_to_rust/cli.py",
+   "line": 321,
+   "claim": "The sample scope takes the first N Level-1 routines instead of the curated BLAS_SAMPLE, and several helpers are dead code.",
+   "evidence": "_parse_sample_input returns `BLAS_FUNCTIONS[:n]`. `BLAS_SAMPLE`, `topological_order`, `clippy_crate` and `add_rust_tests` are defined but never referenced.",
+   "id": "F22"
+  },
+  {
+   "sources": [
+    "C20"
+   ],
+   "verdict": "confirmed",
+   "reason": "devcontainer.json sets LLM_PROVIDER=copilot and convert.py's docstring says 'default: copilot'. llm_client.py:169-173 defaults to github_models and maps copilot to it as an alias, so behaviour is the same and only the docs disagree.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".devcontainer/devcontainer.json",
+   "line": 101,
+   "claim": "The devcontainer and convert.py's docstring name 'copilot' as the default provider, while llm_client defaults to github_models.",
+   "evidence": "`\"containerEnv\": {\"LLM_PROVIDER\": \"copilot\"}` and convert.py's docstring has `LLM_PROVIDER copilot | openai | openai_compatible (default: copilot)`, whereas llm_client.py's default is `\"github_models\"` and treats copilot as a legacy alias.",
+   "id": "F23"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5",
+  "F6",
+  "F9",
+  "F15"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:deps",
+   "gate:sast",
+   "gate:ratchet:semgrep_findings",
+   "gate:required"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

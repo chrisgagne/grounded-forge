@@ -1,0 +1,11 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "web/src/components/AuditTrail.tsx",
+  "line": 105,
+  "claim": "Cached audit details never refresh, so reopening an entry can show an incomplete response even after the list reloads.",
+  "evidence": "toggleExpanded returns whenever entryDetails[detailKey] exists, and rendering always prefers that cached object over the current entry. If details are opened before a streamed response finishes, PGAuditReader.UpdateResponse subsequently updates the stored body, status and duration, but collapsing, changing filters and reopening the entry never fetches those updated details."
+ }
+]

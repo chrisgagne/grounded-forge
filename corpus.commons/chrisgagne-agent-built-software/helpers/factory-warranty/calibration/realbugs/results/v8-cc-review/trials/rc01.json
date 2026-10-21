@@ -1,0 +1,44 @@
+{
+ "id": "rc01",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "LAYER_BIVARIATE_PREFIX and SOURCE_BIVARIATE_PREFIX are imported from './constants', but they exist only in '~core/logical_layers/constants'. `./constants` (BivariateRenderer/constants.ts) only exports FALLBACK zooms, H3_HOVER_LAYER, SOURCE_LAYER_BIVARIATE, etc. The type check fails. At runtime getSourcePrefix() returns undefined, so the source id becomes 'undefined<id>' and the layer id becomes 'undefined<id>'."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "stepOverrides receive raw axis step values (legend.axis.x/y.steps), but the multivariate bivariate style classifies linearNormalization() scores, which fall in 0..1 (max-min normalization). Take a population-density axis with steps [0, 10, 100, 1000]. Every hexagon's normalized score is \u22641, so all features fall into the lowest class or two. The map renders almost one colour instead of the 3x3 bivariate palette. The bivariate popup cell lookup in PopupMultivariate uses the same stepOverrides, so it shows the wrong cell too."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "Only state.style is converted. MultivariateRenderer.getMaxZoomLevel reads layer.style (the source) and returns FALLBACK_BIVARIATE_MAX_ZOOM unless that style's type is 'multivariate'. The old per-indicator maxZoom (getMaxMCDAZoomLevel / getMaxNumeratorZoomLevel) is lost. An MCDA layer from mcdaLayer.ts has source.style.type === 'mcda' and no source maxZoom. The tile source maxzoom is now always 9 instead of the indicators' maxZoom. Tiles are over-requested or under-zoomed, so data is missing or blank at zooms the indicators don't cover. Bivariate sources (no style) behave the same way."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "If there is no legend, convertStyle returns null and _updateMap skips mountLayers and addPopup. The old renderer threw an error ('Vector layers must have legend'). When a bivariate layer's legend hasn't resolved yet or is missing, the source and hover border are added but no fill layer is drawn. Nothing is logged, so the empty layer is hard to diagnose."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 88,
+  "cost_usd": 0.5643568,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "medium",
+  "fallback_file": 0
+ }
+}

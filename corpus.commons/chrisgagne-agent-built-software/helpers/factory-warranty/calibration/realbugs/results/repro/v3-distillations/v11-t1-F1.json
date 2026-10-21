@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1500824,
+  "duration_s": 31.5
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/roundtrip.mjs {tree}",
+  "because": "On head, dump({a:1}, {flowLevel:0, flowSkipColonSpace:true}) writes `{a:1}` and the project's own load() reads that back as {\"a:1\": null}, so the round trip silently corrupts the data; on base the key comes out quoted (`{\"a\":1}`) and loads back as {a:1}."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"a\":1} -> \"{\\\"a\\\":1}\\n\" -> {\"a\":1}\n{\"a\":\"x\"} -> \"{\\\"a\\\":x}\\n\" -> {\"a\":\"x\"}\n{\"a\":true} -> \"{\\\"a\\\":true}\\n\" -> {\"a\":true}\n{\"a\":1,\"b\":\"two\"} -> \"{\\\"a\\\":1, \\\"b\\\":two}\\n\" -> {\"a\":1,\"b\":\"two\"}\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"a\":1} -> \"{a:1}\\n\" -> {\"a:1\":null}\n  ROUND TRIP MISMATCH\n{\"a\":\"x\"} -> \"{a:x}\\n\" -> {\"a:x\":null}\n  ROUND TRIP MISMATCH\n{\"a\":true} -> \"{a:true}\\n\" -> {\"a:true\":null}\n  ROUND TRIP MISMATCH\n{\"a\":1,\"b\":\"two\"} -> \"{a:1, b:two}\\n\" -> {\"a:1\":null,\"b:two\":null}\n  ROUND TRIP MISMATCH\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, dump({a:1}, {flowLevel:0, flowSkipColonSpace:true}) writes `{a:1}` and the project's own load() reads that back as {\"a:1\": null}, so the round trip silently corrupts the data; on base the key comes out quoted (`{\"a\":1}`) and loads back as {a:1}.",
+ "run": "v3-distillations",
+ "trial": "v11-t1",
+ "kind": "bug"
+}

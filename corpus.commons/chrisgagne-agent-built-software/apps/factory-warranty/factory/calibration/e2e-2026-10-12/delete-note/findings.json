@@ -1,0 +1,57 @@
+[
+ {
+  "sources": [
+   "X1"
+  ],
+  "verdict": "confirmed",
+  "reason": "migrations/0003_create_notes.up.sql:2 is `id INTEGER PRIMARY KEY` with no AUTOINCREMENT, so SQLite reuses the max id after it is deleted. deleteNote (repo.js:78) only matches on id and user_id, so the same user's repeated DELETE removes their new note, which breaks AC-10's 404 in that case. I lowered it from critical to medium: the user_id filter means only the caller's own notes are at risk, never another user's.",
+  "severity": "medium",
+  "file": "src/notes/repo.js",
+  "line": 78,
+  "claim": "Because note ids can be reused after a hard delete, a repeated DELETE of a stale id can erase a newer note instead of answering 404.",
+  "evidence": "deleteNote hard-deletes the row, migrations/0003_create_notes.up.sql defines id as INTEGER PRIMARY KEY without AUTOINCREMENT, and createNote lets SQLite allocate ids. An in-memory reproduction created note 1, deleted it, created a different note that also received id 1, then repeated the original deletion: deleteNote returned true and the new note was gone.",
+  "id": "F1"
+ },
+ {
+  "sources": [
+   "C1"
+  ],
+  "verdict": "confirmed",
+  "reason": "The id has no AUTOINCREMENT (0003_create_notes.up.sql:2), so it can be handed to a newer note, possibly another user's. The restore `INSERT INTO notes SELECT * ... WHERE id = :note_id` would then hit a primary-key conflict. If the operator runs the SQL in the sqlite CLI, the following note_tags insert can still attach the old tags to that other note. scripts/rehearse-rollback.js restores right after the delete and never creates another note first.",
+  "severity": "medium",
+  "file": "rollback.md",
+  "line": 16,
+  "claim": "The restore in rollback.md fails once the deleted note's id has been reused by a newer note, and the rehearsal never tries that case.",
+  "evidence": "migrations/0003_create_notes.up.sql declares `id INTEGER PRIMARY KEY` without AUTOINCREMENT. When the deleted row held the highest id, SQLite gives that id to the next insert. rollback.md restores with `INSERT INTO notes SELECT * FROM backup.notes WHERE id = :note_id ...`, which fails if that id is now taken, possibly by another user's note. scripts/rehearse-rollback.js restores straight after the delete without creating another note first, so it only shows the easy path working.",
+  "axis_row": "P2.4",
+  "id": "F2"
+ },
+ {
+  "sources": [
+   "C2"
+  ],
+  "verdict": "disputed",
+  "reason": "A repo-wide grep for backup/VACUUM finds only rollback.md and the rehearsal script, which backs up its own throwaway database. So the repo does not back up data/notes.db. Production backups could still exist in infrastructure outside the repo, and the code can't settle that.",
+  "severity": "medium",
+  "file": "rollback.md",
+  "line": 11,
+  "claim": "The only recovery path for deleted notes needs a pre-delete backup, and nothing in the repo takes one.",
+  "evidence": "rollback.md says 'The only way to recover a deleted note is from a database backup taken before the delete'. Searching the repo for backup/VACUUM finds only rollback.md and scripts/rehearse-rollback.js, which runs `VACUUM INTO ?` on a throwaway database just before the delete. package.json has no backup script, and nothing schedules backups for the live `data/notes.db`.",
+  "axis_row": "P2.4",
+  "id": "F3"
+ },
+ {
+  "sources": [
+   "C3"
+  ],
+  "verdict": "confirmed",
+  "reason": "The new router.delete handler calls deleteNote and then sendNoContent with no log line. src/ has no request logging (the only console calls are in migrate-cli.js). THEORY.md T8 allows logging ids, so logging the delete would not break policy.",
+  "severity": "low",
+  "file": "src/notes/routes.js",
+  "line": 69,
+  "claim": "Deletes are not logged, so operators can't find the note_id and user_id the restore SQL needs.",
+  "evidence": "The `router.delete('/notes/:id', ...)` handler calls `deleteNote` and `sendNoContent(res)` without logging anything. src/ has no request logging (the log calls are in app.js error handling, index.js startup and llm). The restore SQL in rollback.md is parameterised by `:note_id` and `:user_id`, and nothing records those values. Logging ids is allowed by THEORY.md T8.",
+  "axis_row": "P2.4",
+  "id": "F4"
+ }
+]

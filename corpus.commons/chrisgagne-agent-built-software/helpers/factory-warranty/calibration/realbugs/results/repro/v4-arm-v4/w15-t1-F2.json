@@ -1,0 +1,33 @@
+{
+ "finding": "F2",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1279894,
+  "duration_s": 220.4
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/bom.mjs {tree}",
+  "because": "On head, loadAll('foo\\n\\uFEFF---\\nbar\\n') returns the single merged scalar 'foo \\uFEFF--- bar' where base returns ['foo', 'bar']. This shows that a BOM before a later document's '---' is no longer treated as a document boundary."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "[\"foo\",\"bar\"]\nok\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "[\"foo \ufeff--- bar\"]\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n+   'foo \ufeff--- bar'\n-   'foo',\n-   'bar'\n  ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v4/w15-t1-F2/check/bom.mjs:6:8 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [ 'foo \ufeff--- bar' ],\n  expected: [ 'foo', 'bar' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, loadAll('foo\\n\\uFEFF---\\nbar\\n') returns the single merged scalar 'foo \\uFEFF--- bar' where base returns ['foo', 'bar']. This shows that a BOM before a later document's '---' is no longer treated as a document boundary.",
+ "run": "v4-arm-v4",
+ "trial": "w15-t1",
+ "kind": "bug"
+}

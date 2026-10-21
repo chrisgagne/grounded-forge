@@ -1,0 +1,393 @@
+{
+ "id": "rd06",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:sast",
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 1.0586,
+ "codex_tokens": 55785,
+ "work": "<tmp>/replay-rd06-t1-ehp3zeqk",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The step at grype-remediation-suggestions.yml:29-34 has two `env:` keys in one mapping. GitHub Actions rejects duplicate keys, so neither the workflow_run trigger nor manual dispatch can load the workflow.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "line": 32,
+   "claim": "The 'Resolve source workflow run ID' step declares `env:` twice, so GitHub rejects the workflow file and the remediation workflow never runs.",
+   "evidence": "Lines 29-31 and 32-34 both hold `env:` with `GH_TOKEN` and `REPO` in the same step mapping. GitHub Actions' YAML parser rejects duplicate mapping keys, so the weekly scan's `workflow_run: completed` event and manual dispatch both hit a workflow that won't load.",
+   "breaks": "story",
+   "axis_row": "L4.19",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": ".github/workflows/grype-remediation-suggestions.yml",
+     "line": 32,
+     "claim": "The 'Resolve source workflow run ID' step declares the `env:` key twice, so GitHub rejects the workflow file and the remediation workflow never runs.",
+     "evidence": "Lines 29-31 and 32-34 both hold `env:` with `GH_TOKEN` and `REPO` in the same step mapping. GitHub Actions' YAML parser rejects duplicate mapping keys, so the weekly scan's `workflow_run: completed` event and manual dispatch both hit a workflow that won't load."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": ".github/workflows/grype-remediation-suggestions.yml",
+     "line": 32,
+     "claim": "The duplicate env key makes the remediation workflow invalid, preventing automatic and manual remediation reports.",
+     "evidence": "The Resolve source workflow run ID step declares env twice, at lines 29 and 32, in the same YAML mapping; GitHub Actions rejects duplicate mapping keys."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The script runs `if`, `elif`, `else` (line 41), then a second `else` (line 94) before `fi`. The run block is indented 10 spaces but the terminator is `            PY` (12 spaces), so `  PY` never matches `<<'PY'`. Bash parses the whole script before running any of it, so even the workflow_run branch fails.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "line": 94,
+   "claim": "The run-ID shell script has an if/elif/else/else/fi chain and an indented heredoc terminator, so bash can't parse it and the step fails on every trigger.",
+   "evidence": "The script is `if ...; then` (37), `elif ...` (39), `else` (41), a python heredoc, then a second `else` at line 94 before `fi` (163). `if/elif/else/else/fi` is a bash syntax error. Also, after the block-scalar indent is stripped, the heredoc terminator at line 93 is `  PY`, which doesn't match the `<<'PY'` delimiter, so bash reads to end of file. The whole script is parsed before any line runs, so the valid `workflow_run` branch never executes either. The first branch duplicates the second, newer branch, which looks like a leftover from a merge or edit.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "high",
+     "file": ".github/workflows/grype-remediation-suggestions.yml",
+     "line": 94,
+     "claim": "The run-ID shell script can't be parsed: it has two `else` branches, and its first heredoc terminator is indented. The step therefore fails on every trigger, including the `workflow_run` path that should just echo the ID.",
+     "evidence": "The script is `if ...; then` (37), `elif ...` (39), `else` (41), a python heredoc, then a second `else` at line 94 before `fi` (163). `if/elif/else/else/fi` is a bash syntax error. Also, after the block-scalar indent is stripped, the heredoc terminator at line 93 is `  PY`, which doesn't match the `<<'PY'` delimiter, so bash reads to end of file. The whole script is parsed before any line runs, so the valid `workflow_run` branch never executes either. The first branch duplicates the second, newer branch, which looks like a leftover from a merge or edit."
+    },
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": ".github/workflows/grype-remediation-suggestions.yml",
+     "line": 94,
+     "claim": "The run-ID resolution script has shell syntax errors that prevent remediation processing even after the YAML is repaired.",
+     "evidence": "The conditional already has an else at line 41 and introduces another else at line 94 without closing the conditional. Both Python heredoc terminators also retain indentation after the YAML block indentation is removed. Extracting the run block, replacing GitHub expressions with literal values, and running bash -n returns exit code 2 with 'syntax error: unexpected end of file'."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Only the step gated by `if: steps.report.outputs.has_recommendations == 'true'` touches the issue. The 'No fixable package updates' body is written to remediation-issue.md and then discarded, and no step closes an existing issue.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "line": 319,
+   "claim": "The tracking issue is only written when recommendations exist, so once fixes land the open issue keeps listing stale packages and is never updated or closed.",
+   "evidence": "`if: steps.report.outputs.has_recommendations == 'true'` gates the only step that touches the issue. When `ordered` is empty the generated body ('No fixable package updates\u2026') is written to remediation-issue.md and then thrown away, and no step closes an existing issue.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": ".github/workflows/grype-remediation-suggestions.yml",
+     "line": 319,
+     "claim": "The tracking issue is only written when recommendations exist, so after the fixes land the open 'Grype remediation suggestions' issue keeps listing stale fixable packages and is never updated or closed.",
+     "evidence": "`if: steps.report.outputs.has_recommendations == 'true'` gates the only step that touches the issue. When `ordered` is empty the generated body ('No fixable package updates\u2026') is written to remediation-issue.md and then thrown away, and no step closes an existing issue."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 13 is `if: github.actor == 'dependabot[bot]'`. A synchronize event from a maintainer's push sets actor to that maintainer, so the job is skipped. GitHub treats a skipped job as success for required checks, which lets the PR bypass the gate.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "line": 13,
+   "claim": "The guard is keyed on github.actor, not the PR author. If a human pushes to a Dependabot PR, the job is skipped, and a skipped job counts as passing for required checks.",
+   "evidence": "`if: github.actor == 'dependabot[bot]'`. `github.actor` is the user who triggered this event, so after a maintainer pushes a commit or re-runs the job it no longer equals `dependabot[bot]`. `github.event.pull_request.user.login` would identify the PR's author instead.",
+   "axis_row": "L5.2",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": ".github/workflows/dependabot-grype-guard.yml",
+     "line": 13,
+     "claim": "The guard is keyed on whoever triggered the run, not on the PR's author. If a human pushes to, rebases or re-runs a Dependabot PR, the job is skipped, and GitHub treats a skipped job as passing for required checks, so the PR can merge without the regression gate.",
+     "evidence": "`if: github.actor == 'dependabot[bot]'`. `github.actor` is the user who triggered this event, so after a maintainer pushes a commit or re-runs the job it no longer equals `dependabot[bot]`. `github.event.pull_request.user.login` would identify the PR's author instead."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "critical_regression and high_regression (diff lines 270-271) compare Counter totals from counts() and never look at vulnerability IDs. underfixed_updates only flags packages that still have a fixed High/Critical version, so swapping one CVE for another goes unnoticed.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "line": 202,
+   "claim": "The regression gate compares only High and Critical counts, so a PR that removes one High CVE and adds a different one passes.",
+   "evidence": "`critical_regression = pr_counts.get(\"Critical\", 0) > base_counts.get(\"Critical\", 0)` and the same for High compare counts from `counts()` and ignore vulnerability IDs. A new High match is hidden whenever another High match disappears. The `underfixed_updates` check only covers packages that still have a fixed High/Critical version in the PR image, so it doesn't catch this.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": ".github/workflows/dependabot-grype-guard.yml",
+     "line": 202,
+     "claim": "The regression gate compares only High and Critical totals, so a PR that removes one High CVE and adds a different one passes.",
+     "evidence": "`critical_regression = pr_counts.get(\"Critical\", 0) > base_counts.get(\"Critical\", 0)` and the same for High compare counts from `counts()` and ignore vulnerability IDs. A new High match is hidden whenever another High match disappears. The `underfixed_updates` check only covers packages that still have a fixed High/Critical version in the PR image, so it doesn't catch this."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "`[ -n \"${{ inputs.run_id }}\" ]` and `echo \"id=${{ inputs.run_id }}\"` are substituted before bash runs, and nothing checks that the value is numeric. Only users with write access can dispatch, so medium is the right ceiling.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "line": 37,
+   "claim": "The `run_id` dispatch input is expanded directly into the shell script, which allows command or output injection in a job that holds an issues:write token.",
+   "evidence": "`[ -n \"${{ inputs.run_id }}\" ]` and `echo \"id=${{ inputs.run_id }}\" >> \"$GITHUB_OUTPUT\"` expand the input before bash runs. A value containing `\"` or `$(...)` breaks out of the string, and a value with a newline can also inject extra outputs. The value is never checked to be numeric before it's used in the artifact API URL. Passing it through `env:` and checking it is all digits would fix this.",
+   "axis_row": "L5.32",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "medium",
+     "file": ".github/workflows/grype-remediation-suggestions.yml",
+     "line": 37,
+     "claim": "The `run_id` dispatch input is pasted straight into the shell script, so whoever dispatches the workflow can inject commands into a job that holds an issues:write token. The dispatcher already needs write access, so this mostly matters as an unsafe pattern.",
+     "evidence": "`[ -n \"${{ inputs.run_id }}\" ]` and `echo \"id=${{ inputs.run_id }}\" >> \"$GITHUB_OUTPUT\"` expand the input before bash runs. A value containing `\"` or `$(...)` breaks out of the string, and a value with a newline can also inject extra outputs. The value is never checked to be numeric before it's used in the artifact API URL. Passing it through `env:` and checking it is all digits would fix this."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The 'Discover latest Grype release' step calls releases/latest without a token, and later steps pull and run that tag with the Docker socket mounted. The existing weekly scan uses the same pattern. This is a supply-chain and reliability hardening point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "line": 41,
+   "claim": "The gate runs whatever anchore/grype tag is newest, found through an unauthenticated API call, with no digest pin.",
+   "evidence": "The 'Discover latest Grype release' step calls `api.github.com/repos/anchore/grype/releases/latest` without a token, and then `docker pull \"anchore/grype:${{ steps.grype-release.outputs.tag }}\"` runs it with the Docker socket mounted. The existing weekly scan workflow uses the same pattern, but here it decides whether a merge is blocked.",
+   "axis_row": "L5.40",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".github/workflows/dependabot-grype-guard.yml",
+     "line": 41,
+     "claim": "The gate runs whatever `anchore/grype` tag is newest when it runs, found through an unauthenticated API call, with no digest pin. The scanner can change, or the step can fail on rate limits, without any change to the repository.",
+     "evidence": "The 'Discover latest Grype release' step calls `api.github.com/repos/anchore/grype/releases/latest` without a token, and then `docker pull \"anchore/grype:${{ steps.grype-release.outputs.tag }}\"` runs it with the Docker socket mounted. The existing weekly scan workflow uses the same pattern, but here it decides whether a merge is blocked."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "`recs = fixed_recommendations(pr)` is computed twice (diff lines 227 and 241). fixed_high_critical_recommendations duplicates fixed_recommendations except for a severity filter. The `severities` set in vulnerable_pkg_versions is never read. Maintainability only.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "line": 173,
+   "claim": "The comparison script has dead and duplicated code.",
+   "evidence": "`recs = fixed_recommendations(pr)` is computed at line 159 and again at line 173. `fixed_high_critical_recommendations` repeats `fixed_recommendations` except for a severity filter. `vulnerable_pkg_versions` fills a `severities` set (lines 149-151) that nothing reads.",
+   "axis_row": "L6.25",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".github/workflows/dependabot-grype-guard.yml",
+     "line": 173,
+     "claim": "The comparison script has dead and duplicated code, which makes the gate logic harder to maintain.",
+     "evidence": "`recs = fixed_recommendations(pr)` is computed at line 159 and again at line 173. `fixed_high_critical_recommendations` repeats `fixed_recommendations` except for a severity filter. `vulnerable_pkg_versions` fills a `severities` set (lines 149-151) that nothing reads."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "actions/checkout with no `ref:` on a pull_request event checks out refs/pull/N/merge, not the PR head. Scanning the merge result is arguably the right behaviour, so only the step name is misleading.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "line": 20,
+   "claim": "The step is named 'Checkout PR head' but checks out the merge commit.",
+   "evidence": "`- name: Checkout PR head` with `uses: actions/checkout@v6` and no `ref:`. For pull_request events the default ref is `github.ref`, which is the merge ref, while the base checkout uses `github.event.pull_request.base.sha`.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".github/workflows/dependabot-grype-guard.yml",
+     "line": 20,
+     "claim": "The step name says it checks out the PR head, but on a `pull_request` event `actions/checkout` defaults to the merge commit `refs/pull/N/merge`, so the summary is about a different tree than the step name says.",
+     "evidence": "`- name: Checkout PR head` with `uses: actions/checkout@v6` and no `ref:`. For pull_request events the default ref is `github.ref`, which is the merge ref, while the base checkout uses `github.event.pull_request.base.sha`."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The Notes line makes that claim, but nothing makes the guard a required check, the job is skipped for non-Dependabot actors (line 13), and the gate compares counts only. This is a documentation inaccuracy.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "line": 308,
+   "claim": "The generated issue says the guard 'enforces no High/Critical regression on merge', which overstates the protection.",
+   "evidence": "The Notes line reads `\"- The Dependabot Grype Guard workflow enforces no High/Critical regression on merge.\"`. dependabot-grype-guard.yml line 13 skips the job for non-Dependabot actors, and lines 202-203 compare counts only.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".github/workflows/grype-remediation-suggestions.yml",
+     "line": 308,
+     "claim": "The generated issue says the guard 'enforces no High/Critical regression on merge'. Nothing in the change makes it a required check, and the actor-based skip and count-only comparison mean it doesn't fully enforce that, so the issue overstates the protection.",
+     "evidence": "The Notes line reads `\"- The Dependabot Grype Guard workflow enforces no High/Critical regression on merge.\"`. dependabot-grype-guard.yml line 13 skips the job for non-Dependabot actors, and lines 202-203 compare counts only."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "The `highest` expression falls through to \"Low\" and has no branch for the Negligible or Unknown severities that the counter collects. This is a minor reporting inaccuracy.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "line": 297,
+   "claim": "A package whose only matches are Negligible or Unknown is labelled 'Low' in the recommendations table.",
+   "evidence": "`highest = \"Critical\" if ... else \"High\" if ... else \"Medium\" if ... else \"Low\"` has no branch for the Negligible and Unknown severities that the counter at line 245 collects.",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".github/workflows/grype-remediation-suggestions.yml",
+     "line": 297,
+     "claim": "In the recommendations table, a package whose only matches are Negligible or Unknown is labelled 'Low', which overstates its severity.",
+     "evidence": "`highest = \"Critical\" if ... else \"High\" if ... else \"Medium\" if ... else \"Low\"` has no branch for the Negligible and Unknown severities that the counter at line 245 collects."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "disputed",
+   "reason": "The diff does change all three schedules to 09:30, which places Dependabot after the 08:00 EDT weekly scan and is plausibly intentional. story.md isn't in the packet, so I can't check whether the story asked for it.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/dependabot.yml",
+   "line": null,
+   "claim": "The change moves the Dependabot schedules from 06:00 to 09:30 ET and deletes the comments, with no recorded requirement.",
+   "evidence": "In all three ecosystems the diff replaces `time: \"06:00\"` with `time: \"09:30\"` and removes the header and per-field comments. This puts Dependabot after the weekly scan's `cron: \"0 12 * * 3\"` (08:00 EDT), which is probably intended, but acceptance.md only points to a story.md that isn't in the packet.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C12",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".github/dependabot.yml",
+     "line": null,
+     "claim": "The change moves every Dependabot schedule from 06:00 to 09:30 ET and deletes the explanatory comments. No packet document states the requirement for this, so the reason for the config change is unrecorded.",
+     "evidence": "In all three ecosystems the diff replaces `time: \"06:00\"` with `time: \"09:30\"` and removes the header and per-field comments. This puts Dependabot after the weekly scan's `cron: \"0 12 * * 3\"` (08:00 EDT), which is probably intended, but acceptance.md only points to a story.md that isn't in the packet."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "disputed",
+   "reason": "weekly-security-grype.yml is triggered by schedule, so its runs are recorded on the default branch, and only its checkout uses pre-update-release. Whether the filter misses those runs depends on the repository's default branch, which the export doesn't show. This path is also unreachable until the syntax errors in C2 are fixed.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "line": 76,
+   "claim": "Manual dispatch without a run ID may not find the scheduled scans, because the fallback filters runs by branch 'pre-update-release'.",
+   "evidence": "The fallback query filters workflow runs with branch='pre-update-release' in both duplicated implementations. weekly-security-grype.yml schedules the workflow and separately checks out pre-update-release at lines 26\u201329; that checkout does not set the workflow run's branch. Scheduled runs associated with a different default branch are therefore excluded, causing 'No successful runs found'.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": ".github/workflows/grype-remediation-suggestions.yml",
+     "line": 76,
+     "claim": "Manual dispatch without a run ID may fail to find the scheduled weekly scans because it filters by the checked-out branch rather than the workflow run's branch.",
+     "evidence": "The fallback query filters workflow runs with branch='pre-update-release' in both duplicated implementations. weekly-security-grype.yml schedules the workflow and separately checks out pre-update-release at lines 26\u201329; that checkout does not set the workflow run's branch. Scheduled runs associated with a different default branch are therefore excluded, causing 'No successful runs found'."
+    }
+   ],
+   "id": "F13"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5",
+  "F6",
+  "F13"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:sast",
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

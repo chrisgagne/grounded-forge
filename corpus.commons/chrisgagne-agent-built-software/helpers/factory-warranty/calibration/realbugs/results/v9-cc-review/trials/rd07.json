@@ -1,0 +1,30 @@
+{
+ "id": "rd07",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 750,
+   "end_line": 750,
+   "message": "prepareForValidation no longer sends ownerName, but companySchema (src/lib/schemas.ts:153) still has ownerName as a required cleanString field, so every edit save fails validation. The user opens a company, clicks Edit, changes the name and saves. safeParse returns 'Owner name is required' for ownerName. No field in the config maps to ownerName, so the error appears nowhere and the save is silently blocked every time."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 190,
+   "end_line": 190,
+   "message": "The ownerName input was removed from companyFields, but ModalForm still validates against companySchema, which requires ownerName, so the create form can never pass validation. The user fills in Name, Address, Location and Type and clicks submit. CreationForm.handleSubmit runs schema.safeParse(formData), gets an ownerName error, sets errors.ownerName (no input renders it) and returns. Nothing visible happens and the form never submits."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 71,
+  "cost_usd": 0.46425200000000005,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

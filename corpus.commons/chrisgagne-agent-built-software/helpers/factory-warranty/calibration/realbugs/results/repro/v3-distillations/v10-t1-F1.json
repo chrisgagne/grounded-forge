@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.10615680000000001,
+  "duration_s": 86.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/xrange-order.js {tree}",
+  "because": "On head, `new Range('x.1.2')` no longer throws: it becomes the match-all range '' and accepts 5.0.0, while '1.x.2' becomes '>=1.0.0 <2.0.0-0'. On base, both inputs are rejected as invalid comparators, so this shows that misordered X-ranges now silently widen."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "node:assert:95\n  throw new AssertionError(obj);\n  ^\n\nAssertionError [ERR_ASSERTION]: x.1.2 silently widened to \"\"\n\n'' !== null\n\n    at Object.<anonymous> (<work>/repro-work/v3-distillations/v10-t1-F1/check/xrange-order.js:10:10)\n    at Module._compile (node:internal/modules/cjs/loader:1730:14)\n    at Object..js (node:internal/modules/cjs/loader:1895:10)\n    at Module.load (node:internal/modules/cjs/loader:1465:32)\n    at Function._load (node:internal/modules/cjs/loader:1282:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '',\n  expected: null,\n  operator: 'strictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, `new Range('x.1.2')` no longer throws: it becomes the match-all range '' and accepts 5.0.0, while '1.x.2' becomes '>=1.0.0 <2.0.0-0'. On base, both inputs are rejected as invalid comparators, so this shows that misordered X-ranges now silently widen.",
+ "run": "v3-distillations",
+ "trial": "v10-t1",
+ "kind": "bug"
+}

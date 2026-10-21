@@ -1,0 +1,84 @@
+{
+ "id": "rb20",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage"
+ ],
+ "first": "triage",
+ "cost_usd": 0.9549,
+ "codex_tokens": 51220,
+ "work": "<tmp>/replay-rb20-t1-x96ib68f",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "docs.yml:25-27 sets the workflow-level group to pages-${{ github.ref }} with cancel-in-progress: true, which covers the deploy job (lines 57-70, actions/deploy-pages@v4, runs on push to refs/heads/main). Two quick pushes to main share pages-refs/heads/main, so the second can stop a deployment part-way. risk.json lists infra as unplanned, and nothing in the CSS change needs this edit.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": ".github/workflows/docs.yml",
+   "line": 27,
+   "claim": "Changing Pages concurrency to cancel-in-progress: true lets a later push to main cancel a run that is already in its deploy job, and it is unplanned infra scope in a CSS theme change.",
+   "evidence": "The diff replaces `group: \"pages\"` / `cancel-in-progress: false` with `group: \"pages-${{ github.ref }}\"` / `cancel-in-progress: true`. The concurrency block is at workflow level (lines 25-27), so it covers the `deploy` job (`actions/deploy-pages@v4`, lines 57-70), which runs on every push to `refs/heads/main`. Two pushes to main in quick succession share the group `pages-refs/heads/main`, and the second cancels the first even while it is deploying. The old `false` value, GitHub's starter setting for Pages, let a running deployment finish and only skipped the queued runs in between. risk.json lists `infra` under `unplanned` with the match `.github/workflows/docs.yml`. Nothing else in the diff needs a workflow change: the rest is CSS.",
+   "axis_row": "L6.22",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "main.css sets [data-bs-theme=\"light\"] pre background #1e2530 and pre code color #e0ddd8 !important, and adds no .hljs or .hljs-* overrides. The base default/modern template's highlight theme is not in the export (docfx.json:60 only lists the templates), so whether code.hljs gets a white background or dark token colours can't be confirmed from the code.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "line": 237,
+   "claim": "Light-mode code blocks are forced dark with !important light text, which may clash with the light highlight.js theme's .hljs background and token colours.",
+   "evidence": "Lines 232-239: `[data-bs-theme=\"light\"] pre { background: #1e2530 !important; }` and `[data-bs-theme=\"light\"] pre code { color: #e0ddd8 !important; }`. The stylesheet does not override `.hljs` backgrounds or any token colours (no `.hljs-*` rules). The light highlight themes the base `default`/`modern` templates may load set `.hljs { background: white }` and dark token colours (for example blue keywords). That would give light-grey text on a white `code` box, or dark-blue keywords on #1e2530. I could not see the base template's highlight theme in the export, so this is unverified.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 9 of the new main.css @imports fonts.googleapis.com for IBM Plex Mono, DM Sans and Outfit, and nothing in docfx/ vendors these fonts, so every visitor's browser contacts a third party. This is an unrequested dependency and privacy/performance point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "line": 9,
+   "claim": "The theme adds an unrequested runtime dependency on Google Fonts via a render-blocking @import.",
+   "evidence": "Line 9: `@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono...&family=DM+Sans...&family=Outfit...&display=swap');`. Nothing in docfx.json or the repo vendors these fonts, and an `@import` at the top of the stylesheet also blocks rendering until the remote CSS loads.",
+   "axis_row": "L4.4",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "C5",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The light block sets --bs-link-color and --bs-code-color to --forge-ember #e8760a on --bs-body-bg #faf9f7, about 2.85:1. The dark block sets --forge-smoke #6b7280, which .navbar .nav-link, header .btn and footer use on --forge-anvil #141a22, about 3.6:1. a {text-decoration: none} leaves colour as the only cue. Both reviewers found this independently. It is an accessibility point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "line": 30,
+   "claim": "Light-mode links and inline code (#e8760a on #faf9f7) and dark-mode navbar, header button and footer text (#6b7280 on #141a22) fall below WCAG AA 4.5:1 contrast, and links have no underline except on hover.",
+   "evidence": "Line 30: `--bs-link-color: var(--forge-ember)` with `--forge-ember: #e8760a` on `--bs-body-bg: var(--forge-white)` (#faf9f7), which works out to about 2.85:1 (hover colour #c4630a is about 3.9:1). Lines 365-369: `a { ... text-decoration: none; }`, so colour is the only cue. The same ember colour is used for inline code (`--bs-code-color`), landing `h3`s and `td strong`.",
+   "id": "F4"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [],
+  "review": []
+ }
+}

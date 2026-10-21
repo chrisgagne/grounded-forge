@@ -1,0 +1,56 @@
+{
+ "id": "rc02",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "django_smart_ratelimit/backends/database.py",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Coverage Illusion \u2014 The persistence fix has no tests, though the checklist says it does. Symptom: The diff changes `token_bucket_check`, `token_bucket_info` and `get()` in `django_smart_ratelimit/backends/database.py` but includes no test changes. `tests/backends/test_database_backend.py` doesn't call `token_bucket_*` at all. Meanwhile `CHECKLIST_database_backend_fix.md` ticks \"Add or update automated tests \u2026 that expose the bug and verify the fix\". That checklist also contains absolute paths to a contributor's machine (`/Users/<author>/...`). Source: Feathers \u2014 Working Effectively with Legacy Code, Ch. 1 (legacy code is code without tests) Consequence: The bug was \"token counts don't persist across requests\", and nothing in the suite guards against it coming back. Anyone reading the checklist will assume a regression test exists when it doesn't. Remedy: Add a `DatabaseBackend` test that calls `token_bucket_check` N+1 times against a bucket of size N and asserts the last call is denied. Add a second test with mocked time that checks refill and confirms `token_bucket_info` matches. Remove the checklist from the repo root (move it into the PR description)."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "counter.c",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 The token count has two sources of truth, and the read/write logic is copied. Symptom: The token count is written to both `counter.count` (as an int, truncated) and `data[\"tokens\"]` (as a float), at `database.py:154-155` and again at `184-185`. Reads fall back from one to the other: `bucket_data.get(\"tokens\", counter.count)`. The block that parses the data (deserialize, `isinstance` check, read `tokens` and `last_refill` with fallbacks) is copied verbatim in `token_bucket_check` (`database.py:116-126`) and `token_bucket_info` (`database.py:241-249`). The allowed and denied branches also repeat the same update-and-save sequence. `bucket_size` and `refill_rate` are saved into `data` but overwritten by the caller's arguments on every read, so the stored values are never used. Source: Hunt & Thomas \u2014 The Pragmatic Programmer, DRY; Fowler \u2014 Refactoring, Duplicate Code Consequence: Change the storage format or fallback rules and you have to edit four places in step. If you miss one, `count` and `data` disagree, and which one wins depends on whether `data` happens to be null. Remedy: Extract `_load_bucket_state(counter) -> (tokens, last_refill)` and `_save_bucket_state(counter, tokens, timestamp)`, and call `_save_bucket_state` once after the allow/deny branch. Make `data` the only source of truth. Either stop writing `count`, or document it as a derived integer kept for display only. Stop saving `bucket_size`/`refill_rate`, or actually use them."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "0002_add_data_field_to_counter.py",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Change Propagation \u2014 A bug-fix migration also changes primary key types and renames indexes. Symptom: `0002_add_data_field_to_counter.py` adds the `data` column, which is the fix. It also changes the `id` column to `BigAutoField` on all three tables and renames five indexes. Only on Django 4.1 and later does it run the renames; older versions get them through `getattr(migrations, \"RenameIndex\", None)`, which returns nothing there, so the renames are skipped. The CHANGELOG mentions only the `data` field. Source: Winters et al. \u2014 Software Engineering at Google, backward compatibility and code sustainability Consequence: On PostgreSQL or MySQL, changing a primary key's type rewrites the whole table and locks it. For a high-write rate-limit counter table, that can mean an outage during deploy that nobody saw coming. On Django 4.0, the index names stay out of sync with the model, so `makemigrations` will keep seeing pending changes. Remedy: Split it into `0002` (only `AddField data`) and a separate, clearly documented `0003` for the BigAutoField and index-name catch-up (the drift comes from `apps.py:9` setting `default_auto_field`). Describe the table rewrite in the CHANGELOG upgrade notes."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "database.py",
+   "start_line": 286,
+   "end_line": 286,
+   "message": "Change Propagation \u2014 `get()` now returns different types depending on stored data. Symptom: `database.py:286-289`: `get()` now returns the deserialized `data` whenever it's present. That can be a dict (token-bucket keys), an int, or a str (values from `set()`). Before, it always returned `counter.count`. Source: Winters et al. \u2014 Software Engineering at Google, Ch. 1: Hyrum's Law Consequence: This fixes the `set()`/`get()` round trip, which is an improvement. But callers that relied on `get()` returning an int will break quietly, and the CHANGELOG doesn't mention the change. Remedy: Document the new `get()` behavior in the CHANGELOG and add a `set`\u2192`get` round-trip test."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "backends.m",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 The upgrade note is copied into six places, one already time-relative. Symptom: The note \"run migrate so `RateLimitCounter.data` exists\" appears in CHANGELOG, README, `backends.md`, `design.md`, and twice in `installation.md`. `backends.md` says \"Starting with the next release\", which will become wrong once the release ships. `installation.md` suggests `showmigrations` to \"verify the column exists\", but that command only lists migration status; it doesn't inspect columns. Source: Hunt & Thomas \u2014 The Pragmatic Programmer, DRY Consequence: The copies will drift, and the time-relative wording goes stale on release day. Remedy: Keep a single upgrade note (CHANGELOG plus an \"Upgrading\" section) and link to it from the others. Replace \"next release\" with the actual version, and describe `showmigrations` as checking that `0002` is applied. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 82,
+  "cost_usd": 0.5065436000000001,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 0,
+  "health_score": "83"
+ }
+}

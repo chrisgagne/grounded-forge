@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 178,
+   "end_line": 178,
+   "message": "Editing a private source URL without re-entering its token deletes the saved credential and breaks authentication. McpServerGitSync.svelte remaps the old URL's '*' marker to the new URL and removes the old key. Update handles '*' only by looking up existingCred.Env[newURL], where no token exists; it drops the old URL's token and deletes the credential when newTokens is empty. Changing only a repository's branch therefore loses its saved token."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 170,
+   "end_line": 170,
+   "message": "Adding a scheme-less private source URL silently discards the supplied token. Update normalizes SourceURLs such as 'github.com/org/private' to 'https://github.com/org/private' at lines 126\u2013128, but leaves SourceURLCredentials keys unchanged. The UI keys the supplied token by the original editingSource.value. The activeURLs check then skips that credential because its unnormalized key does not match the normalized source URL, so saving succeeds without storing authentication."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

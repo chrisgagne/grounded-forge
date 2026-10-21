@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/mikecubed/m3OS",
+  "pr_number": 84,
+  "base": "1f04d09ca740bac5640d9163ef9edc06768e6c60",
+  "head": "5e9d78eba1ea7c359c17beae6351d22aaab1fb6b"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "kernel-core/src/trace_ring.rs",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "TraceEvent is a repr(C) enum whose variants have interior and trailing padding (e.g. Dispatch {u32,u8,u64} pads 3 bytes after `core`, smaller variants leave union bytes unused), so sys_ktrace's raw-byte copy leaks uninitialized kernel stack bytes despite the 'no uninit bytes' comment, and reading them via from_raw_parts::<u8> is UB. In sys_ktrace, `tmp` is a stack array; `*slot = self.buf[..]` copies a TraceEntry by value and the compiler is free to skip padding bytes. Those padding bytes and the unused tail of short variants (e.g. YieldNow is only {u32,u8}) then go to userspace through copy_to_user. An unprivileged process calling ktrace can read leftover kernel stack data. Zeroing the `_pad` field in TraceEntry does nothing for padding inside the enum."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 496,
+   "end_line": 496,
+   "message": "sys_ktrace takes no offset and copy_into always starts at the oldest entry, so with MAX_BATCH=64 and a 256-entry ring, userspace can only ever see the oldest 64 events and never the newest 192. The ring is full (256 entries) and a caller passes a 64KB buffer. It gets the 64 oldest entries back. The comment says 'callers can call again for more', but calling again returns the same oldest 64 entries (or a newer shifted window by chance), so the most recent events, the ones you need for debugging, are unreachable."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 462,
+   "end_line": 462,
+   "message": "sys_ktrace has no privilege check, so any user process can read kernel stack pointers (Dispatch.rsp, SwitchOut.saved_rsp) and scheduler/IPC activity of other processes. An unprivileged user program calls ktrace(0, buf) and reads Dispatch/SwitchOut entries. These contain kernel stack addresses, which defeats any kernel address randomization, and they also reveal the IPC endpoint and fork activity of other processes. The feature is enabled by default (default = [\"trace\"])."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 463,
+   "end_line": 463,
+   "message": "core_id is truncated to u8 before the bounds check, so out-of-range values such as 256 wrap to valid cores instead of returning an error. ktrace(256, buf) truncates to core 0 and returns core 0's entries, when it should return u64::MAX for an invalid core ID as documented."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 47000
+ }
+}

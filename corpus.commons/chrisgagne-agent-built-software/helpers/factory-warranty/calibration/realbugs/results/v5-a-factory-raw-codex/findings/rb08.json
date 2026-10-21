@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/PaulStSmith/figlet-comment-generator",
+  "pr_number": 32,
+  "base": "3750acad624b6b38b768aa8b9aa3ba1573e2f63e",
+  "head": "1d0b6642fcf5ca31fc308c3d603b19ab02ea249e"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "Inserting a banner with text selected no longer replaces the selection, leaving the original text in the document. The previous nonempty-selection branch called editBuilder.replace(editor.selection, ...); insertBanner now always calls editBuilder.insert at column zero of the selection's active line. Selecting an existing banner and generating its replacement therefore retains the old banner and adds another."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 209,
+   "end_line": 209,
+   "message": "The generated schema directives lose the literal $schema key, so the added schema references do not work. All three header strings use PowerShell double quotes, for example \"# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.12.0.schema.json\". The script never assigns $schema, so interpolation produces '# yaml-language-server: =https://...' before Set-Content writes and uploads the manifests."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "The narrowed publishing filters skip releases for changes to packaged resources and build metadata. The FIGPrint trigger now matches only FIGPrint/**/*.cs, although FIGPrint.csproj embeds fonts/small.flf and configures other font assets. A merged PR fixing only those fonts or the project file no longer starts publishing. The same narrowing across the other publishing workflows excludes their non-source package inputs, and workflow_dispatch is the only remaining fallback."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

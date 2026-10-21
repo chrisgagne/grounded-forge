@@ -1,0 +1,56 @@
+{
+ "id": "v16",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.1619,
+ "codex_tokens": 25097,
+ "work": "<tmp>/replay-v16-t1-on1ts0xo",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/diff/json.ts:100 now checks only `obj && obj.toJSON`, and line 101 then calls `obj.toJSON()`. A non-function truthy toJSON such as a string therefore throws a TypeError, while the old typeof-function guard (and JSON.stringify) treat it as an ordinary key.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/diff/json.ts",
+   "line": 100,
+   "claim": "diffJson/canonicalize throws a TypeError on objects that have a truthy toJSON property that is not a function.",
+   "evidence": "The diff changes `if (obj && typeof obj.toJSON === 'function')` to `if (obj && obj.toJSON)`, and the next line calls `obj = obj.toJSON();` unconditionally. A string, number or object value there is not callable, so the call throws. JSON.stringify only calls toJSON when it is a function, so the old guard matched the JSON semantics this function relies on.",
+   "breaks": "story",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep for toJSON across the export matches only src/diff/json.ts:100-101 and no test file, and the diff adds no test, so nothing catches this regression.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/diff/json.ts",
+   "line": 100,
+   "claim": "No test covers objects whose toJSON property is not a function.",
+   "evidence": "A grep for `toJSON` across the export finds only src/diff/json.ts:100-101 and no test files, and the diff adds no test.",
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

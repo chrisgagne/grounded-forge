@@ -1,0 +1,31 @@
+{
+ "id": "x03",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "README.md",
+   "start_line": 227,
+   "end_line": 227,
+   "message": "This change adds a new public `parse-positional-numbers` configuration option but does not document it in the README, which lists every configuration option next to 'parse numbers'. Without a README entry, users won't know the option exists or that its default is `true`."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 25,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 536,
+   "cost_usd": 0.07357680000000001,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 536
+ },
+ "stopped": false
+}

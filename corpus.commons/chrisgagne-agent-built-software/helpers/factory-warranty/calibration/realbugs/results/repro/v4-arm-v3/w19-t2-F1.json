@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1525184,
+  "duration_s": 33.3
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "The script compiles the tree's own lib/yargs-parser.ts and parses ['foo','--known','x'] with string:['known'] and both unknown-options-as-args and halt-at-non-option turned on. On base parsing stops at 'foo' and gives _:['foo','--known','x']. On head it gives _:['foo'] and known:'x', so the assertion fails: once the /^-/ guard is gone, 'foo' is pushed as an unknown option and the halt-at-non-option branch is never reached."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[\"foo\",\"--known\",\"x\"]}\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "{\"_\":[\"foo\"],\"known\":\"x\"}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: parsing must halt at first non-option \"foo\"\n+ actual - expected\n\n  [\n    'foo',\n-   '--known',\n-   'x'\n  ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v3/w19-t2-F1/check/check.mjs:9:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [ 'foo' ],\n  expected: [ 'foo', '--known', 'x' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The script compiles the tree's own lib/yargs-parser.ts and parses ['foo','--known','x'] with string:['known'] and both unknown-options-as-args and halt-at-non-option turned on. On base parsing stops at 'foo' and gives _:['foo','--known','x']. On head it gives _:['foo'] and known:'x', so the assertion fails: once the /^-/ guard is gone, 'foo' is pushed as an unknown option and the halt-at-non-option branch is never reached.",
+ "run": "v4-arm-v3",
+ "trial": "w19-t2",
+ "kind": "bug"
+}

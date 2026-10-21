@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/davidortinau/SentenceStudio",
+  "pr_number": 72,
+  "base": "b488d228ceeea1c29d5d54591a4b5c8ba9790712",
+  "head": "8941b5da55823d738d340cad6a429021318d8211"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 54,
+   "end_line": 54,
+   "message": "The sync server permits anonymous synchronization even when Entra ID authentication is enabled, leaving synchronized data accessible without credentials. With Auth:UseEntraId=true, a request without a Bearer token passes UseAuthentication(); UseAuthorization() has neither endpoint authorization metadata nor a fallback policy to enforce, and execution reaches UseCoreSyncHttpServer(). AddSyncServices registers a shared singleton provider with UploadAndDownload access to UserProfile, Conversation, VocabularyProgress and other tables; no intervening authentication guard exists."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "The JWT tests bypass the new Entra ID registration branch, so they cannot verify the production authentication configuration. ConfigureWebHost selects Testing and replaces the default schemes with a separately registered AddJwtBearer handler using TestJwtGenerator validation parameters. It never enables Auth:UseEntraId; consequently the application's AddMicrosoftIdentityWebApi registration and scope policies are not exercised by these tests."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 15,
+   "end_line": 15,
+   "message": "The new integration test project cannot compile because its factories reference the API's inaccessible Program type. Both JwtBearerApiFactory and DevAuthApiFactory inherit WebApplicationFactory<Program> from a separate test assembly. The API uses top-level statements, which generate an internal Program, and neither its source nor project exposes a public partial Program or grants InternalsVisibleTo to the test assembly."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

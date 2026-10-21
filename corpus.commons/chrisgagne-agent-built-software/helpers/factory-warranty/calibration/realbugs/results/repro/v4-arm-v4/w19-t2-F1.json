@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1284054,
+  "duration_s": 24.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "With unknown-options-as-args and halt-at-non-option both on, parsing ['foo','--known','1'] on head gives `_: ['foo'], known: '1'` where base gives `_: ['foo','--known','1']`, so the plain word 'foo' takes the unknown-option branch, the halt never happens, and '--known' after it gets parsed."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "result: {\"_\":[\"foo\",\"--known\",\"1\"]}\nresult populate--: {\"_\":[],\"--\":[\"foo\",\"--known\",\"1\"]}\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "result: {\"_\":[\"foo\"],\"known\":\"1\"}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: halt-at-non-option must stop at \"foo\"\n+ actual - expected\n\n  [\n    'foo',\n-   '--known',\n-   '1'\n  ]\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v4/w19-t2-F1/check/check.mjs:8:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: [ 'foo' ],\n  expected: [ 'foo', '--known', '1' ],\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "With unknown-options-as-args and halt-at-non-option both on, parsing ['foo','--known','1'] on head gives `_: ['foo'], known: '1'` where base gives `_: ['foo','--known','1']`, so the plain word 'foo' takes the unknown-option branch, the halt never happens, and '--known' after it gets parsed.",
+ "run": "v4-arm-v4",
+ "trial": "w19-t2",
+ "kind": "bug"
+}

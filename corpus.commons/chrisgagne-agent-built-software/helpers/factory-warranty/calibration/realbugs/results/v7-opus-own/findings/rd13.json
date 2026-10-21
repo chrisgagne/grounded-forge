@@ -1,0 +1,126 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 202,
+  "base": "2159a5434ce888127b578ad8b788e550fd3412ce",
+  "head": "7e51d062b3fd69794c941b43f3aa8830a7a1729f"
+ },
+ "agent": "v7-opus-own",
+ "findings": [
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 517,
+   "end_line": 519,
+   "message": "The DoR pre-check looks for a `## Final Verdict` section, but x-story-plan never writes one. The DoR checklist it generates (x-story-plan SKILL.md ~778-830) puts the verdict under `## Summary` as `Verdict: **READY/NOT_READY**` and lists failures under `## Blockers`. The check will never find a verdict. Depending on how the agent reads that, it either skips the gate silently or does something undefined. `{failed_checks}` is also never mapped to a source; it should come from the Mandatory/Conditional checks table or the Blockers section. Nothing says what to do when a DoR file exists but its verdict is missing or malformed."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 519,
+   "end_line": 531,
+   "message": "A NOT_READY story is set to BLOCKED but has no `blockedBy`. Resume Step 2 keeps any BLOCKED story with undefined `blockedBy` blocked forever, so a story stays stuck even after its DoR is fixed and re-planned to READY; `--resume` never re-runs the DoR check. Nothing says whether stories that depend on a DoR-blocked story get the block propagated to them, the way they would after a failure. The reason string also isn't stored in any checkpoint field."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 514,
+   "end_line": 514,
+   "message": "The DoR path is hard-coded as `plans/epic-{epicId}/plans/...`. In the same change, x-story-plan now resolves suffixed epic dirs (`plans/epic-XXXX-*`) and writes DoR files there. For those epics the pre-check will report 'No DoR file found' and skip the gate silently."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 536,
+   "end_line": 571,
+   "message": "No step writes per-task progress during execution. The only writer is x-dev-lifecycle Phase 8, which marks all tasks DONE once the story finishes; nothing records IN_PROGRESS, commitSha, or duration per task. If a story is interrupted mid-way, it has no `tasks` data, so Step 1b's task-level resume can never take effect. Also, the lifecycle subagent writes `execution-state.json` while the orchestrator updates the same file for parallel stories, which risks lost updates. Single-writer ownership needs to be defined."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 546,
+   "end_line": 571,
+   "message": "The task `type` values here (DEV/TEST/SEC/REFACTOR) and the example agent mapping (architect doing DEV) don't match the task types x-story-plan emits (architecture/implementation/test/security/quality-gate/validation). That leaves the schema ambiguous for whoever fills it in."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 142,
+   "end_line": 158,
+   "message": "PRE_PLANNED mode needs all 7 artifact types, with arch/tests/plan/security/compliance attributed to x-story-plan. x-story-plan's outputs are only tasks, task-plan-*, planning-report, and dor (its SKILL.md ~829-832); this change even makes the planning-report the primary evidence for architecture, tests, security, and plan. So x-story-plan output can never produce PRE_PLANNED; it always falls into HYBRID and regenerates planning. The architecture file name `architecture-story-*` also differs from the documented `arch-story-*` template output."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 154,
+   "end_line": 158,
+   "message": "The mode table doesn't cover every case. If all 7 artifacts exist but some are stale, the PRE_PLANNED condition fails and the HYBRID condition ('some but not all exist') also fails, so no mode applies. HYBRID says to 'reuse existing fresh ones' but doesn't say what to do with stale ones."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 136,
+   "end_line": 136,
+   "message": "The new `### Phase 0.5 \u2014 Planning Mode Detection` heading collides with the existing `## Phase 0.5 \u2014 API-First Contract Generation` right below it, and the phase overview at the top of the skill doesn't list it. Two phases share one number, which is ambiguous for an orchestrating agent."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 670,
+   "end_line": 677,
+   "message": "The per-task status update sits after Phase 8 step 10 (`git checkout develop && git pull`). Editing the story file's Section 8.1 at that point changes the `develop` working tree after the PR is created and merged. That means either an uncommitted change or a direct commit to develop, which Rule 09 forbids, and the status update is never part of the story's PR. It also marks every task DONE at once, with no DoD/commit evidence and no handling of SKIPPED or failed tasks."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 431,
+   "end_line": 443,
+   "message": "Task-by-task Phase 2 runs inline in the orchestrator instead of through the Phase 2 subagent, and it never invokes x-dev-implement's new task-aware mode. That leaves two separate definitions of the same loop. They already disagree: this one has no resume check or compile check, and its commit format is `[TDD:RED|GREEN|REFACTOR]` where x-dev-implement always uses `[TDD:GREEN]`."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 257,
+   "end_line": 262,
+   "message": "The resume heuristic (the Implementation Guide's class exists and its tests pass, so the task is DONE) is unreliable. Tasks that modify an existing class get skipped wrongly because the file already exists and old tests pass. RED/test-only tasks can't be judged by 'tests pass'. The heuristic also ignores the task status and commitSha recorded in execution-state.json, which the epic-implement change claims are passed to this subagent."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 277,
+   "end_line": 281,
+   "message": "Every task gets one combined commit, `feat(scope): implement TASK-NNN [TDD:GREEN]`, staging test and implementation together. That contradicts the test-first commit history required by the quality gates and the RED/GREEN/REFACTOR commits used elsewhere in this skill and in x-dev-lifecycle. It also labels test, security, and refactor tasks as `feat`, which breaks Conventional Commits-based version bumping."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 88,
+   "end_line": 97,
+   "message": "The producer of the task artifacts is given inconsistently: here per-task plans come from `x-dev-lifecycle`, the integration notes say `x-lib-task-decomposer`, and x-dev-lifecycle says `x-story-plan Phase 4`. The '5. Mode determination' item is numbered as if it continues the earlier list, but it sits under a new subsection. 'Fresh' is used without a staleness rule."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 358,
+   "end_line": 358,
+   "message": "'Task dependency not met \u2192 skip task' contradicts the dependency-ordered iteration in 2.5. Nothing says whether the skipped task is retried later, and there's no SKIPPED/BLOCKED status reported back. A skipped task can be silently left undone."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 123,
+   "end_line": 126,
+   "message": "The EPIC_DIR resolution added in 0.2/0.3 isn't applied everywhere. Step 0.5 still checks and reports `plans/epic-XXXX/story-XXXX-YYYY.md`, so for suffixed epic dirs the story file is reported NOT_FOUND and planning aborts. Paths at ~173-176 and the output paths at ~536-702 and ~829-832 are also still hard-coded to `plans/epic-XXXX/`."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "java/src/test/resources/golden/java-quarkus/.claude/skills/x-dev-lifecycle/SKILL.md",
+   "start_line": 136,
+   "end_line": 136,
+   "message": "Of all the golden files, only java-quarkus/.claude x-dev-lifecycle was updated. About 69 other x-dev-lifecycle goldens (every profile, plus the .github/.codex/.agents variants) and every golden for x-dev-epic-implement, x-dev-implement, and x-story-plan were not regenerated. Golden-file tests will fail, which contradicts the PR description's claim that all existing tests pass. The PR also doesn't say whether the .github/codex skill sources need the same edits."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

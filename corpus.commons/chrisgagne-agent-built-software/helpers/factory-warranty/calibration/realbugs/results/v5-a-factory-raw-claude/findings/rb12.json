@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/ardevd/jadx-collaboration",
+  "pr_number": 3,
+  "base": "a9627c7cd6695e2389a68033c3985a0809f2978e",
+  "head": "853179dcb73aed6afab52d11324ea3ff3eac8b8a"
+ },
+ "agent": "v5-factory-raw-claude",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/test/kotlin/uk/oshawk/jadx/collaboration/PluginTest.kt",
+   "start_line": 128,
+   "end_line": 128,
+   "message": "The change edits the locked acceptance tests so they skip the menu-action path the change rewired, so the tests no longer check that Pull and Push, as the user triggers them, finish and update the project. acceptance.md says \"The baseline's tests are the locked acceptance tests\". Yet the diff replaces `leftPlugin.pull!!.run()` / `push!!.run()` (the Runnable registered via addMenuAction) with `leftPlugin.plugin.pull()` / `push()`, and widens `pull`/`push` from `private` to `internal` in Plugin.kt (lines 540, 578) so they can be called. Under the new wiring (`addMenuAction(\"Pull\") { kotlin.concurrent.thread { this.pull() } }`), the original `pull!!.run()` would return as soon as it started the thread, and the assertions would race the worker. The test was moved to match the implementation rather than the behaviour. No recorded reason or approver appears in the packet."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "Nothing stops two Pull/Push operations from running at once, so a double key press, or a Push while a Pull's conflict dialog is open, runs two workers against the same repository files and loses or corrupts sync state. Each menu action and key binding (lines 44-54) starts a new `kotlin.concurrent.thread { this.pull() }` / `push()` with no lock, flag or single-thread executor. Before the change, `guiContext.uiRun(this::pull)` serialised them on the EDT. Each worker does readLocalRepository \u2192 projectToLocalRepository \u2192 readRemoteRepository \u2192 writeLocalRepository/writeRemoteRepository on the same `${options.repository}` and `.local` files (`File(...).writer()` truncates on open). For example: press ctrl+\\ twice, or press ctrl+shift+\\ while `dialogConflictResolver` blocks the first worker in `invokeAndWait`. The two threads interleave reads and writes, and one overwrites the other's merged version vectors, or one reads a half-written file and hits the \"corrupt. Requires manual fixing\" path."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 550,
+   "end_line": 550,
+   "message": "The worker thread reads the project's renames and comments off the EDT and applies the merged result later through an asynchronous invokeLater, so any rename the user makes in between is silently overwritten and dropped from the local repository. `projectToLocalRepository` (called at lines 550 and 589) reads `context!!.args.codeData.renames/comments` on the background thread while the GUI can still change them. The merged state is written to disk (`writeLocalRepository`) and only afterwards applied in `uiRun { localRepositoryToProject(localRepository) ... }` (lines 572-575, 645-648). `localRepositoryToProject` calls `setProjectRenames(newProjectRenames)`, which replaces the whole list. A rename made while the pre-pull script runs, or while the conflict dialog is open, is therefore lost from the project and was never recorded in the `.local` file. Unsynchronised cross-thread access to the JadxCodeData lists is also a data race."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "An unexpected exception in the new worker thread may end the Pull/Push silently, with no dialog, leaving the user unsure whether sync happened. `kotlin.concurrent.thread { this.pull() }` installs no try/catch and no uncaught-exception handler. Code reached from pull/push can throw: `context!!`, `localRepository!!`, `oldLocalRepositoryItem!!`, `newProjectItem!!`, `ProcessBuilder(command).start()` in `runScript` (throws IOException for a bad script path) and `process.waitFor()`. Before the change, these ran inside guiContext.uiRun on the EDT, where the host application's EDT exception handling applied. Now they go to the default thread handler, which only logs to stderr."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/test/kotlin/uk/oshawk/jadx/collaboration/PluginTest.kt",
+   "start_line": 48,
+   "end_line": 48,
+   "message": "No test covers the threading the change introduces (background execution, EDT marshalling of the conflict dialog, async application of results), so a regression in any of it would pass the suite. The mock runs `uiRun` synchronously (`doAnswer { it.getArgument<Runnable>(0).run() }`). The tests call `plugin.pull()`/`push()` directly on the test thread, and each test passes its own conflictResolver lambda, so `dialogConflictResolver`'s `isEventDispatchThread`/`invokeAndWait` branches and the `InterruptedException`/`InvocationTargetException` handling are never run. Nothing exercises the `kotlin.concurrent.thread` wiring at lines 44-54 of Plugin.kt."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/ConflictResolvers.kt",
+   "start_line": 34,
+   "end_line": 34,
+   "message": "The new code uses fully-qualified names where the file and its neighbours use imports, and adds a second logger, which is inconsistent and harder to read. ConflictResolvers.kt already has `import javax.swing.*` yet writes `javax.swing.SwingUtilities.isEventDispatchThread()` and `javax.swing.SwingUtilities.invokeAndWait`. Plugin.kt writes `javax.swing.SwingUtilities.invokeLater` and `kotlin.concurrent.thread` inline. ConflictResolvers.kt adds a file-private `LOG = KotlinLogging.logger {}` even though `Plugin.LOG` (logger ID `jadx-collaboration`) exists, so conflict-dialog errors log under a different logger name than the rest of the plugin."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

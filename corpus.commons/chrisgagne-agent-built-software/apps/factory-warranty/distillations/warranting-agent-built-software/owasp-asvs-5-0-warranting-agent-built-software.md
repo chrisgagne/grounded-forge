@@ -1,0 +1,263 @@
+# OWASP Foundation, Application Security Verification Standard 5.0, Warranting Agent-Built Software Distillation
+
+**Source:** OWASP Foundation, *OWASP Application Security Verification Standard 5.0.0*, May 2025; project leads Elar Lang, Josh C Grossman, Jim Manico, Daniel Cuthbert. **Scope:** open. Citations take the form `(V{N} "Chapter", {requirement ID or section})` for the requirement chapters and `("Chapter", "Section")` for the front matter and appendices. Requirement IDs are those of version 5.0.0; the standard's own version-qualified form is `v5.0.0-1.2.5`. Levels (L1, L2, L3) are given only where the deep reference states them.
+
+**Licence and share-alike notice.** The source is © 2008-2025 The OWASP Foundation and licensed CC BY-SA 4.0 (Frontispiece, "Copyright and License"), which asks that any reuse or distribution clearly communicate the licence terms. This distillation is an adaptation of it: the standard's requirements and guidance condensed, paraphrased, reordered and projected onto the task of warranting agent-built software, with short verbatim quotations marked `[V]`. It is shared under the same licence, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Attribution: The OWASP Foundation, OWASP Application Security Verification Standard 5.0.0.
+
+**Setting, read before projecting.** The ASVS is a list of about 350 application security requirements (345 by count) in 17 chapters, each a pass-or-fail statement of a security goal at one of three levels ("Preface"; "What is the ASVS?") [AP]. It specifies the security outcomes in the product, not the lifecycle that builds it: it does not prescribe development lifecycle activities or how the CI/CD pipeline builds the product ("What is the ASVS?", "Application") [AP]. It reaches this axis because the accountable builder needs a fixed, external statement of what *secure* means for the change, one the agent cannot rewrite and a reviewer can check requirement by requirement, and because its assessment chapter says what counts as verification evidence. It says nothing about coding agents, sandboxes or who writes the tests; where this distillation carries a product requirement across to the agent's own environment, it marks the move as a transfer. The standard is a consensus requirement set, not a measured study; its levels are a priority judgment of risk reduction against effort to implement, and it says the allocation holds for most cases but not every one ("Level evaluation") [AR].
+
+**Applicability gate (Pass G.0): clear yes.** (1) The source answers questions this axis asks: what a change touches and which gates that makes mandatory (chapter routing and levels); whether *correct* is written down where it can be checked (pass-or-fail requirements and documented security decisions); which claims were demonstrated rather than asserted (its verification report, evidence and stance on tools); and what would make a signer refuse (a report that names no scope, no level or only failures). (2) Its content lands on all eight phases, strongest on triaging risk, gating and warranting. Phase 4 gets only product-side configuration (secrets, service accounts, dependencies), carried to the agent's environment as a transfer. Phase 6 gets how a review must be run (documentation- and source-led), not who runs it. Phase 8 gets security logs and release versioning, not rollout or service levels. (3) Its contrarian positions (black-box testing discouraged; automation-testable is not an off-the-shelf tool; OWASP certifies no one; reports list every requirement, not only failures; client-side controls are not security controls) bear directly on what a warranty pack may count as evidence.
+
+**Phase mapping.**
+
+| Phase | Fit | What the source brings |
+|---|---|---|
+| 1 Specifying the change | Partial (security part) | Security requirements as pass-or-fail statements at a chosen level; documented security decisions the organisation makes before the build (upload types and sizes, session timeouts, access rules, business limits, data classes). Appendix D recommends, without requiring, functional security constraints in user stories and threat modelling for every design change. Nothing on functional acceptance criteria |
+| 2 Triaging risk | Strong | Chapter routing by what the change touches; the level chosen from the application's risks, its sensitivity and its users' expectations; data classified into protection levels |
+| 3 Locking the tests | Moderate | Abuse-case tests that check controls on every build; application-specific tests for access control and business logic, built on the existing test infrastructure. Nothing on who writes the tests or tests edited to pass |
+| 4 Building in the sandbox | Partial, transfer | Secrets out of source and build artefacts; least-privilege service accounts with short-term credentials; separate certificates per environment; a dependency inventory from trusted repositories. All product requirements; their use for the agent's environment is a transfer |
+| 5 Gating deterministically | Strong | Requirement-level blocks: injection (V1), file handling (V5), trusted service layer and object-level authorization (V2, V8), secure default configuration (V13, 6.3.2, 15.2.3), error handling and logging (V16); scanners tuned, not trusted untuned |
+| 6 Reviewing independently | Moderate | Documentation- or source-led (hybrid) verification; documentation and implementation verified as separate activities; tools cannot fully verify authorization or business logic. Nothing on reviewer independence |
+| 7 Warranting the change | Strong | A verification report that states scope and level and lists every requirement checked, with the rationale for exclusions; robust evidence; OWASP certifies no vendor, verifier or software; procurement at a stated level |
+| 8 Releasing and operating | Moderate | Protected security event logs for investigation; versioned requirement IDs and a release strategy that says when compliance must be re-evaluated. Nothing on staged rollout or service-level targets |
+
+Triggers addressed: 13 of the seed table's 41 (see the runtime section). No trigger-mismatch flag. Most of the source's gate content arrives as requirement-specific extensions, logged in the last section.
+
+## Warranting Agent-Built Software Relevance
+
+An agent's summary says the change is secure; the ASVS gives the builder something to hold that claim against. Each requirement is a goal, not a mechanism, and "the verification must result in a 'fail' or 'pass' decision" [V] ("What is the ASVS?", "Verification"). That makes the standard a ready source for the security part of a change's acceptance criteria: versioned requirement IDs that the agent did not write and cannot reword, chosen at a level the organisation set from its own risks ("Which level to achieve") [AR]. Where a rule differs per application (which files may be uploaded, how long a session lasts, who may read which record), the standard requires the decision to be documented first and then verified separately from the code: "verifying that the documentation is in place and that the actual implementation are two separate activities" [V] ("What is the ASVS?", "Documented security decisions"). For an agent-built change this is the difference between a rule the builder decided and a rule the agent inferred.
+
+The assessment chapter speaks to the warranty itself. A report lists every requirement checked, not just the failures; it states the scope and level attempted and the reasons for exclusions ("Verification reporting"; "Scope of Verification") [AR]. Untuned scanners miss coverage and bury real issues in noise, tools cannot fully verify access control or business logic, and "In summary, testable using automation != running an off the shelf tool." [V] ("The Role of Automated Security Testing Tools"). Testing without the documentation or source is called inefficient and ineffective ("The Role of Penetration Testing") [AR]. And no one can sell the builder an ASVS certificate: "OWASP, as a vendor-neutral nonprofit, does not certify any vendors, verifiers, or software." [V] ("OWASP's Stance on ASVS Certifications and Trust Marks"). The standard's limits matter as much: it specifies outcomes in the product, not the harness that builds it; it leaves implementation and testing guidance to other projects; and its levels are a priority judgment, not a measured effect.
+
+## Key Concepts for Warranting Agent-Built Software
+
+1.  **Pass-or-fail requirements; goals over mechanisms.** The scope comes from the name: every requirement has a demonstrable effect on security, is verifiable to pass or fail, and states a goal, leaving implementation and testing guidance to other projects ("What is the ASVS?", "Scope of the ASVS") [AR]. "Every requirement must have a demonstrable impact on security." [V] ("Security"). "The ASVS only contains requirements (must) and does not contain recommendations (should) as the main condition." [V] ("Requirement"). For 5.0, "Requirements have been rewritten to emphasize the prevention of security flaws rather than mandating specific technical implementations." [V] ("Preface", "Principles behind version 5.0"). A mechanism is named only where it is the sole practical solution, or as an example ("Changes Compared to v4.x", "Emphasis on Security Goals Over Mechanisms") [AR]. For this axis: a requirement ID is a check a gate can run, not a preference an agent can argue.
+
+2.  **Documented security decisions.** Where a rule differs for every application (upload types, business controls, allowed characters) the standard cannot set it, and without documentation it cannot be verified; where flexibility is wanted (session timeouts) the organisation chooses ("What is the ASVS?", "Documented security decisions") [AR]. The standard says "it is not expected that individual developers will be making and documenting these decisions but rather the organization as a whole will be taking those decisions" [V]. Each documentation requirement sits in the first section of its chapter and is paired with an implementation requirement; eleven chapters have one: V2.1, V3.1, V5.1, V6.1, V7.1, V8.1, V11.1, V13.1, V14.1, V15.1, V16.1 [AP]. Examples: access rules for functions and data (8.1.1, L1); defences against credential stuffing and brute force (6.1.1, L1); business logic limits (2.1.3, L2); permitted file types, extensions and sizes per upload feature (5.1.1, L2); session inactivity timeout and absolute lifetime (7.1.1, L2) [AP]. For this axis: the agent should implement a decision, not make one.
+
+3.  **Levels chosen by risk, not prescribed.** Three levels sort requirements by "comparing risk reduction with the effort to implement the requirement" [V] ("Level evaluation"). L1, about 20% (70 of 345), holds first-layer defences with as few requirements as possible; L2, about 50% more, is the level most applications should aim for: "Most applications should be striving to achieve this level of security." [V] L3, the final ~30%, adds defence-in-depth and hard-to-implement controls ("Level 1"; "Level 2"; "Level 3") [AP]. The standard does not set the level for anyone: the organisation analyses its risks and decides ("Which level to achieve") [AR]. An early-stage startup with little sensitive data may start at L1, while "a bank may have difficulty justifying anything less than Level 3 to its customers for its online banking application" [V] [AE]. Mandated, risk-category levels have "proven to be overly rigid" in the standard's view ("Not Just About Risk") [AR].
+
+4.  **Scope and chapter routing.** The chapter and section structure is meant to make it simple to filter what applies: a machine-to-machine API skips the V3 web frontend chapter, and without OAuth or WebRTC those chapters can go ("The structure of the ASVS") [AE]. But "There is no such thing as scope for attackers." [V] ("Scope of the ASVS"). The ASVS covers the product, and its requirements should be weighed alongside guidance for CI/CD, hosting and operations [AR]. For this axis: route the change to the chapters its diff touches (V6 Authentication, V7 Session Management, V8 Authorization, V9 Self-contained Tokens, V5 File Handling, V14 Data Protection, V1 Encoding and Sanitization), and do not read the ASVS as covering the harness.
+
+5.  **Trusted service layer and object-level authorization.** Client-side validation helps usability but "must not be relied upon as a security control" [V] (V2 "Validation and Business Logic", 2.2.2). Authorization is enforced at a trusted service layer, not through controls an untrusted consumer could manipulate such as client-side JavaScript (V8 "Authorization", 8.3.1, L1) [AP]. Data-specific access is restricted against IDOR and BOLA (8.2.2), field-level access against BOPLA (8.2.3), and multi-tenant applications need cross-tenant controls (8.4.1, L2) [AP]. The glossary defines a trusted service layer as any enforcement point an untrusted user cannot bypass or skip (Appendix A) [AP].
+
+6.  **Injection prevention and sanitisation.** "it is always best to use safer APIs, such as parameterized queries, auto-escaping, or templating frameworks" [V] (V1 "Encoding and Sanitization", "Control Objective"). L1 covers output encoding for HTML and XML, URLs, JavaScript and JSON, parameterised database queries and OS command injection (1.2.1–1.2.5), and avoiding eval() and dynamic code execution (1.3.2) [AP]. The note under V1.2: "Using parameterized queries or escaping SQL is not always sufficient." [V] Table and column names, including ORDER BY columns, cannot be escaped (V1.2) [AR]. File handling is its own chapter: size limits and content checks on upload (5.2.1, 5.2.2, L1), no server-side execution of stored uploads and no file paths built from user input (5.3.1, 5.3.2, L1), archive size and file count checked before decompression (5.2.3, L2), and user-provided paths ignored on decompression, against zip slip (5.3.3, L3) [AP].
+
+7.  **Secure default configuration and secrets.** "The application's default configuration must be secure for use on the Internet." [V] (V13 "Configuration", "Control Objective"). Secrets live in a secrets management solution, never in source code or build artefacts (13.3.1, L2), with least privilege on secrets (13.3.2) [AP]. Backend service accounts use short-term tokens or certificates rather than unchanging credentials (13.2.1) and least privilege (13.2.2) [AP]. Leakage requirements: source-control metadata such as .git absent or inaccessible (13.4.1, L1); debug modes off in production (13.4.2); documentation and monitoring endpoints not exposed unless intended (13.4.5) [AP]. "Many of these issues are rarely rated as significant risks but are often chained with other vulnerabilities." [V] (V13.4). Default accounts such as "root", "admin" or "sa" are not enabled (6.3.2, L1), and no test code, samples or development functionality reaches production (15.2.3, L2) [AP]. A wildcard certificate shared across production, staging, development and test means one compromise reaches all of them, so separate certificates per environment should be used where possible (V12.1) [AR].
+
+8.  **Third-party components.** Documented, risk-based remediation time frames for vulnerable components (15.1.1, L1) and no components past them (15.2.1, L1); an inventory such as an SBOM of every third-party library, from trusted and maintained repositories (15.1.2, L2); risky components highlighted (15.1.4, L3) and dependencies, including transitive ones, pulled from the expected repository without dependency-confusion risk (15.2.4, L3) [AP]. A *risky component* is one poorly maintained, unsupported, end-of-life or with a history of significant vulnerabilities (V15.1) [AP].
+
+9.  **Data classification, security logging and failing securely.** Protection starts with classifying sensitive data into protection levels, including merely encoded data such as Base64 strings or JWT payloads (14.1.1, L2), with documented protections per level (14.1.2) [AP]; the section no longer duplicates privacy law and advises consulting local laws and a privacy specialist (V14.1) [AP]. "Security logs are distinct from error or performance logs" [V] (V16 "Security Logging and Error Handling", "Control Objective"). Logging follows the data's protection level, so credentials and payment details may not be logged and session tokens only hashed or masked (16.2.5) [AP]. Errors return generic messages with no stack traces, queries, keys or tokens (16.5.1), and processing never fails open (16.5.3) [AP]. "Logs are valuable forensic artifacts and must be protected." [V] (V16.4). V16 holds no L1 requirements; its requirements start at L2 [AP].
+
+10.  **Testable by automation is not an off-the-shelf tool.** DAST and SAST in the pipeline may find issues that should never exist, but without careful configuration and tuning they will not give the coverage needed and their noise will hide real issues; they cannot entirely verify the more complicated requirements, or those on business logic and access control ("The Role of Automated Security Testing Tools") [AR]. For those, application-specific verifications need to be written, perhaps on the unit and integration test infrastructure already in place, as a short-term investment for continual verification [AR]. The standard's use case for unit and integration tests gives the shape: abuse-case tests on each build, for a login controller testing the username against default usernames, account enumeration, brute force, LDAP and SQL injection and XSS, and the password against common passwords, length, null byte injection, a removed parameter and XSS ("Use cases for the ASVS") [AE].
+
+11.  **Documentation- and source-led verification, and the report.** Verifying ASVS requirements may need documentation, source code, configuration and the people involved, especially at L2 and L3, with robust evidence (work papers, screenshots, scripts, testing logs); "Merely running an automated tool without thorough testing is insufficient for certification" [V] ("Verification Mechanisms"). Black-box testing is "not an effective assurance activity and should be actively discouraged" [V], as even the 4.0 standard said; documentation- or source-led (hybrid) penetration testing is strongly encouraged ("The Role of Penetration Testing") [AR]. The report states the scope and level, summarises every requirement checked, notes exceptions and non-applicable requirements, and gives an opinion on why unimplemented requirements were excluded, so its reader can decide how far to trust the application ("Verification reporting"; "Scope of Verification") [AR]. No ASVS certification is officially endorsed ("Assessment and Certification") [AP].
+
+12.  **Versioned IDs, releases and forks.** Identifiers change between versions, so documents and tools should cite `v<version>-<chapter>.<section>.<requirement>`; an unversioned ID is read as the latest ("How to Reference ASVS Requirements") [AP]. A major release may renumber almost everything and requires re-evaluation; a minor release keeps numbering; a patch release only removes or relaxes, so a compliant application stays compliant ("Release strategy") [AP]. Of 4.0.3's 286 requirements, 11 survive unchanged and even those have new IDs ("Changes Compared to v4.x", "Introduction") [AP]. Organisations are strongly encouraged to fork the standard for their applications, keeping traceability so that "passing requirement 4.1.1 means the same across all versions" [V] ("Flexibility with the ASVS").
+
+## Questions to Ask During Warranting Agent-Built Software
+
+### Phase 1: Specifying the change
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Security part of "correct" | Which ASVS requirement IDs, at which level, does this change have to pass, and are they written into the story as versioned IDs? | "What is the ASVS?", "Scope of the ASVS"; "How to Reference ASVS Requirements" |
+| Decisions before build | Does the change need a rule that differs per application (upload types and sizes, session timeouts, access rules, business limits, data classes), and is the organisation's decision on record? | "Documented security decisions"; 2.1.3, 5.1.1, 6.1.1, 7.1.1, 8.1.1, 14.1.1 |
+| Who decides | Is the decision the organisation's, or is the agent about to make it unseen while writing code? | "Documented security decisions" |
+| Security constraints in the story | Does the story state who must not be able to do what (a user edits their own profile, not anyone else's)? Appendix D recommends this without requiring it | Appendix D, "Software security processes" |
+
+### Phase 2: Triaging risk
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Level on record | What level is this application held to, who set it from which risks, and does this change add a class of data the level was not set for? | "Which level to achieve"; "Applying ASVS in Practice" |
+| Route by chapter | Which chapters does the diff touch (authentication V6, sessions V7, authorization V8, tokens V9, OAuth V10, files V5, data protection V14, encoding V1), and which can be filtered out as not applicable? | "The structure of the ASVS" |
+| Data classification | Is the personal or financial data the change stores or moves classified into a protection level, with the protections for that level documented? | 14.1.1, 14.1.2 |
+| Outside the product | Which risks sit in the pipeline, hosting or operations that the ASVS leaves to other guidance? | "Scope of the ASVS" |
+
+### Phase 3: Locking the tests
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Abuse cases | Do the tests check the security control on every build with abuse cases, not only the path where it works? | "Use cases for the ASVS" |
+| Application-specific checks | For access control and business-logic requirements, which application-specific tests exist, since a tool cannot verify them? | "The Role of Automated Security Testing Tools" |
+| Decision to test | Is each documented decision paired with a test of its implementation? | "Documented security decisions" |
+
+### Phase 4: Building in the sandbox
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Secrets in reach | Can a secret reach source code, a committed config file or a build artefact the agent produces? | 13.3.1 |
+| Credentials the agent's runs use | Are the service accounts the build and its tests use least-privilege and short-lived, rather than an unchanging shared credential? (transfer) | 13.2.1, 13.2.2 |
+| Environment separation | Does any certificate or credential span production and the agent's development or test environment? (transfer) | V12.1 |
+| New dependency | Is the package the agent added in the inventory, from the expected repository, maintained, and within its remediation time frame? | 15.1.1, 15.1.2, 15.1.4, 15.2.4 |
+
+### Phase 5: Gating deterministically
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Injection | Does the diff build SQL, a shell command, a template or an expression from strings, or take a sort or column name from the request? | 1.2.4, 1.2.5, 1.3.2; V1.2 note |
+| Trusted layer | Is every validation and access check enforced server-side, or does any live only in frontend code? | 2.2.2, 8.3.1 |
+| Object and tenant access | Does each handler that takes an object ID check the caller may access that object and tenant? | 8.2.2, 8.4.1 |
+| Defaults | Does production config enable debug mode, a default account, sample or test code, or expose source-control metadata, docs or metrics endpoints? | 13.4.1, 13.4.2, 13.4.5, 6.3.2, 15.2.3 |
+| Errors and logs | Does any error path fail open or show a stack trace, and does any log line write a password, token or card number? | 16.5.1, 16.5.3, 16.2.5 |
+| Scanner tuning | Is the scanner configured and tuned for this application, or switched off because it was noisy? | "The Role of Automated Security Testing Tools" |
+
+### Phase 6: Reviewing independently
+
+| Need | Question | Source-tag |
+|---|---|---|
+| What the reviewer had | Did the security review have the source, the documented decisions, the configuration and access to the builder, or only the running application? | "Verification Mechanisms"; "The Role of Penetration Testing" |
+| Two checks, not one | Were the documentation and the implementation each verified, separately? | "Documented security decisions" |
+| Scanner as sole evidence | For which authorization or business-logic requirements is a clean scan the only evidence? | "The Role of Automated Security Testing Tools" |
+
+### Phase 7: Warranting the change
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Scope | Does the pack state the version, level and requirement list in scope, and why anything unimplemented was excluded? | "Verification reporting"; "Scope of Verification" |
+| All, not only failures | Does it list every requirement checked, with its result, or only the failures? | "Verification reporting" |
+| Evidence | For each requirement marked passed, what is the evidence: a test log, a script, a run record? | "Verification Mechanisms" |
+| Certification claims | Does anything in the pack or the client's contract claim ASVS certification? | "OWASP's Stance on ASVS Certifications and Trust Marks" |
+
+### Phase 8: Releasing and operating
+
+| Need | Question | Source-tag |
+|---|---|---|
+| Investigation trail | Do the security logs record authentication and failed authorization events, with when, where, who and what, on a system separate from the application? | 16.2.1, 16.3.1, 16.3.2, 16.4.3 |
+| Standard drift | Does the checklist cite version-qualified IDs, and has a new major ASVS release triggered re-evaluation? | "Release strategy"; "How to Reference ASVS Requirements" |
+| Configuration drift | Is configuration drift detected and responded to? Appendix D recommends this without requiring it | Appendix D, "Software security processes" |
+
+## What to Look For
+
+| Signal | Diagnosis | Follow-up |
+|---|---|---|
+| The story says *secure* or *handles auth properly* and names no requirement | Security criteria with no pass-or-fail check (Concept 1) | Write the security criteria as versioned ASVS IDs at the application's level |
+| The agent's code chose an upload limit, a session timeout or a role rule that no document records | An undocumented security decision, so the implementation has nothing to be verified against (Concept 2) | Record the organisation's decision, then verify the code against it |
+| No one can say what level the application is held to | Level never set from the application's risks (Concept 3) | Set it, and revisit it when a change adds a new class of data |
+| Validation or an access check exists only in the frontend | A control an untrusted consumer can manipulate (2.2.2, 8.3.1; Concept 5) | Block until enforced at a trusted service layer |
+| A query loads a record by the ID in the request, with no owner or tenant filter | Object-level authorization missing (8.2.2, 8.4.1; Concept 5) | Block until the check is in the handler |
+| A sort or column name comes straight from the request into SQL | Column names cannot be escaped (V1.2; Concept 6) | Allowlist the column |
+| A key or connection string in source, a committed config or a build artefact | Secret outside a secrets manager (13.3.1; Concept 7) | Move it, and rotate it |
+| Debug mode, a default admin, sample code or an exposed .git in production config | Leakage the standard expects to be chained with other flaws (V13.4; Concept 7) | Block |
+| An error handler logs and carries on, or a response carries a stack trace | Failing open; detail leaked (16.5.1, 16.5.3; Concept 9) | Fail securely with a generic message |
+| The scanner was switched off as noisy | Untuned tools give poor coverage and hide real issues (Concept 10) | Tune it and keep it |
+| A clean scan is the evidence for an authorization requirement | Tools cannot entirely verify access control or business logic (Concept 10) | Require an application-specific test |
+| The pen test was run against the deployed app with no source or decision records | Black-box testing, which the standard discourages (Concept 11) | Re-run documentation- or source-led |
+| The pack says *ASVS compliant* with no version, level or requirement list, or lists only failures | Exception-only or unscoped reporting (Concept 11) | Return it for scope, level and every requirement checked |
+| The checklist cites 4.x-style or unversioned IDs | IDs that changed meaning at the major release (Concept 12) | Re-map to `v5.0.0-` IDs and re-evaluate |
+
+## When to Use This Reference
+
+Reach for this source when:
+
+- The change touches authentication, sessions, tokens, authorization, file handling, personal data, configuration, dependencies or error handling, and the builder needs the pass-or-fail requirements that apply.
+- The spec needs a security rule that differs per application, and the question is who decides it and how it will be verified.
+- The application's verification level has to be set or revisited.
+- A gate needs a concrete reason to block a common flaw in a diff (string-built queries, frontend-only checks, missing tenant filters, debug flags, leaked secrets, stack traces).
+- The question is whether a scanner result, a black-box pen test or a vendor's certificate counts as evidence, or how a security claim in the pack must be scoped.
+
+Reach elsewhere for model features and agents that act (`owasp-llm-top10-2026`, `owasp-agentic-top10-2026`, `owasp-agentic-threats-mitigations`), for the secure development practices of the producer and their attestation (`nist-ssdf-1-1`, `nist-sp-800-218a`, `cisa-secure-software-attestation-form`), for using AI to find and fix vulnerabilities (`openssf-finding-fixing-vulnerabilities-ai`), and for whether a test suite would catch a wrong implementation (`egashira-testsuitebench-2026`). This source states requirements and how to verify them; it does not measure whether any control works, and it does not cover the harness that builds the product.
+
+## Worked Example
+
+A three-person firm uses a coding agent to add two features to a client's customer portal: customers can upload supporting documents to a claim, and they can export their invoices as a spreadsheet, sorted by a column they choose. The portal serves several client businesses from one database. The agent reports the work done, with tests passing and a clean dependency scan.
+
+**Level and decisions first.** The portal holds personal and financial data. The level is the client's call, made from its own risks:
+
+> "Rather than the ASVS prescriptively stating what level an application should be at, an organization should analyze its risks and decide what level it believes it should be at, depending on the sensitivity of the application and of course, the expectations of the application's users." [V]
+
+("What is the ASVS?", "Which level to achieve"; Concept 3). The client sets L2. The builder then finds three decisions the agent made unseen: it allowed any file type up to 50 MB, it let the export include every field of the invoice record, and it took tenant scope from a query parameter. The first is a documented decision the standard requires before the build (5.1.1), the second turns on the data classification (14.1.1) and the rule that only the required subset of an object's fields is returned (15.3.1, L1), and the third is an authorization rule (8.1.1) (Concept 2). The gate action: record the client's decisions, then verify the code against them as a separate step.
+
+**Routing and gates.** The diff touches V5 (uploads), V8 (who may export what), V14 (personal data), V1 (the sort column) and V16 (errors and logs) (Concept 4). The gate finds five blocks. The export query loads invoices by the tenant in the request, with no check the caller belongs to it (8.2.2, 8.4.1; Concept 5). The sort column goes into the SQL as a string; parameterising the values does not fix that, because column names cannot be escaped (V1.2; Concept 6). The upload path is built from the user's filename (5.3.2). The staging config, copied into production, leaves debug mode on (13.4.2; Concept 7). And the upload error handler writes the request body, document metadata included, to the application log (16.2.5; Concept 9). The archive check (5.2.3) applies only if archives are allowed; the client's decision now says they are not.
+
+**Tests.** The agent's tests cover a valid upload and a valid export. The builder adds abuse cases that run on every build: another tenant's ID, an unlisted sort column, an oversized file, a file whose extension and content disagree, a path in the filename (Concept 10). The clean scan stays in the pack as evidence for what scanners can find, not for authorization:
+
+> "In summary, testable using automation != running an off the shelf tool." [V]
+
+("The Role of Automated Security Testing Tools").
+
+**Review and pack.** The client offers a pen tester who will test the live portal without the source. The builder asks for a source-led test with the decision records instead, since the standard calls testing without that information
+
+> "an inefficient and ineffective mechanism for security verification" [V]
+
+("The Role of Penetration Testing"; Concept 11). The warranty pack names `v5.0.0` at L2, lists every requirement in V5, V8, V14 and V16 that applies with its result and evidence, marks the V3 web frontend requirements the change did not touch as out of this change's scope, and makes no certification claim (Concepts 11, 12).
+
+## Anti-patterns This Reference Helps Avoid
+
+- **The agent as security architect.** Signal: limits, timeouts and access rules appear in the diff and nowhere else. Diagnosis: decisions the standard expects the organisation to make and document ("Documented security decisions"). Follow-up: record the decision; verify the code against it.
+- **Secure by adjective.** Signal: acceptance criteria say *secure* or *robust*. Diagnosis: nothing to pass or fail ("Verification"). Follow-up: versioned requirement IDs at a level.
+- **The frontend as gatekeeper.** Signal: the check lives in client code. Diagnosis: a control an untrusted consumer can manipulate (2.2.2, 8.3.1). Follow-up: enforce at a trusted service layer.
+- **Parameterised, therefore safe.** Signal: *we use parameterised queries* answers every injection question. Diagnosis: identifiers such as column names cannot be escaped (V1.2). Follow-up: allowlist identifiers.
+- **The tool as verifier.** Signal: a clean scan is the evidence for an access or business-logic requirement. Diagnosis: tools cannot entirely verify those ("The Role of Automated Security Testing Tools"). Follow-up: application-specific tests on every build.
+- **Noise as reason to stop.** Signal: the scanner was disabled. Diagnosis: untuned tools give poor coverage and hide real issues. Follow-up: tune it.
+- **Black-box assurance.** Signal: a pen test with no source or decision records is offered as the security review. Diagnosis: discouraged as inefficient and ineffective ("The Role of Penetration Testing"). Follow-up: a documentation- or source-led test.
+- **Failures-only reporting.** Signal: the pack lists what failed and nothing else. Diagnosis: the reader cannot tell what was checked ("Verification reporting"). Follow-up: scope, level and every requirement checked.
+- **The certificate.** Signal: a vendor or contract offers *ASVS certified*. Diagnosis: OWASP certifies no one ("OWASP's Stance on ASVS Certifications and Trust Marks"). Follow-up: ask for the scoped report and its evidence.
+- **The floating ID.** Signal: the checklist cites "1.2.5" with no version. Diagnosis: IDs change at major releases ("Release strategy"). Follow-up: cite `v5.0.0-1.2.5`.
+
+## Integration with Other References
+
+| Reference | Relationship |
+|---|---|
+| `openssf-finding-fixing-vulnerabilities-ai` | Uses this standard directly: relevant ASVS chapters as a checklist of requirements to verify when an AI is set to find vulnerabilities in a web application, ASVS V7 behind its advice to check security properties across session transitions, and 2.2.2 and 8.3.1 behind running checks where attackers cannot bypass them. Its call to triage and validate findings complements this source's warning that untuned tools bury real issues. Combine at Phases 5 and 6 |
+| `owasp-llm-top10-2026` | Its improper-output-handling entry points to OWASP ASVS guidance on input validation and output encoding (it names no edition). This source supplies the per-sink requirements (V1) that entry calls for when model output reaches SQL, a shell or HTML; that source covers secrets in prompts and tool descriptions, which this one does not. Combine at Phases 2 and 5 |
+| `nist-ssdf-1-1` | The producer's practices; this source the product's requirements. Both refuse to be a checklist: the SSDF is a basis for a risk-based approach, and this source leaves the level to the organisation and asks for forks. Trap: the SSDF's references map to ASVS 4.0.3, whose IDs the 5.0 major release changed, so those mappings do not carry over to 5.0 IDs |
+| `nist-sp-800-218a` | Same shape as the SSDF on the checklist point: a risk-based starting point, not a checklist, there; levels chosen by the organisation here. Its tasks for AI models sit outside this source's application scope. Combine at Phase 7 when a pack claims either |
+| `cisa-secure-software-attestation-form` | A signed attestation that the producer follows practices drawn from the SSDF, with a third-party assessment allowed to stand in; this source's report is requirement-level evidence about the product, and it says OWASP certifies no one. A pack may need both, and neither stands in for the other. Combine at Phase 7 |
+| `uk-aqua-book-2025` | Both scale assurance to risk (proportionate assurance there, levels chosen from risks here). Named tension on black-box assurance (below) |
+| `uk-duck-book-qa-of-code` | Both put tests on every change and use black-box tests only alongside tests that see inside: the Duck Book says end-to-end tests, being black-box, should be used with unit tests. Named distinction on who reads the code (below) |
+| `microsoft-code-with-engineering-playbook` | Puts fuzzing tools and regression tests from fixed issues into CI; this source's abuse-case tests on every build are the security instance of that practice. Combine at Phase 3 |
+| `egashira-testsuitebench-2026` | Measures whether agent-written suites from a specification kill requirement-targeted mutants, and finds many do not. This source supplies security requirements as pass-or-fail statements such a measure could target. Combine at Phase 3 |
+| `jimenez-swe-bench` | Counts a patch as resolving an issue only when the tests run and pass; this source asks for the same of a security claim: evidence of a test, not a statement. Combine at Phase 7 |
+
+**Named tensions and disagreements.**
+
+- *Black-box assurance.* `uk-aqua-book-2025` gives guidance for assuring black-box models, defined by their inputs and outputs without insight into internal workings, and says using them places greater weight on the design of the analysis and the validation of outputs by domain experts. This source calls testing without the necessary additional information "an inefficient and ineffective mechanism for security verification" [V] It discourages black-box testing. A tension in setting rather than a contradiction: the Aqua Book's black box is a model whose workings cannot be seen, while this source's black box is a tester denied information that exists. For agent-built code the source exists, so a security review of it should have it; the Aqua Book's approach fits a model inside the product whose internals no one can inspect.
+- *Who must see the code.* `uk-duck-book-qa-of-code` says a manager should not need an in-depth understanding of the code to trust it, but should be confident the team took an appropriate approach and applied proportionate assurance. This source says verifying many requirements needs the source, documentation, configuration and the people, especially at L2 and L3. A distinction in role, not a disagreement: the accountable builder can sign without reading the diff, but the security verification the signature rests on cannot be done without it.
+
+## Citation and Source-Integrity Notes
+
+**Borrowed-through gaps.** The source cites a large body of prior work: identity, cryptography and protocol standards, a weakness taxonomy it no longer maps to directly, sister projects that hold implementation and testing guidance, and earlier ASVS versions [BT]. It leaves how to implement and how to test each requirement to those sister projects ("Scope of the ASVS", "Standard") [AP]. None of them is held in this corpus, so this distillation states the requirements as the source does and does not name their origins. Of the corpus's sources, `openssf-finding-fixing-vulnerabilities-ai` and `owasp-llm-top10-2026` cite this standard, and `nist-ssdf-1-1` maps to its 4.0.3 edition.
+
+**Named limits of the source.** It specifies outcomes in the product, not lifecycle activities or the CI/CD pipeline ("Application"), and weighs its requirements alongside other guidance for pipelines, hosting and operations. It says nothing about coding agents, the agent's environment or test ownership; Phase 4 uses of its configuration requirements are transfers. Its levels are a priority judgment that holds for most cases but not all ("Level evaluation"). It gives two totals for 4.0.3 (286 and 278) as printed. Appendix D's processes (threat modelling for every design change, security constraints in user stories, configuration-drift detection) were removed from the requirements and are recommendations, so this distillation uses them only as recommendations. The requirement texts are summarised in the deep reference, not reproduced; the claims here rest on the requirement IDs cited, and levels are given only where the deep reference states them (for 2.2.2, 8.2.2 and 8.2.3 it gives only the section's level spread). The deep reference was text-only, and no images were used.
+
+**Evidence-marker continuity.** Every quotation marked `[V]` is copied from a `[V]` passage in the deep reference, which passed Pass I on 2026-10-15. The worked example's three blockquotes are `[V]` passages there; the penetration-testing one is a fragment, introduced by the distillation's own words. Requirement-level paraphrases keep the deep reference's `[AP]`, the standard's reasoning keeps `[AR]`, its own examples (the bank, the login controller, the machine-to-machine API) keep `[AE]`, and cited work keeps `[BT]`. Quotations in the integration tensions are from the deep references of the sources named there. Uses of product requirements for the agent's own environment are marked as transfers.
+
+## Runtime triggers this source addresses
+
+| Trigger | Content from this source that addresses it | Teach-in-the-moment script |
+|---|---|---|
+| The story's acceptance criteria are prose ("works well", "handles errors") with no runnable check | For the security part only: requirements verifiable to pass or fail, stated as goals ("Scope of the ASVS"); abuse-case tests that check the control on each build ("Use cases for the ASVS") (Concepts 1, 10) | Write the security criteria as versioned requirement IDs that pass or fail, and test each with an abuse case. |
+| The agent is asked to "build X like Y" with no statement of what must not change | Security requirements at a stated level; documented security decisions made by the organisation, not the developer ("Which level to achieve"; "Documented security decisions") (Concepts 2, 3) | State the level and the security decisions that must hold before the agent starts, so the agent implements them rather than inventing them. |
+| The diff touches login, sessions, tokens or permissions | Chapter routing to V6, V7, V8, V9 and V10, at the level the client's risks warrant ("The structure of the ASVS"; "Which level to achieve") (Concepts 3, 4, 5) | Require the matching chapters at the application's level and check each requirement, not the feature as a whole. |
+| The change stores or moves personal data | Data classified into protection levels with documented protections (14.1.1, 14.1.2, L2); local law and a privacy specialist consulted (V14.1); logging by protection level (16.2.5); verification led by documentation or source (Concepts 9, 11) | Classify the data, document its protections, check what the logs write, and have the verification read the source. |
+| The change is business-critical, or complex enough that nobody can predict its effects | Levels chosen from the application's risks, its sensitivity and its users' expectations; higher-level requirements brought forward for specific risks ("Which level to achieve"; "Level evaluation") (Concept 3) | Raise the level, or bring forward the specific higher-level requirements this change's risk calls for. |
+| The suite takes minutes, so it runs rarely | Abuse-case tests on each build; application-specific verifications on existing test infrastructure for continual verification ("Use cases for the ASVS"; "The Role of Automated Security Testing Tools") (Concept 10) | Security checks earn their keep by running on every build; make them fast enough to. |
+| The agent's environment can reach production credentials or data | Product requirements, carried across as a transfer: no secrets in source or build artefacts (13.3.1, L2); least-privilege service accounts with short-term credentials (13.2.1, 13.2.2); separate certificates per environment (V12.1) (Concept 7) | Keep production secrets in a secrets manager the agent's environment cannot reach, and give its runs their own short-lived, least-privilege credentials. |
+| The agent adds a dependency nobody asked for | Inventory from trusted, maintained repositories (15.1.2, L2); remediation time frames (15.1.1, 15.2.1, L1); risky components highlighted (15.1.4, L3); expected repository, against dependency confusion (15.2.4, L3) (Concept 8) | Before it stays: is it in the inventory, from the expected repository, maintained, and patched? |
+| A gate was skipped "just this once" | The report states the requirements included and the rationale for excluding any; non-applicable requirements are noted ("Scope of Verification"; "Verification reporting") (Concept 11) | Record the skipped gate's requirement IDs as not verified, with the reason, so the reader knows what the pack does not cover. |
+| The secrets scan or dependency audit is "noisy" so it was turned off | Untuned tools will not give coverage and their noise hides real issues ("The Role of Automated Security Testing Tools") (Concept 10) | Tune the tool, don't drop it: noise is a configuration problem. |
+| The builder approves because reading the diff is too slow | Verification needs documentation, source, configuration and people, especially at L2 and L3; black-box testing is discouraged ("Verification Mechanisms"; "The Role of Penetration Testing") (Concept 11) | You need not read every line, but the security review you sign on must have read the source and the decision records. |
+| The pack says "all tests pass" with no run record | Robust evidence (work papers, screenshots, scripts, testing logs) as standard practice; each requirement verifiably tested; every requirement checked listed ("Verification Mechanisms"; "Verification reporting") (Concept 11) | Return it for the run record and the result of every requirement in scope. |
+| Something went wrong after release | Security event logs with when, where, who and what (16.2.1); authentication and failed authorization events (16.3.1, 16.3.2); logs protected and sent to a separate system (16.4.2, 16.4.3) (Concept 9) | Start from the protected security log, which shows who did what and when, before anyone changes the code. |
+
+## Trigger extensions surfaced by this source
+
+| Trigger (proposed) | Phase | Content from this source | Teach-in-the-moment script |
+|---|---|---|---|
+| The story needs a rule that differs per application (upload types and sizes, session timeouts, access rules, business limits) and no decision is on record | Phase 1 | Documented security decisions: 8.1.1, 6.1.1 (L1); 2.1.3, 5.1.1, 7.1.1 (L2) | Record the organisation's decision and get it approved before the build. |
+| The application has no recorded verification level, or the change adds a class of data the level was not set for | Phase 2 | Level chosen from risks, sensitivity and users' expectations ("Which level to achieve") | Set the level, or revisit it, before triaging the change. |
+| The diff adds a file upload, a file download or archive extraction | Phase 2 | V5: 5.2.1, 5.2.2, 5.3.1, 5.3.2 (L1); 5.1.1, 5.2.3, V5.4 (L2); 5.3.3 against zip slip (L3) | Route it to V5 and check the documented file rules first. |
+| Login or registration is tested only on success | Phase 3 | Abuse-case tests on each build for a login controller: default usernames, enumeration, brute force, LDAP and SQL injection, XSS; common passwords, length, null bytes, a removed parameter ("Use cases for the ASVS") | Add the abuse cases and run them on every build. |
+| The diff builds SQL, a shell command, a template or an expression from strings, or takes a sort or column name from the request | Phase 5 | 1.2.4, 1.2.5, 1.3.2 (L1); column names cannot be escaped (V1.2) | Block until parameterised, allowlisted or encoded. |
+| A secret, key, token or connection string appears in source, a committed config file or a build artefact | Phase 5 | 13.3.1 (L2) | Block, move it to a secrets manager, and rotate it. |
+| Production config turns on debug mode, a default account, sample or test code, or exposes source-control metadata, docs or metrics endpoints | Phase 5 | 13.4.1, 6.3.2 (L1); 13.4.2, 13.4.5, 15.2.3 (L2) | Block: secure by default means the production config. |
+| Validation or an access check exists only in frontend code | Phase 5 | 2.2.2; 8.3.1 (L1) | Block until it is enforced at a trusted service layer. |
+| A handler takes an object ID from the request and its query has no owner or tenant filter | Phase 5 | 8.2.2; 8.4.1 (L2) | Block until the handler checks the caller may reach that object and tenant. |
+| An error handler logs and carries on, an error response shows a stack trace, or a log line writes a body, password, token or card number | Phase 5 | 16.5.3, 16.5.1, 16.2.5 (L2) | Block: fail closed, say little, log only what the data class allows. |
+| The pen test or security review ran black-box, without the source or the decision records | Phase 6 | Black-box testing discouraged; hybrid testing strongly encouraged ("The Role of Penetration Testing") | Re-run it with the source and the decision records in hand. |
+| A scanner's clean result is the only evidence for an authorization or business-logic requirement | Phase 6 | Tools cannot entirely verify access control or business logic ("The Role of Automated Security Testing Tools") | Require an application-specific test for that requirement. |
+| The documented security decision was checked, but its implementation was not (or the reverse) | Phase 6 | Documentation and implementation verified as two separate activities ("Documented security decisions") | Check both, and record each result. |
+| The pack claims ASVS compliance or certification with no version, scope, level or requirement list, or lists only failures | Phase 7 | Report scope and every requirement checked ("Verification reporting"; "Scope of Verification"); OWASP certifies no vendor, verifier or software | Return it for version, level and every requirement checked; drop any certification claim. |
+| A new ASVS release lands, or the checklist cites IDs with no version | Phase 8 | Release strategy: a major release may renumber and requires re-evaluation; version-qualified IDs ("Release strategy"; "How to Reference ASVS Requirements") | Cite IDs with their version, and re-evaluate on a major release. |

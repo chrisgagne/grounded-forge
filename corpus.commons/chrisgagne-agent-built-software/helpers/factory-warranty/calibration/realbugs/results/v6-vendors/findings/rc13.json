@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 294,
+  "base": "daa9f5234921318a97907361b3c464b914089949",
+  "head": "690f26b60a336e59f40204fd105c8ecd6c8cd115"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "This change probably doesn't fix the staging failure. The old jq program's quoting was correct: tracing the local double quotes, the remote `sh` and then `bash -lc` hands jq exactly the intended filter, with `$cfg` and the other variables single-quoted. A quoting problem in a jq filter also shows up as a compile/syntax error. `parse error: Invalid numeric literal` is different: jq raises it when its *input* isn't valid JSON. That points to `.runtime-openclaw.json` itself, e.g. JSON5/comments, a partially written file or something non-JSON at the path. If so, `JSON.parse` fails on the same file with a SyntaxError and the step still fails, just with a different message. Before merging, confirm the file's real format on staging (the PR's own follow-up already suggests this). If the runtime config may be JSON5, parse it with the app's own JSON5 loader. At minimum, on parse failure print the error and the first bytes of the file so the next failure can be diagnosed."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "The description says this follows the existing `browser_probe_js` pattern, but it doesn't. That probe uses a quoted heredoc plus `printf '%q'` and passes the script straight to `docker exec ... node -e`, with no inner `bash -lc` and no hand-escaped quotes. This one is a single minified line of JS inside three layers of shell quoting (`'\\''` and `\\\"`). That is the same fragile style the PR says it is removing, and it is hard to review or edit safely. Move it into a `<<'NODE'` heredoc, escape it with `printf %q`, and call `docker exec ${container_escaped} node -e ${..._escaped}` directly, as Check 8 does."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "scripts/verify.sh",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "This doesn't match the old validation exactly. `typeof cfg.credentialRoutes[route]===\"object\"` is also true for arrays, which jq's `type == \"object\"` rejected. If a route is accidentally configured as an array, the JS reads `active.mode` as undefined and exits 1 with no message, while every probe failure gives the same generic `Failed to inspect active Google Workspace credential route mode` error. Add `!Array.isArray(...)` and write a specific reason to stderr before `process.exit(1)` (route missing, route not an object, mode missing), so operators can tell a misconfiguration from a parse or SSH failure."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 62000
+ }
+}

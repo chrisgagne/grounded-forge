@@ -1,0 +1,30 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+  "line": 239,
+  "claim": "The remount loop does not dispatch layer actions, leaving overlays missing after a basemap switch.",
+  "evidence": "When a style switch removes existing overlays, the callback calls layer('disable') and layer('enable') instead of dispatching the atom's action creators. LayerAtom exposes enable/disable actions; the existing applyNewLayerSource implementation uses store.dispatch(layerAtom.disable()) and store.dispatch(layerAtom.enable()) to invoke the renderer lifecycle."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "low",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.test.ts",
+  "line": 49,
+  "claim": "The remount test can pass without any overlay being restored.",
+  "evidence": "The test substitutes a bare vi.fn() for the layer atom and only checks that it received 'disable'; it never checks enable, renderer mounting, or the restored map layers. This accepts the incorrect atom calls in the implementation.",
+  "axis_row": "L3.20"
+ },
+ {
+  "id": "X3",
+  "leg": "codex",
+  "severity": "low",
+  "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+  "line": 237,
+  "claim": "Each basemap switch adds another settings subscription that persists until map destruction.",
+  "evidence": "The new callback calls layersOrderManager.init on every switch. init pushes a new layersSettingsAtom.subscribe unsubscribe function into _unsubscribe without removing existing subscriptions; cleanup occurs only in destroy."
+ }
+]

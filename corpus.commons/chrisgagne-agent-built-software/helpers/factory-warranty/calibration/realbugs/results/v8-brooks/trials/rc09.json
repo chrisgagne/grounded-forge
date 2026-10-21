@@ -1,0 +1,48 @@
+{
+ "id": "rc09",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "critical",
+   "file": "CircleIcon.tsx",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "Change Propagation \u2014 CircleIcon now draws lines for both in-repo circle legends. Symptom: `CircleIcon.tsx:37` now draws a `<line>` whenever `fillColor === 'none'`, which happens whenever `fill`, `fill-color` and `circle-color` are all unset. The repo's only two `stepShape: 'circle'` legends set none of them: `registerNewGeometryLayer.ts:34` passes only `{ color: mainColor }`, and `DEFAULT_USER_LAYER_LEGEND` (`features/create_layer/constants.ts:39`, step \"Point\") passes only `color` and `width`. Both used to show an outlined circle and will now show a dash. Legends loaded from the server that use outline circles will change too. The commit message (\"color letter icon via text color\") doesn't mention any of this. Source: Hunt & Thomas, *The Pragmatic Programmer*, Orthogonality; Winters et al., *Software Engineering at Google*, Hyrum's Law Consequence: \"No fill\" used to mean \"hollow circle\", and callers relied on that. Adding the letter icon changed how circles look everywhere. A \"Point\" legend drawn as a line tells users the layer contains lines, which is wrong. Remedy: Take the `CircleIcon` change out of this branch. If a line swatch is really wanted, add it as its own shape (for example `stepShape: 'line'`, alongside `'letter'` in `SimpleLegendStepType`) and leave `circle` as it was. Add a test that a circle with only `color` set still renders a `<circle>`."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "SimpleLegend.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "Dependency Disorder \u2014 Letter is imported from inside the package instead of its main entry point. Symptom: `SimpleLegend.tsx:2` imports from `'@konturio/default-icons/tslib/figma-icons/Letter.js'`. The other 45 imports of this package in `src/` all use the main entry point, `'@konturio/default-icons'`. Source: Winters et al., *Software Engineering at Google*, Ch. 21 Dependency Management; Brooks, *The Mythical Man-Month*, Conceptual Integrity Consequence: The build now depends on the package's internal folder layout (`tslib/figma-icons/*.js`), which the package doesn't promise to keep stable. If a version bump moves or renames that folder, the build breaks, and it's the one icon import that doesn't follow the repo's convention. Remedy: Import `Letter` from `'@konturio/default-icons'` if the package exports it there. I couldn't check this because `node_modules` isn't installed here. If it isn't exported, add a short comment explaining the deep import, or ask the icons package to export it."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "SimpleLegend.tsx",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "Knowledge Duplication \u2014 the text color is worked out in two places, with different defaults. Symptom: `icon()` reads `style['text-color'] || '#000000'` (`SimpleLegend.tsx:17`). `SimpleLegendStep` reads `step.style['text-color']` again (`:52`) and falls back to the inherited CSS color instead of black. Source: Hunt & Thomas, *The Pragmatic Programmer*, DRY Consequence: With no `text-color`, the icon is black but the label uses the theme color. On a dark theme the two can visibly differ, and anyone changing the rule has to remember both places. Remedy: Work out the color once in `SimpleLegendStep` and pass it to the icon. Or give `Letter` `color: inherit`/`currentColor` so it follows the label automatically."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "SimpleLegend.test.tsx",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "Test Obscurity \u2014 the test checks the icon's SVG path data. Symptom: `SimpleLegend.test.tsx:29` asserts `d.startsWith('M6 6H18V9.08508H16.769V8.53835')`. That path data belongs to the vendor's icon. Source: Meszaros, *xUnit Test Patterns*, Fragile Test (overspecified, depends on someone else's implementation) Consequence: If the designers adjust the Letter glyph, the test fails even though the legend still works. Remedy: Mock `Letter` like `Text` is already mocked (for example, render `<svg data-testid=\"letter-icon\" style={style} />`), then assert that it renders and gets the right color. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 67,
+  "cost_usd": 0.40563279999999996,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 0,
+  "health_score": "78"
+ }
+}

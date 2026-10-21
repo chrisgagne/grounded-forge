@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1296476,
+  "duration_s": 29.9
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings --import ./check/register.mjs check/tojson.mjs {tree}",
+  "because": "The check calls the project's own diffJson from src/diff/json.ts on {toJSON: 'x'} and {toJSON: {a: 1}}; base treats toJSON as an ordinary key and exits 0, while head throws 'TypeError: obj.toJSON is not a function' on both inputs and exits 1, because the guard now checks only that toJSON is truthy, not that it is a function."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok {\"toJSON\":\"x\"} [{\"count\":3,\"added\":false,\"removed\":false,\"value\":\"{\\n  \\\"toJSON\\\": \\\"x\\\"\\n}\"}]\nok {\"toJSON\":{\"a\":1}} [{\"count\":5,\"added\":false,\"removed\":false,\"value\":\"{\\n  \\\"toJSON\\\": {\\n    \\\"a\\\": 1\\n  }\\n}\"}]\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL {\"toJSON\":\"x\"} TypeError: obj.toJSON is not a function\nFAIL {\"toJSON\":{\"a\":1}} TypeError: obj.toJSON is not a function\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The check calls the project's own diffJson from src/diff/json.ts on {toJSON: 'x'} and {toJSON: {a: 1}}; base treats toJSON as an ordinary key and exits 0, while head throws 'TypeError: obj.toJSON is not a function' on both inputs and exits 1, because the guard now checks only that toJSON is truthy, not that it is a function.",
+ "run": "v3-distillations",
+ "trial": "v16-t2",
+ "kind": "bug"
+}

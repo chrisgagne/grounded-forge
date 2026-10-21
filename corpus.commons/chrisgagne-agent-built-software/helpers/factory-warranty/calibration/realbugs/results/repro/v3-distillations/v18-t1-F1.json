@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1490432,
+  "duration_s": 35.0
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "On head, parsing `--foo 2 --foo 1` (duplicate-arguments-array off) gives foo=3 instead of 1, because setKey treats the ordinary coerced value 1 as the count-increment marker and adds it to the existing value; base gives 1 (the finding's array-key example does not fail, since head still returns [1] for `--bar 1` with array:['bar'])."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "dup: 1\nOK\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "dup: 3\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: a later \"--foo 1\" must override, not add to, the earlier value\n\n3 !== 1\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v3-distillations/v18-t1-F1/check/check.mjs:8:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: 3,\n  expected: 1,\n  operator: 'strictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, parsing `--foo 2 --foo 1` (duplicate-arguments-array off) gives foo=3 instead of 1, because setKey treats the ordinary coerced value 1 as the count-increment marker and adds it to the existing value; base gives 1 (the finding's array-key example does not fail, since head still returns [1] for `--bar 1` with array:['bar']).",
+ "run": "v3-distillations",
+ "trial": "v18-t1",
+ "kind": "bug"
+}

@@ -1,0 +1,133 @@
+{
+ "pr": {
+  "repo": "https://github.com/Waferguard/waferguard-ml",
+  "pr_number": 17,
+  "base": "56411efab470a71e9ef342bc1e10fab767751de5",
+  "head": "62d4f66fbeaef3dd84578b7cd547f37d43086a26"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 257,
+   "end_line": 257,
+   "message": "The notebook's only pipeline cell calls wg_fin.run_inference and wg_fin.load_artifacts, but financial_impact/financial.py defines neither, so the committed notebook fails every time it runs. Line 185 `artifacts = wg_fin.load_artifacts(artifact_dir)` sits inside `except Exception`, so the AttributeError is swallowed and the cell takes the reconstruct branch. Line 257 `pred_cnn, pred_tl = wg_fin.run_inference(...)` is wrapped in `except Exception as e: print(...); raise`, so the AttributeError is raised again. The else branch calls it again at line 289. A grep of the repo finds no `def run_inference` or `def load_artifacts` anywhere. financial.py's docstring says it is 'Fully decoupled from inference and artifact loading', which confirms those helpers were removed while the notebook still calls them."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "The notebook calls missing library functions, preventing it from generating reports. The new financial.py defines neither load_artifacts nor run_inference. Calling wg_fin.load_artifacts raises AttributeError, which is caught as though artifacts were absent; if dataset loading succeeds, the fallback calls wg_fin.run_inference at line 257 and raises another AttributeError."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 124,
+   "end_line": 124,
+   "message": "The saved outputs in the notebook did not come from the committed library, so the printed preview and summary are not evidence that the library works. The saved preview shows `yield_range` as `18%\u201385%` with an en dash. financial.py line 261 builds it as `f\"{int(params['ylo'] * 100)}%-{int(params['yhi'] * 100)}%\"` with an ASCII hyphen. The saved output also shows the cell completing ('Saved refactor reports \u2192'), even though run_inference does not exist in the committed module. The outputs must therefore come from an earlier version of the code."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 235,
+   "end_line": 235,
+   "message": "compute_financials accepts a financial_params argument but never uses it, so a caller who passes custom costs silently gets the hard-coded defaults. Lines 235-236 set `financial_params = FINANCIAL_PARAMS` when it is None. After that, the only lookup is `params = get_params(binary_label)`, and get_params reads the module-level FINANCIAL_PARAMS directly (`if binary_label in FINANCIAL_PARAMS`, `decompose` also checks `FINANCIAL_PARAMS`). The argument is never read."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 240,
+   "end_line": 240,
+   "message": "compute_financials silently ignores supplied financial parameters and calculates reports using the built-in assumptions. The function accepts financial_params and initializes it at lines 235\u2013236, but never reads it afterward. Each row calls get_params(binary_label), which reads the global FINANCIAL_PARAMS, so supplying a different repair cost or yield range has no effect."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 273,
+   "end_line": 273,
+   "message": "compute_financials raises KeyError on an empty batch, even though the rest of the function adds `if not df_batch.empty` guards to handle that case. With an empty df_batch, `rows` stays [] and `pd.DataFrame(rows).sort_values(\"priority_score\", ...)` raises KeyError because the frame has no columns. This happens before the later `if not df_financial.empty` and `if not df_batch.empty` guards on lines 275-295 are reached. build_batch_df returns an empty frame for an empty label list, so build_batch_df([], ...) followed by compute_financials crashes."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 273,
+   "end_line": 273,
+   "message": "An empty batch crashes financial analysis instead of returning an empty report and zero summary. build_batch_df([], confidences, mapping) returns a DataFrame with no rows. compute_financials then constructs pd.DataFrame(rows) from an empty list and immediately sorts by the nonexistent priority_score column, raising KeyError before its later empty-data guards can run."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The summary's batch avg_confidence is an unweighted mean of per-pattern averages, not the mean over wafers, so a rare low-confidence pattern counts as much as one covering thousands of wafers. `\"avg_confidence\": round(float(df_batch[\"avg_confidence\"].mean()) ...)` averages one row per pattern. Each row's avg_confidence (line 175) is already a per-pattern mean, and the count column is ignored. The per-wafer confidences are not passed into compute_financials, so the true mean cannot be computed there."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The batch average confidence weights patterns equally instead of weighting individual wafers, misrepresenting uneven batches. build_batch_df produces one row per pattern with count and avg_confidence. The summary takes the unweighted mean of those row averages: 99 wafers at 0.9 confidence and one wafer at 0.1 produce 0.5 instead of the batch average 0.892."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 171,
+   "end_line": 171,
+   "message": "The notebook hard-codes one developer's absolute home path as repo_root, so it reads data and writes reports to a path that only exists on that machine. The path is also inserted into sys.path only after the package import that needs it. Line 171 is `repo_root = \"/Users/<author>/Desktop/Capstone/waferguard-ml\"`. Every data, model and report path is built from repo_root, including `outdir_demo = os.path.join(repo_root, ...)`. Line 169 `from financial_impact import financial as wg_fin` runs before `sys.path.insert(0, repo_root)`. The saved outputs also expose this local username and directory layout."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 171,
+   "end_line": 171,
+   "message": "A hardcoded developer directory prevents the notebook from finding models and data in other checkouts. repo_root is fixed to /Users/<author>/Desktop/Capstone/waferguard-ml. The fallback constructs data_path from that directory and calls np.load(data_path), so running from another checkout fails even when its dataset and models exist locally."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".gitignore",
+   "start_line": 89,
+   "end_line": 89,
+   "message": "The change removes the ignore rules for presentation PDFs and adds requirements.txt to .gitignore, which the extraction did not call for. Large PDFs can now be committed by accident. The diff deletes `PresentationPDFs/` and `architecture_report.pdf` and adds `requirements.txt` and `reports_LOT_001/refactor_demo/batch_summary_LOT_001.json`. Nothing else in the change touches PDFs or requirements.txt."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 228,
+   "end_line": 228,
+   "message": "The new financial library has no tests at all, so the combo aggregation, break-even, EVoA and summary logic, along with the defects above, have no automated check. The export contains no test files (globbing for *.py finds only app/, data/ and financial_impact/). acceptance.md points to locked baseline tests, but none cover financial_impact, and the diff adds none. Functions like get_params's combo arithmetic (`ylo = round(ylos[0] + 0.5 * sum(ylos[1:]), 3)`) can only be checked by reading the code."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 261,
+   "end_line": 261,
+   "message": "yield_range truncates with int() after a float multiply, so some percentages can display one point low (for example int(0.29*100) == 28). `f\"{int(params['ylo'] * 100)}%-{int(params['yhi'] * 100)}%\"` truncates toward zero. Combo values come from `round(..., 3)` sums, which can produce values like 0.29 or 0.57 whose float product falls just below the integer."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 233,
+   "end_line": 233,
+   "message": "compute_financials's docstring lists the wrong config keys: it names CONFIDENCE_THRESHOLD, which is never read, and leaves out total_wafers and low_conf_count, which drive defect_rate and low_conf_count. The docstring says `Config keys needed: WPH, VALUE_PER_WAFER, REPAIR_HOURS, PLANNING_HORIZON, BATCH_ID, CONFIDENCE_THRESHOLD`. The body reads `config.get(\"total_wafers\", ...)` and `config.get(\"low_conf_count\", 0)` and never reads CONFIDENCE_THRESHOLD."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "The notebook's markdown names a `waferguard.financial` library that does not exist; the package is financial_impact. Line 102 reads 'using the `waferguard.financial` library', while line 169 imports `from financial_impact import financial as wg_fin`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 168,
+   "end_line": 168,
+   "message": "build_batch_df rescans the entire label list once per distinct pattern to collect confidences, which is O(patterns \u00d7 wafers) on every batch. `confs_this = [float(confidences[i]) for i, lbl in enumerate(binary_labels) if lbl == binary_label]` runs inside `for binary_label, count in sorted(pattern_counts.items(), ...)`. A single pandas groupby, or one pass building a dict, would do the same work in one scan."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

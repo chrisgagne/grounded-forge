@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/rcrsr/rill",
+  "pr_number": 53,
+  "base": "237cccc6a7726c10b01fc547cfbacf281dc0b7e3",
+  "head": "2ed44cafed83491d4f58902d478b23cbc0fd01ef"
+ },
+ "agent": "v8-factory-claude",
+ "findings": [
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/core/src/runtime/core/callable.ts",
+   "start_line": 63,
+   "end_line": 63,
+   "message": "The public host-function signature types `ctx.hostContext` as optional and possibly undefined, but the runtime always sets it. Extension authors have to cast or null-check to use the new bag, which works against the 'defaults to {}' guarantee. `CallableFn` receives `ctx: RuntimeContextLike`, which declares `readonly hostContext?: Record<string, unknown> | undefined`, while `RuntimeContext` declares `readonly hostContext: Record<string, unknown>` (types/runtime.ts:174). Every new test has to write `(ctx as RuntimeContext).hostContext` to reach it without a null check (host-context.test.ts lines 55, 85, 113, 138, 170)."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "docs/integration-host.md",
+   "start_line": 262,
+   "end_line": 262,
+   "message": "The host integration docs describe `ctx.metadata` for host functions but never mention the new `hostContext` option or field, so hosts and extension authors have no documentation for the feature. A grep for `hostContext` under docs/ returns nothing. integration-host.md:257-288 lists the `ctx` contents as 'variables, pipeValue, and session metadata' and documents only `ctx.metadata`. The change edits only CHANGELOG.md and source files."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/core/src/runtime/core/types/runtime.ts",
+   "start_line": 174,
+   "end_line": 174,
+   "message": "Adding `hostContext` as a required member of the exported `RuntimeContext` interface breaks type-checking for any downstream code that builds a `RuntimeContext` object literal. The CHANGELOG lists the change only under 'Added'. `readonly hostContext: Record<string, unknown>;` has no `?`, unlike the neighbouring `metadata?`. Inside this repo, the only literal builder, `assertType`'s `minimalContext` (eval/index.ts:89-119), had to be patched to add `hostContext: {}`. `RuntimeContext` is exported from '@rcrsr/rill', as the test import shows."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "packages/core/src/runtime/core/context.ts",
+   "start_line": 314,
+   "end_line": 314,
+   "message": "The host's `hostContext` object is passed by reference and is not frozen, so any extension or host function can add, replace or delete entries. Those changes are seen by every other extension in the run and by the host's original object. The change does not document this sharing. `hostContext: options.hostContext ?? {}` stores the caller's object as-is, and `createChildContext` copies the same reference (`hostContext: parent.hostContext`). The test 'child context shares same hostContext reference as parent' asserts `refs[0]` is `sharedContext`. The type is `Record<string, unknown>`; the `readonly` applies only to the property, not to the object's contents."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

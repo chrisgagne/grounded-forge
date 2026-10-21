@@ -1,0 +1,62 @@
+{
+ "id": "rc15",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 185,
+   "end_line": 189,
+   "message": "Install the 32-bit MinGW toolchain before using it. The `windows-2025` hosted image does not provide a toolchain at `C:/mingw32`. Removing `msys2/setup-msys2` also removes the installation of the i686 compiler, and adding a directory to `PATH` does not install it. The x86_32 job now asks `godot-tools/windows.py` to invoke `C:/mingw32/bin/i686-w64-mingw32-g++`, so compilation fails and the dependent release job cannot run. Retain an explicit 32-bit toolchain installation and set `mingw_prefix` to its actual location."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 185,
+   "end_line": 189,
+   "message": "The 'Setup MinGW path' step adds the hardcoded `C:/mingw32/bin` to PATH for both MinGW jobs. The x86_64 job therefore gets the 32-bit directory on PATH instead of `C:/mingw64/bin`. The added entry also comes before the image's default PATH, so if a 32-bit toolchain were ever present, its gcc/ar/windres would win any unprefixed tool lookup for the x86_64 build. The path should depend on the matrix entry, e.g. `C:/${{ matrix.msys }}/bin`."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 137,
+   "end_line": 147,
+   "message": "The x86_32 MinGW job now relies on a GCC toolchain at `C:/mingw32` (via `mingw_prefix=C:/mingw32` and the PATH step). The windows-2025 runner image only ships a 64-bit MinGW-w64 at `C:/mingw64`, and since msys2/setup-msys2 was removed, nothing installs an i686 toolchain anymore. `godot-tools/windows.py` will then look for `C:/mingw32/bin/i686-w64-mingw32-gcc` (or the unprefixed `gcc`), so the job will fail or compile with the wrong toolchain. Add a step that downloads and installs an i686 MinGW (e.g. a WinLibs/niXman release) into `C:/mingw32`, or keep MSYS2 for the 32-bit build."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 132,
+   "end_line": 132,
+   "message": "`mingw_prefix=C:/mingw64` makes `godot-tools/windows.py` build tool names as `C:/mingw64/bin/x86_64-w64-mingw32-gcc` etc. It is not confirmed that the preinstalled `C:/mingw64` toolchain on windows-2025 provides every target-prefixed binary SCons needs (including `ar`, `ranlib` and `windres`), or that its GCC version is new enough for this ANGLE revision (chromium/7219). Previously the job got a current GCC from MSYS2. Check the tool names in windows.py and pin or verify the GCC version, otherwise the build may break or quietly use an older compiler."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/ci.yaml",
+   "start_line": 134,
+   "end_line": 147,
+   "message": "The `msys` and `msysenv` matrix keys are no longer used by any step now that msys2/setup-msys2 was removed. They are dead configuration and suggest MSYS2 is still involved, so remove them, or use `msys` to build the per-arch PATH."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 23,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 21,
+   "cost_usd": 0.09332059999999999,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 23
+ }
+}

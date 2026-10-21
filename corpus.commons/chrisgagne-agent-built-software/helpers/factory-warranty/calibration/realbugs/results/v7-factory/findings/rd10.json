@@ -1,0 +1,112 @@
+{
+ "pr": {
+  "repo": "https://github.com/davidortinau/SentenceStudio",
+  "pr_number": 72,
+  "base": "b488d228ceeea1c29d5d54591a4b5c8ba9790712",
+  "head": "8941b5da55823d738d340cad6a429021318d8211"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 51,
+   "end_line": 51,
+   "message": "The CoreSync sync server still accepts unauthenticated requests even with Auth:UseEntraId=true, so the 'CoreSync auth' change doesn't actually protect the sync channel: anyone who can reach the Web server can pull or push sync data without a token. Program.cs calls app.UseAuthentication(); app.UseAuthorization(); and then app.UseCoreSyncHttpServer(). It sets no FallbackPolicy, no RequireAuthorization, and no gating middleware, and the RequireSyncReadWrite policy (line 29) is never applied. UseAuthorization only enforces endpoint metadata, so a request to the CoreSync path with no Authorization header goes straight through to UseCoreSyncHttpServer. The builder's decision record admits this: 'does not reject unauthenticated requests (no RequireAuthorization() on CoreSync middleware endpoints)'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 54,
+   "end_line": 54,
+   "message": "The sync server permits anonymous synchronization even when Entra ID authentication is enabled, leaving synchronized data accessible without credentials. With Auth:UseEntraId=true, a request without a Bearer token passes UseAuthentication(); UseAuthorization() has neither endpoint authorization metadata nor a fallback policy to enforce, and execution reaches UseCoreSyncHttpServer(). AddSyncServices registers a shared singleton provider with UploadAndDownload access to UserProfile, Conversation, VocabularyProgress and other tables; no intervening authentication guard exists."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 171,
+   "end_line": 171,
+   "message": "With real Entra ID tokens, TenantId may come out null and UserId may be the token's 'sub' instead of 'oid'. This happens because the JWT handler's default inbound claim mapping renames 'tid'/'oid' to long URI claim types, so the new FindFirstValue(\"tid\")/(\"oid\") lookups find nothing. The middleware reads FindFirstValue(\"tid\") ?? FindFirstValue(\"tenant_id\") and FindFirstValue(\"oid\") ?? FindFirstValue(ClaimTypes.NameIdentifier). AddMicrosoftIdentityWebApi in Program.cs:34-35 doesn't turn off MapInboundClaims. When mapping is on, 'oid' becomes http://schemas.microsoft.com/identity/claims/objectidentifier and 'sub' becomes NameIdentifier, and Entra tokens carry no 'tenant_id'. The tests can't catch this: TestJwtGenerator adds both 'tid' and 'tenant_id', and both 'oid' and NameIdentifier with the same value, so API_ExtractsTenantContext passes whichever claim the middleware actually reads."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 572,
+   "end_line": 572,
+   "message": "The JWT tests never run the production Entra path (Auth:UseEntraId=true with AddMicrosoftIdentityWebApi). They pass against a generic JwtBearer scheme added on top of the DevAuthHandler registration, so the Entra configuration (issuer, audience, AzureAd section) is untested. The factory uses UseEnvironment(\"Testing\") and doesn't set Auth:UseEntraId. appsettings.json is gitignored and appsettings.Development.json isn't loaded under Testing, so Program.cs takes the else branch and registers DevAuthHandler. The factory then calls services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(...) with TestJwtGenerator's symmetric key and issuer, and switches the default schemes over to it. The Microsoft.Identity.Web branch in Program.cs:32-48 is never built."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "The JWT tests bypass the new Entra ID registration branch, so they cannot verify the production authentication configuration. ConfigureWebHost selects Testing and replaces the default schemes with a separately registered AddJwtBearer handler using TestJwtGenerator validation parameters. It never enables Auth:UseEntraId; consequently the application's AddMicrosoftIdentityWebApi registration and scope policies are not exercised by these tests."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Api/Program.cs",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "In Entra mode the scope policies are defined but no endpoint uses them, so any token issued for this API's audience is accepted on every endpoint whatever its scopes. That includes a scope-less app-only token another service principal in the tenant could get. The policies RequireUserRead, RequireUserWrite, RequireAiAccess and RequireSyncReadWrite are registered, but every endpoint (/auth/bootstrap, /ai/chat, /ai/chat-messages, /ai/analyze-image, /speech/synthesize, /plans/generate, /vocabulary/{wordId}/status) calls plain .RequireAuthorization(). AddMicrosoftIdentityWebApi doesn't check scopes unless a RequireScope policy or attribute is applied."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "Authentication fails open: if Auth:UseEntraId is unset (the default is false), the Web server registers DevAuthHandler with no environment guard. A production deployment that misses the flag then authenticates every caller as 'dev-user'. GetValue<bool>(\"Auth:UseEntraId\") returns false when the key is missing. The flag is only set in appsettings.Development.json, and the else branch registers DevAuthHandler unconditionally. DevAuthHandler.HandleAuthenticateAsync returns AuthenticateResult.Success for every request. Nothing checks app.Environment.IsDevelopment()."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.AppHost/AppHost.cs",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "The AppHost hardcodes Auth__UseEntraId=\"false\" as an environment variable on the API, which overrides any appsettings value. If the app is deployed through the Aspire AppHost, Entra validation can never be switched on there, which contradicts the decision record's 'flip Auth:UseEntraId to true'. .WithEnvironment(\"Auth__UseEntraId\", \"false\") is set on the api project with no parameter or environment switch. Environment variables take precedence over appsettings*.json in ASP.NET Core configuration. The web project gets no Auth/AzureAd environment variables at all (line 27)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "The Web/CoreSync authentication added for #46 has no tests: no test checks that sync requests are authenticated, rejected, or carry identity. The diff adds tests only under tests/SentenceStudio.Api.Tests, and they target the API's Program (/api/v1/auth/bootstrap, /api/v1/plans/generate). No test project references SentenceStudio.Web, and the new Web DevAuthHandler and auth wiring are untested."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/SentenceStudio.Api.Tests/SentenceStudio.Api.Tests.csproj",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new authentication test project isn't in the solution or CI, so its tests will never run as a gate and regressions in the auth paths won't be caught. src/SentenceStudio.sln has no reference to SentenceStudio.Api.Tests, and .github/workflows/test.yml only restores, builds and tests tests/SentenceStudio.UnitTests/SentenceStudio.UnitTests.csproj."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Web/Auth/DevAuthHandler.cs",
+   "start_line": 305,
+   "end_line": 305,
+   "message": "The change adds a third copy of DevAuthHandler, so changes to dev claims now have to be kept in sync across projects by hand. There are now matching handlers at src/SentenceStudio.Api/Auth/DevAuthHandler.cs, src/SentenceStudio.WebApp/Auth/DevAuthHandler.cs, and the new src/SentenceStudio.Web/Auth/DevAuthHandler.cs. The builder's history notes 'DevAuthHandler is duplicated in both API and Web projects \u2014 future refactor'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 184,
+   "end_line": 184,
+   "message": "Email falls back to 'preferred_username', which isn't guaranteed to be an email address and isn't a verified email. Treating it as Email may mislabel user data or be relied on for identity. mutableContext.Email = FindFirstValue(ClaimTypes.Email) ?? FindFirstValue(\"preferred_username\"). Entra access tokens usually leave out the email claim, so in Entra mode the fallback becomes the normal path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.AppHost/AppHost.cs",
+   "start_line": 22,
+   "end_line": 22,
+   "message": "The tenant ID, client ID and audience are hardcoded and duplicated in AppHost.cs, both appsettings.Development.json files, the client handler, and a test constant, so they will drift when the app registration changes. The literal 49c0cd14-bc68-4c6d-b87b-9d65a56fa6df / 8c051bcf-bd3a-4051-9cd3-0556ba5df2d8 appears in AppHost.cs:22-25, Api and Web appsettings.Development.json, AuthenticatedHttpMessageHandler.DefaultScopes, and TestJwtGenerator.DefaultTenantId."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 15,
+   "end_line": 15,
+   "message": "The new integration test project cannot compile because its factories reference the API's inaccessible Program type. Both JwtBearerApiFactory and DevAuthApiFactory inherit WebApplicationFactory<Program> from a separate test assembly. The API uses top-level statements, which generate an internal Program, and neither its source nor project exposes a public partial Program or grants InternalsVisibleTo to the test assembly."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

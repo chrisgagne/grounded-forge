@@ -1,0 +1,25 @@
+{
+ "id": "x11",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "lib/ipaddr.js",
+   "start_line": 370,
+   "end_line": 374,
+   "message": "Throws on non-string. `string.match(...)` runs before the `isValidCIDR` check. If the input is not a string (`undefined`, `null`, a number, or a value from parsed JSON), the method throws a `TypeError` instead of returning `false`.\n\nThe sibling validators return `false` for such input. `isValidCIDR` catches the error from `parseCIDR`, and `isValidFourPartDecimal` calls `isValid` before calling `match`. Callers validating untrusted input could therefore crash.\n\nFix: call `isValidCIDR(string)` first and short-circuit, then run the regex."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 15,
+  "usage": {
+   "prompt_tokens": 2923,
+   "completion_tokens": 975,
+   "total_tokens": 3898
+  },
+  "security_concern": false
+ },
+ "stopped": true
+}

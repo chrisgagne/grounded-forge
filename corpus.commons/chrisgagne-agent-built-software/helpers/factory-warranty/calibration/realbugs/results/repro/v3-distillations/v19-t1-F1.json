@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.0942764,
+  "duration_s": 9.2
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/t.js {tree}",
+  "because": "On head, with includePrerelease, `satisfies('1.2.0-pre', '~1.2')`, `satisfies('1.0.0-pre', '~1')` and `satisfies('1.1.0-a', '~1.1')` all return false, while base returns true for all three. This shows that partial tilde ranges lost their `-0` lower bound and no longer match their documented x-range equivalents."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "1.2.0-pre satisfies ~1.2 (includePrerelease): true\n1.0.0-pre satisfies ~1 (includePrerelease): true\n1.1.0-a satisfies ~1.1 (includePrerelease): true\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "1.2.0-pre satisfies ~1.2 (includePrerelease): false\n1.0.0-pre satisfies ~1 (includePrerelease): false\n1.1.0-a satisfies ~1.1 (includePrerelease): false\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, with includePrerelease, `satisfies('1.2.0-pre', '~1.2')`, `satisfies('1.0.0-pre', '~1')` and `satisfies('1.1.0-a', '~1.1')` all return false, while base returns true for all three. This shows that partial tilde ranges lost their `-0` lower bound and no longer match their documented x-range equivalents.",
+ "run": "v3-distillations",
+ "trial": "v19-t1",
+ "kind": "bug"
+}

@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/mareklesko/ProxmoxMCP-Plus",
+  "pr_number": 1,
+  "base": "5a8047f5bc592e5e170d3828e9633dd018f13cbe",
+  "head": "b44013c3e80fd71ca639ee272b88c5e07af4b507"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "The fixed workspace path breaks local checkouts named anything other than ProxmoxMCP-Plus. The automatic source mount follows the checkout directory name; workspaceFolder does not relocate it ([mount documentation](https://code.visualstudio.com/remote/advancedcontainers/change-default-source-mount)). For a checkout named proxmox-dev, VS Code opens a nonexistent directory and postCreateCommand cannot install the project. Use the default workspace location or configure a matching workspaceMount, and make the interpreter path workspace-relative."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "This command does not install the development dependencies. pyproject.toml selects hatchling and defines no dev optional dependency; the extras_require declaration in setup.py is therefore ignored. The container finishes setup without pytest, pytest-asyncio, mypy, or the other development packages, so contributors cannot run the test suite in the advertised ready-to-code environment. Install requirements-dev.in explicitly alongside the editable project, or define the dev extra in pyproject.toml."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 75000
+ }
+}

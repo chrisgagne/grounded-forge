@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 274,
+  "base": "72ccdfaa52365466e9ce3a07b096f8c0f096b8a2",
+  "head": "1c88a2381c97cfc434d381876515f003078f83d9"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 286,
+   "end_line": 286,
+   "message": "Tool results are skipped by raw id membership in preservedLatestToolCallIds regardless of position, so an older toolResult whose raw id matches a latest-turn tool call is left unrewritten while its own (older) assistant tool call is rewritten. The history comes from a provider that reuses ids per turn (e.g. `call_0` every turn), and then the session switches to github-copilot Claude. Older assistant `call_0` gets rewritten to `call0`, but the older toolResult with `call_0` keeps its raw id because the latest assistant also has `call_0`. The result is an orphaned tool_result/tool_use pair, which pairing repair then drops or the provider rejects. The check should only apply to toolResults after latestAssistantIndex."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 243,
+   "end_line": 243,
+   "message": "The preserved latest-turn tool call ids are never added to `used`, so makeUniqueToolId can map an older id to a value that equals one of the preserved raw ids, which produces duplicate tool_use ids in one request. An older assistant turn has id `call_abc`, which sanitizes to `callabc`, and the latest preserved assistant turn has the raw id `callabc`. Both end up in the transcript as `callabc`, so tool results become ambiguous and Anthropic-style endpoints reject duplicate tool_use ids. Seeding `used` with the preserved ids (and mapping them to themselves) avoids this."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 49000
+ }
+}

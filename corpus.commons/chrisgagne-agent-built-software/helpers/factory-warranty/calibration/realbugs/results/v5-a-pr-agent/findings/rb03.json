@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/konturio/disaster-ninja-fe",
+  "pr_number": 1230,
+  "base": "3c1900acccaae22cb69adb02dd8351f24fe4e8b5",
+  "head": "d169e9da6b816d04a9697359406cdf154b2f8067"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 238,
+   "end_line": 241,
+   "message": "Wrong remount API. The code remounts each entry from `mountedLayersAtom` by calling it directly with `layer('disable')` and `layer('enable')`. If these values are Reatom logical-layer atoms, this is likely not their public API, which usually looks like `layer.disable.dispatch()`. In that case the call would throw or do nothing, and no other layer would be re-added after the basemap switch.\nThe test cannot catch this because it stores a plain `vi.fn()` in the atom instead of a real layer atom. Please check against the real layer atom type."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 234,
+   "end_line": 242,
+   "message": "Premature style event. `styledata` fires on any style change, not only when the new style has finished loading. It can fire before the URL style is fully parsed, or for intermediate changes. If that happens, `layersOrderManager.init` and the remount run against an incomplete style, and layers are added and then wiped or misordered.\nUse `style.load`, or check `map.isStyleLoaded()` before running this logic."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/core/logical_layers/renderers/GenericRenderer.ts",
+   "start_line": 236,
+   "end_line": 240,
+   "message": "Repeated init side effects. Every basemap mount, including each switch back and forth, calls `layersOrderManager.init(map, ...)` again. If `init` registers map listeners or atom subscriptions, these pile up with each switch, causing duplicate handlers and leaks.\nAlso, `disable` on remounted layers runs after `setStyle` has already dropped their sources and layers. Their cleanup may call `removeLayer` or `removeSource` on ids that no longer exist, which produces MapLibre errors. Both points are unconfirmed from the visible diff."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 70000
+ }
+}

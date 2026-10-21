@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/wiyco/review-insights",
+  "pr_number": 31,
+  "base": "5614fbab711f17e800401d6bacca0200bd4eff0a",
+  "head": "e9c5280f80a69136f5f247f4ac7f1c0fa49f1e29"
+ },
+ "agent": "v5-claude-again",
+ "findings": [
+  {
+   "producer": "v5-claude-again",
+   "file": "src/analyze/bias-detector.ts",
+   "start_line": 87,
+   "end_line": 117,
+   "message": "The quasi-independence model is fit only on cells where M_ij > 0, so every cell the pair didn't use is treated as a structural zero. That makes the strongest bias pattern impossible to flag. If a reviewer reviews only one author, that row has a single support cell, so E = M and the residual is 0. The same thing happens whenever an author is reviewed by only one reviewer. More generally, a sparse support with no more cells than (#reviewers + #authors \u2212 1), such as a tree-shaped interaction graph, gives a saturated fit: E equals M everywhere and nothing is ever flagged. Real review graphs are usually sparse, so the detector will silently go quiet in exactly the cases it is meant to catch, while the reports say 'No reviewer-author pair exceeds the configured ... threshold'. This is a regression from the z-score version, which did flag exclusive high-volume pairs. Either fit over the full R\u00d7A+ rectangle (minus genuine self-review diagonals), or detect saturated or degenerate support and report the model as unavailable or non-informative instead of 'No'."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/analyze/bias-detector.ts",
+   "start_line": 323,
+   "end_line": 340,
+   "message": "Pairs are flagged on the raw Pearson residual with no lower bound on the expected count. When E_ij is well below 1, a single review gives a large residual: for example, M=1 and E=0.1 gives r\u22482.85, which is above the default threshold of 2.0. The Pearson residual's approximate-normal interpretation doesn't hold for small expected counts, so one-off interactions can be reported as 'bias warnings'. Consider a minimum expected count or minimum observed count before flagging, or use an exact Poisson tail or deviance residual."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/analyze/bias-detector.ts",
+   "start_line": 162,
+   "end_line": 238,
+   "message": "Each IPF iteration recomputes every support mass twice, once in the update pass and again in the convergence check, at O(|S|) each. The loop can run up to 10,000 times, and IPF on poorly connected bipartite supports (long chains, near-disconnected components) converges slowly at a relative tolerance of 1e-8. On large repos (max-prs up to 5000, thousands of support cells), this can mean billions of operations and then still end in 'did not converge'. When that happens, bias warnings are disabled entirely. Reuse the masses computed in the update pass. The column check can also be dropped because the column step makes the column margins exact by construction. Consider a looser tolerance or an analytic fast path for each connected component."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/main.ts",
+   "start_line": 117,
+   "end_line": 117,
+   "message": "When the model fit fails, the `bias-detected` output is still \"false\", so downstream workflow steps can't tell 'no bias' from 'bias analysis unavailable'. The docs acknowledge this, but this is already a breaking change (feat!), so it would be a good moment to add a machine-readable signal, such as a `bias-model-available` output or a tri-state value."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "src/visualize/html-report.ts",
+   "start_line": 282,
+   "end_line": 288,
+   "message": "`biasExplanation` is rendered even when the model fit failed. In that case the report says pairs 'are flagged when their observed review count exceeds the model's expected count by more than X residual units', right below a notice that no model could be fit. That is contradictory, so the explanation should be suppressed or reworded in the unavailable state."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 56000
+ }
+}

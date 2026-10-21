@@ -1,0 +1,105 @@
+{
+ "pr": {
+  "repo": "https://github.com/mheuss/chronicle",
+  "pr_number": 14,
+  "base": "17e33ca1ebf643d47201a8f94b8ab3e88848cf23",
+  "head": "04ac4c02d48083676c14dd3fa70d26ca102bd50e"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 55,
+   "end_line": 55,
+   "message": "validate_path accepts a symlink inside the storage root that points outside it, so write_file and harden_file follow it to an external target, which goes against its doc comment. If canonicalize(path) resolves outside canonical_base, the first branch fails and the code falls through to `canonicalize(parent) ... starts_with(&self.canonical_base)`, which succeeds for any link placed in a directory under the root. write_file then calls `OpenOptions...open(path)` and `set_permissions(path, \u2026)`, and harden_file calls `set_permissions(path, \u2026)`; both follow symlinks. The tests (write_file_rejects_path_outside_base, harden_file_rejects_path_outside_base) only try a plain path outside the root, never a symlink inside it. Only move_file checks for symlinks, and only on its source."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/src/main.rs",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "A second daemon launch runs the orphan sweep before the IPC duplicate-instance check, so it can delete media the running daemon has written but not yet inserted. The startup sweep runs before IpcServer::start, which checks whether another daemon is listening. The running daemon's process_frame writes the image before inserting its database row, and process_audio_segment similarly moves audio before insertion. During either interval, sweep_media_orphans sees no matching row and deletes the active file."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/src/main.rs",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The automatic startup sweep deletes every media file whose canonical path doesn't exactly match a DB row, with no dry run or safety threshold, so a moved or re-rooted data dir loses all media irreversibly. main.rs calls `storage.sweep_orphans().await` straight after Storage::open. sweep_media_orphans runs `SELECT COUNT(*) FROM {table} WHERE {path_col} = ?1` with `canonicalize(&file_path)` and calls media_mgr.delete_file when count == 0. Stored paths are absolute canonical strings from allocate_path. There is no dry run, no safety threshold (e.g. abort if most files look orphaned) and no backup before an irreversible bulk delete."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/src/files.rs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change deletes the baseline tests allocate_path_creates_nested_directories, walk_files_collects_recursively and dir_size_sums_file_sizes from files.rs, although acceptance.md locks the baseline tests. The diff removes all three #[test] functions with the functions they tested (allocate_path, walk_files, dir_size). New tests with similar names appear in media.rs's test module. acceptance.md says 'The baseline's tests are the locked acceptance tests'. The diff also edits the baseline tests in retention.rs and tests/integration.rs."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 249,
+   "end_line": 249,
+   "message": "The public allocate_path puts ext into the file name unchecked, so an ext containing '/../' returns a path outside the storage root. allocate_path validates subdir and sanitizes id, but interpolates ext unchanged after checking only canonical_parent. An extension containing '/../../../../../../outside' introduces parent components into the returned path after that check. The Storage wrappers supply fixed extensions, but direct MediaManager callers can supply arbitrary strings."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/src/retention.rs",
+   "start_line": 187,
+   "end_line": 187,
+   "message": "The retention tests use a fixed, never-removed /tmp/chronicle-test-dummy root, and the two expiry tests' /tmp/*.heif rows sit outside it, so those tests don't exercise file deletion. dummy_media_mgr() runs `create_dir_all(\"/tmp/chronicle-test-dummy\")`. cleanup_deletes_expired_screenshots and the audio test insert `image_path: \"/tmp/old_shot.heif\"` / `\"/tmp/old_audio.opus\"`, so delete_file fails validation (or returns 0) and the error is only logged. The tests pass whether or not file deletion works."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "docs/guides/storage-engine.md",
+   "start_line": 141,
+   "end_line": 141,
+   "message": "The storage guide still describes deleting DB rows before files, and still lists files.rs as the path-generation module. Both contradict the changed code. The guide says 'select up to 500 rows older than cutoff, DELETE them, then delete each associated file' and 'DB rows are deleted first so that if the file delete fails\u2026'. retention.rs:34 now says 'Order: delete files first, then DB rows (crash-safe \u2014 see design doc)', and the module tree still lists `files.rs  Date-bucketed path generation`. No design doc is in the repo."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/src/lib.rs",
+   "start_line": 66,
+   "end_line": 66,
+   "message": "Only chronicle.db is set to 0o600. The WAL/SHM sidecars and pre-existing media files and directories are never hardened. `if db_file.exists() { set_permissions(&db_file, 0o600) }` runs after `schema::migrate(&conn)`, by which point WAL mode has created chronicle.db-wal/-shm with default permissions. DirBuilder::mode(DIR_MODE) affects only newly created directories. Older files are protected only by the base directory now being set to 0o700."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/src/files.rs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "files.rs is now test-only dead code, and sanitize_id and date_parts are duplicated in media.rs, so the files.rs tests check copies rather than the production functions. In the diff, files.rs gains `#[cfg(test)]` on sanitize_id, date_parts, screenshot_path and audio_path. media.rs:14-22 redefines the same sanitize_id and date_parts used by MediaManager::allocate_path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/src/lib.rs",
+   "start_line": 579,
+   "end_line": 579,
+   "message": "sweep_orphans_removes_untracked_files_on_startup calls sweep_orphans directly, so nothing tests the new startup call in main.rs. The test opens Storage, writes an orphan, then calls `storage.sweep_orphans().await` with the comment '// Run sweep (what startup would do)'. The main.rs sweep block has no test."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/Cargo.toml",
+   "start_line": 15,
+   "end_line": 15,
+   "message": "The change adds the log crate to chronicle-storage, a dependency triage marked as unplanned. `+log = \"0.4\"` in storage/Cargo.toml and `+ \"log\",` in Cargo.lock's chronicle-storage dependency list. log is already in the lockfile and used by the daemon, so the risk is small, but it should be recorded and approved."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/src/search.rs",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The diff includes rustfmt-only rewrites of files the change had no reason to touch. search.rs, schema.rs, models.rs, audio.rs, screenshots.rs, tests/integration.rs and pipeline.rs tests have only import reordering and line-wrapping edits (e.g. `use rusqlite::{Connection, params};`, reflowed query_map closures and assert_eq! calls)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "chronicle-daemon/crates/storage/src/media.rs",
+   "start_line": 79,
+   "end_line": 79,
+   "message": "MediaManager is public and exposes write_file, which no production code calls. lib.rs adds `pub mod media;` and `pub fn media_manager()`. Grep finds write_file used only in media.rs tests. pipeline.rs calls harden_file, delete_file and move_file."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,190 @@
+{
+ "id": "rb15",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 411,
+   "end_line": 413,
+   "message": "Skip unsupported records without terminating the ingest. An allosteric-modulator record with action `Neutral` terminates the entire record loop, silently discarding every subsequent interaction. The same problem occurs in the new antagonist, fusion-protein, missing-type, and subunit-specific branches. Use per-record skipping rather than `break` wherever an unsupported combination should be ignored."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 101,
+   "end_line": 102,
+   "message": "Preserve records with missing grouping attributes. Pandas `groupby` defaults to `dropna=True`, so an interaction with a missing `Type`, `Action`, or `Endogenous` is now silently removed during preparation. Previously these records reached the transform, which explicitly supports missing types and actions. Retain null-valued groups and preserve the missing-value representation expected by those branches."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 257,
+   "end_line": 258,
+   "message": "Correct the Agonist spelling in action allowlists. The allowlists contain `Agnoist`, but the source action and the branches below use `Agonist`. Consequently, `Agonist` actions for types `Agonist` and `Allosteric modulator` produce no edges at all, while activators lose their agonism qualifier and additional physical-interaction edge. Correct the spelling in all three lists."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 711,
+   "end_line": 712,
+   "message": "Preserve the inhibition mechanism for fusion proteins. For every fusion-protein interaction with action `Inhibition`, this assignment overwrites the existing `inhibition` mechanism with `molecular_channel_blockage`. Neither the type nor the action establishes channel blockage, and the previous implementation correctly used inhibition. Preserve that mechanism rather than asserting a more specific, unsupported biological mechanism."
+  },
+  {
+   "source": "claude",
+   "severity": "critical",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 411,
+   "end_line": 413,
+   "message": "`break` here is inside `for record in data:`, so it ends the whole loop. The first Allosteric modulator record with Action 'Neutral' or None stops all further processing, and every record after it is silently dropped from the KG. To skip only this record, use `continue`."
+  },
+  {
+   "source": "claude",
+   "severity": "critical",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 528,
+   "end_line": 530,
+   "message": "`break` ends the entire record loop. The first Antagonist / 'Partial agonist' record drops every record that follows it. Use `continue`."
+  },
+  {
+   "source": "claude",
+   "severity": "critical",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 708,
+   "end_line": 710,
+   "message": "`break` ends the entire record loop. The first Fusion protein / 'Binding' record drops every record that follows it. Use `continue`."
+  },
+  {
+   "source": "claude",
+   "severity": "critical",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 923,
+   "end_line": 925,
+   "message": "`break` ends the entire record loop. The first record with Type None and Action 'Binding' or 'Competitive' drops every record that follows it. Use `continue`."
+  },
+  {
+   "source": "claude",
+   "severity": "critical",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 1061,
+   "end_line": 1063,
+   "message": "`break` ends the entire record loop. The first Subunit-specific / 'Mixed' record drops every record that follows it. Use `continue`. The `print` calls should also go: they write to stdout instead of going through `koza.log`."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 257,
+   "end_line": 258,
+   "message": "The list is spelled 'Agnoist' instead of 'Agonist'. Agonist-type records with Action 'Agonist' (the most common agonist case) don't match this branch, and the old fallback branch for Agonist was removed, so these records now produce no edges at all. The `elif record[\"Action\"] == \"Agonist\"` handler is unreachable."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 167,
+   "end_line": 177,
+   "message": "The 'Agnoist' typo means Activator/Agonist records skip this branch. They fall into the 'not in' branch, where the Agonist mapping was removed. The result is an affects edge with no causal_mechanism_qualifier (agonism is lost) and no directly_physically_interacts_with edge, contrary to the intended mapping."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 331,
+   "end_line": 332,
+   "message": "The 'Agnoist' typo means Allosteric modulator / Agonist records match no branch and are silently dropped. In the old code they produced edges."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 97,
+   "end_line": 104,
+   "message": "`groupby` defaults to `dropna=True`. Any row with a null Type, Action or Endogenous is silently discarded during aggregation. That defeats all the `record[\"Action\"] is None` / `record[\"Type\"] is None` branches and the None entries in the action lists, and loses those interactions entirely. Use `groupby(..., dropna=False)`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 159,
+   "end_line": 164,
+   "message": "Endogenous is compared case-sensitively to the literal 'TRUE'. GtoPdb CSV booleans are typically lowercase ('true'/'false'). If they are, every record maps to affects/increased/decreased and the regulates/upregulated/downregulated logic never runs. Normalise the value (e.g. `str(...).strip().lower() == 'true'`) and confirm against the real data."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 138,
+   "end_line": 138,
+   "message": "The default predicate is now the string \"None\" instead of None. Fallback branches that don't set a predicate for an unexpected Action (e.g. Type None or Subunit-specific with another action) will emit an edge with predicate 'None'. That is not a valid Biolink CURIE, so the edge either fails validation or pollutes the graph. Unhandled actions should fail fast or be skipped explicitly."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 470,
+   "end_line": 1000,
+   "message": "The old catch-all branches for Antagonist, Antibody, Channel blocker, Fusion protein, Gating inhibitor and Allosteric modulator were replaced with whitelists that have no 'else' path. Any Type/Action combination missing from these lists (or misspelled, as above) is now dropped silently. Nothing logs or counts these dropped records, so data loss after a source update won't be noticed."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 711,
+   "end_line": 716,
+   "message": "Fusion protein / Inhibition now uses `causal_mechanism_qualifier = molecular_channel_blockage`, overriding the `inhibition` value set just above. This looks like a copy-paste from the Channel blocker block. Fusion proteins are not channel blockers, and the earlier assignments in this block are dead code."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 972,
+   "end_line": 977,
+   "message": "For Type None / Action None, a ChemicalAffectsGeneAssociation is built with predicate 'biolink:related_to'. related_to is not a valid predicate for this association class, and the RIG doesn't list it. Use a matching association class/predicate or drop these records. Also note these rows are already removed by the groupby dropna issue."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "Aggregation joins raw PubMed ID values without dropping empty strings or deduplicating. An empty value produces an invalid 'PMID:' entry. Because 'Ligand Context' is kept in the earlier drop_duplicates but left out of the grouping, the same PMID can appear more than once on an edge. Filter empties and dedupe, e.g. `'|'.join(sorted(set(...)))`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 166,
+   "end_line": 1092,
+   "message": "Each Type block repeats the same ChemicalAffectsGeneAssociation + PairwiseMolecularInteraction construction, and the `is not None` checks on freshly constructed objects are always true. This copy-paste is how the typo and override bugs above crept in. A declarative (Type, Action) \u2192 (mechanism, direction index, emit_physical_edge) mapping table would be far less error-prone and matches the repo's DRY/declarative guidelines. The change also adds no tests for the new mappings."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb_rig.yaml",
+   "start_line": 175,
+   "end_line": 180,
+   "message": "The RIG node list still declares biolink:Gene for UniProt targets, but the ingest now emits biolink:Protein. The SmallMolecule entry still uses the malformed identifier type 'GTOPDBLigand ID', which this change fixed only for MolecularMixture."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 33,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 91,
+   "cost_usd": 0.681854,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 91
+ }
+}

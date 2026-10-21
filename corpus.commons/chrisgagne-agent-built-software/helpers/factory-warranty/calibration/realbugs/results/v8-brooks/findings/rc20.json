@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/mikecubed/m3OS",
+  "pr_number": 84,
+  "base": "1f04d09ca740bac5640d9163ef9edc06768e6c60",
+  "head": "5e9d78eba1ea7c359c17beae6351d22aaab1fb6b"
+ },
+ "agent": "v5-brooks",
+ "findings": [
+  {
+   "producer": "v5-brooks",
+   "file": "kernel/src/arch/x86_64/syscall.rs",
+   "start_line": 529,
+   "end_line": 529,
+   "message": "Change Propagation \u2014 The syscall interface is the Rust enum's raw memory layout, and that layout has uninitialized bytes. Symptom: `sys_ktrace` (`kernel/src/arch/x86_64/syscall.rs:529`) reads `[TraceEntry]` as `&[u8]`. Its comment says this is safe because there are \"no uninit bytes\". That holds only for the outer `TraceEntry::_pad`. `TraceEvent` is a `#[repr(C)]` enum that carries data, so in memory it is a 4-byte tag, then 4 bytes of padding, then a 24-byte union. Small variants such as `RecvBlock {u32,u32}` or `YieldNow {u32,u8}` leave 16\u201319 bytes of the union unset, and `Dispatch` has interior padding between `core: u8` and `rsp: u64`. Those bytes are whatever was on the kernel stack in `trace_event`, so commit 76a9046 did not fully close the padding leak. On top of that, userspace gets no type definition (`syscall_lib::ktrace` returns bytes), and the doc admits \"the userspace caller must know the exact `TraceEntry` layout\". Source: Ousterhout \u2014 A Philosophy of Software Design, Information Leakage \u00b7 Winters et al. \u2014 Software Engineering at Google, Hyrum's Law Consequence: Any unprivileged process can read stale kernel stack bytes and live kernel RSP values. Reading uninitialized memory as `u8` is also undefined behaviour in Rust. Every later edit to `TraceEvent` silently breaks any userspace decoder: a new variant, reordered variants, or a widened field all shift the discriminants and offsets. Remedy: Add an explicit wire record with no implicit padding to a crate that both sides import, for example `#[repr(C)] struct KtraceRecord { tick: u64, kind: u16, core: u8, _pad: [u8; 5], a: u64, b: u64, c: u64 }`, plus `const` kind codes and a `const _: () = assert!(size_of::<KtraceRecord>() == 40);`. Build each record field by field in `sys_ktrace` (`TraceEvent` \u2192 `KtraceRecord`) and copy only those records. Consider restricting `sys_ktrace` to privileged callers, because it exposes kernel stack pointers."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "syscall.rs",
+   "start_line": 518,
+   "end_line": 518,
+   "message": "Cognitive Overload \u2014 `sys_ktrace` promises \"call again for more\" but can only ever return the oldest 64 entries. Symptom: `MAX_BATCH = 64` (`syscall.rs:518`), and `copy_into` always starts at the oldest entry (`trace_ring.rs:226`). The syscall takes no offset or cursor argument, so repeated calls return the same oldest 64 of 256 entries. The newest 192, which are the ones that explain \"what just happened\", can't be reached. The test `copy_into_fills_dst` locks in this oldest-first truncation. Separately, `core_id as u8` truncates before the bounds check, so `core_id = 256` quietly reads core 0. Source: McConnell \u2014 Code Complete, Ch. 7 High-Quality Routines (the routine's contract doesn't match its behaviour) Consequence: The live-trace feature returns stale data while its doc comment says otherwise, so users of a future `ktrace` tool will debug from the wrong window of events. Remedy: Either copy the newest `n` entries (start at `count - n` in chronological order), or add a `start` / `skip` argument and return the total count so callers can page. Fix the comment and the test to match. Compare `core_id` as `u64` before narrowing it to `u8`."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "trace.rs",
+   "start_line": 907,
+   "end_line": 907,
+   "message": "Knowledge Duplication \u2014 A crash-only safety argument was copied into a live syscall. Symptom: The comment \"concurrent write \u2192 at most one torn entry, acceptable for diagnostic data\" appears in both `dump_trace_rings` (`trace.rs:907`, crash context) and `sys_ktrace` (`syscall.rs:504`). `sys_ktrace` runs during normal operation and reads `write_idx`, `count`, and `buf` from another core's ring without atomics while that core keeps writing. The result isn't just one torn entry: if `count` and `write_idx` are read at different moments, the start position is wrong and the whole batch can be out of order. Source: Hunt & Thomas \u2014 The Pragmatic Programmer, DRY (a decision copied into a context where its premise doesn't hold) Consequence: The UnsafeCell comments invite future readers to reuse this \"acceptable race\" pattern in other places that also aren't crash paths. Remedy: Make `write_idx` and `count` atomics, read with `Acquire` and written with `Release`, plus a per-ring sequence counter (seqlock) so readers can retry. Or run the read on the owning core. Keep the \"best-effort\" comment only in the crash dump."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "docs/43b-kernel-trace-ring.md",
+   "start_line": 136,
+   "end_line": 136,
+   "message": "Knowledge Duplication \u2014 The phase doc contradicts the code and itself. Symptom: `docs/43b-kernel-trace-ring.md:136` says \"Events appear in chronological order across all cores\" and `:155` says it \"prints the merged timeline\". Line 94 of the same doc, and the code, print per-core blocks with no merging. Line 15 says the feature \"compiles out for release builds\", but `kernel/Cargo.toml` has `default = [\"trace\"]`, so it is on unless built with `--no-default-features`. Source: Hunt & Thomas \u2014 The Pragmatic Programmer, DRY (behaviour described in two places that have drifted apart) Consequence: `AGENTS.md` now points future agents to this doc as the reference to read before touching the trace ring. They will get the wrong idea of the dump's ordering, and wrongly believe production kernels don't include the pointer-leaking syscall. Remedy: Fix lines 15, 136 and 155 to match reality, or make release builds actually drop the default feature."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "AGENTS.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Coverage Illusion \u2014 The kernel-side behaviour is untested. Symptom: The tests cover only `TraceRing` in `kernel-core`. There are no tests for `sys_ktrace` (argument validation, the 64-entry cap, record size), `trace_event`, `N == 0`, `copy_into` on a partly filled ring, or a build with the `trace` feature off. The one `copy_into` test asserts the oldest-first behaviour flagged above. Source: Feathers \u2014 Working Effectively with Legacy Code, Ch. 1 Consequence: Both Critical findings would have shown up in a single test that decodes `sys_ktrace` output. The feature-off build can break unnoticed. Remedy: Add a kernel test that pushes known events and calls `sys_ktrace`. It should assert the record count, newest-first coverage, and zeroed padding. Add `cargo check -p kernel --no-default-features` to CI."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "self.c",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 The start-index calculation appears three times. Symptom: `let start = if self.count < N { 0 } else { self.write_idx };` appears in `snapshot`, `for_each_chronological` and `copy_into`. `snapshot()` (which allocates) is only called from tests. Source: Fowler \u2014 Refactoring, Duplicate Code Consequence: A fix to ordering, such as the newest-first change above, has to be made in three places that must stay consistent. Remedy: Add one private `fn chronological(&self) -> impl Iterator<Item = &TraceEntry>`, build `for_each_chronological` and `copy_into` on it, and move `snapshot` behind `#[cfg(test)]` or delete it."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "trace.rs",
+   "start_line": 954,
+   "end_line": 954,
+   "message": "Accidental Complexity \u2014 `print_trace_event` re-implements the derived `Debug`. Symptom: `print_trace_event` (`trace.rs:954`) is a 75-line `match` that reproduces `#[derive(Debug)]` output for every variant. `{:x?}`-style formatting goes through `format_args!` and doesn't allocate, so it is safe in panic context. Source: Fowler \u2014 Refactoring, Lazy Class / Duplicate Code Consequence: Every new event needs a hand-written arm. The compiler catches missing arms, but formatting will drift between events. Remedy: Replace it with `_panic_print(format_args!(\"{:#x?}\", entry.event))`. If decimal output matters for some fields, keep custom arms only for the variants that need it."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "AGENTS.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Domain Model Distortion \u2014 Event fields don't each mean one thing. Symptom: `core` means the emitting core in `TraceEntry`, `Dispatch`, `YieldNow` and `BlockCurrent`, but the target core in `WakeTask` and `RunQueueEnqueue`. `ReplyDeliver.ep` is always `u32::MAX`. `new_state` and `state_before` are raw `u8` values whose meaning is only discoverable from the `TaskState` declaration order. Source: Evans \u2014 Domain-Driven Design, Ubiquitous Language Consequence: Anyone reading a dump has to know, for each variant, which core a `core` field refers to and how to decode the state numbers. Remedy: Rename the target fields to `target_core`. Remove `core` from the variants where it duplicates `TraceEntry.core`. Remove `ep` from `ReplyDeliver`. Print the state values through a `TaskState` name lookup."
+  },
+  {
+   "producer": "v5-brooks",
+   "file": "scheduler.rs",
+   "start_line": 745,
+   "end_line": 745,
+   "message": "Change Propagation \u2014 The scheduler reads into `ForkChildCtx`'s fields. Symptom: `ForkChildCtx.pid`, `user_rip` and `user_rsp` were changed to `pub(crate)` only so that `spawn_fork_task` (`scheduler.rs:745`) can copy them out before the move and emit `ForkCtxPublish`. Source: Fowler \u2014 Refactoring, Inappropriate Intimacy Consequence: The scheduler now depends on how the process module lays out its fork context, which defeats the earlier encapsulation. Remedy: Emit `ForkCtxPublish` from `process` where the context is built (in `sys_fork`), or add a `ForkChildCtx::trace_event(&self) -> TraceEvent` method, and make the fields private again. **Recommended fix order:** padding/ABI leak \u2192 newest-entry access in `sys_ktrace` \u2192 the ring's concurrent-read protocol \u2192 kernel tests \u2192 doc fixes \u2192 the cleanups. ---"
+  }
+ ],
+ "usage": {
+  "time_in_ms": 169000
+ }
+}

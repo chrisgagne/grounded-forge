@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/vanyastaff/nebula",
+  "pr_number": 224,
+  "base": "c4879eb1c460e45c11ce28e3e8a305194023b64e",
+  "head": "d5ba86dd1014b79e263d93a1e324eeec0d0b306c"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "start_line": 147,
+   "end_line": 148,
+   "message": "Return the updated version after successful lazy rotation. When a read triggers lazy key rotation, the CAS write increments the backing record's version, but its returned record is discarded and `get()` returns the old version. Consequently, a caller that reads a credential and then updates it using `CompareAndSwap { expected_version: fetched.version }` gets a version conflict even without any concurrent writer. Preserve the version and timestamps returned by the successful rotation write while retaining plaintext data in the returned credential."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "start_line": 125,
+   "end_line": 153,
+   "message": "Lazy re-encryption in `get()` can make the caller's next compare-and-swap fail. When rotation runs, `get()` writes the re-encrypted record with CAS, which bumps the stored version (InMemoryStore sets `expected_version + 1`). But it returns `credential` with the pre-rotation `version`. A caller that reads and then writes back with `PutMode::CompareAndSwap { expected_version: cred.version }` (for example, the resolver's refresh path) gets a spurious `VersionConflict` on the first access after a key rotation. Return the version from the successful rotation `put` (`Ok(stored) => credential.version = stored.version`)."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "start_line": 147,
+   "end_line": 149,
+   "message": "A read now fails when the opportunistic rotation write fails. Plaintext was already decrypted, but any write error other than `VersionConflict` (backend timeout, read-only replica, permission denied) is returned from `get()`. Credential resolution then breaks for every record still on an old key. Rotation is best-effort, so its failures should be logged or ignored, not turned into read failures."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "start_line": 86,
+   "end_line": 102,
+   "message": "`EncryptionLayer::with_keys` panics through `assert!` when `current_key_id` is missing from `keys`. This is a public library constructor fed by runtime config, and the project rules ban panics in library code. It should return `Result<Self, _>`, or take the current key as a separate argument so the bad state can't be represented. Once that holds, the `current_key()` error path is also dead."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "start_line": 66,
+   "end_line": 102,
+   "message": "`new` and `with_keys` treat legacy data differently, and the comment on `EncryptedData` is wrong for one of them. `new()` silently aliases `\"\"` to the key, so pre-rotation envelopes (and anything still produced by the public `crypto::encrypt` / `encrypt_with_aad`, which hard-code `key_id = \"\"`) are readable and get rotated. `with_keys()` has no alias, so the same data fails with \"encryption key '' not found\". The comment on `EncryptedData::key_id` claims the layer rejects empty key IDs, which is true only for `with_keys`. Moving from single-key to multi-key mode therefore makes un-rotated records unreadable."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/credentials/mod.rs",
+   "start_line": 26,
+   "end_line": 27,
+   "message": "Persisted credentials become unreadable and no migration is provided. The state kinds change from `\"bearer\"` to `\"secret_token\"` and from `\"basic_auth\"` to `\"identity_password\"`, so the resolver's `state_kind` check rejects every existing ApiKey and BasicAuth record with `KindMismatch`. The serialized shape also changes: BasicAuth's `username` field is now `identity`, so old payloads would fail to deserialize anyway. Records stored under the removed `database` and `header_auth` credentials are orphaned. Together with the AAD hard cutover, every existing record needs a migration that this change does not ship. Keep the old kind strings and use `#[serde(alias = \"username\")]`, or ship a migration."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/context.rs",
+   "start_line": 203,
+   "end_line": 217,
+   "message": "`resolve_credential` now passes a coarse pattern name (`format!(\"{:?}\", S::pattern())`) as `expected_kind` instead of a type-unique identifier. Many concrete types can share a pattern: every plugin type maps to `Custom`, and any plugin type tagged `SecretToken` matches the built-in `SecretToken`. A resolver that uses `expected_kind` to check compatibility can no longer tell types apart, and mismatch errors can read 'expected SecretToken, got SecretToken'. The `Debug` output of a `#[non_exhaustive]` enum is also being used as a stable wire identifier. Add an explicit `as_str()`, and pass a type-unique key (or `TypeId` / `type_name`) for the scheme check."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/snapshot.rs",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "`scheme_pattern` replaces `scheme_kind`, which was unique per type, with a lossy category name built from `Debug` formatting. Two different scheme types with the same pattern produce identical snapshots for logging and diagnostics, and `SchemeMismatch` errors can show the same value for `expected` and `actual`. Every `new()`, `project()` failure and `into_project()` failure also allocates a `String` through `format!`. Prefer a `&'static str` from `AuthPattern::as_str()`, plus the concrete `type_name::<S>()` for diagnostics."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/macros/src/auth_scheme.rs",
+   "start_line": 590,
+   "end_line": 598,
+   "message": "The `#[derive(AuthScheme)]` expansion hard-codes `::nebula_core::AuthScheme` and `::nebula_core::AuthPattern`. The derive is re-exported from `nebula_credential` and documented as `use nebula_credential::AuthScheme`, but a plugin crate that depends only on `nebula-credential` or `nebula-sdk` will fail to compile with 'unresolved crate nebula_core'. Emit paths through a re-export the user already has (for example `::nebula_credential::AuthPattern`), or make the crate path configurable."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/crypto.rs",
+   "start_line": 1592,
+   "end_line": 1597,
+   "message": "`key_id` is stored in the envelope but isn't covered by AAD, so it isn't authenticated. Someone who can write to storage can change it to steer which registered key is tried, or to trigger a needless rotate-and-write on read. GCM still blocks decryption with the wrong key, so the impact is limited. Binding `key_id` into the AAD (for example `id || key_id`) would make the envelope tamper-evident."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "crates/credential/src/credential.rs",
+   "start_line": 799,
+   "end_line": 809,
+   "message": "Testability now has two sources of truth that can disagree: the `TESTABLE` const (still defaults to `false` and is still asserted in tests) and the new `Ok(None)` return from `test()`. A credential can set `TESTABLE = true` and still return `None`, or the reverse, and callers can't tell which one to trust. Drop one of them, or document and enforce that they agree."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 157000
+ }
+}

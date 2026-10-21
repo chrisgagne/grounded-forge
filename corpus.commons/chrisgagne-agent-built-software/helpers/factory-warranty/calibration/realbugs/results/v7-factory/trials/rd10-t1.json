@@ -1,0 +1,366 @@
+{
+ "id": "rd10",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:secrets",
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.3262,
+ "codex_tokens": 58247,
+ "work": "<tmp>/replay-rd10-t1-diuwpsqp",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Web/Program.cs runs UseAuthentication/UseAuthorization and then UseCoreSyncHttpServer, with no fallback policy, RequireAuthorization or gating middleware, and RequireSyncReadWrite is never applied. A tokenless request therefore reaches the sync server, and the decision record admits this. I set it to high rather than critical because Entra mode isn't switched on for Web anywhere yet.",
+   "severity": "high",
+   "raw_severity": "critical",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "line": 54,
+   "claim": "The CoreSync sync server accepts unauthenticated requests even with Auth:UseEntraId=true, so the sync channel is not protected.",
+   "evidence": "Program.cs calls app.UseAuthentication(); app.UseAuthorization(); and then app.UseCoreSyncHttpServer(). It sets no FallbackPolicy, no RequireAuthorization, and no gating middleware, and the RequireSyncReadWrite policy (line 29) is never applied. UseAuthorization only enforces endpoint metadata, so a request to the CoreSync path with no Authorization header goes straight through to UseCoreSyncHttpServer. The builder's decision record admits this: 'does not reject unauthenticated requests (no RequireAuthorization() on CoreSync middleware endpoints)'.",
+   "breaks": "story",
+   "axis_row": "L2.1",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/SentenceStudio.Web/Program.cs",
+     "line": 51,
+     "claim": "The CoreSync sync server still accepts unauthenticated requests even with Auth:UseEntraId=true, so the 'CoreSync auth' change doesn't actually protect the sync channel: anyone who can reach the Web server can pull or push sync data without a token.",
+     "evidence": "Program.cs calls app.UseAuthentication(); app.UseAuthorization(); and then app.UseCoreSyncHttpServer(). It sets no FallbackPolicy, no RequireAuthorization, and no gating middleware, and the RequireSyncReadWrite policy (line 29) is never applied. UseAuthorization only enforces endpoint metadata, so a request to the CoreSync path with no Authorization header goes straight through to UseCoreSyncHttpServer. The builder's decision record admits this: 'does not reject unauthenticated requests (no RequireAuthorization() on CoreSync middleware endpoints)'."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "critical",
+     "file": "src/SentenceStudio.Web/Program.cs",
+     "line": 54,
+     "claim": "The sync server permits anonymous synchronization even when Entra ID authentication is enabled, leaving synchronized data accessible without credentials.",
+     "evidence": "With Auth:UseEntraId=true, a request without a Bearer token passes UseAuthentication(); UseAuthorization() has neither endpoint authorization metadata nor a fallback policy to enforce, and execution reaches UseCoreSyncHttpServer(). AddSyncServices registers a shared singleton provider with UploadAndDownload access to UserProfile, Conversation, VocabularyProgress and other tables; no intervening authentication guard exists."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "The middleware looks up the short names 'tid' and 'oid', and Program.cs never turns off MapInboundClaims. Whether these claims get renamed depends on Microsoft.Identity.Web/IdentityModel defaults that the repo doesn't show. TestJwtGenerator emits both claim forms, so the tests can't tell either way.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "line": 171,
+   "claim": "With real Entra tokens, default inbound claim mapping may rename tid/oid, so TenantId comes out null and UserId falls back to the mapped 'sub'.",
+   "evidence": "The middleware reads FindFirstValue(\"tid\") ?? FindFirstValue(\"tenant_id\") and FindFirstValue(\"oid\") ?? FindFirstValue(ClaimTypes.NameIdentifier). AddMicrosoftIdentityWebApi in Program.cs:34-35 doesn't turn off MapInboundClaims. When mapping is on, 'oid' becomes http://schemas.microsoft.com/identity/claims/objectidentifier and 'sub' becomes NameIdentifier, and Entra tokens carry no 'tenant_id'. The tests can't catch this: TestJwtGenerator adds both 'tid' and 'tenant_id', and both 'oid' and NameIdentifier with the same value, so API_ExtractsTenantContext passes whichever claim the middleware actually reads.",
+   "breaks": "story",
+   "axis_row": "L3.9",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+     "line": 171,
+     "claim": "With real Entra ID tokens, TenantId may come out null and UserId may be the token's 'sub' instead of 'oid'. This happens because the JWT handler's default inbound claim mapping renames 'tid'/'oid' to long URI claim types, so the new FindFirstValue(\"tid\")/(\"oid\") lookups find nothing.",
+     "evidence": "The middleware reads FindFirstValue(\"tid\") ?? FindFirstValue(\"tenant_id\") and FindFirstValue(\"oid\") ?? FindFirstValue(ClaimTypes.NameIdentifier). AddMicrosoftIdentityWebApi in Program.cs:34-35 doesn't turn off MapInboundClaims. When mapping is on, 'oid' becomes http://schemas.microsoft.com/identity/claims/objectidentifier and 'sub' becomes NameIdentifier, and Entra tokens carry no 'tenant_id'. The tests can't catch this: TestJwtGenerator adds both 'tid' and 'tenant_id', and both 'oid' and NameIdentifier with the same value, so API_ExtractsTenantContext passes whichever claim the middleware actually reads."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The factory sets the environment to Testing, never sets Auth:UseEntraId, and adds its own AddJwtBearer scheme with a symmetric test key. Program.cs:32-48 never runs. This is a test-coverage gap, not a defect, so it is low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "line": 21,
+   "claim": "JWT tests bypass the AddMicrosoftIdentityWebApi branch, so the production Entra configuration is untested.",
+   "evidence": "The factory uses UseEnvironment(\"Testing\") and doesn't set Auth:UseEntraId. appsettings.json is gitignored and appsettings.Development.json isn't loaded under Testing, so Program.cs takes the else branch and registers DevAuthHandler. The factory then calls services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(...) with TestJwtGenerator's symmetric key and issuer, and switches the default schemes over to it. The Microsoft.Identity.Web branch in Program.cs:32-48 is never built.",
+   "axis_row": "L3.3",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+     "line": 572,
+     "claim": "The JWT tests never run the production Entra path (Auth:UseEntraId=true with AddMicrosoftIdentityWebApi). They pass against a generic JwtBearer scheme added on top of the DevAuthHandler registration, so the Entra configuration (issuer, audience, AzureAd section) is untested.",
+     "evidence": "The factory uses UseEnvironment(\"Testing\") and doesn't set Auth:UseEntraId. appsettings.json is gitignored and appsettings.Development.json isn't loaded under Testing, so Program.cs takes the else branch and registers DevAuthHandler. The factory then calls services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(...) with TestJwtGenerator's symmetric key and issuer, and switches the default schemes over to it. The Microsoft.Identity.Web branch in Program.cs:32-48 is never built."
+    },
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "low",
+     "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+     "line": 21,
+     "claim": "The JWT tests bypass the new Entra ID registration branch, so they cannot verify the production authentication configuration.",
+     "evidence": "ConfigureWebHost selects Testing and replaces the default schemes with a separately registered AddJwtBearer handler using TestJwtGenerator validation parameters. It never enables Auth:UseEntraId; consequently the application's AddMicrosoftIdentityWebApi registration and scope policies are not exercised by these tests."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "Every MapGet/MapPost calls plain .RequireAuthorization() and none of the RequireScope policies is referenced. The decision record defers this on purpose. I lowered it to low: Microsoft.Identity.Web rejects tokens that carry no scp or roles claim by default, so the scope-less token case in the claim doesn't hold.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/SentenceStudio.Api/Program.cs",
+   "line": 37,
+   "claim": "Scope policies are registered but no endpoint uses them, so any valid token for the API audience reaches every endpoint.",
+   "evidence": "The policies RequireUserRead, RequireUserWrite, RequireAiAccess and RequireSyncReadWrite are registered, but every endpoint (/auth/bootstrap, /ai/chat, /ai/chat-messages, /ai/analyze-image, /speech/synthesize, /plans/generate, /vocabulary/{wordId}/status) calls plain .RequireAuthorization(). AddMicrosoftIdentityWebApi doesn't check scopes unless a RequireScope policy or attribute is applied.",
+   "axis_row": "L2.1",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/SentenceStudio.Api/Program.cs",
+     "line": 37,
+     "claim": "In Entra mode the scope policies are defined but no endpoint uses them, so any token issued for this API's audience is accepted on every endpoint whatever its scopes. That includes a scope-less app-only token another service principal in the tenant could get.",
+     "evidence": "The policies RequireUserRead, RequireUserWrite, RequireAiAccess and RequireSyncReadWrite are registered, but every endpoint (/auth/bootstrap, /ai/chat, /ai/chat-messages, /ai/analyze-image, /speech/synthesize, /plans/generate, /vocabulary/{wordId}/status) calls plain .RequireAuthorization(). AddMicrosoftIdentityWebApi doesn't check scopes unless a RequireScope policy or attribute is applied."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "GetValue<bool> returns false when the key is missing. The else branch registers DevAuthHandler, whose HandleAuthenticateAsync always succeeds, and nothing checks IsDevelopment. No appsettings.json exists in the repo, so a deployment that misses the flag fails open.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "line": 33,
+   "claim": "When Auth:UseEntraId is unset, DevAuthHandler is registered with no environment guard, so every caller is authenticated as dev-user.",
+   "evidence": "GetValue<bool>(\"Auth:UseEntraId\") returns false when the key is missing. The flag is only set in appsettings.Development.json, and the else branch registers DevAuthHandler unconditionally. DevAuthHandler.HandleAuthenticateAsync returns AuthenticateResult.Success for every request. Nothing checks app.Environment.IsDevelopment().",
+   "axis_row": "L5.13",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/SentenceStudio.Web/Program.cs",
+     "line": 33,
+     "claim": "Authentication fails open: if Auth:UseEntraId is unset (the default is false), the Web server registers DevAuthHandler with no environment guard. A production deployment that misses the flag then authenticates every caller as 'dev-user'.",
+     "evidence": "GetValue<bool>(\"Auth:UseEntraId\") returns false when the key is missing. The flag is only set in appsettings.Development.json, and the else branch registers DevAuthHandler unconditionally. DevAuthHandler.HandleAuthenticateAsync returns AuthenticateResult.Success for every request. Nothing checks app.Environment.IsDevelopment()."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "AppHost.cs adds .WithEnvironment(\"Auth__UseEntraId\", \"false\") unconditionally, and environment variables override appsettings in ASP.NET Core configuration. The web project gets no Auth or AzureAd settings at all.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/SentenceStudio.AppHost/AppHost.cs",
+   "line": 21,
+   "claim": "AppHost hardcodes Auth__UseEntraId=false on the API, which overrides appsettings, so Entra can't be enabled through the AppHost.",
+   "evidence": ".WithEnvironment(\"Auth__UseEntraId\", \"false\") is set on the api project with no parameter or environment switch. Environment variables take precedence over appsettings*.json in ASP.NET Core configuration. The web project gets no Auth/AzureAd environment variables at all (line 27).",
+   "breaks": "story",
+   "axis_row": "L5.13",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/SentenceStudio.AppHost/AppHost.cs",
+     "line": 21,
+     "claim": "The AppHost hardcodes Auth__UseEntraId=\"false\" as an environment variable on the API, which overrides any appsettings value. If the app is deployed through the Aspire AppHost, Entra validation can never be switched on there, which contradicts the decision record's 'flip Auth:UseEntraId to true'.",
+     "evidence": ".WithEnvironment(\"Auth__UseEntraId\", \"false\") is set on the api project with no parameter or environment switch. Environment variables take precedence over appsettings*.json in ASP.NET Core configuration. The web project gets no Auth/AzureAd environment variables at all (line 27)."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only new tests are in SentenceStudio.Api.Tests, which references only the Api project. Nothing exercises the Web auth wiring or the Web DevAuthHandler. This is a coverage gap, so it is low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "line": 19,
+   "claim": "Web/CoreSync authentication has no tests.",
+   "evidence": "The diff adds tests only under tests/SentenceStudio.Api.Tests, and they target the API's Program (/api/v1/auth/bootstrap, /api/v1/plans/generate). No test project references SentenceStudio.Web, and the new Web DevAuthHandler and auth wiring are untested.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/SentenceStudio.Web/Program.cs",
+     "line": 19,
+     "claim": "The Web/CoreSync authentication added for #46 has no tests: no test checks that sync requests are authenticated, rejected, or carry identity.",
+     "evidence": "The diff adds tests only under tests/SentenceStudio.Api.Tests, and they target the API's Program (/api/v1/auth/bootstrap, /api/v1/plans/generate). No test project references SentenceStudio.Web, and the new Web DevAuthHandler and auth wiring are untested."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "test.yml restores, builds and tests only SentenceStudio.UnitTests.csproj, and no .sln file references SentenceStudio.Api.Tests.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/SentenceStudio.Api.Tests/SentenceStudio.Api.Tests.csproj",
+   "line": 1,
+   "claim": "The new auth test project isn't in the solution or CI.",
+   "evidence": "src/SentenceStudio.sln has no reference to SentenceStudio.Api.Tests, and .github/workflows/test.yml only restores, builds and tests tests/SentenceStudio.UnitTests/SentenceStudio.UnitTests.csproj.",
+   "axis_row": "L3.5",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "tests/SentenceStudio.Api.Tests/SentenceStudio.Api.Tests.csproj",
+     "line": 1,
+     "claim": "The new authentication test project isn't in the solution or CI, so its tests will never run as a gate and regressions in the auth paths won't be caught.",
+     "evidence": "src/SentenceStudio.sln has no reference to SentenceStudio.Api.Tests, and .github/workflows/test.yml only restores, builds and tests tests/SentenceStudio.UnitTests/SentenceStudio.UnitTests.csproj."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds a new Web/Auth/DevAuthHandler.cs that mirrors the API handler, and the builder's history notes the duplication. This is a maintainability point.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/SentenceStudio.Web/Auth/DevAuthHandler.cs",
+   "line": 305,
+   "claim": "A third copy of DevAuthHandler is added.",
+   "evidence": "There are now matching handlers at src/SentenceStudio.Api/Auth/DevAuthHandler.cs, src/SentenceStudio.WebApp/Auth/DevAuthHandler.cs, and the new src/SentenceStudio.Web/Auth/DevAuthHandler.cs. The builder's history notes 'DevAuthHandler is duplicated in both API and Web projects \u2014 future refactor'.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/SentenceStudio.Web/Auth/DevAuthHandler.cs",
+     "line": 305,
+     "claim": "The change adds a third copy of DevAuthHandler, so changes to dev claims now have to be kept in sync across projects by hand.",
+     "evidence": "There are now matching handlers at src/SentenceStudio.Api/Auth/DevAuthHandler.cs, src/SentenceStudio.WebApp/Auth/DevAuthHandler.cs, and the new src/SentenceStudio.Web/Auth/DevAuthHandler.cs. The builder's history notes 'DevAuthHandler is duplicated in both API and Web projects \u2014 future refactor'."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The middleware sets Email = FindFirstValue(ClaimTypes.Email) ?? FindFirstValue(\"preferred_username\"), so a UPN-style value can end up labelled as an email. The impact is minor data mislabelling.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "line": 184,
+   "claim": "Email falls back to preferred_username, which is not a verified email.",
+   "evidence": "mutableContext.Email = FindFirstValue(ClaimTypes.Email) ?? FindFirstValue(\"preferred_username\"). Entra access tokens usually leave out the email claim, so in Entra mode the fallback becomes the normal path.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+     "line": 184,
+     "claim": "Email falls back to 'preferred_username', which isn't guaranteed to be an email address and isn't a verified email. Treating it as Email may mislabel user data or be relied on for identity.",
+     "evidence": "mutableContext.Email = FindFirstValue(ClaimTypes.Email) ?? FindFirstValue(\"preferred_username\"). Entra access tokens usually leave out the email claim, so in Entra mode the fallback becomes the normal path."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "The same GUIDs appear in AppHost.cs, both appsettings.Development.json files and TestJwtGenerator.DefaultTenantId. This is a maintainability point, so it is low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/SentenceStudio.AppHost/AppHost.cs",
+   "line": 22,
+   "claim": "Tenant ID, client ID and audience are hardcoded in several places.",
+   "evidence": "The literal 49c0cd14-bc68-4c6d-b87b-9d65a56fa6df / 8c051bcf-bd3a-4051-9cd3-0556ba5df2d8 appears in AppHost.cs:22-25, Api and Web appsettings.Development.json, AuthenticatedHttpMessageHandler.DefaultScopes, and TestJwtGenerator.DefaultTenantId.",
+   "axis_row": "L4.31",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/SentenceStudio.AppHost/AppHost.cs",
+     "line": 22,
+     "claim": "The tenant ID, client ID and audience are hardcoded and duplicated in AppHost.cs, both appsettings.Development.json files, the client handler, and a test constant, so they will drift when the app registration changes.",
+     "evidence": "The literal 49c0cd14-bc68-4c6d-b87b-9d65a56fa6df / 8c051bcf-bd3a-4051-9cd3-0556ba5df2d8 appears in AppHost.cs:22-25, Api and Web appsettings.Development.json, AuthenticatedHttpMessageHandler.DefaultScopes, and TestJwtGenerator.DefaultTenantId."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "noise",
+   "reason": "The API targets net10.0 with Microsoft.NET.Sdk.Web. In ASP.NET Core 10 the SDK source generator emits a public partial Program for top-level-statement apps, so WebApplicationFactory<Program> can reach it from the test assembly.",
+   "severity": "low",
+   "raw_severity": "high",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "line": 15,
+   "claim": "The test project cannot compile because Program is internal.",
+   "evidence": "Both JwtBearerApiFactory and DevAuthApiFactory inherit WebApplicationFactory<Program> from a separate test assembly. The API uses top-level statements, which generate an internal Program, and neither its source nor project exposes a public partial Program or grants InternalsVisibleTo to the test assembly.",
+   "axis_row": "L2.1",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+     "line": 15,
+     "claim": "The new integration test project cannot compile because its factories reference the API's inaccessible Program type.",
+     "evidence": "Both JwtBearerApiFactory and DevAuthApiFactory inherit WebApplicationFactory<Program> from a separate test assembly. The API uses top-level statements, which generate an internal Program, and neither its source nor project exposes a public partial Program or grants InternalsVisibleTo to the test assembly."
+    }
+   ],
+   "id": "F12"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F12"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:secrets",
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

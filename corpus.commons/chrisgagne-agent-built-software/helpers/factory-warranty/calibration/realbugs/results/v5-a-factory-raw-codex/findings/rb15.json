@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/NCATSTranslator/translator-ingests",
+  "pr_number": 336,
+  "base": "58d880509f9cf6d37715153b7cf261205dfa0f96",
+  "head": "efb31e9c764865f416230073c6d0b1686a0f44b7"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 413,
+   "end_line": 413,
+   "message": "Skipping an inapplicable interaction terminates the entire ingest and silently discards all subsequent records. For Type='Allosteric modulator', Action='Neutral', transform_ingest_all executes break inside its sole 'for record in data' loop, then returns the accumulated graph. A valid Inhibitor/Inhibition record following it is never processed. The same termination occurs for Antagonist/Partial agonist, Channel blocker/Unknown, missing Type with Binding or Competitive, and Subunit-specific/Mixed."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 257,
+   "end_line": 257,
+   "message": "Misspelled action allowlists drop valid Agonist interactions or omit their mechanism and physical interaction edge. The new lists at lines 167, 257 and 331 contain 'Agnoist', while their enclosed mapping branches compare against 'Agonist'. With Type='Agonist' or 'Allosteric modulator' and Action='Agonist', the enclosing condition fails and no edges are emitted. With Type='Activator', Action='Agonist' instead enters the fallback, which has no agonism mapping and emits only one edge."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "src/translator_ingest/ingests/gtopdb/gtopdb.py",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "The new aggregation silently removes interactions with missing Type, Action or Endogenous values. prepare groups by Target, Target UniProt ID, Ligand ID, Ligand, Type, Action and Endogenous using pandas groupby without dropna=False. Its default excludes groups containing missing keys, so an otherwise mapped Inhibitor interaction with Action=None disappears before transform_ingest_all can reach its explicit None-action handling; missing Type or Endogenous has the same effect."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

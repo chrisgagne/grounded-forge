@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.11096139999999999,
+  "duration_s": 14.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/notit.mjs {tree}",
+  "because": "On head, markdown-it renders `&notit;` as `\u00acit;` and `&copyx;` as `\u00a9x;` because legacy decodeHTML expands the semicolon-less prefixes `&not` and `&copy`; CommonMark says these unknown references must stay literal (`&amp;notit;`), and that is what base renders."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS \"&notit;\" -> \"<p>&amp;notit;</p>\\n\" (want \"<p>&amp;notit;</p>\\n\")\nPASS \"&copyx;\" -> \"<p>&amp;copyx;</p>\\n\" (want \"<p>&amp;copyx;</p>\\n\")\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL \"&notit;\" -> \"<p>\u00acit;</p>\\n\" (want \"<p>&amp;notit;</p>\\n\")\nFAIL \"&copyx;\" -> \"<p>\u00a9x;</p>\\n\" (want \"<p>&amp;copyx;</p>\\n\")\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, markdown-it renders `&notit;` as `\u00acit;` and `&copyx;` as `\u00a9x;` because legacy decodeHTML expands the semicolon-less prefixes `&not` and `&copy`; CommonMark says these unknown references must stay literal (`&amp;notit;`), and that is what base renders.",
+ "run": "v3-distillations",
+ "trial": "v22-t1",
+ "kind": "bug"
+}

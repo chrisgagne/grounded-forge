@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.0561914,
+  "duration_s": 99.2
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/alt.mjs {tree}",
+  "because": "On head, the project's own markdownit().render('![`logo`](x.png)') outputs alt=\"\" where base outputs alt=\"logo\", which shows that inline code text is dropped from image alt attributes."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "<p><img src=\"x.png\" alt=\"logo\"></p>\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "<p><img src=\"x.png\" alt=\"\"></p>\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '<p><img src=\"x.png\" alt=\"\"></p>\\n'\n- '<p><img src=\"x.png\" alt=\"logo\"></p>\\n'\n                            ^\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v3/w06-t2-F1/check/alt.mjs:8:8 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: '<p><img src=\"x.png\" alt=\"\"></p>\\n',\n  expected: '<p><img src=\"x.png\" alt=\"logo\"></p>\\n',\n  operator: 'strictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, the project's own markdownit().render('![`logo`](x.png)') outputs alt=\"\" where base outputs alt=\"logo\", which shows that inline code text is dropped from image alt attributes.",
+ "run": "v4-arm-v3",
+ "trial": "w06-t2",
+ "kind": "bug"
+}

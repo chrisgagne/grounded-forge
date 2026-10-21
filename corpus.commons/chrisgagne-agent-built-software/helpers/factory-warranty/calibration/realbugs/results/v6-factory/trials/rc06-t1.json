@@ -1,0 +1,265 @@
+{
+ "id": "rc06",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:tests"
+ ],
+ "first": "gate",
+ "cost_usd": 1.4205,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc06-t1-rwl07_7w",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P2"
+   ],
+   "verdict": "confirmed",
+   "reason": "tool-call-id.ts:270 skips only the message at latestAssistantIndex, so an older assistant `call_1` resolves to `call1`. But :286 skips every toolResult whose id is in preservedLatestToolCallIds, wherever it sits in the transcript, so the older result keeps `call_1` and is orphaned. The trigger is a backend that reuses per-turn ids such as `call_0`.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/agents/tool-call-id.ts",
+   "line": 286,
+   "claim": "An older tool result whose raw id matches a tool call in the latest assistant turn is skipped, while the older assistant call with that same id is still rewritten. The older call/result pair then no longer matches.",
+   "evidence": "Older assistant messages always go through rewriteAssistantToolCallIds (only `index === latestAssistantIndex` is skipped, line 270). But a toolResult anywhere in the transcript is skipped whenever `preservedLatestToolCallIds.has(toolResultId)` (line 286), so an older toolResult is skipped too, not just the latest turn's. Older assistant id `call_1` becomes `call1`, while the older toolResult keeps `toolCallId: \"call_1\"`.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/agents/tool-call-id.ts",
+     "line": 286,
+     "claim": "When an older turn reuses a raw tool-call id that also appears in the latest assistant turn, the older tool call is renamed but its tool result is left alone, so the older call/result pair no longer matches and the provider may reject the request.",
+     "evidence": "Older assistant messages always go through rewriteAssistantToolCallIds (only `index === latestAssistantIndex` is skipped, line 270). But a toolResult anywhere in the transcript is skipped whenever `preservedLatestToolCallIds.has(toolResultId)` (line 286), so an older toolResult is skipped too, not just the latest turn's. Older assistant id `call_1` becomes `call1`, while the older toolResult keeps `toolCallId: \"call_1\"`."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/agents/tool-call-id.ts",
+     "line": 282,
+     "claim": "A tool result is preserved whenever its ID matches any tool call in the latest assistant turn, regardless of where the result appears. If an earlier assistant turn reused the same raw ID (some OpenAI-compatible backends emit per-turn IDs like `call_0`), that older assistant's call is rewritten to the sanitized ID but its matching older tool result keeps the raw ID. The earlier pair is broken and the result becomes orphaned or misattributed. Only preserve tool results that come after `latestAssistantIndex`.",
+     "evidence": "A tool result is preserved whenever its ID matches any tool call in the latest assistant turn, regardless of where the result appears. If an earlier assistant turn reused the same raw ID (some OpenAI-compatible backends emit per-turn IDs like `call_0`), that older assistant's call is rewritten to the sanitized ID but its matching older tool result keeps the raw ID. The earlier pair is broken and the result becomes orphaned or misattributed. Only preserve tool results that come after `latestAssistantIndex`."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "P1",
+    "R1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Lines 242-261 add the preserved ids only to preservedLatestToolCallIds. makeUniqueToolId (:103-148) dedupes only against `used`. So an older `a_b` sanitizes to `ab` and collides with a preserved latest `ab`, which undoes the collision guarantee in the comment at :226-227.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/agents/tool-call-id.ts",
+   "line": 242,
+   "claim": "The latest turn's preserved tool-call ids are never added to `used`, so an older id can be rewritten into an id the preserved turn already uses, leaving duplicate tool-call ids.",
+   "evidence": "`resolve` calls makeUniqueToolId({ id, used, mode }), and makeUniqueToolId dedupes only against `used`. The preserve block (lines 244-261) adds the latest ids only to `preservedLatestToolCallIds`, not to `used` or `map`. For example, in strict mode an older id `a_b` sanitizes to `ab`, and a preserved latest id `ab` is then a duplicate. This undoes the collision guarantee the function's comment promises (\"de-duping via suffix\").",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/agents/tool-call-id.ts",
+     "line": 242,
+     "claim": "The latest turn's preserved ids are never put in the `used` set, so a rewritten older id can come out identical to a preserved latest id, leaving duplicate tool-call ids in the transcript.",
+     "evidence": "`resolve` calls makeUniqueToolId({ id, used, mode }), and makeUniqueToolId dedupes only against `used`. The preserve block (lines 244-261) adds the latest ids only to `preservedLatestToolCallIds`, not to `used` or `map`. For example, in strict mode an older id `a_b` sanitizes to `ab`, and a preserved latest id `ab` is then a duplicate. This undoes the collision guarantee the function's comment promises (\"de-duping via suffix\")."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/agents/tool-call-id.ts",
+     "line": 242,
+     "claim": "The tool-call IDs on the preserved latest assistant turn are never added to the `used` set. `resolve()` can therefore turn an older ID into one that already exists unchanged in the latest turn. Example: an older `call_1` becomes `call1` while the latest turn already uses `call1`, or under strict9 a truncated or hashed ID collides with a preserved ID. The transcript then has duplicate tool IDs, results pair with the wrong call, and the provider can reject the request. Before mapping, add the preserved IDs to `used`, and map each one to itself.",
+     "evidence": "The tool-call IDs on the preserved latest assistant turn are never added to the `used` set. `resolve()` can therefore turn an older ID into one that already exists unchanged in the latest turn. Example: an older `call_1` becomes `call1` while the latest turn already uses `call1`, or under strict9 a truncated or hashed ID collides with a preserved ID. The transcript then has duplicate tool IDs, results pair with the wrong call, and the provider can reject the request. Before mapping, add the preserved IDs to `used`, and map each one to itself."
+    },
+    {
+     "id": "R1",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "src/agents/tool-call-id.ts",
+     "line": 258,
+     "claim": "Reserve preserved tool-call IDs before sanitizing history",
+     "evidence": "When a historical ID sanitizes to an ID in the preserved latest turn (for example, historical `a_b` and latest `ab`), the historical call is rewritten to `ab` while the latest call remains `ab`. Because preserved IDs are never added to `used`, this introduces duplicate tool-call IDs and ambiguous result pairing, defeating the existing transcript-wide collision protection. Reserve the preserved IDs before resolving historical IDs so historical calls receive a unique alternative."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "transcript-policy.ts:106 and :110-116 do set preserveLatestAssistantTurn and strict sanitization together for Copilot Claude, and tool-call-id.ts:270 never checks isValidCloudCodeAssistToolId before preserving the ids. But nothing in the repo shows that Copilot rejects such ids, and replaying the latest turn as-is is the stated intent, so the impact is not settled.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/agents/pi-embedded-runner/google.ts",
+   "line": 436,
+   "claim": "For Copilot Claude, the latest assistant turn's tool-call ids are now sent unsanitized, even if that turn came from another provider and uses id characters Copilot may reject.",
+   "evidence": "resolveTranscriptPolicy sets `sanitizeToolCallIds` to true for Copilot Claude (the anthropic/openai-completions branch) and also sets `preserveLatestAssistantTurn = isCopilotClaude`. sanitizeSessionHistory passes both to sanitizeSessionMessagesImages, which now skips rewriting the latest assistant message whatever model produced it. Nothing checks isValidCloudCodeAssistToolId before preserving the ids. sanitizeSessionHistory also reads a model snapshot (`modelChanged`), so a session can switch providers mid-way.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/agents/pi-embedded-runner/google.ts",
+     "line": 436,
+     "claim": "Session-history sanitization now sends the latest assistant turn's tool-call ids unsanitized to Copilot Claude, even when that turn came from a different provider earlier in the session, so ids in a format Copilot rejects (e.g. containing `|` or `:`) may now reach the request.",
+     "evidence": "resolveTranscriptPolicy sets `sanitizeToolCallIds` to true for Copilot Claude (the anthropic/openai-completions branch) and also sets `preserveLatestAssistantTurn = isCopilotClaude`. sanitizeSessionHistory passes both to sanitizeSessionMessagesImages, which now skips rewriting the latest assistant message whatever model produced it. Nothing checks isValidCloudCodeAssistToolId before preserving the ids. sanitizeSessionHistory also reads a model snapshot (`modelChanged`), so a session can switch providers mid-way."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "P3"
+   ],
+   "verdict": "disputed",
+   "reason": "images.ts:116-149 still filters whitespace-only text blocks and runs stripThoughtSignatures on every assistant message. That code is unchanged by this diff, though, and stripThoughtSignatures (bootstrap.ts:58-61) only drops `msg_`-prefixed thought_signature fields. That Copilot replays are actually broken by it is speculative, so I lowered this from medium to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/agents/pi-embedded-helpers/images.ts",
+   "line": 100,
+   "claim": "In full mode, sanitizeSessionMessagesImages still rewrites the latest assistant turn (strips signatures, drops whitespace-only text, can drop the message), which contradicts the verbatim goal.",
+   "evidence": "`sanitizeSessionMessagesImages` still rewrites the latest assistant turn even when `preserveLatestAssistantTurn` is set. In `full` mode, which Copilot Claude gets through the anthropic-messages path, it runs `stripThoughtSignatures`, drops whitespace-only text blocks, re-encodes images, and can drop the whole message when the content ends up empty. In every mode it rebuilds the object. That contradicts the PR's stated goal of replaying the latest turn verbatim, and it is the likely cause of the follow-up the author already anticipates, where staging keeps failing. Skip non-image and assistant rewrites for the latest assistant index when the flag is set, or make sure they cannot change content.",
+   "members": [
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/agents/pi-embedded-helpers/images.ts",
+     "line": 100,
+     "claim": "`sanitizeSessionMessagesImages` still rewrites the latest assistant turn even when `preserveLatestAssistantTurn` is set. In `full` mode, which Copilot Claude gets through the anthropic-messages path, it runs `stripThoughtSignatures`, drops whitespace-only text blocks, re-encodes images, and can drop the whole message when the content ends up empty. In every mode it rebuilds the object. That contradicts the PR's stated goal of replaying the latest turn verbatim, and it is the likely cause of the follow-up the author already anticipates, where staging keeps failing. Skip non-image and assistant rewrites for the latest assistant index when the flag is set, or make sure they cannot change content.",
+     "evidence": "`sanitizeSessionMessagesImages` still rewrites the latest assistant turn even when `preserveLatestAssistantTurn` is set. In `full` mode, which Copilot Claude gets through the anthropic-messages path, it runs `stripThoughtSignatures`, drops whitespace-only text blocks, re-encodes images, and can drop the whole message when the content ends up empty. In every mode it rebuilds the object. That contradicts the PR's stated goal of replaying the latest turn verbatim, and it is the likely cause of the follow-up the author already anticipates, where staging keeps failing. Skip non-image and assistant rewrites for the latest assistant index when the flag is set, or make sure they cannot change content."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "tool-call-id.ts:250 accepts any message with role `assistant`, while thinking.ts:36 requires isAssistantMessageWithContent (array content). If the last assistant message has string content, the two passes preserve different turns. This is an edge case, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/agents/tool-call-id.ts",
+   "line": 250,
+   "claim": "tool-call-id and dropThinkingBlocks choose the 'latest assistant turn' by different rules, so they can preserve different messages.",
+   "evidence": "tool-call-id.ts takes any message with `role === \"assistant\"` (line 250). thinking.ts dropThinkingBlocks uses isAssistantMessageWithContent, which also requires `Array.isArray(message.content)`. If the last assistant message has string content, tool-call-id preserves it and rewrites the earlier tool-calling assistant turn, while dropThinkingBlocks preserves that earlier turn.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/agents/tool-call-id.ts",
+     "line": 250,
+     "claim": "The rule for picking the 'latest assistant turn' differs from dropThinkingBlocks, so the two passes can preserve different messages and break the doc's promise that one latest turn is kept verbatim.",
+     "evidence": "tool-call-id.ts takes any message with `role === \"assistant\"` (line 250). thinking.ts dropThinkingBlocks uses isAssistantMessageWithContent, which also requires `Array.isArray(message.content)`. If the last assistant message has string content, tool-call-id preserves it and rewrites the earlier tool-calling assistant turn, while dropThinkingBlocks preserves that earlier turn."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching *.test.ts for preserveLatestAssistantTurn finds only thinking.test.ts and transcript-policy.test.ts. No test calls sanitizeToolCallIdsForCloudCodeAssist with the new options argument.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/agents/tool-call-id.ts",
+   "line": 222,
+   "claim": "The new preserveLatestAssistantTurn branch in tool-call-id sanitization has no tests, including none for the collision and id-reuse cases.",
+   "evidence": "The diff changes only docs, images.ts, google.ts, attempt.ts and tool-call-id.ts. Searching for `preserveLatestAssistantTurn` turns up tests only in thinking.test.ts and transcript-policy.test.ts. No test calls sanitizeToolCallIdsForCloudCodeAssist with the new options argument.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/agents/tool-call-id.ts",
+     "line": 222,
+     "claim": "The diff adds a new branch to tool-call-id sanitization with no test: nothing covers the latest assistant turn and its paired results keeping their ids while older turns are rewritten, or the collision and id-reuse cases.",
+     "evidence": "The diff changes only docs, images.ts, google.ts, attempt.ts and tool-call-id.ts. Searching for `preserveLatestAssistantTurn` turns up tests only in thinking.test.ts and transcript-policy.test.ts. No test calls sanitizeToolCallIdsForCloudCodeAssist with the new options argument."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/agents/tool-call-id.ts",
+     "line": 219,
+     "claim": "The new `preserveLatestAssistantTurn` behavior has no unit tests. That covers preserving the latest assistant turn, preserving its paired tool results, and the collision and ID-reuse edge cases above. The PR also says nothing was run locally, so CI will only exercise this through existing tests that never set the flag.",
+     "evidence": "The new `preserveLatestAssistantTurn` behavior has no unit tests. That covers preserving the latest assistant turn, preserving its paired tool results, and the collision and ID-reuse edge cases above. The PR also says nothing was run locally, so CI will only exercise this through existing tests that never set the flag."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The doc line was added in this diff, and the code at tool-call-id.ts:286 and :242-261 does not deliver the matching guarantee in the reuse and collision cases above (C1/P2 and C2/P1/R1). This is a documentation inaccuracy, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "docs/reference/transcript-hygiene.md",
+   "line": 114,
+   "claim": "The new doc line promises that replayed tool calls stay matched, but the id-reuse and collision cases break that.",
+   "evidence": "See tool-call-id.ts lines 286 (the membership check applies to every toolResult in the transcript) and 242-261 (preserved ids are never added to `used`).",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "docs/reference/transcript-hygiene.md",
+     "line": 114,
+     "claim": "The new doc line says the latest turn's paired tool-result ids are preserved \"so replayed tool calls stay matched\", but the code also skips older tool results with the same raw id and does not reserve preserved ids against collisions, so the matching guarantee does not hold in general.",
+     "evidence": "See tool-call-id.ts lines 286 (the membership check applies to every toolResult in the transcript) and 242-261 (preserved ids are never added to `used`)."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "P5"
+   ],
+   "verdict": "confirmed",
+   "reason": "tool-call-id.ts:213-218 documents only `messages` and `mode`. It says nothing about `options.preserveLatestAssistantTurn` leaving ids unsanitized. This is documentation only, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/agents/tool-call-id.ts",
+   "line": 213,
+   "claim": "The JSDoc for sanitizeToolCallIdsForCloudCodeAssist does not describe the new `options` parameter.",
+   "evidence": "The JSDoc for `sanitizeToolCallIdsForCloudCodeAssist` doesn't describe the new `options` parameter. It should say that with `preserveLatestAssistantTurn`, the latest assistant turn's tool-call IDs are left unchanged even if they don't meet the provider's ID format.",
+   "members": [
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/agents/tool-call-id.ts",
+     "line": 213,
+     "claim": "The JSDoc for `sanitizeToolCallIdsForCloudCodeAssist` doesn't describe the new `options` parameter. It should say that with `preserveLatestAssistantTurn`, the latest assistant turn's tool-call IDs are left unchanged even if they don't meet the provider's ID format.",
+     "evidence": "The JSDoc for `sanitizeToolCallIdsForCloudCodeAssist` doesn't describe the new `options` parameter. It should say that with `preserveLatestAssistantTurn`, the latest assistant turn's tool-call IDs are left unchanged even if they don't meet the provider's ID format."
+    }
+   ],
+   "id": "F8"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:tests"
+  ],
+  "review": []
+ }
+}

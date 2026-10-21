@@ -1,0 +1,22 @@
+# factory's pinned semgrep rules, run by the gate alongside the configured ruleset.
+# Registry rulesets missed SQL built from template strings in .prepare()/.exec() (calibration fixture 08).
+rules:
+  - id: factory.sql-built-from-strings
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      Query text built by interpolation or concatenation is passed to $METHOD. Bind values as
+      parameters (?) instead: interpolated input can change what the query does (SQL injection).
+    metadata:
+      cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command"
+      source: factory pinned ruleset
+    patterns:
+      - pattern-either:
+          - pattern: $DB.$METHOD(`...${$X}...`, ...)
+          - pattern: $DB.$METHOD("..." + $X, ...)
+          - pattern: $DB.$METHOD($X + "...", ...)
+          - pattern: $DB.$METHOD('...' + $X, ...)
+          - pattern: $DB.$METHOD($X + '...', ...)
+      - metavariable-regex:
+          metavariable: $METHOD
+          regex: ^(prepare|exec|query|execute|raw)$

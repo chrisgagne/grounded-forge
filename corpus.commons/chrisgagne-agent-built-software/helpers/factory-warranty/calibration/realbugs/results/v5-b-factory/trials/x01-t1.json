@@ -1,0 +1,101 @@
+{
+ "id": "x01",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 1.021,
+ "codex_tokens": 55982,
+ "work": "<tmp>/replay-x01-t1-kffoi69g",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "parsetext.ts:129 now calls AT() after 'weekday(s)', so byhour=[10] is set. In totext.ts the new _byhour() call (285-287) is inside WEEKLY's final else, and the isWeekdays/isEveryDay branches (257-270) never render the hour. isFullyConvertible returns true once it reaches 'freq' (line 142), which comes first for string-parsed rules, so toText() returns 'every weekday' and the hour is lost without any warning. Traced trigger: RRule.fromText('every weekday at 10').toText().",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/nlp/totext.ts",
+   "line": 257,
+   "claim": "WEEKLY toText drops BYHOUR for weekday and every-day rules, so 'every weekday at 10' round-trips to 'every weekday' with no approximate marker.",
+   "evidence": "parsetext.ts:128-130 now calls AT() in the 'weekday(s)' case, so RRule.fromText('Every weekday at 10') gives FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=10. In WEEKLY() (totext.ts:257-270) the isWeekdays and isEveryDay branches only add 'weekday(s)'/'day(s)'. The new `if (this.origOptions.byhour) this._byhour()` sits inside the final `else` (lines 271-288), so toText() returns 'every weekday' with no 'at 10'. isFullyConvertible returns true early when it reaches the 'freq' key (line 142), which comes first in options parsed from strings, so no '(~ approximate)' is appended.",
+   "breaks": "story",
+   "axis_row": "L6.20",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "index.ts:115 sets WEEKLY to `common`, which has no 'byhour' (lines 102-109), unlike DAILY at line 114. isFullyConvertible (totext.ts:141-143) returns false on the first key not in the list unless 'freq' comes first, so new RRule({byhour:[10], byweekday:[RRule.SU], freq: RRule.WEEKLY}).toText() adds ' (~ approximate)' to complete text.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/nlp/index.ts",
+   "line": 115,
+   "claim": "IMPLEMENTED[WEEKLY] omits 'byhour', so weekly rules whose options list byhour before freq are wrongly marked '(~ approximate)' even though the hour is now rendered.",
+   "evidence": "`ToText.IMPLEMENTED[Frequency.WEEKLY] = common` and `common` has no 'byhour', unlike DAILY (`['byhour'].concat(common)`). isFullyConvertible (totext.ts:141-144) returns false on the first key not in the list, unless it reaches 'freq' first. So for new RRule({byhour:[10], byweekday:[RRule.SU], freq: RRule.WEEKLY}).toText() it returns false, and ' (~ approximate)' is appended to text that is in fact complete.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the weekday-name case AT() runs before MDAYs() (parsetext.ts:203-204), so an 'at' after the monthday reaches F() (427-438), which ignores it. In the 'week(s)' case ON() runs before AT() (136-137). With 'at 10 on monday', ON() returns at once because the symbol is 'at', and F() ignores the trailing 'on monday'. Nothing raises an error for the unparsed text.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/nlp/parsetext.ts",
+   "line": 203,
+   "claim": "AT() is accepted in only one position, so 'every monday on the 3rd at 10' drops the hour and 'every week at 10 on monday' drops the weekday, with no error.",
+   "evidence": "In the weekday-name case, AT() runs before MDAYs() (lines 203-205). After MDAYs the 'at' token reaches F(), which ignores it, and parseText returns options without byhour. In the 'week(s)' case, ON() runs before AT() (lines 136-138). With 'at 10 on monday', ON() returns at once because the symbol is 'at', AT() takes 10, and F() ignores 'on monday', so byweekday is lost. Nothing raises an error for the unparsed trailing text.",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "disputed",
+   "reason": "parsetext.ts:142-172 calls ON() then F() with no AT() in these cases, so the claim holds in code. But this is unchanged baseline behaviour, and story.md is not in the packet, so I can't tell whether these frequencies were in scope.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/nlp/parsetext.ts",
+   "line": 142,
+   "claim": "The hour, minute, month and year cases still take no 'at N', so 'every month at 10' silently drops the hour.",
+   "evidence": "The 'hour(s)', 'minute(s)', 'month(s)' and 'year(s)' cases (lines 142-172) call ON() then F() with no AT(). The trailing 'at N' is left unconsumed and parseText returns options without byhour.",
+   "axis_row": "L6.20",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only parsetext.ts and totext.ts. The texts table in test/nlp.test.ts:7-34 has 'Every weekday' and 'Every week on Sunday at 10, 12 and 17' but no weekday-plus-hour case, and adding one would fail the toText() round trip in lines 45-54. This is a test gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/nlp.test.ts",
+   "line": 19,
+   "claim": "No tests were added for the new parse paths (weekday at N, weekday-name at N, week on X at N), so the toText hour loss goes uncaught.",
+   "evidence": "diff.patch changes only src/nlp/parsetext.ts and src/nlp/totext.ts. The texts table in test/nlp.test.ts has 'Every weekday' (line 19) and 'Every week on Sunday at 10, 12 and 17' (line 11) but no weekday-plus-hour or weekday-name-plus-hour case. A round-trip entry such as ['Every weekday at 10', 'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=10'] would fail the toText() test.",
+   "axis_row": "L5.24",
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

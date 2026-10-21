@@ -1,0 +1,24 @@
+{
+ "id": "rc09",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 37,
+   "end_line": 55,
+   "message": "Behavior Change. `CircleIcon` now renders a horizontal `line` whenever no fill color resolves. Before, it rendered an unfilled, stroked circle.\n\nThis affects every circle legend step that defines only a stroke, for example `circle-stroke-color` or `color` with no `fill-color` or `circle-color`. Those hollow-ring markers will silently become line markers, both in `SimpleLegend` and anywhere else `CircleIcon` is used.\n\nIf the line rendering is meant only for line-type layers, consider a separate shape or an explicit prop instead of keying off a missing fill."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 15,
+  "usage": {
+   "prompt_tokens": 5680,
+   "completion_tokens": 856,
+   "total_tokens": 6536
+  },
+  "security_concern": false
+ }
+}

@@ -1,0 +1,229 @@
+diff --git a/docs/THEORY.md b/docs/THEORY.md
+index a9cd95f..210532f 100644
+--- a/docs/THEORY.md
++++ b/docs/THEORY.md
+@@ -11,7 +11,7 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ - `src/router.js`, `src/http.js`: a small router and JSON helpers. Route handlers run in order; a handler that ends the response stops the chain, which is how `requireSession` guards routes.
+ - `src/auth/`: passwords (scrypt), server-side sessions, the `requireSession` guard, and the signup, login and logout routes.
+ - `src/users/`: the profile: repository, validation and the `/me` routes.
+-- `src/notes/`: notes and tags: repository and the `/notes` routes.
++- `src/notes/`: notes and tags: repository and the `/notes` routes. Notes can be created, listed, read and edited; editing bumps `updatedAt` and keeps `createdAt`.
+ - `src/llm/`: the summary assistant: the provider client, the tool dispatcher, the summary loop and the `/notes/summary` route.
+ - `src/mail/`: the mail provider client.
+ - `src/db/` and `migrations/`: the SQLite connection (`node:sqlite`) and the up/down migration runner.
+@@ -19,7 +19,7 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ 
+ ## Invariants
+ 
+-**T1. Data is scoped to the session's user.** Every read or write of a profile or a note is scoped to `req.user.id` in the SQL itself. No route takes a user id from the request. A note that belongs to someone else is answered exactly like a missing note (404).
++**T1. Data is scoped to the session's user.** Every read or write of a profile or a note is scoped to `req.user.id` in the SQL itself. No route takes a user id from the request. A note that belongs to someone else is answered exactly like a missing note (404), for reads and edits alike, and an edit to it changes nothing.
+ 
+ **T2. Sessions are server-side and expire on a fixed clock.** The cookie holds a random 256-bit token; the database holds only its SHA-256. A session ends 7 days after login (`SESSION_TTL_DAYS`), whether or not it is used; an expired session is deleted when it is next presented. Logout deletes the session row. The cookie is `HttpOnly; Secure; SameSite=Lax`.
+ 
+@@ -56,4 +56,5 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ | `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. |
+ | `POST /notes` | yes | Create a note (`title`, `body`, up to 10 `tags`). |
+ | `GET /notes/:id` | yes | One of your notes. |
++| `PATCH /notes/:id` | yes | Change the `title`, `body` or `tags` of one of your notes; fields you leave out stay as they were, and `tags` replaces the note's tags. |
+ | `POST /notes/summary` | yes | Summarise your 50 newest notes (optionally one `tag`); `email: true` also emails you the summary. |
+diff --git a/src/notes/repo.js b/src/notes/repo.js
+index 6358961..bfa650b 100644
+--- a/src/notes/repo.js
++++ b/src/notes/repo.js
+@@ -64,3 +64,31 @@ export function createNote(db, userId, { title, body, tags, now }) {
+     return getNote(db, userId, noteId);
+   });
+ }
++
++/**
++ * Changes the given fields of one of the user's notes. Tags, when given, replace the note's tags.
++ * Returns null when the user has no note with that id.
++ * @param {any} db
++ * @param {number} userId
++ * @param {number} noteId
++ * @param {{ title?: string, body?: string, tags?: string[], now: number }} changes
++ */
++export function updateNote(db, userId, noteId, { title, body, tags, now }) {
++  return transaction(db, () => {
++    const current = getNote(db, userId, noteId);
++    if (!current) return null;
++    db.prepare('UPDATE notes SET title = ?, body = ?, updated_at = ? WHERE id = ? AND user_id = ?').run(
++      title ?? current.title,
++      body ?? current.body,
++      now,
++      noteId,
++      userId,
++    );
++    if (tags) {
++      db.prepare('DELETE FROM note_tags WHERE note_id = ?').run(noteId);
++      const insertTag = db.prepare('INSERT INTO note_tags (note_id, tag) VALUES (?, ?)');
++      for (const tag of tags) insertTag.run(noteId, tag);
++    }
++    return getNote(db, userId, noteId);
++  });
++}
+diff --git a/src/notes/routes.js b/src/notes/routes.js
+index d8cb0ff..3321f24 100644
+--- a/src/notes/routes.js
++++ b/src/notes/routes.js
+@@ -1,23 +1,54 @@
+ import { HttpError, sendJson } from '../http.js';
+-import { createNote, getNote, listNotes } from './repo.js';
++import { createNote, getNote, listNotes, updateNote } from './repo.js';
+ 
+ export const DEFAULT_PAGE_SIZE = 20;
+ export const MAX_PAGE_SIZE = 100;
+ const TAG = /^[a-z0-9][a-z0-9-]{0,31}$/;
+ 
+-/** @param {Record<string, any>} body */
+-export function validateNoteInput(body) {
+-  const title = typeof body.title === 'string' ? body.title.trim() : '';
++/** @param {unknown} value */
++function validateTitle(value) {
++  const title = typeof value === 'string' ? value.trim() : '';
+   if (title.length === 0 || title.length > 200) throw new HttpError(400, 'title must be 1 to 200 characters');
+-  const text = body.body ?? '';
+-  if (typeof text !== 'string' || text.length > 20_000) {
++  return title;
++}
++
++/** @param {unknown} value */
++function validateBody(value) {
++  if (typeof value !== 'string' || value.length > 20_000) {
+     throw new HttpError(400, 'body must be text of at most 20000 characters');
+   }
+-  const tags = body.tags ?? [];
+-  if (!Array.isArray(tags) || tags.length > 10 || !tags.every((tag) => typeof tag === 'string' && TAG.test(tag))) {
++  return value;
++}
++
++/** @param {unknown} value */
++function validateTags(value) {
++  if (!Array.isArray(value) || value.length > 10 || !value.every((tag) => typeof tag === 'string' && TAG.test(tag))) {
+     throw new HttpError(400, 'tags must be at most 10 lowercase words (a-z, 0-9 and -)');
+   }
+-  return { title, body: text, tags: [...new Set(tags)] };
++  return [...new Set(value)];
++}
++
++/** @param {Record<string, any>} body */
++export function validateNoteInput(body) {
++  return {
++    title: validateTitle(body.title),
++    body: validateBody(body.body ?? ''),
++    tags: validateTags(body.tags ?? []),
++  };
++}
++
++/**
++ * Validates a partial update: only the fields present are checked and returned.
++ * @param {Record<string, any>} body
++ */
++export function validateNoteChanges(body) {
++  /** @type {{ title?: string, body?: string, tags?: string[] }} */
++  const changes = {};
++  if ('title' in body) changes.title = validateTitle(body.title);
++  if ('body' in body) changes.body = validateBody(body.body);
++  if ('tags' in body) changes.tags = validateTags(body.tags);
++  if (Object.keys(changes).length === 0) throw new HttpError(400, 'Send at least one of title, body or tags');
++  return changes;
+ }
+ 
+ /** @param {Record<string, string>} query */
+@@ -65,4 +96,13 @@ export function noteRoutes(router, { db, auth, now }) {
+     if (!note) return sendJson(res, 404, { error: 'Note not found' });
+     sendJson(res, 200, { note: toNoteResponse(note) });
+   });
++
++  router.patch('/notes/:id', auth, (req, res) => {
++    const id = Number(req.params.id);
++    if (!Number.isInteger(id)) return sendJson(res, 404, { error: 'Note not found' });
++    const changes = validateNoteChanges(req.body);
++    const note = updateNote(db, req.user.id, id, { ...changes, now: now() });
++    if (!note) return sendJson(res, 404, { error: 'Note not found' });
++    sendJson(res, 200, { note: toNoteResponse(note) });
++  });
+ }
+diff --git a/test/notes-edit.test.js b/test/notes-edit.test.js
+new file mode 100644
+index 0000000..0da5380
+--- /dev/null
++++ b/test/notes-edit.test.js
+@@ -0,0 +1,77 @@
++import assert from 'node:assert/strict';
++import { test } from 'node:test';
++import { DAY, addNote, alice, bob, signUpAndLogIn, startTestApp } from './helpers/app.js';
++
++test('edits the title and body of a note', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const note = await addNote(app, cookie, { title: 'Quartely plan', body: 'Ship export.', tags: ['work'] });
++  const res = await app.request('PATCH', `/notes/${note.id}`, { cookie, body: { title: 'Quarterly plan', body: 'Ship export in May.' } });
++  assert.equal(res.status, 200);
++  assert.equal(res.body.note.title, 'Quarterly plan');
++  assert.equal(res.body.note.body, 'Ship export in May.');
++  assert.deepEqual(res.body.note.tags, ['work']);
++  const again = await app.request('GET', `/notes/${note.id}`, { cookie });
++  assert.equal(again.body.note.title, 'Quarterly plan');
++});
++
++test('replaces the tags of a note and leaves other fields alone', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const note = await addNote(app, cookie, { title: 'Retro', body: 'Went well.', tags: ['work', 'team'] });
++  const res = await app.request('PATCH', `/notes/${note.id}`, { cookie, body: { tags: ['team', 'q3', 'q3'] } });
++  assert.equal(res.status, 200);
++  assert.deepEqual(res.body.note.tags, ['q3', 'team']);
++  assert.equal(res.body.note.title, 'Retro');
++  assert.equal(res.body.note.body, 'Went well.');
++  const tagged = await app.request('GET', '/notes?tag=work', { cookie });
++  assert.deepEqual(tagged.body.notes, []);
++});
++
++test('an edit moves updatedAt and keeps createdAt', async (t) => {
++  let clock = Date.parse('2026-04-01T08:00:00Z');
++  const app = await startTestApp({ now: () => clock });
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const note = await addNote(app, cookie, { title: 'Draft' });
++  clock += DAY;
++  const res = await app.request('PATCH', `/notes/${note.id}`, { cookie, body: { body: 'Now with text.' } });
++  assert.equal(res.body.note.createdAt, '2026-04-01T08:00:00.000Z');
++  assert.equal(res.body.note.updatedAt, '2026-04-02T08:00:00.000Z');
++});
++
++test('validates edits like new notes', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const note = await addNote(app, cookie, { title: 'Keep me' });
++  for (const body of [{}, { title: '   ' }, { body: 42 }, { tags: ['Not A Tag'] }, { tags: 'work' }]) {
++    const res = await app.request('PATCH', `/notes/${note.id}`, { cookie, body });
++    assert.equal(res.status, 400, JSON.stringify(body));
++  }
++  assert.equal((await app.request('GET', `/notes/${note.id}`, { cookie })).body.note.title, 'Keep me');
++});
++
++test('cannot edit someone else\'s note', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const aliceCookie = await signUpAndLogIn(app, alice);
++  const bobCookie = await signUpAndLogIn(app, bob);
++  const note = await addNote(app, aliceCookie, { title: 'Mine', tags: ['private'] });
++  const res = await app.request('PATCH', `/notes/${note.id}`, { cookie: bobCookie, body: { title: 'Yours now', tags: [] } });
++  assert.equal(res.status, 404);
++  const own = await app.request('GET', `/notes/${note.id}`, { cookie: aliceCookie });
++  assert.equal(own.body.note.title, 'Mine');
++  assert.deepEqual(own.body.note.tags, ['private']);
++});
++
++test('editing a note that does not exist answers 404', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  assert.equal((await app.request('PATCH', '/notes/9999', { cookie, body: { title: 'x' } })).status, 404);
++  assert.equal((await app.request('PATCH', '/notes/abc', { cookie, body: { title: 'x' } })).status, 404);
++  assert.equal((await app.request('PATCH', '/notes/1', { body: { title: 'x' } })).status, 401);
++});

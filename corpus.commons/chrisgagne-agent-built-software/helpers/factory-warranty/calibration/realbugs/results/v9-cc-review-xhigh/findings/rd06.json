@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/NightHawkATL/ntp-dashboard",
+  "pr_number": 96,
+  "base": "28cb0f12873107287c8f2ba7b7c330339d432c9c",
+  "head": "2378227172859b977f576fa1a1e3dfd4b52fa524"
+ },
+ "agent": "v5-cc-review-xhigh",
+ "findings": [
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "The 'Resolve source workflow run ID' step declares `env:` twice. The last commit (2378227) added the second one, and GitHub's workflow parser rejects duplicate mapping keys. After merge, GitHub reports \"'env' is already defined\" for this file. The workflow never runs, so neither the workflow_run trigger after the weekly scan nor manual dispatch produces a remediation issue. PyYAML loads the file without complaint, which hides the error locally."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 94,
+   "end_line": 94,
+   "message": "The if/elif chain now has two `else` clauses (lines 41 and 94). This is a bash syntax error, and bash parses the whole compound command before running any of it. Even with the env key fixed, the step dies with `syntax error near unexpected token 'else'` for every event, including workflow_run where the run ID is already known. Lines 42-93 duplicate lines 95-162 minus the date window. Delete one block."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "The heredocs inside the if/else are indented. After YAML strips 10 columns, the terminator line is `  PY`, which does not match the `<<'PY'` delimiter. Python also receives code indented by 2 spaces. Even after removing the duplicate else, bash reads the heredoc to end of file, swallowing `fi`, and fails with 'unexpected end of file'. If it got that far, `python -` would hit `IndentationError: unexpected indent` on `  import json`. Move the Python into an env-fed script, or dedent the body and the terminator to column 0 of the block."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 105,
+   "end_line": 105,
+   "message": "The runs API `branch` filter matches the run's head_branch. Scheduled runs of 'Weekly Grype Security Scan' always run on the default branch. The scan checks out pre-update-release through `ref:`, but that does not change head_branch. Dispatching without run_id queries runs where head_branch == pre-update-release. Scheduled runs have head_branch main, so nothing matches and the step exits with 'No successful runs found'. Drop the branch filter, or filter on `event=schedule`. Querying by workflow file name (`workflows/weekly-security-grype.yml/runs`) also removes the unpaginated lookup by name."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "`if: github.actor == 'dependabot[bot]'` checks who triggered the event, not who authored the PR. GitHub treats a skipped required check as passing. A maintainer pushes a fixup commit to a Dependabot branch, which fires a synchronize event with actor = maintainer. The guard job is skipped, the required check shows success, and the Dependabot PR merges without the Grype gate. Use `github.event.pull_request.user.login == 'dependabot[bot]'`."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 319,
+   "end_line": 319,
+   "message": "The issue step runs only when has_recommendations == 'true'. When every fixable vulnerability has been fixed, the existing open issue is never updated or closed. Week 1 opens an issue listing openssl -> 3.3.3. Week 2 fixes everything, so the step is skipped and the issue keeps asking for upgrades that are already done. Always run the step, and update or close the issue when there are no recommendations."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 202,
+   "end_line": 202,
+   "message": "The High/Critical regression check only compares match counts per severity between base and PR. A swap where one CVE is fixed and a different one is introduced looks like no change. A PR fixes CVE-A (High) in pkg1 but pulls in pkg2 with a new, unfixable CVE-B (High). High stays 1 -> 1, so there is no regression, and the underfixed check skips it because no fix exists. The PR passes with a new High. Compare sets of (vuln id, package) instead."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "`underfixed_updates` counts any package whose set of vulnerable versions changed. That includes OS packages that move only because the Docker base image changed, which Dependabot cannot pin. Dependabot bumps python:3.14-alpine3.21 to a newer digest. libcrypto3 goes from r0 to r1 but still has a High fixed in r2, so the job fails as 'underfixed', even if Highs dropped overall. The update that reduces vulnerabilities is blocked indefinitely."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 202,
+   "end_line": 202,
+   "message": "urllib's redirect handler copies every request header, including `Authorization: Bearer <GITHUB_TOKEN>`, onto the 302 redirect from archive_download_url to the blob storage host. The token is sent to a different host than api.github.com. Blob storage may also reject a request that carries both a SAS signature and a Bearer header (400/403), which would fail the download. `actions/download-artifact` with `run-id` and `github-token` replaces this whole step and handles the redirect correctly."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "`${{ inputs.run_id }}` is expanded straight into the script and into GITHUB_OUTPUT with no check that it is numeric. A run_id like `1\"; curl \u2026; echo \"` runs arbitrary commands in a job holding an issues:write token. A value containing a newline can inject extra step outputs. Pass the input via env and check it against `^[0-9]+$`."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 336,
+   "end_line": 336,
+   "message": "The existing issue is found by a case-insensitive title match over all open issues, with no check on author or label. Anyone who opens an issue titled 'grype remediation suggestions' gets its body silently overwritten by the bot, and that issue becomes the tracking target. The workflow also lists every open issue on each run. Filter by `creator: 'github-actions[bot]'` and a dedicated label."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 297,
+   "end_line": 297,
+   "message": "The `highest` ternary chain ends in 'Low', so packages whose fixable vulnerabilities are only Negligible or Unknown are reported as 'Low'. A package with only an Unknown-severity fixable CVE shows 'Highest severity: Low' in the issue, which misstates the risk. The snapshot counts above it also leave out Negligible and Unknown."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 149,
+   "end_line": 149,
+   "message": "Both queries use per_page=1 against an endpoint that returns runs newest-first. So the filtered query and the unfiltered fallback always return the same newest successful run. If a run exists in the last 7 days, it is also the newest overall. If none exists, the fallback returns the newest overall anyway. The extra request, the datetime math, and the 'same-week' comment add nothing. Keep one unfiltered query."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 173,
+   "end_line": 173,
+   "message": "`fixed_recommendations` and `fixed_high_critical_recommendations` are copy-paste apart from one severity filter. `recs = fixed_recommendations(pr)` is computed at line 159 and again at line 173. The `severities` set built in `vulnerable_pkg_versions` is never read. Changing how fixes are extracted means editing two near-identical functions, and the PR scan is walked an extra time. Use one `fixed_recommendations(doc, severities=None)`, compute it once, and drop the unused field."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "Every PR event, including github-actions ecosystem bumps that cannot change the image, builds the PR and base images one after the other and re-downloads the Grype DB with no cache. There is also no concurrency group to cancel superseded runs. Each weekly batch of Dependabot PRs, plus each rebase, runs two full docker builds and a DB download of a few hundred MB, even when only workflow files changed. Add a `paths:` filter (Dockerfile, requirements.txt), cache grype-db-cache with actions/cache, and add `concurrency` with cancel-in-progress."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 307000
+ }
+}

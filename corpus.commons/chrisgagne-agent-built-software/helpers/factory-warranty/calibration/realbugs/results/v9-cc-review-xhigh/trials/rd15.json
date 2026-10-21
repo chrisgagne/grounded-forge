@@ -1,0 +1,121 @@
+{
+ "id": "rd15",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "In an unquoted heredoc, `\\\"` is kept as-is, so the remote probe becomes `binary_path=\"$(command -v \\\"jq\\\" || true)\"`. Inside `$(...)` that `\\\"` is a literal quote character, so `command -v` searches for a file named `\"jq\"` (quotes included). For every non-wrapper entry (jq, rg, ffmpeg, uv, gh\u2026), `command -v '\"jq\"'` finds nothing, `binary_path` comes back empty, and the probe prints `missing_binary:jq` and exits 1. The first manifest entry (jq) then triggers `fail \"Failed to validate runtime binary jq\u2026\"`, so verify fails on every deploy, even healthy ones. Commit 19091e242 introduced this; plain `\"${binary}\"` (no backslashes) was what it meant to write."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 295,
+   "end_line": 295,
+   "message": "`gce_ssh` (gcloud compute ssh \u2192 OpenSSH with no `-n`) runs inside `while IFS= read -r entry_json; do \u2026 done <<< \"${entries_json}\"`. It inherits the loop's stdin and forwards all of it to the remote, so the remaining manifest entries are consumed after the first SSH call. Once the quoting bug is fixed, the first entry (jq) runs `gce_ssh`, ssh reads every remaining line of the here-string, and the next `read` hits EOF. The loop exits cleanly with only jq checked. gemini, gh, uv and the rest are never verified, and verify passes even if they are missing. The wrapper-path calls at lines 267/271 have the same problem. Fix: add `</dev/null` to gce_ssh, pass `--ssh-flag=-n`, or read entries on fd 3 or via mapfile."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 252,
+   "end_line": 252,
+   "message": "The list of binaries to verify now comes from the CI runner's checkout (`${repo_root}/scripts/docker/runtime-binaries.json`), not from the manifest baked into the image. The in-image manifest is only checked with `test -f` and its contents are never read. verify.yml runs `actions/checkout@v4` with no ref, so it uses whatever branch the workflow was dispatched from, which can differ from the image built from `deployed_ref`. Verifying production (a daisy/main image) from daisy/dev, with a binary added or removed on dev, gives a false failure for the new binary or silently skips one the image actually ships. The old probe always checked the image against its own manifest."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 358,
+   "end_line": 358,
+   "message": "`runtime_wrapper_bin=\"${OPENCLAW_RUNTIME_WRAPPER_BIN:-/opt/daisy/bin}\"` is now read on the CI runner. The old probe read it inside the container, where the Dockerfile sets `ENV OPENCLAW_RUNTIME_WRAPPER_BIN`. If an image sets OPENCLAW_RUNTIME_WRAPPER_BIN to another directory (or the sandbox and app images differ), verify checks `/opt/daisy/bin/gemini` and reports a false missing-wrapper failure. It could also pass on a stale file at the default path. The image's own setting is ignored."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 224,
+   "end_line": 224,
+   "message": "The sandbox-image probe used to run `sh -lc`, which matches how sandboxed agents run commands (`/bin/sh -lc` in src/agents/bash-tools.shared.ts:85; /etc/profile resets PATH). The new code uses `sh -c` and direct exec, so it no longer tests the PATH agents actually get. For the non-root `sandbox` user, Debian /etc/profile resets PATH to `/usr/local/bin:/usr/bin:/bin:\u2026`, which drops `/opt/daisy/bin` from the Docker ENV PATH. A binary reachable only through the image ENV PATH now passes verify but is `command not found` when an agent calls it in the sandbox."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "To make wrapper-backed binaries exec directly, the whole in-container probe was replaced with a host-side loop: one SSH and docker call per binary, a repo-side manifest, and runner-side env. The underlying fix was a one-line change in the old in-container script: run `\"${binary_path}\" args` instead of `sh -c \"${resolved_smoke_command}\"`. The broader rewrite is where the regressions above come from: the stdin-consuming ssh loop, the manifest source-of-truth change, the runner-side wrapper env, and the login-shell drop. It also adds about 170 lines of command builders. A narrow fix inside the single remote probe would avoid all of them and keep one round trip per target."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 258,
+   "end_line": 258,
+   "message": "Each manifest entry now costs one IAP SSH session (two for wrapper entries), plus two more per target for the manifest and arch checks. In image mode each of those is also a `docker run --rm` container start. The old probe did all of this in a single SSH call. With 12 amd64 entries, that is about 15 IAP SSH sessions for the gateway and about 15 more, each with a cold container start, for the sandbox image. At several seconds per IAP handshake, verify gets minutes slower and is more exposed to transient IAP failures. Batching all non-wrapper checks into one remote script keeps it to one call per target."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "`[[ \"${smoke_suffix}\" == *'\\\\'* ]]` treats the single-quoted `\\\\` as a literal two-character string, so it only rejects suffixes with two backslashes in a row. A single backslash gets through. The same pattern is copied at line 196. A manifest smoke like `gemini --flag a\\b` passes the 'complex suffix' guard that was meant to reject it. `printf %q` then escapes it, so the command runs with arguments that differ from what the manifest author wrote, and the guard does not do what its condition claims."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "`gce_ssh \"${manifest_check_command}\"` and `gce_ssh \"${wrapper_test_command}\"` run inside a function whose stdout is captured as `runtime_bins` / `sandbox_runtime_bins`. Their stdout is not redirected, so any gcloud/ssh banner text lands in the captured result. gcloud first-connection output, IAP warnings, or remote MOTD text written to stdout is mixed into the `arch=\u2026`/binary listing that gets printed to the CI log. That is the contamination gce_ssh_lastline exists to prevent; its comment warns this can leak key material into CI logs."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "`smoke_suffix=\"${smoke_command#${binary}}\"` leaves `${binary}` unquoted inside the parameter-expansion pattern, so glob characters in the binary name are treated as patterns, not literal text. The same code is at line 188. A manifest binary name containing `*`, `?` or `[` strips a different prefix than the `case` match checked, so the wrong arguments get passed to the direct-exec smoke. Use `${smoke_command#\"${binary}\"}`."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "The `image` branch of build_target_direct_exec_command copies, line for line, the prefix-strip, the forbidden-character check and the `read -a` + `%q` loop from build_direct_exec_smoke_command. The container branch never uses the `smoke_suffix`, `arg` and `smoke_args` locals it declares. Fixes to the suffix rules (for example the backslash pattern bug) have to be made twice and will drift. One helper that returns the escaped argument string, with each mode adding its own `docker exec T path` or `docker run --entrypoint path T` prefix, removes about 25 duplicated lines."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 118,
+   "end_line": 118,
+   "message": "build_target_manifest_check_command, _arch_command, _wrapper_test_command, _shell_command and _direct_exec_command each repeat the same container/image `case`, differing only in the program and its arguments. Their `|| fail \"Failed to build \u2026 command\"` paths can't trigger, because mode is hard-coded at both call sites. About 100 lines of near-identical builders and dead error branches. A single `target_exec mode target program args\u2026` helper (container: `sudo docker exec T program args`; image: `sudo docker run --rm --entrypoint program T args`) does the same job."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 259,
+   "end_line": 259,
+   "message": "Each loop iteration starts three separate `printf | jq -r` pipelines to pull `.binary`, `.smoke` and `.install.wrapper.type` from the same entry. That is about 36 extra process forks per target for no benefit. One `jq -r '[.binary,.smoke,(.install.wrapper.type//\"\")]|@tsv'` before the loop, read with `IFS=$'\\t' read -r binary smoke_command wrapper_type`, does the same job."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 60,
+   "end_line": 60,
+   "message": "normalize_runtime_arch re-implements `normalize_arch` from scripts/docker/install-runtime-binaries.sh:11 (same amd64/x86_64 and arm64/aarch64 mapping). If the installer gains an architecture alias and verify doesn't, verify rejects a target that the installer supports. Moving the mapping into a small shared sourced file keeps the two in step."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "CLAUDE.md points to AGENTS.md, which says: \"Enforce Zero Trust, Least Privilege, and Test Driven (TDD) with Anti-Mock policies in planning and code development.\" The diff adds about 240 lines of new verification logic (command builders, suffix parsing, the per-entry loop) with no tests. Both high-severity bugs above (literal-quote `command -v` and the stdin-consuming ssh loop) would have been caught by a basic test that runs the generated probe or the loop against a fake multi-entry manifest. Without one, they only show up during a real staging or production verify."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 286,
+  "cost_usd": 1.3077954,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

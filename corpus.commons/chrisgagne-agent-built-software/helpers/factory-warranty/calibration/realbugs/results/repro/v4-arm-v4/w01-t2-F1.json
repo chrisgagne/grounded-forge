@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.0883754,
+  "duration_s": 107.3
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --import ./check/register.mjs check/eofnl.mjs {tree}",
+  "because": "On head, applyPatch('line1\\nline2\\nline3\\nline4', createPatch(...that, 'line1\\nline2\\nline3\\nline44')) returns 'line1\\nline2\\nline3\\nline44\\n' with an extra trailing newline, while base returns exactly the new text, so the new `break` breaks the round-trip when the last line changes and neither version ends in a newline."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "Index: test\n===================================================================\n--- test\n+++ test\n@@ -1,4 +1,4 @@\n line1\n line2\n line3\n-line4\n\\ No newline at end of file\n+line44\n\\ No newline at end of file\n\ngot      \"line1\\nline2\\nline3\\nline44\"\nexpected \"line1\\nline2\\nline3\\nline44\"\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "Index: test\n===================================================================\n--- test\n+++ test\n@@ -1,4 +1,4 @@\n line1\n line2\n line3\n-line4\n\\ No newline at end of file\n+line44\n\\ No newline at end of file\n\ngot      \"line1\\nline2\\nline3\\nline44\\n\"\nexpected \"line1\\nline2\\nline3\\nline44\"\nFAIL: round-trip does not reproduce new\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, applyPatch('line1\\nline2\\nline3\\nline4', createPatch(...that, 'line1\\nline2\\nline3\\nline44')) returns 'line1\\nline2\\nline3\\nline44\\n' with an extra trailing newline, while base returns exactly the new text, so the new `break` breaks the round-trip when the last line changes and neither version ends in a newline.",
+ "run": "v4-arm-v4",
+ "trial": "w01-t2",
+ "kind": "bug"
+}

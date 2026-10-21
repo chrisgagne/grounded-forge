@@ -1,0 +1,534 @@
+{
+ "id": "rc10",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:secrets",
+  "gate:deps",
+  "gate:sast",
+  "gate:invisible",
+  "gate:surface",
+  "gate:ratchet:semgrep_findings",
+  "gate:required",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 2.8773,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc10-t1-vuwxgmk8",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "R1"
+   ],
+   "verdict": "confirmed",
+   "reason": "dev-local.ts:281 always calls swapExpToBareMetalMode (docker stop exp-arolariu-ro), and BARE_METAL_SERVICES[\"setup-only\"] at line 250 is [], so nothing serves :5002. The launch config hard-sets EXP_PROXY_URL to that port. Lowered R1's high to medium because this only affects the local debug tooling.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": ".vscode/launch.json",
+   "line": 62,
+   "claim": "Launching \".NET API: Debug\" by itself runs dev-local --setup-only, which stops Docker exp and starts nothing on :5002, so the API's EXP_PROXY_URL=http://localhost:5002 config fetch has nothing to reach.",
+   "evidence": "launch.json:62 sets preLaunchTask \"Build: API for Debug\". In tasks.json that task has dependsOn [\"Infra: Setup Docker\"], which runs `npm run dev:local:setup` \u2192 scripts/dev-local.ts --setup-only. main() always calls swapExpToBareMetalMode(), which runs `docker stop exp-arolariu-ro`, and BARE_METAL_SERVICES[\"setup-only\"] is []. The config itself sets EXP_PROXY_URL to http://localhost:5002, and AddProxyConfiguration fetches Auth:JWT:Secret and the other keys at startup. Only the compound also starts exp. DEVELOPMENT.md still lists \".NET API: Debug\" as a standalone profile.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": ".vscode/launch.json",
+     "line": 62,
+     "claim": "Launching \".NET API: Debug\" on its own (root launch.json or backend workspace) stops the Docker exp container and starts nothing on port 5002, so the API it launches cannot fetch its startup config from EXP_PROXY_URL=http://localhost:5002.",
+     "evidence": "launch.json:62 sets preLaunchTask \"Build: API for Debug\". In tasks.json that task has dependsOn [\"Infra: Setup Docker\"], which runs `npm run dev:local:setup` \u2192 scripts/dev-local.ts --setup-only. main() always calls swapExpToBareMetalMode(), which runs `docker stop exp-arolariu-ro`, and BARE_METAL_SERVICES[\"setup-only\"] is []. The config itself sets EXP_PROXY_URL to http://localhost:5002, and AddProxyConfiguration fetches Auth:JWT:Secret and the other keys at startup. Only the compound also starts exp. DEVELOPMENT.md still lists \".NET API: Debug\" as a standalone profile."
+    },
+    {
+     "id": "R1",
+     "leg": "codex-review",
+     "severity": "high",
+     "file": "scripts/dev-local.ts",
+     "line": 278,
+     "claim": "Keep exp available during API debugger setup",
+     "evidence": "The API debug profile runs `dev:local:setup`, which unconditionally stops Docker exp but starts no replacement in `setup-only` mode. Consequently, launching the API debugger alone leaves its configured `http://localhost:5002` dependency unavailable. In the full-stack compound, setup can also stop Docker exp after the Python debugger has already attempted to bind its occupied port. Ensure exp startup and port release are ordered before launching its consumers."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "startStorage at line 106 brings up the whole Storage compose, and that compose maps exp-arolariu-ro to 5002:80. Only after that does line 281 stop it. In the compound, \"Python: exp FastAPI Debug\" has no preLaunchTask and binds 5002 at the same time. If compose fails, dockerCompose throws and main exits 1.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "scripts/dev-local.ts",
+   "line": 106,
+   "claim": "Every run does `docker compose up -d` on Storage (including exp on 5002) before stopping it, which races with the bare-metal exp debugger in the Full Stack compound.",
+   "evidence": "startStorage() runs `docker compose -f Storage/docker-compose.yml up -d`. That compose file defines service exp (container exp-arolariu-ro, ports \"5002:80\", with a build section), so it is started or built on every run. swapExpToBareMetalMode() stops it only afterwards. In the compounds (launch.json \"Full Stack: Website + API + exp\" and fullstack.code-workspace), \"Python: exp FastAPI Debug\" has no preLaunchTask and binds 127.0.0.1:5002 while the API's preLaunchTask is still running this sequence. If dockerCompose() throws, main() exits 1 and the API debug session never starts.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "scripts/dev-local.ts",
+     "line": 105,
+     "claim": "Each orchestrator run starts the Docker exp container again with `docker compose up -d` before stopping it. In the Full Stack compound the bare-metal exp launches at the same time as this preLaunchTask, so both may race for host port 5002 and either uvicorn or the compose step can fail.",
+     "evidence": "startStorage() runs `docker compose -f Storage/docker-compose.yml up -d`. That compose file defines service exp (container exp-arolariu-ro, ports \"5002:80\", with a build section), so it is started or built on every run. swapExpToBareMetalMode() stops it only afterwards. In the compounds (launch.json \"Full Stack: Website + API + exp\" and fullstack.code-workspace), \"Python: exp FastAPI Debug\" has no preLaunchTask and binds 127.0.0.1:5002 while the API's preLaunchTask is still running this sequence. If dockerCompose() throws, main() exits 1 and the API debug session never starts."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "R2"
+   ],
+   "verdict": "confirmed",
+   "reason": "waitForHealth (line 75) accepts only response.ok, and line 125 fetches /devstoreaccount1?comp=list with no auth against Azurite started with `--oauth basic` (docker-compose.yml:72). Azurite rejects that request, so every run hits the 60s timeout. This contradicts the ~3s claim at DEVELOPMENT.md:363.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "scripts/dev-local.ts",
+   "line": 125,
+   "claim": "The Azurite readiness probe sends an unauthenticated account-level List Containers request, which never returns 2xx, so each run waits the full 60s timeout.",
+   "evidence": "waitForHealth(\"http://localhost:10000/devstoreaccount1?comp=list\", ...) treats only `response.ok` as healthy and sends no Authorization or SAS. Azurite runs with `--oauth basic`, and an anonymous account-level List Containers call is rejected unless public access applies. The compose healthcheck for Azurite uses only a TCP connect. DEVELOPMENT.md says: \"If Docker infra is already running, the preLaunchTask completes in ~3 seconds.\"",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "scripts/dev-local.ts",
+     "line": 126,
+     "claim": "The Azurite readiness probe may never return a 2xx response, because it sends an unauthenticated account-level list request. Every `dev:local` run and every debug preLaunchTask would then wait the full 60s timeout, which contradicts the documented ~3-second preLaunchTask.",
+     "evidence": "waitForHealth(\"http://localhost:10000/devstoreaccount1?comp=list\", ...) treats only `response.ok` as healthy and sends no Authorization or SAS. Azurite runs with `--oauth basic`, and an anonymous account-level List Containers call is rejected unless public access applies. The compose healthcheck for Azurite uses only a TCP connect. DEVELOPMENT.md says: \"If Docker infra is already running, the preLaunchTask completes in ~3 seconds.\""
+    },
+    {
+     "id": "R2",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "scripts/dev-local.ts",
+     "line": 129,
+     "claim": "Use an authenticated or TCP readiness check for Azurite",
+     "evidence": "The blob-service list request requires authorization, so a healthy Azurite instance returns 403 to this unsigned fetch. Since `waitForHealth` accepts only successful responses, every local startup and debugger setup waits the full 60-second timeout and reports storage as unhealthy. Use a TCP probe like the Compose healthcheck, or an authenticated SDK request."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The inline node -e script at line 195 ends with `.catch(()=>{})`, so the child always exits 0. execSync never throws, and logSuccess at line 198 runs unconditionally.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/dev-local.ts",
+   "line": 195,
+   "claim": "The Azurite init child script swallows all errors with .catch(()=>{}), so the success message always prints.",
+   "evidence": "The `node -e` script ends with `.catch(()=>{})`, so the child always exits 0. The surrounding try/catch therefore never reaches logWarning, and logSuccess runs unconditionally. The original selfhost-start.sh at least printed `e.message`.",
+   "axis_row": "L5.37",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "scripts/dev-local.ts",
+     "line": 196,
+     "claim": "The Azurite init swallows every error inside the child script, so the orchestrator reports \"Azurite blob containers initialized with CORS\" even when container creation or the CORS setup failed.",
+     "evidence": "The `node -e` script ends with `.catch(()=>{})`, so the child always exits 0. The surrounding try/catch therefore never reaches logWarning, and logSuccess runs unconditionally. The original selfhost-start.sh at least printed `e.message`."
+    },
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "scripts/dev-local.ts",
+     "line": 194,
+     "claim": "The inline Azurite init script ends with `.catch(()=>{})`, so the node process always exits 0. The script then always logs 'Azurite blob containers initialized with CORS', even when the container or CORS setup failed (for example, Azurite not ready yet). Let the error reach the exit code so the warning branch can actually run.",
+     "evidence": "The inline Azurite init script ends with `.catch(()=>{})`, so the node process always exits 0. The script then always logs 'Azurite blob containers initialized with CORS', even when the container or CORS setup failed (for example, Azurite not ready yet). Let the error reach the exit code so the warning branch can actually run."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 144 embeds -P \"qazWSXedcRFV1234!\" and line 195 embeds the Azurite well-known key. These are local emulator values, so this is a maintainability point and stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/dev-local.ts",
+   "line": 144,
+   "claim": "The MSSQL SA password and Azurite account key are hardcoded literals, adding another copy to keep in sync.",
+   "evidence": "Line 145 runs `sqlcmd ... -U sa -P \"qazWSXedcRFV1234!\"` and the Azurite connection string embeds AccountKey=Eby8vdM02x.... These are local-emulator values that already appear in infra/Local/Storage/docker-comp.yml (MSSQL_SA_PASSWORD) and in selfhost-start.sh. selfhost-start.sh reads the password from $MSSQL_SA_PASSWORD, while this script uses a literal.",
+   "axis_row": "L5.33",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "scripts/dev-local.ts",
+     "line": 145,
+     "claim": "The new script hardcodes the MSSQL SA password and the Azurite account key in source, adding another copy of the credential to keep in sync.",
+     "evidence": "Line 145 runs `sqlcmd ... -U sa -P \"qazWSXedcRFV1234!\"` and the Azurite connection string embeds AccountKey=Eby8vdM02x.... These are local-emulator values that already appear in infra/Local/Storage/docker-comp.yml (MSSQL_SA_PASSWORD) and in selfhost-start.sh. selfhost-start.sh reads the password from $MSSQL_SA_PASSWORD, while this script uses a literal."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "configProxy.ts:147 and generate.env.ts:1915 use `EXP_BASE_URL === AZURE_EXP_URL` after trim(). WebApplicationBuilderExtensions uses `baseUrl == ConfigProxyUrlAzure` with the raw env var. The trigger needs an unusual EXP_PROXY_URL value, so this stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "sites/arolariu.ro/src/lib/config/configProxy.ts",
+   "line": 147,
+   "claim": "Azure auth now depends on an exact string match of the exp URL. A trailing slash or a different Azure URL silently drops the bearer token, and .NET (untrimmed) and TS (trimmed) handle it differently.",
+   "evidence": "configProxy.ts: `const USE_AZURE_AUTH = EXP_BASE_URL === AZURE_EXP_URL;` after `process.env[\"EXP_PROXY_URL\"]?.trim() || ...`. generate.env.ts has the same logic. WebApplicationBuilderExtensions.cs:122: `var useAzureAuth = baseUrl == ConfigProxyUrlAzure;` with `explicitUrl` taken untrimmed from Environment.GetEnvironmentVariable. Before this change, auth was keyed on AZURE_CLIENT_ID being present.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "sites/arolariu.ro/src/lib/config/configProxy.ts",
+     "line": 152,
+     "claim": "Whether Entra ID auth is used now depends on an exact string match of the URL rather than on the Azure identity. An EXP_PROXY_URL such as \"https://exp.arolariu.ro/\" (trailing slash) or any other Azure-hosted exp URL silently drops the bearer token. The .NET side, which does not trim, behaves differently from the TS side, which does.",
+     "evidence": "configProxy.ts: `const USE_AZURE_AUTH = EXP_BASE_URL === AZURE_EXP_URL;` after `process.env[\"EXP_PROXY_URL\"]?.trim() || ...`. generate.env.ts has the same logic. WebApplicationBuilderExtensions.cs:122: `var useAzureAuth = baseUrl == ConfigProxyUrlAzure;` with `explicitUrl` taken untrimmed from Environment.GetEnvironmentVariable. Before this change, auth was keyed on AZURE_CLIENT_ID being present."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7",
+    "P1"
+   ],
+   "verdict": "confirmed",
+   "reason": "launchSettings.json:4 puts \"Development\" before \"Console App\", and the dotnet CLI uses the first Project profile. Its env forces EXP_PROXY_URL to localhost:5002, so a developer whose exp runs only in Docker (http://exp) gets a broken config fetch. Kept medium for this traced trigger.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "sites/api.arolariu.ro/src/Core/Properties/launchSettings.json",
+   "line": 4,
+   "claim": "The new \"Development\" profile is first, so plain `dotnet run`/`dotnet watch run` now default to EXP_PROXY_URL=http://localhost:5002 and http :5000 instead of \"Console App\".",
+   "evidence": "\"Development\" is inserted before \"Console App\" in profiles, and the dotnet CLI uses the first Project profile when --launch-profile is absent. Its environmentVariables set EXP_PROXY_URL and INFRA, so any developer whose exp runs only in Docker (http://exp) now gets an API pointed at localhost:5002.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "sites/api.arolariu.ro/src/Core/Properties/launchSettings.json",
+     "line": 4,
+     "claim": "Placing the new \"Development\" profile first makes it the default for `dotnet run`/`dotnet watch run`. Every default local launch therefore now forces EXP_PROXY_URL=http://localhost:5002 and HTTP on :5000, replacing the previous \"Console App\" default (HTTPS, no exp override).",
+     "evidence": "\"Development\" is inserted before \"Console App\" in profiles, and the dotnet CLI uses the first Project profile when --launch-profile is absent. Its environmentVariables set EXP_PROXY_URL and INFRA, so any developer whose exp runs only in Docker (http://exp) now gets an API pointed at localhost:5002."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "sites/api.arolariu.ro/src/Core/Properties/launchSettings.json",
+     "line": 4,
+     "claim": "The new \"Development\" profile is now the first one in the file, and `dotnet run`/`dotnet watch run` use the first profile by default. So every plain local `dotnet run` now sets EXP_PROXY_URL=http://localhost:5002, INFRA=local and binds to http://localhost:5000. That replaces the previous default (\"Console App\"). Anyone running the API against Docker exp (http://exp) or Azure exp will be silently sent to localhost:5002 and Entra auth will be skipped. Make this profile opt-in with `--launch-profile Development`, or keep it out of the first position.",
+     "evidence": "The new \"Development\" profile is now the first one in the file, and `dotnet run`/`dotnet watch run` use the first profile by default. So every plain local `dotnet run` now sets EXP_PROXY_URL=http://localhost:5002, INFRA=local and binds to http://localhost:5000. That replaces the previous default (\"Console App\"). Anyone running the API against Docker exp (http://exp) or Azure exp will be silently sent to localhost:5002 and Entra auth will be skipped. Make this profile opt-in with `--launch-profile Development`, or keep it out of the first position."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8",
+    "P7"
+   ],
+   "verdict": "confirmed",
+   "reason": "project.json:27 and :34 run `python -m pip install -q -r requirements-dev.txt` before pytest/ruff, with no venv. Root package.json:50 runs `nx run-many --target=test --all`, which now includes exp.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "sites/exp.arolariu.ro/project.json",
+   "line": 27,
+   "claim": "The new exp test and lint targets pip-install into whatever Python is active on every run, and root `npm run test` (run-many --all) now triggers them.",
+   "evidence": "The test target command is `python -m pip install -q -r requirements-dev.txt && python -m pytest -q` (lint is similar). The root package.json has \"test\": \"nx run-many --target=test --all\" and \"test:unit\": \"nx run-many --target=test --configuration=unit --all\". .github/scripts/src/hygiene/checks/testCheck.ts runs `npm run test:unit`. The exp target defines no `unit` configuration. The new pinned dev dependencies (pytest==9.0.2, ruff==0.15.4) are installed this way.",
+   "axis_row": "L4.4",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "sites/exp.arolariu.ro/project.json",
+     "line": 27,
+     "claim": "The new exp test and lint targets pip-install into whatever Python interpreter is active, with no virtualenv, on every run. Because the root `npm run test` / `test:unit` use `run-many --all`, these targets may now run in workflows that never set up Python.",
+     "evidence": "The test target command is `python -m pip install -q -r requirements-dev.txt && python -m pytest -q` (lint is similar). The root package.json has \"test\": \"nx run-many --target=test --all\" and \"test:unit\": \"nx run-many --target=test --configuration=unit --all\". .github/scripts/src/hygiene/checks/testCheck.ts runs `npm run test:unit`. The exp target defines no `unit` configuration. The new pinned dev dependencies (pytest==9.0.2, ruff==0.15.4) are installed this way."
+    },
+    {
+     "id": "P7",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "sites/exp.arolariu.ro/project.json",
+     "line": 24,
+     "claim": "The `test` and `lint` targets run `python -m pip install -q -r requirements-dev.txt` on every run, into whatever interpreter is first on PATH (often the global or user site-packages, not a venv). This has side effects, is slow, and can fail on externally managed Python installs (PEP 668). `npm run test` (run-many) now triggers it for everyone. Install dependencies in a separate setup step or a venv instead.",
+     "evidence": "The `test` and `lint` targets run `python -m pip install -q -r requirements-dev.txt` on every run, into whatever interpreter is first on PATH (often the global or user site-packages, not a venv). This has side effects, is slow, and can fail on externally managed Python installs (PEP 668). `npm run test` (run-many) now triggers it for everyone. Install dependencies in a separate setup step or a venv instead."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "Lines 14-16 document frontend as website-only and infra as no services, but lines 247-249 add \"exp\" to both. Only setup-only has length 0, so the else branch at line 305 can never run.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/dev-local.ts",
+   "line": 14,
+   "claim": "The usage header says --frontend and --infra don't start exp, but they do, and the \"Infrastructure-only mode\" branch is dead code.",
+   "evidence": "The header says `--frontend  # Start infra + website only` and `--infra  # Start infra only (no services)`. However, BARE_METAL_SERVICES has frontend: [\"exp\",\"website\"] and infra: [\"exp\"]. `if (bareMetalServices.length === 0)` is true only for \"setup-only\", so the else branch that prints \"Infrastructure-only mode. Start services manually\" is dead code. Step 2 also logs \"Starting databases (... exp)\" just before the script stops exp.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "scripts/dev-local.ts",
+     "line": 16,
+     "claim": "The script's own usage docs and one branch disagree with what it does: --frontend and --infra also start exp, and the \"Infrastructure-only mode\" branch can never run.",
+     "evidence": "The header says `--frontend  # Start infra + website only` and `--infra  # Start infra only (no services)`. However, BARE_METAL_SERVICES has frontend: [\"exp\",\"website\"] and infra: [\"exp\"]. `if (bareMetalServices.length === 0)` is true only for \"setup-only\", so the else branch that prints \"Infrastructure-only mode. Start services manually\" is dead code. Step 2 also logs \"Starting databases (... exp)\" just before the script stops exp."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes baseUrl/useAzureAuth in the .NET extension, configProxy.ts and generate.env.ts. It adds no test files beyond the exp nx targets and requirements-dev.txt.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "sites/api.arolariu.ro/src/Core/Domain/General/Extensions/WebApplicationBuilderExtensions.cs",
+   "line": 1982,
+   "claim": "The new endpoint and auth selection logic ships without tests.",
+   "evidence": "The diff changes the baseUrl and useAzureAuth logic in AddProxyConfiguration, and EXP_BASE_URL/USE_AZURE_AUTH in configProxy.ts and generate.env.ts. It adds no test file: the only test-related additions are the exp nx targets and requirements-dev.txt.",
+   "axis_row": "L5.24",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "sites/api.arolariu.ro/src/Core/Domain/General/Extensions/WebApplicationBuilderExtensions.cs",
+     "line": 109,
+     "claim": "The new endpoint and auth selection logic, which decides whether config requests carry a bearer token, ships without any test in the .NET API, the website or generate.env.ts.",
+     "evidence": "The diff changes the baseUrl and useAzureAuth logic in AddProxyConfiguration, and EXP_BASE_URL/USE_AZURE_AUTH in configProxy.ts and generate.env.ts. It adds no test file: the only test-related additions are the exp nx targets and requirements-dev.txt."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11",
+    "P10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The fr.json hunks add keys such as unknownMerchant and andMore, which have nothing to do with dev tooling, and the diff ends with `\\ No newline at end of file`.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "sites/arolariu.ro/messages/fr.json",
+   "line": 4682,
+   "claim": "The change includes unrelated French translation additions and removes the file's trailing newline.",
+   "evidence": "The fr.json hunks add insufficientData, saving, error/success, totalDuration, minutes, none, emptyState, unknownMerchant and andMore keys (already present in en.json and ro.json), and end with `\\ No newline at end of file`. Separately, devcontainer.json's new postStartCommand runs `npm run generate 2>/dev/null || true` on every container start. That may regenerate tracked files like these, and any failure is hidden.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": "sites/arolariu.ro/messages/fr.json",
+     "line": 4682,
+     "claim": "The diff includes unrelated French translation additions in a dev-tooling change and drops the file's trailing newline.",
+     "evidence": "The fr.json hunks add insufficientData, saving, error/success, totalDuration, minutes, none, emptyState, unknownMerchant and andMore keys (already present in en.json and ro.json), and end with `\\ No newline at end of file`. Separately, devcontainer.json's new postStartCommand runs `npm run generate 2>/dev/null || true` on every container start. That may regenerate tracked files like these, and any failure is hidden."
+    },
+    {
+     "id": "P10",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "sites/arolariu.ro/messages/fr.json",
+     "line": 4679,
+     "claim": "This PR also makes unrelated French translation changes that aren't in the description, and it removes the file's trailing newline. Move the translation changes to their own PR and restore the final newline so formatters and linters don't flag it.",
+     "evidence": "This PR also makes unrelated French translation changes that aren't in the description, and it removes the file's trailing newline. Move the translation changes to their own PR and restore the final newline so formatters and linters don't flag it."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "P2"
+   ],
+   "verdict": "confirmed",
+   "reason": "postCreateCommand (diff line 44) only installs docfx and playwright, and nothing in the repo pip-installs exp's requirements.txt for dev. exp:dev runs `python -m uvicorn`, so it fails with no uvicorn module, even though DEVELOPMENT.md says to run dev:local inside the container.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": ".devcontainer/devcontainer.json",
+   "line": 61,
+   "claim": "The devcontainer adds Python 3.12 but never installs exp's requirements, so `npm run dev:local` (which always starts exp via uvicorn) fails inside the container.",
+   "evidence": "The devcontainer adds the Python 3.12 feature, and the docs say `npm run dev:local` works inside the container. But nothing installs the exp service's dependencies: postCreateCommand has no `pip install -r sites/exp.arolariu.ro/requirements.txt`. The `exp:dev` target (`python -m uvicorn ...`) and the debugpy launch config will fail with 'No module named uvicorn'. That breaks the default dev:local profile, which always starts exp.",
+   "members": [
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": ".devcontainer/devcontainer.json",
+     "line": 59,
+     "claim": "The devcontainer adds the Python 3.12 feature, and the docs say `npm run dev:local` works inside the container. But nothing installs the exp service's dependencies: postCreateCommand has no `pip install -r sites/exp.arolariu.ro/requirements.txt`. The `exp:dev` target (`python -m uvicorn ...`) and the debugpy launch config will fail with 'No module named uvicorn'. That breaks the default dev:local profile, which always starts exp.",
+     "evidence": "The devcontainer adds the Python 3.12 feature, and the docs say `npm run dev:local` works inside the container. But nothing installs the exp service's dependencies: postCreateCommand has no `pip install -r sites/exp.arolariu.ro/requirements.txt`. The `exp:dev` target (`python -m uvicorn ...`) and the debugpy launch config will fail with 'No module named uvicorn'. That breaks the default dev:local profile, which always starts exp."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "P3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff sets postStartCommand to `npm run generate 2>/dev/null || true && ...`, which hides any generation failure. Whether it stalls on the http://exp fetch is not shown, so this stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".devcontainer/devcontainer.json",
+   "line": 62,
+   "claim": "postStartCommand runs the full `npm run generate` on every start, with stderr discarded and failures masked.",
+   "evidence": "postStartCommand now runs the full `npm run generate` (env, i18n, GraphQL) on every container start, and sends stderr to /dev/null. generate:env tries to fetch config from exp (http://exp by default, which won't resolve in the container), so each start can stall until a timeout, and real generation failures are hidden. Consider running only what's needed and keeping the error output visible.",
+   "members": [
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": ".devcontainer/devcontainer.json",
+     "line": 62,
+     "claim": "postStartCommand now runs the full `npm run generate` (env, i18n, GraphQL) on every container start, and sends stderr to /dev/null. generate:env tries to fetch config from exp (http://exp by default, which won't resolve in the container), so each start can stall until a timeout, and real generation failures are hidden. Consider running only what's needed and keeping the error output visible.",
+     "evidence": "postStartCommand now runs the full `npm run generate` (env, i18n, GraphQL) on every container start, and sends stderr to /dev/null. generate:env tries to fetch config from exp (http://exp by default, which won't resolve in the container), so each start can stall until a timeout, and real generation failures are hidden. Consider running only what's needed and keeping the error output visible."
+    }
+   ],
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "P5"
+   ],
+   "verdict": "disputed",
+   "reason": "Lines 214-217 spawn with shell:true and line 324 calls p.kill() on the direct child only. But on Ctrl+C the terminal sends SIGINT to the whole foreground process group, and sh often execs npx directly, so whether orphans actually occur depends on the platform.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "scripts/dev-local.ts",
+   "line": 214,
+   "claim": "Services are spawned with shell:true and shutdown calls p.kill(), which may leave the dotnet/uvicorn/next process trees orphaned on ports.",
+   "evidence": "Services are started with `spawn(..., {shell: true})`, and shutdown calls `p.kill()`. That only signals the intermediate shell, not the npx/nx \u2192 dotnet watch / uvicorn / next process tree. On SIGTERM (for example, when VS Code stops the task), the real dev servers can be left orphaned and keep holding ports 3000/5000/5002. That causes the 'port already in use' problem the docs describe. Spawn detached and kill the process group, or drop `shell: true`.",
+   "members": [
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "scripts/dev-local.ts",
+     "line": 214,
+     "claim": "Services are started with `spawn(..., {shell: true})`, and shutdown calls `p.kill()`. That only signals the intermediate shell, not the npx/nx \u2192 dotnet watch / uvicorn / next process tree. On SIGTERM (for example, when VS Code stops the task), the real dev servers can be left orphaned and keep holding ports 3000/5000/5002. That causes the 'port already in use' problem the docs describe. Spawn detached and kill the process group, or drop `shell: true`.",
+     "evidence": "Services are started with `spawn(..., {shell: true})`, and shutdown calls `p.kill()`. That only signals the intermediate shell, not the npx/nx \u2192 dotnet watch / uvicorn / next process tree. On SIGTERM (for example, when VS Code stops the task), the real dev servers can be left orphaned and keep holding ports 3000/5000/5002. That causes the 'port already in use' problem the docs describe. Spawn detached and kill the process group, or drop `shell: true`."
+    }
+   ],
+   "id": "F14"
+  },
+  {
+   "sources": [
+    "P6"
+   ],
+   "verdict": "confirmed",
+   "reason": "Lines 336-343 resolve on the first 'exit' with no logging or exit-code handling. The remaining children keep the process alive in a half-running state.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/dev-local.ts",
+   "line": 336,
+   "claim": "When one service exits, Promise.race resolves without reporting which service died or passing on its exit code. The other services keep running.",
+   "evidence": "When any one service exits (for example, exp crashes because Python deps are missing), `Promise.race` resolves and `main` returns. The other children keep running, nothing reports which service died, and the exit code isn't passed on. The orchestrator ends up in a half-running state with no clear failure message.",
+   "members": [
+    {
+     "id": "P6",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "scripts/dev-local.ts",
+     "line": 334,
+     "claim": "When any one service exits (for example, exp crashes because Python deps are missing), `Promise.race` resolves and `main` returns. The other children keep running, nothing reports which service died, and the exit code isn't passed on. The orchestrator ends up in a half-running state with no clear failure message.",
+     "evidence": "When any one service exits (for example, exp crashes because Python deps are missing), `Promise.race` resolves and `main` returns. The other children keep running, nothing reports which service died, and the exit code isn't passed on. The orchestrator ends up in a half-running state with no clear failure message."
+    }
+   ],
+   "id": "F15"
+  },
+  {
+   "sources": [
+    "P8"
+   ],
+   "verdict": "confirmed",
+   "reason": "tasks.json \"Build: API for Debug\" has dependsOn [\"Infra: Setup Docker\"], and dev-local.ts:269-271 calls process.exit(1) when `docker info` fails. This looks like a deliberate design choice, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".vscode/tasks.json",
+   "line": 881,
+   "claim": "\".NET API: Debug\" now depends on Infra: Setup Docker, which exits 1 when Docker isn't running, so the API can't be debugged at all without Docker.",
+   "evidence": "\"Build: API for Debug\" depends on \"Infra: Setup Docker\" (dev-local --setup-only), and that task calls process.exit(1) when Docker isn't running. As a result, the plain \".NET API: Debug\" launch (root, backend and fullstack workspaces) can't start at all without Docker. Debugging the API on its own, for example to test startup, no longer works. Consider a separate debug profile that doesn't require infra.",
+   "members": [
+    {
+     "id": "P8",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": ".vscode/tasks.json",
+     "line": 62,
+     "claim": "\"Build: API for Debug\" depends on \"Infra: Setup Docker\" (dev-local --setup-only), and that task calls process.exit(1) when Docker isn't running. As a result, the plain \".NET API: Debug\" launch (root, backend and fullstack workspaces) can't start at all without Docker. Debugging the API on its own, for example to test startup, no longer works. Consider a separate debug profile that doesn't require infra.",
+     "evidence": "\"Build: API for Debug\" depends on \"Infra: Setup Docker\" (dev-local --setup-only), and that task calls process.exit(1) when Docker isn't running. As a result, the plain \".NET API: Debug\" launch (root, backend and fullstack workspaces) can't start at all without Docker. Debugging the API on its own, for example to test startup, no longer works. Consider a separate debug profile that doesn't require infra."
+    }
+   ],
+   "id": "F16"
+  },
+  {
+   "sources": [
+    "P9"
+   ],
+   "verdict": "confirmed",
+   "reason": "DEVELOPMENT.md:219 says \"when using Option B\", but no section is labeled that way. The Quick Start table lists https://localhost:3000, while the Service Map and .env.example use http://localhost:3000. Documentation only, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "DEVELOPMENT.md",
+   "line": 219,
+   "claim": "DEVELOPMENT.md refers to an unlabeled \"Option B\" and gives both http and https URLs for the website on :3000.",
+   "evidence": "The heading refers to 'Option B', but the guide never labels any options (the sections are 'Recommended: Hybrid' and 'Alternative: ...'). Elsewhere the guide lists the website as https://localhost:3000 (the dev script uses --experimental-https), but the Service Map, Docker table and .env.example SITE_URL use http://localhost:3000. These inconsistencies will confuse new contributors.",
+   "members": [
+    {
+     "id": "P9",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "DEVELOPMENT.md",
+     "line": 219,
+     "claim": "The heading refers to 'Option B', but the guide never labels any options (the sections are 'Recommended: Hybrid' and 'Alternative: ...'). Elsewhere the guide lists the website as https://localhost:3000 (the dev script uses --experimental-https), but the Service Map, Docker table and .env.example SITE_URL use http://localhost:3000. These inconsistencies will confuse new contributors.",
+     "evidence": "The heading refers to 'Option B', but the guide never labels any options (the sections are 'Recommended: Hybrid' and 'Alternative: ...'). Elsewhere the guide lists the website as https://localhost:3000 (the dev script uses --experimental-https), but the Service Map, Docker table and .env.example SITE_URL use http://localhost:3000. These inconsistencies will confuse new contributors."
+    }
+   ],
+   "id": "F17"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:secrets",
+   "gate:deps",
+   "gate:sast",
+   "gate:invisible",
+   "gate:surface",
+   "gate:ratchet:semgrep_findings",
+   "gate:required"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

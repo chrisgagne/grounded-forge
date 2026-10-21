@@ -1,0 +1,1682 @@
+[
+  {
+    "pr_key": "CommunityToolkit_Maui_3181-1e8d2e2f",
+    "candidate_findings": [
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+        "start_line": 67,
+        "end_line": 70,
+        "message": "Allow the unknown-length sentinel in Android stream sources. For a non-seekable stream opened with an unspecified length, `bytesRemaining` becomes `C.LengthUnset` (-1). This check then throws before playback can begin, even though `Read` explicitly supports that sentinel. Exclude `C.LengthUnset` from the negative-length validation so network streams can be opened.",
+        "status": "matched_tp",
+        "matched_golden_index": 22,
+        "covered_golden_indices": [
+          22
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+        "start_line": 65,
+        "end_line": 72,
+        "message": "Fill the requested byte range before finishing an Apple load. A valid `Stream.Read` can return fewer bytes than requested without reaching EOF, particularly for custom or network-backed streams. This implementation responds with that partial read and then unconditionally calls `FinishLoading`, prematurely completing AVFoundation's requested range and causing truncated reads or playback failures. Continue reading and responding until the requested range is satisfied or actual EOF is reached.",
+        "status": "matched_tp",
+        "matched_golden_index": 23,
+        "covered_golden_indices": [
+          23,
+          30
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+        "start_line": 543,
+        "end_line": 545,
+        "message": "Detect audio content types for Apple stream sources. For MP3, WAV, and other non-MP4 media streams, this fallback reports `public.mpeg-4` to AVFoundation. Because the synthetic URL has no usable extension, this supplies incorrect container information and prevents otherwise supported audio from loading. Detect the actual format and return its corresponding UTI rather than labeling every unrecognized stream as MP4.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+        "start_line": 58,
+        "end_line": 59,
+        "message": "Catch failures from the initial sample download. Opening this page without connectivity, or when the server returns an error, makes `GetStreamAsync` throw outside the error handler in `UpdateSourceStream`. Since `OnAppearing` is `async void`, the exception escapes to the UI synchronization context and can terminate the sample application. Include stream acquisition in the handled download operation so the page remains usable for local videos.",
+        "status": "matched_fp",
+        "matched_golden_index": 15,
+        "covered_golden_indices": [
+          15
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+        "start_line": 173,
+        "end_line": 178,
+        "message": "Detach the active source before disposing its stream. When a video is already playing and the user opens another one, `ReleaseSourceStream` disposes the stream still referenced by `MediaElement.Source`. The old player remains attached throughout the asynchronous copy and can read the disposed stream, causing playback errors; if copying fails, it remains attached indefinitely. Keep the active stream alive until its player source has been detached or replaced.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "ComposioHQ_agent-orchestrator_1277-76652c7c",
+    "candidate_findings": []
+  },
+  {
+    "pr_key": "EdV4H_usketch_534-719aa834",
+    "candidate_findings": [
+      {
+        "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+        "start_line": 33,
+        "end_line": 34,
+        "message": "Apply rotation in the active rendering paths. The application registers `createDomRendererPlugin()` and `createGpuRendererPlugin()`, neither of which uses this deprecated `ShapeLayer`. `DomShapeLayer` and the GPU pipelines still render shapes without rotation, while the updated plugins now inverse-rotate hit-test points. Consequently, a non-square shape with nonzero rotation is displayed in one position but selectable in another. Update the active renderers too, or route rotated shapes through a rotation-capable fallback.",
+        "status": "matched_tp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "FreeRTOS_FreeRTOS-Kernel_1379-c926adcf",
+    "candidate_findings": [
+      {
+        "file": "tasks.c",
+        "start_line": 5233,
+        "end_line": 5239,
+        "message": "Preserve voluntary switches when task preemption is disabled. With task preemption disabled, this guard also rejects context switches explicitly required by blocking or deleting the current task. For example, `vTaskDelay()` removes the task from the ready list, but this branch leaves it executing, so the delay returns immediately while its TCB remains blocked. Similarly, self-deletion can return into a deleted task. Suppress involuntary preemption without preventing voluntary yields or mandatory switches after task-state changes.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tasks.c",
+        "start_line": 5504,
+        "end_line": 5505,
+        "message": "Report ISR yields that are already pending. On SMP, an earlier FromISR call with a NULL wake-flag pointer can leave the local `xYieldPendings` true without requesting a hardware context switch. If a subsequent queue ISR operation wakes another higher-priority task, this new edge-only check returns false, so `xQueueGenericSendFromISR()` does not set its caller's wake flag and `portYIELD_FROM_ISR()` skips the required switch until the next tick. The equivalent checks added to the resume and notification paths have the same problem. Preserve reporting of an outstanding eligible yield rather than requiring a false-to-true transition.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "Mirkiux_featkit_17-de0187b0",
+    "candidate_findings": [
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 232,
+        "end_line": 232,
+        "message": "Apply the entropy fallback inside the conditional expression. Whenever ENTROPY is requested, the generated expression calls `.otherwise()` on `F.sum(...)`. PySpark only permits `.otherwise()` on a column produced by `F.when()`, so Layer 2B fails during expression construction. Move the fallback inside the conditional or use `F.coalesce()` around the aggregate.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 123,
+        "end_line": 124,
+        "message": "Normalize timestamps to the configured target granularity. For a DAILY-to-MONTHLY `TimeField`, this groups by the original daily timestamp rather than the target month. MOB and Layer 2B also use the unmodified timestamp, so monthly features remain daily and a three-period window covers three observations instead of three months. Apply the required time truncation consistently before constructing periods and aggregating either Layer 2 table.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 331,
+        "end_line": 333,
+        "message": "Handle temporal measurements separately in growth expressions. For FECHA measurements stored as Spark dates or timestamps, the default temporal contract includes CREC, so this expression is generated automatically. Dividing a date/timestamp difference by a lagged date/timestamp is not valid Spark arithmetic, and Layer 3 fails analysis. Temporal sources need an explicitly defined duration-based calculation rather than the numeric growth expression.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 238,
+        "end_line": 239,
+        "message": "Select the modal category instead of an arbitrary first row. When an entity-period contains multiple categories, `F.first()` returns whichever category appears first after the shuffle, regardless of its frequency or aggregated weight. Consequently MODE can return a non-modal category and change after repartitioning. Select the category using its category count or weight, with a deterministic tie policy.",
+        "status": "matched_fp",
+        "matched_golden_index": 23,
+        "covered_golden_indices": [
+          23,
+          28
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 351,
+        "end_line": 352,
+        "message": "Implement a ratio rather than duplicating the rolling sum. When `composed_windows` enables RATIO, this branch emits exactly the same calculation as SUM_U for the corresponding window. There is no denominator or comparison calculation, so the resulting feature contains an amount rather than a ratio. Implement the composed ratio with appropriate zero-denominator handling, or explicitly reject the unsupported operator.",
+        "status": "matched_tp",
+        "matched_golden_index": 12,
+        "covered_golden_indices": [
+          12
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 280,
+        "end_line": 284,
+        "message": "Handle an empty temporal feature list without emitting a comma. A valid configuration such as `operators_override={Layer2OutputType.NUMERIC: []}` produces no temporal features. In that case `feat_list` is empty, but this template emits a standalone comma inside `select()`, making the complete generated script invalid Python. Skip this stage or emit a keys-only selection when Layer 3 is empty.",
+        "status": "matched_tp",
+        "matched_golden_index": 6,
+        "covered_golden_indices": [
+          6,
+          29
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 102,
+        "end_line": 103,
+        "message": "Serialize input strings as escaped Python literals. An allowed categorical value such as `A\"B` is accepted by the pipeline but interpolated directly into double-quoted Python expressions and aliases, producing an invalid script. Backslashes and newlines can also change the emitted literal's meaning. Use Python literal serialization consistently for categorical values, field names, aliases, and their later references.",
+        "status": "matched_tp",
+        "matched_golden_index": 27,
+        "covered_golden_indices": [
+          27
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 294,
+        "end_line": 298,
+        "message": "Quote generated feature names as literal Spark identifiers. A supported category value containing a period, such as `U.S.`, creates an alias like `SUM__mto__sector_U.S.`. Passing that name directly to `F.col()` makes Spark interpret the periods as nested-field separators, so Layer 3 cannot resolve the column created by Layer 2A. Backtick-quote and escape the complete identifier when referencing generated feature columns.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 74,
+        "end_line": 77,
+        "message": "Preserve missing calendar periods in the MOB axis. If an entire period has no facts, selecting only distinct observed timestamps removes it from the MOB axis. For monthly facts present in January and March but absent in February, those months receive consecutive MOB values, so a two-month March window incorrectly includes January and PREV_MES returns January's value. Generate a continuous period axis at the target granularity before cross-joining entities.",
+        "status": "matched_tp",
+        "matched_golden_index": 22,
+        "covered_golden_indices": [
+          22
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 396,
+        "end_line": 396,
+        "message": "Preserve the base generator's return-type contract. `AbstractCodeGenerator.generate()` returns `FeatureStoreOutput`, but this override widens that return type to `object`. This is an incompatible override, and direct callers in the new tests consequently access `.code`, `.dag`, and `.mermaid` on an `object`. The existing CI runs `mypy .`, so annotate this method with its actual `FeatureStoreOutput` return type.",
+        "status": "matched_tp",
+        "matched_golden_index": 5,
+        "covered_golden_indices": [
+          5,
+          24,
+          30
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "NIAEFEUP_enei_194-0442935c",
+    "candidate_findings": [
+      {
+        "file": "apps/website/app/controllers/events_controller.ts",
+        "start_line": 106,
+        "end_line": 106,
+        "message": "Await the registration check before testing its result. `isRegistered` returns a Promise, so negating it always yields `false`. Scanning a participant who is not registered therefore bypasses this rejection and creates a check-in anyway. Await the result before negating it so event registration is actually enforced.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+        "start_line": 28,
+        "end_line": 30,
+        "message": "Prevent repeated scans while a check-in is pending. `CredentialScanner` enables repeated detections with `allowMultiple={true}` and `scanDelay={0}`, but this handler posts on every detection until a response closes the dialog. Holding a QR code in view can consequently submit overlapping check-ins: both requests can pass `isCheckedIn`, after which one fails the database uniqueness constraint. Pause scanning or guard submissions while a request is pending.",
+        "status": "matched_tp",
+        "matched_golden_index": 24,
+        "covered_golden_indices": [
+          24
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "apps/website/inertia/pages/events/show/page.tsx",
+        "start_line": 313,
+        "end_line": 315,
+        "message": "Show the scanner independently of staff registration status. This scanner trigger is inside the `!isRegistered` branch. A staff member who is also registered for the event therefore loses the only control that opens the check-in dialog and cannot check in attendees through the page. Move the staff scanner control outside the registration-status condition.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "NightHawkATL_ntp-dashboard_96-23782271",
+    "candidate_findings": [
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 32,
+        "end_line": 34,
+        "message": "Remove the duplicate step-level env mapping. This step declares `env` twice. GitHub Actions rejects duplicate mapping keys during workflow validation, so neither automatic nor manual remediation runs can start. Keep a single environment mapping.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 91,
+        "end_line": 93,
+        "message": "Dedent both Python heredoc bodies and terminators. After YAML removes the run block's indentation, both closing `PY` markers still have two leading spaces. Bash requires these heredoc terminators at column one, so it consumes the remaining script as heredoc content and fails with `unexpected end of file`. Dedent both Python bodies and their terminators relative to the shell block.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 94,
+        "end_line": 95,
+        "message": "Consolidate the two fallback else branches. The same `if` already has an `else` at line 41, making this second `else` invalid Bash. Even after correcting the heredoc indentation, `bash -n` fails here, preventing every invocation from resolving a source run. Retain only one fallback implementation.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 74,
+        "end_line": 77,
+        "message": "Query scheduled runs using their workflow branch. For manual dispatch without a run ID, this filter excludes the normal weekly scans: scheduled workflows run on the default branch (`main`), while `weekly-security-grype.yml` merely checks out `pre-update-release` inside the job. That checkout does not change the run's API branch metadata. Remove or correct the branch filter in both fallback implementations so they can find the scheduled scan.",
+        "status": "matched_tp",
+        "matched_golden_index": 23,
+        "covered_golden_indices": [
+          23
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "Nixbug_entebus-web-executive_120-630b29d5",
+    "candidate_findings": [
+      {
+        "file": "src/lib/configs/company-detail.config.ts",
+        "start_line": 129,
+        "end_line": 134,
+        "message": "Align company validation with the removed owner field. `companySchema` still requires `ownerName`, but this validation payload and the creation form no longer supply it. Consequently, every company save and creation submission fails validation, even when all displayed fields are valid; the missing field's error is not displayed either. Update the shared schema to match the new company fields.",
+        "status": "matched_tp",
+        "matched_golden_index": 22,
+        "covered_golden_indices": [
+          22,
+          28
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/lib/constants.ts",
+        "start_line": 122,
+        "end_line": 122,
+        "message": "Update status consumers for the new verification label. For companies with status `1`, the new `Under Verification` label is passed to both `DetailAvatarCard.svelte` and the company dashboard. Those consumers still recognize only `Validating`/`verifying`, so the avatar badge and dashboard's current-status message disappear. Update those consumers alongside this label change.",
+        "status": "matched_tp",
+        "matched_golden_index": 31,
+        "covered_golden_indices": [
+          31
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/lib/components/company-components/LocationMapModal.svelte",
+        "start_line": 62,
+        "end_line": 62,
+        "message": "Allow Escape to reach the modal keyboard handler. When focus is inside the dialog, including on its close button or map, this modifier stops Escape from reaching the window-level `handleKeydown` listener. Escape therefore cannot dismiss the modal after keyboard focus enters it. Handle Escape locally or let it propagate to the existing listener.",
+        "status": "matched_tp",
+        "matched_golden_index": 29,
+        "covered_golden_indices": [
+          29
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "accessibility",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "accessibility"
+      }
+    ]
+  },
+  {
+    "pr_key": "Waferguard_waferguard-ml_17-62d4f66f",
+    "candidate_findings": [
+      {
+        "file": "wafer_images/waferguard_financial_impact.ipynb",
+        "start_line": 257,
+        "end_line": 257,
+        "message": "Replace calls to missing financial-library APIs. The new library defines neither `load_artifacts` nor `run_inference`. The first missing call is caught and incorrectly treated as absent artifacts; this inference call then raises `AttributeError` even when the dataset and models are available. Implement loading and inference outside the decoupled financial library, or call an existing implementation, so the notebook can generate reports.",
+        "status": "matched_tp",
+        "matched_golden_index": 6,
+        "covered_golden_indices": [
+          6
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "wafer_images/waferguard_financial_impact.ipynb",
+        "start_line": 169,
+        "end_line": 173,
+        "message": "Resolve the checkout root before importing the package. On another developer's machine, the hard-coded checkout path points to nonexistent dataset and model locations. Additionally, when the kernel starts in `wafer_images`, the preceding package import fails before the `sys.path` adjustment can run. Discover the actual repository root and add it to the import path before importing `financial_impact`.",
+        "status": "matched_tp",
+        "matched_golden_index": 7,
+        "covered_golden_indices": [
+          7,
+          19
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "maintainability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "maintainability"
+      },
+      {
+        "file": "wafer_images/waferguard_financial_impact.ipynb",
+        "start_line": 291,
+        "end_line": 293,
+        "message": "Reconstruct binary labels from the saved pattern mapping. For artifacts produced by `wafer_images/model.ipynb`, `id_to_binary` is not saved; the exporter saves `pattern_to_id` instead. Consequently, this defaults to an empty mapping, and `decode_labels` converts every prediction to `00000000`, producing a falsely defect-free, zero-loss report once artifact loading and inference work. Reverse the saved `pattern_to_id` mapping when `id_to_binary` is absent.",
+        "status": "matched_tp",
+        "matched_golden_index": 31,
+        "covered_golden_indices": [
+          31
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "financial_impact/financial.py",
+        "start_line": 235,
+        "end_line": 240,
+        "message": "Apply the supplied financial parameter mapping. When callers provide `financial_params`, their values are silently ignored because `get_params` always reads the global `FINANCIAL_PARAMS`. Custom repair costs, yield assumptions, and priorities therefore have no effect on the resulting report. Pass the selected mapping through both direct lookups and multi-defect aggregation.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "financial_impact/financial.py",
+        "start_line": 291,
+        "end_line": 291,
+        "message": "Weight batch confidence by each pattern's wafer count. For batches with unequal pattern counts, averaging the per-pattern averages gives each pattern equal weight rather than each wafer. For example, 99 wafers at 0.99 confidence and one at 0.50 produce a reported batch confidence of 0.745 instead of 0.9851. Weight the pattern averages by `count` when building the summary.",
+        "status": "matched_tp",
+        "matched_golden_index": 26,
+        "covered_golden_indices": [
+          26
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "financial_impact/financial.py",
+        "start_line": 273,
+        "end_line": 273,
+        "message": "Handle an empty batch before sorting financial rows. Passing an empty batch, including the result of `build_batch_df([], ...)`, leaves `rows` empty, so the constructed DataFrame has no `priority_score` column and this sort raises `KeyError`. The subsequent empty-frame summary guards are never reached. Preserve the output schema for empty results or return an empty report and zero-valued summary before sorting.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "capawesome-team_cli_126-2d997db6",
+    "candidate_findings": [
+      {
+        "file": "src/commands/apps/destinations/create.ts",
+        "start_line": 53,
+        "end_line": 53,
+        "message": "Accept the Apple API key ID as a create option. When creating an iOS destination with API-key authentication in CI, this command always exits with “You must provide the Apple API Key ID” after uploading the key file. `appleApiKeyId` is initialized to `undefined`, but is neither declared in the options schema nor read from `options`, so callers cannot supply it. Add the option and initialize this variable from it so non-interactive creation can succeed.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "davidortinau_SentenceStudio_72-8941b5da",
+    "candidate_findings": [
+      {
+        "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+        "start_line": 14,
+        "end_line": 14,
+        "message": "Expose the API entry point to the test assembly. Both new factories reference `Program`, but the API's top-level entry point is internal and has neither a public partial declaration nor `InternalsVisibleTo`. The new test project therefore fails to compile. Expose the entry point or use a public API assembly marker as the factory's type parameter.",
+        "status": "matched_tp",
+        "matched_golden_index": 18,
+        "covered_golden_indices": [
+          18,
+          19
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "testing"
+      },
+      {
+        "file": "src/SentenceStudio.Api/appsettings.Development.json",
+        "start_line": 15,
+        "end_line": 15,
+        "message": "Allow the audience emitted by Entra v2 access tokens. When Entra authentication is enabled, v2 access tokens use the API's client GUID as `aud`, not `api://<client GUID>`. Explicitly configuring this URI overrides Microsoft.Identity.Web's version-aware audience handling, so valid v2 tokens receive 401 responses. Remove the explicit audience to use the library defaults, or configure the correct audience; update the duplicate Web and AppHost settings too.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+        "start_line": 24,
+        "end_line": 29,
+        "message": "Read the mapped Entra tenant and object-ID claims. With the registered Bearer handler's default `MapInboundClaims=true`, `tid` and `oid` become URI-named claims. These lookups consequently return no tenant and fall back to the token's `sub` for the user ID, rather than its object ID. Bootstrap returns incorrect identity information, and vocabulary updates use the wrong user key. Use Microsoft.Identity.Web's `GetTenantId()`/`GetObjectId()` helpers before the dev fallbacks, or explicitly disable mapping and handle raw claims consistently. The test tokens' extra dev claims currently mask this failure.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "dotnet_android_11084-ac02d09a",
+    "candidate_findings": [
+      {
+        "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+        "start_line": 276,
+        "end_line": 279,
+        "message": "Remove obsolete prelink copies before substituting assemblies. When a previously rewritten library is upgraded to use the modern designer, `ProcessAssemblyDesigner` returns false and leaves its old prelink DLL untouched. This existence-only check then substitutes that obsolete DLL for the newly resolved library, silently discarding the upgrade or causing missing-member errors. Remove stale copies when an assembly no longer requires rewriting, and substitute only outputs valid for the current inputs.",
+        "status": "matched_fp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+        "start_line": 74,
+        "end_line": 75,
+        "message": "Preserve trimming-aware missing-resource diagnostics. If a legacy dependency contains an unused method referencing a resource absent from the application's designer, this call now fails the build: `FixLegacyResourceDesignerStep.FixBody` scans every method and reports XA8000 for the missing getter. Previously ILLink could remove that unused method before the rewrite, allowing the application to build. Missing-resource diagnostics should remain conditional on the referencing code surviving trimming.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "edercnj_ia-dev-environment_198-76a99258",
+    "candidate_findings": [
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 437,
+        "end_line": 443,
+        "message": "Preserve phase boundaries when merging task proposals. When a quality-gate proposal verifies an Architect task for the same component and layer, this rule merges the verifier with its prerequisite while retaining their dependencies, creating a self-dependency that causes Phase 3.4 to abort. It can also collapse QA RED tasks into GREEN implementation tasks. Restrict merging to equivalent work in compatible phases, remove internal dependencies, and preserve separate test and verification tasks. This also preserves the mandatory Red–Green–Refactor cycle ([AGENTS.md:84](AGENTS.md#L84)).",
+        "status": "matched_tp",
+        "matched_golden_index": 44,
+        "covered_golden_indices": [
+          44
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 1,
+        "end_line": 6,
+        "message": "Regenerate golden fixtures for the new core skill. Adding this directory makes `SkillsAssembler.selectCoreSkills()` automatically include the skill for every profile. However, no golden fixtures are updated, and `GoldenFileTest.profile_whenCalled_matchesGoldenFiles()` rejects any extra generated paths. Consequently, `mvn verify` fails because the generated `x-story-plan` files are absent from the expected trees. Regenerate the affected fixtures alongside this addition.",
+        "status": "matched_tp",
+        "matched_golden_index": 28,
+        "covered_golden_indices": [
+          28
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "testing"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 512,
+        "end_line": 518,
+        "message": "Persist the agent-produced plans before DoR validation. For a story without existing plans, the agents return summaries, but Phase 4 never writes the architecture, implementation, test, or security plans to their established paths. DoR checks 1 and 9 require files, so a clean planning run cannot satisfy them. Subsequent sessions also lose the agent outputs needed for validation, and `x-dev-implement` cannot discover these plans. Explicitly persist the agent-produced artifacts before running Phase 5.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2,
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 686,
+        "end_line": 688,
+        "message": "Finalize the freshness marker after updating the story. Phase 4.1 writes the tasks file before this mandatory story edit. The edit therefore makes `mtime(story) > mtime(tasks)`, which Phase 0.3 treats as stale on the next invocation even when the user changed nothing. Normal reruns consequently launch all five agents again instead of reusing the plan. Update the story before finalizing the tasks file, or record freshness after all story modifications.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 738,
+        "end_line": 742,
+        "message": "Include failed mandatory checks in the DoR total. When a mandatory check fails, using `mandatory_passed` in the denominator removes that failed check from the reported total. For example, nine passing mandatory checks and no conditional checks produce `Passed: 9/9` despite a `NOT_READY` verdict. Calculate `total_checks` as `10 + conditional_applicable` so the checklist accurately reports failures.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "edercnj_ia-dev-environment_202-7e51d062",
+    "candidate_findings": [
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+        "start_line": 136,
+        "end_line": 140,
+        "message": "Regenerate all affected golden fixtures. These template changes affect generated skills across all profiles, but only the Java Quarkus lifecycle fixture was updated. For example, the Go Gin lifecycle fixture still exactly matches the base version. `GoldenFileTest.profile_whenCalled_matchesGoldenFiles` compares generated output byte-for-byte for all 17 profiles, so these changes introduce parity failures. Refresh all affected profile and platform copies.",
+        "status": "matched_tp",
+        "matched_golden_index": 28,
+        "covered_golden_indices": [
+          28
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "testing"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+        "start_line": 154,
+        "end_line": 158,
+        "message": "Detect the artifacts that x-story-plan actually produces. After a normal `/x-story-plan` run, this condition cannot select PRE_PLANNED: that skill writes task plans, a task breakdown, a planning report, and a DoR checklist, rather than the standalone architecture/test/implementation/security files listed here. This patch also explicitly accepts those assessments inside the planning report. Moreover, compliance files are conditional in lifecycle Phase 1F. Recognize the consolidated report and applicable artifacts so successfully planned stories can use task-by-task execution without redundant planning.",
+        "status": "matched_tp",
+        "matched_golden_index": 6,
+        "covered_golden_indices": [
+          6
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+        "start_line": 156,
+        "end_line": 158,
+        "message": "Include stale artifacts in planning-mode classification. If all seven artifact types exist but the story was subsequently edited, none of these modes applies: PRE_PLANNED requires freshness, HYBRID requires missing files, and INLINE requires no files. With partially populated artifacts, HYBRID also says to generate only missing files, contradicting Phase 0's requirement to regenerate stale ones. Classify stale artifacts as requiring regeneration and ensure every artifact state selects a mode.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 78,
+        "end_line": 82,
+        "message": "Propagate the resolved epic directory to subsequent steps. When only a suffix directory such as `plans/epic-0028-feature/` exists, resolution succeeds here, but Phase 0.5 still checks `plans/epic-0028/story-0028-0002.md` and aborts with NOT_FOUND. Phase 4 also retains hard-coded output paths. Use the resolved `EPIC_DIR` throughout verification and artifact generation; otherwise the newly advertised suffix support cannot complete planning.",
+        "status": "matched_tp",
+        "matched_golden_index": 8,
+        "covered_golden_indices": [
+          8
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+        "start_line": 257,
+        "end_line": 262,
+        "message": "Require task-specific completion evidence before skipping. For a task extending an existing class, the class already exists and its existing tests may pass before the requested behavior or new tests have been implemented. This resume check therefore marks unfinished work DONE and skips its Implementation Guide and DoD entirely. Require a recorded completed task and validate its task-specific criteria rather than inferring completion from file existence and unrelated passing tests.",
+        "status": "matched_fp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+        "start_line": 435,
+        "end_line": 440,
+        "message": "Persist and consume checkpoints inside the task loop. If execution is interrupted after some tasks commit but before Phase 8, this loop has saved no task completion state: the only new lifecycle checkpoint update occurs in Phase 8. It also executes every task without checking preserved DONE statuses. Consequently, the epic's new task-level resume reclassification cannot prevent completed tasks from being rerun. Persist transitions after each task and consult the checkpoint before dispatching it.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+        "start_line": 514,
+        "end_line": 516,
+        "message": "Avoid adding a second story prefix to the DoR filename. Story IDs in the implementation map and checkpoint already include `story-`, such as `story-0028-0002`. This interpolation therefore searches for `dor-story-story-0028-0002.md`, whereas x-story-plan generates `dor-story-0028-0002.md`. Because a missing file explicitly bypasses the gate, NOT_READY stories are dispatched unchecked. Construct the filename as `dor-{storyId}.md`.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+        "start_line": 517,
+        "end_line": 519,
+        "message": "Read verdicts from the supported inline DoR format. For projects without `_TEMPLATE-DOR-CHECKLIST.md`, x-story-plan's supported inline fallback writes the verdict in its Header and Summary sections, with no `## Final Verdict` section. This check consequently cannot classify a valid fallback checklist, including a NOT_READY result, and defines no handling for that case. Accept the producer's inline verdict location and explicitly handle unreadable verdicts.",
+        "status": "matched_fp",
+        "matched_golden_index": 16,
+        "covered_golden_indices": [
+          16
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+        "start_line": 672,
+        "end_line": 674,
+        "message": "Update tracked task statuses before leaving the story branch. The preceding Phase 8 step checks out and pulls `develop`, so these new story-file edits occur on `develop` after the story's commits and PR have already been created. The completion statuses are therefore absent from the reviewed PR and leave the integration checkout dirty for subsequent stories. Update and commit tracked story statuses on the feature branch before PR finalization and checkout.",
+        "status": "matched_fp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "fredericboyer_dev-team_797-3bc9ea25",
+    "candidate_findings": [
+      {
+        "file": "templates/hooks/dev-team-implementer-guard.js",
+        "start_line": 24,
+        "end_line": 26,
+        "message": "Read the hook payload from stdin. Claude Code supplies command-hook input on stdin, but the configured command passes no arguments. Consequently, `process.argv[2]` is absent, `input` becomes `{}`, and every invocation exits before checking shutdown requests. Read stdin and add a test using the configured invocation; the current tests pass JSON as an argument and miss this failure.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "templates/hooks/dev-team-implementer-guard.js",
+        "start_line": 82,
+        "end_line": 85,
+        "message": "Resolve the recipient's branch instead of the sender's. When the team lead runs on `main` and an implementer works in an isolated worktree, this command resolves the lead's branch, so the subsequent `main` exemption permits shutdown without checking the implementer's reviews. On another feature branch, it checks unrelated evidence instead. Resolve the target agent's worktree and branch before checking evidence; separate implementation branches are explicitly required by [CLAUDE.md:23–24](CLAUDE.md#L23-L24).",
+        "status": "matched_tp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9,
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "templates/hooks/dev-team-implementer-guard.js",
+        "start_line": 102,
+        "end_line": 103,
+        "message": "Match review metadata rather than requiring branch filenames. Existing review sidecars use `<agent>--<file-content-hash>.json`, as specified in ADR-029 and consumed by `dev-team-review-gate.js`. A valid hash-named sidecar is therefore rejected here even when its JSON `branch` matches, preventing shutdown after review. Conversely, a filename containing a longer, unrelated branch name can satisfy this substring check. Parse sidecars and validate their branch metadata, consistent with the merge gate.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "hughdidit_DAISy-Agency_309-ac6e2196",
+    "candidate_findings": [
+      {
+        "file": "scripts/verify.sh",
+        "start_line": 279,
+        "end_line": 279,
+        "message": "Remove literal backslashes from the generated binary lookup. In this unquoted heredoc, `\\\"` survives into the generated probe, producing `command -v \\\"jq\\\"` rather than `command -v \"jq\"`. The remote shell therefore searches for a binary whose name includes literal double quotes. Since `jq` is the first manifest entry, every GCE verification fails with `missing_binary:jq`, even for healthy deployments. Emit ordinary double quotes around the binary name instead.",
+        "status": "matched_tp",
+        "matched_golden_index": 16,
+        "covered_golden_indices": [
+          16
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "mamu7211_feirb-mailclient_215-d15c6ca6",
+    "candidate_findings": [
+      {
+        "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+        "start_line": 35,
+        "end_line": 37,
+        "message": "Sanitize Markdown HTML before inserting it into the editor. When a user pastes untrusted Markdown containing raw HTML and switches to rich text, `marked.parse` preserves event attributes and this assignment inserts them into the live DOM. An `<img src=x onerror=...>` can execute script in the application's origin and access the authentication tokens in localStorage. The server-side sanitizer runs only during sending, which is too late; sanitize the HTML before insertion.",
+        "status": "matched_fp",
+        "matched_golden_index": 41,
+        "covered_golden_indices": [
+          41
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "security"
+      },
+      {
+        "file": "src/Feirb.Api/Services/MailSendingService.cs",
+        "start_line": 74,
+        "end_line": 74,
+        "message": "Select STARTTLS for SMTP submission on port 587. For the mailbox defaults of port 587 with TLS enabled, this selects MailKit's Boolean overload, where `true` means SSL-on-connect rather than STARTTLS. Ordinary submission servers expect a plaintext greeting followed by STARTTLS, so sending fails during the handshake. Select explicit socket options appropriate to the connection mode, retaining SSL-on-connect for implicit-TLS servers.",
+        "status": "matched_tp",
+        "matched_golden_index": 5,
+        "covered_golden_indices": [
+          5
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+        "start_line": 26,
+        "end_line": 27,
+        "message": "Validate the send request before using its fields. The application does not register Minimal API validation or a validation filter, so the annotations on `SendMailRequest` are not enforced. An authenticated request containing `\"to\": null` reaches this dereference and returns 500, while empty subjects, unsupported content types, and oversized bodies bypass the declared restrictions and reach the sender. Validate the request before accessing its fields or sending mail.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+        "start_line": 30,
+        "end_line": 32,
+        "message": "Export semantic HTML instead of Quill's internal markup. Quill 2 represents bullet lists internally as `<ol>` elements with `data-list=\"bullet\"` attributes and relies on its stylesheet to display bullets. Returning this markup makes bullet lists appear numbered in outgoing emails, and Turndown likewise converts them into ordered Markdown when switching modes. Export semantic HTML rather than the editor's internal DOM so both consumers preserve list semantics.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/Feirb.Api/Services/MailSendingService.cs",
+        "start_line": 104,
+        "end_line": 106,
+        "message": "Handle unsupported special folders before trying the fallback. On IMAP servers without SPECIAL-USE or XLIST support, MailKit's `GetFolder(SpecialFolder.Sent)` throws `NotSupportedException` rather than returning null. The fallback therefore never executes, even when a regular Sent folder exists, and the outer catch silently skips saving the sent copy. Check server capabilities or handle this exception before enumerating folders.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "mareklesko_ProxmoxMCP-Plus_1-b44013c3",
+    "candidate_findings": [
+      {
+        "file": ".devcontainer/devcontainer.json",
+        "start_line": 7,
+        "end_line": 7,
+        "message": "Match the workspace folder to the actual repository mount. When the checkout directory is not named exactly `ProxmoxMCP-Plus`, Dev Containers mounts it under a different `/workspaces/<directory-name>` path. Setting `workspaceFolder` does not change that mount, so VS Code opens a nonexistent directory and the post-create command cannot install the project. Use the actual mounted directory or configure an explicit matching `workspaceMount`, and update the interpreter path accordingly.",
+        "status": "matched_fp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "maintainability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "maintainability"
+      },
+      {
+        "file": ".devcontainer/devcontainer.json",
+        "start_line": 8,
+        "end_line": 8,
+        "message": "Install development dependencies from a supported definition. On a fresh container, this command installs only runtime dependencies: `pyproject.toml` uses Hatchling and declares no `dev` extra, so the development extras in `setup.py` are ignored. Consequently, pytest and pytest-asyncio are missing and the repository's tests cannot run. Install `requirements-dev.in` as part of setup or declare the extra in `pyproject.toml`.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "navikt_k9-brukerdialog-prosessering_480-f828e2d8",
+    "candidate_findings": [
+      {
+        "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+        "start_line": 1,
+        "end_line": 4,
+        "message": "Add a deployment workflow for the new Kafka topics. On a normal dev/main deployment, this manifest is never applied: no workflow references it, and the existing topic workflows each deploy an explicitly named file. The new streams start unconditionally, but their input topics and ACLs will therefore be missing, preventing income-report submissions from being processed. Add a workflow invoking `reusable-topic-workflow.yml` for this manifest, as done for the existing topic files.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "obot-platform_obot_6351-343e5688",
+    "candidate_findings": [
+      {
+        "file": "pkg/api/handlers/mcpcatalogs.go",
+        "start_line": 176,
+        "end_line": 179,
+        "message": "Preserve the stored token when editing a source URL. When an administrator edits a token-protected source URL without entering a replacement token, `McpServerGitSync.svelte` sends `\"*\"` under the new URL. This lookup only checks the new key, while the stored token remains under the old URL. The old key is subsequently dropped, silently deleting the credential and breaking private-repository sync. Implement an explicit old-to-new credential transfer for URL edits.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "pkg/api/handlers/mcpcatalogs.go",
+        "start_line": 126,
+        "end_line": 128,
+        "message": "Normalize credential keys alongside source URLs. When a user adds a scheme-less URL such as `gitlab.com/org/repo` with a token, the UI keys `sourceURLCredentials` by that original input. This normalization changes only `SourceURLs`, so the credential-processing loop rejects the original key as inactive. Saving succeeds but discards the token, leaving private-repository sync unauthenticated. Apply the same normalization to credential-map keys.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "pkg/controller/handlers/mcpcatalog/github.go",
+        "start_line": 58,
+        "end_line": 60,
+        "message": "Keep GitLab raw-file URLs on the HTTP download path. Existing sources such as `https://gitlab.com/group/repo/-/raw/main/catalog.yaml` previously used the raw-file download path. Classifying every GitLab URL as a repository now sends these through `parseGitURL`, which interprets `-/raw/main/catalog.yaml` as a branch and rejects it. Distinguish GitLab raw-file URLs from repository URLs so existing catalog sources continue syncing.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "supa-magic_spm_19-c60d2e03",
+    "candidate_findings": [
+      {
+        "file": "src/commands/install.ts",
+        "start_line": 77,
+        "end_line": 77,
+        "message": "Keep manifest names from escaping the temporary directory. A remote manifest's `name` is only validated as a string, so a name containing `../` segments can make `tmpDir` point anywhere writable by the user. Because `safePath` then trusts that directory, ordinary repository paths such as `.ssh/authorized_keys` can overwrite files outside temporary storage. Use a generated temporary directory or validate the name as a single path component.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "security"
+      },
+      {
+        "file": "src/commands/install.ts",
+        "start_line": 42,
+        "end_line": 44,
+        "message": "Check directory boundaries when validating output paths. For a base directory `/tmp/spm/demo`, the path `../demo-evil/README.md` resolves outside that directory but still passes `startsWith(baseDir)`. Manifest entries can therefore escape into sibling skillset directories and overwrite their files. Check containment using a path-relative boundary check rather than a plain string prefix.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "src/core/resolver/parse-identifier.ts",
+        "start_line": 5,
+        "end_line": 8,
+        "message": "Preserve the branch specified in GitHub URLs. When a URL points to a non-default branch, this parser discards that branch and `resolveIdentifier` substitutes the repository's default branch. For example, `/tree/develop/pkg` downloads `pkg/skillset.yml` from `main` when that is the default, potentially installing different content or failing with a 404. Carry the URL's ref through resolution and only discover the default branch when no ref was supplied.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/commands/install.ts",
+        "start_line": 30,
+        "end_line": 30,
+        "message": "Resolve the ref for each cross-repository source. For cross-repository skills, `entry.owner` and `entry.repository` identify the dependency, but `location.ref` belongs to the manifest repository. A manifest on `main` referencing a dependency whose default branch is `master` therefore requests a nonexistent `main` branch and aborts the entire download. Resolve and cache the appropriate ref for each source repository instead of applying the manifest's ref universally.",
+        "status": "matched_tp",
+        "matched_golden_index": 19,
+        "covered_golden_indices": [
+          19
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/commands/install.ts",
+        "start_line": 84,
+        "end_line": 86,
+        "message": "Namespace output paths by their source repository. If two skills reference different repositories containing the same path, such as `skill/SKILL.md`, both downloads are written to the same destination because only `result.path` is used. The concurrent writes overwrite one another even though installation reports both files as downloaded. Include the source repository or another unique skill namespace in the destination mapping.",
+        "status": "matched_tp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "sw5005-sus_ceramicraft-argocd-deploy_89-d7a45321",
+    "candidate_findings": [
+      {
+        "file": "agent/ai-secure-agent.yaml",
+        "start_line": 25,
+        "end_line": 27,
+        "message": "Restore the shared secret environment injection. The Helm Deployment injected `ms-secret-vault` through `envFrom`, but this replacement supplies only the listed non-secret variables. Credentials provided by the existing ExternalSecret are therefore no longer available to the unchanged agent image. In deployments using those credentials for authenticated dependencies, the agent will fail to connect. Preserve the previous `envFrom.secretRef` in this Deployment.",
+        "status": "matched_tp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "agent/ai-secure-agent.yaml",
+        "start_line": 22,
+        "end_line": 25,
+        "message": "Preserve the agent's readiness and liveness probes. The replacement Deployment drops both HTTP probes previously configured for `/ai-secure-agent-ms/v1/ping`. During startup or rollout, Kubernetes will now consider the container ready before the HTTP server is accepting requests, potentially routing traffic prematurely and terminating the previous healthy pod. A running but unresponsive agent also no longer triggers a restart. Restore the existing health checks in this manifest.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "vriesdemichael_keycloak-operator_696-4db0ddea",
+    "candidate_findings": [
+      {
+        "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+        "start_line": 149,
+        "end_line": 150,
+        "message": "Resolve an endpoint reachable from the host. For the documented kube-context invocation from a workstation, this selects an unreachable URL: `KeycloakReconciler.do_create()` populates both admin and public endpoints with `.svc.cluster.local` addresses. Host-side DNS cannot resolve these addresses, as documented in [AGENTS.md:388](AGENTS.md#L388), so authentication fails even when an ingress exists. Resolve a reachable ingress or port-forwarded address, or require `--server-url` with a clear diagnostic.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+        "start_line": 176,
+        "end_line": 180,
+        "message": "Preserve already-decoded Kubernetes Secret values. When a valid username or password also matches base64 syntax, such as `admin123` or a 16-character alphanumeric password, this branch silently corrupts it. Client-go already decodes `Secret.Data`, so decoding again produces different credentials and causes authentication to fail. Return the raw value unchanged; double encoding cannot safely be inferred from the credential's contents.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0,
+          8
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tools/migration-toolkit/internal/userimport/importer.go",
+        "start_line": 194,
+        "end_line": 197,
+        "message": "Include overwritten users in the import summary. With `--mode overwrite`, Keycloak counts replaced users in `overwritten`, not `added`. This response struct discards that counter, so replacing 500 existing users reports Added: 0, Skipped: 0, Errors: 0 despite making destructive changes. Carry an overwritten counter through the batch result, aggregate result, and printed summary.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tools/migration-toolkit/internal/userimport/importer.go",
+        "start_line": 80,
+        "end_line": 82,
+        "message": "Return accumulated results when a later batch fails. If a later batch receives an HTTP error or encounters a transport failure, earlier batches have already changed Keycloak, but returning `nil` discards their accumulated counts. Consequently, `runImportUsers()` calls `printImportSummary()` with nil and prints no partial summary. Return the accumulated result alongside the error here and on token-refresh failures so completed work remains visible.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "maintainability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "maintainability"
+      }
+    ]
+  }
+]

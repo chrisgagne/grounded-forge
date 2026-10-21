@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/CommunityToolkit/Maui",
+  "pr_number": 3181,
+  "base": "c7cb65bc98e429401e4f792f6b7aa21f94e81933",
+  "head": "1e8d2e2f880cfe1d9bcbdfbc6078cb6b72fd35ce"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "start_line": 67,
+   "end_line": 70,
+   "message": "Allow the unknown-length sentinel when opening streams. For a non-seekable stream and an unspecified request length, `bytesRemaining` is `C.LengthUnset` (-1), so this check throws before playback can begin. Exclude the unknown-length sentinel from the negative-length validation; the `Read` implementation already handles it."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 65,
+   "end_line": 72,
+   "message": "Fill the requested range before finishing resource loading. When a stream returns a short read before EOF, this sends only part of the requested range and then `ShouldWaitForLoadingOfRequestedResource` unconditionally calls `FinishLoading()`. Short reads are valid for .NET streams, so valid media can fail to load or play truncated on iOS and Mac Catalyst. Read and respond repeatedly until the requested range is satisfied or EOF is reached."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

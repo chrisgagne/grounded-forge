@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1313548,
+  "duration_s": 24.5
+ },
+ "answer": {
+  "kind": "check",
+  "command": "cd {tree} && node_modules/.bin/jest --rootDir \"$PWD\" --roots \"$PWD/../check\"",
+  "because": "On head, Set.of(1).union('abc'), .merge('abc') and .concat('abc') each return [1,'a','b','c'] instead of [1,'abc'], so the string is split into characters, while on base all three tests pass."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS ../check/__tests__/unionString.ts\n  Set#union with a string argument\n    \u2713 union adds the string as one value (1 ms)\n    \u2713 merge adds the string as one value\n    \u2713 concat adds the string as one value (1 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       3 passed, 3 total\nSnapshots:   0 total\nTime:        0.801 s\nRan all test suites.\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "      Array [\n        1,\n    -   \"abc\",\n    +   \"a\",\n    +   \"b\",\n    +   \"c\",\n      ]\n\n      3 | describe('Set#union with a string argument', () => {\n      4 |   it('union adds the string as one value', () => {\n    > 5 |     expect(Set.of(1).union('abc').toArray()).toEqual([1, 'abc']);\n        |                                              ^\n      6 |   });\n      7 |   it('merge adds the string as one value', () => {\n      8 |     expect(Set.of(1).merge('abc').toArray()).toEqual([1, 'abc']);\n\n      at Object.<anonymous> (../check/__tests__/unionString.ts:5:46)\n\n  \u25cf Set#union with a string argument \u203a merge adds the string as one value\n\n    expect(received).toEqual(expected) // deep equality\n\n    - Expected  - 1\n    + Received  + 3\n\n      Array [\n        1,\n    -   \"abc\",\n    +   \"a\",\n    +   \"b\",\n    +   \"c\",\n      ]\n\n       6 |   });\n       7 |   it('merge adds the string as one value', () => {\n    >  8 |     expect(Set.of(1).merge('abc').toArray()).toEqual([1, 'abc']);\n         |                                              ^\n       9 |   });\n      10 |   it('concat adds the string as one value', () => {\n      11 |     expect(Set.of(1).concat('abc').toArray()).toEqual([1, 'abc']);\n\n      at Object.<anonymous> (../check/__tests__/unionString.ts:8:46)\n\n  \u25cf Set#union with a string argument \u203a concat adds the string as one value\n\n    expect(received).toEqual(expected) // deep equality\n\n    - Expected  - 1\n    + Received  + 3\n\n      Array [\n        1,\n    -   \"abc\",\n    +   \"a\",\n    +   \"b\",\n    +   \"c\",\n      ]\n\n       9 |   });\n      10 |   it('concat adds the string as one value', () => {\n    > 11 |     expect(Set.of(1).concat('abc').toArray()).toEqual([1, 'abc']);\n         |                                               ^\n      12 |   });\n      13 | });\n      14 |\n\n      at Object.<anonymous> (../check/__tests__/unionString.ts:11:47)\n\nTest Suites: 1 failed, 1 total\nTests:       3 failed, 3 total\nSnapshots:   0 total\nTime:        0.757 s\nRan all test suites.\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, Set.of(1).union('abc'), .merge('abc') and .concat('abc') each return [1,'a','b','c'] instead of [1,'abc'], so the string is split into characters, while on base all three tests pass.",
+ "run": "v3-distillations",
+ "trial": "v25-t1",
+ "kind": "bug"
+}

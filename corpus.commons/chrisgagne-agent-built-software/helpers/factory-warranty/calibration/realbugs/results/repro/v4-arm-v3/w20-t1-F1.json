@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.40141179999999993,
+  "duration_s": 1132.4
+ },
+ "answer": {
+  "kind": "check",
+  "command": "sh check/run.sh {tree}",
+  "because": "The script builds the tree's own src with its rollup+buble pipeline and iterates `Seq([1,2,3]).reverse().map(f).reverse().entries()`; on head the reversed sequence's arrow-function `__iterator` reads `this.size` with `this` undefined and throws `TypeError: Cannot read properties of undefined (reading 'size')`, while base returns [[0,10],[1,20],[2,30]]."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS [[0,10],[1,20],[2,30]]\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "file://<tmp>/factory-run-5_757jow/immutable-check-head-81609.mjs:1301\n        useKeys ? entry[0] : reverse ? this$1$1.size - ++i : i++,\n                                                ^\n\nTypeError: Cannot read properties of undefined (reading 'size')\n    at Iterator.next (file://<tmp>/factory-run-5_757jow/immutable-check-head-81609.mjs:1301:49)\n    at Iterator.next (file://<tmp>/factory-run-5_757jow/immutable-check-head-81609.mjs:1242:27)\n    at Iterator.next (file://<tmp>/factory-run-5_757jow/immutable-check-head-81609.mjs:1294:27)\n    at Function.from (<anonymous>)\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v3/w20-t1-F1/check/reverseIterator.mjs:8:23\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The script builds the tree's own src with its rollup+buble pipeline and iterates `Seq([1,2,3]).reverse().map(f).reverse().entries()`; on head the reversed sequence's arrow-function `__iterator` reads `this.size` with `this` undefined and throws `TypeError: Cannot read properties of undefined (reading 'size')`, while base returns [[0,10],[1,20],[2,30]].",
+ "run": "v4-arm-v3",
+ "trial": "w20-t1",
+ "kind": "bug"
+}

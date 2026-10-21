@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/brexhq/CrabTrap",
+  "pr_number": 15,
+  "base": "b29930e93765700608313c0f0d32c4818734e158",
+  "head": "5ef0884c59b3ee1d5a986dd02686a8232570c80f"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "web/src/components/AuditTrail.tsx",
+   "start_line": 113,
+   "end_line": 115,
+   "message": "Make audit details available when the LLM judge is disabled. When `LLMJudge.Enabled` is false, `startAdminAPI` does not call `SetEvalRunner`, leaving `a.evalStore` nil. The existing detail handler then rejects this new `getAuditEntry` request with HTTP 503 before reaching `GetEntry`. Since list responses now omit payloads, administrators without an enabled LLM judge can no longer inspect any stored request/response headers or bodies. Remove the eval-store dependency from the audit-detail GET path before relying on it for expansion."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "internal/admin/api.go",
+   "start_line": 325,
+   "end_line": 329,
+   "message": "GET /admin/audit now runs an unbounded `SELECT COUNT(*) FROM audit_log` on every page load and every loadMore. With no filters, Postgres has to scan the whole table, so the cost grows with audit history. This works against the PR's goal of lighter list responses, and on a large audit table the count can easily cost more than the 100-row page it describes. If it fails, the whole list returns a 500, where before it still returned entries. Consider counting only on the first page (offset=0), computing has_more by fetching limit+1 rows, or capping or estimating the count."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "web/src/components/AuditTrail.tsx",
+   "start_line": 336,
+   "end_line": 346,
+   "message": "Fetched details are cached in `entryDetails` by id for the component's lifetime and are never refetched or invalidated. Response bodies are now streamed and written later through UpdateResponse. So if someone expands a row while its request is still in flight, the cached detail shows an empty or partial response body and status, and collapsing and re-expanding keeps showing the stale copy until the page reloads. The cache also keeps every full payload ever expanded in memory. Consider refetching on each expand, or dropping cached details when the list reloads."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "web/src/components/AuditTrail.tsx",
+   "start_line": 370,
+   "end_line": 372,
+   "message": "While details load, or after the fetch fails, `detailEntry` falls back to the summary row. The expanded panel then shows empty Headers/Body sections next to the 'Loading\u2026' or error message, which looks like the request really had no headers or body. Hide or placeholder the payload sections until the details arrive."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 75000
+ }
+}

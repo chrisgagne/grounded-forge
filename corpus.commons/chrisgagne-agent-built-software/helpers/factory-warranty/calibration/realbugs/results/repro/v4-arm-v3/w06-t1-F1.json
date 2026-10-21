@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.13240200000000002,
+  "duration_s": 19.1
+ },
+ "answer": {
+  "kind": "check",
+  "command": "TREE={tree} node --experimental-strip-types --test check/image_alt_code.test.mjs",
+  "because": "On head, rendering `![foo `bar`](x)` with the project's own markdown-it gives alt=\"foo \" instead of alt=\"foo bar\" (base gives alt=\"foo bar\"). This shows that with the code_inline case gone, renderInlineAsText drops code-span text from image alt, against CommonMark's stripped-markup rule."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "TAP version 13\n# (node:51269) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n# (Use `node --trace-warnings ...` to show where the warning was created)\n# Subtest: image alt keeps code span text (CommonMark stripped markup)\nok 1 - image alt keeps code span text (CommonMark stripped markup)\n  ---\n  duration_ms: 3.554\n  type: 'test'\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 1\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 286.548458\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "TAP version 13\n# (node:51338) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time\n# (Use `node --trace-warnings ...` to show where the warning was created)\n# Subtest: image alt keeps code span text (CommonMark stripped markup)\nnot ok 1 - image alt keeps code span text (CommonMark stripped markup)\n  ---\n  duration_ms: 4.229\n  type: 'test'\n  location: '<work>/repro-work/v4-arm-v3/w06-t1-F1/check/image_alt_code.test.mjs:8:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly equal:\n    + actual - expected\n    \n    + '<p><img src=\"x\" alt=\"foo \"></p>\\n'\n    - '<p><img src=\"x\" alt=\"foo bar\"></p>\\n'\n                                ^\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected: |-\n    <p><img src=\"x\" alt=\"foo bar\"></p>\n    \n  actual: |-\n    <p><img src=\"x\" alt=\"foo \"></p>\n    \n  operator: 'strictEqual'\n  stack: |-\n    TestContext.<anonymous> (file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v4-arm-v3/w06-t1-F1/check/image_alt_code.test.mjs:10:10)\n    Test.runInAsyncScope (node:async_hooks:214:14)\n    Test.run (node:internal/test_runner/test:1047:25)\n    Test.start (node:internal/test_runner/test:944:17)\n    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 0\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 204.055291\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, rendering `![foo `bar`](x)` with the project's own markdown-it gives alt=\"foo \" instead of alt=\"foo bar\" (base gives alt=\"foo bar\"). This shows that with the code_inline case gone, renderInlineAsText drops code-span text from image alt, against CommonMark's stripped-markup rule.",
+ "run": "v4-arm-v3",
+ "trial": "w06-t1",
+ "kind": "bug"
+}

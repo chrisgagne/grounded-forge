@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/android",
+  "pr_number": 11084,
+  "base": "e67a3fd36ca5e24b0007a170ea77037e4437f9d3",
+  "head": "ac02d09a29b6492b0e1a01b48f5fcb3efa561a6c"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 277,
+   "end_line": 277,
+   "message": "Stale prelink assemblies can replace updated dependencies, causing builds to ship obsolete code. After a legacy library has produced prelink/Library.dll, replace it with a version that uses the modern designer or no longer has a resource designer. PreTrimmingFixLegacyDesigner.RunTask writes a copy only when ProcessAssemblyDesigner returns true and never deletes previous copies. Even when the task reruns, this target substitutes any existing prelink file based solely on its filename, so the old Library.dll replaces the updated dependency."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

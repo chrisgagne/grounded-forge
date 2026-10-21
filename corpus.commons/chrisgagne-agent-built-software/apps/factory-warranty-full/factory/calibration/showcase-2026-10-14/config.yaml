@@ -1,0 +1,37 @@
+commands:
+  test: PYTHONPATH=. "/Users/cgagne/Documents/LLM Repos/repos/factory/.venv/bin/python"
+    -m pytest -q -rA -p no:cacheprovider
+test_globs:
+- tests/**
+risk_paths: {}
+axis_spec: /path/to/grounded-forge/corpus.commons/chrisgagne-agent-built-software/tasks/warranting-agent-built-software.md
+axis_index: /path/to/grounded-forge/corpus.commons/chrisgagne-agent-built-software/distillations/warranting-agent-built-software/WARRANTING-AGENT-BUILT-SOFTWARE-DISTILLATION-INDEX.md
+theory_doc: DESIGN.md
+builder:
+  kind: claude
+  command: null
+ratchet:
+  semgrep_findings: true
+  lint_warnings: null
+review:
+  claude_model: opus
+  codex_model: gpt-6.1-sol
+  grounding: seeds
+legs:
+  claude_model: opus
+  permission_mode: acceptEdits
+  effort: null
+  timeout_minutes: 30
+  setting_sources: project
+gate:
+  timeout_minutes: 15
+  semgrep_config: p/default
+worktree_root: null
+isolation:
+  os_sandbox: true
+  network:
+  - install
+  - adapter
+  allowed_domains: []
+  allow_write: []
+  env: []

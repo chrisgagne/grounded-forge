@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/ComposioHQ/agent-orchestrator",
+  "pr_number": 1277,
+  "base": "ba77929c9345a0dc897d53115504d0ae32745ce5",
+  "head": "76652c7ccefa3a371be74e8648c5204adc7f09a5"
+ },
+ "agent": "v7-opus-own",
+ "findings": [
+  {
+   "producer": "v7-opus-own",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 81,
+   "end_line": 87,
+   "message": "If the install method is \"git\" but `dist/assets/scripts/ao-update.sh` is missing, this code quietly switches to a global `npm install -g @aoagents/ao@latest`. That can happen when the CLI was built with plain `tsc` or `tsc --watch`, because those skip the `cp -r src/assets dist/` step. The npm install then overwrites the `npm link` launcher with a published package and leaves the checkout itself unchanged. The method is also hardcoded to \"npm-global\", so pnpm and bun users get the wrong command. A source checkout with a missing script is a build problem, so it should fail with a clear error (for example, \"run pnpm build\") instead of changing how AO is installed."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 92,
+   "end_line": 94,
+   "message": "The ao-specific marker (`scripts/ao-update.sh`) was removed from the check, so any non-node_modules path whose fourth parent directory has a `.git` is now classified as a \"git\" source install, even when it isn't an AO checkout. `ao update` would then run the source-update flow (git pull, pnpm build) against the wrong repo, or fall into the npm fallback above. Check for an AO-specific marker instead, such as `packages/cli/src/assets/scripts/ao-update.sh` or the `packages/ao` directory."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The default `REPO_ROOT` is still `$(dirname BASH_SOURCE)/..`. That was correct when the script lived at `scripts/`, but after the move it resolves to `packages/cli/src/assets` (or `dist/assets`). Anyone who runs the script directly without `AO_REPO_ROOT` set will get a wrong root, and its git, pnpm and npm link steps will fail or act on the wrong directory. It needs to go up 4 levels, or the fallback should be removed and `AO_REPO_ROOT` required."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 31,
+   "end_line": 38,
+   "message": "After the move, the default `REPO_ROOT` (`dirname/..`) points to `assets/` rather than the repo or package root. Layout detection then reports `source-checkout`, and when the script runs without `AO_REPO_ROOT` every repo check is made against the wrong directory, which produces false failures."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "packages/cli/__tests__/lib/script-runner.test.ts",
+   "start_line": 102,
+   "end_line": 106,
+   "message": "The regex escape is wrong. `/[.*+?^${}()|[\\\\]\\\\\\\\]/g` is a character class followed by literal backslashes, so it almost never matches and the path is effectively inserted unescaped. The test passes only because `.` happens to match itself. A checkout path containing characters such as `+`, `(` or `[` would make the test fail or throw. Use the standard `/[.*+?^${}()|[\\]\\\\]/g`."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 326,
+   "end_line": 326,
+   "message": "The package-install path does not use `$REPO_ROOT/packages`, but the fix hint for a source checkout (`bash scripts/setup.sh`) is still tied to a root-level `scripts/` directory. Now that the AO scripts have moved out of root `scripts/`, check that `setup.sh` still exists there, or the hint will point users to a missing file."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

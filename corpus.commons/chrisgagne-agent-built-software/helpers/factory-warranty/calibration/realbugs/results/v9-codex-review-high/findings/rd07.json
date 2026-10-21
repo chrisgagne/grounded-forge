@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 134,
+   "message": "Align company validation with the removed owner field. `companySchema` still requires `ownerName`, but this validation payload and the creation form no longer supply it. Consequently, every company save and creation submission fails validation, even when all displayed fields are valid; the missing field's error is not displayed either. Update the shared schema to match the new company fields."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/lib/constants.ts",
+   "start_line": 122,
+   "end_line": 122,
+   "message": "Update status consumers for the new verification label. For companies with status `1`, the new `Under Verification` label is passed to both `DetailAvatarCard.svelte` and the company dashboard. Those consumers still recognize only `Validating`/`verifying`, so the avatar badge and dashboard's current-status message disappear. Update those consumers alongside this label change."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Allow Escape to reach the modal keyboard handler. When focus is inside the dialog, including on its close button or map, this modifier stops Escape from reaching the window-level `handleKeydown` listener. Escape therefore cannot dismiss the modal after keyboard focus enters it. Handle Escape locally or let it propagate to the existing listener."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 70000
+ }
+}

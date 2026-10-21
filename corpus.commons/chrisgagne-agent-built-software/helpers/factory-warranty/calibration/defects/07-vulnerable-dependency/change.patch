@@ -1,0 +1,102 @@
+diff --git a/docs/THEORY.md b/docs/THEORY.md
+index 452e009..7ef55a6 100644
+--- a/docs/THEORY.md
++++ b/docs/THEORY.md
+@@ -53,7 +53,7 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ | `POST /login` | no | Start a session; sets the `sid` cookie. |
+ | `POST /logout` | yes | End the session. |
+ | `GET /me`, `PATCH /me` | yes | Read or change your own name and date of birth. Email and password are not changed here. |
+-| `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. |
++| `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. Each note has `createdAgo`, such as "3 days ago". |
+ | `POST /notes` | yes | Create a note (`title`, `body`, up to 10 `tags`). |
+ | `GET /notes/:id` | yes | One of your notes. |
+ | `POST /notes/summary` | yes | Summarise your 50 newest notes (optionally one `tag`); `email: true` also emails you the summary. |
+diff --git a/package-lock.json b/package-lock.json
+index 2872e26..52b5c62 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -7,6 +7,9 @@
+     "": {
+       "name": "notes-app",
+       "version": "1.4.0",
++      "dependencies": {
++        "moment": "2.29.1"
++      },
+       "devDependencies": {
+         "@types/node": "22.20.5",
+         "typescript": "5.9.3"
+@@ -25,6 +28,15 @@
+         "undici-types": "~6.21.0"
+       }
+     },
++    "node_modules/moment": {
++      "version": "2.29.1",
++      "resolved": "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz",
++      "integrity": "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==",
++      "license": "MIT",
++      "engines": {
++        "node": "*"
++      }
++    },
+     "node_modules/typescript": {
+       "version": "5.9.3",
+       "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz",
+diff --git a/package.json b/package.json
+index d93d4dc..347bf41 100644
+--- a/package.json
++++ b/package.json
+@@ -17,5 +17,8 @@
+   "devDependencies": {
+     "@types/node": "22.20.5",
+     "typescript": "5.9.3"
++  },
++  "dependencies": {
++    "moment": "2.29.1"
+   }
+ }
+diff --git a/src/notes/routes.js b/src/notes/routes.js
+index d8cb0ff..180bcb3 100644
+--- a/src/notes/routes.js
++++ b/src/notes/routes.js
+@@ -1,3 +1,4 @@
++import moment from 'moment';
+ import { HttpError, sendJson } from '../http.js';
+ import { createNote, getNote, listNotes } from './repo.js';
+ 
+@@ -38,6 +39,7 @@ export function toNoteResponse(note) {
+     tags: note.tags,
+     createdAt: new Date(note.createdAt).toISOString(),
+     updatedAt: new Date(note.updatedAt).toISOString(),
++    createdAgo: moment(note.createdAt).fromNow(),
+   };
+ }
+ 
+diff --git a/test/notes-relative-time.test.js b/test/notes-relative-time.test.js
+new file mode 100644
+index 0000000..0573a7d
+--- /dev/null
++++ b/test/notes-relative-time.test.js
+@@ -0,0 +1,23 @@
++import assert from 'node:assert/strict';
++import { test } from 'node:test';
++import { toNoteResponse } from '../src/notes/routes.js';
++import { addNote, alice, signUpAndLogIn, startTestApp } from './helpers/app.js';
++
++const DAY = 24 * 60 * 60 * 1000;
++const note = (createdAt) => ({ id: 1, title: 't', body: '', tags: [], createdAt, updatedAt: createdAt });
++
++test('describes when a note was created in words', () => {
++  assert.equal(toNoteResponse(note(Date.now() - 3 * DAY)).createdAgo, '3 days ago');
++  assert.equal(toNoteResponse(note(Date.now() - 40 * DAY)).createdAgo, 'a month ago');
++  assert.equal(toNoteResponse(note(Date.now() - 2000)).createdAgo, 'a few seconds ago');
++});
++
++test('the notes list and a single note include createdAgo', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  const created = await addNote(app, cookie, { title: 'Fresh' });
++  assert.equal(created.createdAgo, 'a few seconds ago');
++  const list = await app.request('GET', '/notes', { cookie });
++  assert.equal(list.body.notes[0].createdAgo, 'a few seconds ago');
++});

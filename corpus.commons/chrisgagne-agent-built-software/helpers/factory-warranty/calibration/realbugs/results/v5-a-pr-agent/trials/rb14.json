@@ -1,0 +1,40 @@
+{
+ "id": "rb14",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "start_line": 130,
+   "end_line": 152,
+   "message": "Stale version after rotation. When lazy rotation succeeds, the inner `put` bumps the stored version. However, `get` still returns `credential` with the old `version`, and the `put` result is discarded.\n\nAny caller that does `get` and then `put(..., PutMode::CompareAndSwap { expected_version: cred.version })` will hit a `VersionConflict` on the first read after a key rotation. Examples include the resolver refresh path and rotation logic.\n\nFix: on `Ok(stored)`, propagate `stored.version` (and `updated_at`, if applicable) into the returned credential."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "crates/credential/src/layer/encryption.rs",
+   "start_line": 206,
+   "end_line": 222,
+   "message": "Legacy data unreadable. The no-AAD fallback has been removed. Any credential encrypted before AAD binding was introduced now fails `get` with a hard `Backend` error, so those secrets become unreadable.\n\nThe diff includes no migration path, and the updated test confirms the rejection. If any deployment still holds pre-AAD records, this is effectively data loss on upgrade. It is unclear from the diff whether such records still exist.\n\nConsider one of these:\n- Keep the fallback, gated behind an opt-in flag, and lazily re-encrypt on read.\n- Ship a migration tool before removing the fallback."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "crates/credential/src/crypto.rs",
+   "start_line": 78,
+   "end_line": 83,
+   "message": "Inconsistent key_id handling. The `key_id` doc says the encryption layer rejects empty key IDs and that a migration must run first. In practice, behavior depends on the constructor:\n\n- `EncryptionLayer::new` registers an empty-string alias for the default key, so records with an empty `key_id` are silently decrypted and rotated.\n- `EncryptionLayer::with_keys` has no such alias, so the same records fail with \"key not found\".\n\nAs a result, switching from `new` to `with_keys` during a real key rotation will break every record that was never read and rotated under `new`.\n\nMake the behavior consistent, for example by letting `with_keys` accept a legacy alias. At minimum, fix the doc so it matches the actual behavior."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 26,
+  "usage": {
+   "prompt_tokens": 52650,
+   "completion_tokens": 1923,
+   "total_tokens": 54573
+  },
+  "security_concern": false
+ }
+}

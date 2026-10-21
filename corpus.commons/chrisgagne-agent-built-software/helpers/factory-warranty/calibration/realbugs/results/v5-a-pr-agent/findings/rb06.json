@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/DisciplinedSoftware/Codebase-Conversion",
+  "pr_number": 1,
+  "base": "ed10728c91f7858a0bd95a97c754f4bd6c0487ec",
+  "head": "4b46d68c215dd2448a62f751e81218a0da789165"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 469,
+   "end_line": 471,
+   "message": "Output order mismatch. For FUNCTION routines, the Fortran driver prints the array values first and the function result last. The Rust template (`_RUST_EXAMPLE_TEMPLATE_FN`) prints `_result` first and the arrays after it. Both streams have the same length, so the element-wise comparison runs but pairs the wrong values.\n\nExample: for `ddot` (arrays `DX`, `DY`), the Rust dot product is compared against `DX(1)`, and every later value is shifted by one. A correct conversion will be reported as FAIL. Print in the same order in both drivers."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 745,
+   "end_line": 769,
+   "message": "False accuracy pass. In these cases nothing is added to `errors`, so the function returns `passed=fortran_ok_count > 0`:\n- the Rust example fails to compile or run (`rust_out is None`), or\n- the output lengths differ.\n\nAs a result, a broken Rust conversion, or one that produces the wrong number of outputs, is reported as passing as long as the Fortran reference ran. The length-mismatch case should be counted as a failure. The \"Rust unavailable\" case should not be reported as `passed=True`."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "fortran_to_rust/benchmarker.py",
+   "start_line": 183,
+   "end_line": 189,
+   "message": "Bogus Rust timings. The generated Rust benchmark has the actual call to the converted function commented out. It only times `black_box(&array)` in a loop.\n\n`run_benchmark` still treats the result as a real timing: it computes `speedup = fortran_ms / rust_ms` and puts that in the summary and report. This produces large, meaningless \"Rust is Nx faster\" claims. Either call the function, or skip the speedup when the call is not made."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "fortran_to_rust/test_harness.py",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Unsafe archive extraction / unauthenticated downloads: `_try_download_tarball` checks each member path with `resolve()` before extraction, but it does not handle symlink members.\n- A tarball can contain a symlink such as `x/link -> /etc`, followed by a file `x/link/foo`.\n- At check time the symlink does not exist yet, so `resolve()` does not follow it and the check passes.\n- `extractall` then writes through the symlink, outside `output_dir`.\n\nThis is a tar-slip risk. Use `extractall(..., filter=\"data\")` (Python 3.12+), or reject symlink and hardlink members.\n\nThe tarball and the netlib fallback files are also fetched over plain `http://` with no integrity check. The downloaded Fortran is then compiled and executed (gfortran drivers), so a man-in-the-middle could achieve code execution. Use HTTPS and/or verify checksums."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 32000
+ }
+}

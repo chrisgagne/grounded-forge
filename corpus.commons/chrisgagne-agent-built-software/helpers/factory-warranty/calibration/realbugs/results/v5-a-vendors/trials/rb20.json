@@ -1,0 +1,94 @@
+{
+ "id": "rb20",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 232,
+   "end_line": 238,
+   "message": "Use a matching syntax palette for dark code blocks in light mode. In light mode, this changes code blocks to a dark background while DocFX's syntax highlighter still uses its light-mode token colors. Setting the color on `pre code` does not override colors on highlighted child spans, so dark-colored tokens become difficult to read in the C# examples throughout the documentation. Apply a dark syntax-highlighting palette to these blocks as well, or retain a light background."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/docs.yml",
+   "start_line": 25,
+   "end_line": 27,
+   "message": "This concurrency change isn't mentioned in the PR, which is described as CSS-only. With `cancel-in-progress: true` on the `refs/heads/main` group, a new push to main can cancel a run while `deploy-pages` is publishing. GitHub's Pages starter workflows use `cancel-in-progress: false` for this reason: a cancelled deploy can leave the Pages deployment in a failed or partial state. Also, because the group key is per ref, Pages deploys no longer share one serialized group. If the goal is to cancel stale PR builds, scope cancellation to non-main refs (e.g. `cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}`) and keep the deploy serialized. Otherwise, split this into its own PR."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 252,
+   "end_line": 259,
+   "message": "In light mode, code blocks are forced to a dark background (#1e2530) and only the base `pre code` color is overridden. DocFX's highlight.js token colors (keywords, strings, types, comments) still come from the light highlight theme, which is meant for a light background. Many tokens, such as dark blue keywords and dark green or gray comments, will be very hard to read on the dark steel background. Either keep a light code background in light mode or also override the `.hljs-*` token colors for this dark surface."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 179,
+   "end_line": 186,
+   "message": "The search box uses theme-dependent variables but sits on a navbar that is always dark (`--forge-anvil` is #141a22 in both themes). In dark mode `--forge-steel-light` becomes #c0bbb4 and `--forge-ash` becomes #1a1f28. The result is a bright light-gray input with dark text on the dark navbar, the reverse of light mode and visually broken. Use fixed colors for header elements, as `.navbar-brand` and `thead th` already do."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 35,
+   "end_line": 50,
+   "message": "In light mode the link, inline-code, landing h3 and `td strong` color is #e8760a on a #faf9f7 background. That is about a 2.9:1 contrast ratio, below the WCAG AA 4.5:1 minimum for body text. Combined with `a { text-decoration: none }` at lines 385-389, body links are marked only by a low-contrast color. Use a darker ember for text in light mode (for example around #b45309) and/or keep link underlines."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 150,
+   "end_line": 150,
+   "message": "Nav links, header buttons, including the theme toggle this PR claims to fix, and footer text all use `--forge-smoke` on the fixed #141a22 navbar/footer. In dark mode `--forge-smoke` becomes #6b7280, which is about 3.8:1 contrast on #141a22, below AA for the 0.85-0.875rem text used here. These always-dark surfaces should use a fixed, sufficiently light color instead of the theme-swapped variable."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "Fonts are loaded with a CSS `@import` from fonts.googleapis.com. This blocks rendering (the import is only discovered after main.css downloads), adds a runtime dependency on a third-party CDN, and sends visitor IPs to Google, which has been ruled a GDPR problem in some jurisdictions. Consider self-hosting the fonts, or at least using `<link rel=preconnect>`/`<link>` in the template instead of `@import`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 299,
+   "end_line": 307,
+   "message": "These global `table` rules apply `width: 100%` and `overflow: hidden` to every table, including DocFX's API reference tables. Browsers generally ignore `overflow` on tables, so the rounded corners won't clip the dark header backgrounds as intended. Wide benchmark tables also get no horizontal scrolling of their own. Consider scoping the rules to `article table` and adding a scroll wrapper if needed."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "docfx/templates/forgemap/public/main.css",
+   "start_line": 266,
+   "end_line": 275,
+   "message": "`pre::before` is absolutely positioned inside a `pre` with `overflow: auto`. When a long code line is scrolled horizontally, the ember accent bar scrolls away with the content and the top edge is left bare. Put the accent on a non-scrolling wrapper, or use a `border-top`/`background-image` on the `pre` instead."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 35,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 43,
+   "cost_usd": 0.1876132,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 43
+ }
+}

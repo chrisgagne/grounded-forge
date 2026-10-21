@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/ardevd/jadx-collaboration",
+  "pr_number": 3,
+  "base": "a9627c7cd6695e2389a68033c3985a0809f2978e",
+  "head": "853179dcb73aed6afab52d11324ea3ff3eac8b8a"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 44,
+   "end_line": 54,
+   "message": "Concurrent Operations. Each menu click or key press now starts a new unsynchronized thread running `pull()` or `push()`. Before this change, these calls were serialized on the EDT through `uiRun`.\n\nPressing the shortcut twice, or triggering Pull while a Push is running, makes two threads read and write the local and remote repository files at the same time. This can cause lost updates or a corrupted repository state. It can also run pre-pull and post-push scripts in parallel.\n\nFix: guard these operations with a lock or an \"in progress\" flag, or use a single-thread executor."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 550,
+   "end_line": 550,
+   "message": "Off-EDT Project Access. `projectToLocalRepository(localRepository)` now runs on the background thread. Only the reverse step (`localRepositoryToProject`) is dispatched to the UI thread.\n\nThis reads JADX project and GUI state (renames, comments) while the user may be editing it on the EDT. The snapshot can be inconsistent, or the read can throw a concurrent-modification error.\n\nFix: capture the project state inside `uiRun`/`invokeAndWait` before continuing in the background."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/main/kotlin/uk/oshawk/jadx/collaboration/Plugin.kt",
+   "start_line": 572,
+   "end_line": 575,
+   "message": "Async Project Update. `localRepositoryToProject` is now posted asynchronously via `uiRun`, so `pull()` and `push()` return before the project is actually updated. When `guiContext` is null, the fallback is `invokeLater`.\n\nThis matters for the tests, which call `plugin.pull()`/`push()` directly and then immediately run `leftToRemote()` or check state. That ordering may now be racy. If the test `guiContext` mock does not execute `uiRun` synchronously, the project update may never run at all. I can't see the mock setup in this diff, so it's unclear whether the tests are affected.\n\nThe same timing gap applies to sequential user operations: a new pull or push can start before the previous update has been applied."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 29000
+ }
+}

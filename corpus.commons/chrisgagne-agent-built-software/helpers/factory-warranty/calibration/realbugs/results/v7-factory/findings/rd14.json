@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 126,
+   "end_line": 126,
+   "message": "The guard checks the branch of the session sending the shutdown, not the branch of the implementer it targets. In the documented team-lead workflow the guard therefore never blocks, or it judges the wrong branch. Lines 126-129 run `git symbolic-ref --short HEAD` in process.cwd(), which is the lead's checkout. Line 135 then allows the shutdown when that branch is `main` or `master`. templates/skills/dev-team-task/SKILL.md:154 has Drucker spawn one implementer per issue, each on its own branch `feat/<issue>-<description>` and named `{agent}-implement-...`. Trigger: Drucker is on `main` and sends `{to:\"voss-implement-773\", message:{type:\"shutdown_request\"}}` while feat/773 has no reviews. Line 135 exits 0 and the shutdown goes through. If Drucker is on a reviewed feat/A, shutting down the implementer of an unreviewed feat/B is also allowed. Nothing maps `tool_input.to` to that agent's branch."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 91,
+   "end_line": 91,
+   "message": "Shutdown checks use the orchestrator's branch rather than the target implementer's branch, allowing unreviewed worktree implementers to be terminated. The branch comes exclusively from git symbolic-ref in process.cwd(); the target is used only for its name. When the orchestrator remains on main while an implementer works on a feature branch in a worktree, lines 91\u201394 allow shutdown immediately without checking that feature's reviews. The repository explicitly supports parallel branches and worktree implementation in templates/skills/dev-team-task/SKILL.md and templates/agents/dev-team-drucker.md."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 147,
+   "end_line": 147,
+   "message": "Real review sidecars never count as evidence, because the guard only looks for the branch name inside the sidecar's filename. Once review is done, the guard keeps blocking every implementer shutdown unless --force-shutdown is used. Line 147 is `files.some((f) => f.includes(sanitizedBranch) && f.endsWith(\".json\"))`. ADR-029 (docs/adr/029-stateless-commit-gates.md:48) and review-gate.js:199 name sidecars `<agent>--<contentHash>.json`, with no branch in the name. merge-gate.js:153-156 handles this by checking the sidecar's `branch` JSON field first and using the filename only as a fallback. The new guard never reads the file contents."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "Any sidecar for the branch is enough to allow shutdown, so an implementer can still be shut down before findings are routed and acknowledged. That is the rule the hook and README say it enforces. Lines 152-155 allow shutdown as soon as one matching .json file exists. The guard does not check for unresolved `[DEFECT]` findings or acknowledgement, and does not exclude `.cleanup-manifest.json` or symlinks. merge-gate.js:130-147 excludes both. dev-team-task/SKILL.md:80 says 'Implementing agents must remain alive until all findings have been routed and acknowledged'. The README row added at line 153 says 'before review findings are routed'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "A matching sidecar filename permits shutdown before review findings have been routed and acknowledged. files.some() checks only a filename substring and .json suffix, then lines 108\u2013110 allow shutdown without reading findings or acknowledgment state. A sidecar containing unresolved findings therefore passes immediately, contrary to templates/skills/dev-team-task/SKILL.md's requirement that implementers remain alive until all findings are routed and acknowledged. It also accepts unrelated prefix matches, such as a feat-123-test sidecar for branch feat/123."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/unit/hooks.test.js",
+   "start_line": 277,
+   "end_line": 277,
+   "message": "The test for the 'review evidence present' case uses a sidecar filename that the review tooling never writes. It passes, but it hides the fact that real sidecars are never recognised, and no test covers the lead running on main. The test writes `knuth--feat-123-test.json`, but sidecars are actually named `<agent>--<contentHash>.json` (ADR-029). It also writes a `branch` field into the JSON that the hook never reads. Every test runs with cwd on `feat/123-test`. None runs with the sender on `main`, and none targets an implementer on a different branch from the sender."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "The installed hook ignores its event input and therefore allows premature implementer shutdowns. templates/settings.json invokes the script without arguments, but line 26 reads only process.argv[2]. Claude Code supplies command-hook events through stdin ([hook reference](https://code.claude.com/docs/en/hooks#hook-input-and-output)). Supplying a SendMessage shutdown event on stdin returned exit 0: input becomes {}, and the tool-name check exits before enforcement. The new tests pass JSON as an argument, masking this integration failure."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 90,
+   "end_line": 90,
+   "message": "A plain-text message to an implementer that merely mentions the word shutdown_request is treated as a shutdown and may be blocked. Also, the bypass flag is matched anywhere in text the model writes. Line 90 is `typeof message === \"string\" && message.includes(\"shutdown_request\")`, so a status note like 'do not send shutdown_request yet' is treated as a shutdown. Line 97 is `/--force-shutdown/i.test(messageStr)` on the same model-authored text, so the lead agent can bypass the guard by adding the flag. The only record is a console.warn."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 49,
+   "end_line": 49,
+   "message": "The header comment describes behaviour the hook does not have. The comment says the hook 'blocks premature shutdown of implementing agents that have open, unreviewed PRs'. The code never looks up PRs; it only checks the local branch and sidecar filenames (lines 124-150)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 142,
+   "end_line": 142,
+   "message": "The guard copies merge-gate's sanitisation and sidecar lookup instead of sharing them, and the copy has already drifted from merge-gate's stricter matching. Line 142 repeats `branch.replace(/[^a-zA-Z0-9-]/g, \"-\")` from merge-gate.js:63. The guard also leaves out the `branch`-field match, the symlink filter and the manifest exclusion that merge-gate.js:128-160 has. The hooks directory already has a `lib/` folder for shared code."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "id": "rd22",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 149,
+   "end_line": 150,
+   "message": "Resolve an endpoint reachable from the host. For the documented kube-context invocation from a workstation, this selects an unreachable URL: `KeycloakReconciler.do_create()` populates both admin and public endpoints with `.svc.cluster.local` addresses. Host-side DNS cannot resolve these addresses, as documented in [AGENTS.md:388](AGENTS.md#L388), so authentication fails even when an ingress exists. Resolve a reachable ingress or port-forwarded address, or require `--server-url` with a clear diagnostic."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 176,
+   "end_line": 180,
+   "message": "Preserve already-decoded Kubernetes Secret values. When a valid username or password also matches base64 syntax, such as `admin123` or a 16-character alphanumeric password, this branch silently corrupts it. Client-go already decodes `Secret.Data`, so decoding again produces different credentials and causes authentication to fail. Return the raw value unchanged; double encoding cannot safely be inferred from the credential's contents."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 194,
+   "end_line": 197,
+   "message": "Include overwritten users in the import summary. With `--mode overwrite`, Keycloak counts replaced users in `overwritten`, not `added`. This response struct discards that counter, so replacing 500 existing users reports Added: 0, Skipped: 0, Errors: 0 despite making destructive changes. Carry an overwritten counter through the batch result, aggregate result, and printed summary."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 80,
+   "end_line": 82,
+   "message": "Return accumulated results when a later batch fails. If a later batch receives an HTTP error or encounters a transport failure, earlier batches have already changed Keycloak, but returning `nil` discards their accumulated counts. Consequently, `runImportUsers()` calls `printImportSummary()` with nil and prints no partial summary. Return the accumulated result alongside the error here and on token-refresh failures so completed work remains visible."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 332,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

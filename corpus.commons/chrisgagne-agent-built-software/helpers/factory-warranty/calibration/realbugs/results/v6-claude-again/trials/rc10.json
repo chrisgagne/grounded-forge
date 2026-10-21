@@ -1,0 +1,158 @@
+{
+ "id": "rc10",
+ "arm": "claude-again",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "scripts/dev-local.ts",
+   "start_line": 104,
+   "end_line": 118,
+   "message": "Port 5002 can be claimed twice. `startStorage()` runs `docker compose up -d` on Storage, which also starts the Docker `exp` container on host port 5002, and only then does `swapExpToBareMetalMode()` stop it. If a bare-metal exp is already running, `up -d` cannot bind 5002, `dockerCompose` throws, and the whole setup aborts. This happens on a second `npm run dev:local`, or with the root/fullstack compound: there `Python: exp FastAPI` starts at the same time as `.NET API: Debug`'s preLaunchTask (`Infra: Setup Docker` \u2192 `--setup-only`). If Docker wins the race instead, uvicorn fails to bind. Fix: start only the storage services you need (`up -d mssql cosmosdb azurite redis`), or add a compose profile so `exp` is left out."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "scripts/dev-local.ts",
+   "start_line": 321,
+   "end_line": 343,
+   "message": "Children are spawned with `shell: true`, so `p.kill()` only signals the intermediate shell (or `cmd.exe`). The `nx` \u2192 `dotnet watch`/`uvicorn`/`next dev` grandchildren can be left orphaned and keep holding ports 3000/5000/5002, which breaks the next run. Also, when any one service exits (for example exp crashes because Python deps are missing), `Promise.race` resolves and `main` returns without saying anything while the other services keep running. Spawn without a shell, or kill the process tree (detached process group plus `process.kill(-pid)`, `taskkill /T` on Windows), and report or propagate the exit of the first child."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 6,
+   "end_line": 6,
+   "message": "The devcontainer uses `docker-outside-of-docker`, so the compose containers run on the host daemon and their published ports are not reachable at `localhost` inside the devcontainer. That makes the documented DevContainer flow (`npm run dev:local` inside the container) fail: the health checks and Cosmos/Azurite init against `localhost:8081`/`10000` time out or fail, and the bare-metal API/website cannot reach the databases at the localhost URLs. DEVELOPMENT.md also wrongly says Docker-in-Docker is enabled. Either switch to `docker-in-docker` or document and handle the host-network difference."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 61,
+   "end_line": 62,
+   "message": "Python 3.12 is added, but nothing installs `sites/exp.arolariu.ro/requirements.txt`. On a fresh container, `npm run dev:exp` / `dev:local` / the debugpy uvicorn launch fail with `No module named uvicorn`. Since every dev:local profile starts exp, this breaks the advertised one-command onboarding. Add `pip install -r sites/exp.arolariu.ro/requirements-dev.txt` to `postCreateCommand` (or an equivalent setup step)."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".vscode/backend.code-workspace",
+   "start_line": 27,
+   "end_line": 32,
+   "message": "Python format-on-save uses `ms-python.black-formatter`, but the exp service is configured for ruff with `line-length = 120` (pyproject.toml). Black's default of 88 columns will rewrap every file on save, causing large unrelated diffs and churn against ruff's style. Use `charliermarsh.ruff` as the Python default formatter here, in fullstack.code-workspace, and in the devcontainer recommendations."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "sites/arolariu.ro/src/lib/config/configProxy.ts",
+   "start_line": 136,
+   "end_line": 153,
+   "message": "The new `EXP_PROXY_URL` override and the change of the bearer-token condition from `HAS_AZURE_CLIENT_ID` to `USE_AZURE_AUTH` have no tests. `configProxy.test.ts` only covers AZURE_CLIENT_ID selection and never clears `EXP_PROXY_URL`, so a developer whose shell exports it (as the new docs and launch configs encourage) will see the existing `uses http://exp` test fail. Add cases for override precedence, the whitespace-only value, and no token when overridden, and delete `EXP_PROXY_URL` in the test setup. The repo's policy is not to skip tests for new code."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "sites/api.arolariu.ro/src/Core/Domain/General/Extensions/WebApplicationBuilderExtensions.cs",
+   "start_line": 107,
+   "end_line": 122,
+   "message": "This is inconsistent with the TS consumers. The C# code checks `string.IsNullOrEmpty` without trimming, so a whitespace-only `EXP_PROXY_URL` reaches `new Uri(baseUrl)` and throws at startup, while the website and generate.env treat it as unset. Auth is also enabled by exact string equality with `https://exp.arolariu.ro`, so an override such as `https://exp.arolariu.ro/` silently drops the bearer token and gets 401s. Use `IsNullOrWhiteSpace`/Trim and compare normalized hosts."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "scripts/dev-local.ts",
+   "start_line": 144,
+   "end_line": 144,
+   "message": "The SA password is hardcoded in the script. The preceding commit (f51d4097) specifically removed this hardcoded SQL password from DEVELOPMENT.md. Read it from the compose file or an env var (`MSSQL_SA_PASSWORD`) so it isn't duplicated and doesn't drift."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "scripts/dev-local.ts",
+   "start_line": 195,
+   "end_line": 198,
+   "message": "The inline Azurite init script ends with `.catch(()=>{})`, so the `node -e` process always exits 0 and the script always logs 'Azurite blob containers initialized with CORS', even when the container or CORS setup failed (for example Azurite not ready yet). Let the error propagate (`.catch(e=>{console.error(e.message);process.exit(1)})`) so the warning branch can run."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/components/project.json",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "`rslib build --watch` skips the package's `build:before`/`build:after` steps. `afterBuild` regenerates the package `exports` map, so components added during a watch session won't be exported, and consumers see 'module not found' until a full build. The new `dev` target is also picked up by `npm run dev` (`run-many --target=dev`)."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "sites/exp.arolariu.ro/project.json",
+   "start_line": 24,
+   "end_line": 37,
+   "message": "The `test` and `lint` targets run `pip install -r requirements-dev.txt` into whatever global or user Python is active on every invocation. This mutates the developer's environment (and CI's), is slow, and can fail on PEP 668 'externally managed' system Pythons. Prefer a venv, or install as a separate setup step."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".vscode/launch.json",
+   "start_line": 56,
+   "end_line": 68,
+   "message": "The C# Dev Kit `dotnet` launch type does not support an `env` property; it takes environment variables from launchSettings.json (`launchConfigurationId`). The `env` block here and in the backend/fullstack workspaces is ignored. It only appears to work because the new `Development` profile happens to be listed first in launchSettings.json. Reference that profile explicitly instead."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "DEVELOPMENT.md",
+   "start_line": 184,
+   "end_line": 189,
+   "message": "This section is inaccurate. The devcontainer uses docker-outside-of-docker, not Docker-in-Docker. It also says '28 VS Code extensions', but devcontainer.json now lists 29."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "DEVELOPMENT.md",
+   "start_line": 211,
+   "end_line": 219,
+   "message": "There are doc inconsistencies here. The Service Map gives the website as `http://localhost:3000`, but `next dev --experimental-https` serves HTTPS (the Quick Start table correctly says https). The section heading refers to 'Option B', which doesn't exist anywhere in the document."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "DEVELOPMENT.md",
+   "start_line": 327,
+   "end_line": 327,
+   "message": "The debug-profile table lists `Python: exp FastAPI` as available in the Root workspace, but the root launch.json names it `Python: exp FastAPI Debug`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "DEVELOPMENT.md",
+   "start_line": 426,
+   "end_line": 426,
+   "message": "This troubleshooting advice is misleading. The .NET API does not read the generated `.env` files; it gets its config only from the exp service (via `EXP_PROXY_URL`/Docker DNS). Running `generate:env` won't fix an API that fails to start. The real fix is to make sure exp is running on 5002."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "scripts/dev-local.ts",
+   "start_line": 11,
+   "end_line": 17,
+   "message": "The header doc doesn't match the code. It says `--frontend` starts 'website only' and `--infra` starts 'infra only (no services)', but BARE_METAL_SERVICES also starts exp in both profiles. That makes the 'Infrastructure-only mode. Start services manually' branch reachable only for `--setup-only`, where it is skipped anyway, so that branch is effectively dead code."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "sites/arolariu.ro/messages/fr.json",
+   "start_line": 4682,
+   "end_line": 4682,
+   "message": "The change removes the trailing newline at end of file. This is inconsistent with en.json/ro.json and will be churned by Prettier/editorconfig. The i18n additions also aren't related to this PR's dev-environment scope and belong in a separate change."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 188,
+  "cost_usd": 1.1579123999999998,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.10614420000000001,
+  "duration_s": 84.7
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/tonearest.js {tree}",
+  "because": "On head, with Decimal.rounding set to ROUND_HALF_UP and no rm passed, new Decimal(2.5).toNearest(1) returns '2' instead of '3' (base gives '3'), so toNearest with a multiple no longer falls back to the configured rounding mode."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "node:assert:95\n  throw new AssertionError(obj);\n  ^\n\nAssertionError [ERR_ASSERTION]: ROUND_HALF_UP default: 2.5.toNearest(1) gave 2\n\n'2' !== '3'\n\n    at Object.<anonymous> (<work>/repro-work/v3-distillations/v07-t2-F1/check/tonearest.js:6:8)\n    at Module._compile (node:internal/modules/cjs/loader:1730:14)\n    at Object..js (node:internal/modules/cjs/loader:1895:10)\n    at Module.load (node:internal/modules/cjs/loader:1465:32)\n    at Function._load (node:internal/modules/cjs/loader:1282:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '2',\n  expected: '3',\n  operator: 'strictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, with Decimal.rounding set to ROUND_HALF_UP and no rm passed, new Decimal(2.5).toNearest(1) returns '2' instead of '3' (base gives '3'), so toNearest with a multiple no longer falls back to the configured rounding mode.",
+ "run": "v3-distillations",
+ "trial": "v07-t2",
+ "kind": "bug"
+}

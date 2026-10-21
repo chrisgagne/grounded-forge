@@ -1,0 +1,169 @@
+[
+ {
+  "id": "C1",
+  "leg": "claude",
+  "severity": "high",
+  "file": "client/src/utils/sync/s3Adapter.ts",
+  "line": 35,
+  "claim": "S3 sync can never work: the adapter calls a getPresignedUrl IPC that nothing implements, and it reads config keys the UI never writes.",
+  "evidence": "getPresignedUrl checks `api?.getPresignedUrl` and throws if it is missing, but electron/preload.js exposes no getPresignedUrl and electron/main.js registers no 'get-presigned-url' handler (a grep for presigned across the repo only finds docs and this file). The adapter also passes `keyId: config.keyId, secret: config.secret`, while the SyncTab S3 fields are named `accessKeyId` and `secretAccessKey`. Every S3 Push/Pull throws 'requires Electron', even inside Electron. README and WORKSPACES.md document S3 as working."
+ },
+ {
+  "id": "C2",
+  "leg": "claude",
+  "severity": "high",
+  "file": "client/src/utils/storageDriver.ts",
+  "line": 179,
+  "claim": "Sync credentials (AWS secret key, git PAT, bearer and JWT tokens) are written to disk and to localStorage in plaintext, although the docs and types say they are encrypted.",
+  "evidence": "writeSyncConfig stores `{ provider, config }` as-is in sync-config.json and also mirrors it with `lsWrite(LS_SYNC_CONFIG, ...)` even in Electron. encryptValue/decryptValue are defined but never called anywhere (grep finds only their definitions). WORKSPACES.md says 'Sensitive sync credentials ... are encrypted using Electron's safeStorage API before being written to sync-config.json'."
+ },
+ {
+  "id": "C3",
+  "leg": "claude",
+  "severity": "high",
+  "file": "server/index.js",
+  "line": 1037,
+  "claim": "The new git routes accept a filesystem root from any caller and run git there, and the server has no authentication, CORS allows every origin, and it listens on all interfaces, so a web page or LAN host can create repos, write files and run git push/pull to an attacker-chosen remote anywhere on the user's disk.",
+  "evidence": "`const dataDir = req.body.dataDir || process.env.APILIX_DATA_DIR;` comes from the request body. ensureRepo then runs mkdirSync, git init, addRemote(config.remote) and addConfig under `path.join(dataDir,'git-sync','workspaces')`. The server uses `app.use(cors())` and `app.listen(PORT)` with no host. The workspaceId guard `repoDir.startsWith(path.resolve(repoBase))` lacks a path separator, so a workspaceId of `../workspaces-x` also passes. main.js already sets APILIX_DATA_DIR, so the body value isn't needed."
+ },
+ {
+  "id": "C4",
+  "leg": "claude",
+  "severity": "high",
+  "file": "server/index.js",
+  "line": 1066,
+  "claim": "The git token gets saved in plaintext in the local repo's .git/config, which contradicts the docs' claim that the credential URL is never stored.",
+  "evidence": "The push route builds `url.username/url.password` into `remote`, then calls `git.push(remote, branch, ['--set-upstream'])`. With a URL as the remote, --set-upstream writes `branch.<branch>.remote = https://user:token@host/...` into the repo config under userData/git-sync. WORKSPACES.md says 'the credential-embedded URL is never stored'."
+ },
+ {
+  "id": "C5",
+  "leg": "claude",
+  "severity": "high",
+  "file": "client/src/utils/syncEngine.ts",
+  "line": 50,
+  "claim": "Conflict detection never fires, so Pull silently overwrites local changes. lastSynced is never recorded, and the comparison is a string compare across mismatched date formats.",
+  "evidence": "pull only throws ConflictError when `remoteTs && localTs && remoteTs > localTs`, with `localTs = syncConfig.lastSynced ?? null`. No code sets lastSynced: SyncTab builds `{ workspaceId, provider, config: fields }` and writeSyncConfig stores only provider and config. Even if it were set, `>` compares an RFC 1123 `Last-Modified` string ('Mon, 01 ...') with an ISO string lexicographically. Both README and WORKSPACES.md promise a conflict banner."
+ },
+ {
+  "id": "C6",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "server/index.js",
+  "line": 1054,
+  "claim": "If a git push fails after the commit is made (network or auth error), every later Push reports success without pushing that commit.",
+  "evidence": "The push route runs `git.add('.')` and `git.commit(...)` before `git.push(...)`. On retry, `status.files.length === 0` returns `{ ok: true, message: 'Nothing to commit' }` before it reaches push, so the client shows 'Pushed successfully' while the remote stays behind."
+ },
+ {
+  "id": "C7",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "client/src/components/WorkspaceManagerModal.tsx",
+  "line": 392,
+  "claim": "Choosing 'Keep Local' on the conflict banner shows the misleading message 'Remote is empty \u2014 nothing to pull'.",
+  "evidence": "The Keep Local button calls `handlePull('keep-local')`. syncEngine.pull returns null for keep-local ('caller will push instead'), and handlePull treats null as `setMsg('Remote is empty \u2014 nothing to pull')`. No push follows."
+ },
+ {
+  "id": "C8",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "client/src/utils/snapshotEngine.ts",
+  "line": 43,
+  "claim": "Snapshot files are never deleted, so disk use grows without limit: a full copy of the workspace is written about 300 ms after each change. The docs say the oldest snapshot is deleted.",
+  "evidence": "createSnapshot writes `snapshots/{id}.json` and then only trims the index with `[entry, ...idx].slice(0, MAX_SNAPSHOTS)`. Pruned snapshot files are never removed. store.tsx calls createSnapshot from a 300 ms debounce (`setTimeout(..., 300)`) on every collection or environment change. WORKSPACES.md says snapshots are taken about 1\u20132 s after the last change and that 'the oldest snapshot is automatically deleted'."
+ },
+ {
+  "id": "C9",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "client/src/store.tsx",
+  "line": 571,
+  "claim": "The rewrite drops restore of open request tabs, so tabs that used to survive a restart are now lost.",
+  "evidence": "The old useReducer initializer rebuilt `tabs`/`activeTabId` from `saved.tabSession`, and the old persistence effect wrote tabSession. The new code (`useReducer(appReducer, initialState)` plus a WorkspaceData-only write) never saves or restores tabs, and the PersistedState.tabSession type is now unused."
+ },
+ {
+  "id": "C10",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "client/src/store.tsx",
+  "line": 642,
+  "claim": "If storage init throws (an IPC error, a corrupt JSON file, or a failed write), the app hangs on the 'Loading\u2026' screen with no error or recovery.",
+  "evidence": "`init()` is called without try/catch or .catch. The read-json-file IPC rethrows parse errors other than ENOENT, and writeManifest/writeWorkspace don't catch IPC errors. HYDRATE_WORKSPACE then never dispatches, so storageReady stays false, and AppProvider renders only 'Loading\u2026' while storageReady is false."
+ },
+ {
+  "id": "C11",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "client/src/components/WorkspaceManagerModal.tsx",
+  "line": 87,
+  "claim": "Deleting a workspace leaves its snapshot history (full copies of its data) on disk.",
+  "evidence": "handleDelete calls StorageDriver.deleteWorkspace, which removes only `workspaces/{id}.json` and the localStorage key. The `workspaces/{id}/history.json` and `snapshots/` directory that snapshotEngine writes are left behind, although the UI says 'This cannot be undone'."
+ },
+ {
+  "id": "C12",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "server/package-lock.json",
+  "line": 13,
+  "claim": "The lockfile lists bcryptjs and jsonwebtoken as root dependencies that server/package.json doesn't declare, so the two are out of sync, and nothing in the repo uses these packages.",
+  "evidence": "The lock's root `dependencies` gains `\"bcryptjs\": \"^3.0.3\"` and `\"jsonwebtoken\": \"^9.0.3\"`, but server/package.json adds only simple-git. `npm ci` refuses to install when package.json and the lockfile disagree. The team server that would use them isn't in the repo.",
+  "axis_row": "L4.24"
+ },
+ {
+  "id": "C13",
+  "leg": "claude",
+  "severity": "low",
+  "file": "server/package.json",
+  "line": 17,
+  "claim": "The change adds the simple-git dependency with no recorded vetting, and the code treats it as optional, which hides an install failure until runtime.",
+  "evidence": "`\"simple-git\": \"^3.35.2\"` is added. server/index.js wraps `require('simple-git')` in try/catch and returns 501 if it is missing. The packet's risk.json requires gate:deps for this dependency.",
+  "axis_row": "L4.4"
+ },
+ {
+  "id": "C14",
+  "leg": "claude",
+  "severity": "low",
+  "file": "client/src/components/ActivityBar.tsx",
+  "line": 30,
+  "claim": "Dead code: ActivityBar adds a manageOpen state and a WorkspaceManagerModal, but nothing ever opens it.",
+  "evidence": "`const [manageOpen, setManageOpen] = useState(false)` is never set to true in ActivityBar. Only the `onClose` path calls setManageOpen."
+ },
+ {
+  "id": "C15",
+  "leg": "claude",
+  "severity": "low",
+  "file": "client/src/components/WorkspaceManagerModal.tsx",
+  "line": 444,
+  "claim": "The Team tab never creates or marks a team workspace, so the switcher's 'Team' group and the role badges can't appear, and the docs describe a team-server flow the app doesn't support.",
+  "evidence": "TeamTab only does a test fetch of `${serverUrl}/workspaces`. `dispatch` is destructured but unused. No code sets `type: 'team'`, `role` or `teamServerUrl`. teamAdapter's header refers to `server/team/`, which doesn't exist in the repo."
+ },
+ {
+  "id": "C16",
+  "leg": "claude",
+  "severity": "low",
+  "file": "client/src/components/WorkspaceSwitcher.tsx",
+  "line": 178,
+  "claim": "emptyWorkspaceData and PRESET_COLORS are copied across three files (the switcher, the modal and store.tsx's inline defaults), so they can drift apart.",
+  "evidence": "The same `emptyWorkspaceData()` body appears in both WorkspaceSwitcher.tsx and WorkspaceManagerModal.tsx, and store.tsx init repeats the same literal. The PRESET_COLORS array is declared in both components.",
+  "axis_row": "L6.15"
+ },
+ {
+  "id": "C17",
+  "leg": "claude",
+  "severity": "low",
+  "file": "client/src/index.css",
+  "line": 192,
+  "claim": "The diff includes unrelated changes the workspace story doesn't explain: a websocket-toggle light-mode colour and a RequestBuilder tab-cache change.",
+  "evidence": "index.css adds `html.light .bg-purple-700` with the comment 'Keep selected websocket toggle readable'. RequestBuilder.tsx changes `cacheRef.current.set(..., { edit, dirty: false, activeRequestTab })` in two places. Neither relates to workspaces.",
+  "axis_row": "L6.22"
+ },
+ {
+  "id": "C18",
+  "leg": "claude",
+  "severity": "low",
+  "file": "client/src/utils/syncEngine.ts",
+  "line": null,
+  "claim": "The change adds persistence migration, sync engines, git server routes and IPC file handlers with no tests, so the defects above were never exercised.",
+  "evidence": "No test files exist in the repo (a glob for **/*.test.* finds none), and the diff adds none for storageDriver, syncEngine, snapshotEngine, the reducer's workspace actions or /api/sync/git/*.",
+  "axis_row": "L5.24"
+ }
+]

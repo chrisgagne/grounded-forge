@@ -1,0 +1,121 @@
+{
+ "id": "rd16",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 45,
+   "end_line": 45,
+   "message": "Every InvalidOperationException is mapped to 404 \"Mailbox not found\", and all other SMTP/IMAP/crypto failures go unhandled and return 500. The new `SendMailFailed` resource key is never used. Several MailKit exceptions inherit from InvalidOperationException: ServiceNotAuthenticatedException, ServiceNotConnectedException, and SmtpClient's \"no recipients\" error. Any of these makes the API tell the user their mailbox doesn't exist. A bad SMTP password (AuthenticationException), an unreachable host (SocketException), a TLS mismatch (SslHandshakeException), a 5xx reply (SmtpCommandException) or a rotated data-protection key (CryptographicException) all escape as an unhandled 500 with no localized message."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 287,
+   "end_line": 287,
+   "message": "The `_isSending` guard is set only after `await GetBodyAndContentTypeAsync()`, which makes JS interop calls. A second click during that await gets past the `if (_isSending) return;` check. The user double-clicks Send. The first click awaits `quillInterop.isEmpty` / `getHtml`, which yields to the event loop. The second click runs SendAsync while `_isSending` is still false, and the button isn't disabled because no render has happened yet. Both calls POST /api/mail/send and recipients get two copies."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 69,
+   "end_line": 69,
+   "message": "The CC/BCC section can now be hidden again (d15c6ca removed the one-way reveal). `_cc` and `_bcc` keep their values while hidden, are still validated and sent, and their errors render only inside the hidden section. The user types an address in BCC, then collapses CC/BCC. The message is sent to that BCC recipient with nothing on screen showing it. If the hidden CC holds a typo, `_errors[\"cc\"]` is set and SendAsync returns early, but the error div is inside the collapsed block. Send then appears to do nothing."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 104,
+   "end_line": 104,
+   "message": "`ImapClient.GetFolder(SpecialFolder.Sent)` throws NotSupportedException when the server has neither SPECIAL-USE nor XLIST. The name-based `?? ... \"Sent\"` fallback never runs, and the outer catch drops the Sent copy silently. On an IMAP server without SPECIAL-USE (e.g. the GreenMail dev server, or older Dovecot/Courier setups), GetFolder throws instead of returning null. The fallback that was written for exactly these servers is skipped. Only a warning is logged and sent mail never shows up in Sent. Matching only the name \"Sent\" also misses \"Sent Items\" and \"Sent Messages\"."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "`getHtml` returns `quill.root.innerHTML`. In Quill 2 that is editor markup: bullet lists are `<ol><li data-list=\"bullet\">` with `<span class=\"ql-ui\">`, and formatting is carried in ql-* classes. It is not semantic HTML. The user writes a bullet list in rich-text mode and sends. The server sanitizer strips `data-list`, and there is no Quill CSS in the recipient's client, so the list arrives numbered. Indents and alignment are lost. Turndown also turns those lists into `1.` items when switching to Markdown. `quill.getSemanticHTML()` returns proper `<ul>`/`<ol>` and should be used instead."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "`setHtml` assigns marked's output directly to `quill.root.innerHTML`. This bypasses Quill's clipboard conversion, so the editor model is out of sync with the DOM, and raw unsanitized HTML from Markdown is injected into the page. Switching Markdown\u2192Rich with `- a\\n- b` or a fenced code block produces `<ul>`/`<pre><code>` that Quill 2 has no blots for. Formatting gets mangled, and undo history and `getText()`/`isEmpty()` can disagree with what is displayed. Typing `<img src=x onerror=alert(1)>` in Markdown and switching modes runs the script (self-XSS). Use `quill.clipboard.dangerouslyPasteHTML(html)` or `setContents(quill.clipboard.convert({ html }))`."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "The DataAnnotations on SendMailRequest (`[Required]`, `[MaxLength]`, `[RegularExpression(\"^(html|plain)$\")]`) are never enforced: Program.cs has no `AddValidation()`, and the endpoint checks only `To`. `{\"to\":null}` throws NullReferenceException at `request.To.Length`, and `{\"to\":[null]}` throws at `email.Trim()`. A null Subject or plain Body makes MimeKit throw ArgumentNullException. All of these return 500. `contentType: \"HTML\"` passes and raw HTML is sent as text/plain. Body size is limited only by Kestrel's 30 MB default, not the declared 1 MiB."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 76,
+   "end_line": 76,
+   "message": "If `SmtpRequiresAuth` is true but no SMTP password is stored, authentication is skipped without any log or error, and the send continues unauthenticated. A mailbox is created with RequiresAuth=true and an empty SMTP password. The server answers MAIL FROM with 530 \"Authentication required\", which escapes as an unhandled 500 with no hint about the cause. On a permissive relay the mail goes out unauthenticated, against the mailbox's own setting."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "Every sent message is unconditionally appended to the IMAP Sent folder. Providers such as Gmail and Office 365 already save SMTP-submitted mail to Sent themselves. A Gmail or Outlook.com user sends a message. The provider files it in Sent and the service appends a second copy, so the Sent folder (and the future Sent page sync) shows every message twice."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 61,
+   "end_line": 61,
+   "message": "HTML mail is sent as a single text/html part with no text/plain alternative. Text-only clients and screen readers that prefer text/plain get no readable body. HTML-only messages also score higher with SpamAssassin and similar filters (MIME_HTML_ONLY), so compose output is more likely to land in spam. MimeKit's `BodyBuilder { HtmlBody = ..., TextBody = ... }` builds multipart/alternative."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "When DisplayName is null, the From display name falls back to `mailbox.Name`, which is the user's internal label for the mailbox. A mailbox labelled \"Work Gmail\" with no DisplayName sends as `\"Work Gmail\" <me@gmail.com>`. Recipients see the internal label as the sender's name. Leave the name empty (bare address) instead."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 309,
+   "end_line": 309,
+   "message": "The error response body is read into `error` and never used. The server's specific 400/404 message (which address is invalid, mailbox not found) is replaced by a generic \"Failed to send\" toast. The server rejects an address the client accepted, or the mailbox was deleted in another tab. The user sees only \"Failed to send email. Please try again.\" and retrying gives the same result. The dead `ReadAsStringAsync` call adds a pointless round-trip on the response stream."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 51,
+   "end_line": 51,
+   "message": "`IsValidEmail` is copied verbatim in ComposeEndpoints.cs and Compose.razor. MailSendingService also redeclares the \"MailboxSmtpPassword\"/\"MailboxImapPassword\" purpose strings (now in 4 files) and re-implements EmailService's SMTP connect/auth/send flow. Client and server validators can drift, e.g. one adds `;` splitting or IDN handling, and then the UI accepts what the API rejects. A typo in any copy of a purpose string makes Unprotect throw CryptographicException. Move IsValidEmail into Feirb.Shared and add the mailbox purposes to the existing `DataProtectionPurposes` class."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "In SwitchToRichTextAsync, `StateHasChanged()` + `await Task.Delay(50)` + the `if (!_quillInitialized)` init branch are dead or fragile. Quill is always initialized in OnAfterRenderAsync before the user can switch modes, and its container is only hidden with display:none, never removed. The 50 ms sleep is a timing guess that adds latency to every mode switch and opens another re-entrancy window: a fast second click on Markdown runs during the delay and reads stale Quill content. `setHtml` works on the hidden container, so it can be called directly with no render or delay."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/wwwroot/index.html",
+   "start_line": 56,
+   "end_line": 56,
+   "message": "Quill, marked and Turndown are loaded as synchronous, render-blocking `<script>` tags on every page of the app, even though only /compose uses them. Every app load, including login and inbox, has to download and parse the full Quill UMD bundle plus marked and Turndown from jsDelivr before blazor.webassembly.js starts, which slows startup. If the CDN is slow or blocked, the whole app stalls. Load them lazily from Compose (JS module import, or inject on first render), and add SRI hashes."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 258,
+  "cost_usd": 1.2936894,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

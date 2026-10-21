@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.18551499999999999,
+  "duration_s": 33.3
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/truncated_events.mjs {tree}",
+  "because": "The check parses `a: [1, 2]`, removes the trailing POP events so the stream is incomplete, and passes the result to the public `eventsToAst`. Base raises 'unexpected end of event stream'; head returns an empty stream `[]` with no error, so the open document is silently lost."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS: incomplete event stream raised: unexpected end of event stream (1:8)\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL: incomplete event stream returned 0 document(s) silently; document dropped: []\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "The check parses `a: [1, 2]`, removes the trailing POP events so the stream is incomplete, and passes the result to the public `eventsToAst`. Base raises 'unexpected end of event stream'; head returns an empty stream `[]` with no error, so the open document is silently lost.",
+ "run": "v3-distillations",
+ "trial": "v12-t1",
+ "kind": "control"
+}

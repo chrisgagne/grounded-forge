@@ -1,0 +1,41 @@
+{
+ "id": "x09",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "lib/common/utils.mjs",
+   "start_line": 311,
+   "end_line": 313,
+   "message": "Breaking Change. This PR removes the `default` export from `lib/common/utils.mjs`. Any consumer that deep-imports the module with `import utils from 'markdown-it/lib/common/utils.mjs'` will now get a SyntaxError at link time, because the module no longer provides a default export. This only matters if the package exposes `lib/*` paths to consumers, which I can't verify from the diff. If it does, keep a default export for compatibility or document this as a breaking change."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "lib/index.mjs",
+   "start_line": 3,
+   "end_line": 4,
+   "message": "Immutable Namespace. `utils` and `helpers` are now ES module namespace objects. These are sealed, their bindings are read-only, and the namespace object is non-extensible. If `MarkdownIt` exposes them directly, for example `this.utils = utils`, then plugins or user code that add or override properties will fail. Something like `md.utils.foo = ...` or `md.helpers.parseLinkLabel = ...` will throw a TypeError in strict/module code. With the old default export these were plain mutable objects, so this assignment worked. How they are attached to the instance isn't shown in the diff. If they are exposed directly, wrap them in a plain copy, such as `{ ...utils }` or `assign({}, helpers)`."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "lib/helpers/index.mjs",
+   "start_line": 7,
+   "end_line": 10,
+   "message": "Breaking Change. The `default` export of `lib/helpers/index.mjs` is replaced by named exports. Any other module or external consumer that does `import helpers from './helpers/index.mjs'` will fail to load. The diff only updates `lib/index.mjs`, so check that no other importers rely on the default export."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 1219,
+  "usage": {
+   "prompt_tokens": 3120,
+   "completion_tokens": 1286,
+   "total_tokens": 4406
+  },
+  "security_concern": false
+ },
+ "stopped": true
+}

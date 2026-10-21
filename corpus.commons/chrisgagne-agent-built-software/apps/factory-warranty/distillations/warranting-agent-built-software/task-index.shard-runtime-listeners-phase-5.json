@@ -1,0 +1,197 @@
+{
+  "section": "Runtime listeners: Phase 5",
+  "columns": [
+    "trigger",
+    "response"
+  ],
+  "rows": [
+    [
+      "\"It worked first time\", or a flaky check passed on retry",
+      "Don't count the pass until the flakiness is found and removed: a unit test should be 100% reliable, so a failure means a bug (`microsoft-code-with-engineering-playbook`) • Do not count the pass until the test is deterministic; the source says the only reason a test should fail is incorrect code, and puts reproducibility first as the one thing analysis can guarantee (`uk-duck-book-qa-of-code`) • Ask which deterministic check now guards it: AI output varies from run to run, so a rerun is not regression protection (`openssf-finding-fixing-vulnerabilities-ai`) • Repeat the run before counting it: if an approach is repeated the results should be as expected, and an untried method needs more assurance (`uk-aqua-book-2025`) • For a new scenario, find out what it checks: the documentation expects a new example's test to fail first because the behaviour is not yet implemented (`cucumber-bdd-gherkin`). The source does not address flaky checks • Take a test whose result changes between runs out of the count: the benchmark runs suites three times on the correct build and removes such tests before scoring (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "A gate was skipped \"just this once\"",
+      "Encode the gate in branch policy so a skip needs a visible override: merging is blocked on failing tests and PR requirements should be enforced by policies (`microsoft-code-with-engineering-playbook`) • Record the skip in the warranty pack with a date to restore it; the source says skipped tests need a plan for going back and technical debt needs time set aside (`uk-duck-book-qa-of-code`) • Record it as an exception with rationale and approver, visible on the pack: exception requests are recorded and approved exceptions periodically reviewed (`nist-ssdf-1-1`) • Treat the skip as a waiver: justify it on the pack or run the gate; criteria for security checks are defined and tracked through the build (`nist-sp-800-218a`) • Log the skip and decide in writing whether the factory still makes consistent use of the practice: the signer attests to present, consistent use and to notify if it stops, and the form leaves *consistent use* undefined (`cisa-secure-software-attestation-form`) • Record the skip on the pack and enforce the gate in the tool: a gate must be simple, certain and clear, and must not depend on the AI (`openssf-finding-fixing-vulnerabilities-ai`) • Put the skip and what it leaves unchecked in the pack: insufficient assurance should be explicitly acknowledged in an assurance statement setting out known limitations (`uk-aqua-book-2025`) • Record the skipped gate's requirement IDs as not verified, with the reason: a verification report states the requirements included and the rationale for excluding any (`owasp-asvs-5-0`) • Log it as drift and restore the gate: bulk approvals and policy relaxations spread unchecked configuration drift across agents (`owasp-agentic-top10-2026`) • Log the override and who made it, and show it on the pack: the guide logs human overrides and flags decisions first denied and later approved (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "The pipeline builds different artefacts for test and for production",
+      "Require integrity and provenance evidence that the shipped artefact is the one the gates judged: reproducible builds, hashes and signing, and releases archived with integrity data (`nist-ssdf-1-1`). Building once and promoting stays a harness rule"
+    ],
+    [
+      "Lint and type errors are suppressed rather than fixed",
+      "Hold the change to no new errors or warnings; automation takes the mechanical checks so review goes to the logic. Treating a new suppression as a finding is a harness rule (`microsoft-code-with-engineering-playbook`) • List each suppression for review; the source automates linting and uses hooks to stop failing commits. Treating suppressions as findings is a harness rule (`uk-duck-book-qa-of-code`) • Treat each suppression as a finding unless it is an identified false positive with a reviewer: warnings are errors except identified false positives, and static-analysis findings get human handling (`nist-ssdf-1-1`) • File each suppression as a discovered issue and triage it in the tracker (`nist-sp-800-218a`) • Treat each suppression as a finding until a human confirms a false positive: use AI to prioritise warnings, not to silently discard them (`openssf-finding-fixing-vulnerabilities-ai`) • Record each suppression as a finding and keep it in the count: the authors read warnings as an estimate of review effort, and found them rising and persisting; that suppression hides it is an inference (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "A performance number moved and nobody set a budget",
+      "Write the performance target and its verification method before judging the change (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "The secrets scan or dependency audit is \"noisy\" so it was turned off",
+      "For the dependency audit, restore it and triage: components are checked automatically for known vulnerabilities through their life cycles and findings are triaged (`nist-ssdf-1-1`) • Turn it back on and triage the noise: environments are monitored for plaintext secrets continuously, and components are verified throughout their life cycles (`nist-sp-800-218a`) • For the dependency audit, tune it rather than drop it: automated vulnerability checks operated on an ongoing basis and before releases are an attested practice (`cisa-secure-software-attestation-form`) • Turn it back on and tune it: mark confirmed false positives, prioritise rather than discard, automate dependency updates (`openssf-finding-fixing-vulnerabilities-ai`) • Tune it and keep it: without careful configuration and tuning such tools miss the coverage needed, and their noise hides real issues (`owasp-asvs-5-0`)"
+    ],
+    [
+      "Code arrives with tests promised for a later PR",
+      "Block: tests are committed in the same PR as the code (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "The same change gives different results on two runs or two machines",
+      "Block until it reproduces in a clean environment with recorded dependencies and configuration; the source asks for code not dependent on a specific computer and reproducible outcomes across runs and systems (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "Behaviour is switched by commenting code in or out, or by editing parameters inside the code",
+      "Require the switch in recorded configuration; the source calls comment-toggling highly discouraged and uses configuration files to document which configuration produced each output (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "A compiler, interpreter, build image or CI action changed version and nobody asked for it",
+      "Audit the unexpected change and validate the tool's authenticity and integrity: build tools sit under change management (`nist-ssdf-1-1`)"
+    ],
+    [
+      "A gate's criteria or threshold are edited in the same change they judge, or the agent session can edit the gate log",
+      "Hold the change and move criteria and records out of the session's reach: criteria are defined and tracked, and supporting records are protected from alteration and deletion (`nist-ssdf-1-1`)"
+    ],
+    [
+      "A gate needs evidence no tool produces (a design sign-off, a risk acceptance) and nobody is assigned to give it",
+      "Name the person before the gate can pass: responsibility is assigned for evidence tools cannot generate (`nist-ssdf-1-1`)"
+    ],
+    [
+      "The change switches a default setting to a weaker value (debug on, a check off, a permissive policy)",
+      "Hold the secure baseline; the change goes through change control with its documentation: defaults must not weaken platform security (`nist-ssdf-1-1`)"
+    ],
+    [
+      "The agent runs for an hour unattended and reports success",
+      "Require the tool's own artifact for each claim: tools are configured to generate artifacts as evidence of the practices (`nist-sp-800-218a`)"
+    ],
+    [
+      "A model, weights, a dataset or an adapter is pulled in with no integrity or provenance check",
+      "Block until its hash or signature and its origin are verified; consider secure serialisation (`nist-sp-800-218a`) [D29]"
+    ],
+    [
+      "A release goes out on a vulnerability scan of an earlier build, or with no scan since the last change",
+      "Run the check against the build being released: the attested practice operates the checks on an ongoing basis and before product, version or update releases (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "A gate that carries an attested practice (a vulnerability check, an environment control) is switched off on shipped changes",
+      "Decide and record whether the factory still makes consistent use; if not, restore the practice or notify every agency that received the form, since until then the attestation binds future versions (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "A gate reports nothing because it timed out, failed or was denied",
+      "Record it as incomplete and rerun: such an outcome is not evidence that nothing was found (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The run passes the fail-to-pass tests while a pass-to-pass test fails",
+      "Class it Breaking Resolved and block: the issue's behaviour is achieved but prior behaviour is lost (`jimenez-swe-bench`)"
+    ],
+    [
+      "The agent reports a fix and no fail-to-pass test passes",
+      "Class it No-Op or Regression and return it: the commonest outcomes for applied patches that did not resolve the issue (`jimenez-swe-bench`)"
+    ],
+    [
+      "The run reports fewer scenarios than the feature files contain",
+      "Block until they match: a colon after a keyword that should not have one means the test(s) \"will be ignored\" (`cucumber-bdd-gherkin`). Counting scenarios at the gate is a harness rule"
+    ],
+    [
+      "Nobody has checked the test gate against planted faults",
+      "Calibrate the gate with faults that each break one requirement, spread evenly over the spec, and record what it catches (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "Every planted fault is caught only by the test it was derived from",
+      "Check the faults break logic across an input class, not a test's literal values: an agent seeding faults copied the test's literals unless told otherwise (`egashira-testsuitebench-2026`)"
+    ],
+    [
+      "The agent marks the task done and the diff adds behaviour with no new tests or docs, or lint and style were not run",
+      "Block until each is met: preliminary evidence finds these the typical shortfalls of autonomous agents (`becker-metr-ai-developer-productivity-2025`)"
+    ],
+    [
+      "A model or agent setting is swapped on a benchmark score, a leaderboard or a demo, and the gates stay as they were",
+      "Trial old and new on this codebase's own work with the measure fixed first: the trial's authors read their slowdown as evidence that capability in the wild may be lower than benchmarks suggest (`becker-metr-ai-developer-productivity-2025`) [D4]"
+    ],
+    [
+      "A gate records *blocked* or *not verified* the same as *failed*",
+      "Record them apart: under binary scoring no abstention maximises the score, so the agent does better by guessing (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "A gate or test is graded by a model, and its passes have never been sampled against a deterministic check or a person",
+      "Sample them and record the disagreement rate (a harness rule): model judges can mark incorrect long answers as correct (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "The diff's static-analysis report shows new warnings or a rise in cognitive complexity",
+      "Hold the gate: show the rise against code size and route it to a refactor or a signed waiver (harness rules); accumulated warnings and complexity reduce later output (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "A module is over the factory's warning or complexity threshold and the agent is adding features to it",
+      "Hold feature work there until a consolidating change lands: the authors propose tools that cut their own output past healthy thresholds; carrying that into a gate is an inference (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "The agent's rules file is offered as the quality control",
+      "Credit the measured change in warnings and complexity, not the rules: engineered rules are an untested suggestion, and the build-up was stronger in months when configuration was being changed (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "Someone proposes the study's percentages as the factory's tolerance or threshold",
+      "Refuse; derive thresholds from the project's own series: the figures are intent-to-treat open-source averages, estimator-dependent for quality, with complexity printed as 41.64%, 25.1% and 25% (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "The diff builds SQL, a shell command, a template or an expression from strings, or takes a sort or column name from the request",
+      "Block until parameterised, allowlisted or encoded: 1.2.4, 1.2.5, 1.3.2 (L1); table and column names cannot be escaped (`owasp-asvs-5-0`)"
+    ],
+    [
+      "A secret, key, token or connection string appears in source, a committed config file, a build artefact, a system prompt, a prompt template or a tool description",
+      "Block, move it to a secrets manager and rotate it: 13.3.1 (L2) (`owasp-asvs-5-0`) • Block and move it out of anything the model can reach: hidden context should be assumed discoverable (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "Production config turns on debug mode, a default account, sample or test code, or exposes source-control metadata, docs or metrics endpoints",
+      "Block: 13.4.1, 6.3.2 (L1); 13.4.2, 13.4.5, 15.2.3 (L2); such issues are often chained with other vulnerabilities (`owasp-asvs-5-0`)"
+    ],
+    [
+      "Validation or an access check exists only in frontend code",
+      "Block until enforced at a trusted service layer: client-side validation must not be relied on as a security control (2.2.2); 8.3.1 (L1) (`owasp-asvs-5-0`)"
+    ],
+    [
+      "A handler takes an object ID from the request and its query has no owner or tenant filter",
+      "Block until the handler checks the caller may reach that object and tenant: 8.2.2; 8.4.1 (L2) (`owasp-asvs-5-0`)"
+    ],
+    [
+      "An error handler logs and carries on, an error response shows a stack trace, or a log line writes a body, password, token or card number",
+      "Block: no fail-open (16.5.3), generic error messages (16.5.1), logging by protection level (16.2.5), all L2 (`owasp-asvs-5-0`)"
+    ],
+    [
+      "Model or agent output reaches exec, eval, a shell, string-built SQL, a file path, HTML, an email template, a terminal or an auto-rendering chat UI",
+      "Block until it is encoded for that sink or parameterized, with control characters sanitized and auto-rendered images and previews off: output controlled by a prompt gives the prompt's author indirect access to whatever the sink does (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "A model's output is checked by a second model call before a downstream action",
+      "Require structural validation in trusted code, plus a check on meaning the schema cannot make: a schema catches format, not semantic manipulation (`owasp-llm-top10-2026`) [D26]"
+    ],
+    [
+      "A model, adapter, dataset, tool, MCP server, prompt template or agent config is referenced by name, tag or \"latest\", with no pin, hash or digest",
+      "Pin by immutable digest: mutable references and re-registered names let artifacts be swapped (`owasp-llm-top10-2026`) • Require fully qualified names and version pins that fail closed on ambiguity, and content-hash and commit-ID pins on prompts and configs, signed and attested (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The only cost control on a model call or agent loop is an alert or a requests-per-second limit",
+      "Require a hard cap that halts and per-run step, depth, time and cost limits: request-rate limiting alone is not enough, and fast workloads outpace alerts (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "Text from tickets, files or web pages reaches the model or a renderer without invisible characters stripped",
+      "Strip tag-block, variation-selector and zero-width characters at every ingest and render boundary; this does not stop visible payloads (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "Agent-generated code reaches eval or an interpreter with no validation gate",
+      "Block: no eval in production agents, safe interpreters and taint-tracking, and code generation kept apart from execution by a validation gate (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "Tool permissions are stated as instructions in a prompt rather than as policy",
+      "Move them into authorization policy attached to each tool: the source asks for per-tool profiles as policy, not ad-hoc convention (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "An SBOM, AIBOM or signature check is offered as evidence that the agent behaves safely",
+      "Require behavioural tests too: a bill of materials answers what is in the system, not how it can behave or fail (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The diff changes logging, audit settings or retention, or the agent can write to its own log or ledger",
+      "Block until logs are signed and immutable: the guide's scenarios include agents used to disable or erase logs (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "A change one gate or reviewer rejected passes at another, or after repeated overrides",
+      "Flag the reversal and review it before the pack goes forward (`owasp-agentic-threats-mitigations`)"
+    ]
+  ]
+}

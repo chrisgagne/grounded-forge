@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/arolariu/arolariu.ro",
+  "pr_number": 615,
+  "base": "ffbc51dba52141fe693a4991ff911b4456fb5078",
+  "head": "ef4814f491112c82ae7e2fe9a821b71f9994b506"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "scripts/dev-local.ts",
+   "start_line": 579,
+   "end_line": 579,
+   "message": "The Azurite readiness probe sends an unauthenticated List Containers request (`/devstoreaccount1?comp=list`), which Azurite rejects with 403, so `response.ok` should never be true. Azurite is up and healthy, but every GET returns 403 AuthorizationFailure. waitForHealth would keep looping for the full 60s, so each `npm run dev:local` and each VS Code debug launch (via the `Infra: Setup Docker` preLaunchTask) would stall for a minute and then print 'did not become healthy'. A TCP probe or treating any HTTP response as ready would fix this."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": ".vscode/launch.json",
+   "start_line": 253,
+   "end_line": 253,
+   "message": "In the Full Stack compound, only `.NET API: Debug` has a preLaunchTask. That task runs `docker compose up -d`, which starts the Docker exp container on host port 5002. Meanwhile `Python: exp FastAPI Debug` starts at the same time and binds 127.0.0.1:5002. If uvicorn binds 5002 first, `docker compose up -d` cannot publish 5002:80, dockerCompose throws, the preLaunchTask fails, and the .NET API never launches. If Docker wins instead, uvicorn fails with EADDRINUSE until `docker stop` runs, so the exp debug session dies."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "scripts/dev-local.ts",
+   "start_line": 790,
+   "end_line": 790,
+   "message": "When any bare-metal service exits, Promise.race resolves and main() returns without killing or reporting on the other children. Example: with profile `all`, exp crashes on a Python import error. The script prints nothing, the website and API keep running against a dead exp on :5002, and the orchestrator no longer looks after them. In addition, `p.kill()` with `shell: true` only signals the wrapping shell. On a SIGTERM (for example, a VS Code task being terminated), the nx/next/dotnet grandchildren are orphaned and keep holding ports 3000, 5000, and 5002."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "packages/components/project.json",
+   "start_line": 445,
+   "end_line": 445,
+   "message": "Making components:dev a never-ending `rslib build --watch` and adding exp:dev gives `nx run-many --target=dev --all --parallel` six long-running dev targets. Nx's default concurrency is 3, so only three of them ever start. The new `Dev: All Services (parallel)` VS Code task runs `npm run dev`. Nx would start three watchers that never exit, so the rest (for example the website or exp) stay queued forever and the advertised 'all services' never comes up."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "scripts/dev-local.ts",
+   "start_line": 649,
+   "end_line": 649,
+   "message": "The inline Azurite init script ends in `.catch(()=>{})`, so the node process always exits 0 and execSync never throws. If Azurite is still starting, auth fails, or the `invoices` container can't be created, the error is swallowed and the script prints 'Azurite blob containers initialized with CORS'. Later, invoice uploads fail with ContainerNotFound and there is no hint of the cause."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 98000
+ }
+}

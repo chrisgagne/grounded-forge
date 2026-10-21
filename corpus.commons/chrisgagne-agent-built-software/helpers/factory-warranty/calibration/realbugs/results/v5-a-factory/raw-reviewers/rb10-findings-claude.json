@@ -1,0 +1,67 @@
+[
+ {
+  "id": "C1",
+  "leg": "claude",
+  "severity": "high",
+  "file": "cmd/root.go",
+  "line": 73,
+  "claim": "The freshness check runs after MinimizeCopilotComments, so when the latest Copilot review is up to date the tool still hides it as OUTDATED and then exits without asking for a new one. The user ends up with no visible current review.",
+  "evidence": "In run(), client.MinimizeCopilotComments(prNumber) at line 47 runs first and minimizes every non-minimized Copilot review with classifier OUTDATED. Only then does IsCopilotReviewFresh run (line 73), and if it is true the function prints \"Copilot review is already up to date\" and returns. Trigger: a PR whose last Copilot review was submitted after the last commit. The fresh review is minimized as outdated and no re-review is requested."
+ },
+ {
+  "id": "C2",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "internal/github/github.go",
+  "line": 84,
+  "claim": "The commits and reviews lists are not paginated, so on a PR with more than 30 commits (the GitHub REST default page size) lastCommitDate comes from commit 30, not the newest commit. A stale Copilot review can then count as fresh and the re-review is wrongly skipped.",
+  "evidence": "c.rest.Get(fmt.Sprintf(\"repos/%s/%s/pulls/%d/commits\", ...), &commits) is called once with no per_page or page loop, and lastCommitDate := commits[len(commits)-1].Commit.Committer.Date takes the last item of that single page. The reviews call at line 100 has the same problem, so the latest Copilot review can also be missed."
+ },
+ {
+  "id": "C3",
+  "leg": "claude",
+  "severity": "medium",
+  "file": "internal/github/github.go",
+  "line": 91,
+  "claim": "Freshness compares the commit's committer date, which is set on the client, with the review's submitted time. Commits made locally before a review but pushed after it look older than the review. The tool then reports the review as up to date and skips a review the new code needs.",
+  "evidence": "lastCommitDate := commits[len(commits)-1].Commit.Committer.Date, then return latestCopilotReview.After(lastCommitDate). Committer date is git metadata, not push time, so clock skew or a delayed push breaks the comparison. The code never compares the review's commit_id with the PR head SHA, which would avoid this."
+ },
+ {
+  "id": "C4",
+  "leg": "claude",
+  "severity": "low",
+  "file": "internal/github/github.go",
+  "line": 107,
+  "claim": "Any submitted Copilot review counts toward freshness, including DISMISSED ones, so a dismissed review can stop a new request.",
+  "evidence": "The loop only checks isCopilotUser(r.User.Login) && r.SubmittedAt.After(latestCopilotReview). It never reads the review state, unlike HasCopilotPendingReview, which filters on State."
+ },
+ {
+  "id": "C5",
+  "leg": "claude",
+  "severity": "low",
+  "file": "internal/github/github.go",
+  "line": 75,
+  "claim": "The new branching behaviour comes with no tests: the repository has no _test.go files and the diff adds none, so fresh, stale, no-review and many-commit cases are all unchecked.",
+  "evidence": "The export contains only cmd/root.go, internal/github/github.go, main.go and version/version.go as Go sources. The diff adds IsCopilotReviewFresh and an early return in run() but no test file.",
+  "axis_row": "L5.24"
+ },
+ {
+  "id": "C6",
+  "leg": "claude",
+  "severity": "low",
+  "file": "README.md",
+  "line": 26,
+  "claim": "The README is now out of date: it does not mention the new skip when the Copilot review is newer than the last commit, and its step order (check status, then hide old reviews) does not match what the code does.",
+  "evidence": "README lines 7 and 26 list only 'already requested or in progress' as reasons to exit early. The diff adds a third early exit with the message \"Copilot review is already up to date (newer than the last commit)\", and the README was not changed.",
+  "axis_row": "L5.24"
+ },
+ {
+  "id": "C7",
+  "leg": "claude",
+  "severity": "low",
+  "file": "internal/github/github.go",
+  "line": 100,
+  "claim": "Each run fetches the same reviews endpoint twice, once in HasCopilotPendingReview and again in IsCopilotReviewFresh, which costs an extra API call and repeats the same struct and loop logic.",
+  "evidence": "Both functions call c.rest.Get(fmt.Sprintf(\"repos/%s/%s/pulls/%d/reviews\", ...)) and loop over the reviews filtering with isCopilotUser. run() calls them one after the other at lines 64 and 73."
+ }
+]

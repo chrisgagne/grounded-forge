@@ -1,0 +1,61 @@
+{
+ "arms": {
+  "factory-claude": {
+   "grounded_precision": 0.7823308270676691,
+   "grounded_recall": 0.4754209693030531,
+   "augmented_precision": 0.8001551226551229,
+   "augmented_recall": 0.6197555222555222,
+   "high_found": 3,
+   "pull_requests": 20,
+   "findings_per_pr": 7.1
+  },
+  "brooks": {
+   "grounded_precision": 0.7222222222222222,
+   "grounded_recall": 0.1374617009275106,
+   "augmented_precision": 0.8791666666666667,
+   "augmented_recall": 0.43516455766455764,
+   "high_found": 0,
+   "pull_requests": 20,
+   "findings_per_pr": 5.3,
+   "cost_usd": 10.71,
+   "fallback_file": 34,
+   "timed_out_or_unreadable": 0
+  },
+  "cc-review": {
+   "grounded_precision": 0.7450980392156863,
+   "grounded_recall": 0.18678585850816298,
+   "augmented_precision": 0.8222222222222223,
+   "augmented_recall": 0.2843538748832867,
+   "high_found": 2,
+   "pull_requests": 20,
+   "findings_per_pr": 2.7,
+   "cost_usd": 6.25,
+   "fallback_file": 0,
+   "timed_out_or_unreadable": 0,
+   "levels": {
+    "null": 2,
+    "low": 14,
+    "medium": 4
+   },
+   "no_report_findings": 0
+  },
+  "plain": {
+   "grounded_precision": 0.8131578947368421,
+   "grounded_recall": 0.5619130680494928,
+   "augmented_precision": 0.8614880952380952,
+   "augmented_recall": 0.6795576617934943,
+   "high_found": 3,
+   "pull_requests": 20,
+   "findings_per_pr": 7.55
+  }
+ }
+}
+
+Primary: factory-claude against brooks: factory-claude did better
+
+Primary: factory-claude against cc-review: factory-claude did better
+  factory-claude did better than brooks
+  factory-claude did better than cc-review
+  plain did better than factory-claude
+  plain did better than brooks
+  plain did better than cc-review

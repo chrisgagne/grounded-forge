@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/arolariu/arolariu.ro",
+  "pr_number": 615,
+  "base": "ffbc51dba52141fe693a4991ff911b4456fb5078",
+  "head": "ef4814f491112c82ae7e2fe9a821b71f9994b506"
+ },
+ "agent": "v8-factory-claude",
+ "findings": [
+  {
+   "producer": "v8-factory-claude",
+   "file": ".vscode/launch.json",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Launching \".NET API: Debug\" on its own (root launch.json or backend workspace) stops the Docker exp container and starts nothing on port 5002, so the API it launches cannot fetch its startup config from EXP_PROXY_URL=http://localhost:5002. launch.json:62 sets preLaunchTask \"Build: API for Debug\". In tasks.json that task has dependsOn [\"Infra: Setup Docker\"], which runs `npm run dev:local:setup` \u2192 scripts/dev-local.ts --setup-only. main() always calls swapExpToBareMetalMode(), which runs `docker stop exp-arolariu-ro`, and BARE_METAL_SERVICES[\"setup-only\"] is []. The config itself sets EXP_PROXY_URL to http://localhost:5002, and AddProxyConfiguration fetches Auth:JWT:Secret and the other keys at startup. Only the compound also starts exp. DEVELOPMENT.md still lists \".NET API: Debug\" as a standalone profile."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "scripts/dev-local.ts",
+   "start_line": 105,
+   "end_line": 105,
+   "message": "Each orchestrator run starts the Docker exp container again with `docker compose up -d` before stopping it. In the Full Stack compound the bare-metal exp launches at the same time as this preLaunchTask, so both may race for host port 5002 and either uvicorn or the compose step can fail. startStorage() runs `docker compose -f Storage/docker-compose.yml up -d`. That compose file defines service exp (container exp-arolariu-ro, ports \"5002:80\", with a build section), so it is started or built on every run. swapExpToBareMetalMode() stops it only afterwards. In the compounds (launch.json \"Full Stack: Website + API + exp\" and fullstack.code-workspace), \"Python: exp FastAPI Debug\" has no preLaunchTask and binds 127.0.0.1:5002 while the API's preLaunchTask is still running this sequence. If dockerCompose() throws, main() exits 1 and the API debug session never starts."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "scripts/dev-local.ts",
+   "start_line": 126,
+   "end_line": 126,
+   "message": "The Azurite readiness probe may never return a 2xx response, because it sends an unauthenticated account-level list request. Every `dev:local` run and every debug preLaunchTask would then wait the full 60s timeout, which contradicts the documented ~3-second preLaunchTask. waitForHealth(\"http://localhost:10000/devstoreaccount1?comp=list\", ...) treats only `response.ok` as healthy and sends no Authorization or SAS. Azurite runs with `--oauth basic`, and an anonymous account-level List Containers call is rejected unless public access applies. The compose healthcheck for Azurite uses only a TCP connect. DEVELOPMENT.md says: \"If Docker infra is already running, the preLaunchTask completes in ~3 seconds.\""
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "scripts/dev-local.ts",
+   "start_line": 196,
+   "end_line": 196,
+   "message": "The Azurite init swallows every error inside the child script, so the orchestrator reports \"Azurite blob containers initialized with CORS\" even when container creation or the CORS setup failed. The `node -e` script ends with `.catch(()=>{})`, so the child always exits 0. The surrounding try/catch therefore never reaches logWarning, and logSuccess runs unconditionally. The original selfhost-start.sh at least printed `e.message`."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "scripts/dev-local.ts",
+   "start_line": 145,
+   "end_line": 145,
+   "message": "The new script hardcodes the MSSQL SA password and the Azurite account key in source, adding another copy of the credential to keep in sync. Line 145 runs `sqlcmd ... -U sa -P \"qazWSXedcRFV1234!\"` and the Azurite connection string embeds AccountKey=Eby8vdM02x.... These are local-emulator values that already appear in infra/Local/Storage/docker-comp.yml (MSSQL_SA_PASSWORD) and in selfhost-start.sh. selfhost-start.sh reads the password from $MSSQL_SA_PASSWORD, while this script uses a literal."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "sites/arolariu.ro/src/lib/config/configProxy.ts",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "Whether Entra ID auth is used now depends on an exact string match of the URL rather than on the Azure identity. An EXP_PROXY_URL such as \"https://exp.arolariu.ro/\" (trailing slash) or any other Azure-hosted exp URL silently drops the bearer token. The .NET side, which does not trim, behaves differently from the TS side, which does. configProxy.ts: `const USE_AZURE_AUTH = EXP_BASE_URL === AZURE_EXP_URL;` after `process.env[\"EXP_PROXY_URL\"]?.trim() || ...`. generate.env.ts has the same logic. WebApplicationBuilderExtensions.cs:122: `var useAzureAuth = baseUrl == ConfigProxyUrlAzure;` with `explicitUrl` taken untrimmed from Environment.GetEnvironmentVariable. Before this change, auth was keyed on AZURE_CLIENT_ID being present."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "sites/api.arolariu.ro/src/Core/Properties/launchSettings.json",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "Placing the new \"Development\" profile first makes it the default for `dotnet run`/`dotnet watch run`. Every default local launch therefore now forces EXP_PROXY_URL=http://localhost:5002 and HTTP on :5000, replacing the previous \"Console App\" default (HTTPS, no exp override). \"Development\" is inserted before \"Console App\" in profiles, and the dotnet CLI uses the first Project profile when --launch-profile is absent. Its environmentVariables set EXP_PROXY_URL and INFRA, so any developer whose exp runs only in Docker (http://exp) now gets an API pointed at localhost:5002."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "sites/exp.arolariu.ro/project.json",
+   "start_line": 27,
+   "end_line": 27,
+   "message": "The new exp test and lint targets pip-install into whatever Python interpreter is active, with no virtualenv, on every run. Because the root `npm run test` / `test:unit` use `run-many --all`, these targets may now run in workflows that never set up Python. The test target command is `python -m pip install -q -r requirements-dev.txt && python -m pytest -q` (lint is similar). The root package.json has \"test\": \"nx run-many --target=test --all\" and \"test:unit\": \"nx run-many --target=test --configuration=unit --all\". .github/scripts/src/hygiene/checks/testCheck.ts runs `npm run test:unit`. The exp target defines no `unit` configuration. The new pinned dev dependencies (pytest==9.0.2, ruff==0.15.4) are installed this way."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "scripts/dev-local.ts",
+   "start_line": 16,
+   "end_line": 16,
+   "message": "The script's own usage docs and one branch disagree with what it does: --frontend and --infra also start exp, and the \"Infrastructure-only mode\" branch can never run. The header says `--frontend  # Start infra + website only` and `--infra  # Start infra only (no services)`. However, BARE_METAL_SERVICES has frontend: [\"exp\",\"website\"] and infra: [\"exp\"]. `if (bareMetalServices.length === 0)` is true only for \"setup-only\", so the else branch that prints \"Infrastructure-only mode. Start services manually\" is dead code. Step 2 also logs \"Starting databases (... exp)\" just before the script stops exp."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "sites/api.arolariu.ro/src/Core/Domain/General/Extensions/WebApplicationBuilderExtensions.cs",
+   "start_line": 109,
+   "end_line": 109,
+   "message": "The new endpoint and auth selection logic, which decides whether config requests carry a bearer token, ships without any test in the .NET API, the website or generate.env.ts. The diff changes the baseUrl and useAzureAuth logic in AddProxyConfiguration, and EXP_BASE_URL/USE_AZURE_AUTH in configProxy.ts and generate.env.ts. It adds no test file: the only test-related additions are the exp nx targets and requirements-dev.txt."
+  },
+  {
+   "producer": "v8-factory-claude",
+   "file": "sites/arolariu.ro/messages/fr.json",
+   "start_line": 4682,
+   "end_line": 4682,
+   "message": "The diff includes unrelated French translation additions in a dev-tooling change and drops the file's trailing newline. The fr.json hunks add insufficientData, saving, error/success, totalDuration, minutes, none, emptyState, unknownMerchant and andMore keys (already present in en.json and ro.json), and end with `\\ No newline at end of file`. Separately, devcontainer.json's new postStartCommand runs `npm run generate 2>/dev/null || true` on every container start. That may regenerate tracked files like these, and any failure is hidden."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

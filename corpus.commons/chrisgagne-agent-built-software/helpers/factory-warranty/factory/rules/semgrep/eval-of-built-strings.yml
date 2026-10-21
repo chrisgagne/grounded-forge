@@ -1,0 +1,112 @@
+# factory's pinned semgrep rules, run by the gate alongside the configured ruleset.
+# Code evaluated from a string built at run time runs something nobody reviewed (OWASP Agentic ASI05). In scope:
+# the global eval called directly or as globalThis.eval / window.eval / self.eval / global.eval, globalThis['eval'],
+# (0, eval), eval.call, eval.apply, Reflect.apply(eval, ...), or through an alias declared with its value
+# (const|let|var run = eval); the Function constructor, bare or on the global object; and Python's builtin eval/exec,
+# bare or as builtins.eval/exec. Methods that share the name (pattern.exec, obj.eval, obj['eval']) are not.
+#
+# Not followed, so not flagged: a string passed to setTimeout or setInterval; Node's vm module (vm.runInNewContext,
+# vm.runInThisContext, new vm.Script, vm.compileFunction); an alias of eval or Function assigned after its
+# declaration (let run; run = eval), taken by destructuring (const { eval: run } = globalThis), or of
+# globalThis.eval; Function reached through call/apply/Reflect or a computed name; eval passed into another function;
+# and in Python an alias of eval/exec (run = exec), a lookup such as getattr(builtins, "exec") or
+# __builtins__["eval"], compile(), and importlib/runpy loaders.
+#
+# Fixed text is fixed code however it's written: any string literal (raw, triple-quoted, prefixed,
+# an f-string or template literal with no placeholder), adjacent literals, or literals joined only by +. Anything
+# else is flagged, including an f-string or template literal with a placeholder.
+#
+# A finding needs both: the argument has some part that isn't a string literal (metavariable-pattern), and its
+# source text isn't a run of literals joined by + (metavariable-regex). Either alone excludes fixed text.
+rules:
+  - id: factory.js-eval-of-built-string
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: >-
+      eval or the Function constructor evaluates a string built at run time as code: whatever ends up in it runs
+      unreviewed. Call the code directly, or parse data with JSON.parse, instead of evaluating a string.
+    metadata:
+      cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+      source: factory pinned ruleset
+    patterns:
+      - pattern-either:
+          - pattern: eval($ARG, ...)
+          - pattern: Function(..., $ARG, ...)
+          - pattern: new Function(..., $ARG, ...)
+          - pattern: ($X, eval)($ARG, ...)
+          - pattern: eval.call($THIS, $ARG, ...)
+          - pattern: eval.apply($THIS, [$ARG, ...])
+          - pattern: Reflect.apply(eval, $THIS, [$ARG, ...])
+          # an argument list that isn't written out (eval.apply(null, args)) is itself built at run time
+          - patterns:
+              - pattern-either:
+                  - pattern: eval.apply($THIS, $ARG)
+                  - pattern: Reflect.apply(eval, $THIS, $ARG)
+              - pattern-not: eval.apply($THIS, [...])
+              - pattern-not: Reflect.apply(eval, $THIS, [...])
+          - patterns:
+              - pattern-either:
+                  - pattern: $G.eval($ARG, ...)
+                  - pattern: $G.Function(..., $ARG, ...)
+                  - pattern: new $G.Function(..., $ARG, ...)
+              - metavariable-regex:
+                  metavariable: $G
+                  regex: ^(globalThis|window|self|global)$
+          - patterns:
+              - pattern: $G[$NAME]($ARG, ...)
+              - metavariable-regex:
+                  metavariable: $G
+                  regex: ^(globalThis|window|self|global)$
+              - metavariable-regex:
+                  metavariable: $NAME
+                  regex: ^(["'`])eval\1$
+          - patterns:
+              - pattern-either:
+                  - pattern-inside: |
+                      const $ALIAS = eval;
+                      ...
+                  - pattern-inside: |
+                      let $ALIAS = eval;
+                      ...
+                  - pattern-inside: |
+                      var $ALIAS = eval;
+                      ...
+              - pattern: $ALIAS($ARG, ...)
+      # semgrep reads a template literal with no ${...} as a plain string, without its backticks
+      - metavariable-pattern:
+          metavariable: $ARG
+          patterns:
+            - pattern: $PART
+            - pattern-not: '"..."'
+            - pattern-not: '"..." + "..."'
+      - metavariable-regex:
+          metavariable: $ARG
+          regex: >-
+            ^(?![\s(]*(?:"(?:[^"\\\n]|\\[\s\S])*"|'(?:[^'\\\n]|\\[\s\S])*'|`(?:[^`\\$]|\\[\s\S]|\$(?!\{))*`)(?:[\s()]*\+[\s()]*(?:"(?:[^"\\\n]|\\[\s\S])*"|'(?:[^'\\\n]|\\[\s\S])*'|`(?:[^`\\$]|\\[\s\S]|\$(?!\{))*`))*[\s)]*$)
+  - id: factory.python-eval-of-built-string
+    languages: [python]
+    severity: ERROR
+    message: >-
+      eval or exec evaluates a string built at run time as code: whatever ends up in it runs unreviewed. Call the
+      code directly, or parse data with ast.literal_eval or json.loads, instead of evaluating a string.
+    metadata:
+      cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+      source: factory pinned ruleset
+    patterns:
+      - pattern-either:
+          - pattern: eval($ARG, ...)
+          - pattern: exec($ARG, ...)
+          - pattern: builtins.eval($ARG, ...)
+          - pattern: builtins.exec($ARG, ...)
+      - metavariable-pattern:
+          metavariable: $ARG
+          patterns:
+            - pattern: $PART
+            - pattern-not: '"..."'
+            - pattern-not: '"..." + "..."'
+      # one or more string literals of any prefix and quoting, adjacent or joined by +; an f-string only when it has
+      # no {placeholder} ({{ and }} are literal braces)
+      - metavariable-regex:
+          metavariable: $ARG
+          regex: >-
+            ^(?![\s(]*(?:(?:[rR][bB]?|[bB][rR]?|[uU])?(?:"""(?:[^"\\]|\\[\s\S]|"(?!""))*"""|'''(?:[^'\\]|\\[\s\S]|'(?!''))*'''|"(?:[^"\\\n]|\\[\s\S])*"|'(?:[^'\\\n]|\\[\s\S])*')|(?:[fF][rR]?|[rR][fF])(?:"""(?:[^"\\{}]|\{\{|\}\}|\\[\s\S]|"(?!""))*"""|'''(?:[^'\\{}]|\{\{|\}\}|\\[\s\S]|'(?!''))*'''|"(?:[^"\\\n{}]|\{\{|\}\}|\\[\s\S])*"|'(?:[^'\\\n{}]|\{\{|\}\}|\\[\s\S])*'))(?:[\s()\\]*\+?[\s()\\]*(?:(?:[rR][bB]?|[bB][rR]?|[uU])?(?:"""(?:[^"\\]|\\[\s\S]|"(?!""))*"""|'''(?:[^'\\]|\\[\s\S]|'(?!''))*'''|"(?:[^"\\\n]|\\[\s\S])*"|'(?:[^'\\\n]|\\[\s\S])*')|(?:[fF][rR]?|[rR][fF])(?:"""(?:[^"\\{}]|\{\{|\}\}|\\[\s\S]|"(?!""))*"""|'''(?:[^'\\{}]|\{\{|\}\}|\\[\s\S]|'(?!''))*'''|"(?:[^"\\\n{}]|\{\{|\}\}|\\[\s\S])*"|'(?:[^'\\\n{}]|\{\{|\}\}|\\[\s\S])*')))*[\s)]*$)

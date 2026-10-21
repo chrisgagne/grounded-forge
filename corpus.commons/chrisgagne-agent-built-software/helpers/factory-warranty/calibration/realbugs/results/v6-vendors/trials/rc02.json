@@ -1,0 +1,70 @@
+{
+ "id": "rc02",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+   "start_line": 286,
+   "end_line": 307,
+   "message": "This migration is described as only adding the `data` column, but it also changes the primary key of all three tables (`ratelimitconfig`, `ratelimitcounter`, `ratelimitentry`) from AutoField to BigAutoField. On PostgreSQL and MySQL that rewrites each table and holds an exclusive lock for the whole rewrite. Rate-limit tables are hit on every request and can be large, so `migrate` can cause downtime or block traffic for a long time. Neither the CHANGELOG nor the upgrade notes mention it. Put the PK change in its own documented migration, or leave it out of this bug-fix release. The `data` AddField alone is enough to fix #24."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "django_smart_ratelimit/migrations/0002_add_data_field_to_counter.py",
+   "start_line": 232,
+   "end_line": 276,
+   "message": "Whether the RenameIndex operations are included depends on which Django version runs the migration. The project still supports Django 3.2 and 4.0, which have no RenameIndex. On those versions the migration state keeps the old index names while the models expect the new ones. That leaves pending autodetected changes (`makemigrations --check` fails), and any later migration that refers to the new index names will break on those installs. A migration's operations should be the same on every version. Drop the cosmetic renames, or do them with a version-independent approach such as RemoveIndex/AddIndex, or with SeparateDatabaseAndState plus RunSQL."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "CHECKLIST_database_backend_fix.md",
+   "start_line": 1,
+   "end_line": 27,
+   "message": "A personal working checklist is committed to the repository root. It includes the author's local absolute paths (`/Users/<author>/...`). It is not project documentation and should be removed from the change."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "CHANGELOG.md",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "\"apply the latest migration before upgrading\" can't be followed, because the migration only arrives with the upgrade. It should say to run `migrate` after upgrading, before serving traffic. The entry also leaves out the BigAutoField PK changes and index renames included in the same migration."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "django_smart_ratelimit/backends/database.py",
+   "start_line": 286,
+   "end_line": 289,
+   "message": "`get()` now returns the JSON-decoded `data` whenever it is set, not `counter.count`. Values written through `set()` are first converted with `str()`, so their types change on the way back: `set(k, \"123\")` returns `get(k) == 123`, and `set(k, \"true\")` returns `True`. Token-bucket keys now return a dict instead of an int. Callers that relied on `get()` returning the count may break. Store values in a typed JSON envelope, or document the new behavior."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "django_smart_ratelimit/backends/database.py",
+   "start_line": 116,
+   "end_line": 186,
+   "message": "This bug fix has no regression tests. The PR's \"I have added tests\" box is unchecked, even though the committed checklist marks tests as added. Nothing tests that token-bucket state (fractional tokens, last_refill) persists across calls, that rows with `data` NULL from before the migration fall back correctly, or what `get()` now returns. Because `token_bucket_check` fails open on any exception, a regression here would quietly turn off rate limiting."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 23,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 48,
+   "cost_usd": 0.2644292,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 48
+ }
+}

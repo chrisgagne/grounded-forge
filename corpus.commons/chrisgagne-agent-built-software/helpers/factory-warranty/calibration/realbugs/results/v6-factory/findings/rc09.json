@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/konturio/disaster-ninja-fe",
+  "pr_number": 1234,
+  "base": "3c1900acccaae22cb69adb02dd8351f24fe4e8b5",
+  "head": "2271e59046b1afe806dfc49d92435d40131df30f"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "Circle legends whose style has no fill colour now draw as a horizontal line instead of a circle, so existing point legends (user-created layers and newly registered geometry layers) change appearance. The new branch `fillColor === 'none' ? <line .../> : <circle .../>` falls to the line whenever `fill`, `styles['fill-color']` and `styles['circle-color']` are all unset. Two existing producers hit it. `DEFAULT_USER_LAYER_LEGEND` in src/features/create_layer/constants.ts:37-46 has `stepName: 'Point', stepShape: 'circle', style: { color: '#000000', width: 3, ... }`. `registerNewGeometryLayer` in src/core/logical_layers/utils/registerNewGeometryLayer.ts:33-39 has `stepShape: 'circle', style: { color: mainColor }`. Before the change both drew an outlined circle. Now the 'Point' step draws a line."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 176,
+   "end_line": 176,
+   "message": "Any circle step without a fill color now renders as a horizontal line, not just the outline circles this change is aimed at. Existing callers rely on the old outline circle to mean a point. `registerNewGeometryLayer.ts:34` (style `{ color: mainColor }`) and `DEFAULT_USER_LAYER_LEGEND` in `features/create_layer/constants.ts:39` (stepName 'Point', `color`/`width` only, no fill) both match this case. So point layers, including the default user-created 'Point' layer, will now show a line icon, which reads as a line or road layer. Either make the line rendering opt-in (for example a separate 'line' shape) or update these callers to give a fill or another shape. Any circle step without a fill color now renders as a horizontal line, not just the outline circles this change is aimed at. Existing callers rely on the old outline circle to mean a point. `registerNewGeometryLayer.ts:34` (style `{ color: mainColor }`) and `DEFAULT_USER_LAYER_LEGEND` in `features/create_layer/constants.ts:39` (stepName 'Point', `color`/`width` only, no fill) both match this case. So point layers, including the default user-created 'Point' layer, will now show a line icon, which reads as a line or road layer. Either make the line rendering opt-in (for example a separate 'line' shape) or update these callers to give a fill or another shape."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.tsx",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "Preserve point symbols when rendering unfilled circles The absence of a fill does not establish that a legend represents a line. `DEFAULT_USER_LAYER_LEGEND` in `src/features/create_layer/constants.ts` defines a `Point` step with `stepShape: 'circle'` and only `color`/`width` styling, so this branch now displays a horizontal line for that point legend instead of its previous circular symbol. Use an explicit line shape or another geometry discriminator rather than converting every unfilled circle into a line."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/icons/CircleIcon.test.tsx",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "The new CircleIcon test only tries the no-fill input, so nothing checks that a filled circle still renders or that the existing stroke-only circle legends keep their shape. The only case is `<CircleIcon styles={{ width: 4 } as any} size=\"normal\" />`, which expects a `line` and no `circle`. No case passes `fill`, `fill-color` or `circle-color`. No case uses the `{ color }`-only styles that the real callers send."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "The Letter icon is imported through a deep internal build path instead of the package's public entry that the rest of the codebase uses, so it may break when the icon package is upgraded. The new line is `import Letter from '@konturio/default-icons/tslib/figma-icons/Letter.js';`. src/components/MultivariateLegend/MultivariateLegend.tsx:2 imports the same icon as `import { Letter } from '@konturio/default-icons';`. The export has no node_modules, so I could not confirm the deep path resolves."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "`Letter` is deep-imported from `@konturio/default-icons/tslib/figma-icons/Letter.js` as a default export. Everywhere else, including `MultivariateLegend.tsx:2`, it uses the public named export `import { Letter } from '@konturio/default-icons'`. The `tslib/...` path is an internal build path that is not in the package's public API. It can break on package upgrades, with an `exports` map, or with TS type resolution (default vs named export, `.js` path). Use the public named import. `Letter` is deep-imported from `@konturio/default-icons/tslib/figma-icons/Letter.js` as a default export. Everywhere else, including `MultivariateLegend.tsx:2`, it uses the public named export `import { Letter } from '@konturio/default-icons'`. The `tslib/...` path is an internal build path that is not in the package's public API. It can break on package upgrades, with an `exports` map, or with TS type resolution (default vs named export, `.js` path). Use the public named import."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/SimpleLegend.test.tsx",
+   "start_line": 35,
+   "end_line": 35,
+   "message": "The letter-icon test asserts a hard-coded SVG path prefix from the third-party icon's internals, so it checks the library's markup rather than the component's behaviour and will break on any icon redraw. `path?.getAttribute('d')?.startsWith('M6 6H18V9.08508H16.769V8.53835')` is a literal copied from the icon package's output. It does not check which icon component SimpleLegendStep chose."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/SimpleLegend.test.tsx",
+   "start_line": 34,
+   "end_line": 34,
+   "message": "The test is brittle. It hard-codes the start of the icon's SVG path data, which breaks on any icon-package update. It also checks that the raw `style` attribute contains the hex string, but DOM implementations may convert it to `rgb(...)`. Check the icon's identity some other way (mock the component or use a test id), and compare color through computed style or a normalized value. The test is brittle. It hard-codes the start of the icon's SVG path data, which breaks on any icon-package update. It also checks that the raw `style` attribute contains the hex string, but DOM implementations may convert it to `rgb(...)`. Check the icon's identity some other way (mock the component or use a test id), and compare color through computed style or a normalized value."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "When there is no `text-color`, the letter icon is forced to `#000000`. In that case the label has no inline color and inherits the theme text color, so the icon and label won't match on non-black themes or dark mode. That undermines the stated aim of matching the label. Fall back to `currentColor`, or leave the color unset so it inherits. When there is no `text-color`, the letter icon is forced to `#000000`. In that case the label has no inline color and inherits the theme text color, so the icon and label won't match on non-black themes or dark mode. That undermines the stated aim of matching the label. Fall back to `currentColor`, or leave the color unset so it inherits."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/components/SimpleLegend/SimpleLegend.tsx",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "The text colour of a legend step is now resolved in two places, so the icon and the label colour can drift apart if one is changed later. `icon()` computes `const color = style['text-color'] || '#000000';`. SimpleLegendStep separately sets `style.color = step.style['text-color']` at lines 52-54 for the label span."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

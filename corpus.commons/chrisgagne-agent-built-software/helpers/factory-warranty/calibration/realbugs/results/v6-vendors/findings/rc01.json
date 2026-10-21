@@ -1,0 +1,98 @@
+{
+ "pr": {
+  "repo": "https://github.com/konturio/disaster-ninja-fe",
+  "pr_number": 1081,
+  "base": "9f04fad3b614c5bad660916916d4f1f5ff0e8b9e",
+  "head": "d2c0c636fc49cb7e318c17ad8e4a96aaddba9511"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "Import the bivariate prefixes from their actual module. `./constants` exports neither `LAYER_BIVARIATE_PREFIX` nor `SOURCE_BIVARIATE_PREFIX`; both are defined in `~core/logical_layers/constants`. These imports fail type checking and module loading, preventing the renderer from being used. Restore the imports from the existing module."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+   "start_line": 38,
+   "end_line": 40,
+   "message": "Keep legend thresholds in the same units as axis values. `createMCDALayersFromBivariateAxes` configures max-min normalization and potentially sentiment inversion, while the copied legend steps remain raw quotient thresholds. The shared style generator compares those thresholds against `linearNormalization` results. For example, an axis with steps spanning 0\u2013100 now supplies values between 0 and 1 against those original thresholds, assigning hexagons to incorrect color classes. Preserve raw axis calculations or transform the thresholds consistently before delegating."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "`LAYER_BIVARIATE_PREFIX` and `SOURCE_BIVARIATE_PREFIX` are imported from `./constants`, but they are not defined there. They live in `~core/logical_layers/constants`. This fails type-checking, and with esbuild/Vite the values become `undefined`, so source and layer ids turn into `undefined<id>`. Every bivariate and MCDA layer would break."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+   "start_line": 38,
+   "end_line": 41,
+   "message": "`stepOverrides` passes the raw bivariate axis steps (actual quotient values such as 0, 10, 1000). However, `score` and `base` are MCDA dimensions built by `createMCDALayersFromBivariateAxes` with max-min normalization, sentiment and transformation, so they produce values in 0..1. The class thresholds then don't match the normalized values, most hexes fall into one corner class, and the bivariate map shows the wrong colours. The steps need to be normalized the same way, or the raw quotient values should be classified without the MCDA scoring."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 32,
+   "end_line": 44,
+   "message": "Max-zoom regression. `MultivariateRenderer.getMaxZoomLevel` reads `layer.style` from the tile source, not the converted `state.style`. For bivariate legends and the MCDA layers from `mcdaLayer.ts`, the source has no multivariate style, so maxzoom falls back to `FALLBACK_BIVARIATE_MAX_ZOOM` (9). The old code used `getMaxNumeratorZoomLevel(quotients)` and `getMaxMCDAZoomLevel(style.config)`. Layers whose indicators have different max zooms will now overzoom or underzoom tiles."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 19,
+   "end_line": 30,
+   "message": "User-visible behaviour change that the refactor framing doesn't flag. Bivariate hex clicks no longer show `MapHexTooltip` (cell label, legend cell index, x/y quotient values, hex colour). They now show the multivariate/MCDA popup with normalized scores. Clicks also now dispatch the `mcda_popup` metrics event for bivariate layers, which skews analytics. This needs product sign-off or a bivariate-specific `createPopupContent`."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/utils/bivariate/bivariateToMultivariate.ts",
+   "start_line": 8,
+   "end_line": 10,
+   "message": "`createMCDALayersFromBivariateAxes` throws `incorrect_axis_step_format` when an axis has no `datasetStats` and no numeric steps. That conversion now runs synchronously inside `willMount`/`willSourceUpdate`, so a malformed legend crashes the renderer hook. Previously only layer generation was affected. This path has no guard and no test."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/logical_layers/renderers/BivariateRenderer/BivariateRenderer.tsx",
+   "start_line": 19,
+   "end_line": 29,
+   "message": "If neither an MCDA style nor a legend is present, `convertStyle` returns null and the layer is silently not mounted. The old code threw `Vector layers must have legend`, which made the misconfiguration visible. Consider at least logging an error."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/core/logical_layers/renderers/MCDARenderer/MCDARenderer.tsx",
+   "start_line": 1,
+   "end_line": 32,
+   "message": "The new `MCDARenderer` is not used anywhere: `getLayerRenderer` and `mcdaLayer.ts` still instantiate `BivariateRenderer` for MCDA. It has no tests and no readme, contrary to AGENTS.md, yet it is announced as a new feature. Either wire it in with tests and docs, or remove it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/utils/bivariate/bivariateToMultivariate.test.ts",
+   "start_line": 13,
+   "end_line": 24,
+   "message": "The tests mock `createDefaultMCDAConfig` and use axis steps with no `datasetStats`. They never exercise the real config, the normalization/step mismatch, or the renderers themselves, because `BivariateRenderer` and `MCDARenderer` have no tests. Coverage of the actual behaviour change (layer spec, zoom, popup) is effectively zero."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "docs/investigations/maplibre-migration.md",
+   "start_line": 38,
+   "end_line": 115,
+   "message": "Several doc entries now point to `BivariateRenderer.tsx` lines 1\u201345 for 'addSource/addLayer', 'event listener registration via registerMapListener' and 'feature state logic'. The wrapper contains none of these anymore; that logic is in `ClickableFeaturesRenderer`/`MultivariateRenderer`. The references are misleading and should point to the real locations."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/features/bivariate_manager/readme.md",
+   "start_line": 52,
+   "end_line": 55,
+   "message": "The replacement paragraph drops the list indentation of the surrounding numbered list, so the following items and the mapbox reference render outside the list. It also no longer explains how legend steps map to paint rules (score/base dimensions, step overrides)."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 79000
+ }
+}

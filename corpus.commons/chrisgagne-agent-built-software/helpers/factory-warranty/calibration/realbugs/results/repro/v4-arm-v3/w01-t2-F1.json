@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.164968,
+  "duration_s": 25.2
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --import ./check/register.mjs check/eofnl.mjs {tree}",
+  "because": "Neither tree has node_modules, so a small loader hook in check/ runs the project's own src/patch/create.js and src/patch/apply.js directly; on head, applying createPatch('file','foo','bar') to 'foo' returns 'bar\\n' instead of 'bar' (the same happens for 'a\\nb\\nfoo' -> 'a\\nb\\nbar'), while base round-trips correctly and the EOF-newline add/remove control cases pass on both, which shows that the new break leaves removeEOFNL unset and adds a spurious newline at EOF."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS \"foo\" -> \"bar\": got \"bar\"\nPASS \"a\\nb\\nfoo\" -> \"a\\nb\\nbar\": got \"a\\nb\\nbar\"\nPASS \"foo\" -> \"bar\\n\": got \"bar\\n\"\nPASS \"foo\\n\" -> \"bar\": got \"bar\"\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL \"foo\" -> \"bar\": got \"bar\\n\"\nFAIL \"a\\nb\\nfoo\" -> \"a\\nb\\nbar\": got \"a\\nb\\nbar\\n\"\nPASS \"foo\" -> \"bar\\n\": got \"bar\\n\"\nPASS \"foo\\n\" -> \"bar\": got \"bar\"\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "Neither tree has node_modules, so a small loader hook in check/ runs the project's own src/patch/create.js and src/patch/apply.js directly; on head, applying createPatch('file','foo','bar') to 'foo' returns 'bar\\n' instead of 'bar' (the same happens for 'a\\nb\\nfoo' -> 'a\\nb\\nbar'), while base round-trips correctly and the EOF-newline add/remove control cases pass on both, which shows that the new break leaves removeEOFNL unset and adds a spurious newline at EOF.",
+ "run": "v4-arm-v3",
+ "trial": "w01-t2",
+ "kind": "bug"
+}

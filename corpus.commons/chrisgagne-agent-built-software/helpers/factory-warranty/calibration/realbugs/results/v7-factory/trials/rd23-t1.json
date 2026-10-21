@@ -1,0 +1,499 @@
+{
+ "id": "rd23",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:deps",
+  "gate:rollback",
+  "gate:required",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 1.5967,
+ "codex_tokens": 41999,
+ "work": "<tmp>/replay-rd23-t1-wknct2mn",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "event_service.ts:5 declares isRegistered as async, and the controller tests `!this.eventService.isRegistered(user!, event)` without await. A Promise is always truthy, so the 'n\u00e3o registado' branch never runs. A POST to /events/<slug>/check-in for an unregistered participant goes on to checkin() and adds the row.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "line": 106,
+   "claim": "The registration check in checkin is never awaited, so staff can check in a participant who is not registered for the event.",
+   "evidence": "`if (!this.eventService.isRegistered(user!, event))`: EventService.isRegistered is `async` (event_service.ts:5), so it returns a Promise, which is always truthy, and `!promise` is always false. Trigger: POST /events/<slug>/check-in with the eventID of an event the participant never registered for. The 'n\u00e3o registado' branch is skipped and `checkin` attaches a row to event_checkins.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "apps/website/app/controllers/events_controller.ts",
+     "line": 106,
+     "claim": "The registration check in checkin is never awaited, so it never blocks: staff can check in a participant who is not registered for the event.",
+     "evidence": "`if (!this.eventService.isRegistered(user!, event))`: EventService.isRegistered is `async` (event_service.ts:5), so it returns a Promise, which is always truthy, and `!promise` is always false. Trigger: POST /events/<slug>/check-in with the eventID of an event the participant never registered for. The 'n\u00e3o registado' branch is skipped and `checkin` attaches a row to event_checkins."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "apps/website/app/controllers/events_controller.ts",
+     "line": 106,
+     "claim": "Unregistered participants can be checked in because the registration check is not awaited.",
+     "evidence": "For a valid participant who is not registered for the selected event, isRegistered returns a Promise; negating that truthy Promise always produces false. The controller skips the rejection and calls checkin when no existing check-in exists."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "EventCheckInDialog returns null when isOpen is false, before useTuyau() and useForm(). page.tsx mounts the dialog for staff with isOpen={scannerModalOpen}, which starts false. When the QrCode is clicked, the same instance renders two more hooks than before, and React raises 'Rendered more hooks than during the previous render'.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "line": 310,
+   "claim": "The dialog calls hooks after a conditional early return, so React throws when the scanner opens and the check-in UI breaks.",
+   "evidence": "`if (!isOpen) { return null; }` comes before `const tuyau = useTuyau();` and `useForm(...)`. page.tsx:386-391 mounts the dialog for staff with `isOpen={scannerModalOpen}` (initially false). Clicking the QrCode sets it true, the same component instance renders two more hooks than before, and React raises 'Rendered more hooks than during the previous render'.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "high",
+     "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+     "line": 310,
+     "claim": "The dialog calls hooks after a conditional early return, so opening the scanner changes the hook count between renders and React throws, which breaks the check-in UI.",
+     "evidence": "`if (!isOpen) { return null; }` comes before `const tuyau = useTuyau();` and `useForm(...)`. page.tsx:386-391 mounts the dialog for staff with `isOpen={scannerModalOpen}` (initially false). Clicking the QrCode sets it true, the same component instance renders two more hooks than before, and React raises 'Rendered more hooks than during the previous render'."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C5",
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "page.tsx:290-317 nests the QrCode control inside `{!isRegistered && (...)}`, and nothing else sets scannerModalOpen. Lowered X3 from high to medium: staff who are not registered for the event can still open it.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "line": 313,
+   "claim": "The staff QR scanner button only renders inside the !isRegistered block, so staff who are registered for the event can't open the scanner.",
+   "evidence": "The `<QrCode onClick={() => setScannerModalOpen(true)} />` is nested inside `{!isRegistered && ( <div ...> ... )}` (lines 290-317). No other control sets scannerModalOpen.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "apps/website/inertia/pages/events/show/page.tsx",
+     "line": 313,
+     "claim": "The staff QR check-in button only renders inside the `!isRegistered` block, so a staff member who is registered for the event can't open the scanner.",
+     "evidence": "The `<QrCode onClick={() => setScannerModalOpen(true)} />` is nested inside `{!isRegistered && ( <div ...> ... )}` (lines 290-317). No other control sets scannerModalOpen."
+    },
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "high",
+     "file": "apps/website/inertia/pages/events/show/page.tsx",
+     "line": 313,
+     "claim": "Staff registered for an event cannot open its check-in scanner.",
+     "evidence": "The QrCode control that sets scannerModalOpen(true) is nested inside the !isRegistered condition at line 290. EventsController.show computes registration for the current user, so registered staff never receive the scanner-opening control."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The result of `User.findBy(\"participantProfileId\", profile?.id)` is never null-checked. It is passed as `user!` to isCheckedIn, which reads user.id at event_service.ts:19 and throws a TypeError instead of returning the 'not found' flash.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "line": 104,
+   "claim": "If a participant profile has no linked user, the handler continues with a null user and crashes with a 500.",
+   "evidence": "`const user = await User.findBy(\"participantProfileId\", profile?.id);` can return null, and nothing checks it. The code then calls `isCheckedIn(user!, event)`, which reads `user.id` in `.where(\"user_id\", user.id)` and throws a TypeError.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "apps/website/app/controllers/events_controller.ts",
+     "line": 104,
+     "claim": "If a participant profile has no linked user, the handler goes on with a null user and crashes with a 500 instead of returning the 'not found' message.",
+     "evidence": "`const user = await User.findBy(\"participantProfileId\", profile?.id);` can return null, and nothing checks it. The code then calls `isCheckedIn(user!, event)`, which reads `user.id` in `.where(\"user_id\", user.id)` and throws a TypeError."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C4",
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The scanner keeps allowMultiple={true} and scanDelay={0}. handleCheckIN posts on every callback with no in-flight guard. On the server, isCheckedIn is followed by attach with no transaction or conflict handling, against table.unique(['event_id','user_id']) in the migration. Inertia cancels only the client side of a superseded visit, so the requests still reach the server.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "apps/website/inertia/components/credentials/scanner.tsx",
+   "line": 280,
+   "claim": "The scanner fires continuously, and each callback posts a check-in, so duplicate concurrent requests can race past isCheckedIn and hit the unique constraint as a 500.",
+   "evidence": "The scanner keeps `allowMultiple={true}` and `scanDelay={0}`, and each `onScan` calls `handleCheckIN` \u2192 `post(...)`. On the server, `isCheckedIn` then `checkin` is a check-then-insert with no transaction or conflict handling, against `table.unique([\"event_id\", \"user_id\"])` in the new migration.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "apps/website/inertia/components/credentials/scanner.tsx",
+     "line": 280,
+     "claim": "The scanner fires continuously while a code is in view, so one badge sends many concurrent check-in POSTs. These race past the isCheckedIn check, hit the unique constraint as a 500, and show 'j\u00e1 checked-in' error toasts for a check-in that just succeeded.",
+     "evidence": "The scanner keeps `allowMultiple={true}` and `scanDelay={0}`, and each `onScan` calls `handleCheckIN` \u2192 `post(...)`. On the server, `isCheckedIn` then `checkin` is a check-then-insert with no transaction or conflict handling, against `table.unique([\"event_id\", \"user_id\"])` in the new migration."
+    },
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+     "line": 30,
+     "claim": "Repeated scanner callbacks can submit concurrent check-ins and produce database errors.",
+     "evidence": "CredentialScanner enables allowMultiple with scanDelay=0, while handleCheckIN posts every callback without an in-flight guard. Concurrent requests can both pass isCheckedIn before EventService.checkin attaches the same pair; event_checkins has a unique constraint on event_id and user_id, and the controller does not handle the resulting conflict."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C7",
+    "X2"
+   ],
+   "verdict": "disputed",
+   "reason": "The seeder has no app.inDev check, unlike 2_account_seeder.dev.ts:11. But the existing 2_admin_seeder.ts already creates admin@eneiconf.pt / 'password' the same way, and nothing shows seeders run outside dev. Lowered X2 from high to medium because there is no traced production trigger. The fixed Department id 99 does make a re-seed fail.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "apps/website/database/seeders/8_staff_seeder.ts",
+   "line": 29,
+   "claim": "The new seeder creates a verified staff account staff@eneiconf.pt / 'password' with no dev-only guard.",
+   "evidence": "`User.create({ email: \"staff@eneiconf.pt\", ... })` and `accounts.create({ id: \"credentials:staff@eneiconf.pt\", password: \"password\" })`, with no `app.inDev` check (compare 2_account_seeder.dev.ts:11). It also inserts `Department.create({ id: 99, ... })` with a fixed id, so a second run fails on the primary key.",
+   "axis_row": "L5.34",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "apps/website/database/seeders/8_staff_seeder.ts",
+     "line": 208,
+     "claim": "The new seeder creates a staff account with the known credential staff@eneiconf.pt / 'password' and has no dev-only guard, so seeding a non-dev database creates a staff login anyone can guess.",
+     "evidence": "`User.create({ email: \"staff@eneiconf.pt\", ... })` and `accounts.create({ id: \"credentials:staff@eneiconf.pt\", password: \"password\" })`, with no `app.inDev` check (compare 2_account_seeder.dev.ts:11). It also inserts `Department.create({ id: 99, ... })` with a fixed id, so a second run fails on the primary key."
+    },
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "apps/website/database/seeders/8_staff_seeder.ts",
+     "line": 29,
+     "claim": "Running the new seeder creates a verified staff account with publicly known credentials in any environment.",
+     "evidence": "run has no environment guard and creates staff@eneiconf.pt with password 'password', marks its email verified, and associates a staff profile. UserService authenticates credentials through Account.verifyCredentials, and StaffMiddleware grants access based on staffProfileId. Unlike 2_account_seeder.dev.ts, this seeder does not check app.inDev."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "disputed",
+   "reason": "The file has no guard and associates a staff profile with User.findOrFail(1). Whether seeders run in a non-dev database isn't shown, and other seeders such as 2_admin_seeder.ts are also unguarded. It reads as a leftover mock rather than a traced defect. Lowered from medium.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "apps/website/database/seeders/mock_staff_profile_seeder.ts",
+   "line": 7,
+   "claim": "A mock seeder with no environment guard gives a staff profile to whatever user has id 1.",
+   "evidence": "`const user = await User.findOrFail(1); ... await user.related(\"staffProfile\").associate(staffProfile);`. Unlike 2_account_seeder.dev.ts, which returns early when `!app.inDev`, this file has no such check, and its name doesn't follow the numbered ordering.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "apps/website/database/seeders/mock_staff_profile_seeder.ts",
+     "line": 7,
+     "claim": "A mock seeder with no environment guard gives a staff profile to whatever user has id 1, which grants staff check-in and product-collect powers in any environment where seeders run.",
+     "evidence": "`const user = await User.findOrFail(1); ... await user.related(\"staffProfile\").associate(staffProfile);`. Unlike 2_account_seeder.dev.ts, which returns early when `!app.inDev`, this file has no such check, and its name doesn't follow the numbered ordering."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch adds no test files for checkin, isCheckedIn or the new route. A test of the unregistered case would have caught the unawaited isRegistered. Lowered to low because this is a coverage point; the defect it missed is already its own item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "line": 92,
+   "claim": "The new check-in endpoint and its service methods have no tests.",
+   "evidence": "diff.patch adds no test files. The behaviour is in EventsController.checkin, EventService.isCheckedIn/checkin and the new route `actions:events.checkin`.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "apps/website/app/controllers/events_controller.ts",
+     "line": 92,
+     "claim": "The new check-in endpoint has no tests: authorisation, unregistered participant, duplicate check-in and unknown slug are all unchecked, and the unawaited isRegistered bug above went through because of it.",
+     "evidence": "diff.patch adds no test files. The behaviour is in EventsController.checkin, EventService.isCheckedIn/checkin and the new route `actions:events.checkin`."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "user.ts now returns 'staff' before the participant and promoter checks. components/common/page.tsx:13 shows the promoter banner only when role === 'promoter', so a staff member who is also a promoter loses it.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/website/app/models/user.ts",
+   "line": 103,
+   "claim": "Putting the staff check first in `role` changes the role of users who are both staff and participant or promoter.",
+   "evidence": "`if (this.isStaff()) return \"staff\" as const;` now comes before the participant and promoter checks. config/inertia.ts:31 sends `role: user.role` to the client, and inertia/components/common/page.tsx:13 returns null unless the role is 'promoter'.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/website/app/models/user.ts",
+     "line": 103,
+     "claim": "Moving the staff check to the top of `role` changes the role of every user who is both staff and a participant or promoter, so promoter-only UI (common/page.tsx shows only for role 'promoter') disappears for staff-promoters. The story asked for check-in, not a role change.",
+     "evidence": "`if (this.isStaff()) return \"staff\" as const;` now comes before the participant and promoter checks. config/inertia.ts:31 sends `role: user.role` to the client, and inertia/components/common/page.tsx:13 returns null unless the role is 'promoter'."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "`await user?.load(\"staffProfile\")` was added, but isStaff() now reads staffProfileId (user.ts:110) and the render props don't include staffProfile. It's an extra query and not a defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "line": 38,
+   "claim": "show loads staffProfile on every event page view but never uses it.",
+   "evidence": "`await user?.load(\"staffProfile\");` was added, but `isStaff()` now reads `this.staffProfileId` (user.ts:110) and the render props never include staffProfile.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/website/app/controllers/events_controller.ts",
+     "line": 38,
+     "claim": "`show` now loads staffProfile on every event page view but never uses it: an extra query on a public page.",
+     "evidence": "`await user?.load(\"staffProfile\");` was added, but `isStaff()` now reads `this.staffProfileId` (user.ts:110) and the render props never include staffProfile."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff replaces the redirect to pages:signup with a flashed error and redirect().back(). The middleware is shared with other staff routes such as product collect. The change is out of scope but not harmful.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/website/app/middleware/staff_middleware.ts",
+   "line": 9,
+   "claim": "The staff middleware's denial behaviour changed for every route that uses it, which is outside the story's scope.",
+   "evidence": "`return ctx.response.redirect().toRoute(\"pages:signup\")` was replaced by `ctx.session.flashErrors({ message: \"Unauthorized\" }); return ctx.response.redirect().back();`. routes.ts:171 also applies middleware.staff() to the product collect route.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/website/app/middleware/staff_middleware.ts",
+     "line": 9,
+     "claim": "The staff guard's denial behaviour changed for every route that uses it (including product collect) from redirecting to signup to redirecting back with a flash, which is outside the story's scope.",
+     "evidence": "`return ctx.response.redirect().toRoute(\"pages:signup\")` was replaced by `ctx.session.flashErrors({ message: \"Unauthorized\" }); return ctx.response.redirect().back();`. routes.ts:171 also applies middleware.staff() to the product collect route."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "event_id and user_id use references().inTable() with no notNullable() or onDelete(). Deleting a user or event that has check-ins is therefore blocked by the default FK behaviour. down() drops the table.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/website/database/migrations/1743633554088_create_create_event_checkins_table.ts",
+   "line": 182,
+   "claim": "The check-in table's foreign keys are nullable and have no onDelete rule, and the filename repeats 'create_create'.",
+   "evidence": "`table.integer(\"event_id\").references(\"id\").inTable(\"events\");` and the same for user_id, with no `.notNullable()` or `.onDelete(...)`. `down()` is `this.schema.dropTable(this.tableName)`. The filename also repeats 'create_create'.",
+   "axis_row": "L2.4",
+   "members": [
+    {
+     "id": "C12",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/website/database/migrations/1743633554088_create_create_event_checkins_table.ts",
+     "line": 182,
+     "claim": "The check-in table's foreign keys are nullable and have no onDelete rule, so deleting a user or event that has check-ins will fail. Rolling back drops every recorded check-in with no export.",
+     "evidence": "`table.integer(\"event_id\").references(\"id\").inTable(\"events\");` and the same for user_id, with no `.notNullable()` or `.onDelete(...)`. `down()` is `this.schema.dropTable(this.tableName)`. The filename also repeats 'create_create'."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C13"
+   ],
+   "verdict": "disputed",
+   "reason": "The inconsistency with the `declare` relations next to them is real. But the only current use goes through event.related('checkedInUsers'), which reads relation metadata rather than the property. Whether a preloaded value is shadowed depends on useDefineForClassFields, which isn't verified here.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/website/app/models/event.ts",
+   "line": 82,
+   "claim": "The new relations use `public x!:` instead of `declare`, which can shadow Lucid's relation accessor.",
+   "evidence": "`public checkedInUsers!: ManyToMany<typeof User>;` (event.ts) and `public checkedInEvents!: ManyToMany<typeof Event>;` (user.ts:56), next to `declare registeredUsers` and `declare eventsRegistered`.",
+   "members": [
+    {
+     "id": "C13",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/website/app/models/event.ts",
+     "line": 82,
+     "claim": "The new relations use `public x!:` instead of the `declare` every other Lucid relation in these models uses. Under class-field semantics this can define an own undefined property that hides Lucid's relation accessor when the relation is preloaded.",
+     "evidence": "`public checkedInUsers!: ManyToMany<typeof User>;` (event.ts) and `public checkedInEvents!: ManyToMany<typeof Event>;` (user.ts:56), next to `declare registeredUsers` and `declare eventsRegistered`."
+    }
+   ],
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "C14"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch removes the type-fest@4.36.0 entries and repoints zxing-wasm to 4.38.0, which was already in the lockfile. It's unrequested lockfile drift, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "pnpm-lock.yaml",
+   "line": null,
+   "claim": "The lockfile moves zxing-wasm's type-fest from 4.36.0 to 4.38.0 with no package.json change.",
+   "evidence": "diff.patch removes the `type-fest@4.36.0` package and snapshot entries and changes zxing-wasm's dependency to `type-fest: 4.38.0`.",
+   "axis_row": "L4.24",
+   "members": [
+    {
+     "id": "C14",
+     "leg": "claude",
+     "severity": "low",
+     "file": "pnpm-lock.yaml",
+     "line": null,
+     "claim": "The lockfile changes a transitive dependency (zxing-wasm now resolves type-fest 4.38.0 instead of 4.36.0) with no matching package.json change. Nothing in the story asks for it.",
+     "evidence": "diff.patch removes the `type-fest@4.36.0` package and snapshot entries and changes zxing-wasm's dependency to `type-fest: 4.38.0`."
+    }
+   ],
+   "id": "F14"
+  },
+  {
+   "sources": [
+    "C15",
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "page.tsx:314 renders `<QrCode onClick=...>` with no button wrapper, tabIndex or aria-label. This is an accessibility point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "line": 314,
+   "claim": "The scanner trigger is a bare SVG with onClick, so keyboard and screen-reader users can't reach or identify it.",
+   "evidence": "`<QrCode onClick={() => setScannerModalOpen(true)} />` has no button wrapper, no tabIndex and no aria-label.",
+   "members": [
+    {
+     "id": "C15",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/website/inertia/pages/events/show/page.tsx",
+     "line": 314,
+     "claim": "The scanner trigger is a bare SVG icon with an onClick, so keyboard and screen-reader users can't reach or identify it.",
+     "evidence": "`<QrCode onClick={() => setScannerModalOpen(true)} />` has no button wrapper, no tabIndex and no aria-label."
+    },
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "low",
+     "file": "apps/website/inertia/pages/events/show/page.tsx",
+     "line": 314,
+     "claim": "The scanner control is inaccessible to keyboard users and lacks an accessible name.",
+     "evidence": "The interactive control is a QrCode SVG with only an onClick handler; it has no button wrapper, keyboard handler, tabIndex, or accessible label."
+    }
+   ],
+   "id": "F15"
+  },
+  {
+   "sources": [
+    "C16"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff shows the FIXME comment, profile?.id right after the null return, and user! used on a value that can be null. This is maintainability; the null crash itself is item C3.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "line": 97,
+   "claim": "A leftover FIXME and misleading non-null assertions are in the checkin handler.",
+   "evidence": "`// FIXME: change this to User when slug in user is ready`, `profile?.id` right after `if (!profile) return`, and `user!` used three times.",
+   "axis_row": "L6.25",
+   "members": [
+    {
+     "id": "C16",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/website/app/controllers/events_controller.ts",
+     "line": 97,
+     "claim": "Leftover FIXME and redundant non-null assertions make the handler misleading: `profile?.id` after a null check, then `user!` on a value that really can be null.",
+     "evidence": "`// FIXME: change this to User when slug in user is ready`, `profile?.id` right after `if (!profile) return`, and `user!` used three times."
+    }
+   ],
+   "id": "F16"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F6"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:deps",
+   "gate:rollback",
+   "gate:required"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

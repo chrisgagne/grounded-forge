@@ -1,0 +1,234 @@
+{
+ "id": "rb23",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.365,
+ "codex_tokens": 61021,
+ "work": "<tmp>/replay-rb23-t1-jqtlgmls",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff (ChatsTest.php ~774) removes `toContain('showUnreadStatus && !false')` and adds `->not->toContain(...)` under the same test title. message-body.blade.php:17 replaces the Alpine `:class` with a server-side `@class`, so the preview no longer changes when the chat is opened. acceptance.md says baseline tests are locked.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "tests/Feature/ChatsTest.php",
+   "line": 762,
+   "claim": "A locked baseline test was rewritten to match the new code. Its name still promises reactive de-emphasis when a chat is opened, but it now asserts that the reactive binding is gone.",
+   "evidence": "The diff removes `->toContain('showUnreadStatus && !false')` and `->toContain('font-normal text-gray-600')` and adds `->not->toContain('showUnreadStatus && !false')`. The test is still titled 'uses reactive preview classes so unread text de-emphasizes immediately when a chat is opened'. In message-body.blade.php the Alpine `:class=\"showUnreadStatus && ...\"` binding is replaced by a server-side `@class([...])`, so the preview only changes after a server re-render. acceptance.md says the baseline tests are locked.",
+   "breaks": "story",
+   "axis_row": "L3.1",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff swaps `assertDontSeeHtml('dusk=\"unreadMessagesDot\"')` for `assertSeeHtml('data-show-unread-status=\"0\"')` in both 'Doesnt show unread message Dot' tests. The attribute on the list.blade.php `<li>` is separate from the `@if ($showUnreadStatus)` block that renders the dot, so a regression that renders the dot would still pass.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "tests/Feature/ChatsTest.php",
+   "line": 801,
+   "claim": "Two locked tests that checked the unread dot is absent now only check a data attribute.",
+   "evidence": "In 'Doesnt show unread message Dot if message does not belong to Auth and is Read' (line 801) and 'Doesnt shows unread message Dot if message is READ and belongs to Participant of Different Model' (line 849), `->assertDontSeeHtml('dusk=\"unreadMessagesDot\"')` was replaced by `->assertSeeHtml('data-show-unread-status=\"0\"')`. The new attribute is set independently of the `@if ($showUnreadStatus)` block that renders the dot.",
+   "breaks": "story",
+   "axis_row": "L3.1",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "pushMessage puts the new message into loadedMessages and then calls syncCursorsFromFlat/syncCanLoadFlags. The new message becomes `$newest`, the exists-query finds nothing after it, and canLoadNewer is set to false. Lowered from X1's high to medium: jumpToMessage is only reachable through the 'open-attachment' listener, which nothing dispatches (see C6).",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/Livewire/Chat/Chat.php",
+   "line": 652,
+   "claim": "After jumpToMessage loads an older window, a sent or received message is appended right after it. The messages in between are skipped, and canLoadNewer becomes false, so they can never be loaded.",
+   "evidence": "`pushMessage` does `$this->loadedMessages->put($groupKey, ...->push($message))` and then `syncCursorsFromFlat($flat)` / `syncCanLoadFlags()`. The new message becomes `$newest`, so the `canLoadNewer` exists-query finds nothing after it. After `jumpToMessage` loads messages 2\u201322 of 30, `sendLike`/`sendMessage`/`appendNewMessage` pushes message 31, and 23\u201330 are silently dropped from the view. Rated medium because nothing in the views dispatches 'open-attachment' yet (see the separate finding).",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "message-body.blade.php:16 has a literal `class=\"...\"` and line 17 has `@class([...])`, which emits a second `class` attribute. Lines 27\u201328 repeat the pattern. HTML parsers keep only the first attribute, so the unread bold/colour classes never apply. The test passes only because it searches the raw HTML string.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "resources/views/livewire/chats/partials/message-body.blade.php",
+   "line": 17,
+   "claim": "Duplicate class attributes drop the conditional unread font weight and colour on the preview and timestamp.",
+   "evidence": "The paragraph already has a literal class attribute on line 16, then @class emits another class attribute containing the conditional unread styles. The timestamp repeats this pattern on lines 27\u201328. HTML parsing retains the first attribute, so the conditional styles are discarded.",
+   "breaks": "story",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "x-init sets `initializing = false` after 220ms. onAnyMediaLoad only calls scrollToBottom `if (this.initializing)`. The diff removes waitForMedia(), which used to wait for every img/video load or error before revealing.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "resources/views/livewire/chat/partials/body.blade.php",
+   "line": 304,
+   "claim": "The wait for media before pinning to the bottom was replaced by a fixed 220ms window, so media that loads later leaves the user scrolled above the latest message.",
+   "evidence": "x-init calls `scrollToBottom()` after 100ms and sets `initializing = false` after 220ms. `onAnyMediaLoad()` only re-scrolls to the bottom `if (this.initializing)`. The removed `waitForMedia()` resolved on every img/video load or error before `scrollToBottom(); booting = false;`.",
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "scrollToMessageCenter (diff ~174) sets `container.scrollTop = target` without updating lastScrollTop. The resulting onScroll sees delta > 8 and clears jumpTargetId/jumpLockUntil, so onAnyMediaLoad's re-center branch can't run. Only reachable through jumps, which have no UI trigger yet (C6).",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "resources/views/livewire/chat/partials/body.blade.php",
+   "line": 198,
+   "claim": "A jump scroll cancels its own media re-centering lock.",
+   "evidence": "scrollToMessageCenterWithRetry() sets jumpTargetId and a 1200ms lock, then scrollToMessageCenter() assigns container.scrollTop without updating lastScrollTop. The resulting scroll event enters onScroll(); any movement over eight pixels clears jumpTargetId and jumpLockUntil. onAnyMediaLoad() therefore cannot recenter that target when media subsequently changes the layout.",
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "chats.blade.php:46 calls `document.addEventListener('livewire:navigated', ...)` inside x-init with no cleanup, and the diff removes `x-persist=\"chats\"` from both page views, so x-init runs again on each navigation. Lowered to low: the stale closures do redundant scroll retries against a detached container, which is a leak and a performance cost rather than a visible defect.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "resources/views/livewire/chats/chats.blade.php",
+   "line": 46,
+   "claim": "With x-persist removed, every wire:navigate adds another document-level 'livewire:navigated' listener that is never removed.",
+   "evidence": "`document.addEventListener('livewire:navigated', () => { setTimeout(() => scrollToConversation(), 400); });` sits inside x-init with no cleanup. The diff removes `x-persist=\"chats\"` from pages/chat.blade.php and pages/chats.blade.php, which had kept this element and its init alive across navigations.",
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "Grepping src/ and resources/ finds 'open-attachment' only at Chat.php:110 in getListeners(). No view or JS dispatches it.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Livewire/Chat/Chat.php",
+   "line": 110,
+   "claim": "Nothing dispatches the 'open-attachment' listener, so jump-to-message cannot be reached from the UI.",
+   "evidence": "A grep for 'open-attachment' across src/ and resources/ finds only `'open-attachment' => 'jumpToMessage'` in getListeners(); no view or JS dispatches it.",
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds `public int $chunk = 10` and the cursor/flag properties without #[Locked], while $totalMessageCount has it. `take($this->chunk)` lets a client fetch the whole conversation in one request. Queries stay scoped to $this->conversation->messages(), so this is a hardening point only.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Livewire/Chat/Chat.php",
+   "line": 63,
+   "claim": "The paging state (chunk, cursors, flags) is public and not #[Locked], so a client can change it.",
+   "evidence": "`public int $chunk = 10;`, `public ?string $olderCreatedAt`, `public ?int $olderId`, `public bool $canLoadOlder` and the others have no #[Locked], while the existing `$totalMessageCount` does. `->take($this->chunk)` is used in loadOlder, loadNewer, loadLatestWindow and jumpToMessage. Queries stay scoped to `$this->conversation->messages()`, so no other user's data is exposed.",
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "noise",
+   "reason": "The messages migration (2024_11_01_000004 line 37) uses `$table->timestamps()`, which has precision 0, so created_at holds no sub-seconds. toDateTimeString() and the Carbon value therefore compare equal under the package schema.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Livewire/Chat/Chat.php",
+   "line": 686,
+   "claim": "Cursors at whole-second precision may skip or repeat messages when created_at has sub-second precision.",
+   "evidence": "`$this->olderCreatedAt = $oldest->created_at->toDateTimeString();` is then used in `where('created_at', '=', $this->olderCreatedAt)->where('id', '<', $this->olderId)`, but `syncCanLoadFlags` uses `$oldest->created_at` directly.",
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "WirechatServiceProvider.php:241 dispatches 'refresh-chats'. Chats.php:254 refreshChats() calls hardRefresh(), which clears conversationIds and the cursors (lines 246\u2013250).",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/WirechatServiceProvider.php",
+   "line": 241,
+   "claim": "Every NotifyParticipant broadcast hard-resets the chats list and throws away pages loaded with loadMore.",
+   "evidence": "The diff adds `window.Livewire.dispatch('refresh-chats');`, and Chats::refreshChats() calls `hardRefresh()`, which sets `conversationIds = []` and clears the cursors.",
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The three new refresh-chats tests in the diff each call `sleep(1);` before sendMessageTo, instead of using Carbon::setTestNow.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/Feature/ChatsTest.php",
+   "line": 672,
+   "claim": "New tests use real sleep(1) to separate timestamps.",
+   "evidence": "'refreshes unread dot\u2026', 'refreshes unread count badge\u2026' and 'shows unread indicator for another conversation\u2026' each call `sleep(1);` before `sendMessageTo`, while nearby tests already use `Carbon::setTestNow`.",
+   "axis_row": "L3.19",
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch lines 1\u201315, 577\u2013579 and 940\u2013942 show binary changes to seven .DS_Store files.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".DS_Store",
+   "line": null,
+   "claim": "Unrelated macOS .DS_Store binaries are included in the change.",
+   "evidence": "The diff shows binary changes to .DS_Store, .github/.DS_Store, database/.DS_Store, lang/.DS_Store, resources/.DS_Store, src/.DS_Store and tests/.DS_Store.",
+   "axis_row": "L6.22",
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "Grep finds `paginate_var` only at its declaration (Chat.php:65). totalMessageCount is still set at line 1031 but no longer drives paging, and loadMore/loadMessages are now one-line aliases. This is maintainability only.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Livewire/Chat/Chat.php",
+   "line": 65,
+   "claim": "Leftover state: paginate_var is unused and the legacy aliases remain.",
+   "evidence": "`public int $paginate_var = 10;` and `#[Locked] public $totalMessageCount;` are kept, but loadMessages() now just calls loadLatestWindow(), and nothing reads `paginate_var` any more. The comment says '// Legacy alias kept for backward compatibility.'",
+   "id": "F14"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F3"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,116 @@
+[
+ {
+  "sources": [
+   "C1"
+  ],
+  "verdict": "confirmed",
+  "reason": "pg_audit_reader.go:396-397 returns nil when pool.Query fails, and api.go turns nil into [] while still sending the Count total and has_more = offset+0 < total. Swallowing the error is older code, but pairing it with a real total is new in this change and gives the client a self-contradicting response.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "internal/admin/api.go",
+  "line": 331,
+  "claim": "A failed list query after a successful Count returns 200 with empty entries, a non-zero total and has_more true, and the DB error is hidden.",
+  "evidence": "Count errors are handled (`respondError(... \"failed to count audit entries\" ...)`), but `entries := a.reader.QuerySummaries(filter)` has no error return. `PGAuditReader.query` does `rows, err := r.pool.Query(...); if err != nil { return nil }`, and the handler turns nil into `[]types.AuditEntry{}`, then computes `\"has_more\": filter.Offset+len(entries) < total`.",
+  "axis_row": "L5.37",
+  "id": "F1"
+ },
+ {
+  "sources": [
+   "C2"
+  ],
+  "verdict": "confirmed",
+  "reason": "AuditTrail.tsx:416 falls back to the list entry when no detail exists. List entries now omit payloads (omitempty in types.go:209-212 plus the blanked summary columns). Lines 503-533 render unconditionally, so the row shows empty headers and formatBody prints \"(empty)\" (line 225) next to the loading or error banner.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "web/src/components/AuditTrail.tsx",
+  "line": 503,
+  "claim": "While the detail fetch loads, or after it fails, the expanded row shows the summary's blanked headers and bodies as if the request had none.",
+  "evidence": "`const detailEntry = entryDetails[detailKey] ?? entry` falls back to the list entry. The server now blanks payloads for list entries (`'{}'::jsonb, ''::text, '{}'::jsonb, ''::text` in `auditSummarySelectCols`). The Request/Response Details blocks render `formatHeaders(detailEntry.request_headers)` and `formatBody(detailEntry.request_body, ...)` unconditionally, alongside the loading or error banner, instead of hiding them until `entryDetails[detailKey]` exists.",
+  "id": "F2"
+ },
+ {
+  "sources": [
+   "X1"
+  ],
+  "verdict": "confirmed",
+  "reason": "toggleExpanded returns early when entryDetails[detailKey] exists (diff line 336), and nothing clears that state. PGAuditReader.UpdateResponse (pg_audit_reader.go:196-198, called from proxy/handler.go:1862) later fills in the final streamed response, but the stale cached object always wins at line 416. This is new: before the change, a list reload refreshed what the expanded row showed.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "web/src/components/AuditTrail.tsx",
+  "line": 105,
+  "claim": "Cached entry details never refresh, so an entry opened before its streamed response finished keeps showing the incomplete response.",
+  "evidence": "toggleExpanded returns whenever entryDetails[detailKey] exists, and rendering always prefers that cached object over the current entry. If details are opened before a streamed response finishes, PGAuditReader.UpdateResponse subsequently updates the stored body, status and duration, but collapsing, changing filters and reopening the entry never fetches those updated details.",
+  "id": "F3"
+ },
+ {
+  "sources": [
+   "C3"
+  ],
+  "verdict": "confirmed",
+  "reason": "api.go calls reader.Count(r.Context()) and then QuerySummaries, which opens its own pool query with context.Background() (pg_audit_reader.go:371) and no transaction. The mismatch is a transient race with a small effect, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "internal/admin/api.go",
+  "line": 325,
+  "claim": "Count and QuerySummaries run as separate queries with no shared snapshot, so total/has_more can disagree with the page returned.",
+  "evidence": "`a.reader.Count(r.Context(), filter)` and `a.reader.QuerySummaries(filter)` each run their own pool query with no transaction. `query` also uses `context.Background()` rather than the request context, so a cancelled request doesn't stop the list query.",
+  "id": "F4"
+ },
+ {
+  "sources": [
+   "C4"
+  ],
+  "verdict": "confirmed",
+  "reason": "handleAuditLog calls a.reader.Count before every QuerySummaries call, with no caching and no skip for later pages. This is a performance point with no defect shown, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "internal/admin/api.go",
+  "line": 325,
+  "claim": "Every audit list request, including each Load more page, now runs a COUNT(*) over the growing audit_log table.",
+  "evidence": "`Count` runs `SELECT COUNT(*) FROM audit_log al %s` with the same WHERE as the page query, and `handleAuditLog` calls it before every `QuerySummaries`. The value isn't cached and isn't skipped for later pages.",
+  "id": "F5"
+ },
+ {
+  "sources": [
+   "C5"
+  ],
+  "verdict": "confirmed",
+  "reason": "The only new test inserts one row with limit=10 and asserts total==1 and has_more==false. No test sends limit=0, a negative limit, or a limit above 500, and none uses a multi-page offset, so a wrong clamp or has_more formula would still pass.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "internal/admin/audit_integration_test.go",
+  "line": 145,
+  "claim": "No test covers the limit default and clamp, rejecting non-positive limits, has_more across pages, or ordering by (timestamp, id).",
+  "evidence": "`TestAuditList_OmitsPayloadsAndReturnsTotal` inserts one entry, requests `limit=10`, and asserts only `total == 1` and `has_more == false`. No test sends `limit=0`, `limit=-1`, `limit=10000`, or an offset/limit that leaves more rows, and none asserts `limit` in the response equals `maxAuditLogLimit` (500).",
+  "axis_row": "L3.9",
+  "id": "F6"
+ },
+ {
+  "sources": [
+   "C6"
+  ],
+  "verdict": "confirmed",
+  "reason": "A repo grep finds has_more only in client.ts:74, the Go handler and its test. useAuditLog.ts:102 still returns entries.length < total. This is dead API surface with no defect shown, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "web/src/api/client.ts",
+  "line": 74,
+  "claim": "The new has_more field is added to the client type but nothing reads it; the hook still computes hasMore from entries.length < total.",
+  "evidence": "`has_more?: boolean` is added to `AuditResponse`. `useAuditLog.ts:102` still returns `hasMore: entries.length < total`, and no file reads `has_more`.",
+  "id": "F7"
+ },
+ {
+  "sources": [
+   "C7"
+  ],
+  "verdict": "confirmed",
+  "reason": "DESIGN.md:126 and web/README.md:181 still describe only the filters and say nothing about the omitted payloads, the new total and has_more fields, or the 500 cap that api.go now applies. This is a documentation gap, so it stays low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "DESIGN.md",
+  "line": 126,
+  "claim": "The API docs are not updated for the changed GET /admin/audit contract (no payloads in list entries, new total and has_more, limit capped at 500).",
+  "evidence": "DESIGN.md:126 still reads `Query audit log (filters: decision, method, user, time range)` and web/README.md:181 reads `Query audit log with filters`. Neither mentions payload omission, the 500 cap, `total` or `has_more`, while the handler now applies `maxAuditLogLimit = 500` and serves `auditSummarySelectCols`.",
+  "id": "F8"
+ }
+]

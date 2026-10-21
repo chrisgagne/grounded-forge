@@ -1,0 +1,242 @@
+{
+ "id": "rd03",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.5712,
+ "codex_tokens": 58517,
+ "work": "<tmp>/replay-rd03-t1-2lpr5iqc",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "board-room.ts:36-37 loads only in fetch(), while webSocketMessage (board-room.ts:123) calls trackUpdate directly; on a fresh hibernation-woken instance partitionMeta is null, so partition-manager.ts:112-125 builds a one-partition meta and calls savePartitionMeta, which puts it over the stored 'partition_meta'. The old trackUpdate never wrote meta, so this overwrite is new in the change.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "line": 124,
+   "claim": "trackUpdate now persists partition_meta even when loadFromStorage has not run, so after hibernation wake the first client update overwrites stored meta with only the current quarter, orphaning earlier partitions.",
+   "evidence": "BoardRoom uses this.ctx.acceptWebSocket (the hibernation API), and loading happens only in fetch() (board-room.ts:36-37: loadUpdates/loadFromStorage). webSocketMessage \u2192 trackUpdate never loads. On a freshly woken instance partitionMeta is null, so lines 112-118 build {partitions:[partName]...}, set metaChanged=true and call `void savePartitionMeta()`, which puts that over the persisted 'partition_meta'. The old trackUpdate only scheduled the partition-updates save and never wrote meta. Nothing calls loadFromStorage before this write, and there is no blockConcurrencyWhile in the constructor.",
+   "axis_row": "L2.17",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "apps/server/src/rooms/partition-manager.ts",
+     "line": 124,
+     "claim": "trackUpdate now writes partition_meta right away even when the manager has not loaded from storage. If the Durable Object wakes from hibernation, the first client update overwrites the stored meta with only the current quarter, and earlier partitions can no longer be reached.",
+     "evidence": "BoardRoom uses this.ctx.acceptWebSocket (the hibernation API), and loading happens only in fetch() (board-room.ts:36-37: loadUpdates/loadFromStorage). webSocketMessage \u2192 trackUpdate never loads. On a freshly woken instance partitionMeta is null, so lines 112-118 build {partitions:[partName]...}, set metaChanged=true and call `void savePartitionMeta()`, which puts that over the persisted 'partition_meta'. The old trackUpdate only scheduled the partition-updates save and never wrote meta. Nothing calls loadFromStorage before this write, and there is no blockConcurrencyWhile in the constructor."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "yjs-sync.ts:100-109 only tries Y.applyUpdate inside `if (doc)` and returns true otherwise. doc is created only by getOrCreateDoc (AI/thumbnail/snapshot paths) and nulled by destroyDoc, so board-room.ts:118-125 pushes, tracks, broadcasts and saves corrupt payloads whenever doc is null.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "line": 100,
+   "claim": "applyClientUpdate returns true without validation when no Y.Doc exists (the normal websocket-only state), so malformed updates still get buffered, broadcast and persisted.",
+   "evidence": "`if (doc) { try { Y.applyUpdate(doc, payload) } catch { return false } } return true;` Only getOrCreateDoc creates doc, and only the AI, thumbnail and snapshot paths call it. destroyDoc nulls it again when the last socket closes. board-room.ts:118-125 then calls pushUpdate, trackUpdate, broadcast and scheduleSave on the payload.",
+   "axis_row": "L6.14",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "apps/server/src/rooms/yjs-sync.ts",
+     "line": 109,
+     "claim": "applyClientUpdate returns true without checking anything when no Y.Doc exists, which is the normal state of a websocket-only session. Corrupt client updates are therefore still buffered, broadcast, persisted and replayed to new clients, so the new rejection branch in board-room only works when a doc happens to be loaded.",
+     "evidence": "`if (doc) { try { Y.applyUpdate(doc, payload) } catch { return false } } return true;` Only getOrCreateDoc creates doc, and only the AI, thumbnail and snapshot paths call it. destroyDoc nulls it again when the last socket closes. board-room.ts:118-125 then calls pushUpdate, trackUpdate, broadcast and scheduleSave on the payload."
+    },
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "apps/server/src/rooms/yjs-sync.ts",
+     "line": 100,
+     "claim": "Malformed client updates bypass the new rejection guard whenever the server document has not been created.",
+     "evidence": "doc starts as null, and the WebSocket upgrade only loads update buffers; applyClientUpdate skips Y.applyUpdate when doc is null and returns true. A malformed MSG_YJS_UPDATE received in that state therefore reaches pushUpdate, trackUpdate, broadcast and scheduleSave in BoardRoom.webSocketMessage, including delivery to clients whose ws-provider calls Y.applyUpdate on the payload."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "scheduleSave now clears saveScheduled only in the finally at yjs-sync.ts:67, after the buffer was sliced at line 62. A scheduleSave call during the put returns early at line 57, and nothing reschedules a save afterwards. The old code cleared the flag before slicing. partition-manager.ts:44-56 has the same sequence.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "line": 67,
+   "claim": "An update arriving while a save's storage.put is in flight is not scheduled for persistence and may never be saved.",
+   "evidence": "scheduleSave now keeps saveScheduled true until storage.put resolves. After line 62 snapshots the buffer, a new client update is appended but its scheduleSave call returns at line 57; finally only clears the flag and schedules no subsequent write. If no further updates arrive, that update is absent from storage. schedulePartitionSave in partition-manager.ts has the same sequence.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "apps/server/src/rooms/yjs-sync.ts",
+     "line": 67,
+     "claim": "An update arriving during an outstanding save can remain unpersisted indefinitely.",
+     "evidence": "scheduleSave now keeps saveScheduled true until storage.put resolves. After line 62 snapshots the buffer, a new client update is appended but its scheduleSave call returns at line 57; finally only clears the flag and schedules no subsequent write. If no further updates arrive, that update is absent from storage. schedulePartitionSave in partition-manager.ts has the same sequence."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "findShapesInRect at plugin.tsx:98-101 tests def.getBounds(data) and never applies rotation. The diff rotates the DOM render (shape-layer.tsx transform) and wraps hitTest in withRotation, so a marquee over the visible corner of a 45\u00b0 shape can miss it.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "plugins/usketch-plugin-tool-select/src/plugin.tsx",
+   "line": 98,
+   "claim": "Marquee selection still tests the unrotated getBounds box, so for a rotated shape the visible area and the area that selects it differ.",
+   "evidence": "findShapesInRect uses `def.getBounds(data)`, and the plugin getBounds functions (e.g. plugins/usketch-plugin-shape-basic/src/shared/bounds.ts) ignore rotation. Meanwhile shape-layer.tsx applies `transform: rotate(${rotation}deg)`, and the hitTest functions are wrapped in withRotation. Only the store's spatial index (board-store.ts shapeToBounds) uses getRotatedAABB.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "plugins/usketch-plugin-tool-select/src/plugin.tsx",
+     "line": 98,
+     "claim": "Rotation may only be half-wired. Shapes now render rotated and point hit tests unrotate, but marquee selection still tests the unrotated getBounds box. A rotated shape's visible area and the area that selects it can therefore disagree.",
+     "evidence": "findShapesInRect uses `def.getBounds(data)`, and the plugin getBounds functions (e.g. plugins/usketch-plugin-shape-basic/src/shared/bounds.ts) ignore rotation. Meanwhile shape-layer.tsx applies `transform: rotate(${rotation}deg)`, and the hitTest functions are wrapped in withRotation. Only the store's spatial index (board-store.ts shapeToBounds) uses getRotatedAABB."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only test the diff adds is packages/shared/src/__tests__/rotation.test.ts, which covers the rotation utilities only. No test exercises applyClientUpdate's return value, loadPromise or saveScheduled. I lowered this from medium to low because a test gap is not a defect in itself; the defects are covered in their own items.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "apps/server/src/board-room.ts",
+   "line": 118,
+   "claim": "The server sync and persistence rewrites (validation order, load memoisation, save debounce, meta persistence, thumbnail parsing) have no tests.",
+   "evidence": "diff.patch changes apps/server/src/board-room.ts, rooms/yjs-sync.ts, rooms/partition-manager.ts and rooms/thumbnail-handler.ts. The only test added is packages/shared/src/__tests__/rotation.test.ts, and it covers rotation utilities only. No server test exercises the new applyClientUpdate return value, loadPromise or saveScheduled logic.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "apps/server/src/board-room.ts",
+     "line": 118,
+     "claim": "The change rewrites server sync and persistence code (update validation order, load memoisation, save debouncing, partition-meta persistence, thumbnail style parsing), but the change's own tests and exports are about shape rotation. These server hunks have no test, and one of them adds the data-loss path above.",
+     "evidence": "diff.patch changes apps/server/src/board-room.ts, rooms/yjs-sync.ts, rooms/partition-manager.ts and rooms/thumbnail-handler.ts. The only test added is packages/shared/src/__tests__/rotation.test.ts, and it covers rotation utilities only. No server test exercises the new applyClientUpdate return value, loadPromise or saveScheduled logic."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching the repo finds these names only in rotation.ts, index.ts, rotation.test.ts and a v1 design doc. They are unused public API, which is a maintainability point.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "line": 655,
+   "claim": "normalizeAngle, snapAngle and deltaToLocal are exported but used by no production code.",
+   "evidence": "A grep for deltaToLocal|snapAngle|normalizeAngle matches only rotation.ts, index.ts, rotation.test.ts and a v1 design doc. No plugin or engine imports them, and no rotate tool or handle calls them.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/shared/src/utils/rotation.ts",
+     "line": 655,
+     "claim": "normalizeAngle, snapAngle and deltaToLocal are exported as public API, but no production code uses them. They are dead code that the tests exercise only on their own.",
+     "evidence": "A grep for deltaToLocal|snapAngle|normalizeAngle matches only rotation.ts, index.ts, rotation.test.ts and a v1 design doc. No plugin or engine imports them, and no rotate tool or handle calls them."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "disputed",
+   "reason": "rect-pipeline.ts:112 is unchanged by the diff, and rect.wgsl mentions rotation only in a comment at line 15, so the shader doesn't apply it. Whether the GPU path renders these shapes alongside the rotated DOM layer isn't settled by the code I checked.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/gpu-renderer/src/pipelines/rect-pipeline.ts",
+   "line": 112,
+   "claim": "The GPU rect path passes raw rotation without safeRotation, and the shader may ignore rotation, so GPU-rendered rects can disagree with DOM rendering and hit testing.",
+   "evidence": "`data[off + 15] = r.rotation ?? 0;` passes NaN or Infinity through. rect.wgsl names rotation only in the params comment (line 15), and grep finds no cos or sin use in the shader.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/gpu-renderer/src/pipelines/rect-pipeline.ts",
+     "line": 112,
+     "claim": "The GPU path forwards the raw rotation without safeRotation, and the rect shader may not apply rotation at all. GPU-rendered rects can therefore disagree with the DOM rendering and the hit testing this change makes rotation-aware.",
+     "evidence": "`data[off + 15] = r.rotation ?? 0;` passes NaN or Infinity through. rect.wgsl names rotation only in the params comment (line 15), and grep finds no cos or sin use in the shader."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "index.ts adds eight rotation exports, but the only rotation text in shared.mdx is `rotation?: number;` at line 48. This is a documentation gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/docs/src/content/docs/reference/shared.mdx",
+   "line": 48,
+   "claim": "The shared reference docs don't cover the eight new rotation exports or the need to wrap plugin hitTest with withRotation.",
+   "evidence": "packages/shared/src/index.ts adds the rotation exports. The only rotation text in shared.mdx is `rotation?: number;` at line 48.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/docs/src/content/docs/reference/shared.mdx",
+     "line": 48,
+     "claim": "The shared package's reference docs do not cover the eight newly exported rotation helpers (safeRotation, withRotation, getRotatedAABB, etc.), or that plugin hitTest functions must now be wrapped to support rotation.",
+     "evidence": "packages/shared/src/index.ts adds the rotation exports. The only rotation text in shared.mdx is `rotation?: number;` at line 48."
+    }
+   ],
+   "id": "F8"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

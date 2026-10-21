@@ -1,0 +1,52 @@
+{
+ "id": "rd06",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 34,
+   "message": "The resolver step declares `env` twice. GitHub Actions rejects duplicate mapping keys during workflow validation, preventing both automatic and manual runs. Remove the duplicate block."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 94,
+   "end_line": 95,
+   "message": "This is a second `else` in the same conditional, after the fallback beginning at line 41. Once the heredoc indentation is corrected, `bash -n` reports an unexpected `else`. Every invocation fails before resolving a run ID; replace the obsolete fallback rather than appending another branch."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 159,
+   "end_line": 162,
+   "message": "Both resolver heredocs retain two leading spaces after YAML removes the run block's indentation. Bash cannot recognize their `PY` terminators and reports an unexpected end of file. The Python bodies also raise `IndentationError` if only the terminators are fixed. Unindent both Python bodies and their terminators to the run block's left margin."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 129,
+   "end_line": 132,
+   "message": "The fallback still filters workflow runs to `pre-update-release`, repeating the branch-metadata mistake described in this change. The weekly workflow checks out that branch internally, but scheduled runs belong to the default branch. Consequently, neither fallback query finds scheduled scans; manual dispatch without a run ID fails or selects an older manually dispatched scan. Resolve runs using their actual workflow branch. See GitHub's [schedule semantics](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule) and [branch filter](https://docs.github.com/en/rest/actions/workflow-runs#list-workflow-runs-for-a-workflow)."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "Checking `github.actor` skips the guard when a maintainer pushes a correction to a Dependabot PR. That synchronization run belongs to the maintainer, so the latest commit receives a skipped security check instead of being scanned. This particularly affects manual corrections to underfixed updates. Identify Dependabot PRs through `github.event.pull_request.user.login`; [github.actor identifies the workflow initiator](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#github-context)."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 193,
+  "reasoning_effort": "high",
+  "tokens": 54170
+ }
+}

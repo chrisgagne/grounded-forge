@@ -1,0 +1,87 @@
+{
+ "id": "x02",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "ranges/simplify.js",
+   "start_line": 41,
+   "end_line": 43,
+   "message": "Preserve an unsatisfiable range when no versions match. When no supplied versions satisfy the original range, `ranges` is empty and the function returns `''`, which semver interprets as a wildcard. For example, `simplifyRange(['1.0.0', '2.0.0'], '>3.0.0')` returns a range matching both versions instead of neither. Return the original range or an explicitly unsatisfiable range in this case."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "ranges/simplify.js",
+   "start_line": 32,
+   "end_line": 33,
+   "message": "Preserve prerelease inclusion when simplifying ranges. With default options, replacing a matching interval with `*` can exclude prereleases that the original range explicitly includes. For example, `simplifyRange(['1.0.0-alpha', '1.0.0'], '>=1.0.0-alpha')` returns `*`, which no longer matches `1.0.0-alpha`. Validate the candidate against the supplied versions before returning it, or retain the necessary prerelease comparators."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "ranges/simplify.js",
+   "start_line": 42,
+   "end_line": 44,
+   "message": "If no version in `versions` satisfies the range, `set` is empty and `simplified` becomes ''. Since '' is shorter than any non-empty original, the function returns ''. In semver, '' is the same as '*' and matches every version, so a range that matched nothing becomes one that matches everything. Return the original range (or another range that matches nothing) when `set` is empty."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "ranges/simplify.js",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "`versions.sort(...)` sorts the caller's array in place, which is an unexpected side effect for a function that only computes a simplified range. Callers who pass a shared or frozen array will see it reordered, or get a TypeError if it's frozen. Sort a copy instead: `[...versions].sort(...)`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "ranges/simplify.js",
+   "start_line": 30,
+   "end_line": 40,
+   "message": "The generated ranges ('*', `<=max`, `>=min`, `min - max`) can lose prerelease versions that the original range matched. Unless `includePrerelease` is set, a comparator only matches prereleases that share its exact [major, minor, patch]. For example, if `versions` includes 1.0.0-beta and the original range matches it, the '*' or `<=x` output no longer does. The result therefore doesn't keep the documented guarantee that it includes the same versions."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "ranges/simplify.js",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "`compare` throws a TypeError on any invalid version string in `versions`, while `satisfies` just returns false for one. A single malformed entry makes the whole call throw instead of skipping that entry. Filter out invalid versions first, or document that every entry must be valid."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "ranges/simplify.js",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "The return type isn't consistent. It returns a string when the simplified form is shorter, and otherwise returns whatever was passed in, which may be a Range object. Callers can't rely on a single type."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "index.js",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "`simplifyRange` is added to the public API, but README.md doesn't document it. The function's signature, its return type, and the fact that it only considers the versions it is given (so `>=x` and `*` can match versions outside that list) should all be written down."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 36,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 44,
+   "cost_usd": 0.10478380000000001,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 44
+ },
+ "stopped": true
+}

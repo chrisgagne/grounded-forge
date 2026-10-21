@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/PaulStSmith/figlet-comment-generator",
+  "pr_number": 32,
+  "base": "3750acad624b6b38b768aa8b9aa3ba1573e2f63e",
+  "head": "1d0b6642fcf5ca31fc308c3d603b19ab02ea249e"
+ },
+ "agent": "v5-factory-raw-pooled",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 209,
+   "end_line": 209,
+   "message": "The yaml-language-server schema header is written inside a double-quoted PowerShell string, so PowerShell expands `$schema` as an undefined variable. Every generated manifest gets the broken header `# yaml-language-server: =https://...` instead of the schema reference the change says the winget-pkgs pipeline requires. Lines 209, 222 and 243 are `@(\"# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.12.0.schema.json\", ...` in a `shell: pwsh` step. In an expandable (double-quoted) string `$schema` is a variable reference that ends at `=`, and nothing assigns `$schema`. The text therefore never contains `$schema=`. The comment at lines 201-204 says the pipeline 'fails manifest validation' without this header, so every 'Submit to winget' run still uploads manifests that fail. A single-quoted string or an escaped `` `$schema `` is needed."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": ".github/workflows/publish-figlet-py.yml",
+   "start_line": 10,
+   "end_line": 10,
+   "message": "The publish triggers were narrowed to source-file extensions and no longer list the workflow file itself. A merged PR that changes only a version, dependency, font, manifest or workflow file now publishes nothing, and nothing in the story asked for this. In the diff, `FIGLet.Python/**` became `FIGLet.Python/**/*.py`. Likewise `FIGLet/**` became `FIGLet/**/*.cs`, `FIGLet.TS/**` became `*.ts`/`*.tsx` only, `FIGPrint/**` became `*.cs`, and the VS and VS Code extension paths changed the same way. Every `.github/workflows/publish-*.yml` self-path was removed. publish-figlet-py.yml line 38 reads the major.minor base version from `pyproject.toml`, so a merged PR that only bumps it (or changes `fonts/small.flf`) no longer runs the publish job. The same goes for `FIGLet.TS/package.json`, `*.csproj`, `.vsixmanifest`/`.xaml` and the extension's `package.json`. Changes to the workflow files themselves, including this one's fixes to publish-figprint.yml, also wait for an unrelated `.cs` change to run. The only fallback is a manual `workflow_dispatch`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "insertBanner no longer replaces a non-empty selection: it always inserts at column 0 of the cursor's line. Selected text the user expected to be replaced stays in the document, and this behaviour change is undocumented and was not requested. The diff removes `if (editor.selection.isEmpty) { editBuilder.insert(...) } else { editBuilder.replace(editor.selection, ...) }` and keeps only `editBuilder.insert(position, indentedBanner + '\\n')`, where `position = currentPosition.with(currentPosition.line, 0)` and `currentPosition = editor.selection.active` (the selection's active end). None of the ChangeLog-2026.md entries in the diff mention this change."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 254,
+   "end_line": 254,
+   "message": "The rewritten installer manifest drops `PortableCommandAlias: figprint`, but the new changelog entry says it defines `figprint` as the portable command alias. The changelog now describes a manifest the workflow doesn't produce. The removed manifest had `\"  PortableCommandAlias: figprint\",`. The new NestedInstallerFiles entries (lines 253-254 and 261-262) list only `- RelativeFilePath: FIGPrint.exe`. ChangeLog-2026.md says: 'Define `FIGPrint.exe` as the nested installer file with `figprint` as the portable command alias'."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "FIGLet.VSCodeExtension/src/FigletPanel.ts",
+   "start_line": 131,
+   "end_line": 131,
+   "message": "A user's existing `figlet.defaultFont` value is silently ignored after upgrade, because the new last-used-font lookup falls back to 'small' rather than migrating the old setting. `const lastFontUsed = context.globalState.get<string>('lastFontUsed') || 'small';`. The `figlet.defaultFont` contribution is removed from package.json, and no code reads the old value as a fallback."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "FIGLet.VSCodeExtension/src/LanguageCommentStyles.ts",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "The new enum member is named `BATCHFile`, which matches neither the PascalCase of the other members nor the `BatchFile` name the changelog says was introduced. The enum adds `BATCHFile` next to `Bash` and the others. The static property is `LanguageCommentStyles.BatchFile = new CommentStyleInfo(CommentStyle.BATCHFile)`. ChangeLog-2026.md says 'Introduce `BatchFile` to `CommentStyle` enum'."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 193,
+   "end_line": 193,
+   "message": "`$PackageId` is assigned a second time, which duplicates the earlier `$packageId`. PowerShell variable names are case-insensitive, so both names refer to one variable, and the two spellings in the same step mislead the reader. Line 152 has `$packageId  = \"ByteForge.FIGPrint\"` and line 193 has `$PackageId = \"ByteForge.FIGPrint\"`. Both spellings are then used: `$PackageId` in the manifests, `$packageId` in the upload message and PR title."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "Inserting a banner with text selected no longer replaces the selection, leaving the original text in the document. The previous nonempty-selection branch called editBuilder.replace(editor.selection, ...); insertBanner now always calls editBuilder.insert at column zero of the selection's active line. Selecting an existing banner and generating its replacement therefore retains the old banner and adds another."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 209,
+   "end_line": 209,
+   "message": "The generated schema directives lose the literal $schema key, so the added schema references do not work. All three header strings use PowerShell double quotes, for example \"# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.12.0.schema.json\". The script never assigns $schema, so interpolation produces '# yaml-language-server: =https://...' before Set-Content writes and uploads the manifests."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "The narrowed publishing filters skip releases for changes to packaged resources and build metadata. The FIGPrint trigger now matches only FIGPrint/**/*.cs, although FIGPrint.csproj embeds fonts/small.flf and configures other font assets. A merged PR fixing only those fonts or the project file no longer starts publishing. The same narrowing across the other publishing workflows excludes their non-source package inputs, and workflow_dispatch is the only remaining fallback."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

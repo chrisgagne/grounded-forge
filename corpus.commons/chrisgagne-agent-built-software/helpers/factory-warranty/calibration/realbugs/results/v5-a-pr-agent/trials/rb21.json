@@ -1,0 +1,24 @@
+{
+ "id": "rb21",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "src/API/Services/DeviceMonitoringService.cs",
+   "start_line": 168,
+   "end_line": 186,
+   "message": "Cancellation mishandled. The cancellation token is now passed to `SendPingAsync`, so a cancelled token throws `OperationCanceledException`/`TaskCanceledException`. No catch handles it before the generic `catch (Exception ex)`. On every normal shutdown or stop, each in-flight ping logs a stack trace at Warning level as \"Unexpected error pinging\". The method also returns `false`, so the caller may mark devices offline or broadcast an offline status during shutdown. Add `catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)` before the generic catch and rethrow, or return without logging."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 19,
+  "usage": {
+   "prompt_tokens": 3846,
+   "completion_tokens": 1165,
+   "total_tokens": 5011
+  },
+  "security_concern": false
+ }
+}

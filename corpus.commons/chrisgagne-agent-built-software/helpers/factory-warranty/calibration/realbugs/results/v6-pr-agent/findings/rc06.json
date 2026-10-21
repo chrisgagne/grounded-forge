@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 274,
+  "base": "72ccdfaa52365466e9ce3a07b096f8c0f096b8a2",
+  "head": "1c88a2381c97cfc434d381876515f003078f83d9"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 242,
+   "end_line": 275,
+   "message": "Possible ID collision. The latest assistant turn's tool call IDs are kept verbatim, but the `resolve` uniqueness tracking never reserves them. An older call could be rewritten to an ID the preserved turn already uses. Example: an older `call_1` is sanitized to `call1` while the latest turn already has `call1`. The transcript then contains duplicate tool call IDs, and the provider may reject it or mispair the results. Fix this by seeding the used-ID set with `preservedLatestToolCallIds` before rewriting older messages."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/agents/tool-call-id.ts",
+   "start_line": 283,
+   "end_line": 288,
+   "message": "Mismatched pairing. Tool results are skipped whenever their raw ID appears in `preservedLatestToolCallIds`, regardless of which turn they belong to. If an older turn reused the same raw ID, which can happen with providers that emit short or recycled IDs, the older assistant call is rewritten but its tool result is left unchanged. That breaks the older call/result pair. Consider limiting preservation to tool results that come after `latestAssistantIndex`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 20000
+ }
+}

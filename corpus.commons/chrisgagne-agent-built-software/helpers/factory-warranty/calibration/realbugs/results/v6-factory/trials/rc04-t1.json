@@ -1,0 +1,357 @@
+{
+ "id": "rc04",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests",
+  "gate:surface"
+ ],
+ "first": "gate",
+ "cost_usd": 1.8965,
+ "codex_tokens": 0,
+ "work": "<tmp>/replay-rc04-t1-wx18691p",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "P3",
+    "R1"
+   ],
+   "verdict": "confirmed",
+   "reason": "In buildWordsTab, `if (topWords.getWords().isEmpty()) { ... return wordSearchForm; }` comes before the 'Word search' header, ShortTextField and ButtonField. findWords prunes counts below 2 and skips words under 5 characters, so a corpus of short or single-use words hides the search, even though the specific-word path counts short and single-occurrence words.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "line": 236,
+   "claim": "The word search controls are never built when the top-words list is empty, so users whose notes have no repeated 5+ character word cannot search at all.",
+   "evidence": "buildWordsTab: `if (topWords.getWords().isEmpty()) { wordSearchForm.add(new LabelField(\"(no data)\")); return wordSearchForm; }` comes before the \"Word search\" header, the ShortTextField and the ButtonField. The top list is empty whenever every word of length >= MIN_WORD_LENGTH occurs once (findWords prunes counts < MIN_PHRASE_FREQUENCY), but the specific-word search counts short and single-occurrence words, so it would still return results.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+     "line": 360,
+     "claim": "The word search control is never built when the top-words list is empty, so a user whose notes have no repeated word of 5+ characters cannot search for specific words at all, even though the notes contain words to search.",
+     "evidence": "buildWordsTab: `if (topWords.getWords().isEmpty()) { wordSearchForm.add(new LabelField(\"(no data)\")); return wordSearchForm; }` comes before the \"Word search\" header, the ShortTextField and the ButtonField. The top list is empty whenever every word of length >= MIN_WORD_LENGTH occurs once (findWords prunes counts < MIN_PHRASE_FREQUENCY), but the specific-word search counts short and single-occurrence words, so it would still return results."
+    },
+    {
+     "id": "P3",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+     "line": 358,
+     "claim": "When the top-words list is empty (e.g. every long word occurs only once, or there are only short words), the method returns early and the Word search form is never added. Searching for specific words (including short ones, which the search explicitly supports) would still be meaningful in that case. The search UI should be built whether or not top words exist.",
+     "evidence": "When the top-words list is empty (e.g. every long word occurs only once, or there are only short words), the method returns early and the Word search form is never added. Searching for specific words (including short ones, which the search explicitly supports) would still be meaningful in that case. The search UI should be built whether or not top words exist."
+    },
+    {
+     "id": "R1",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+     "line": 358,
+     "claim": "Keep word search available when the top-word list is empty",
+     "evidence": "If notes contain only short words or no repeated words, `findWords` returns an empty top-word list despite having searchable text. This early return hides the search controls, preventing users from searching those words even though explicit searches support short words and single occurrences. Only skip rendering the rankings, not the search controls."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "P1",
+    "R2"
+   ],
+   "verdict": "confirmed",
+   "reason": "WordSearchThread passes StatisticsUtil.TOP_N_WORDS (25) as N, and findWords applies .limit(N). WordSearchAction only checks isFormValid (non-blank) and never checks wordSet.size(), and showWordSearchResults sums the truncated list. An empty set makes findWords run its general top-N branch, so comma-only input shows the top words as 'search results'.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/WordSearchThread.java",
+   "line": 47,
+   "claim": "The number of parsed search words is never checked. More than 25 words are silently cut to 25, which understates the combined total, and comma-only input yields an empty set that findWords treats as a top-words request.",
+   "evidence": "WordSearchThread calls `StatisticsUtil.findWords(notesToSearch, searchWords, StatisticsUtil.TOP_N_WORDS)`, and findWords applies `.limit(N)` with N = 25. StatisticsDialog only says \"Enter a comma-separated list of 1-25 words\" (line 379). WordSearchAction checks only isFormValid (non-blank) and never checks wordSet.size(). showWordSearchResults then sums only the truncated list: `foundWords.getWords().stream().mapToInt(Word::occurrenceCount).sum()`.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/WordSearchThread.java",
+     "line": 47,
+     "claim": "A search with more than 25 distinct words silently drops the least frequent ones, and the 'combined occurrences' total is understated, because the input limit in the help text is never enforced.",
+     "evidence": "WordSearchThread calls `StatisticsUtil.findWords(notesToSearch, searchWords, StatisticsUtil.TOP_N_WORDS)`, and findWords applies `.limit(N)` with N = 25. StatisticsDialog only says \"Enter a comma-separated list of 1-25 words\" (line 379). WordSearchAction checks only isFormValid (non-blank) and never checks wordSet.size(). showWordSearchResults then sums only the truncated list: `foundWords.getWords().stream().mapToInt(Word::occurrenceCount).sum()`."
+    },
+    {
+     "id": "P1",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/WordSearchThread.java",
+     "line": 47,
+     "claim": "The word search passes TOP_N_WORDS (25) as N, so its results are cut off at 25 words. The UI only says '1-25 words' in help text and never enforces it. If a user enters more than 25 words, some found words are silently dropped, and the 'combined occurrences' total in showWordSearchResults is also wrong because it is summed from the truncated list. Either use specificWords.size() (or Integer.MAX_VALUE) as N for searches, or validate the input count.",
+     "evidence": "The word search passes TOP_N_WORDS (25) as N, so its results are cut off at 25 words. The UI only says '1-25 words' in help text and never enforces it. If a user enters more than 25 words, some found words are silently dropped, and the 'combined occurrences' total in showWordSearchResults is also wrong because it is summed from the truncated list. Either use specificWords.size() (or Integer.MAX_VALUE) as N for searches, or validate the input count."
+    },
+    {
+     "id": "R2",
+     "leg": "codex-review",
+     "severity": "medium",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+     "line": 440,
+     "claim": "Validate the parsed search-word count before starting the worker",
+     "evidence": "The form only checks for blank text, so comma-only input can produce an empty word set, which `findWords` interprets as a request for the most common words rather than a specific-word search. Likewise, more than 25 parsed words are accepted but silently truncated by the worker, making the reported combined count incomplete. Validate that the parsed set contains 1\u201325 words before launching the search."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3",
+    "P2"
+   ],
+   "verdict": "disputed",
+   "reason": "findWords runs normalizeText on the note text but compares tokens to the raw set via specificWords.contains(word), and the UI builds that set from TagList.fromRawString/tag.getTag(). TagList is an external class with no source in this repo, so whether its normalization differs from normalizeText cannot be confirmed. A term containing a space can never match, because notes are split on whitespace.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "line": 315,
+   "claim": "Search terms are normalized by TagList/Tag rules instead of normalizeText, so some terms (punctuation, internal spaces, apostrophes, case) may never match and report zero occurrences.",
+   "evidence": "findWords applies normalizeText to the note text but compares tokens with `specificWords.contains(word)` against the raw set. In the UI that set comes from `TagList.fromRawString(...)` / `tag.getTag()`. TagList is an external Snotes class, and nothing in this repo shows that its normalization matches normalizeText (lowercase, keep apostrophes, non-alphanumerics become spaces). A direct caller passing Set.of(\"Hello\") gets no match.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+     "line": 167,
+     "claim": "Search terms are matched against normalized note text without being normalized themselves, so a term in a different form (uppercase, trailing punctuation, an internal space, or an apostrophe TagList may change) may never match and is reported as zero occurrences.",
+     "evidence": "findWords applies normalizeText to the note text but compares tokens with `specificWords.contains(word)` against the raw set. In the UI that set comes from `TagList.fromRawString(...)` / `tag.getTag()`. TagList is an external Snotes class, and nothing in this repo shows that its normalization matches normalizeText (lowercase, keep apostrophes, non-alphanumerics become spaces). A direct caller passing Set.of(\"Hello\") gets no match."
+    },
+    {
+     "id": "P2",
+     "leg": "claude-plain",
+     "severity": "medium",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+     "line": 437,
+     "claim": "Search terms are normalized with TagList/Tag rules, not with StatisticsUtil.normalizeText(), which is what the note text goes through. Tag normalization (case, spaces turned into separators, stripped or kept punctuation such as apostrophes or hyphens) does not necessarily match the word tokenizer. So a valid search like \"Isn't\", \"e-mail\" or a term with surrounding punctuation can silently return 0 occurrences. A term with spaces (e.g. \"hello world\") can never match because note text is split on whitespace. Run each term through normalizeText() and split/trim it the same way findWords does.",
+     "evidence": "Search terms are normalized with TagList/Tag rules, not with StatisticsUtil.normalizeText(), which is what the note text goes through. Tag normalization (case, spaces turned into separators, stripped or kept punctuation such as apostrophes or hyphens) does not necessarily match the word tokenizer. So a valid search like \"Isn't\", \"e-mail\" or a term with surrounding punctuation can silently return 0 occurrences. A term with spaces (e.g. \"hello world\") can never match because note text is split on whitespace. Run each term through normalizeText() and split/trim it the same way findWords does."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4",
+    "P5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The comparator compares only occurrenceCount, with no secondary key, before .limit(N) over a HashMap entrySet. PhraseList by contrast has a documented tiebreaker.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "line": 494,
+   "claim": "Top words with equal counts are ordered by HashMap iteration order, so ties at the top-25 cutoff are arbitrary.",
+   "evidence": "`.sorted((w1, w2) -> Integer.compare(w2.occurrenceCount(), w1.occurrenceCount()))` followed by `.limit(N)` has no secondary key, and it runs on `wordCounts.entrySet()` of a HashMap.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+     "line": 197,
+     "claim": "Words with equal counts are ranked in HashMap iteration order, so which words make the top 25 at a tie boundary is arbitrary. This is unlike PhraseList, which has a documented tiebreaker.",
+     "evidence": "`.sorted((w1, w2) -> Integer.compare(w2.occurrenceCount(), w1.occurrenceCount()))` followed by `.limit(N)` has no secondary key, and it runs on `wordCounts.entrySet()` of a HashMap."
+    },
+    {
+     "id": "P5",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+     "line": 194,
+     "claim": "Sorting uses occurrence count only, with no tiebreaker. Words with equal counts come out in HashMap iteration order, so which words make the top-25 cutoff, and the order in which they are displayed, is arbitrary. PhraseList has a deterministic tiebreaker; add a secondary sort (e.g. alphabetical) here for stable, reproducible results and tests.",
+     "evidence": "Sorting uses occurrence count only, with no tiebreaker. Words with equal counts come out in HashMap iteration order, so which words make the top-25 cutoff, and the order in which they are displayed, is arbitrary. PhraseList has a deterministic tiebreaker; add a secondary sort (e.g. alphabetical) here for stable, reproducible results and tests."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5",
+    "P6"
+   ],
+   "verdict": "confirmed",
+   "reason": "`uniqueWords.add(word)` runs for every token before any filtering, including when specificWords is non-empty, and showWordSearchResults never reads getUniqueWordCount(). This is a performance and memory point, not a functional defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "line": 460,
+   "claim": "The uniqueWords HashSet keeps every distinct token, which works against the OOM concern behind the pruning, and it is built for nothing on the search path.",
+   "evidence": "`uniqueWords.add(word)` runs for every token before any filtering, so the set holds every distinct word. The later comment justifies pruning by the risk of OutOfMemory on large datasets. showWordSearchResults never reads getUniqueWordCount().",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+     "line": 163,
+     "claim": "Every distinct token is kept in a second HashSet for the unique-word count, which undercuts the memory concern the prune comment cites. The work is also wasted on the specific-word search path, where the dialog never shows the count.",
+     "evidence": "`uniqueWords.add(word)` runs for every token before any filtering, so the set holds every distinct word. The later comment justifies pruning by the risk of OutOfMemory on large datasets. showWordSearchResults never reads getUniqueWordCount()."
+    },
+    {
+     "id": "P6",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+     "line": 161,
+     "claim": "The uniqueWords HashSet keeps every distinct token in the whole corpus for the full scan. The specific-word search path does this too, even though it only needs counts for a handful of words and the dialog never shows the unique count for searches. The comment below mentions OOM concerns for large datasets. This duplicates the unpruned map's memory and repeats the work on every search. Skip unique tracking when specificWords is non-empty, or make it optional.",
+     "evidence": "The uniqueWords HashSet keeps every distinct token in the whole corpus for the full scan. The specific-word search path does this too, even though it only needs counts for a handful of words and the dialog never shows the unique count for searches. The comment below mentions OOM concerns for large datasets. This duplicates the unpruned map's memory and repeats the work on every search. Skip unique tracking when specificWords is non-empty, or make it optional."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "findWords_shouldLimitResultsToN asserts only size() <= 3, which an empty result passes, and the null-text test asserts only non-empty. No test covers more than N specific words, WordSearchThread, or the new Phrase/Word validation.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/test/java/ca/corbett/snotes/extensions/statistics/StatisticsUtilTest.java",
+   "line": 925,
+   "claim": "Several new tests assert only the shape of the output, and some paths have no tests.",
+   "evidence": "findWords_shouldLimitResultsToN asserts only `result.getWords().size() <= 3`, which an empty result satisfies. findWords_withNullNoteText_shouldBeIgnored asserts only `assertFalse(result.getWords().isEmpty())`, without checking the words or counts. No test covers the >N specific-words case, WordSearchThread, Word/WordList validation, or the new Phrase wordCount check.",
+   "axis_row": "L3.10",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/test/java/ca/corbett/snotes/extensions/statistics/StatisticsUtilTest.java",
+     "line": 480,
+     "claim": "Several new tests check only the shape of the output, so they would pass on a broken implementation, for example one that returns an empty list.",
+     "evidence": "findWords_shouldLimitResultsToN asserts only `result.getWords().size() <= 3`, which an empty result satisfies. findWords_withNullNoteText_shouldBeIgnored asserts only `assertFalse(result.getWords().isEmpty())`, without checking the words or counts. No test covers the >N specific-words case, WordSearchThread, Word/WordList validation, or the new Phrase wordCount check."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7",
+    "P7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff replaces the `occurrenceCount < 0` check with `wordCount <= 0` and `occurrenceCount <= 0` checks and rewrites the Javadoc. The in-repo callers (findPhrases, PhraseListTest) still comply, so only an external caller could break. That makes this an API-design point, low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/Phrase.java",
+   "line": 18,
+   "claim": "The change tightens the public Phrase record's contract and now rejects wordCount 0 and occurrenceCount 0, which the old Javadoc allowed.",
+   "evidence": "The old docs said wordCount was \"zero if the phrase is empty\" and occurrenceCount \"A non-negative integer\". The new code throws IllegalArgumentException on `wordCount <= 0` and `occurrenceCount <= 0`. The in-repo callers (findPhrases uses len >= 2 and count >= 2; PhraseListTest uses counts >= 1) still comply, but any external caller that builds a zero-count Phrase now throws.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/Phrase.java",
+     "line": 18,
+     "claim": "The change tightens the public Phrase record's contract, which the word-statistics feature did not need: it now rejects wordCount 0 and occurrenceCount 0, which the old Javadoc explicitly allowed.",
+     "evidence": "The old docs said wordCount was \"zero if the phrase is empty\" and occurrenceCount \"A non-negative integer\". The new code throws IllegalArgumentException on `wordCount <= 0` and `occurrenceCount <= 0`. The in-repo callers (findPhrases uses len >= 2 and count >= 2; PhraseListTest uses counts >= 1) still comply, but any external caller that builds a zero-count Phrase now throws."
+    },
+    {
+     "id": "P7",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/Phrase.java",
+     "line": 18,
+     "claim": "This is an unrelated behavior change to an existing public record. wordCount == 0 and occurrenceCount == 0 now throw, where they were previously documented as valid (the old javadoc allowed empty phrases with wordCount 0). Any external caller or extension that constructs zero-count phrases will now fail at runtime. It belongs in a separate change, or needs a note in the PR description.",
+     "evidence": "This is an unrelated behavior change to an existing public record. wordCount == 0 and occurrenceCount == 0 now throw, where they were previously documented as valid (the old javadoc allowed empty phrases with wordCount 0). Any external caller or extension that constructs zero-count phrases will now fail at runtime. It belongs in a separate change, or needs a note in the PR description."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The unchanged context line in the diff still says '6 parallel worker tasks', while StatisticsLoaderThread.run now adds `workers.add(this::loadWords)`. The same diff updated other lines of this doc (tab count, key classes), so the doc is meant to track the code. It is a documentation error, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/copilot-instructions.md",
+   "line": 29,
+   "claim": "The architecture doc still says the loader runs 6 parallel worker tasks, but the change adds a seventh (loadWords).",
+   "evidence": "The unchanged context line reads \"Loader runs **6 parallel worker tasks** via `ExecutorService`: general counts, per-year, all-months, per-year+month, day-of-week, and phrase extraction\", while StatisticsLoaderThread.run now does `workers.add(this::loadWords);`, which makes 7.",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".github/copilot-instructions.md",
+     "line": 29,
+     "claim": "The architecture doc still says the loader runs 6 parallel worker tasks, but the change adds a seventh.",
+     "evidence": "The unchanged context line reads \"Loader runs **6 parallel worker tasks** via `ExecutorService`: general counts, per-year, all-months, per-year+month, day-of-week, and phrase extraction\", while StatisticsLoaderThread.run now does `workers.add(this::loadWords);`, which makes 7."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "P4"
+   ],
+   "verdict": "confirmed",
+   "reason": "normalizeText appends every `'` character and findWords splits only on whitespace, with no trimming of apostrophes from tokens. Quoted words therefore become separate entries in the unique count, the top list and search matching. It is a counting-accuracy issue, kept at low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+   "line": 551,
+   "claim": "normalizeText keeps leading and trailing apostrophes, so 'hello' (in single quotes) is counted apart from hello, and a lone apostrophe becomes a word.",
+   "evidence": "normalizeText keeps every apostrophe, including leading/trailing ones used as single quotes. So 'hello' becomes the token \"'hello'\", which is counted separately from \"hello\". A standalone ' becomes its own 'word'. This inflates the new unique-word count, splits occurrence counts in the top-words list, and makes specific-word searches miss quoted occurrences. Consider trimming leading/trailing apostrophes from each token in findWords.",
+   "members": [
+    {
+     "id": "P4",
+     "leg": "claude-plain",
+     "severity": "low",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsUtil.java",
+     "line": 311,
+     "claim": "normalizeText keeps every apostrophe, including leading/trailing ones used as single quotes. So 'hello' becomes the token \"'hello'\", which is counted separately from \"hello\". A standalone ' becomes its own 'word'. This inflates the new unique-word count, splits occurrence counts in the top-words list, and makes specific-word searches miss quoted occurrences. Consider trimming leading/trailing apostrophes from each token in findWords.",
+     "evidence": "normalizeText keeps every apostrophe, including leading/trailing ones used as single quotes. So 'hello' becomes the token \"'hello'\", which is counted separately from \"hello\". A standalone ' becomes its own 'word'. This inflates the new unique-word count, splits occurrence counts in the top-words list, and makes specific-word searches miss quoted occurrences. Consider trimming leading/trailing apostrophes from each token in findWords."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "disputed",
+   "reason": "WordSearchThread gets stats.getAllNotes(), which is dataManager.getNotes() captured in StatisticsLoaderThread, and StatisticsExtension caches statistics until refresh. A snapshot that matches the rest of the dialog is consistent with the design. Whether getNotes() returns a live list (the race) is not shown in this repo.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+   "line": 324,
+   "claim": "Word search runs on the note list captured at stats load time, so counts can be stale, and if that list is live it may race with edits.",
+   "evidence": "WordSearchAction builds `new WordSearchThread(stats.getAllNotes(), wordSet)`. Statistics.allNotes is `dataManager.getNotes()` captured in StatisticsLoaderThread.getStatistics(), and StatisticsExtension caches Statistics until an explicit refresh. The repo does not show whether getNotes() returns a copy.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/main/java/ca/corbett/snotes/extensions/statistics/StatisticsDialog.java",
+     "line": 446,
+     "claim": "Word search runs against the notes list captured when the statistics were loaded, so it may give stale counts after the user edits notes. If that list is the live DataManager list, iterating it off the EDT may also race with edits.",
+     "evidence": "WordSearchAction builds `new WordSearchThread(stats.getAllNotes(), wordSet)`. Statistics.allNotes is `dataManager.getNotes()` captured in StatisticsLoaderThread.getStatistics(), and StatisticsExtension caches Statistics until an explicit refresh. The repo does not show whether getNotes() returns a copy."
+    }
+   ],
+   "id": "F10"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests",
+   "gate:surface"
+  ],
+  "review": []
+ }
+}

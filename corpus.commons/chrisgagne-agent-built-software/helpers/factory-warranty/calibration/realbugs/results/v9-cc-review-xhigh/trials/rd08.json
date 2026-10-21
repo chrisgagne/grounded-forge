@@ -1,0 +1,121 @@
+{
+ "id": "rd08",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 257,
+   "end_line": 257,
+   "message": "The notebook still calls `wg_fin.load_artifacts` and `wg_fin.run_inference`, but commit 613cec9 deleted both from `financial_impact/financial.py`, so the pipeline cell cannot run. Running the cell: `wg_fin.load_artifacts(...)` raises AttributeError, which the broad `except Exception` swallows while printing the misleading \"No artifacts.pkl\" message. Execution then reaches `wg_fin.run_inference(...)` (line 257, and line 289 on the artifacts path), which raises AttributeError and is re-raised. No report is produced. The committed output (\"[Errno 2] No such file...\") comes from the older module version."
+  },
+  {
+   "source": "cc-review",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 169,
+   "end_line": 169,
+   "message": "`from financial_impact import financial` now runs before `sys.path.insert(0, repo_root)`. The previous version imported after the path was set up. Jupyter starts the kernel with cwd = `wafer_images/`, and the repo root (which holds `financial_impact/`) is not on sys.path. The first line of the cell raises `ModuleNotFoundError: No module named 'financial_impact'` before the path fix-up runs."
+  },
+  {
+   "source": "cc-review",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The artifacts branch reads `artifacts.get(\"id_to_binary\", {})`, but model.ipynb never saves an `id_to_binary` key: it saves label_mapping, pattern_to_id and id_to_pattern. Combined with `decode_labels` defaulting to \"00000000\", every wafer gets decoded as Normal. Whenever artifacts.pkl loads, `id_to_binary` is `{}`, so every class ID becomes \"00000000\". The report then shows 0 defective wafers, $0 total_daily_loss, dominant_pattern \"N/A\" and top_action \"None\" for a lot that is actually ~97% defective. No error is raised. It should be built from `pattern_to_id` (`{v: k for k, v in pattern_to_id.items()}`)."
+  },
+  {
+   "source": "cc-review",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 171,
+   "end_line": 171,
+   "message": "`repo_root` is hardcoded to one developer's home directory (`/Users/<author>/Desktop/Capstone/waferguard-ml`), and that path is baked into the dataset, model and report output paths. For any other user or CI machine, `np.load(data_path)` raises FileNotFoundError, the model paths don't exist, and `save_reports` tries to `makedirs` under /Users/<author>. The committed outputs also leak that personal path. Derive the root from the notebook location (e.g. `Path.cwd().parent`) or use `app.config.PROJECT_ROOT`."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 240,
+   "end_line": 240,
+   "message": "`compute_financials` accepts `financial_params`, but `get_params(binary_label)` always reads the module-global `FINANCIAL_PARAMS`, so the argument is silently ignored. A Streamlit caller that passes custom repair costs or yield ranges (e.g. `compute_financials(df, cfg, financial_params=site_params)`) gets the hardcoded defaults back, and the financial report misstates costs. The params need to be passed through to `get_params`/`decompose`."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The summary's `avg_confidence` takes an unweighted mean of per-pattern averages instead of a per-wafer mean, so a rare pattern counts as much as a common one. Example: 1,000 Scratch wafers at 0.99 plus 1 Random wafer at 0.10 reports avg_confidence 0.545, when the true batch mean is ~0.989. Use `np.average(df_batch.avg_confidence, weights=df_batch['count'])` or take the mean of the raw confidences."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 273,
+   "end_line": 273,
+   "message": "An empty batch crashes even though the code has `if not df_batch.empty` guards: `build_batch_df([])` returns a DataFrame with no columns, and `pd.DataFrame([]).sort_values(\"priority_score\")` raises KeyError. A Streamlit upload with zero wafers, or one where every wafer was filtered out, gets `build_batch_df` returning `pd.DataFrame([])`. `compute_financials` then raises `KeyError: 'priority_score'` at line 273 before reaching any of the empty-guards below it, so those guards are dead code."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 151,
+   "end_line": 151,
+   "message": "`decode_labels` maps any class ID missing from `id_to_binary` to \"00000000\" (Normal) instead of an unknown marker or an error, which hides mapping bugs as healthy wafers. If the mapping is wrong or incomplete (the artifacts-branch case above, or a model with a different class count), defective wafers are counted as good and their financial loss is dropped from the totals. The pattern_name for the same wafer still says \"Unknown\", so the two disagree."
+  },
+  {
+   "source": "cc-review",
+   "file": ".gitignore",
+   "start_line": 89,
+   "end_line": 89,
+   "message": "Resolving the merge with main (0b67e06) deleted main's `PresentationPDFs/` and `architecture_report.pdf` ignore entries instead of keeping both sides. After this lands on main, presentation PDFs and architecture_report.pdf, which main deliberately ignored in #14, show up as untracked and can be committed by accident with `git add .`."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 293,
+   "end_line": 293,
+   "message": "`dominant_pattern` takes `.iloc[0]` of the non-Normal rows, which assumes `df_batch` is already sorted by count descending. `compute_financials` is a public function and doesn't enforce that order. Any caller passing a df_batch that isn't sorted by count (e.g. built with groupby, filtered, or re-sorted by label in the UI) gets the first row reported as dominant instead of the most frequent defect. Use `idxmax` on `count` over the defect rows."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 268,
+   "end_line": 268,
+   "message": "The column name `evoa_30d` is hardcoded, but the value is computed with the configurable `PLANNING_HORIZON`. With `PLANNING_HORIZON=90` the CSV and UI show 90-day EVoA under a column labelled `evoa_30d`, so readers compare figures on the wrong horizon."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 319,
+   "end_line": 319,
+   "message": "`save_reports` builds file paths by inserting `batch_id` into f-strings without checking it, so a batch ID can escape `outdir`. In the planned Streamlit integration where BATCH_ID comes from a text input, a value like `../../app/x` or one containing `/` writes reports outside the reports directory or fails with FileNotFoundError, because only `outdir` is created."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 261,
+   "end_line": 261,
+   "message": "`yield_range` uses `int(x * 100)`, which truncates instead of rounding, so the combined-pattern half-percent bounds are shown too low. Edge_Loc+Loc (ylo 0.015) shows \"1%-15%\" instead of 1.5%, Donut+Scratch (ylo 0.175) shows 17%, and Edge_Ring+Loc+Scratch (yhi 0.625) shows 62%. Any value like 0.29 becomes 28% because of float error (28.999...)."
+  },
+  {
+   "source": "cc-review",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 192,
+   "end_line": 192,
+   "message": "The notebook re-hardcodes the 38-class label mapping, the sorted ID assignment, the pixel 3\u21920 one-hot preprocessing and the model paths, all of which already exist in `app.labels.ID_TO_PATTERN`/`PATTERN_TO_ID`, `app.preprocessing.prepare_for_model` and `app.config.MODEL_REGISTRY`/`DATASET_PATH`. There are now three copies of the class-ID mapping (model.ipynb, app/labels.py, this notebook). Any change to one silently desyncs the financial report from the app's predictions. This copy also skips the `np.clip` that `prepare_for_model` applies. Import the app modules instead."
+  },
+  {
+   "source": "cc-review",
+   "file": ".gitignore",
+   "start_line": 90,
+   "end_line": 90,
+   "message": "The new ignore entry hardcodes a single file, `reports_LOT_001/refactor_demo/batch_summary_LOT_001.json`, but the notebook writes to `reports_{BATCH_ID}/` for any batch. It also ignores `requirements.txt`, which is a dependency manifest. Running the notebook with BATCH_ID=\"LOT_002\" produces `reports_LOT_002/.../batch_summary_LOT_002.json`, which is not ignored and gets committed. A pattern like `reports_*/` is needed. Separately, an exported requirements.txt can never be committed."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 282,
+  "cost_usd": 1.2596598000000003,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

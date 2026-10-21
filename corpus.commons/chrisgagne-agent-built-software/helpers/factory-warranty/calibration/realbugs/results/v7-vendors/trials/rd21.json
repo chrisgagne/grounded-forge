@@ -1,0 +1,102 @@
+{
+ "id": "rd21",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 27,
+   "message": "Preserve the secret environment injection. The replaced Helm deployment injects `ms-secret-vault` through `envFrom`, but this deployment supplies only the explicit environment variables listed here. The mounted agent ConfigMap contains MySQL connection details without credentials, so removing the secret injection leaves the unchanged agent image without its externally provisioned credentials. Restore the secret reference alongside these environment variables."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 22,
+   "end_line": 25,
+   "message": "Restore health probes in the replacement deployment. The previous deployment used `/ai-secure-agent-ms/v1/ping` for readiness and liveness, but the replacement has neither probe. Kubernetes will now route traffic as soon as the container starts, even before the agent finishes initializing, and will no longer restart an agent whose process remains alive but stops responding. Preserve the existing probes when moving away from the shared chart."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "app-of-apps.yaml",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "The new `agent-app` Application tracks the feature branch `AI-20-AISecureAgent-Feature-collection`. Every other app tracks `HEAD` or a pinned version. Once this merges, production follows an unreviewed feature branch, so changes pushed there deploy automatically (automated sync with prune/selfHeal). If the branch is deleted after merge, the app breaks and can't sync. Use `HEAD` or a release tag."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 24,
+   "end_line": 41,
+   "message": "The container has no `envFrom: secretRef: ms-secret-vault`, which the shared chart injected into every service. The configmap sets MySQL (`admin_db`, user `root`), Kafka and Redis connection details but no password, so credentials must have come from that Vault-backed secret. Without it the service will likely fail to connect to MySQL and other middleware."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 24,
+   "end_line": 41,
+   "message": "The liveness/readiness probes (`/ai-secure-agent-ms/v1/ping`) were dropped in the move. Kubernetes will send traffic to the pod before it is ready and won't restart it if it hangs, which is worse than the chart-based setup."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 24,
+   "end_line": 41,
+   "message": "The resource requests/limits (100m/256Mi requests, 200m/345Mi limits) were dropped. The pod now runs unbounded (BestEffort QoS), so it can starve neighbours or be evicted first, and an HPA based on utilisation can't work. `MALLOC_ARENA_MAX` is still set, which suggests memory was a known concern."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 23,
+   "message": "The pod annotation `linkerd.io/inject: disabled` was dropped. If the default namespace or cluster has Linkerd auto-injection on, this pod now gets a sidecar, which changes networking and resource use without anyone intending it."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 42,
+   "end_line": 50,
+   "message": "The `applogs` hostPath volume (`/tmp/logs/ai-secure-agent-ms` mounted at `/app/logs`) and its fix-perm init container were dropped. If the app writes logs to `/app/logs`, they no longer reach the host path that log collection (log-ms) reads, and writes may fail if the directory doesn't exist or isn't writable."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "The Deployment `ai-secure-agent-ms` and Service `ai-secure-agent-ms-svc` keep the same names as the resources owned by the `helm-app` ApplicationSet app `ai-secure-agent-ms`. Removing the helm_backend directory makes the ApplicationSet delete that Application, and its prune cascade can delete these resources at the same moment `agent-app` creates them. The result is a race and SharedResourceWarning/ownership flapping, with possible downtime. Make the cutover deliberate, e.g. orphan the resources or sequence the two syncs."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "The image is hard-coded to a debug tag (`debug-202604071410`) in a plain manifest. The existing CI tag-bump automation targets helm_backend values files, so this service no longer gets automatic image updates and stays pinned to a debug build."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 26,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 42,
+   "cost_usd": 0.17356680000000002,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 42
+ }
+}

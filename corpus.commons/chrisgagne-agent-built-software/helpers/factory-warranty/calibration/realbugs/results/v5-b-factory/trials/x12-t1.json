@@ -1,0 +1,78 @@
+{
+ "id": "x12",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.8177,
+ "codex_tokens": 46952,
+ "work": "<tmp>/replay-x12-t1-r6xv1vus",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "conversions.js:643 matches /[a-f0-9]{6}|[a-f0-9]{3}/i with no ^ or $ and no length check. So 'ABCD' or '#ABCDE' matches 'ABC' and lines 650-653 expand it to [170,187,204]. Before the change these failed the 6-digit-only regex and returned [0,0,0].",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "conversions.js",
+   "line": 643,
+   "claim": "The new hex regex has no anchors, so 4- and 5-digit hex strings, and words like 'bad' or 'face', are now read as 3-digit shorthand instead of being rejected.",
+   "evidence": "`args.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i)` takes the first 3 hex characters when there aren't 6 in a row. `convert.hex.rgb('ABCD')` and `convert.hex.rgb('#ABCDE')` both match 'ABC' and return [170,187,204]. A string such as 'bad' or 'face' returns a colour as well. Before the change, all of these fell through to `return [0, 0, 0]`. Nothing checks the length of the hex run or anchors the match (for example `^#?([a-f0-9]{6}|[a-f0-9]{3})$`).",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 643 calls args.toString(16) without zero-padding, so (0x000FFF) becomes 'fff' and is expanded to [255,255,255]. Lowered to low: numbers under 0x100000 already gave a wrong answer before the change ([0,0,0]), and the README documents hex strings, not numbers. The change only swaps one wrong answer for a more believable one.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "conversions.js",
+   "line": 643,
+   "claim": "Numbers lose their leading zeros in toString(16), so values such as 0x000FFF now hit the shorthand branch and come back as the wrong colour.",
+   "evidence": "The function calls `args.toString(16)`, so it accepts numbers. `(0x000FFF).toString(16)` gives 'fff', which matches the 3-digit branch, is expanded to 'ffffff', and returns [255,255,255]. The correct value is [0,15,255]. Similarly, 0x00ABCD becomes 'abcd', which matches 'abc' and returns [170,187,204] instead of [0,171,205]. The input is never zero-padded before the regex runs.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "test/basic.js:117-119 are the only hex.rgb assertions, and the one shorthand case is 'ABC'. Nothing tests 'ABCD', '#abc' or numbers, so the C1 and C2 behaviour passes the suite unnoticed.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "test/basic.js",
+   "line": 119,
+   "claim": "Shorthand hex is tested only with 'ABC', so nothing covers a '#' prefix, lowercase, invalid lengths or numeric input.",
+   "evidence": "The only shorthand assertion is `assert.deepEqual(convert.hex.rgb('ABC'), [170, 187, 204]);`. There is no test for 'ABCD', '#abc', 'GGG' or numeric input, so both regex problems above pass the suite.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "README.md:6 and 37-38 mention only 6-digit hex strings, and the diff touches only conversions.js. This is a documentation gap, so it stays low. The CHANGELOG's newest entry is from 2016, so the project doesn't update it with each change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 6,
+   "claim": "The README doesn't say hex.rgb now accepts 3-digit shorthand.",
+   "evidence": "README line 6 only says it converts `hex` strings, and its hex examples (lines 37-38) use 6 digits only. The diff changes only conversions.js and touches no documentation.",
+   "axis_row": "L5.24",
+   "id": "F4"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

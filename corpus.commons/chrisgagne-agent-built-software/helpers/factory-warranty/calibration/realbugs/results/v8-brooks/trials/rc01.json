@@ -1,0 +1,64 @@
+{
+ "id": "rc01",
+ "arm": "brooks",
+ "findings": [
+  {
+   "source": "brooks",
+   "severity": "critical",
+   "file": "BivariateRenderer.tsx",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "Change Propagation \u2014 `BivariateRenderer` imports constants that don't exist where it looks for them. Symptom: `BivariateRenderer.tsx:2` imports `LAYER_BIVARIATE_PREFIX` and `SOURCE_BIVARIATE_PREFIX` from `./constants`. `BivariateRenderer/constants.ts` doesn't export them. They live in `~core/logical_layers/constants.ts:4-5`, which is where the old code imported them from. Source: Ousterhout, *A Philosophy of Software Design*: Information Leakage. Where these prefixes live is a decision with one owner, and this import moves it to a module that doesn't own it. Consequence: The type check fails. At runtime under esbuild/Vite both values are `undefined`, so source and layer IDs become `\"undefined<id>\"`. The renderer is used in four places (`getLayerRenderer.ts:13`, `mcdaLayer.ts:83`, `bivariateMatrixSelection.ts:324`, `bivariateColorManagerSamleMap.ts:105`), and none of their IDs would match the old layer IDs. Remedy: Import both constants from `~core/logical_layers/constants`."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "style.c",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Change Propagation \u2014 max zoom no longer comes from the legend or MCDA config. Symptom: The old code calculated `maxzoom` with `getMaxNumeratorZoomLevel(legend quotients)` (bivariate) or `getMaxMCDAZoomLevel(style.config)` (MCDA). The new code passes the converted style through `state.style`. But `MultivariateRenderer.getMaxZoomLevel` (`MultivariateRenderer.tsx:126-133`) reads `layer.style`, which is the unconverted style on the source. For bivariate sources (no style on the source) and MCDA sources (`type: 'mcda'`), it falls back to `FALLBACK_BIVARIATE_MAX_ZOOM = 9`. Source: Winters et al., *Software Engineering at Google*: Hyrum's Law. Tile max zoom is behaviour users can see and depend on, even though no API promises it. Consequence: When a layer has no explicit `maxZoom`, it may request zoom levels that its numerators don't support. Or it may stop overzooming at a different level than before, with blank or blocky hexes at high zoom. Nothing in this diff would catch that. Remedy: Either override `getMaxZoomLevel` in `BivariateRenderer` to use the converted style, or have `ClickableFeaturesRenderer` pass the effective style into `createTileSource`. Then add a test that pins the max zoom for one legend."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "mcdaLayer.ts",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "Accidental Complexity \u2014 `MCDARenderer` isn't used and repeats logic already in `BivariateRenderer`. Symptom: The new `MCDARenderer` is never instantiated. `mcdaLayer.ts:83` still uses `new BivariateRenderer({ id })`, and `BivariateRenderer.convertStyle` already handles `style.type === 'mcda'`. Both classes repeat the same `willMount`/`willSourceUpdate` convert-then-call-super pair. `MCDARenderer` also hard-codes `'mcda-source-'` and `'mcda-layer-'` as literals where the other renderers use named prefixes. Source: Fowler, *Refactoring*: Speculative Generality and Duplicate Code. Hunt & Thomas, *The Pragmatic Programmer*: DRY. Consequence: There are now two ways to render MCDA layers, and nothing says which is the real one. Fixing one won't fix the other. If someone later switches `mcdaLayer.ts` to `MCDARenderer`, the layer and source IDs silently change from `bivariate-*` to `mcda-*`, which breaks anything that looks them up by ID. Remedy: Either drop `MCDARenderer` from this PR, or wire it into `mcdaLayer.ts` in the same change and remove the MCDA branch from `BivariateRenderer`. In either case, move the convert-then-call-super step into a single protected `transformStyle(state)` hook in `MultivariateRenderer`."
+  },
+  {
+   "source": "brooks",
+   "severity": "warning",
+   "file": "docs/investigations/maplibre-migration.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Coverage Illusion \u2014 renderer behaviour changed, but only the converters are tested. Symptom: The new tests cover only `legendToMultivariateStyle` and `mcdaToMultivariateStyle`. Several renderer behaviours changed with no tests: - the bivariate popup changed from `MapHexTooltip` to the multivariate popup - layer and source IDs - max zoom - unmount cleanup Also, the test mocks `createDefaultMCDAConfig`, so the score/base layer names and contents aren't really checked. The commit message (\"replace snapshot tests\") doesn't mention the renderer rewrite. Source: Feathers, *Working Effectively with Legacy Code*, Ch. 1. Without tests on the behaviour that changed, nobody can tell whether a rewrite like this one is safe. Consequence: Both regressions above went in without any test failing. Reviewers reading only the commit message won't expect a change in what users see. Remedy: Add a renderer test that mounts `BivariateRenderer` against a mock map and asserts the source/layer IDs, `maxzoom` and the popup content type. Change the commit message to describe the refactor."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "features/multivariate_layer/helpers/createMultivariateConfig.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 a second way of building a multivariate config. Symptom: `legendToMultivariateStyle` assembles score/base `MCDALayerStyle` objects and `stepOverrides` by hand. `features/multivariate_layer/helpers/createMultivariateConfig.ts` already does the same thing, with i18n names. Source: Hunt & Thomas, *The Pragmatic Programmer*: DRY. Consequence: If the multivariate config shape changes (for example a version bump or a new required field), there are two places to update. Remedy: Build the config with `createMultivariateConfig({ score, base, colors, stepOverrides, name }, axes)`, or note in a comment why the bivariate path needs its own shape."
+  },
+  {
+   "source": "brooks",
+   "severity": "suggestion",
+   "file": "maplibre-migration.m",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Knowledge Duplication \u2014 doc line references aren't accurate. Symptom: `maplibre-migration.md` points four separate topics at \"Lines 1\u201345\" of `BivariateRenderer.tsx`: addSource/addLayer, event registration, feature state and layer ordering. None of that code is in the file any more. `bivariate_manager/readme.md` also loses its list indentation. Source: Hunt & Thomas, *The Pragmatic Programmer*: DRY. Docs that repeat facts about the code go stale. Consequence: Anyone doing the MapLibre migration from this doc will look for code in the wrong file. Remedy: Point those entries at `ClickableFeaturesRenderer`/`MultivariateRenderer`, or delete them. Recommended fix order: fix the import, then max zoom, then decide what to do with `MCDARenderer`, then add renderer tests. ---"
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 101,
+  "cost_usd": 0.7525327999999999,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "fallback_file": 1,
+  "health_score": "68"
+ }
+}

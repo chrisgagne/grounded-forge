@@ -1,0 +1,26 @@
+{
+ "cases": [
+  {
+   "id": "rb21",
+   "kind": "pr",
+   "project": "renedierking_LANdalf",
+   "repo": "https://github.com/renedierking/LANdalf",
+   "pr_number": 88,
+   "base": "cc81fa3dc87a8a50654c1279b3bdb2761e94f832",
+   "head": "bc1698f4dbc3a99dee0a6dcf7629813f2027682a",
+   "title": "Add ping utilities",
+   "body": "This pull request enhances the `DeviceMonitoringService` by improving support for ICMP ping functionality, especially in containerized environments. The main changes ensure that the necessary system package is installed in the Docker image and that the service gracefully handles unsupported platform scenarios.\n\nDependency updates for ping support:\n\n* Updated the Dockerfile (`src/API/Dockerfile`) to install `iputils-ping`, ensuring ICMP ping commands work inside the container.\n\nError handling improvements:\n\n* Added a catch for `PlatformNotSupportedException` in `PingDeviceAsync` that logs a warning (at most once per service lifetime) when ping is not supported on the current platform. A thread-safe guard flag using `Interlocked.CompareExchange` prevents log spam when devices are checked in parallel.\n* The `iputils-ping` / `CAP_NET_RAW` guidance is placed in the `PingException` catch path, where it is most relevant.\n\nCode cleanup:\n\n* Removed unused `using` directives from `DeviceMonitoringService.cs` for cleaner code.\n\n## Summary\n\nDescribe what changed and why.\n\n## How to Test\n\n- [ ] `dotnet build LANdalf.slnx`\n- [ ] `dotnet test`\n- [ ] (If relevant) `docker compose up --build`\n\n## Checklist\n\n- [ ] No secrets/credentials committed\n- [ ] Docs updated as needed (README/CONTRIBUTING)\n- [ ] Tests added/updated for new behavior\n- [ ] Breaking changes called out"
+  },
+  {
+   "id": "rb23",
+   "kind": "pr",
+   "project": "wirechat_wirechat",
+   "repo": "https://github.com/wirechat/wirechat",
+   "pr_number": 183,
+   "base": "7f645146da1285f3817a9dfcb04be0a53ee50ecd",
+   "head": "6e3156e78da9b47cb4c6d596883b3ef0730b8cf8",
+   "title": "Harden chat/chats scroll state and pagination concurrency in Livewire UI",
+   "body": "This PR tightens scroll restoration and pagination behavior across chat views, with emphasis on top-scroll loading and navigation-driven list rendering. It addresses cases where repeated scroll events could enqueue duplicate loads and where scroll restore state could drift during Livewire updates.\n\n- **Scroll restoration and navigation semantics**\n  - Aligns Livewire navigation scroll directive usage with supported modifier syntax.\n  - Ensures scroll-to-target behavior runs after layout timing boundaries to avoid stale measurements.\n\n- **Top-scroll pagination concurrency guard**\n  - Adds an in-flight guard in the chat body Alpine state so only one `loadMore()` request can run at a time.\n  - Uses `try/finally` around the async Livewire call to guarantee flag reset on both success and failure paths.\n\n- **Timeline/window loading resilience**\n  - Improves coordination between prepend/restore state and older/newer window loads to prevent pending restore flags from lingering.\n  - Reduces redundant cursor/load-state resync work on append paths.\n\n- **Unread/list synchronization**\n  - Updates chat-list unread synchronization behavior to stay consistent with realtime message updates.\n\n```html\n<main x-data=\"{\n    loadingMore: false,\n    async onScroll() {\n        if ($el.scrollTop <= 0 && $wire.canLoadMore && !this.loadingMore) {\n            this.loadingMore = true\n            this.prepareRestore()\n            try {\n                await $wire.loadMore()\n            } finally {\n                this.loadingMore = false\n            }\n        }\n    }\n}\">\n```"
+  }
+ ]
+}

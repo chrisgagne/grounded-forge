@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 5,
+   "message": "Add a deployment workflow for the new Kafka topics. The new topic manifest is not referenced by any deployment workflow. Existing topic workflows deploy explicitly named manifests, and the application workflow excludes `nais/topics/*`, so merging this change will not provision these topics or their ACLs. The newly enabled streams will consequently be unable to consume their source topics in deployed environments. Add a workflow invoking `reusable-topic-workflow.yml` for this manifest."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

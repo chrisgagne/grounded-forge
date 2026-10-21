@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/efcore",
+  "pr_number": 38115,
+  "base": "fec5da438f8879ca73c9752683e323cda8be77e6",
+  "head": "009f41901ee1a943ce85425652bc454fe85d2278"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 287,
+   "message": "The new block overwrites the original value of every AfterSaveBehavior.Throw property, including primary/alternate key properties (Throw by default). That hides real, unsaved changes to those values instead of only fixing the complex-type shadow snapshot case it was written for. An entity is tracked Unchanged with Id=1. The user sets its key to 2 with change tracking that relies on snapshots, then calls `entry.State = EntityState.Modified` before DetectChanges runs. The original Id is silently rewritten to 2. DetectChanges then sees no key change, so it doesn't throw KeyReadOnly or fix up the identity map/FKs. SaveChanges sends `UPDATE ... WHERE Id = 2`, which updates the wrong row or none, where it used to throw. The same happens to any Throw property with an unsaved change, such as a store-generated column configured with AfterSaveBehavior.Throw: its real change is dropped without an error. The overwrite should be limited to the properties that actually need it, e.g. shadow properties on complex types or properties whose original value has never been set."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 118000
+ }
+}

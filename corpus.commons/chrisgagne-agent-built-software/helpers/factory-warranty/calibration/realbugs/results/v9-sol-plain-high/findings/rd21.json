@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/sw5005-sus/ceramicraft-argocd-deploy",
+  "pr_number": 89,
+  "base": "9cf42c1eecc554ca953c3685fa1b6a34eeed910c",
+  "head": "d7a4532170487a111654cf8aa742f4007334b6e2"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 35,
+   "message": "The Helm deployment imported ms-secret-vault through envFrom; this replacement supplies only literal environment variables. The agent therefore loses its Vault-provided credentials, which are absent from the mounted ConfigMap, breaking authenticated dependencies. Preserve the secretRef."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "app-of-apps.yaml",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "The new application tracks a feature branch while the other repository applications track HEAD. After merging, changes to agent manifests on the default branch will not deploy; deleting the feature branch will prevent manifest generation entirely. Track the deployment branch consistently."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "helm_backend/ai-secure-agent-ms/values.yaml",
+   "start_line": 1,
+   "end_line": 5,
+   "message": "Removing this directory also removes ai-secure-agent-ms from the helm-app ApplicationSet. Its generated Application has cascading deletion enabled by default, so reconciliation can delete the existing Deployment and Service before agent-app adopts them, causing an outage. Stage a non-cascading ownership transfer before removing the directory. See [Argo CD resource deletion](https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Application-Deletion/)."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 22,
+   "end_line": 25,
+   "message": "The replacement drops both HTTP health probes previously configured at /ai-secure-agent-ms/v1/ping. Kubernetes will consider the container ready before the server is healthy and will no longer restart an unresponsive process, allowing failed instances to keep receiving traffic. Restore readiness and liveness checks."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 21,
+   "message": "The replacement omits the previous CPU and memory requests and limits. Without namespace defaults, the agent becomes BestEffort with unbounded resource consumption, losing its scheduling reservation and potentially exhausting resources used by neighboring services. Preserve the existing resource settings."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 99000
+ }
+}

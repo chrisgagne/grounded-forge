@@ -1,0 +1,112 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 176,
+   "end_line": 176,
+   "message": "When an admin edits a source URL that already has a token and doesn't retype it, the token is silently dropped instead of moving to the new URL, so syncing a private repo starts failing. On rename, McpServerGitSync.svelte:162-171 deletes the old key and sends `sourceURLCredentials[newUrl] = '*'`. In Update, the '*' case only does `if tok, ok := existingCred.Env[u]; ok`, with u being the new URL. The stored credential is keyed by the old URL, so nothing is copied, and the old URL is not in activeURLs, so its token is discarded. The comment 'transferred from a renamed one' describes behaviour the code doesn't have. Trigger: edit https://github.com/org/private-repo to https://github.com/org/private-repo/other-branch and save with the token field empty. newTokens comes out empty, DeleteCredential runs, and the next sync clones without auth."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 178,
+   "end_line": 178,
+   "message": "Editing a private source URL without re-entering its token deletes the saved credential and breaks authentication. McpServerGitSync.svelte remaps the old URL's '*' marker to the new URL and removes the old key. Update handles '*' only by looking up existingCred.Env[newURL], where no token exists; it drops the old URL's token and deletes the credential when newTokens is empty. Changing only a repository's branch therefore loses its saved token."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 156,
+   "end_line": 156,
+   "message": "A token entered together with a URL that has no scheme is silently thrown away, because the URL is given an https:// prefix but the key in the credentials map is not. Lines 156-158 rewrite `manifest.SourceURLs[i] = \"https://\" + urlStr`, but `manifest.SourceURLCredentials` keeps the raw key the UI sent (`[editingSource.value]: editingSource.token`). At line 185 `if _, active := activeURLs[u]; !active { continue }` then skips it. Trigger: add `github.com/org/private` with a PAT. The URL is saved with no credential, the response shows no '*', and no error is returned."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 170,
+   "end_line": 170,
+   "message": "Adding a scheme-less private source URL silently discards the supplied token. Update normalizes SourceURLs such as 'github.com/org/private' to 'https://github.com/org/private' at lines 126\u2013128, but leaves SourceURLCredentials keys unchanged. The UI keys the supplied token by the original editingSource.value. The activeURLs check then skips that credential because its unnormalized key does not match the normalized source URL, so saving succeeds without storing authentication."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 423,
+   "end_line": 423,
+   "message": "Existing deployments that rely on GITHUB_AUTH_TOKEN for a private GitHub catalog, including a custom default catalog set through OBOT_SERVER_DEFAULT_MCPCATALOG_PATH, lose authentication on upgrade and their syncs start failing. Before the change, `githubToken` was applied to every github.com clone and size check. `resolveToken` now returns the env token only when `catalogURL == defaultCatalogURL`, a hardcoded \"https://github.com/obot-platform/mcp-catalog\". It is not compared with the configured `defaultCatalogPath` (Dockerfile:61 sets it through an env var that operators can override). Every other GitHub URL now clones and calls the API without auth. Size checks on public repos also become unauthenticated, so they hit GitHub's lower rate limit. No migration or release note covers this."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 440,
+   "end_line": 440,
+   "message": "Raw catalog file URLs on gitlab.com used to be fetched as raw files and now fail to sync. `isGitRepoURL` now returns true for any `gitlab.com` host. For `https://gitlab.com/org/repo/-/raw/main/catalog.yaml`, `parseGitURL` finds no `.git` segment and falls into the gitlab.com branch, which sets the branch to `-/raw/main/catalog.yaml`. `validateBranchName` rejects that because of `strings.HasPrefix(branch, \"-\")`. Before the change, `isGitHubURL` was false for gitlab.com, so the URL went down the raw-file HTTP GET path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 751,
+   "end_line": 751,
+   "message": "The size limit applied during clone may reject repositories well under 100 MB, because it adds up the packfile in .git and the checked-out working tree against the same budget. A single `sizeLimitedFS` (maxBytes = 100 MiB) is both the worktree filesystem and, through `chroot.New(limitedFS, \".git\")`, the object storage passed to `git.CloneContext`. Every Write to the pack, the index and the checked-out files adds to one shared counter (`f.fs.written.Add`). A repo whose pack plus checkout is over 100 MiB fails with 'repository is too large', even though checkGitHubRepoSize, which uses the API repo size, passed it."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 197,
+   "end_line": 197,
+   "message": "The catalog's URL list is saved before the credential is written, so if the credential write fails the user gets an error even though the URL change has already been applied, without its token. `req.Update(&catalog)` runs at line 197. `CreateCredential` or `DeleteCredential` only runs afterwards (lines 202-218), and a failure there returns an error with nothing rolled back."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Listing or getting catalogs now fails completely if the credential store returns an error other than not-found, even though the only thing it adds is a '*' presence marker. `revealCatalogTokens` returns any non-NotFound error, and List/Get do `if err != nil { return err }` for each catalog. List also makes one RevealCredential call per catalog on every request."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 168,
+   "end_line": 168,
+   "message": "The rules for merging tokens in Update (keep with '*', clear with '', replace, drop for removed URLs) have no tests, which is how the rename and scheme-normalisation defects got through. The diff adds tests only for isGitRepoURL, parseGitURL, readGitCatalog and sizeLimitedFS. No test exercises `MCPCatalogHandler.Update` or `convertMCPCatalog` masking."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/controller/handlers/mcpcatalog/github_test.go",
+   "start_line": 914,
+   "end_line": 914,
+   "message": "TestReadGitCatalog clones live GitHub repositories, so its result depends on network access and the state of an external repo. The test calls `readGitCatalog(context.Background(), \"https://github.com/obot-platform/test-mcp-catalog.git\", \"\")`, and the new case does a real clone."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/credentials.go",
+   "start_line": 40,
+   "end_line": 40,
+   "message": "The change modifies the DeleteCredential handler, which the story doesn't cover: a not-found error now returns success. The target changed from `(*gptscript.ErrNotFound)(nil)` to `gptscript.ErrNotFound{}`. This matches the codebase's convention elsewhere (e.g. pkg/bootstrap/bootstrap.go:100) and probably fixes a match that never fired, but it changes the API's response for deletes of missing credentials."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "ui/user/src/routes/admin/mcp-servers/SourceUrlsView.svelte",
+   "start_line": 60,
+   "end_line": 60,
+   "message": "The new edit button contains only an icon and has no accessible name, so screen-reader users can't tell what it does. `<button class=\"icon-button\" ...><Pencil class=\"size-4\" /></button>` has no aria-label, title or visible text."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "ui/user/src/lib/components/admin/McpServerGitSync.svelte",
+   "start_line": 118,
+   "end_line": 118,
+   "message": "When saving an edit fails, the dialog still says 'Error adding source URL'. The error heading is the static text `Error adding source URL:`, while the title and button now switch between Add and Edit/Save depending on `editingSource.index`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

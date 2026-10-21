@@ -1,0 +1,208 @@
+[
+ {
+  "sources": [
+   "C1",
+   "X2"
+  ],
+  "verdict": "confirmed",
+  "reason": "handler.go:91 only enforces S256 when code_challenge is non-empty, and session.go ExchangeCode skips verifyPKCE when sess.CodeChallenge is empty. Token reads only code, redirect_uri and code_verifier, so an intercepted code plus redirect_uri is enough, even though Discovery advertises S256.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "services/copilot-review-mcp/internal/auth/handler.go",
+  "line": 91,
+  "claim": "PKCE is optional: an /authorize request without code_challenge yields a code that /token redeems for the GitHub token with no verifier and no client authentication.",
+  "evidence": "Authorize only checks the method `if codeChallenge != \"\" && codeChallengeMethod != \"S256\"`, so an empty challenge passes. ExchangeCode in session.go skips verification with `if sess.CodeChallenge != \"\" { verifyPKCE(...) }`. Token never checks client_id or a client secret. Anyone holding the internal code and redirect_uri gets the GitHub access_token back.",
+  "axis_row": "L2.1",
+  "id": "F1"
+ },
+ {
+  "sources": [
+   "C2"
+  ],
+  "verdict": "confirmed",
+  "reason": "session.go:60 assigns s.sessions[state] unconditionally, and Callback looks up only by state then redirects to sess.RedirectURI. Nothing binds the browser that started the flow to the one that hits /callback. The redirect host allowlist (localhost/127.0.0.1) narrows but does not remove the risk.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "services/copilot-review-mcp/internal/auth/session.go",
+  "line": 60,
+  "claim": "The client-supplied state is the session key and SaveSession overwrites any existing entry, so a second /authorize with the same state replaces an in-flight flow's redirect_uri and code_challenge.",
+  "evidence": "SaveSession does `s.sessions[state] = &Session{...}` with no check for an existing entry. Callback then looks up only by `state` (HasSession and CompleteCallback) and redirects to whatever `sess.RedirectURI` the most recent /authorize stored. Nothing binds the browser that started /authorize to the one that hits /callback (no cookie or server-generated nonce).",
+  "axis_row": "L2.1",
+  "id": "F2"
+ },
+ {
+  "sources": [
+   "C3",
+   "X1"
+  ],
+  "verdict": "confirmed",
+  "reason": "CompleteCallback (session.go:91-94) overwrites sess.InternalCode/AccessToken and adds s.codes[code] without deleting the earlier code. ExchangeCode deletes only the presented code and the state entry, so the other codes entry still resolves to the same *Session until ExpiresAt.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "services/copilot-review-mcp/internal/auth/session.go",
+  "line": 91,
+  "claim": "A second successful /callback for the same state mints another internal code without revoking the first. Both codes point at the shared Session, so the leftover code stays redeemable and can return a different (latest) access token.",
+  "evidence": "CompleteCallback assigns a new `code` and `s.codes[code] = sess` on every call, without removing an earlier sess.InternalCode. ExchangeCode does `delete(s.codes, code); delete(s.sessions, sess.State)`, but any other entries in s.codes still point to the same *Session, whose ExpiresAt is unchanged and whose AccessToken is still set.",
+  "axis_row": "L2.1",
+  "id": "F3"
+ },
+ {
+  "sources": [
+   "C4"
+  ],
+  "verdict": "confirmed",
+  "reason": "main.go registers GET /authorize on the public mux, and handler.go:112 calls SaveSession into an unbounded map that the janitor clears only after ExpiresAt. The state length is limited only by header size. Binding to 127.0.0.1 limits who can reach it but does not bound the growth.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "services/copilot-review-mcp/internal/auth/handler.go",
+  "line": 112,
+  "claim": "Unauthenticated /authorize stores a session for every distinct state with no cap, so the map can grow without bound for the session TTL and exhaust the 256M container.",
+  "evidence": "Authorize sits on the public mux (`mux.HandleFunc(\"GET /authorize\", ...)` in main.go). Each valid request calls `h.store.SaveSession(state, ...)` into an unbounded map, and the janitor only clears entries after ExpiresAt. The port is bound to 127.0.0.1, which limits who can reach it but does not bound the map.",
+  "id": "F4"
+ },
+ {
+  "sources": [
+   "C5"
+  ],
+  "verdict": "confirmed",
+  "reason": "handler.go:128-133 reads only code and state and returns http.Error 400 when code is empty. GitHub's error/error_description parameters are never read or forwarded to sess.RedirectURI, so the MCP client never learns the flow ended.",
+  "severity": "medium",
+  "raw_severity": "medium",
+  "file": "services/copilot-review-mcp/internal/auth/handler.go",
+  "line": 131,
+  "claim": "If the user denies consent or GitHub returns error=, Callback answers with a bare 400 instead of redirecting the error to the client's redirect_uri, so the client's login hangs.",
+  "evidence": "Callback reads only `code` and `state` and returns `http.Error(w, \"missing code or state\", http.StatusBadRequest)` when code is empty. GitHub's `error`/`error_description` query parameters are never read or forwarded to sess.RedirectURI.",
+  "id": "F5"
+ },
+ {
+  "sources": [
+   "C6",
+   "X3"
+  ],
+  "verdict": "confirmed",
+  "reason": "There are no *_test.go files under services/, and .github/workflows/lint-test.yml runs only npm test, shellcheck and bats. This is a coverage gap rather than a defect, so it stays low (C6 lowered from medium).",
+  "severity": "low",
+  "raw_severity": "medium",
+  "file": "services/copilot-review-mcp/internal/auth/session.go",
+  "line": 445,
+  "claim": "The new OAuth handler, session store and middleware ship with no tests, and CI has no Go job.",
+  "evidence": "The diff adds handler.go, session.go and middleware/auth.go but no *_test.go files. .github/workflows/lint-test.yml runs only `npm test`, shellcheck and bats, with no `go test` or `go vet`.",
+  "axis_row": "L3.22",
+  "id": "F6"
+ },
+ {
+  "sources": [
+   "C7"
+  ],
+  "verdict": "confirmed",
+  "reason": "docker-compose.yml:59 and main.go loadConfig both default to repo,user, and Token returns the GitHub access_token directly. This is a least-privilege concern with no traced misuse, so low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "docker-compose.yml",
+  "line": 59,
+  "claim": "The default OAuth scope repo,user is broader than a PR-review service needs, and the raw token is handed to the MCP client.",
+  "evidence": "`GITHUB_OAUTH_SCOPES=${GITHUB_OAUTH_SCOPES:-repo,user}` here and the matching default in main.go loadConfig. ValidateToken only needs `/user` (read:user would do), and Token returns the raw GitHub `access_token` to the caller.",
+  "axis_row": "L2.1",
+  "id": "F7"
+ },
+ {
+  "sources": [
+   "C8"
+  ],
+  "verdict": "confirmed",
+  "reason": "ValidateToken (handler.go:218) returns on a LookupToken hit without contacting GitHub, and middleware.Auth accepts any token that resolves to a login. Both are design choices with bounded impact, so low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "services/copilot-review-mcp/internal/auth/handler.go",
+  "line": 218,
+  "claim": "The validated-token cache keeps accepting a revoked token for up to TOKEN_CACHE_TTL_MIN, and the middleware accepts any valid GitHub token, not only ones this fa\u00e7ade issued.",
+  "evidence": "ValidateToken returns early on `h.store.LookupToken(token)` without contacting GitHub. middleware.Auth accepts any token for which ValidateToken returns a login, and there is no user allowlist or token-origin check.",
+  "axis_row": "L2.1",
+  "id": "F8"
+ },
+ {
+  "sources": [
+   "C9"
+  ],
+  "verdict": "confirmed",
+  "reason": "Token reads only grant_type, code, redirect_uri and code_verifier. exchangeGitHubCode sends h.cfg.GitHubClientID from config, so the comment misstates the security model. Documentation only, so low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "services/copilot-review-mcp/internal/auth/handler.go",
+  "line": 175,
+  "claim": "The Token doc comment says the client's client_id is validated by GitHub, but /token never reads client_id.",
+  "evidence": "Token reads only grant_type, code, redirect_uri and code_verifier. exchangeGitHubCode sends `h.cfg.GitHubClientID` from config, not anything the MCP client presented.",
+  "id": "F9"
+ },
+ {
+  "sources": [
+   "C10"
+  ],
+  "verdict": "confirmed",
+  "reason": "getEnvInt (main.go:113) returns any value Atoi parses, and main multiplies it into the Duration with no lower bound. With a zero TTL every session expires immediately. This is a misconfiguration edge, so low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "services/copilot-review-mcp/cmd/server/main.go",
+  "line": 113,
+  "claim": "SESSION_TTL_MIN and TOKEN_CACHE_TTL_MIN accept zero or negative values, and a zero session TTL silently breaks login.",
+  "evidence": "getEnvInt returns any value that strconv.Atoi parses. main passes `time.Duration(cfg.sessionTTLMin) * time.Minute` to NewStore with no lower bound.",
+  "id": "F10"
+ },
+ {
+  "sources": [
+   "C11"
+  ],
+  "verdict": "confirmed",
+  "reason": "handler.go:159 calls lookupByCode after CompleteCallback has released s.mu, and the method on *Store is defined in handler.go. The window only matters if the code is consumed or expired in between, so this is maintainability, low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "services/copilot-review-mcp/internal/auth/handler.go",
+  "line": 159,
+  "claim": "Callback re-reads the session through a separate lookupByCode lock acquisition instead of having CompleteCallback return it, and lookupByCode lives in handler.go.",
+  "evidence": "`sess := h.store.lookupByCode(internalCode)` runs after CompleteCallback has released s.mu, and the comments around it say it is a workaround. lookupByCode is defined on *Store in handler.go rather than in session.go.",
+  "id": "F11"
+ },
+ {
+  "sources": [
+   "C12"
+  ],
+  "verdict": "confirmed",
+  "reason": "Dockerfile:2 and :11 have no @sha256 pin, and Dockerfile.github-mcp-server:18 uses golang:1.26-bookworm. This is reproducibility drift, not a defect, so low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "services/copilot-review-mcp/Dockerfile",
+  "line": 2,
+  "claim": "Base images use mutable tags, not digests, and the Go 1.24 builder differs from the repo's 1.26 builder.",
+  "evidence": "`FROM golang:1.24-alpine AS builder` and `FROM gcr.io/distroless/static-debian12:nonroot` have no @sha256 pin. Dockerfile.github-mcp-server line 18 uses `golang:1.26-bookworm`.",
+  "axis_row": "L5.10",
+  "id": "F12"
+ },
+ {
+  "sources": [
+   "C13"
+  ],
+  "verdict": "confirmed",
+  "reason": "A search of scripts/ finds no copilot-review or 8083 reference, mustEnv calls os.Exit(1) on an empty GITHUB_CLIENT_ID under restart: unless-stopped, and .env.template lists only the PAT and LOG_LEVEL. Ops and documentation gap, so low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "docker-compose.yml",
+  "line": 70,
+  "claim": "The compose comment says health is validated host-side, but no host script checks this service. Without GITHUB_CLIENT_ID/SECRET the container crash-loops, and the new variables are missing from .env.template.",
+  "evidence": "A search finds no reference to copilot-review or port 8083 in scripts/health-check.sh. mustEnv calls os.Exit(1) when GITHUB_CLIENT_ID is empty. .env.template lists only GITHUB_PERSONAL_ACCESS_TOKEN, GITHUB_MCP_* and LOG_LEVEL.",
+  "id": "F13"
+ },
+ {
+  "sources": [
+   "C14"
+  ],
+  "verdict": "confirmed",
+  "reason": "docker-compose.yml:58 hard-codes http://localhost:8083 as the BASE_URL default while MCP_PORT and the port mapping follow COPILOT_REVIEW_MCP_PORT, and NewHandler builds /callback and the discovery URLs from BaseURL. Setting BASE_URL works around it, so low.",
+  "severity": "low",
+  "raw_severity": "low",
+  "file": "docker-compose.yml",
+  "line": 58,
+  "claim": "Changing COPILOT_REVIEW_MCP_PORT moves the listener but BASE_URL stays at :8083, so discovery and the GitHub callback URL point at the wrong port.",
+  "evidence": "`MCP_PORT=${COPILOT_REVIEW_MCP_PORT:-8083}` follows the variable, but `BASE_URL=${BASE_URL:-http://localhost:8083}` is hard-coded. NewHandler builds the `/callback` redirect and the Discovery endpoints from BaseURL.",
+  "id": "F14"
+ }
+]

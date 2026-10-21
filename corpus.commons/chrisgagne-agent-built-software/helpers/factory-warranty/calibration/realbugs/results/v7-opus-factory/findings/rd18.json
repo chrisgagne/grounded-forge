@@ -1,0 +1,112 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v7-opus-factory",
+ "findings": [
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/AktivitetspengerInntektsrapporteringInnsending.kt",
+   "start_line": 51,
+   "end_line": 51,
+   "message": "The k9-format document for an income report has nothing that marks it as a report rather than an application, and it sets s\u00f8knadsperiode to the income month. ung-sak reads this topic, so it may treat an income report as a new aktivitetspenger application for that month. somK9Format builds `Aktivitetspenger().medS\u00f8knadsperiode(oppgittInntektForPeriode.periodeForInntekt.somUngPeriode()).medInntekter(...)` and sets no s\u00f8knad type. The ungdomsytelse version it copies (UngdomsytelseInntektsrapporteringInnsending.kt:56-58) calls `.medS\u00f8knadType(UngS\u00f8knadstype.RAPPORTERING_S\u00d8KNAD)` and sets no s\u00f8knadsperiode. The locked test's expected JSON shows `\"type\": \"AKTIVITETSPENGER\", \"s\u00f8knadsperiode\": \"2025-01-01/2025-01-31\"`, which is the same shape as an aktivitetspenger application. nais/topics/aktivitetspenger-inntektsrapportering-topics.yml gives `ung-sak` read access to the cleanup topic."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 113,
+   "end_line": 113,
+   "message": "The service never checks that the fetched task is an unsolved RAPPORTER_INNTEKT task belonging to aktivitetspenger. A report against a task that is already solved, or that belongs to another benefit, may get journalled and marked solved under aktivitetspenger. hentInntektsrapporteringPeriode only checks `oppgave.oppgavetypeData as? InntektsrapporteringOppgavetypeDataDto` and ignores `oppgave.status` and `oppgavetype`. It calls the same UngBrukerdialogApiService.hentOppgave that the ungdomsytelse inntektsrapportering flow uses (UngdomsytelseService.kt:149), so an ungdomsytelse income-report task also passes this check."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "The report is put on Kafka before the task is marked solved. If markerOppgaveSomL\u00f8st fails, the user gets an error while the report is already queued for journalling, and the duplicate check then blocks a retry, so the task may stay unsolved even though the report was received. The order is `duplikatInnsendingSjekker.forsikreIkkeDuplikatInnsending(cacheKey)`, then `innsendingService.registrer(...)`, then `metrikkService...`, then `ungBrukerdialogApiService.markerOppgaveSomL\u00f8st(...)`. UngBrukerdialogApiService.markerOppgaveSomL\u00f8st throws `markerOppgaveSomL\u00f8stFeil` on error responses (lines 116-135), and nothing compensates or rolls back."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "start_line": 138,
+   "end_line": 138,
+   "message": "Journalling uses a placeholder brevkode, so if this reaches production, documents go to Joark/dokarkiv with an invalid brevkode. `AKTIVITETSPENGER_INNTEKTRAPPORTERING(brevkode = BrevKode(brevKode = \"FIXME_AVP_INNTEKT_BREVKODE\", dokumentKategori = \"SOK\"), ...)` is used by AktivitetspengerInntektsrapporteringPreprosessert.tilJournaf\u00f8rigsRequest. dokumentKategori is also \"SOK\" (s\u00f8knad) for what is an income report. The enum name also misspells INNTEKTSRAPPORTERING as INNTEKTRAPPORTERING."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "start_line": 132,
+   "end_line": 132,
+   "message": "The change also renames the journal title of the existing AKTIVITETSPENGER_S\u00d8KNAD, which is outside the income-report feature and changes what existing applications are archived as. The diff changes `tittel = \"S\u00f8knad om ungdomsprogramytelse - NAV Aktivitetspenger\"` to `\"S\u00f8knad om aktivitetspenger - NAV Aktivitetspenger\"` for AKTIVITETSPENGER_S\u00d8KNAD, alongside re-indenting the block."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/kafka/Aktivitetspengers\u00f8knadKonsumentTest.kt",
+   "start_line": 175,
+   "end_line": 175,
+   "message": "A baseline acceptance test that was supposed to be locked was edited so it passes after the k9-format dependency bump. That changes the expected output of the existing aktivitetspenger application flow without a recorded decision. The diff adds `\"inntekter\": null` to the expected preprocessed JSON in Aktivitetspengers\u00f8knadKonsumentTest. That follows from build.gradle.kts bumping `k9FormatVersion` from \"12.9.2\" to \"12.10.0\", which nothing in the packet asks for. acceptance.md says \"The baseline's tests are the locked acceptance tests\"."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "build.gradle.kts",
+   "start_line": 36,
+   "end_line": 36,
+   "message": "The k9-format library version is bumped as part of the feature, which changes the serialised output of every aktivitetspenger application. This dependency change needs its own review. `-val k9FormatVersion = \"12.9.2\"` / `+val k9FormatVersion = \"12.10.0\"`. The new code needs `Aktivitetspenger.medInntekter`, and the existing application test output gains `\"inntekter\": null`."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "The new controller test posts the ungdomsytelse fixture rather than the aktivitetspenger one, and checks only the HTTP status. It would still pass if the service sent the wrong period or amount, or never marked the task as solved. The test imports `no.nav.brukerdialog.ytelse.ungdomsytelse.utils.InntektrapporteringUtils` and serialises its `UngdomsytelseInntektsrapportering`. It only asserts `status { isAccepted() }` and the correlation header. It has no `verify` on `innsendingService.registrer` or `ungBrukerdialogApiService.markerOppgaveSomL\u00f8st`, and it mocks the unused `barnService.hentBarn()`."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/kafka/AktivitetspengerInntektRapporteringKonsumentTest.kt",
+   "start_line": 51,
+   "end_line": 51,
+   "message": "The end-to-end test fixes the task period at 2025-01 but never checks that the period from hentOppgave reaches the k9 document or the L\u00f8sOppgaveRequest, so the core mapping from task to period is untested at the HTTP entry point. The first test mocks `InntektsrapporteringOppgavetypeDataDto(2025-01-01, 2025-01-31, false)` and then checks only `slettDokumenter` and the dittnav message fields. The second test feeds a prebuilt Mottatt straight onto the topic and skips the service. It also declares an unused `deltakelseId`."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/Ytelse.kt",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "The new AKTIVITETSPENGER_INNTEKTSRAPPORTERING value is never mapped from a caller client id, so any code that derives the benefit from the caller (utledYtelseFraCallerIMDC) can never resolve to it. Callers from the aktivitetspenger dialogs resolve to AKTIVITETSPENGER instead. `somYtelse()` maps \"aktivitetspenger-soknad\" and \"aktivitetspenger-innsyn\" to `AKTIVITETSPENGER`, and no branch returns AKTIVITETSPENGER_INNTEKTSRAPPORTERING."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/kafka/inntektsrapportering/AktivitetspengerInntektsrapporteringTopologyConfiguration.kt",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "The cleanup Topic bean is named `aktivitetpengerInntektsrapporteringCleanupTopic` (missing an 's'), while the consumers inject `aktivitetspengerInntektsrapporteringCleanupTopic`. Wiring works only because Spring resolves the bean by its generic type, so a second bean of the same type would cause an ambiguous-bean failure. `fun aktivitetpengerInntektsrapporteringCleanupTopic(): Topic<TopicEntry<Cleanup<AktivitetspengerInntektsrapporteringPreprosessert>>>`, while AktivitetspengerInntektsrapporteringCleanup and ...Journalf\u00f8ring declare `private val aktivitetspengerInntektsrapporteringCleanupTopic`."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/pdf/PDFGenerator.kt",
+   "start_line": 266,
+   "end_line": 266,
+   "message": "Several names are misleading: the PDF template is called a 'soknad' (application) although it is an income report, and the PDF test writes its output with the ungdomsytelse prefix 'ung'. `Ytelse.AKTIVITETSPENGER_INNTEKTSRAPPORTERING -> \"aktivitetspenger-rapportering-soknad$spr\u00e5kSuffix\"`. AktivitetspengerInntektsrapporteringPdfGeneratorTest has `const val PDF_PREFIX = \"ung\"`, and its two generated cases ('1-full-inntekt-alle', '2-arbeidstaker-og-frilansinntekt') use identical input."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/resources/handlebars/aktivitetspenger-rapportering-soknad.hbs",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "The template renders `{{ id }}`, which pdfData never supplies, so the footer always has an empty span. AktivitetspengerInntektsrapporteringPdfData.pdfData() returns the keys tittel, oppgaveReferanse, s\u00f8knadMottattDag, s\u00f8knadMottatt, inntektForPeriode, s\u00f8ker and hjelp, with no `id`. The template footer has `<span class=\"soknadsid\">{{ id }}</span>`."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntektForPeriode.kt",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The domain classes OppgittInntekt, OppgittInntektForPeriode, UngPeriode, the Innsending and the Komplett class duplicate the ungdomsytelse inntektsrapportering package almost line for line, so later fixes must be made in two places. The new files mirror ytelse/ungdomsytelse/api/domene/inntektsrapportering/* (OppgittInntekt.kt, OppgittInntektForPeriode.kt, the ...Innsending.kt structure), and AktivitetspengerService.inntektrapportering is a copy of UngdomsytelseService.inntektrapportering (lines 112-154)."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

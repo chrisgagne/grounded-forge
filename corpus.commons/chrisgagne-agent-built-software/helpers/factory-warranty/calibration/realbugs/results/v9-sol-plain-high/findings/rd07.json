@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 134,
+   "message": "companySchema still requires ownerName, but the validation payload and company forms no longer include it. Every save fails validation, and the sidebar hides the error because ownerName has no corresponding field. Creation is blocked by the same mismatch. Update the schema alongside the removed fields."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "The dashboard now receives a numeric company ID, but its operator, vehicle, role, fare, and route pages still filter fixture records using IDs such as COMP-001. None of those records match the new parameter, so navigating from a company dashboard produces empty management lists. Update the downstream consumers together with this identifier change."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/lib/constants.ts",
+   "start_line": 121,
+   "end_line": 124,
+   "message": "The new 'Under Verification' label is not recognized by DetailAvatarCard or the company dashboard, which still check for 'Validating'/'Verifying'. Companies with status 1 therefore lose their avatar status badge and dashboard status message. Update those consumers to recognize the new label."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 60,
+   "end_line": 62,
+   "message": "Stopping every keydown event on the dialog prevents Escape from reaching the window handler. Once focus enters the dialog or its close button, Escape no longer dismisses the map. Handle Escape on the dialog itself or allow that event to propagate."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 111,
+   "end_line": 112,
+   "message": "A full final page always advertises another page. When the company count is an exact multiple of itemsPerPage, clicking Next fetches an empty page, falls back to the previous page, and enables the same nonexistent Next page again indefinitely. Fetch one extra record to determine whether another page exists, or use a backend total."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 134000
+ }
+}

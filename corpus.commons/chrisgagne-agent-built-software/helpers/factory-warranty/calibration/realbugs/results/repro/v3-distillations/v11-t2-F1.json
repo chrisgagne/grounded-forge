@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.14444419999999997,
+  "duration_s": 19.8
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/roundtrip.mjs {tree}",
+  "because": "Dumping {a: 1} with flowLevel 0 and flowSkipColonSpace on gives `{a:1}` on head, and the project's own load reads that back as {'a:1': null}, so the round-trip silently changes the data; on base the key is quoted (`{\"a\":1}`) and the data comes back as {a: 1}."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "\"{\\\"a\\\":1}\\n\" -> {\"a\":1}\nOK\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "\"{a:1}\\n\" -> {\"a:1\":null}\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nAssertionError [ERR_ASSERTION]: round-trip changed data: dumped \"{a:1}\\n\"\n+ actual - expected\n\n  {\n+   'a:1': null\n-   a: 1\n  }\n\n    at file://<home>/Documents/LLM%20Repos/repos/realbugs-work/repro-work/v3-distillations/v11-t2-F1/check/roundtrip.mjs:8:8 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: { 'a:1': null },\n  expected: { a: 1 },\n  operator: 'deepStrictEqual'\n}\n\nNode.js v22.17.1\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "Dumping {a: 1} with flowLevel 0 and flowSkipColonSpace on gives `{a:1}` on head, and the project's own load reads that back as {'a:1': null}, so the round-trip silently changes the data; on base the key is quoted (`{\"a\":1}`) and the data comes back as {a: 1}.",
+ "run": "v3-distillations",
+ "trial": "v11-t2",
+ "kind": "bug"
+}

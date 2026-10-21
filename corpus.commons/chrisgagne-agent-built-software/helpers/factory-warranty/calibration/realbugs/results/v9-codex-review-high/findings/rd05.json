@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/Mirkiux/featkit",
+  "pr_number": 17,
+  "base": "471774c774a89902228a0b74b696ff7304332437",
+  "head": "de0187b0e5e781ca08ef7d7923e33cba6531c200"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "Apply the entropy fallback inside the conditional expression. Whenever ENTROPY is requested, the generated expression calls `.otherwise()` on `F.sum(...)`. PySpark only permits `.otherwise()` on a column produced by `F.when()`, so Layer 2B fails during expression construction. Move the fallback inside the conditional or use `F.coalesce()` around the aggregate."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 123,
+   "end_line": 124,
+   "message": "Normalize timestamps to the configured target granularity. For a DAILY-to-MONTHLY `TimeField`, this groups by the original daily timestamp rather than the target month. MOB and Layer 2B also use the unmodified timestamp, so monthly features remain daily and a three-period window covers three observations instead of three months. Apply the required time truncation consistently before constructing periods and aggregating either Layer 2 table."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 331,
+   "end_line": 333,
+   "message": "Handle temporal measurements separately in growth expressions. For FECHA measurements stored as Spark dates or timestamps, the default temporal contract includes CREC, so this expression is generated automatically. Dividing a date/timestamp difference by a lagged date/timestamp is not valid Spark arithmetic, and Layer 3 fails analysis. Temporal sources need an explicitly defined duration-based calculation rather than the numeric growth expression."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 238,
+   "end_line": 239,
+   "message": "Select the modal category instead of an arbitrary first row. When an entity-period contains multiple categories, `F.first()` returns whichever category appears first after the shuffle, regardless of its frequency or aggregated weight. Consequently MODE can return a non-modal category and change after repartitioning. Select the category using its category count or weight, with a deterministic tie policy."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 351,
+   "end_line": 352,
+   "message": "Implement a ratio rather than duplicating the rolling sum. When `composed_windows` enables RATIO, this branch emits exactly the same calculation as SUM_U for the corresponding window. There is no denominator or comparison calculation, so the resulting feature contains an amount rather than a ratio. Implement the composed ratio with appropriate zero-denominator handling, or explicitly reject the unsupported operator."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 280,
+   "end_line": 284,
+   "message": "Handle an empty temporal feature list without emitting a comma. A valid configuration such as `operators_override={Layer2OutputType.NUMERIC: []}` produces no temporal features. In that case `feat_list` is empty, but this template emits a standalone comma inside `select()`, making the complete generated script invalid Python. Skip this stage or emit a keys-only selection when Layer 3 is empty."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 102,
+   "end_line": 103,
+   "message": "Serialize input strings as escaped Python literals. An allowed categorical value such as `A\"B` is accepted by the pipeline but interpolated directly into double-quoted Python expressions and aliases, producing an invalid script. Backslashes and newlines can also change the emitted literal's meaning. Use Python literal serialization consistently for categorical values, field names, aliases, and their later references."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 294,
+   "end_line": 298,
+   "message": "Quote generated feature names as literal Spark identifiers. A supported category value containing a period, such as `U.S.`, creates an alias like `SUM__mto__sector_U.S.`. Passing that name directly to `F.col()` makes Spark interpret the periods as nested-field separators, so Layer 3 cannot resolve the column created by Layer 2A. Backtick-quote and escape the complete identifier when referencing generated feature columns."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 74,
+   "end_line": 77,
+   "message": "Preserve missing calendar periods in the MOB axis. If an entire period has no facts, selecting only distinct observed timestamps removes it from the MOB axis. For monthly facts present in January and March but absent in February, those months receive consecutive MOB values, so a two-month March window incorrectly includes January and PREV_MES returns January's value. Generate a continuous period axis at the target granularity before cross-joining entities."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 396,
+   "end_line": 396,
+   "message": "Preserve the base generator's return-type contract. `AbstractCodeGenerator.generate()` returns `FeatureStoreOutput`, but this override widens that return type to `object`. This is an incompatible override, and direct callers in the new tests consequently access `.code`, `.dag`, and `.mermaid` on an `object`. The existing CI runs `mypy .`, so annotate this method with its actual `FeatureStoreOutput` return type."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 246000
+ }
+}

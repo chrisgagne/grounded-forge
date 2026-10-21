@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 176,
+   "end_line": 179,
+   "message": "Editing a private source URL loses its stored token. The UI sends \"*\" under the new URL, but this lookup only checks existingCred.Env[newURL], while the token remains keyed by the old URL. The old key is then dropped. Changing a branch or adding a .git suffix therefore silently removes authentication. Preserve the association explicitly when renaming a source."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 126,
+   "end_line": 128,
+   "message": "URL normalization does not normalize the corresponding SourceURLCredentials key. Entering gitlab.com/org/private.git with a PAT produces an HTTPS source URL, but the token remains keyed by the scheme-less input and is discarded by the activeURLs check. The request succeeds without storing the token, so the private source cannot sync."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 330,
+   "end_line": 334,
+   "message": "Hardcoding the GitHub authentication username prevents private repositories on other HTTPS hosts from working. For example, [Bitbucket Cloud requires x-token-auth for repository access tokens](https://support.atlassian.com/bitbucket-cloud/docs/using-access-tokens/). Supplying that username in the source URL cannot help because parseGitURL discards URL user information. Support a configurable username or the appropriate authentication scheme for each host."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 58,
+   "end_line": 60,
+   "message": "Classifying every gitlab.com URL as a repository breaks previously supported raw-file sources such as https://gitlab.com/org/repo/-/raw/main/catalog.yaml. These previously used the HTTP/YAML path; now the parser interprets -/raw/main/catalog.yaml as a branch and rejects it. Keep GitLab raw-file URLs on the raw catalog path."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 225,
+   "end_line": 227,
+   "message": "The two-component path requirement rejects valid repositories hosted directly beneath an HTTPS host, such as https://git.example.com/catalog.git. isGitRepoURL recognizes this URL, but parsing fails before reaching the .git boundary logic. Generic git hosts do not necessarily have an organization component; allow a single repository path component when the .git boundary is present."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 229000
+ }
+}

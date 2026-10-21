@@ -1,0 +1,72 @@
+{
+ "id": "w06",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5931,
+ "codex_tokens": 35232,
+ "work": "<tmp>/replay-w06-t1-tp9x98po",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "src/renderer.ts:307-324 now handles only text, image, html and breaks, so a code_inline token falls into `default: // all other tokens are skipped`. default_rules.image at :108-109 sets alt from this return value. The trigger is input like ![`diagram`](/x.png), which now renders alt=\"\" instead of alt=\"diagram\".",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/renderer.ts",
+   "line": 308,
+   "claim": "Removing the code_inline case from renderInlineAsText drops code-span text from image alt attributes.",
+   "evidence": "The diff deletes `case 'code_inline':` and its comment (\"code content is added as plain text, without backticks\") from the switch at src/renderer.ts:307-324. `code_inline` tokens, which backticks.ts:42 pushes inside image children, now reach `default: // all other tokens are skipped`, so their content is never appended. `default_rules.image` (src/renderer.ts:108-109) sets the `alt` attr from this function's return value, so every image whose description contains a code span loses that text.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Grepping test/ for an image description that contains a backtick finds only prose lines in spec.txt and no example that tests one. The gap is real. I lowered it to low because missing coverage is not a defect in itself; the defect is the C1/X1 item.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/markdown-it/misc.test.mjs",
+   "line": 327,
+   "claim": "No test covers a code span inside image alt text, so the suite does not catch this regression.",
+   "evidence": "The alt-text tests ('Should join text tokens inside image alt' at misc.test.mjs:327-340, 'Strip markdown in ALT tags' at commonmark_extras.txt:15-19) only use text, emphasis, escapes, entities and links. Searching test/ for an image description containing a backtick (`^!\\[.*``) finds nothing, so no test puts a `code_inline` token in alt text.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "acceptance.md points to story.md and tests.lock, but a glob of the packet finds only risk.json, so the change has no spec to justify removing a commented, deliberate behaviour. This is a process point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/renderer.ts",
+   "line": 322,
+   "claim": "Nothing in the packet asks for this behaviour change, so the removal has no stated reason or criterion to check it against.",
+   "evidence": "acceptance.md says only \"story.md is the spec\", but there is no story.md in the packet or the export (a glob for story.md and tests.lock found no files). risk.json has empty `classes`. The whole diff is the two deleted lines, which turn a deliberate, commented behaviour into the silent `default` skip path.",
+   "axis_row": "L1.1",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

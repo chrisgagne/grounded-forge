@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/Imageomics/catalog",
+  "pr_number": 75,
+  "base": "5f10688a0afd8b2891d6cec32f0c3bfca9a7aaed",
+  "head": "a8a7cdc7b0cbac54485dbcf53cf6ae6ddbecfe92"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "main.js",
+   "start_line": 765,
+   "end_line": 767,
+   "message": "Breaking Config. `ADDITIONAL_HF_REPOS` is now required. Any existing `config.yaml` that lacks the key fails validation (`!Array.isArray(undefined)`), even though the feature is optional. This README describes a template (\"your new catalog repo\"), so catalogs created from it will break when they pull this change unless they add `ADDITIONAL_HF_REPOS: []`. Treat a missing key as `[]` (e.g. `CONFIG.ADDITIONAL_HF_REPOS ??= []` before validation), and only reject values that are present but not arrays."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "scripts/export-tags.js",
+   "start_line": 48,
+   "end_line": 52,
+   "message": "Breaking Config. The export script has the same problem. It now throws if `ADDITIONAL_HF_REPOS` is absent, so tag export fails for any existing config that predates this key. Default a missing value to an empty array instead of erroring."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "scripts/export-tags.js",
+   "start_line": 132,
+   "end_line": 138,
+   "message": "Silent Failures. `.catch(() => null)` drops failed fetches with no log. A typo or private repo in `ADDITIONAL_HF_REPOS` is silently left out of the exported tags. This differs from `main.js`, which warns. Validation also checks `e.repo.trim()`, but the untrimmed `entry.repo` is used in the URL, so an entry with leading or trailing whitespace passes validation and then fails to fetch with no indication. Log the error, and trim `repo` before use (in both files)."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 20000
+ }
+}

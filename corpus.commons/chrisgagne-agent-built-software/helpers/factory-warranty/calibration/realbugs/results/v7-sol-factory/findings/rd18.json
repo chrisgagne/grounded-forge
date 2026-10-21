@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "A task-completion failure leaves an already queued report with an unresolved task and makes retries unsafe. innsendingService.registrer publishes the report to Kafka before markerOppgaveSomL\u00f8st runs. If that HTTP call exhausts its retries, the request fails although the report is queued. An immediate client retry is rejected by the duplicate cache; after expiry, the service publishes the report again before attempting task completion. No durable retry or reconciliation for task completion is added."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 90,
+   "end_line": 90,
+   "message": "Submitting one income task blocks submission of another task for the same person during the cache expiry period. The cache key contains only personIdent and ytelse, omitting oppgaveReferanse. Two submissions for different task UUIDs therefore use the same key. DuplikatInnsendingSjekker.forsikreIkkeDuplikatInnsending stores the first key and rejects the second with HTTP 400 without registering its report."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new Kafka topics may remain unprovisioned because their manifest is absent from the deployment workflows. The change adds three topic resources and starts consumers for them, but no workflow references aktivitetspenger-inntektsrapportering-topics.yml. Existing topic deployment uses explicit paths: deploy-aktivitetspenger-soknad-topics.yml passes only aktivitetspenger-soknad-topics.yml, and the reusable topics workflow deploys only inputs.topics-path. No caller supplies the new manifest."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

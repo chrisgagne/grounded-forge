@@ -10,6 +10,10 @@
 # Two profiles ship distinct content. That is the matrix architecture
 # made visible: same references, different projections.
 #
+# A profile may also ship helpers: code beyond its skills and agents. When
+# {source_dir}/helpers/{profile}/ exists, the build copies it into the app at
+# `helpers_dir` (default helpers/), leaving local environments and caches behind.
+#
 # Usage:
 #   node build.js decision
 #   node build.js stakeholder
@@ -115,6 +119,7 @@ builds:
 
     validation:
       ignore_dangling:
+        - corpus.commons/chrisgagne-agent-built-software/
         # _planning/ is private and gitignored; references in source
         # docs to _planning/ are expected to dangle in apps/
         - "_planning/*"
@@ -288,6 +293,7 @@ builds:
 
     validation:
       ignore_dangling:
+        - "corpus.commons/chrisgagne-agent-built-software/"
         - "_planning/*"
         - "docs/how-to/*"
         - "docs/how-to/"
@@ -451,6 +457,7 @@ builds:
 
     validation:
       ignore_dangling:
+        - "corpus.commons/chrisgagne-agent-built-software/"
         - "_planning/*"
         - "docs/how-to/*"
         - "docs/how-to/"
@@ -596,6 +603,7 @@ builds:
 
     validation:
       ignore_dangling:
+        - "corpus.commons/chrisgagne-agent-built-software/"
         - "_planning/*"
         - "docs/how-to/*"
         - "docs/how-to/"
@@ -739,6 +747,7 @@ builds:
 
     validation:
       ignore_dangling:
+        - "corpus.commons/chrisgagne-agent-built-software/"
         - "_planning/*"
         - "docs/how-to/*"
         - "docs/how-to/"

@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/rcrsr/rill",
+  "pr_number": 53,
+  "base": "237cccc6a7726c10b01fc547cfbacf281dc0b7e3",
+  "head": "2ed44cafed83491d4f58902d478b23cbc0fd01ef"
+ },
+ "agent": "v6-control",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "packages/core/src/runtime/core/callable.ts",
+   "start_line": 63,
+   "end_line": 63,
+   "message": "Host functions get their `ctx` typed as `RuntimeContextLike`, and there `hostContext` is optional (`Record<string, unknown> | undefined`). `RuntimeContext` makes the field required and always defaults it to `{}`, but extension code never sees that guarantee. Authors have to either cast to `RuntimeContext` (every new test does this) or handle a value that can never be undefined. Making it required here (`readonly hostContext: Record<string, unknown>`) would let extensions use `ctx.hostContext` without a cast."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/core/src/runtime/ext/test-context.ts",
+   "start_line": 156,
+   "end_line": 192,
+   "message": "`createTestContext` is the public helper for testing extensions. It has no way to pass in `hostContext`; it calls `createRuntimeContext` without the option, so the context always gets `{}`. The point of this feature is that extensions can read host-provided values, but extension authors can't use the official test harness to test code that depends on them. Add an optional `hostContext` (or an options) parameter and forward it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/core/src/runtime/core/context.ts",
+   "start_line": 314,
+   "end_line": 314,
+   "message": "The host's object is stored by reference and is not copied or frozen. `readonly` only stops the property from being reassigned; the bag's contents can still change. Any extension can mutate the shared bag, and the host can change it while a script is running, so other extensions or later runs see those changes (the tests assert the reference is identical). If this is intended, document that the bag is shared and mutable. If not, shallow-copy or freeze it, like the immutability guarantees elsewhere in the runtime."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/core/src/runtime/core/types/runtime.ts",
+   "start_line": 242,
+   "end_line": 243,
+   "message": "This adds a new public `RuntimeOptions` / `RuntimeContext` field, but `docs/` is not updated. `docs/integration-host.md` documents `ctx.metadata` for host functions (lines 257-288) and says nothing about `hostContext`. Per the project's documentation conventions, `docs/integration-host.md` and `docs/ref-host-api.md` should describe the new option and how it differs from `metadata`, which only holds strings."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/core/src/runtime/core/types/runtime.ts",
+   "start_line": 174,
+   "end_line": 174,
+   "message": "`hostContext` is now a required member of the exported `RuntimeContext` interface. Any downstream code that builds a `RuntimeContext` object literal (for example a custom or minimal context, as `assertType` had to be patched to do) will stop compiling. The CHANGELOG lists this only as 'Added' and doesn't mention the type-level breaking change; it should be noted, or the field made optional on the interface."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "packages/core/src/runtime/core/callable.ts",
+   "start_line": 63,
+   "end_line": 63,
+   "message": "The new field is optional (`hostContext?: ... | undefined`) on `RuntimeContextLike`, which is the type of `ctx` that `CallableFn` gives host functions and extensions. The runtime always sets `hostContext` to `{}` or the host's object, and `RuntimeContext` declares it required. Because of this mismatch, extension authors either write `ctx.hostContext?.[...]` everywhere or cast to `RuntimeContext`, which is what every new test does. Make it non-optional here so extensions get the guarantee the runtime already provides."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "packages/core/src/runtime/core/types/runtime.ts",
+   "start_line": 169,
+   "end_line": 169,
+   "message": "`RuntimeContext` is a public export, and this adds `hostContext` to it as a required field. Any code outside this repo that builds a `RuntimeContext` object literal will stop compiling, for example mocks or test contexts in rill-ext and rill-agent, or code that hand-builds a minimal context the way `assertType` in eval/index.ts does. That is a breaking type change, but the CHANGELOG lists it only under `Added` and the PR calls it backward compatible. Either make the field optional on `RuntimeContext` and read it with `?? {}`, or record the change as breaking for downstream repos."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "packages/core/src/runtime/core/context.ts",
+   "start_line": 314,
+   "end_line": 314,
+   "message": "The host's object is stored by reference and is never copied or frozen, and every child, closure and module context gets that same reference. `readonly` only stops the property from being reassigned; the record itself can still be changed. So one extension can add or change keys in a way that other extensions and later calls see, and changes the host makes after `createRuntimeContext` also show up mid-run. The PR says this sharing is intended, so at least document that it is shared and mutable. Otherwise, consider making a shallow copy and freezing it (`Object.freeze({ ...options.hostContext })`)."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "docs/integration-host.md",
+   "start_line": 257,
+   "end_line": 288,
+   "message": "The docs were not updated. integration-host.md is the `RuntimeOptions` field reference (ref-host-api.md points to it), and it documents `ctx.metadata` for host functions but never mentions `hostContext`. Per CLAUDE.md, docs/ is the source of truth, so this new host-facing API needs a section here: what it is, how it differs from `metadata`, its `{}` default, and that it is shared by reference."
+  },
+  {
+   "producer": "v5-claude-again",
+   "file": "packages/core/tests/runtime/host-context.test.ts",
+   "start_line": 236,
+   "end_line": 268,
+   "message": "The propagation tests only cover the child context created for a conditional branch. They don't cover host functions called from inside a script closure (`createCallableContext` spreads `this.ctx`), from collection operators (`each`/`map`), or from modules loaded with `use<...>` (use.ts creates a child context with overrides). These are the paths where a future refactor of how contexts are built could quietly drop `hostContext`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 40000
+ }
+}

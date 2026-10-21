@@ -1,0 +1,35 @@
+{
+ "id": "w11",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.8013,
+ "codex_tokens": 29832,
+ "work": "<tmp>/replay-w11-t1-ecyrvdin",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "noise",
+   "reason": "I grepped the export and found no remaining reference to ranges/valid-range. index.js:60 and test/ranges/valid.js:2 both point at ./ranges/valid, so nothing in the repo breaks. package.json `files` publishes only bin, range.bnf and semver.js, so ranges/ never ships and outside code can't deep-import the old path. No story file says the old path had to stay.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "index.js",
+   "line": 60,
+   "claim": "Renaming ranges/valid-range.js to ranges/valid.js with no alias may break callers that deep-import the old path.",
+   "evidence": "diff.patch shows `rename from ranges/valid-range.js` / `rename to ranges/valid.js` (similarity 100%), and index.js:60 now reads `lazyExport('validRange', './ranges/valid')`. A grep of the export finds no remaining reference to `valid-range` and no re-export shim. The fix itself is consistent: test/ranges/valid.js:2 requires '../../ranges/valid', and map.js maps test/ranges/valid.js to ranges/valid.js. The packet has no story.md, so it can't confirm whether the old path was meant to stay supported. package.json `files` lists only bin, range.bnf and semver.js, which limits how much of this is published.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

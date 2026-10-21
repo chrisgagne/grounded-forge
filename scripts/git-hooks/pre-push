@@ -107,7 +107,10 @@ note "Check 3/12: credentials and absolute paths"
 # not to relitigate the source text.
 SCAN_FILES=$(git ls-files '*.md' '*.yml' '*.yaml' '*.json' '*.js' '*.ts' '*.py' '*.sh' 2>/dev/null \
   | grep -v -E "corpus\.commons/[^/]+/sources/" \
-  | grep -v -E "corpus\.commons/[^/]+/apps/")
+  | grep -v -E "corpus\.commons/[^/]+/apps/" \
+  | grep -v -E "corpus\.commons/[^/]+/helpers/[^/]+/calibration/showcase-[^/]+/")
+# A helper's showcase folder is recorded evidence: a hash-chained ledger and a signed pack whose bytes the signature
+# seals, so the paths they captured at run time stay as recorded (their README says so) rather than being edited.
 
 if [ -z "$SCAN_FILES" ]; then
   warn "no tracked substrate files to scan"

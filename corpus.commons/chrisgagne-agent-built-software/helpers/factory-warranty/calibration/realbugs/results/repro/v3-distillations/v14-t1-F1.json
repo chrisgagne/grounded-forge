@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.08954,
+  "duration_s": 11.9
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/t.mjs {tree}",
+  "because": "On head, markdown-it renders `[x](foo\\ )` as the literal text `[x](foo\\ )` instead of the link `<a href=\"foo%5C\">x</a>` that base produces, because the parser now stops on the backslash and never reaches the `)`."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "\"<a href=\\\"foo%5C\\\">x</a>\"\nPASS\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "\"[x](foo\\\\ )\"\nFAIL: [x](foo\\ ) not parsed as link with href foo%5C\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, markdown-it renders `[x](foo\\ )` as the literal text `[x](foo\\ )` instead of the link `<a href=\"foo%5C\">x</a>` that base produces, because the parser now stops on the backslash and never reaches the `)`.",
+ "run": "v3-distillations",
+ "trial": "v14-t1",
+ "kind": "bug"
+}

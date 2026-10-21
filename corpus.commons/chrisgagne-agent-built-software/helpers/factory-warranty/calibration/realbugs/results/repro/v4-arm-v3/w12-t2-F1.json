@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.3045402,
+  "duration_s": 74.8
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/apply-start.js {tree}",
+  "because": "On head, applyPatch now puts lines in the wrong order when given a structured hunk with oldStart 0: 'line2\\nline3\\n' plus +line1 gives 'line2\\nline3\\nline1\\n', and creating a file from '' gives line2,line3,line4,line1. Base gives the correct output for both, because of the toPos<0 clamp the change removed. One caveat: the text patches in the finding (`@@ -0,0 ...`) and the locked tests it names still pass on head, because parsePatch changes oldStart 0 to 1 when there are no old lines. So the bug only shows up when callers pass the patch object straight to applyPatch."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "Browserslist: caniuse-lite is outdated. Please run:\nnpx browserslist@latest --update-db\nPASS insert one line at start of file\nPASS create new file from empty source\nBabel could not write cache to file: <home>/.babel.7.11.1.development.json \ndue to a permission issue. Cache is disabled.\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "Browserslist: caniuse-lite is outdated. Please run:\nnpx browserslist@latest --update-db\nFAIL insert one line at start of file \n  expected \"line1\\nline2\\nline3\\n\" \n  got      \"line2\\nline3\\nline1\\n\"\nFAIL create new file from empty source \n  expected \"line1\\nline2\\nline3\\nline4\\n\" \n  got      \"line2\\nline3\\nline4\\nline1\\n\"\nBabel could not write cache to file: <home>/.babel.7.11.1.development.json \ndue to a permission issue. Cache is disabled.\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, applyPatch now puts lines in the wrong order when given a structured hunk with oldStart 0: 'line2\\nline3\\n' plus +line1 gives 'line2\\nline3\\nline1\\n', and creating a file from '' gives line2,line3,line4,line1. Base gives the correct output for both, because of the toPos<0 clamp the change removed. One caveat: the text patches in the finding (`@@ -0,0 ...`) and the locked tests it names still pass on head, because parsePatch changes oldStart 0 to 1 when there are no old lines. So the bug only shows up when callers pass the patch object straight to applyPatch.",
+ "run": "v4-arm-v3",
+ "trial": "w12-t2",
+ "kind": "control"
+}

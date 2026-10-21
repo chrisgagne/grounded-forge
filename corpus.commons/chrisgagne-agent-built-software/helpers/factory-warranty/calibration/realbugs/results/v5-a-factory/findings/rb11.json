@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/scotthamilton77/agents-config",
+  "pr_number": 1,
+  "base": "3776d9195827d79efec978fb900573f3a5a53339",
+  "head": "1fc789709ae044579908fed58c8c14638d0db095"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/user/.agents/INSTRUCTIONS.md.template",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "The move into INSTRUCTIONS.md silently broadens 'Decide, don't defer' from plan/design review to all clarifying questions. The removed line in src/user/.claude/AGENTS.md.template reads: \"Decide, don't defer: When presenting plans or designs for review, use your best judgment on implementation details...\". The new INSTRUCTIONS.md.template line drops that scope and adds: \"Don't ask clarifying questions for decisions you can reasonably make yourself.\" Every other moved section (laws, constraints, workflow, the rest of orchestration) is copied word for word, so this edit is hidden inside what looks like a pure move."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/user/.codex/AGENTS.md.template",
+   "start_line": 10,
+   "end_line": 10,
+   "message": "Codex/Gemini instruction files reach the shared rules only through an `@INSTRUCTIONS.md` reference that those tools may not resolve. The whole of ~/.codex/AGENTS.md is the persona block plus \"Read the contents of @INSTRUCTIONS.md for shared laws, constraints, workflow, and orchestration.\" GEMINI.md.template does the same. install.sh only copies INSTRUCTIONS.md next to the file (sync_templates into ~/.<tool>/). Nothing inlines it or tells the agent where the file is. If a tool does not resolve `@INSTRUCTIONS.md` relative to ~/.codex/, that tool runs without the shared rules, which defeats the change's stated goal of installing shared content into every tool."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/install.sh",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "The installer now exits on macOS's default Bash 3.2 only because of the new associative-array counters, and the README doesn't say so. New guard: `if ((BASH_VERSINFO[0] < 4)); then echo \"Error: Bash 4.0+ required...\"; exit 1`. It exists because of `declare -A tool_installed tool_updated ...` at line 158. The baseline script used plain integer counters and ran under 3.2. README.md 'Installation' still shows `./scripts/install.sh --dry-run` and mentions only jq as a requirement."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/install.sh",
+   "start_line": 612,
+   "end_line": 612,
+   "message": "If shared and tool-specific items had the same name, every run would overwrite one with the other and warn 'not in source'. install_tool runs sync_templates/sync_directory for SRC_SHARED (phases 1\u20133) and then again for src_tool (phases 4\u20135), all into the same dest_dir. Neither pass knows the other exists: phase 4 overwrites the shared copy, and the next run's phase 1 sees a mismatch and prompts to restore it. sync_directory's second loop then warns \"exists in ~/.$CURRENT_TOOL but not in $label source\" for every item the other pass installed. The header comment (line 16) calls src/user/.claude/ \"Claude-specific overrides & extensions\"."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "README.md",
+   "start_line": 108,
+   "end_line": 108,
+   "message": "README still describes the Claude-only layout, and its manual-install commands copy paths this change moved, so they now fail. README lines 108\u2013116 run `cp -r src/user/.claude/agents ~/.claude/`, `cp -r src/user/.claude/skills ~/.claude/` and `cp src/user/.claude/AGENT-PERSONA.md.template ...`, but the diff renames all of these to src/user/.agents/. Line 3 still says \"Currently supports Claude Code, with planned support for other AI assistants (Gemini, Codex, etc.)\", and the roadmap still lists Gemini and Codex support as under consideration. Only AGENTS.md was updated."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/user/.agents/INSTRUCTIONS.md.template",
+   "start_line": 3,
+   "end_line": 3,
+   "message": "The file calls itself 'tool-agnostic' but tells every tool to use Claude/superpowers-only features. Line 3: \"Tool-agnostic principles for all AI coding assistants.\" Its orchestration section, which is installed into ~/.codex and ~/.gemini, says \"Use `verification-before-completion` skill\" (from the obra/superpowers Claude plugin, which install.sh never installs), \"Plan mode\" and \"look up docs via context7\"."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/install.sh",
+   "start_line": 618,
+   "end_line": 618,
+   "message": "Claude-format agent definitions get copied into ~/.codex/agents and ~/.gemini/agents, where they may be unused. install_tool runs `sync_directory \"agents\" \"$SRC_SHARED\" \"$dest_dir\" \"shared\"` for every tool in TOOLS. src/user/.agents/agents/*.md are Claude subagent definitions (frontmatter with model hints, per AGENTS.md 'File Formats')."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/install.sh",
+   "start_line": 555,
+   "end_line": 555,
+   "message": "The TOML branch of sync_settings_file duplicates sync_templates' compare/diff/confirm/backup/copy logic. Lines 436\u2013471 repeat lines 219\u2013252 almost line for line (compute_hash compare, diff -u, DRY_RUN branch, confirm, backup, cp, counter updates). Only the confirm prompt text differs."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/install.sh",
+   "start_line": 599,
+   "end_line": 599,
+   "message": "The heavily rewritten installer (detection, --tools validation, per-tool counters, settings dispatch) has no automated tests. The diff adds no test files. .factory/config.yaml sets `test: 'echo ''replay: the project suite is not run...'' && exit 0'`. Cases like `--tools=claude,,codex`, an unknown tool name, a dry run against a missing ~/.codex, and same-name collisions between shared and tool-specific items are not exercised anywhere."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/user/.agents/skills/self-improving-agent/SKILL.md",
+   "start_line": 36,
+   "end_line": 36,
+   "message": "The shared self-improving-agent skill tells Codex and Gemini to save corrections into Claude's config, so their own sessions won't keep them. install_tool() installs this skill into every selected tool\u2019s skills directory, and INSTRUCTIONS.md.template requires invoking it after user corrections. Its destination table nevertheless specifies ~/.claude/AGENTS.md for cross-project preferences and ~/.claude/projects/*/memory/MEMORY.md for remembered context."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

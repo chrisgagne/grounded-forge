@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/davidortinau/SentenceStudio",
+  "pr_number": 72,
+  "base": "b488d228ceeea1c29d5d54591a4b5c8ba9790712",
+  "head": "8941b5da55823d738d340cad6a429021318d8211"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/DevAuthApiFactory.cs",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "Expose the API entry point to the test assembly. The API's top-level statements generate an internal `Program` class, and the API project has neither a public partial declaration nor `InternalsVisibleTo` for this test assembly. Both new `WebApplicationFactory<Program>` subclasses therefore fail compilation with CS0122. Expose the entry point so the authentication tests can build and run."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 23,
+   "end_line": 29,
+   "message": "Handle mapped Entra tenant and object identifier claims. With `Auth:UseEntraId=true`, the default JWT inbound claim mapping converts `tid` and `oid` to their Microsoft schema claim types. These raw-name lookups consequently leave `TenantId` null and fall back to the token's subject for `UserId`, rather than the intended object ID. Disable inbound mapping explicitly or also read the mapped claim types. The synthetic tests mask this because their tokens additionally contain `tenant_id` and `NameIdentifier` claims."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 398,
+   "end_line": 404,
+   "message": "Nothing on the CoreSync server checks authorization. UseAuthentication/UseAuthorization only fill in HttpContext.User. No endpoint or middleware calls RequireAuthorization, and the RequireSyncReadWrite policy is registered but never used. So with Auth:UseEntraId=true, a request with no token, an expired token or a forged token still reaches UseCoreSyncHttpServer() and can read or write the whole sync database. Calling this 'Bearer token on the sync client' with 'JWT Bearer validation' suggests the channel is protected when it is not. Add a gate before UseCoreSyncHttpServer() that returns a challenge when the user is not authenticated or lacks sync.readwrite, at least when UseEntraId is true."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 363,
+   "end_line": 381,
+   "message": "Auth fails open. Auth:UseEntraId defaults to false when the setting is missing, and it is only set in appsettings.Development.json (appsettings.json is gitignored). In any non-Development deployment, DevAuthHandler therefore signs in every anonymous caller as 'dev-user'/'dev-tenant'. The same is true of the API. Default to Entra ID outside Development, or refuse to register DevAuthHandler unless app.Environment.IsDevelopment()."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/SentenceStudio.AppHost/AppHost.cs",
+   "start_line": 279,
+   "end_line": 285,
+   "message": "AppHost hardcodes Auth__UseEntraId=\"false\" for the API. Any azd/Aspire deployment built from this AppHost will run the API with DevAuthHandler in production. The 'web' (CoreSync) project gets no Auth/AzureAd environment variables, so turning on Entra ID for it would fail at startup: the AzureAd section is missing outside Development because appsettings.json is gitignored. Make the flag a parameter that differs per environment, and pass the same AzureAd values to the web project."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 171,
+   "end_line": 186,
+   "message": "Short claim names like \"tid\" and \"oid\" will usually be null for real Entra tokens. JwtBearer (and AddMicrosoftIdentityWebApi) keep MapInboundClaims=true by default, which renames tid to http://schemas.microsoft.com/identity/claims/tenantid and oid to http://schemas.microsoft.com/identity/claims/objectidentifier. In production TenantId would then fall back to a 'tenant_id' claim that Entra never issues, so it is null. UserId would fall back to NameIdentifier, which is mapped from the pairwise 'sub', not the oid. Tenant and user isolation would break. Use ClaimsPrincipal.GetObjectId()/GetTenantId() from Microsoft.Identity.Web, check the full URI claim types too, or set MapInboundClaims=false."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/TestJwtGenerator.cs",
+   "start_line": 629,
+   "end_line": 637,
+   "message": "The test token carries both the Entra claims (tid/oid) and the DevAuthHandler claims (tenant_id, NameIdentifier, ClaimTypes.Name/Email). API_ExtractsTenantContext passes through the fallback claims even though inbound claim mapping renames tid/oid. The test hides the claim-mapping bug in TenantContextMiddleware. Emit only the claims a real Entra access token has (tid, oid, name, preferred_username, scp)."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 566,
+   "end_line": 588,
+   "message": "This factory leaves Auth:UseEntraId=false, so DevAuthHandler is still registered. It then adds a plain AddJwtBearer scheme over the top. The production branch (AddMicrosoftIdentityWebApi plus the RequireScope policies) never runs in tests, so the tests cannot show that 'Auth:UseEntraId=true' works as the docs claim. Set Auth:UseEntraId=true and override the Microsoft.Identity.Web JwtBearerOptions (for example with PostConfigure on the Bearer scheme) instead."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/DevAuthApiFactory.cs",
+   "start_line": 540,
+   "end_line": 546,
+   "message": "The test hosts use the API's real Program setup, which puts the database at ApplicationData/sentencestudio/server/sentencestudio.db. That is the developer's real server database, shared with the Web sync server. Integration tests can therefore open, migrate or change real user data, which goes against the repo's data-preservation rules. Swap AddDataServices for a temporary or in-memory database in the test factories."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "tests/SentenceStudio.Api.Tests/SentenceStudio.Api.Tests.csproj",
+   "start_line": 809,
+   "end_line": 845,
+   "message": "The new test project is not added to src/SentenceStudio.sln, so 'dotnet test' on the solution and CI will not run these tests."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 184,
+   "end_line": 186,
+   "message": "Email falls back to 'preferred_username'. That is a UPN or sign-in name that users can sometimes change, not a verified email address, and it can be a phone number or a non-mail UPN. Treating it as Email can mislabel identities. Use the 'email' claim (with the optional claim configured), or leave Email null."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 54000
+ }
+}

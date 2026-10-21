@@ -1,0 +1,93 @@
+{
+ "id": "x11",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.8743,
+ "codex_tokens": 45220,
+ "work": "<tmp>/replay-x11-t1-0v0avua1",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "lib/ipaddr.js:370 calls string.match before isValidCIDR (line 372), so undefined/null/numbers throw. isValidCIDR (350-357) wraps the call in try/catch, and isValidFourPartDecimal (361) short-circuits on isValid first, so both of those return false for the same inputs.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "lib/ipaddr.js",
+   "line": 370,
+   "claim": "isValidCIDRFourPartDecimal throws TypeError for non-string input instead of returning false.",
+   "evidence": "Line 370 calls `string.match(/^(.+)\\/(\\d+)$/)` before line 372 calls `ipaddr.IPv4.isValidCIDR(string)`. isValidCIDR wraps parseCIDR in try/catch and returns false, and isValidFourPartDecimal (line 361) only calls `string.match` after `isValid(string)` has short-circuited. The new function dereferences `.match` first, so `isValidCIDRFourPartDecimal(undefined)` throws. The suite's convention is that a validator returns false for undefined (test/ipaddr.test.js:344 asserts `ipaddr.IPv6.isValidCIDR(undefined)` is false), and no test tries this input on the new function.",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "disputed",
+   "reason": "The prefix group at line 370 is (\\d+) and parseCIDR (417-418) uses parseInt, so '192.168.1.1/024' passes, while line 361 rejects leading zeros only in the octets. Nothing in the packet says whether the strictness must also cover the prefix, so the code doesn't settle whether this is a defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/ipaddr.js",
+   "line": 370,
+   "claim": "A prefix with leading zeros such as '/024' is accepted as a valid four-part decimal CIDR.",
+   "evidence": "The prefix group is `(\\d+)` (line 370), and parseCIDR uses the same pattern and `parseInt(match[2])` (lines 417-418), so '/024' and '/0000032' pass. isValidFourPartDecimal (line 361) checks only match[1] with `(0|[1-9]\\d*)`, which forbids leading zeros in octets. The locked tests (test/ipaddr.test.js:164-168) never try a padded prefix.",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 370 copies the regex literal from parseCIDR at line 417, and the function runs parse through isValidCIDR and then again through isValidFourPartDecimal\u2192isValid. This is a maintainability point, not a defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/ipaddr.js",
+   "line": 370,
+   "claim": "The CIDR regex is duplicated and the address is parsed twice.",
+   "evidence": "Line 370 copies the literal `/^(.+)\\/(\\d+)$/` from parseCIDR (line 417). It then calls isValidCIDR, which runs parseCIDR \u2192 parse, and then isValidFourPartDecimal(match[1]), which runs isValid \u2192 parser on the same address a second time. If the CIDR grammar changes in parseCIDR, this copy of the regex can drift out of step.",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching the export finds isValidCIDRFourPartDecimal only in lib/ipaddr.js, the .d.ts file and the tests. README.md:129 documents only isValidFourPartDecimal. This is a documentation gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 129,
+   "claim": "The new public method is not documented in the README or Changes.md.",
+   "evidence": "README.md:129 documents only `ipaddr.IPv4.isValidFourPartDecimal(string)`. Changes.md starts at '### 2.2.0' and lists no entry for the new method. The diff touches only lib/ipaddr.js and lib/ipaddr.js.d.ts.",
+   "axis_row": "L5.24",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Searching ipaddr.min.js finds no isValidCIDRFourPartDecimal. package.json:17 builds the bundle from lib/ipaddr.js, and package.json:22 publishes it. This is a stale generated file, and the build is a manual script with no prepublish hook, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "ipaddr.min.js",
+   "line": null,
+   "claim": "The published minified bundle was not regenerated and lacks the new method.",
+   "evidence": "package.json:17 builds `ipaddr.min.js` from lib/ipaddr.js with uglifyjs, and package.json:22 lists ipaddr.min.js among the published files. The diff does not change ipaddr.min.js.",
+   "id": "F5"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

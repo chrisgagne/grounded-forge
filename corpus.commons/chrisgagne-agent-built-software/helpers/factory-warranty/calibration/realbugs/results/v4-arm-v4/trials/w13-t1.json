@@ -1,0 +1,35 @@
+{
+ "id": "w13",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.6755,
+ "codex_tokens": 69290,
+ "work": "<tmp>/replay-w13-t1-le388epj",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "mini.js:22 checks `args[0] instanceof Date`, which is false for a Date from another realm (iframe or vm). That Date drops to the else branch at lines 24-31, which applies the localOffset-minus-offset shift, so its timestamp moves. Same-realm Dates are copied as they are. Lowered from medium to low: only Dates built in another realm hit this, and before this change every Date was shifted this way, so nothing regresses.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "src/date/mini.js",
+   "line": 22,
+   "claim": "Date objects from another JavaScript realm skip the new copy branch and get their timestamp shifted by the timezone adjustment.",
+   "evidence": "The guard uses `args[0] instanceof Date`, which is false for Dates from an iframe or Node vm context. These inputs enter the component-construction branch and receive the localOffset-minus-offset adjustment. A runtime check with TZ=UTC and a vm-created Date at 1707609600000 produced 1707580800000 when passed to `new TZDateMini(input, \"Asia/Singapore\")`, an eight-hour shift; the same-realm Date preserved its timestamp. TZDate inherits this constructor.",
+   "axis_row": "L6.14",
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

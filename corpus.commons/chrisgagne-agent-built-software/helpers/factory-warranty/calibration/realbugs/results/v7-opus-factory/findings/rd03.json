@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/EdV4H/usketch",
+  "pr_number": 534,
+  "base": "ff729b7dce02efaf7d1054780536289f86e8a5e7",
+  "head": "719aa8340584e714552d132a9ec6971582673a8b"
+ },
+ "agent": "v7-opus-factory",
+ "findings": [
+  {
+   "producer": "v7-opus-factory",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 124,
+   "end_line": 124,
+   "message": "trackUpdate now writes partition_meta right away even when the manager has not loaded from storage. If the Durable Object wakes from hibernation, the first client update overwrites the stored meta with only the current quarter, and earlier partitions can no longer be reached. BoardRoom uses this.ctx.acceptWebSocket (the hibernation API), and loading happens only in fetch() (board-room.ts:36-37: loadUpdates/loadFromStorage). webSocketMessage \u2192 trackUpdate never loads. On a freshly woken instance partitionMeta is null, so lines 112-118 build {partitions:[partName]...}, set metaChanged=true and call `void savePartitionMeta()`, which puts that over the persisted 'partition_meta'. The old trackUpdate only scheduled the partition-updates save and never wrote meta. Nothing calls loadFromStorage before this write, and there is no blockConcurrencyWhile in the constructor."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 109,
+   "end_line": 109,
+   "message": "applyClientUpdate returns true without checking anything when no Y.Doc exists, which is the normal state of a websocket-only session. Corrupt client updates are therefore still buffered, broadcast, persisted and replayed to new clients, so the new rejection branch in board-room only works when a doc happens to be loaded. `if (doc) { try { Y.applyUpdate(doc, payload) } catch { return false } } return true;` Only getOrCreateDoc creates doc, and only the AI, thumbnail and snapshot paths call it. destroyDoc nulls it again when the last socket closes. board-room.ts:118-125 then calls pushUpdate, trackUpdate, broadcast and scheduleSave on the payload."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "plugins/usketch-plugin-tool-select/src/plugin.tsx",
+   "start_line": 98,
+   "end_line": 98,
+   "message": "Rotation may only be half-wired. Shapes now render rotated and point hit tests unrotate, but marquee selection still tests the unrotated getBounds box. A rotated shape's visible area and the area that selects it can therefore disagree. findShapesInRect uses `def.getBounds(data)`, and the plugin getBounds functions (e.g. plugins/usketch-plugin-shape-basic/src/shared/bounds.ts) ignore rotation. Meanwhile shape-layer.tsx applies `transform: rotate(${rotation}deg)`, and the hitTest functions are wrapped in withRotation. Only the store's spatial index (board-store.ts shapeToBounds) uses getRotatedAABB."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "apps/server/src/board-room.ts",
+   "start_line": 118,
+   "end_line": 118,
+   "message": "The change rewrites server sync and persistence code (update validation order, load memoisation, save debouncing, partition-meta persistence, thumbnail style parsing), but the change's own tests and exports are about shape rotation. These server hunks have no test, and one of them adds the data-loss path above. diff.patch changes apps/server/src/board-room.ts, rooms/yjs-sync.ts, rooms/partition-manager.ts and rooms/thumbnail-handler.ts. The only test added is packages/shared/src/__tests__/rotation.test.ts, and it covers rotation utilities only. No server test exercises the new applyClientUpdate return value, loadPromise or saveScheduled logic."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "start_line": 655,
+   "end_line": 655,
+   "message": "normalizeAngle, snapAngle and deltaToLocal are exported as public API, but no production code uses them. They are dead code that the tests exercise only on their own. A grep for deltaToLocal|snapAngle|normalizeAngle matches only rotation.ts, index.ts, rotation.test.ts and a v1 design doc. No plugin or engine imports them, and no rotate tool or handle calls them."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "packages/gpu-renderer/src/pipelines/rect-pipeline.ts",
+   "start_line": 112,
+   "end_line": 112,
+   "message": "The GPU path forwards the raw rotation without safeRotation, and the rect shader may not apply rotation at all. GPU-rendered rects can therefore disagree with the DOM rendering and the hit testing this change makes rotation-aware. `data[off + 15] = r.rotation ?? 0;` passes NaN or Infinity through. rect.wgsl names rotation only in the params comment (line 15), and grep finds no cos or sin use in the shader."
+  },
+  {
+   "producer": "v7-opus-factory",
+   "file": "apps/docs/src/content/docs/reference/shared.mdx",
+   "start_line": 48,
+   "end_line": 48,
+   "message": "The shared package's reference docs do not cover the eight newly exported rotation helpers (safeRotation, withRotation, getRotatedAABB, etc.), or that plugin hitTest functions must now be wrapped to support rotation. packages/shared/src/index.ts adds the rotation exports. The only rotation text in shared.mdx is `rotation?: number;` at line 48."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

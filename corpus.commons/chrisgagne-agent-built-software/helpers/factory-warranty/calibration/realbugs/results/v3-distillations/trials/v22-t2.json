@@ -1,0 +1,72 @@
+{
+ "id": "v22",
+ "trial": 2,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5906,
+ "codex_tokens": 39792,
+ "work": "<tmp>/replay-v22-t2-ndn01rta",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "entity.mjs:7 NAMED_RE matches any &name; and line 36 now calls decodeHTML, which in entities ^4.4.0 (package.json:49) is the legacy mode that decodes semicolon-less prefixes like &copy and &not. That makes decoded !== match[0] true at line 37, so the whole match is consumed and the partly decoded text is emitted. Before the change, strict decoding left these strings unchanged and the rule returned false.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "lib/rules_inline/entity.mjs",
+   "line": 36,
+   "claim": "Swapping decodeHTMLStrict for decodeHTML makes invalid named references that start with a legacy entity name (e.g. &copycat;, &notit;) get partly decoded instead of staying literal, as CommonMark requires.",
+   "evidence": "NAMED_RE (`/^&([a-z][a-z0-9]{1,31});/i`, line 7) captures any `&name;`. The new line 36 `const decoded = decodeHTML(match[0])` uses entities ^4.4.0's legacy (non-strict) mode, which decodes semicolon-less legacy prefixes such as `&copy`, `&not` and `&amp` inside the match. As a result `decoded !== match[0]` is true, and the rule consumes the whole match and emits a text_special token with the partially decoded content. Before the change, decodeHTMLStrict left these strings unchanged, so the rule returned false and the text stayed literal.",
+   "axis_row": "L1.2",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff touches only entity.mjs, and grepping test/ for &(copy|amp|lt|gt|not|reg|nbsp)[a-z]+; finds nothing, so the gap is real. Lowered from medium to low because this is the reason the regression in the C1/X1 item goes unseen, not a separate defect.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "lib/rules_inline/entity.mjs",
+   "line": 36,
+   "claim": "No test covers the new decoding behaviour, and no existing fixture uses an invalid name with a legacy prefix, so the locked suite cannot catch the regression.",
+   "evidence": "diff.patch touches only lib/rules_inline/entity.mjs and adds no test files. Grepping test/ for patterns like `&(copy|amp|lt|gt|not|reg|nbsp)[a-z]+;` finds no matches, so no fixture uses an input that tells strict decoding apart from legacy decoding.",
+   "axis_row": "L3.4",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "acceptance.md says story.md is the spec, but no story.md exists in the export or the packet. Without it there is no way to tell whether this behaviour change was asked for, so it can be neither confirmed nor ruled out.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/rules_inline/entity.mjs",
+   "line": 3,
+   "claim": "story.md, which acceptance.md names as the spec, is missing, so nothing on record shows that lenient legacy decoding was requested.",
+   "evidence": "acceptance.md says 'story.md is the spec', but no story.md exists in the packet or the export. The diff's only effect is to swap `decodeHTMLStrict` for `decodeHTML` in the import and at the call site.",
+   "axis_row": "L1.13",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

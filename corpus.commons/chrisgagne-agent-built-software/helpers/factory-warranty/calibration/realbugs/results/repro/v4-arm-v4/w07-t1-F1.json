@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.13279880000000002,
+  "duration_s": 21.8
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node --experimental-strip-types --no-warnings check/neg-minute-offset.mjs {tree}",
+  "because": "On head, the project's tzOffset returns -150, -210 and -510 instead of -210, -270 and -570 for America/St_Johns, America/Caracas (2010) and Pacific/Marquesas, the same wrong value comes back on the second call from offsetCache, and the +05:30 control still passes, so the minutes are being added to negative hours when they should be subtracted."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "PASS America/St_Johns call1: expected -210, got -210\nPASS America/St_Johns call2: expected -210, got -210\nPASS America/Caracas call1: expected -270, got -270\nPASS America/Caracas call2: expected -270, got -270\nPASS Pacific/Marquesas call1: expected -570, got -570\nPASS Pacific/Marquesas call2: expected -570, got -570\nPASS Asia/Kolkata call1: expected 330, got 330\nPASS Asia/Kolkata call2: expected 330, got 330\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL America/St_Johns call1: expected -210, got -150\nFAIL America/St_Johns call2: expected -210, got -150\nFAIL America/Caracas call1: expected -270, got -210\nFAIL America/Caracas call2: expected -270, got -210\nFAIL Pacific/Marquesas call1: expected -570, got -510\nFAIL Pacific/Marquesas call2: expected -570, got -510\nPASS Asia/Kolkata call1: expected 330, got 330\nPASS Asia/Kolkata call2: expected 330, got 330\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, the project's tzOffset returns -150, -210 and -510 instead of -210, -270 and -570 for America/St_Johns, America/Caracas (2010) and Pacific/Marquesas, the same wrong value comes back on the second call from offsetCache, and the +05:30 control still passes, so the minutes are being added to negative hours when they should be subtracted.",
+ "run": "v4-arm-v4",
+ "trial": "w07-t1",
+ "kind": "bug"
+}

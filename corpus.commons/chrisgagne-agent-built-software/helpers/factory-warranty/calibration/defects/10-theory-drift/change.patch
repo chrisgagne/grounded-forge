@@ -1,0 +1,96 @@
+diff --git a/src/llm/routes.js b/src/llm/routes.js
+index 1ae69ac..2f39f66 100644
+--- a/src/llm/routes.js
++++ b/src/llm/routes.js
+@@ -31,13 +31,20 @@ export function summaryRoutes(router, { db, auth, llm, mailer, log }) {
+     }
+ 
+     const tools = [sendEmailTool({ mailer, recipient: req.user.email })];
++    const run = { userId: req.user.id, tag, noteIds: notes.map((note) => note.id), emailToUser };
+     let result;
+     try {
+       result = await summariseNotes({ llm, notes, emailToUser, tools, log });
+     } catch (err) {
+-      log.error('summary failed', { userId: req.user.id, error: err.message });
++      log.error('summary failed', { ...run, error: err.message });
+       return sendJson(res, 502, { error: 'The summary service is unavailable. Try again shortly.' });
+     }
++    log.info('summary run', {
++      ...run,
++      emailOutcomes: result.emailOutcomes,
++      transcript: result.transcript,
++      summary: result.summary,
++    });
+ 
+     sendJson(res, 200, {
+       summary: result.summary,
+diff --git a/src/llm/summarise.js b/src/llm/summarise.js
+index af65c46..1b72d5c 100644
+--- a/src/llm/summarise.js
++++ b/src/llm/summarise.js
+@@ -54,7 +54,7 @@ export async function summariseNotes({ llm, notes, emailToUser, tools, log, maxT
+         .map((block) => (block.type === 'text' ? block.text : ''))
+         .join('\n')
+         .trim();
+-      return { summary, emailOutcomes };
++      return { summary, emailOutcomes, transcript: messages };
+     }
+     messages.push({ role: 'assistant', content: reply.content });
+     const results = [];
+diff --git a/test/summary-log.test.js b/test/summary-log.test.js
+new file mode 100644
+index 0000000..317fdd5
+--- /dev/null
++++ b/test/summary-log.test.js
+@@ -0,0 +1,51 @@
++import assert from 'node:assert/strict';
++import { once } from 'node:events';
++import { createServer } from 'node:http';
++import { test } from 'node:test';
++import { createApp } from '../src/app.js';
++import { openDatabase } from '../src/db/index.js';
++import { migrateUp } from '../src/db/migrate.js';
++import { createLogger } from '../src/log.js';
++import { addNote, alice, signUpAndLogIn } from './helpers/app.js';
++import { fakeMailer, scriptedLlm, text } from './helpers/fakes.js';
++
++async function startAppWithLog(llm) {
++  const lines = [];
++  const stream = /** @type {any} */ ({ write: (line) => lines.push(JSON.parse(line)) });
++  const db = openDatabase();
++  migrateUp(db);
++  const server = createServer(createApp({ db, llm, mailer: fakeMailer(), log: createLogger({ level: 'info', stream }) }));
++  server.listen(0, '127.0.0.1');
++  await once(server, 'listening');
++  const { port } = /** @type {import('node:net').AddressInfo} */ (server.address());
++  const request = async (method, path, { body = undefined, cookie = undefined } = {}) => {
++    const res = await fetch(`http://127.0.0.1:${port}${path}`, {
++      method,
++      headers: { 'content-type': 'application/json', ...(cookie ? { cookie } : {}) },
++      body: body === undefined ? undefined : JSON.stringify(body),
++    });
++    const raw = await res.text();
++    return { status: res.status, headers: res.headers, body: raw ? JSON.parse(raw) : null };
++  };
++  const close = async () => {
++    server.closeAllConnections();
++    await new Promise((resolve) => server.close(resolve));
++  };
++  return { lines, request, close, db };
++}
++
++test('records each summary run so a bad summary can be looked up later', async (t) => {
++  const app = await startAppWithLog(scriptedLlm(text('You are planning Q3.')));
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(/** @type {any} */ (app), alice);
++  const note = await addNote(/** @type {any} */ (app), cookie, { title: 'Q3 planning', body: 'Draft the roadmap.' });
++  const res = await app.request('POST', '/notes/summary', { cookie, body: {} });
++  assert.equal(res.status, 200);
++
++  const run = app.lines.find((line) => line.msg === 'summary run');
++  assert.ok(run, 'expected a summary run log line');
++  assert.equal(typeof run.userId, 'number');
++  assert.deepEqual(run.noteIds, [note.id]);
++  assert.equal(run.summary, 'You are planning Q3.');
++  assert.match(JSON.stringify(run.transcript), /Q3 planning/);
++});

@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/davidortinau/SentenceStudio",
+  "pr_number": 72,
+  "base": "b488d228ceeea1c29d5d54591a4b5c8ba9790712",
+  "head": "8941b5da55823d738d340cad6a429021318d8211"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/DevAuthApiFactory.cs",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "Expose the API entry point to the test assembly. The API's top-level statements generate an internal `Program` class, and the API project has neither a public partial declaration nor `InternalsVisibleTo` for this test assembly. Both new `WebApplicationFactory<Program>` subclasses therefore fail compilation with CS0122. Expose the entry point so the authentication tests can build and run."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 23,
+   "end_line": 29,
+   "message": "Handle mapped Entra tenant and object identifier claims. With `Auth:UseEntraId=true`, the default JWT inbound claim mapping converts `tid` and `oid` to their Microsoft schema claim types. These raw-name lookups consequently leave `TenantId` null and fall back to the token's subject for `UserId`, rather than the intended object ID. Disable inbound mapping explicitly or also read the mapped claim types. The synthetic tests mask this because their tokens additionally contain `tenant_id` and `NameIdentifier` claims."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

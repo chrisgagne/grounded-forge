@@ -1,0 +1,126 @@
+{
+ "id": "rb08",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 209,
+   "end_line": 209,
+   "message": "Preserve the literal $schema key in generated headers. PowerShell interpolates `$schema` inside these double-quoted strings. Because that variable is unset, the generated header becomes `# yaml-language-server: =https://...` rather than the required `$schema=...` directive, defeating the manifest-validation fix. Use single-quoted strings or escape the dollar sign in all three schema headers."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 212,
+   "end_line": 233,
+   "message": "The rewritten installer manifest no longer has `PortableCommandAlias: figprint`. The old manifest had it, and the ChangeLog entry for this change says the alias is still set. Without it, WinGet registers the portable command under the exe name (`FIGPrint`) instead of the `figprint` alias that the docs and users expect. Add `    PortableCommandAlias: figprint` under each `NestedInstallerFiles` entry. Line 224 is also a stray blank line inside the array."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/publish-figlet-nuget.yml",
+   "start_line": 7,
+   "end_line": 8,
+   "message": "This path filter now only matches `FIGLet/**/*.cs`. A release is usually just a version bump in `FIGLet.csproj`, so it will no longer trigger a publish. Changes to embedded fonts/resources and to the workflow file itself are also ignored now. Merging a version-bump PR will silently skip the NuGet release."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/publish-figlet-ts.yml",
+   "start_line": 7,
+   "end_line": 9,
+   "message": "This path filter only matches `*.ts`/`*.tsx`. A version bump in `FIGLet.TS/package.json`, changes to `tsconfig`/build config, bundled fonts, or the workflow itself will no longer trigger an npm publish. Release-only PRs will be skipped."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/publish-figlet-py.yml",
+   "start_line": 7,
+   "end_line": 8,
+   "message": "This path filter only matches `FIGLet.Python/**/*.py`. A version bump in `pyproject.toml` or changes to the bundled `.flf` fonts won't trigger a PyPI publish."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/publish-vscode-extension.yml",
+   "start_line": 7,
+   "end_line": 9,
+   "message": "This path filter only matches `*.ts`/`*.tsx`. Changes to `FIGLet.VSCodeExtension/package.json` (version bumps, contributed commands/settings like the `defaultFont` removal in this PR), fonts, webpack config, README and CHANGELOG won't trigger a Marketplace publish."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/publish-vs-extension.yml",
+   "start_line": 7,
+   "end_line": 9,
+   "message": "This path filter only matches `*.cs`. Version bumps in `source.extension.vsixmanifest`/`.csproj`, XAML UI changes, and resource changes will no longer trigger a VS Marketplace publish."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/publish-figprint.yml",
+   "start_line": 7,
+   "end_line": 8,
+   "message": "The filter now only matches `FIGPrint/**/*.cs` and no longer includes the workflow file. A version bump in `FIGPrint.csproj` won't publish, and the WinGet manifest fixes made to this workflow in this same PR won't run on merge without a manual dispatch."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "FIGLet.VSCodeExtension/src/BannerUtils.ts",
+   "start_line": 59,
+   "end_line": 77,
+   "message": "Behaviour change: the old `editor.selection.isEmpty` / `replace(editor.selection, ...)` branch is gone, so selected text is no longer replaced. The banner is always inserted at column 0 of the cursor line and the selection stays. A user who selects the text to bannerize now ends up with both the banner and the original text. The PR description doesn't mention this, and it is unrelated to the stated fix."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "FIGLet.VSCodeExtension/src/FigletPanel.ts",
+   "start_line": 557,
+   "end_line": 557,
+   "message": "`figlet.defaultFont` is removed with no migration. Users who had set it lose their preference: `lastFontUsed` falls back to `small` until they insert a banner. Seed `lastFontUsed` from the old config value on first run."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "FIGLet.VSCodeExtension/src/webview/SettingsApp.tsx",
+   "start_line": 838,
+   "end_line": 862,
+   "message": "The settings panel still shows a selectable font list with `selectedFont` state. Selecting a row is no longer saved and no longer starts from the current font, so the selection is meaningless UI. Either remove the selection affordance or make it clear the list is preview-only."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "FIGLet.VSCodeExtension/src/LanguageCommentStyles.ts",
+   "start_line": 641,
+   "end_line": 668,
+   "message": "The new enum member is named `BATCHFile`, which breaks the PascalCase convention of the other members and doesn't match the `BatchFile` property or the ChangeLog wording. CLAUDE.md requires language mappings to stay in sync with `FIGLet.VisualStudioExtension/LanguageCommentStyles.cs`, but the C# side still uses `CommentStyle.Custom` for batch."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "ChangeLog-2026.md",
+   "start_line": 339,
+   "end_line": 343,
+   "message": "The ChangeLog describes the LICENSE ASCII-art banner, but that change was reverted (commit 4e7f43e) and LICENSE isn't in this diff. The revert commit has no entry. The `ci(manifest)` entry also says the `figprint` portable alias is defined, but the manifest no longer contains it. The ChangeLog doesn't match the code being shipped."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 32,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 52,
+   "cost_usd": 0.3663894,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 52
+ }
+}

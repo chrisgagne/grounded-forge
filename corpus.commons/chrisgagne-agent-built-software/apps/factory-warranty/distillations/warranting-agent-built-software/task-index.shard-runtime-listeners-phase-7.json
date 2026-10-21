@@ -1,0 +1,141 @@
+{
+  "section": "Runtime listeners: Phase 7",
+  "columns": [
+    "trigger",
+    "response"
+  ],
+  "rows": [
+    [
+      "The pack says \"all tests pass\" with no run record",
+      "Send it back for the run record: the evidence is the artefact the tools generate, and tests are documented (`nist-ssdf-1-1`) • Return it for the tool's artifact: test results are documented and artifacts are the evidence (`nist-sp-800-218a`) • Return for the run record and a list of what was not built, tested or reproduced: provenance separates observed evidence from an AI-generated explanation (`openssf-finding-fixing-vulnerabilities-ai`) • Send it back for the run: which fail-to-pass and pass-to-pass tests ran, their results and the outcome class; under the source's criterion a missing test counts as failed (`jimenez-swe-bench`) • Send it back for the run record and a strength measure beside it: passing measures validity, and agent suites ran high on validity while killing at most 55.5% of planted faults (`egashira-testsuitebench-2026`) • Return it for the run record and the result of every requirement in scope: robust evidence (scripts, testing logs) is standard practice and each requirement must be verifiably tested (`owasp-asvs-5-0`) • Send it back for the run record: Claim-Check-Act separates a claim from the act and verifies before acting (`owasp-llm-top10-2026`) • Ask for the run: a fluent claim is the kind of plausible output that can be false, and stated confidence is not evidence (`why-language-models-hallucinate-kalai`) • Send it back for the test sets, scenarios and logs the PR template pairs with its checklist; requiring a run record is a harness rule (`microsoft-code-with-engineering-playbook`) • Send it back for the test results: the approver shall review the assurance evidence, and handover documentation includes the test plan and test results (`uk-aqua-book-2025`) • Return the pack for the CI run on this commit; the source records test outcomes with the code version for auditability (`uk-duck-book-qa-of-code`) • Send it back for the run record: a coding agent in the guide produced false test results to hide a failure, and unlogged actions cannot be reconstructed (`owasp-agentic-threats-mitigations`) • Send it back for the run record: claims about what an agent did rest on immutable logs, not on its account (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "A risk is listed with no owner and no rollback",
+      "Don't sign until the risk has a recorded response (remediate, accept or transfer) and an accountable person (`nist-ssdf-1-1`). The rollback stays a harness rule • Don't sign a model risk until stop criteria, a rollback and the deciding role are named (`nist-sp-800-218a`) • Don't sign until the risk has an owner and a verification method, as the requirement template records (`microsoft-code-with-engineering-playbook`) • Don't sign until it has an owner, a level and, for medium or above, the client's agreement: each role has one accountable individual, logs record who signed off, high risk should not be tolerated. The rollback is a harness rule (`uk-aqua-book-2025`) • Don't sign until it names how to stop the agent (kill switch, credential revocation), how to roll back its state and memory, and whether the residual risk fits the organisation's risk budget (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The client wants it today and the review is still open",
+      "Ship only as a recorded exception the accountable person approves, visible on the pack: exception requests and their rationales are recorded (`nist-ssdf-1-1`) • State what is open and what it risks; do not skip the gate. The guide's answer to time pressure is a faster gate, after reporting that a day-long regression suite forces skipping it (`openssf-finding-fixing-vulnerabilities-ai`) • Split the open findings: in-scope ones block (code review complete is a done item), out-of-scope ones become work items (`microsoft-code-with-engineering-playbook`) • Spend the time on the riskiest part and tell the client in writing what remains: under constraint the areas of greatest risk should take priority and the commissioner should be told what risks remain (`uk-aqua-book-2025`) • Ask the accountable human to accept a named shortfall or wait; the source says skipping tests hides problems that grow harder to fix, and that where assurance falls short for lack of time, outputs get in-depth checks instead (`uk-duck-book-qa-of-code`) • If the open finding is a security vulnerability, apply the written policy to it before release, or write one: the producer attests to a policy or process for discovered security vulnerabilities before release (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "Nobody could explain how this part works if the agent were unavailable",
+      "Don't sign until a code owner is named and the design decisions are retained where a maintainer can find them (`nist-ssdf-1-1`) • Don't sign yet: the human is responsible, and the guide reports that judging a complex patch often takes at least the understanding needed to write it (`openssf-finding-fixing-vulnerabilities-ai`) • Add a reviewer who must come away able to explain it and check documentation is updated: shared understanding is a goal of review (`microsoft-code-with-engineering-playbook`) • Don't sign until feature files describe this area in the client's language: the documentation holds that the documented examples reflect the team's shared understanding of the domain (`cucumber-bdd-gherkin`) • Don't sign until a person answers for it and the documentation would let a future maintainer pick it up: one individual is accountable for each role, and all analysis shall have user documentation (`uk-aqua-book-2025`) • Do not sign until a named human can explain it; the source says the only person responsible for LLM-generated code is the person who generated it, and calls documentation essential for business continuity (`uk-duck-book-qa-of-code`) • Don't sign until someone can explain it or the complexity is paid down: the comprehension tax persists regardless of functional correctness (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "The builder signs because the last ten went fine",
+      "Ask what was demonstrated on this change: later runs still find new problems, and the guide reports AI-assisted participants overrating their code's security (`openssf-finding-fixing-vulnerabilities-ai`) • Sign on the controls that bound the damage, not on the record: a low incident count reflects defenses at work, and controls that bound the blast radius are the ones that survive adaptive attackers (`owasp-llm-top10-2026`) • Require this change's own evidence: all analysis shall be assured, and even repeat runs get assurance of each run's version, data and parameters; that a new change is not a repeat run is the distillation's transfer (`uk-aqua-book-2025`) • Sign on this change's run record, not the track record; the source cites [BT] a study in which experienced programmers using AI were slower while believing they were faster (`uk-duck-book-qa-of-code`; primary held as `becker-metr-ai-developer-productivity-2025`) [D2] • Show each practice running now: the attestation's object is practices in present, consistent use, to the best of the signer's knowledge, not a record of outcomes (`cisa-secure-software-attestation-form`) • Sign on this change's record, not the streak: developers believed AI sped them up by 20% when it slowed them by 19%, and the authors' leading explanation for overuse is that optimism (`becker-metr-ai-developer-productivity-2025`) [D2] • Check what the warnings and complexity series did over the same stretch: the output gain was concentrated in the first two months while warnings and complexity rose and stayed (`he-cursor-velocity-complexity-2025`) • Sign on this change's evidence: trust built with an agent, especially a conversational co-pilot, reduces scepticism (transfer) (`owasp-agentic-threats-mitigations`) • Sign on the controls, not the streak: the source names oversight that weakens after repeated success as a cascade in its own right (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The pack claims conformance with SSDF or SP 800-218A with no task-selection record",
+      "Return it for the selection record (tasks, reasons, gaps): the SSDF is a basis for a risk-based approach, not a checklist, and no example is required (`nist-ssdf-1-1`) [D21] • Return it for the selection record: the Profile is a risk-based starting point, not a checklist (`nist-sp-800-218a`) [D21]"
+    ],
+    [
+      "The release changes components and the SBOM or provenance data was not updated",
+      "Return it: provenance is updated whenever components change and each release is archived with its integrity and provenance data (`nist-ssdf-1-1`)"
+    ],
+    [
+      "Nobody has said which practices the agent platform, model provider or host owns, or a vendor's model is in the change and the pack is silent on what the vendor attests",
+      "Write down the split and how each provider attests to its share: responsibility for practices can be shared with providers by agreement (`nist-ssdf-1-1`) • Return it for the per-task split and how each party attests (`nist-sp-800-218a`)"
+    ],
+    [
+      "The pack lists no parts or artifacts its practices did not cover, or gives unknown data provenance as n/a",
+      "Return it for the uncovered parts and the data whose provenance is unknown (`nist-sp-800-218a`)"
+    ],
+    [
+      "The pack's security evidence is read as clearing privacy, intellectual-property or bias risk",
+      "Add a scope line and route those risks: the source addresses cybersecurity risk only (`nist-sp-800-218a`)"
+    ],
+    [
+      "The pack or proposal cites a model's benchmark score as the reason to trust the change",
+      "Require this change's own run record and the gate's calibration on this codebase: benchmark performance differs heavily by repository and setting, and different models solve different issues (`jimenez-swe-bench`) [D4]"
+    ],
+    [
+      "The pack cites the agent's own suite passing as the evidence for the change",
+      "Don't sign on that line alone: ask for the share of seeded single-requirement faults the suite kills, stated with the proxy caveat that planted faults need not match real ones (`egashira-testsuitebench-2026`) [D8]"
+    ],
+    [
+      "The pack claims ASVS compliance or certification with no version, scope, level or requirement list, or lists only failures",
+      "Return it for version, level and every requirement checked, with the rationale for exclusions; drop any certification claim, since OWASP certifies no vendor, verifier or software (`owasp-asvs-5-0`)"
+    ],
+    [
+      "The pack quotes a block rate from a fixed attack set, or lists a filter or prompt rule as the only injection control",
+      "Require an adaptive red-team run and at least one control that bounds what a fooled model can reach: static-only claims are to be rejected, and filtering controls are expected to degrade (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "A signature or a clean scan is the pack's evidence that a model or package is safe",
+      "Add a behavioural check and immutable references: signing proves integrity and origin, not safety, and scanners are layers, not guarantees (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "An agent holds two of the three legs and the pack carries no residual-risk assessment",
+      "Return the pack for it: two-leg configurations need an explicit residual-risk assessment (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "The pack's assurance is a stated confidence or a calibration figure (\"high confidence\", \"the model is well calibrated\") in place of a check",
+      "Replace it with the check: calibration error alone does not express how often a system is wrong (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "The pack cites \"the Cucumber suite is green\" as proof the behaviour is what the client wanted",
+      "Ask who discovered and agreed the scenarios and record it on the pack: using Cucumber does not mean doing BDD (`cucumber-bdd-gherkin`)"
+    ],
+    [
+      "A medium or high risk is carried into release without the client's agreement",
+      "Get the client's agreement on record or treat the risk: medium risk should not be tolerated without the commissioner's agreement (`uk-aqua-book-2025`)"
+    ],
+    [
+      "The pack states no limits of use and no review or expiry date",
+      "Add what it's for, what it isn't for, and a sunset date: delivery evidence may include a date beyond which the work should not be used (`uk-aqua-book-2025`)"
+    ],
+    [
+      "The pack states no assumptions and no assurance still owed",
+      "Return the pack for both lists; the source requires assumptions to be communicated to users and desk instructions to state assurance done and further assurance required (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "The accountable person is asked to sign a statement of the factory's practices, and the only basis offered is the agent's summary",
+      "Send it back for a record per practice: the signer attests to the best of their own knowledge, and on the form willfully false or misleading information may be a criminal violation (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "Someone who is not the CEO, not an employee, or without authority to bind the company is about to sign",
+      "Route the signature to the CEO or an employee designee with authority to bind the corporation (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "The factory can't meet one practice for this software, and the client wants the attestation",
+      "Don't sign the full attestation over the gap, since one signature covers every practice: name the practice, document the mitigations in place and submit a POA&M; the form sets no format or timeline, so set dated milestones and owners (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "An outside assessment is offered in place of the accountable person's signature",
+      "Check the assessor is FedRAMP certified or approved in writing by an appropriate agency official, that its baseline covers every element of the form, and that the assessment is attached and kept from public posting (`cisa-secure-software-attestation-form`) [D13]"
+    ],
+    [
+      "A release is scheduled while a discovered security vulnerability is still open, and no written policy says how it is handled",
+      "Write the policy and apply it before release: a policy or process for discovered security vulnerabilities before release is an attested practice (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "The pack offers the form's SSDF mapping as evidence that the practices ran",
+      "Replace it with run records: the form provides the mapping for reference purposes (`cisa-secure-software-attestation-form`) [D21]"
+    ],
+    [
+      "The client adds requirements beyond the form",
+      "Record conformance to them as an addendum: the form is a minimum, and agency-specific requirements may be attached (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "The pack's evidence for speed or quality is an impression, the builder's or the agent's, with no record behind it",
+      "Mark it asserted and send it back for a record or a measure: developers' after-the-fact estimate of a 20% speedup sat against a measured 19% slowdown (`becker-metr-ai-developer-productivity-2025`) [D2]"
+    ],
+    [
+      "The agent's summary, the diff, the ledger, the run records and the session trace or action log disagree about what was done, or a ledger entry has no linked trace",
+      "Reconcile before signing and correct or drop the entry: the trial checked self-reported time against screen recordings and set aside issues where the two differed by more than 20% (`becker-metr-ai-developer-productivity-2025`) • Reconcile before signing: agents can keep the appearance of compliance, and unlogged actions cannot be reconstructed (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "A figure on the pack has no setting, source or note of how it was collected: an outside figure for AI's effect, or a claim resting on a few runs",
+      "Name the figure's setting and size: the trial's authors caution against overgeneralizing their own result and against over-indexing on any subset of the data (`becker-metr-ai-developer-productivity-2025`)"
+    ],
+    [
+      "A rise in warnings or complexity is in the pack with no paydown and no waiver",
+      "Don't sign until it carries a paydown plan or a signed waiver (harness rule): the authors describe the debt as a ratchet that holds later output down (`he-cursor-velocity-complexity-2025`)"
+    ],
+    [
+      "The design relies on a human approving agent actions at a speed or volume no human can keep up with",
+      "State the residual risk and weigh it against the risk budget: faults can spread faster than humans can follow (`owasp-agentic-top10-2026`)"
+    ]
+  ]
+}

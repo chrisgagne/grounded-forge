@@ -1,0 +1,98 @@
+{
+ "id": "v12",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.8941,
+ "codex_tokens": 66418,
+ "work": "<tmp>/replay-v12-t1-t6chfbm_",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch deletes `if (state.frames.length !== 0) throwErrorAt(...'unexpected end of event stream')`. from_events.ts:241 now just returns state.stream, and a document reaches the stream only via EVENT_POP (line 231-232). eventsToAst is public (src/index.ts:193), while constructor.ts:456 keeps the same guard. Kept at high because the function now loses data silently on public API input instead of raising an error.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/ast/from_events.ts",
+   "line": 241,
+   "claim": "The end-of-stream frame check was removed, so eventsToAst silently returns a shortened AST and drops any document or collection still open when the event stream is incomplete.",
+   "evidence": "The diff deletes `if (state.frames.length !== 0) throwErrorAt(parserState, state.position, 'unexpected end of event stream')`. The function now ends with `return state.stream`, and a document reaches `state.stream` only in the `EVENT_POP` branch (`if (frame.kind === 'document') state.stream.push(frame.doc)`). A document frame that never gets its POP is discarded. `eventsToAst` takes a caller-supplied `ParserState` and is public API (src/index.ts:193, with `createParserState`, `parseEvents` and the `EVENT_*` constants also exported). The sister walker `constructEvents` still keeps this exact guard (src/parser/constructor.ts:456).",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "from_events.ts:230 is `state.frames.pop()!` and line 231 dereferences `frame.kind` with no guard. The diff removed the `if (!frame) throwErrorAt(...)` check, while constructor.ts:439 still raises 'unexpected collection end' for the same input.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/ast/from_events.ts",
+   "line": 230,
+   "claim": "An unbalanced EVENT_POP now crashes with a TypeError instead of the positioned 'unexpected collection end' YAML error.",
+   "evidence": "`const frame = state.frames.pop()!` replaces `const frame = state.frames.pop(); if (!frame) throwErrorAt(parserState, state.position, 'unexpected collection end')`. When `frames` is empty, the next line `frame.kind` throws `TypeError: Cannot read properties of undefined`. The non-null assertion only quiets the type checker; it does not handle the case. `constructEvents` still raises 'unexpected collection end' for the same input (src/parser/constructor.ts:438-439).",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "from_events.ts:153-155 reads the top frame and calls `frame.kind` directly. The diff removed the `if (!frame) throwErrorAt(...)` guard, and constructor.ts:321 keeps the equivalent check.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/ast/from_events.ts",
+   "line": 153,
+   "claim": "A node outside any document now crashes addNode with a TypeError instead of raising 'node appears outside a document'.",
+   "evidence": "The diff deletes `if (!frame) throwErrorAt(state.parserState, state.position, 'node appears outside a document')`. `const frame = state.frames[state.frames.length - 1]` is `undefined` when no document is open, and the next line `if (frame.kind === 'document')` dereferences it. The constructor's `addValue` keeps the same guard (src/parser/constructor.ts:321).",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only src/ast/from_events.ts: it removes the throwErrorAt import, all three guards and the alias NO_RANGE check, and changes no test. A grep of test/ finds no test for any of the three error messages. The only eventsToAst callers (spec.test.mjs:330, presenter.test.mjs:20) feed well-formed parser output. I could not find story.md to check whether the story asked for these removals, so no acceptance criterion is cited.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/ast/from_events.ts",
+   "line": null,
+   "claim": "The change strips all event-stream validation from this module and adds no test for it, so the weakened behaviour went in unguarded.",
+   "evidence": "The diff touches only src/ast/from_events.ts: it removes the `throwErrorAt` import, the three `throwErrorAt` guards and the `NO_RANGE` alias check, and changes no test file. A search of test/ finds no test that uses 'unexpected collection end', 'unexpected end of event stream' or 'node appears outside a document'. The `eventsToAst` callers in test/spec/spec.test.mjs:330 and test/core/ast/presenter.test.mjs:20 only feed well-formed `parseEvents` output, so the locked suite cannot see this regression.",
+   "axis_row": "L4.27",
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "disputed",
+   "reason": "from_events.ts:223 now slices unconditionally. When both bounds are NO_RANGE (-1), slice(-1,-1) still returns '', so normal behaviour does not change. A difference appears only for hand-built events where anchorStart is -1 and anchorEnd is valid, which the parser does not seem to produce. The inconsistency with constructor.ts:426 is real, but I could not show that it causes harm.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/ast/from_events.ts",
+   "line": 223,
+   "claim": "The alias branch dropped its NO_RANGE check and relies on slice(-1,-1) returning ''; a mixed -1/valid range would yield an input fragment.",
+   "evidence": "`const name = parserState.input.slice(event.anchorStart, event.anchorEnd)` replaces `event.anchorStart === NO_RANGE ? '' : parserState.input.slice(...)`. If `anchorStart` is -1 but `anchorEnd` is not, the slice returns a fragment of the input instead of ''. src/parser/constructor.ts:426-428 keeps the explicit `NO_RANGE` check, and the same file still uses that check in `rawTag` and `anchorName` (lines 83-91).",
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/NIAEFEUP/enei",
+  "pr_number": 194,
+  "base": "a74461de5337f3618effdcdb6f115dccd2f94a15",
+  "head": "0442935c8fe466a2f1115b76240c9ad9df2be1e5"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "Await the registration check before allowing check-in. `isRegistered` is asynchronous, so this condition negates a truthy Promise and never enters the rejection branch. Scanning any existing participant therefore checks them into the event even when they have no registration. Await the result before testing it."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 18,
+   "end_line": 20,
+   "message": "Call hooks before the conditional return. The parent keeps this component mounted while toggling `isOpen`, but this return skips `useTuyau` and `useForm` whenever the dialog is closed. Closing it after opening changes the hook sequence, violating React's hook ordering and potentially producing hook-count errors or leaving form effects mounted. Move the return below all hooks, or conditionally mount the entire component in the parent."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 315,
+   "message": "Show the scanner independently of staff registration status. The scanner trigger is nested inside `!isRegistered`, so staff members who have registered for an event cannot open its check-in scanner. Staff can also have participant profiles and register through the existing route. Render the staff scanner trigger outside the registration-button condition so those staff members can still check attendees in."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

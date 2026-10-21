@@ -1,0 +1,114 @@
+diff --git a/docs/THEORY.md b/docs/THEORY.md
+index 452e009..9cf3556 100644
+--- a/docs/THEORY.md
++++ b/docs/THEORY.md
+@@ -55,5 +55,6 @@ A personal notes service. People sign up, keep notes with tags, and ask an LLM t
+ | `GET /me`, `PATCH /me` | yes | Read or change your own name and date of birth. Email and password are not changed here. |
+ | `GET /notes` | yes | Your notes, newest first; `limit` (at most 100), `offset`, `tag`. |
+ | `POST /notes` | yes | Create a note (`title`, `body`, up to 10 `tags`). |
++| `GET /notes/search` | yes | Your notes whose title or body contains `q` (ignoring case), newest first, at most 50. |
+ | `GET /notes/:id` | yes | One of your notes. |
+ | `POST /notes/summary` | yes | Summarise your 50 newest notes (optionally one `tag`); `email: true` also emails you the summary. |
+diff --git a/src/notes/repo.js b/src/notes/repo.js
+index 6358961..a0eda8d 100644
+--- a/src/notes/repo.js
++++ b/src/notes/repo.js
+@@ -35,6 +35,26 @@ export function listNotes(db, userId, { limit = 20, offset = 0, tag = null } = {
+     .map(toNote);
+ }
+ 
++/**
++ * The user's notes whose title or body contains `text`, ignoring case, newest first.
++ * @returns {Note[]}
++ */
++export function searchNotes(db, userId, text, { limit = 50 } = {}) {
++  const term = text.toLowerCase();
++  return db
++    .prepare(
++      `SELECT n.id, n.title, n.body, n.created_at, n.updated_at,
++         (SELECT json_group_array(tag) FROM (SELECT tag FROM note_tags WHERE note_id = n.id ORDER BY tag)) AS tags
++       FROM notes n
++       WHERE n.user_id = ?
++         AND (lower(n.title) LIKE '%${term}%' OR lower(n.body) LIKE '%${term}%')
++       ORDER BY n.created_at DESC, n.id DESC
++       LIMIT ?`,
++    )
++    .all(userId, limit)
++    .map(toNote);
++}
++
+ /** @returns {Note | null} */
+ export function getNote(db, userId, noteId) {
+   const row = db
+diff --git a/src/notes/routes.js b/src/notes/routes.js
+index d8cb0ff..08d1ecd 100644
+--- a/src/notes/routes.js
++++ b/src/notes/routes.js
+@@ -1,8 +1,9 @@
+ import { HttpError, sendJson } from '../http.js';
+-import { createNote, getNote, listNotes } from './repo.js';
++import { createNote, getNote, listNotes, searchNotes } from './repo.js';
+ 
+ export const DEFAULT_PAGE_SIZE = 20;
+ export const MAX_PAGE_SIZE = 100;
++export const SEARCH_RESULT_LIMIT = 50;
+ const TAG = /^[a-z0-9][a-z0-9-]{0,31}$/;
+ 
+ /** @param {Record<string, any>} body */
+@@ -59,6 +60,13 @@ export function noteRoutes(router, { db, auth, now }) {
+     sendJson(res, 201, { note: toNoteResponse(note) });
+   });
+ 
++  router.get('/notes/search', auth, (req, res) => {
++    const q = typeof req.query.q === 'string' ? req.query.q.trim() : '';
++    if (q.length === 0 || q.length > 100) throw new HttpError(400, 'q must be 1 to 100 characters');
++    const notes = searchNotes(db, req.user.id, q, { limit: SEARCH_RESULT_LIMIT });
++    sendJson(res, 200, { notes: notes.map(toNoteResponse) });
++  });
++
+   router.get('/notes/:id', auth, (req, res) => {
+     const id = Number(req.params.id);
+     const note = Number.isInteger(id) ? getNote(db, req.user.id, id) : null;
+diff --git a/test/notes-search.test.js b/test/notes-search.test.js
+new file mode 100644
+index 0000000..6906022
+--- /dev/null
++++ b/test/notes-search.test.js
+@@ -0,0 +1,37 @@
++import assert from 'node:assert/strict';
++import { test } from 'node:test';
++import { addNote, alice, bob, signUpAndLogIn, startTestApp } from './helpers/app.js';
++
++test('finds notes by title or body, ignoring case', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  await addNote(app, cookie, { title: 'Roadmap review', body: 'Agree the Q3 themes.' });
++  await addNote(app, cookie, { title: 'Groceries', body: 'Milk, bread, roadmap snacks' });
++  await addNote(app, cookie, { title: 'Dentist', body: 'Tuesday 9am' });
++  const res = await app.request('GET', '/notes/search?q=ROADMAP', { cookie });
++  assert.equal(res.status, 200);
++  assert.deepEqual(
++    res.body.notes.map((note) => note.title),
++    ['Groceries', 'Roadmap review'],
++  );
++});
++
++test('search only looks at the caller\'s notes', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const aliceCookie = await signUpAndLogIn(app, alice);
++  const bobCookie = await signUpAndLogIn(app, bob);
++  await addNote(app, bobCookie, { title: 'Bob roadmap' });
++  const res = await app.request('GET', '/notes/search?q=roadmap', { cookie: aliceCookie });
++  assert.deepEqual(res.body.notes, []);
++});
++
++test('search needs a query', async (t) => {
++  const app = await startTestApp();
++  t.after(app.close);
++  const cookie = await signUpAndLogIn(app, alice);
++  assert.equal((await app.request('GET', '/notes/search', { cookie })).status, 400);
++  assert.equal((await app.request('GET', '/notes/search?q=%20%20', { cookie })).status, 400);
++  assert.equal((await app.request('GET', '/notes/search?q=x')).status, 401);
++});

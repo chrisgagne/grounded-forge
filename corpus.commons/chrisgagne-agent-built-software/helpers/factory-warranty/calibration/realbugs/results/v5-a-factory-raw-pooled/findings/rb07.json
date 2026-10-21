@@ -1,0 +1,105 @@
+{
+ "pr": {
+  "repo": "https://github.com/brianc/node-postgres",
+  "pr_number": 3650,
+  "base": "c6028a875f953eff9e8e403622b0aac127d1b4a6",
+  "head": "b922f0ddfa3914cc7b05387cd12fc606bc658dc4"
+ },
+ "agent": "v5-factory-raw-pooled",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 660,
+   "end_line": 660,
+   "message": "When a query has query_timeout/read timeout set and the timeout fires, the pg:query trace never completes: subscribers get a start event but no error, asyncStart or asyncEnd, so APM spans leak and the timeout error never reaches the tracer. Line 651 captures `queryCallback = query.callback` before tracing wraps it. Lines 726-735 then replace `query.callback` with the traced wrapper (around the timeout wrapper). On timeout the timer calls `queryCallback(error)` directly (line 660), which skips the traced wrapper, then sets `query.callback = () => {}` (line 664), dropping the traced wrapper so it is never called. No test covers this path."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 689,
+   "end_line": 689,
+   "message": "Queries that fail straight away because the client is not queryable or is ending are never traced, so tracing tools never see these errors. The `!this._queryable` and `this._ending` branches (lines 689-701) return before the `shouldTrace(queryChannel)` block at line 709. They call `query.handleError` on the original, unwrapped callback."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 709,
+   "end_line": 709,
+   "message": "Submittable queries with no callback (e.g. pg-cursor, pg-query-stream, or any `client.query(submittable)` used through events) are silently left out of the pg:query channel. The guard is `if (shouldTrace(queryChannel) && query.callback)`. A submittable passed without a callback has no `query.callback`, so it goes to `enqueue()` with no trace."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 723,
+   "end_line": 723,
+   "message": "For multi-statement simple queries, `context.result.rowCount` and `command` are undefined, because the callback receives an array of Results rather than one Result. query.js line 142 calls `this.callback(null, this._results)`, and `_results` can be an array for multi-statement text. enrichedCb reads `res.rowCount` / `res.command` without checking for an array."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/diagnostics.js",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "On Node versions where TracingChannel lacks the `hasSubscribers` getter (Node 18), every query, client connect and pool connect goes through traceCallback even with no subscribers. That is extra closures and wrapping on the hot path, and it is the same configuration the new tests skip as unstable. `shouldTrace` returns `channel.hasSubscribers !== false`, which is true when the getter is undefined. Both test files set `hasStableTracingChannel` to require a boolean `hasSubscribers` and skip otherwise, with the comment 'Skip tests on older versions where TracingChannel is missing or has internal bugs'. So the always-on production path on those versions is never exercised. pg's engines field is `>= 16.0.0`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 711,
+   "end_line": 711,
+   "message": "The full SQL text goes out to any diagnostics_channel subscriber. If an app builds SQL with inlined literals, those values (possibly sensitive) are exposed to every in-process subscriber, and nothing documents this. `context = { query: { text: query.text, ... } }` is published on start. No redaction option exists and no documentation mentions the channel payloads."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/native/client.js",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The native client (pg.native) gets no instrumentation, so the pg:query and pg:connection channels stay silent for users of pg-native. The diff only changes packages/pg/lib/client.js. packages/pg/lib/native/client.js has its own connect/query methods and does not use `./diagnostics`."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg-pool/diagnostics.js",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The diagnostics loader and `shouldTrace` are copied into two packages, and the connection-context literal is duplicated within Client.connect, so future fixes have to be made in several places. packages/pg-pool/diagnostics.js and packages/pg/lib/diagnostics.js contain the same try/getBuiltInModule block and the same `shouldTrace` function. client.js lines 329 and 350 build the identical `connection: { database, host, port, user, ssl }` object twice."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/diagnostics.js",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new public channels (pg:query, pg:connection, pg:pool:connect, pg:pool:release, pg:pool:remove) and their payload shapes are undocumented, so integrators have to reverse-engineer them from the code. A search of the repo for 'diagnostics_channel' or 'pg:query' finds only the two new diagnostics.js modules and their tests. No README or docs page changed."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/test/unit/client/diagnostics-tests.js",
+   "start_line": 466,
+   "end_line": 466,
+   "message": "The new tests cover only the happy path and one error per channel, and leave out the paths most likely to break, such as query timeouts, non-queryable clients, the pool's connectionTimeoutMillis queue path and connect errors. The query tests cover callback success, an errorMessage, client info and the promise path. The pool tests cover one successful connect (via a mock client), release and remove. None set `query_timeout` or `connectionTimeoutMillis`, and none fail a connect, which is how the read-timeout trace leak goes undetected."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg-pool/index.js",
+   "start_line": 218,
+   "end_line": 218,
+   "message": "The tracing callbacks expose raw clients and query rows through diagnostic contexts despite constructing limited metadata objects. TracingChannel.traceCallback assigns the callback's second argument to context.result before publishing asyncStart. For pool.connect(), that argument is the full Client, and enrichedCb never replaces context.result; a Node 22 reproduction confirmed asyncEnd receives the Client instance. Client contains connectionParameters and password. The same pattern in packages/pg/lib/client.js:726 exposes the full query Result, including rows, to asyncStart before enrichedCb replaces it with command and rowCount."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 726,
+   "end_line": 726,
+   "message": "Queries that reach their read timeout never publish tracing completion or error events, leaving subscribers with unfinished operations. The readTimeout handler captures queryCallback before tracing is installed, calls queryCallback(error) directly, and replaces query.callback with a no-op. The new traceCallback wrapper is installed only afterward at line 728. When a queued or active query times out, the timeout therefore bypasses that wrapper, and the scheduled query.handleError also reaches the replacement no-op; subscribers receive start/end but neither error nor asyncEnd."
+  },
+  {
+   "producer": "v5-factory-raw-pooled",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 724,
+   "end_line": 724,
+   "message": "Enabling query tracing changes the callback receiver, which can break callbacks that access the Query through this. Query.handleReadyForQuery and Query.handleError invoke callbacks as this.callback(...), preserving the Query receiver. The tracing wrapper receives that receiver, but enrichedCb is an arrow function and invokes origCb(err, res) as a plain function, discarding it. Thus the same callback receives the Query without tracing and undefined as this in strict mode when tracing is subscribed."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

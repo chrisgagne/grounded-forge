@@ -1,0 +1,20 @@
+[
+ {
+  "id": "X1",
+  "leg": "codex",
+  "severity": "high",
+  "file": "cmd/root.go",
+  "line": 73,
+  "claim": "An up-to-date Copilot review is hidden before the command skips requesting a replacement.",
+  "evidence": "For a PR with an unminimized Copilot review submitted after its last commit, run first calls MinimizeCopilotComments, which minimizes every unminimized Copilot review as OUTDATED. The new freshness check then returns true and exits without requesting another review, leaving the current review hidden."
+ },
+ {
+  "id": "X2",
+  "leg": "codex",
+  "severity": "medium",
+  "file": "internal/github/github.go",
+  "line": 84,
+  "claim": "The freshness check reads only the first page of commits and reviews, causing incorrect decisions on longer PRs.",
+  "evidence": "IsCopilotReviewFresh makes one Get call per endpoint without pagination and treats commits[len(commits)-1] as the latest commit. Both endpoints paginate with a default of 30 results. With 31 commits and a Copilot review between commits 30 and 31, it can report fresh and suppress the needed request; a fresh review beyond the first 30 reviews can instead be missed. See [GitHub pull request documentation](https://docs.github.com/en/rest/pulls/pulls#list-commits-on-a-pull-request) and [review documentation](https://docs.github.com/en/rest/pulls/reviews#list-reviews-for-a-pull-request)."
+ }
+]

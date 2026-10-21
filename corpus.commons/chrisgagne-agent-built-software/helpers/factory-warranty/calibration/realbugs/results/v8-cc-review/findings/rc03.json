@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/efcore",
+  "pr_number": 38115,
+  "base": "fec5da438f8879ca73c9752683e323cda8be77e6",
+  "head": "009f41901ee1a943ce85425652bc454fe85d2278"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/EFCore/ChangeTracking/Internal/InternalEntryBase.cs",
+   "start_line": 287,
+   "end_line": 287,
+   "message": "Every property with AfterSaveBehavior.Throw now has its original value overwritten with its current value whenever an entry moves to Modified. That covers all primary and alternate key properties by default, plus any user-configured Throw property, not just the complex-type discriminator the fix targets. As a result, real pending changes to those properties are wiped out silently instead of being detected. A tracked Unchanged entity has an alternate key, or a property set to `SetAfterSaveBehavior(Throw)`, possibly also a concurrency token. The user assigns `entity.Code = \"new\"`, then calls `context.Entry(entity).State = EntityState.Modified`. The `EntityEntry.State` setter doesn't run DetectChanges first, so the original snapshot is overwritten with \"new\" before the change is ever seen. Before this change, SaveChanges' DetectChanges would find the mismatch and throw PropertyReadOnlyAfterSave. Now the modification is silently dropped: no exception, no UPDATE of the column, and `OriginalValues` reports the wrong value. For alternate keys, the key-change handling in DetectChanges is also skipped (identity-map update and dependent FK fixup). For a concurrency token, the WHERE clause uses the new value instead of the real original. The fix should be limited to the case it targets (shadow discriminator properties on complex types), or should only apply when the entry is coming from Detached."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 45000
+ }
+}

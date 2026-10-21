@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/brianc/node-postgres",
+  "pr_number": 3650,
+  "base": "c6028a875f953eff9e8e403622b0aac127d1b4a6",
+  "head": "b922f0ddfa3914cc7b05387cd12fc606bc658dc4"
+ },
+ "agent": "v5-factory-raw-codex",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "packages/pg-pool/index.js",
+   "start_line": 218,
+   "end_line": 218,
+   "message": "The tracing callbacks expose raw clients and query rows through diagnostic contexts despite constructing limited metadata objects. TracingChannel.traceCallback assigns the callback's second argument to context.result before publishing asyncStart. For pool.connect(), that argument is the full Client, and enrichedCb never replaces context.result; a Node 22 reproduction confirmed asyncEnd receives the Client instance. Client contains connectionParameters and password. The same pattern in packages/pg/lib/client.js:726 exposes the full query Result, including rows, to asyncStart before enrichedCb replaces it with command and rowCount."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 726,
+   "end_line": 726,
+   "message": "Queries that reach their read timeout never publish tracing completion or error events, leaving subscribers with unfinished operations. The readTimeout handler captures queryCallback before tracing is installed, calls queryCallback(error) directly, and replaces query.callback with a no-op. The new traceCallback wrapper is installed only afterward at line 728. When a queued or active query times out, the timeout therefore bypasses that wrapper, and the scheduled query.handleError also reaches the replacement no-op; subscribers receive start/end but neither error nor asyncEnd."
+  },
+  {
+   "producer": "v5-factory-raw-codex",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 724,
+   "end_line": 724,
+   "message": "Enabling query tracing changes the callback receiver, which can break callbacks that access the Query through this. Query.handleReadyForQuery and Query.handleError invoke callbacks as this.callback(...), preserving the Query receiver. The tracing wrapper receives that receiver, but enrichedCb is an arrow function and invokes origCb(err, res) as a plain function, discarding it. Thus the same callback receives the Query without tracing and undefined as this in strict mode when tracing is subscribed."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

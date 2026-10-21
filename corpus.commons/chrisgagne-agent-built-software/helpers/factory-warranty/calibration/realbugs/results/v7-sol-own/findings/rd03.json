@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/EdV4H/usketch",
+  "pr_number": 534,
+  "base": "ff729b7dce02efaf7d1054780536289f86e8a5e7",
+  "head": "719aa8340584e714552d132a9ec6971582673a8b"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 34,
+   "message": "Apply rotation in the active DOM renderer. The web app registers `createDomRendererPlugin()`, which renders `packages/dom-renderer/src/dom-shape-layer.tsx`, not this `ShapeLayer`. Consequently, shapes with nonzero rotation still appear unrotated in the app, while the newly wrapped hit tests and spatial bounds treat them as rotated. For example, a rectangular sticky note rotated 90 degrees can no longer be selected across its visible extent. Apply the transform in the active renderer as well."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

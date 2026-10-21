@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/brianc/node-postgres",
+  "pr_number": 3650,
+  "base": "c6028a875f953eff9e8e403622b0aac127d1b4a6",
+  "head": "b922f0ddfa3914cc7b05387cd12fc606bc658dc4"
+ },
+ "agent": "v5-vendors",
+ "findings": [
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg-pool/index.js",
+   "start_line": 3,
+   "end_line": 3,
+   "message": "Include diagnostics.js in the published pg-pool package. The `files` allowlist in `packages/pg-pool/package.json` includes only `index.js` and `esm`, so the new `diagnostics.js` module will not be published. Consequently, requiring the published `pg-pool` package (including through `pg`) will fail immediately with `MODULE_NOT_FOUND`. Add the new module to the package's published files."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg-pool/index.js",
+   "start_line": 218,
+   "end_line": 221,
+   "message": "Run pool acquisition inside the tracing callback. When instrumentation binds an AsyncLocalStorage store to `pg:pool:connect`'s start channel, that store is active only inside the function passed to `traceCallback`. Here that function merely assigns a callback; the actual acquisition and `client.connect()` happen after the tracing scope has ended. This prevents the new connection trace from inheriting the pool-acquisition context and publishes the synchronous end event before acquisition even starts. Move the acquisition logic into the traced function so downstream connection work runs in the bound context."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg-pool/index.js",
+   "start_line": 3,
+   "end_line": 3,
+   "message": "index.js now requires './diagnostics', but the `files` field in packages/pg-pool/package.json only lists \"index.js\" and \"esm\". The new diagnostics.js will not be in the published tarball, so `require('pg-pool')` (and therefore `pg`'s Pool) will throw 'Cannot find module ./diagnostics' for every user after release. The tests pass only because they run from the source tree. Add diagnostics.js to `files` or inline the module."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 703,
+   "end_line": 738,
+   "message": "The query read-timeout path skips tracing. The readTimeout wrapper captures the original `queryCallback` before traceCallback wraps `query.callback`. When the timer fires, it calls `queryCallback(error)` directly and then overwrites `query.callback = () => {}`, which throws away the traced callback. Queries that hit `query_timeout` therefore emit `start` with no `error` or `asyncEnd`. Spans leak and timeouts are never recorded, even though timeouts are among the most important events to observe. Apply the tracing wrap before the timeout wrapper, or route the timeout through the traced callback."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 709,
+   "end_line": 709,
+   "message": "Queries are traced only when `query.callback` is set. Submittables without a callback (pg-cursor, pg-query-stream, Query objects used through events) are never traced. Errors raised before this point (the `!_queryable` and `_ending` early returns at lines 689-701) also never reach the channel. The PR describes `pg:query` as covering the query lifecycle, so these silent gaps should be closed or documented."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg-pool/index.js",
+   "start_line": 218,
+   "end_line": 226,
+   "message": "The traced function only assigns `response.callback`. The actual work (newClient \u2192 client.connect, pending-queue handling) runs after traceCallback returns, outside the `start.runStores` scope. Any AsyncLocalStorage store a subscriber binds to `pg:pool:connect` is not active while the client connects, so `pg:connection` spans are not parented under the pool-connect span. That defeats much of the point of using TracingChannel instead of plain channels. Run the acquisition logic inside the traced function."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg/lib/diagnostics.js",
+   "start_line": 35,
+   "end_line": 41,
+   "message": "`shouldTrace` returns true when `hasSubscribers` is undefined, so on Node 18.x (where pg's engines `>=16` is still supported) every query, connect and pool.connect goes through traceCallback unconditionally. That adds wrapping overhead even with no subscribers, which contradicts the PR's claim of no overhead. Both test files also skip exactly these versions because of 'internal bugs' in TracingChannel, so the code path that always runs in production on Node 18 is never tested. Either gate on a stable TracingChannel (as the tests do) or test the Node 18 path."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg-pool/diagnostics.js",
+   "start_line": 33,
+   "end_line": 39,
+   "message": "This module duplicates packages/pg/lib/diagnostics.js, including the version-detection logic and the Node 18 `shouldTrace` workaround. The two copies will drift; consider sharing a single implementation or at least keeping them in sync deliberately."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg/lib/client.js",
+   "start_line": 208,
+   "end_line": 235,
+   "message": "Only the pure-JS Client is instrumented. The native client (packages/pg/lib/native/client.js) emits no `pg:query` or `pg:connection` events, so users of `pg.native` silently lose tracing. Document this or instrument the native client too."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg-pool/index.js",
+   "start_line": 421,
+   "end_line": 423,
+   "message": "`error: err || undefined` passes through whatever value was given to `release()`. `release(true)` is a common idiom for destroying a client, and it publishes `error: true` instead of an Error. Subscribers recording this as an exception will get a non-Error value; consider normalizing it or documenting it."
+  },
+  {
+   "producer": "v5-vendors",
+   "file": "packages/pg/test/unit/client/diagnostics-tests.js",
+   "start_line": 466,
+   "end_line": 466,
+   "message": "The outer `testTracing('query diagnostics channel', function () { testTracing(...) })` nests test registrations inside a test body. With this repo's simple Suite helper, the outer 'test' takes no `done` and registers inner tests while it is running, so the inner tests may not run or report as intended. Also, assertion failures inside subscriber callbacks will throw out of `publish` into pg's code instead of failing the test cleanly. Verify that these tests actually run and fail when they should."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 864000
+ }
+}

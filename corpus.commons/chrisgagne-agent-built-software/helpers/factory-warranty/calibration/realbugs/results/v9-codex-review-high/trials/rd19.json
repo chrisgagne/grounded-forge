@@ -1,0 +1,36 @@
+{
+ "id": "rd19",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 176,
+   "end_line": 179,
+   "message": "Preserve the stored token when editing a source URL. When an administrator edits a token-protected source URL without entering a replacement token, `McpServerGitSync.svelte` sends `\"*\"` under the new URL. This lookup only checks the new key, while the stored token remains under the old URL. The old key is subsequently dropped, silently deleting the credential and breaking private-repository sync. Implement an explicit old-to-new credential transfer for URL edits."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 126,
+   "end_line": 128,
+   "message": "Normalize credential keys alongside source URLs. When a user adds a scheme-less URL such as `gitlab.com/org/repo` with a token, the UI keys `sourceURLCredentials` by that original input. This normalization changes only `SourceURLs`, so the credential-processing loop rejects the original key as inactive. Saving succeeds but discards the token, leaving private-repository sync unauthenticated. Apply the same normalization to credential-map keys."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 58,
+   "end_line": 60,
+   "message": "Keep GitLab raw-file URLs on the HTTP download path. Existing sources such as `https://gitlab.com/group/repo/-/raw/main/catalog.yaml` previously used the raw-file download path. Classifying every GitLab URL as a repository now sends these through `parseGitURL`, which interprets `-/raw/main/catalog.yaml` as a branch and rejects it. Distinguish GitLab raw-file URLs from repository URLs so existing catalog sources continue syncing."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 407,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

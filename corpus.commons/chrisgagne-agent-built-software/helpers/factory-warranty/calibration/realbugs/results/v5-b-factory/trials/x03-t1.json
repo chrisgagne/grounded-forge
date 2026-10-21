@@ -1,0 +1,66 @@
+{
+ "id": "x03",
+ "trial": 1,
+ "kind": "control",
+ "error": null,
+ "blocks": [],
+ "first": "passed",
+ "cost_usd": 0.5963,
+ "codex_tokens": 28295,
+ "work": "<tmp>/replay-x03-t1-m095l1_g",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "A grep for parse-positional-numbers finds it only in lib/yargs-parser-types.ts:53, lib/yargs-parser.ts:70/622 and the tests. README.md has `### parse numbers` at line 227 but nothing for the new option. This is a documentation gap, not a defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 227,
+   "claim": "The new public `parse-positional-numbers` configuration option is not documented in the README.",
+   "evidence": "README.md's Configuration section lists keys such as `parse-numbers` (line 230) and `populate--` (line 361), but there is no entry for `parse-positional-numbers`. The diff adds the option to the `Configuration` interface (lib/yargs-parser-types.ts:52-53) and its defaults (lib/yargs-parser.ts:70) without changing any documentation.",
+   "axis_row": "L5.24",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "In diff.patch the return object at lines 1035-1046 has the same values with the keys reordered, and `value = Number(value)` is only rewrapped into a block. Behaviour does not change, so this is low churn, not a defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/yargs-parser.ts",
+   "line": 1037,
+   "claim": "The diff alphabetises the keys of the object detailed() returns and reformats the coercion one-liner. This is unrelated churn.",
+   "evidence": "In the hunk at @@ -1031,12 +1035,12 @@, `argv`, `error`, `aliases`, `newAliases`, `defaulted`, `configuration` become alphabetised (`aliases`, `argv`, `configuration`, `defaulted`, `error`, `newAliases`). The values are unchanged. The `maybeCoerceNumber` hunk likewise only reformats the existing `value = Number(value)` one-liner into a block.",
+   "axis_row": "L6.22",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "disputed",
+   "reason": "Line 622 does return before checkAllAliases(key, flags.numbers), so the described interaction happens. But setting the opt-out is an explicit choice, and neither the story nor the locked tests (test/yargs-parser.cjs:2447-2463) say which setting should win. That makes it a design question, not a shown defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "lib/yargs-parser.ts",
+   "line": 622,
+   "claim": "The early return for `_` runs before the flags.numbers check. With parse-positional-numbers false, an explicit `number: ['_']` is ignored.",
+   "evidence": "`if (!configuration['parse-positional-numbers'] && key === '_') return value` comes before `checkAllAliases(key, flags.numbers)` on the following lines. Positionals reach this function via `maybeCoerceNumber('_', arg)` at line 385. The locked tests (test/yargs-parser.cjs:2447-2463) only try `['5.0', '3']` with the flag on and off, not alongside `number` or `parse-numbers: false`.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": []
+ }
+}

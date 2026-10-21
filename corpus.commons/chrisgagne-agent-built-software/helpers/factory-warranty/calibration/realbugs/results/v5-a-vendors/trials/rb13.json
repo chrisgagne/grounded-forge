@@ -1,0 +1,70 @@
+{
+ "id": "rb13",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "docs/UserGuide.md",
+   "start_line": 333,
+   "end_line": 360,
+   "message": "The User Guide no longer matches what the command does. Line 335 still says notes 'will be persisted in future milestones' and that the command only 'validates syntax', and line 360 says `note` is not undoable. This PR makes notes persistent and undoable. The guide also still documents `note d-/DATE` (lines 342-349 and the summary table at line 439), but `NoteCommandParser` does not handle `d-/`, and this PR removes the delete format from `MESSAGE_USAGE`. Users who follow the guide will get a format error. Update the note section and remove or flag the delete-note entries."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/main/java/seedu/address/logic/commands/NoteCommand.java",
+   "start_line": 41,
+   "end_line": 44,
+   "message": "`model.setNote` calls `Map.put`, so a second `note` for the same date silently replaces the earlier note. The success message still says 'New note recorded', and the user is never told that the previous note was lost. Since there is no delete or edit command, overwriting is the only way to change a note, and it happens without any notice. Do one of the following: append to the existing note, report the replacement in the result message (for example 'Note for X updated, previous note: ...'), or reject duplicates."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/main/java/seedu/address/storage/JsonSerializableAddressBook.java",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "Notes are serialised through a `HashMap`, while `AddressBook` uses a `LinkedHashMap` so that merged planner notes keep their insertion order (the ModelManagerTest comment relies on this). After a save and reload, the order is the `HashMap`'s order. As a result, the merged note shown for a date (for example 'everyday' plus a specific date) can appear in a different order after the app restarts. Use a `LinkedHashMap` here, in both the field and the deserialisation path."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/main/java/seedu/address/storage/JsonSerializableAddressBook.java",
+   "start_line": 69,
+   "end_line": 85,
+   "message": "Two different JSON keys can parse to the same `VisitDate`, because `VisitDate.of` lowercases its input. For example, 'e-TUESDAY' and 'e-tuesday' from a hand-edited file both become the same date, and `setNote` silently keeps whichever one the `HashMap` returns last. Detect the collision and either reject it (as is done for duplicate locations) or merge the two notes, so that data is not dropped without warning."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/main/java/seedu/address/model/ModelManager.java",
+   "start_line": 267,
+   "end_line": 281,
+   "message": "Matching notes are joined into one `NoteContent` with only blank lines between them, so the planner does not show which date each part came from (for example 'Every Tuesday' versus '24 Mar 26'). This becomes a real problem because there is no delete command: users cannot tell which date to overwrite in order to change a given part. Consider prefixing each part with its `VisitDate` label."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/test/java/seedu/address/model/AddressBookTest.java",
+   "start_line": 720,
+   "end_line": 725,
+   "message": "The new `equals` and `hashCode` tests only check reflexivity and a non-`AddressBook` argument. None of them shows that two address books with the same locations but different notes are unequal. That is the behaviour this PR changes, and undo/redo depends on it: `commitState` compares `AppState` snapshots, so if `equals` ignored notes, a `note` command would not be recorded for undo. Add a test with different notes, and an undo/redo test for `NoteCommand`."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 32,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 70,
+   "cost_usd": 0.49447779999999997,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 70
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/rcrsr/rill",
+  "pr_number": 53,
+  "base": "237cccc6a7726c10b01fc547cfbacf281dc0b7e3",
+  "head": "2ed44cafed83491d4f58902d478b23cbc0fd01ef"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "packages/core/src/runtime/core/types/runtime.ts",
+   "start_line": 173,
+   "end_line": 174,
+   "message": "Breaking Type Change. `hostContext` is a required field on the exported `RuntimeContext` interface. `metadata`, by comparison, is optional. Any object literal typed as `RuntimeContext` outside the places this PR updates will stop compiling. This PR already had to patch one such literal (`minimalContext` in `assertType`). Likely affected code includes test helpers, mock contexts in extension packages, and third-party hosts. This makes a feature listed under \"Added\" a breaking change for TypeScript consumers. I can't confirm from the diff whether other literals exist in the repo. Two fixes are possible: make the field optional, as `RuntimeContextLike` already does, and read it with `?? {}`. Or document the change as breaking."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 18000
+ }
+}

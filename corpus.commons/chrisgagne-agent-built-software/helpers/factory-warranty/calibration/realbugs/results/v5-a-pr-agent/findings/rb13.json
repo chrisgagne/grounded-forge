@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/AY2526S2-CS2103T-W14-3/tp",
+  "pr_number": 152,
+  "base": "a27b3e40d94f92f229b9301a8a9d5207d9a5b0bb",
+  "head": "e0a9ce03c8c1cc839eaf409e2677b9abf2017b1f"
+ },
+ "agent": "v5-pr-agent",
+ "findings": [
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/main/java/seedu/address/ui/PlannerListPanel.java",
+   "start_line": 44,
+   "end_line": 47,
+   "message": "Null note to UI. The listener passes `newValue` straight to `showNote`, but the model sets the property to `null` in several cases: `plan` with no date, a date with no notes, or `setAddressBook` clearing notes. The constructor guards against `null` before calling `showNote`, which suggests `showNote` does not handle `null`. If it dereferences the note, switching to a date with no note will throw an NPE on the FX thread. Even if it doesn't, the previous note may stay visible instead of being cleared or hidden. Handle `null` explicitly, for example by clearing or hiding the note area."
+  },
+  {
+   "producer": "v5-pr-agent",
+   "file": "src/main/java/seedu/address/storage/JsonSerializableAddressBook.java",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "Note order lost. `AddressBook` keeps notes in a `LinkedHashMap`, and `updatePlannerNote` merges matching notes in insertion order. The JSON layer uses a `HashMap`, so insertion order is lost on save and reload. After restarting the app, merged planner notes for a date (e.g. an `everyday` note plus a specific-date note) can appear in a different, hash-dependent order. Use a `LinkedHashMap` here to keep the order stable."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 23000
+ }
+}

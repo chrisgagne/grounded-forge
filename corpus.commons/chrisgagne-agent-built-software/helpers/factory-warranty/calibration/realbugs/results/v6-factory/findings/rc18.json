@@ -1,0 +1,98 @@
+{
+ "pr": {
+  "repo": "https://github.com/OpenDevicePartnership/embedded-services",
+  "pr_number": 793,
+  "base": "90130bc3d3df2f186323d70a8f757a5dfa16c6a2",
+  "head": "f63a02462d1eebd5b06b45ebdf1d2705c919413a"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "The change removes `defmt` from the crate's default features. Nothing in the packet asks for this, and downstream users who rely on the default `defmt::Format` impl on `Error` will stop compiling or lose logging support without warning. The diff changes `default = [\"esa\", \"bdd\", \"macros\", \"defmt\"]` to `default = [\"esa\", \"bdd\", \"macros\"]`. In lib.rs:158, `#[cfg_attr(feature = \"defmt\", derive(defmt::Format))]` on `pub enum Error<E>` is now off by default. The rest of the diff only adds the PartitionGuard lock/try_lock API and overflow checks, none of which needs this public default to change."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 22,
+   "end_line": 22,
+   "message": "This removes `defmt` from the crate's default features. The change isn't mentioned in the PR description and has nothing to do with PartitionGuard. Downstream users who relied on the default features will no longer get `defmt::Format` on `Error<E>`, so code that logs these errors with defmt (e.g. `{}` / `Debug2Format`-free formatting) stops compiling. That breaks semver. If the goal was to make `cargo test` link on std, enable or disable defmt for tests instead of changing the public defaults, or split this into its own PR. This removes `defmt` from the crate's default features. The change isn't mentioned in the PR description and has nothing to do with PartitionGuard. Downstream users who relied on the default features will no longer get `defmt::Format` on `Error<E>`, so code that logs these errors with defmt (e.g. `{}` / `Debug2Format`-free formatting) stops compiling. That breaks semver. If the goal was to make `cargo test` link on std, enable or disable defmt for tests instead of changing the public defaults, or split this into its own PR."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 40,
+   "end_line": 40,
+   "message": "The change adds a new dev-dependency, `critical-section` with the `std` feature, that nothing in the crate visibly uses. It may be unneeded supply-chain surface, and no reason for it is given. `critical-section = { workspace = true, features = [\"std\"] }` is added under [dev-dependencies], and Cargo.lock gains a `critical-section` entry for partition-manager. A search of partition-manager/ for `critical_section` or `CriticalSection` finds nothing. The tests build `TestMap` with `NoopRawMutex` (test/mod.rs:16-24)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 40,
+   "end_line": 40,
+   "message": "`critical-section` (with `std`) is added as a dev-dependency, but no test uses it: there is no `CriticalSectionRawMutex` and no critical-section API in the tests. Either use it (for example, run the guard tests with `CriticalSectionRawMutex`) or remove it. As it stands it is dead weight and will be flagged by unused-dependency checks such as cargo-machete. `critical-section` (with `std`) is added as a dev-dependency, but no test uses it: there is no `CriticalSectionRawMutex` and no critical-section API in the tests. Either use it (for example, run the guard tests with `CriticalSectionRawMutex`) or remove it. As it stands it is dead weight and will be flagged by unused-dependency checks such as cargo-machete."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/src/ext/bdd.rs",
+   "start_line": 72,
+   "end_line": 72,
+   "message": "PartitionGuard copies the bounds-checking logic of Partition (`start_block`, `check_access`, and `within_bounds` in lib.rs) instead of sharing it, so a later fix to one copy can silently miss the other. In bdd.rs, `impl PartitionGuard { const fn start_block ...; const fn check_access ... }` repeats the Partition versions line for line: the checked_mul, the `data.len() > u32::MAX` test, and the within_bounds call. lib.rs:138-148 duplicates `within_bounds` from lib.rs:126-136. In esa.rs, the guard's read/write/erase bodies (lines ~265-312) repeat the Partition bodies except that they call `self.guard` instead of `self.storage.lock().await`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/src/ext/bdd.rs",
+   "start_line": 52,
+   "end_line": 52,
+   "message": "`start_block`, `check_access`, `within_bounds` (in lib.rs), and every trait method body are copied line for line between `Partition` and `PartitionGuard`. The bounds and overflow checks are safety-critical, so if a future fix lands in one copy and not the other, the two types will silently enforce different bounds. Factor the logic into a shared helper that works on `(offset, size)`, or have `Partition` operations delegate to `self.lock().await` followed by the guard's operation. `start_block`, `check_access`, `within_bounds` (in lib.rs), and every trait method body are copied line for line between `Partition` and `PartitionGuard`. The bounds and overflow checks are safety-critical, so if a future fix lands in one copy and not the other, the two types will silently enforce different bounds. Factor the logic into a shared helper that works on `(offset, size)`, or have `Partition` operations delegate to `self.lock().await` followed by the guard's operation."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 49,
+   "end_line": 49,
+   "message": "Holding a PartitionGuard blocks every other partition on the same device, because they all share one mutex. If a task awaits any Partition operation (or `lock()` on another partition) while holding a guard, it waits forever, and neither the docs nor the README warn about this. `lock()` returns a guard that holds `self.storage.lock().await`. Every partition shares that `&Mutex<M, F>` (test/mod.rs map). The test at test/bdd.rs:128-132 confirms that holding `factory.lock()` makes `settings.try_lock()` fail. The doc comment only says 'The underlying mutex is held for the lifetime of this guard'. README.md:76 describes the Mutex but not the new lock API."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 49,
+   "end_line": 49,
+   "message": "`lock()` and `try_lock()` lock the mutex for the whole device, which every partition from the same `PartitionManager` shares. A `PartitionGuard` therefore blocks every other partition on the device, not just this one; the tests confirm this, since holding `factory.lock()` makes `settings.try_lock()` fail. The docs say the guard gives exclusive access to \"a partition's underlying storage\" and don't warn about this. If a task holds a guard and then calls a normal `Partition` method (on this or any other partition of the device) in the same task, it deadlocks forever. That is the same kind of deadlock this PR is meant to prevent. Document the device-wide scope and the re-entrancy hazard clearly. `lock()` and `try_lock()` lock the mutex for the whole device, which every partition from the same `PartitionManager` shares. A `PartitionGuard` therefore blocks every other partition on the device, not just this one; the tests confirm this, since holding `factory.lock()` makes `settings.try_lock()` fail. The docs say the guard gives exclusive access to \"a partition's underlying storage\" and don't warn about this. If a task holds a guard and then calls a normal `Partition` method (on this or any other partition of the device) in the same task, it deadlocks forever. That is the same kind of deadlock this PR is meant to prevent. Document the device-wide scope and the re-entrancy hazard clearly."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 59,
+   "end_line": 59,
+   "message": "The PR's motivation is panic handlers, but `try_lock()` doesn't really deliver that. Every operation on the returned guard (`read`/`write`/`erase`) is `async`, and a `#[panic_handler]` or other sync context can't await without its own executor or block_on. Also, in typical no_std builds (panic=abort / panic-probe), a panicking task never releases the lock, so try_lock will always fail there. The documentation should say what the supported use case is, or a blocking API should be provided, so users don't build crash-logging on an assumption that doesn't hold. The PR's motivation is panic handlers, but `try_lock()` doesn't really deliver that. Every operation on the returned guard (`read`/`write`/`erase`) is `async`, and a `#[panic_handler]` or other sync context can't await without its own executor or block_on. Also, in typical no_std builds (panic=abort / panic-probe), a panicking task never releases the lock, so try_lock will always fail there. The documentation should say what the supported use case is, or a blocking API should be provided, so users don't build crash-logging on an assumption that doesn't hold."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/src/ext/esa.rs",
+   "start_line": 289,
+   "end_line": 289,
+   "message": "`erase` now uses `to.checked_sub(from)` where it used `saturating_sub`. For `Partition` (line 61) this changes behavior: `erase(from, to)` with `to < from` used to pass the bounds check (size 0) and was forwarded to the device; now it returns `OutOfBounds`. That may be the right call, but it is an unannounced behavior change to an existing API, and no test covers it. `erase` now uses `to.checked_sub(from)` where it used `saturating_sub`. For `Partition` (line 61) this changes behavior: `erase(from, to)` with `to < from` used to pass the bounds check (size 0) and was forwarded to the device; now it returns `OutOfBounds`. That may be the right call, but it is an unannounced behavior change to an existing API, and no test covers it."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/src/test/bdd.rs",
+   "start_line": 120,
+   "end_line": 120,
+   "message": "The new tests leave some guard paths untested: the RO guard's `write` returning `ReadOnly`, guard erase going out of bounds or with `to < from`, and guard writes just past the partition end. A wrong bounds or read-only check on those guard impls would still pass. The only negative guard checks are `guard.read(u32::MAX, ...)` (bdd.rs:125) and `guard.write(0x1000, &[0xFE, 0xFD])` (esa.rs test). No test obtains a guard on a `Partition<_, RO, _>`, for example via `readonly().lock()`, and no test calls `erase` on a guard with bad bounds."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "partition-manager/partition-manager/src/test/bdd.rs",
+   "start_line": 431,
+   "end_line": 431,
+   "message": "Every partition in TestMap is `RW`, so the new `PartitionGuard<RO>` impls are never exercised. That includes the `ReadOnly` rejection in `BlockDevice::write` for RO guards and the `ReadNorFlash` read on RO guards. A regression that let RO guards write would not be caught. Add a test that locks an RO partition (for example via `readonly()`) and asserts that `write` returns `Error::ReadOnly`. Every partition in TestMap is `RW`, so the new `PartitionGuard<RO>` impls are never exercised. That includes the `ReadOnly` rejection in `BlockDevice::write` for RO guards and the `ReadNorFlash` read on RO guards. A regression that let RO guards write would not be caught. Add a test that locks an RO partition (for example via `readonly()`) and asserts that `write` returns `Error::ReadOnly`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

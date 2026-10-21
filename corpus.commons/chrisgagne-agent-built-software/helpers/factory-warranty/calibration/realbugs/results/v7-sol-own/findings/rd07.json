@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 134,
+   "message": "Update the company schema when removing ownerName. Company edits now omit `ownerName`, but `companySchema` still requires it. Consequently, `DynamicDetailSidebar.handleSave()` always fails validation and never invokes `onSave`, even when every visible field is valid. The creation form also uses this schema after removing its owner-name input. Update the shared schema to match the new company fields."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Allow Escape events to reach the modal close handler. When focus is inside the dialog, such as on the close button after keyboard navigation, this handler stops Escape from reaching the window-level `handleKeydown` listener. Escape therefore fails to close the modal in that state. Handle Escape on the dialog itself or allow its keydown events to propagate."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "id": "w15",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.8772,
+ "codex_tokens": 45879,
+ "work": "<tmp>/replay-w15-t1-y4gfijhd",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "parser.ts:1452 only does state.position++. The removed skipByteOrderMark also set lineStart. For '\ufefffoo: 1\\nbar: 2', skipSeparationSpace (1455) doesn't touch lineStart on the first line, so blockIndent = position - lineStart (1243) is 1. The second line has lineIndent 0, which ends the mapping at 1131, and readDocument then throws at 1419-1422.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/parser/parser.ts",
+   "line": 1452,
+   "claim": "The leading-BOM skip moves position past the BOM but leaves lineStart at 0. As a result, BOM-prefixed files with more than one top-level key or sequence entry fail to parse.",
+   "evidence": "Line 1452 runs `if (state.input.charCodeAt(state.position) === 0xFEFF) state.position++` and does not set `state.lineStart = state.position`. The removed `skipByteOrderMark` did both. Trigger: `load('\ufefffoo: 1\\nbar: 2\\n')`. In parseNode, `blockIndent = state.position - state.lineStart` (line 1243) is 1, so readBlockMapping runs with nodeIndent 1. On the second line `lineIndent` is 0, and `state.lineIndent < nodeIndent` (line 1131) ends the mapping. readDocument then hits line 1419-1422 with `bar: 2` left over and throws 'end of the stream or a document separator is expected'. readBlockSequence (line 992) breaks the same way for `\ufeff- a\\n- b`. The same mismatch also makes `hasSeparation = state.position === state.lineStart` (line 336) false, so a first-line `\ufeff# comment` is not skipped as a comment. It also blocks the separator checks guarded by `state.position === state.lineStart` (lines 776, 1388, 1402) on the first line, for example `\ufeff...`. The only BOM test, `load('\ufefffoo: bar\\n')` in test/core/units/load-other.test.mjs:7, has a single key, so it still passes.",
+   "breaks": "AC-1",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2",
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff removes skipByteOrderMark from the parseEvents loop (1454) and replaces testDocumentBoundary with bare testDocumentSeparator calls at 672, 776 and 1421. None of these skips a line-start U+FEFF. readDocument's '---' check at 1373 also sees the BOM, so in '---\\na\\n\ufeff---\\nb' the plain scalar runs on past the marker.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/parser/parser.ts",
+   "line": 1452,
+   "claim": "A BOM is now stripped only at offset 0. A BOM before a later document's '---' or '%' is no longer treated as a document boundary, so it becomes content or a parse error.",
+   "evidence": "The diff removes `skipByteOrderMark(state)` from the `while (state.position < state.length)` loop in parseEvents. It also deletes `testDocumentBoundary`, which treated a line-start `\ufeff` followed by `---` or `%` as a document boundary. Its replacements at lines 672, 776 and 1421 call only `testDocumentSeparator`, which looks for `-`/`.` at the current position. Trigger: `loadAll('a\\n...\\n\ufeff--- b\\n')`. After the `...`, readDocument sees `\ufeff` rather than `---` at line 1373, so it sets no explicit start and parses `\ufeff--- b` as node content instead of starting a new document. In `foo\\n\ufeff---\\nbar`, readPlainScalar (line 776) no longer stops at the BOM-prefixed separator, and readDocument (line 1421) no longer accepts it as a boundary.",
+   "breaks": "AC-1",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "diff.patch touches only src/parser/parser.ts and adds no tests. A missing test is a coverage point, not a defect in itself, so I lowered it from medium to low. The defects it would have caught are the two items above.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "test/core/units/load-other.test.mjs",
+   "line": 7,
+   "claim": "No tests were added for the BOM and document-boundary paths that changed. The one existing BOM test uses a single-key input, which passes with both the old and new code.",
+   "evidence": "diff.patch touches only src/parser/parser.ts and adds no tests. The single unit test is `assert.deepStrictEqual(load('\ufefffoo: bar\\n'), { foo: 'bar' })`, which is one key on one line. Nothing tests a BOM followed by a second line at column 0, a BOM followed by a comment, or a BOM before a later `---`/`%YAML` document. The yaml-test-suite fixtures that test/spec/spec.test.mjs would run (it maps `\u21d4` to `\ufeff`) are not in the export, so their coverage of these cases cannot be confirmed.",
+   "axis_row": "L3.9",
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "disputed",
+   "reason": "acceptance.md names story.md as the spec, but the packet holds no story.md and risk.json has no classes. Without a spec I can't tell whether dropping BOM support was intended. This is a process gap, not a code defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": null,
+   "line": null,
+   "claim": "The packet has no story.md, so removing per-document BOM support can't be checked against any stated intent.",
+   "evidence": "acceptance.md says only 'story.md is the spec. The baseline's tests are the locked acceptance tests', but no story.md is in the packet, and risk.json has empty `classes`. The diff deletes `skipByteOrderMark` and `testDocumentBoundary` from src/parser/parser.ts, including the comment 'Fast path: most document boundaries do not have a BOM', with no recorded reason.",
+   "breaks": "story",
+   "axis_row": "L1.2",
+   "id": "F4"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

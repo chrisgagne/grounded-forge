@@ -1,0 +1,70 @@
+{
+ "id": "v11",
+ "trial": 1,
+ "kind": "bug",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.9411,
+ "codex_tokens": 39191,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-v11-t1-2rp2kq7k",
+ "findings": [
+  {
+   "sources": [
+    "C1",
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff deletes `if (opts.flowSkipColonSpace) opts.quoteFlowKeys = true`. presenter.ts:215/223 now writes `${keyText}:${valueText}` with no space, and parser.ts:807-809 only ends a plain scalar at `:` when whitespace, end of input or a flow indicator follows, so `a:1` is read as one key with a null value. The trigger is traced: dump({a:1}, {flowLevel:0, flowSkipColonSpace:true}). I set it to high rather than critical because it only happens with an opt-in option.",
+   "severity": "high",
+   "raw_severity": "critical",
+   "file": "src/ast/presenter.ts",
+   "line": 135,
+   "claim": "Removing the forced quoteFlowKeys means flowSkipColonSpace emits `{a:1}`, which loads back as {\"a:1\": null}: the data changes silently on the round trip.",
+   "evidence": "The diff deletes `if (opts.flowSkipColonSpace) { opts.quoteFlowKeys = true }` from createPresenterState. It also deletes the doc comment that gave the reason: \"otherwise `a:1` would be parsed as a single plain scalar instead of a mapping entry\". writeFlowMapping (presenter.ts:215-223) now emits `${keyText}:${valueText}` with no separator. applyQuoteFlowKeysOption (styler_defaults.ts:33) returns early unless the user set quoteFlowKeys, so a plain key stays plain. In the parser's plain-scalar loop (parser.ts:807-809), `:` only ends the scalar when the next character is whitespace, end of input or a flow indicator. In `a:1` the next character is `1`, so `a:1` is read as one plain scalar. Nothing else in the presenter or stylers quotes the key or adds a separator, so any non-empty value whose text doesn't start with a flow indicator is affected (for example `{x: 'y'}` dumps as `{x:y}`).",
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 154 asserts the string only. The neighbouring quoteFlowKeys test (161-164) does check load(output). dump-fuzzy.test.mjs:36 is `it.skip`, so no running test round-trips flowSkipColonSpace output. The test is locked and pins exactly the output that corrupts data, so a human has to settle the conflict between the test and correct behaviour.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "test/core/units/dump-options.test.mjs",
+   "line": 154,
+   "claim": "The flowSkipColonSpace test only compares the text `{a:1}` and never loads it back, and the fuzz round-trip test is skipped, so nothing catches the corruption.",
+   "evidence": "Line 154 is `assert.equal(dump({ a: 1 }, { flowLevel: 0, flowSkipColonSpace: true }), '{a:1}\\n')`, which checks text only. The neighbouring quoteFlowKeys test (lines 161-164) does check `load(output)`, but this one doesn't. The fuzz round-trip property in test/core/dump-fuzzy.test.mjs:36, which generates `flowSkipColonSpace: fc.boolean()`, is disabled with `it.skip`. So no running test loads flowSkipColonSpace output back.",
+   "axis_row": "L3.3",
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "docs/migrate_v4_to_v5.md:184 lists `flowSkipCommaSpace, flowSkipColonSpace, quoteFlowKeys`. CHANGELOG.md:302 records that condenseFlow quotes keys for this reason. The diff touches only presenter.ts and adds no warning. This is a docs gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "docs/migrate_v4_to_v5.md",
+   "line": 184,
+   "claim": "The migration guide still maps condenseFlow to flowSkipColonSpace together with quoteFlowKeys, and no doc or CHANGELOG entry says the two are now independent.",
+   "evidence": "The table row reads `| condenseFlow | flowSkipCommaSpace, flowSkipColonSpace, quoteFlowKeys |`. CHANGELOG.md:302 records that condenseFlow was fixed to \"quote keys for sure\" for this reason. The diff changes only presenter.ts and adds no CHANGELOG entry for the behaviour change.",
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

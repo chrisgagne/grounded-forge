@@ -1,0 +1,32 @@
+{
+ "id": "rc18",
+ "arm": "pr-agent",
+ "findings": [
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "partition-manager/partition-manager/src/lib.rs",
+   "start_line": 49,
+   "end_line": 80,
+   "message": "Self-deadlock hazard. Partitions from the same `PartitionManager` share one storage mutex, and `PartitionGuard` holds that mutex for as long as it lives. Suppose a task holds a guard from `factory.lock()` and then awaits an operation on a sibling partition, such as `slot_a.read(...)`, which calls `storage.lock().await` internally. That task will wait forever. With the default `NoopRawMutex` on a single executor, this hangs silently instead of returning an error.\n\nNeither `lock` nor `PartitionGuard` documents this. Consider adding a doc warning that no other partition from the same manager may be used while a guard is alive."
+  },
+  {
+   "source": "pr-agent",
+   "kind": "key_issue",
+   "file": "partition-manager/partition-manager/Cargo.toml",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "Breaking default change. This PR removes `defmt` from the `default` features. It appears unrelated to the guard feature. Downstream crates that relied on default features for `defmt::Format` impls (for example, logging `Error` with defmt) will fail to compile until they enable `defmt` explicitly.\n\nIf the change is intentional, it should be called out as a breaking change. Otherwise, revert it."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 21,
+  "usage": {
+   "prompt_tokens": 12280,
+   "completion_tokens": 1635,
+   "total_tokens": 13915
+  },
+  "security_concern": false
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/Marvell-Consulting/statswales-frontend",
+  "pr_number": 626,
+  "base": "c1707c79a5a947cf7c6912af3ad00848c42a28e0",
+  "head": "30ba27a5f20318f12fe74f26059d8b62d62874e9"
+ },
+ "agent": "v5-factory-raw-claude",
+ "findings": [
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/consumer/controllers/consumer.ts",
+   "start_line": 353,
+   "end_line": 353,
+   "message": "On the GET download route, the unvalidated `download_language` query value now reaches the backend as both the Accept-Language header and the `lang` query parameter. A crafted or unsupported value can make every download request fail, or send the backend a locale it doesn't expect. On GET, `download_language = (req.query.download_language?.toString() || req.language) as Locale` is cast but never checked; `downloadLanguageValidator()` only runs in the POST branch. Before this change `fetch` overwrote it with `queryParams.set('lang', this.lang)`. Now `downloadPublishedData`/`downloadPublishedPivotData` pass `lang: language as Locale` (consumer-api.ts:228/241), and fetch puts it in `'Accept-Language': lang` and `queryParams.set('lang', lang)`. For example, `?download_language=xx` is forwarded to the backend as is, and a value with characters that aren't valid in a header makes `fetch` throw. That error gets wrapped as UnknownException."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/publisher/controllers/publish.ts",
+   "start_line": 761,
+   "end_line": 761,
+   "message": "The publisher preview download has the same gap: `download_language` from the GET query isn't validated and now flows into the authenticated backend request's Accept-Language header and `lang` parameter. `const download_language = (req.query.download_language?.toString() || req.language) as Locale;` is passed to `req.pubapi.downloadDatasetPreview(...)`, which now calls `this.fetch({ ..., lang: language as Locale })` (publisher-api.ts:932). PublisherApi.fetch sets `'Accept-Language': lang` next to the `Authorization: Bearer` header, and `queryParams.set('lang', lang)`. The validator only runs on POST."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "src/consumer/services/consumer-api.ts",
+   "start_line": 228,
+   "end_line": 228,
+   "message": "`language as Locale` hides a type mismatch: the methods still take `language: string`, so the compiler can't catch a non-Locale value being passed in. `downloadPublishedData(..., language: string)` followed by `lang: language as Locale`. The same pattern appears at consumer-api.ts:241 and publisher-api.ts:932. The callers already hold a `Locale`-typed value, so the parameter could be typed `Locale` without any cast."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "tests-e2e/consumer/dataset-download.spec.ts",
+   "start_line": 171,
+   "end_line": 171,
+   "message": "Only one end-to-end case covers the fix: the consumer, unfiltered, non-pivot CSV. Pivot downloads and the publisher preview download also changed but have no test showing they honour the chosen language. The new `CSV Download Language Content` test submits only `viewType: 'unfiltered'` (no pivot axes), so it exercises `downloadPublishedData` only. Nothing exercises `downloadPublishedPivotData` or `PublisherApi.downloadDatasetPreview`, both of which this diff changed."
+  },
+  {
+   "producer": "v5-factory-raw-claude",
+   "file": "tests/publisher-api.test.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "No unit test checks that the request URL carries the download language rather than the UI language, even though the existing unit suite already asserts request URLs such as `?lang=en`. The fix is therefore guarded only by a slow e2e test that depends on fixture data. tests/publisher-api.test.ts asserts exact fetch URLs ending in `lang=en` for other methods, but there is no case for `downloadDatasetPreview`, and no consumer-api unit test for `downloadPublishedData` with `cy-GB` on an English-UI client. The only new test is the Playwright spec, which relies on the e2e fixture's `' - CY'` suffix (tests-e2e/publish/helpers/publishing-steps.ts:336)."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

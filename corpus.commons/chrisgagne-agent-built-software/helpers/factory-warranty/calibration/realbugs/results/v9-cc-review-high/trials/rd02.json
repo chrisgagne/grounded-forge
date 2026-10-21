@@ -1,0 +1,86 @@
+{
+ "id": "rd02",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "Dropping the `scripts/ao-update.sh` check means any path with a `.git` four levels up is classified as a git install. Because the bundled update script is now always present, `ao update` then runs the source-update flow against whatever repo that is. The CLI's dist is vendored or copied into some other repo (e.g. `tools/ao/dist/lib`, with `.git` four levels up). `detectInstallMethod()` returns \"git\", `hasRepoScript` is true because dist/assets ships, and ao-update.sh runs `git fetch/pull --ff-only origin main`, `pnpm install` and the `pnpm --filter ... clean` steps inside an unrelated repository."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The default REPO_ROOT (`$(dirname BASH_SOURCE)/..`) is wrong after the move. It now resolves to `packages/cli/src/assets` (or `dist/assets`) instead of the repo or package root, in both ao-update.sh and ao-doctor.sh (line 31). Running `bash packages/cli/src/assets/scripts/ao-update.sh` directly, without AO_REPO_ROOT, cds into `packages/cli/src/assets`. `git rev-parse` still passes, `pnpm install` runs from a subdirectory, and `cd $REPO_ROOT/packages/ao` fails. ao-doctor.sh run directly reports missing node_modules and launcher. Its layout auto-detect also misfires because `dist/assets` has no package.json."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "`hasRepoScript` checks for the bundled asset, which `cp -r src/assets dist/` ships in every layout. The fallback therefore only fires on a broken build, and it never detects the real problem: no usable source checkout. For any git-detected install the check is always true, so the new npm fallback is effectively dead code. The test only passes because it mocks `hasRepoScript` to false. The check that matters is whether `resolveScriptLayout()` is package-install or REPO_ROOT has `.git`/`packages/ao`, and that check is missing."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "The fallback hardcodes \"npm-global\" and goes through handleNpmUpdate, which prints '--skip-smoke and --smoke-only only apply to git source installs. Ignoring.' even though this install was detected as a git install. A pnpm user or a source-checkout user who hits the fallback is told to run `npm install -g @aoagents/ao@latest`. That does not update the checkout their linked `ao` runs from, so the update looks like it succeeded but the running version stays the same. `ao update --skip-smoke` also prints a contradictory warning."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/__tests__/scripts/doctor-script.test.ts",
+   "start_line": 215,
+   "end_line": 215,
+   "message": "The packaged-install doctor test always sets AO_SCRIPT_LAYOUT explicitly, so the shell's layout auto-detect heuristic (package.json + dist/index.js + no packages/) is never tested. A regression in the auto-detect branch at ao-doctor.sh:32-38, or the stale default REPO_ROOT that makes it misfire, ships without any test failing."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 271,
+   "end_line": 271,
+   "message": "In package-install mode, `dist/index.js` is checked in both check_install_layout and check_runtime_sanity. Checking for `dist/assets/scripts/ao-doctor.sh` is also pointless, since that is the script currently running. If the entrypoint is missing, the user sees two identical FAILs and FAIL_COUNT is inflated. The bundled-doctor PASS line is always printed and adds no information."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 12,
+   "end_line": 12,
+   "message": "`resolveScriptLayoutFromPath` and `resolveDefaultRepoRootFromPath` re-implement the node_modules detection and `../../../../` repo-root walk that `classifyInstallPath` in update-check.ts already does. There are now two independent definitions of 'package install' and 'repo root' (update-check and script-runner). They can drift apart, so `ao update` could pick the git flow while script-runner reports package-install, or the reverse."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/__tests__/lib/script-runner.test.ts",
+   "start_line": 12,
+   "end_line": 12,
+   "message": "The new tests hardcode POSIX absolute paths and compare them to `path.resolve()` output, which is platform-dependent. Meanwhile the implementation explicitly handles Windows `\\node_modules\\` paths. On a Windows CI runner, `resolve('/usr/local/lib/node_modules/@aoagents/ao-cli/dist/lib', '../..')` returns `C:\\usr\\local\\...`, so the toBe assertions fail."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 50,
+   "end_line": 50,
+   "message": "The missing-script error repeats the scripts directory even though it is just the dirname of the 'Expected at' path, and the directory is recomputed instead of reusing getScriptPath's base. The error message is longer with no extra information, and the `assets/scripts` path is now built in two places that have to stay in sync."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 10,
+   "end_line": 10,
+   "message": "The type is imported with an inline `type InstallMethod` specifier inside a value import, not the `import type { Foo }` form that the repo CLAUDE.md names. Repo CLAUDE.md, Code Style section: \"Consistent type imports \u2014 `import type { Foo }` enforced by ESLint\". The line `type InstallMethod,` inside `import { ... } from \"../lib/update-check.js\"` doesn't use that form."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 127,
+  "cost_usd": 0.6552207999999999,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

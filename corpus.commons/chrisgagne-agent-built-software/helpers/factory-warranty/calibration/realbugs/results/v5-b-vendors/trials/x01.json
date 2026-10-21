@@ -1,0 +1,79 @@
+{
+ "id": "x01",
+ "arm": "vendors",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/nlp/totext.ts",
+   "start_line": 285,
+   "end_line": 288,
+   "message": "Emit hours for the weekday and every-day branches. For weekly rules whose weekdays are Monday\u2013Friday or all seven days, this call is skipped because it is inside the final `else` branch. Consequently, parsing `every weekday at 9` now preserves `byhour`, but converting that rule back to text returns only `every weekday`, silently losing the time constraint. Move the hour emission outside the weekday conditional so all weekly variants receive it."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/nlp/totext.ts",
+   "start_line": 285,
+   "end_line": 286,
+   "message": "Support midnight when emitting weekly hour lists. A weekly rule with `byhour: [0]` now produces text such as `every week on Monday at 0`, but parsing that output throws `expected hour`: the `number` token in `src/nlp/i18n.ts` only accepts numbers beginning with 1\u20139. Midnight is a valid recurrence hour, so the newly emitted weekly text cannot round-trip for this input. Ensure the hour parser accepts zero alongside this new serialization support."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/nlp/totext.ts",
+   "start_line": 257,
+   "end_line": 288,
+   "message": "The new `_byhour()` call only runs in the generic `else` branch of WEEKLY. The `isWeekdays` branch (257-266) and the `isEveryDay` branch (267-270) never show byhour. So the newly parseable `every weekday at 10` (WEEKLY, MO-FR, byhour=[10]) comes back from toText as just `every weekday`, silently dropping the hour. The same happens for weekly rules on all seven days. The text-to-rule-to-text round trip that this change is meant to support is broken for those rules. Move the byhour rendering after the whole if/else chain."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/nlp/index.ts",
+   "start_line": 115,
+   "end_line": 115,
+   "message": "WEEKLY now parses and renders `byhour`, but `ToText.IMPLEMENTED[Frequency.WEEKLY]` is still just `common` and does not include 'byhour' (DAILY does: `['byhour'].concat(common)`). `isFullyConvertible` therefore treats weekly rules with byhour as not convertible. Depending on key order, that can append '(~ approximate)' to text that is actually exact, or make callers reject the rule. Add 'byhour' to the WEEKLY list."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/nlp/parsetext.ts",
+   "start_line": 203,
+   "end_line": 205,
+   "message": "In the weekday-list branch, `AT()` is called before `MDAYs()`, so the hour clause is only accepted before the monthday clause. `every monday on the 13th at 10` (the natural order, and also the order toText produces: `_bymonthday()` then `_byhour()`) stops parsing after the monthday. `at 10` is then ignored, or ends up as leftover input with no error. Text produced by toText for weekly rules with both bymonthday and byhour can't be parsed back. Call `AT()` after `MDAYs()`, or accept it in both positions."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/nlp/parsetext.ts",
+   "start_line": 312,
+   "end_line": 330,
+   "message": "This change exposes `AT()` to more weekly rules, but it still takes any number as an hour without checking the range. For example, `every weekday at 25` or `at 99` produces byhour values outside 0-23, giving an invalid RRule instead of a parse error. Validate the range here, as `decodeNTH` does for nth values."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/nlp/parsetext.ts",
+   "start_line": 125,
+   "end_line": 140,
+   "message": "The parser now accepts `at <hour>` for weekly rules, but the diff adds no tests: no parse tests for `every weekday at 10`, `every week on monday at 10`, or `every monday, wednesday at 9`, and no toText round-trip tests. Tests like these would have caught the dropped-hour output in the weekdays/every-day branches of WEEKLY."
+  }
+ ],
+ "meta": {
+  "codex": {
+   "exit": 0,
+   "seconds": 35,
+   "outage": false
+  },
+  "claude": {
+   "exit": 0,
+   "seconds": 37,
+   "cost_usd": 0.1721032,
+   "models": [
+    "claude-opus-5-5"
+   ]
+  },
+  "seconds": 37
+ },
+ "stopped": true
+}

@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/sw5005-sus/ceramicraft-argocd-deploy",
+  "pr_number": 89,
+  "base": "9cf42c1eecc554ca953c3685fa1b6a34eeed910c",
+  "head": "d7a4532170487a111654cf8aa742f4007334b6e2"
+ },
+ "agent": "v7-sol-factory",
+ "findings": [
+  {
+   "producer": "v7-sol-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The replacement Deployment omits secret injection, which may break connections requiring the previously supplied credentials. The deleted Helm values used charts/templates/deployment.yaml, which injects ms-secret-vault through envFrom.secretRef. The new container has only five explicit environment variables and no secret reference or secret mount. backend/ai-secure-agent-config.yaml configures MySQL but supplies no password; k8s-configs/eos-microservice.yaml still provisions ms-secret-vault."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 24,
+   "end_line": 24,
+   "message": "Removing readiness and liveness probes allows an unready or hung agent process to remain a Service endpoint without automatic recovery. The previous Helm configuration checked /ai-secure-agent-ms/v1/ping every five seconds for both readiness and liveness. The replacement container defines neither probe, and the Service selects its app label directly. If the process remains running while its HTTP handler is unhealthy, no remaining application health check removes it from endpoints or restarts it."
+  },
+  {
+   "producer": "v7-sol-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "The replacement container drops resource requests and limits, removing the previous scheduling reservation and resource bounds. The deleted values specified requests of 100m CPU and 256Mi memory and limits of 200m CPU and 345Mi memory, rendered by charts/templates/deployment.yaml. The replacement Deployment contains no resources configuration."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

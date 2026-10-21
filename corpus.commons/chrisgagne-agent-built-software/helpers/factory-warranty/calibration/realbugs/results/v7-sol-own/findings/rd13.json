@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 202,
+  "base": "2159a5434ce888127b578ad8b788e550fd3412ce",
+  "head": "7e51d062b3fd69794c941b43f3aa8830a7a1729f"
+ },
+ "agent": "v7-sol-own",
+ "findings": [
+  {
+   "producer": "v7-sol-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 156,
+   "end_line": 158,
+   "message": "Match planning-mode detection to the planner's actual outputs. After a successful `x-story-plan` run, PRE_PLANNED is not selected: Phase 4 generates task files and a consolidated planning report, not all seven standalone artifact types listed here. The updated DoR checks explicitly accept that report as evidence, but this detector does not. Detect the artifacts actually produced by the planner and treat compliance as conditional so completed planning enables task-by-task execution."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 672,
+   "end_line": 675,
+   "message": "Persist task completion during execution rather than at Phase 8. If execution is interrupted after completing some tasks but before Phase 8, none of those completions have been checkpointed. The new epic resume workflow therefore has no DONE task records to preserve, and the PRE_PLANNED execution loop does not consult them either. Write each task's status and completion metadata as it executes, and consume that state before dispatching tasks on resume."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 258,
+   "end_line": 262,
+   "message": "Verify task completion before skipping existing components. When a task extends an existing class, its current tests can pass before any of the task's new behavior exists. This check then skips the task entirely, including its Implementation Guide and DoD validation. Require an explicit completed-task record and validate the task-specific DoD instead of treating file existence and existing green tests as proof of completion."
+  },
+  {
+   "producer": "v7-sol-own",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 78,
+   "end_line": 81,
+   "message": "Propagate the resolved epic directory through later phases. For a suffix-only directory such as `plans/epic-0028-feature`, resolution now succeeds, but Phase 0.5 still runs `test -f plans/epic-XXXX/story-XXXX-YYYY.md` and aborts. Phase 4 likewise still specifies the unsuffixed output directory. Replace those downstream hard-coded paths with EPIC_DIR so the newly supported directory layout can actually complete planning."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

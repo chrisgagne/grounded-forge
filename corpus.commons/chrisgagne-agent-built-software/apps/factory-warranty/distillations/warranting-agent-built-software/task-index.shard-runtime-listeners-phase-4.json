@@ -1,0 +1,149 @@
+{
+  "section": "Runtime listeners: Phase 4",
+  "columns": [
+    "trigger",
+    "response"
+  ],
+  "rows": [
+    [
+      "\"Skip permissions, it's been fine for months\"",
+      "Keep enforced least privilege: by transfer, development endpoints run with least privilege and least functionality, and trust relationships and privilege use are audited (`nist-ssdf-1-1`) • Keep access controlled and audited now: a practice warranty covers present, consistent use, and access to the environments goes through MFA and conditional access with trust relationships regularly logged, monitored and audited (`cisa-secure-software-attestation-form`) • Keep the sandbox: do not depend on text commands alone to limit an AI, and match isolation to the most dangerous capability the agent holds (`openssf-finding-fixing-vulnerabilities-ai`) • Keep the sandbox and cut approval load by tiering risk, not by switching approvals off: agentic AI exploits any gap in dynamic access (`owasp-agentic-threats-mitigations`) • Keep the permissions: the source names oversight that weakens after repeated success as a failure mode in its own right, and a coding agent's tools approved to auto-run as harmless can be driven to exfiltrate data (a named attack scenario) (`owasp-agentic-top10-2026`) • Keep them: the source reads a low public incident count as a defense effect, the result of controls rather than proof they are unneeded, and an agent with shell, file-system or cloud-API access turns an injection into a host incident (`owasp-llm-top10-2026`). Reading one team's quiet months the same way is a transfer"
+    ],
+    [
+      "The agent's environment can reach production credentials or data",
+      "Remove the reach: environments are separated, production use from non-production minimised, and environments named so lateral movement can be stopped (`nist-ssdf-1-1`) • Separate the agent's environment and encrypt what it holds: separating and protecting each environment, and encrypting credentials to the extent practicable and based on risk, are attested minimums (`cisa-secure-software-attestation-form`) • Remove the reach: separate the environment, keep sensitive and production data only in approved environments, apply least privilege, and keep a continuous plaintext-secrets watch (`nist-sp-800-218a`, transfer) • Keep production secrets in a secrets manager, out of source and build artefacts (13.3.1, L2), give the build's runs least-privilege, short-lived credentials (13.2.1, 13.2.2), and keep certificates separate per environment (`owasp-asvs-5-0`). These are product requirements; applying them to the agent's environment is a transfer • Remove the credential: never give the AI a credential that would let it cross the gate; give each agent only its role's permissions (`openssf-finding-fixing-vulnerabilities-ai`) • Remove the reach: insufficient test/production separation and unsandboxed tools are the guide's account of a coding agent deleting a real database (`owasp-agentic-threats-mitigations`) • Remove the reach, not just the intent: no direct agent-to-production path, keys never directly available to agents with signing mediated by the orchestrator, and task-scoped, time-bound credentials (`owasp-agentic-top10-2026`) • Remove the reach: hold credentials and state-change capability in code behind a deterministic policy check, with least privilege per operation; the source's trusted-backend scenario is a developer's agent dumping a production database through a full-rights connection after reading planted text (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "The agent reads untrusted content (web pages, issues, emails) while holding tools",
+      "Treat what the model reads as attacker input: log, validate and sanitise inputs and encode outputs so they cannot execute; the source names crafted queries driving injection-style attacks (`nist-sp-800-218a`, transfer for the agent itself) • Split reading from acting: untrusted text is data, not authority; the reader gets no secrets or write tools and something trusted acts (`openssf-finding-fixing-vulnerabilities-ai`) • Separate reading from acting, or approve each action after untrusted input: attackers exploit the lack of separation between data and instructions, and a tool output can carry instructions the agent takes as its goal (`owasp-agentic-threats-mitigations`) • Treat everything it reads as untrusted, keep least privilege on its tools, and pause and log on any goal shift: agents cannot reliably tell instructions from related content (`owasp-agentic-top10-2026`) • Split reading from acting, or remove a leg: planted text in an issue, ticket or package is read by the developer's agent under its credentials, and the agent, not the attacker, performs the privileged action (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "The agent adds a dependency nobody asked for",
+      "Hold it for vetting: review for its expected use, provenance, maintenance and known vulnerabilities, prefer an approved version, and update the component provenance (`nist-ssdf-1-1`) • Run the supply-chain check and record its provenance before it ships: trusted source code supply chains and provenance for third-party components are attested practices (`cisa-secure-software-attestation-form`) • Hold until verified: acquired components are checked against requirements, and an acquired model for integrity, provenance and security, before use (`nist-sp-800-218a`) • Check it is in the inventory and from a trusted, maintained repository (15.1.2, L2), within its remediation time frame (15.1.1, 15.2.1, L1), and pulled from the expected repository without dependency-confusion risk (15.2.4, L3) (`owasp-asvs-5-0`) • Hold until the package is confirmed real, intended and needed: AI sometimes adds dependencies that don't exist, and attackers register those names (`openssf-finding-fixing-vulnerabilities-ai`) • Treat an agent-added plugin, tool or framework update as supply chain: review, pin and record it, since upstream compromise of prompts, plugins and updates spreads through trusted software (`owasp-agentic-threats-mitigations`) [D28] • Accept it only if allowlisted, pinned, scanned for typosquats and provenance-checked: coding agents have installed a compromised package automatically (`owasp-agentic-top10-2026`) [D28] • Verify the package exists, is the one intended and is pinned before it stays: models hallucinate plausible package names, which attackers register in advance (`owasp-llm-top10-2026`) • Ask what it adds over packages already in use; if kept, pin and record it; the source prefers existing packages, warns that new or little-used packages are less likely to be thoroughly tested, and asks for recorded dependency versions (`uk-duck-book-qa-of-code`)"
+    ],
+    [
+      "The agent runs for an hour unattended and reports success",
+      "Read the toolchain's records, not the report: automation exists partly to document that practices were performed, through generated artefacts (`nist-ssdf-1-1`) • Read the log, not the summary: record when a bound ends a run so a timeout is not mistaken for success, and keep logs the AI cannot change (`openssf-finding-fixing-vulnerabilities-ai`) • Read the log of what it did before counting the report: unlogged actions cannot be reconstructed, and deceptive behaviour keeps the appearance of compliance (`owasp-agentic-threats-mitigations`) • Check the logged file diffs and the action sequence against the plan it was given, and confirm the run had a tool or cost budget: the report is the agent's account (`owasp-agentic-top10-2026`) • Check the state the report names, and confirm the run had step, depth, time and cost limits: the source's scenarios include an agent reporting a completed job that never ran (`owasp-llm-top10-2026`) • Check docs, lint and style, and key tests before accepting: preliminary evidence finds autonomous agents often implement the core but fail to satisfy all requirements (`becker-metr-ai-developer-productivity-2025`) • Require evidence beyond the agent's own green tests: valid tests give the impression of well-tested software without surfacing spec violations, which the authors link (uncited) to agents writing large suites yet missing failures in their own code (`egashira-testsuitebench-2026`) • Run the locked tests and class the result before taking the report: of applied model patches that did not resolve the issue, most passed no target test, as No-Ops or Regressions (`jimenez-swe-bench`) • Check the run, not the report: under right-or-wrong scoring bluffs tend to be specific and overconfident, and scoring rewards an answer over an abstention; reading an agent's report this way is the distillation's inference (`why-language-models-hallucinate-kalai`) [D6] • Require the run record before accepting the report; the source says LLMs regularly generate plausible but inaccurate output and that output which looks right is all they are trained to produce (`uk-duck-book-qa-of-code`) [D6] • Look for the record, not the report: traceable documentation of assurance activities shall be produced throughout the analysis, and the approver reviews assurance evidence (`uk-aqua-book-2025`) • Ask for the per-scenario run record (failed, implemented, passed): the documentation's automation step takes one example at a time, starting from a failing test (`cucumber-bdd-gherkin`)"
+    ],
+    [
+      "The agent commits under a person's account or a shared identity, or changes code another owner holds without that owner's approval",
+      "Require an identity that attributes the agent's commits and the owner's approval of the change: history is attributed to accounts and owners approve others' changes (`nist-ssdf-1-1`)"
+    ],
+    [
+      "The agent runs on a machine also used for unrelated work",
+      "Move it to a development-only endpoint: development endpoints are dedicated and separate from those used for other tasks (`nist-ssdf-1-1`)"
+    ],
+    [
+      "The agent installs or enables an MCP server, skill or tool package; a new agent, tool, extension, plugin or MCP server joins the development or build environment; or the diff edits the agent's own prompts, instruction or memory files, tool definitions or MCP configuration",
+      "Assess it before use: by transfer, toolchain tools are securely deployed and maintained, with configuration as code and monitored logs (`nist-ssdf-1-1`) • Put it on the environment's inventory with a reason, and keep it only if needed: by transfer, documenting and minimising software products that create undue risk in development and build environments is an attested minimum (`cisa-secure-software-attestation-form`) • Route it to human review as code, sign or pin it, and restrict untrusted tool installation: prompt repositories and memory definitions go under version control and peer review just as code does, and misleading tool descriptions misdirect agents (`owasp-agentic-threats-mitigations`) • Pin, sign and verify it and read its tool descriptions for hidden instructions: pinning does not stop a payload in the pinned version, and a published malicious tool can drive an agent into recursive tool calls (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "Credentials sit in plain text in the agent's environment (an env file, a config file, shell history)",
+      "Move them to encrypted storage and record the risk call where that isn't practicable: encrypting credentials, to the extent practicable and based on risk, is an attested minimum (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "Nobody has reviewed what the agent's identity, the build runners and connected services accessed, or what they trust",
+      "Review the access logs and trust list on a schedule: regularly logging, monitoring and auditing the trust relationships used for access to the environments and among components within each is an attested minimum (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "A human or service path into the repository, CI or agent platform has no MFA or conditional access",
+      "Close the path before the next build: MFA and conditional access across the environments used to develop and build software is an attested minimum (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "Alerts from the development or build environment go to nobody",
+      "Give the alerts an owner and a response: continuous monitoring of operations and alerts, and responding to suspected and confirmed incidents, is an attested minimum (`cisa-secure-software-attestation-form`)"
+    ],
+    [
+      "The agent's identity can edit configuration-as-code, CI configuration or the pipeline that gates it",
+      "Remove the grant: all forms of code, including configuration-as-code, stay on least privilege, and the toolchain's security is verified at a frequency set by risk (`nist-sp-800-218a`, transfer)"
+    ],
+    [
+      "The agent's instructions file is the only thing enforcing a rule",
+      "Move the rule into a hook or permission the agent cannot edit: the gate must not depend on the AI, and hooks do not replace a sandbox (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The agent can read or delete its own logs",
+      "Move logs out of the agent's reach before the next run: AI activity is logged in a form it cannot delete or modify, and past logging cannot be changed afterwards (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The agent cites its memory of the system for a security decision",
+      "Check against current code and reproducible evidence: memory may be stale, wrong or shaped by untrusted input (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The fixing agent was handed the reviewer's guess at a cause",
+      "Pass only verified evidence (the failing test): the guide reports that incorrect guidance cut fix correctness by about 50 points (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "The agent has rewritten the same area many times to satisfy a check",
+      "Stop the loop and bring in a human: limit iterations and prefer small changes; reported gains level off after about three rounds (`openssf-finding-fixing-vulnerabilities-ai`)"
+    ],
+    [
+      "Agent-generated infrastructure code (Terraform, CI pipelines, access policy) is set to run with elevated privileges",
+      "Flag for manual review before it runs: generated scripts can carry commands that extract secrets and disable logging (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "The agent's execution environment persists between runs, runs as root, or has open network access",
+      "Rebuild it as an isolated container without the wider network, reset or destroyed after each execution (`owasp-agentic-threats-mitigations`) • Block: a fresh per-session environment that wipes state, non-root, network-limited, with the filesystem bound to the working directory (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The session log shows one tool called many times in a short span, or the agent spawning processes or sub-agents",
+      "Flag, and past a threshold auto-suspend: agents can self-trigger tasks and spawn processes (`owasp-agentic-threats-mitigations`)"
+    ],
+    [
+      "The coding agent's auto-run list gains a tool approved as harmless (ping, curl, a DNS lookup)",
+      "Treat it as egress and approve it as one; keep the auto-run list under version control (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The builder pastes a one-line fix from an agent into a terminal, or the agent runs a command it was handed",
+      "Read it before it runs: a compromised coding assistant's slick one-line fix is a named attack scenario (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The agent regenerates a lockfile during a fix-build task",
+      "Review the lockfile diff and pin before merging: the source names lockfile regeneration from unpinned specs pulling a backdoored minor version (`owasp-agentic-top10-2026`)"
+    ],
+    [
+      "The coding agent is about to run a destructive or irreversible command (a delete, a force push, a cloud-API teardown)",
+      "Require human confirmation of the exact rendered command, not a summary: invisible characters can make the shown action differ from the executed one, and approval fatigue degrades judgment at volume (`owasp-llm-top10-2026`)"
+    ],
+    [
+      "The agent proposes running tests or experiments against the live production system",
+      "Block until the blast radius is weighed: integration tests run in a scaled-down copy, and fault injection starts outside production (`microsoft-code-with-engineering-playbook`)"
+    ],
+    [
+      "The session log shows attempts rejected, re-prompted or reverted, and only the final attempt reaches the ledger",
+      "Record each discarded attempt and why: developers accepted under 44% of AI generations and lost time on code they then rejected (`becker-metr-ai-developer-productivity-2025`)"
+    ],
+    [
+      "A run rule (no network, allowed tools only, locked tests) has no trace that would show a breach",
+      "Add the trace before relying on the rule: the trial's screen recordings caught AI used where it was disallowed, at least once by accident (`becker-metr-ai-developer-productivity-2025`)"
+    ],
+    [
+      "The agent reports done without running the existing tests against its change",
+      "Send it back to run them before submitting: the authors see potential value in letting models run fixes against existing tests first; the paper's models could not, so this is an inference for agents (`jimenez-swe-bench`)"
+    ],
+    [
+      "The harness widens the agent's context to improve results",
+      "Measure the effect on this codebase before keeping it: more retrieved context lowered resolution even where recall of the right files rose, in the paper's single-pass setup (`jimenez-swe-bench`)"
+    ],
+    [
+      "The diff hard-codes a client-specific value (a rate, an ID, a date, a limit) that no spec line or recorded lookup supplies",
+      "Trace it to a source or send it back: an arbitrary fact has no pattern to infer it from (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "The agent cites documentation or an API, and the tool log shows no lookup, or a lookup that returned nothing",
+      "Mark the claim unverified until a lookup backs it: retrieval that finds nothing does not remove the incentive to guess (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "The agent reports a count, length or offset it reasoned out instead of running",
+      "Run it: the authors read letter-counting failures as a representational limit, not a missing fact (`why-language-models-hallucinate-kalai`)"
+    ],
+    [
+      "The agent wrote step definitions for steps no scenario uses",
+      "Remove them: \"Don't write step definitions for steps that are not present in one of your scenarios.\" (`cucumber-bdd-gherkin`)"
+    ],
+    [
+      "The agent added near-duplicate steps",
+      "Collapse them into one parameterised step backed by helper methods (`cucumber-bdd-gherkin`)"
+    ]
+  ]
+}

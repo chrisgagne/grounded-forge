@@ -1,0 +1,3 @@
+should_block: true
+caught_by: [gate:locked-tests, review]
+defect: the session lookup extends expiry before checking it, so an expired session is revived and never ends; the locked expiry test in test/auth.test.js is rewritten to expect 200

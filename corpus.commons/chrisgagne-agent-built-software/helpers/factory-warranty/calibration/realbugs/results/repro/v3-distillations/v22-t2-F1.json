@@ -1,0 +1,33 @@
+{
+ "finding": "F1",
+ "leg": {
+  "ok": true,
+  "error": null,
+  "cost_usd": 0.1005134,
+  "duration_s": 16.8
+ },
+ "answer": {
+  "kind": "check",
+  "command": "node check/entity_check.mjs {tree}",
+  "because": "On head, rendering `&copycat;` and `&notit;` with markdown-it outputs `\u00a9cat;` and `\u00acit;`, so these invalid named references get partly decoded instead of staying literal as `&amp;copycat;` / `&amp;notit;` like they do on base, which is the non-strict decodeHTML regression the finding describes."
+ },
+ "runs": {
+  "base": {
+   "exit": 0,
+   "error": null,
+   "sandbox": "sandbox-exec",
+   "output_tail": "ok \"&copycat;\"\nok \"&notit;\"\n"
+  },
+  "head": {
+   "exit": 1,
+   "error": "exit 1",
+   "sandbox": "sandbox-exec",
+   "output_tail": "FAIL \"&copycat;\" got \"<p>\u00a9cat;</p>\\n\" want \"<p>&amp;copycat;</p>\\n\"\nFAIL \"&notit;\" got \"<p>\u00acit;</p>\\n\" want \"<p>&amp;notit;</p>\\n\"\n"
+  }
+ },
+ "outcome": "shown",
+ "why": "On head, rendering `&copycat;` and `&notit;` with markdown-it outputs `\u00a9cat;` and `\u00acit;`, so these invalid named references get partly decoded instead of staying literal as `&amp;copycat;` / `&amp;notit;` like they do on base, which is the non-strict decodeHTML regression the finding describes.",
+ "run": "v3-distillations",
+ "trial": "v22-t2",
+ "kind": "bug"
+}

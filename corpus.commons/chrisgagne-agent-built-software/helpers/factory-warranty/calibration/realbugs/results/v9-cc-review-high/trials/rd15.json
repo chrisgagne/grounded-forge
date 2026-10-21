@@ -1,0 +1,86 @@
+{
+ "id": "rd15",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "In the unquoted `<<SH` heredoc, `\\\"` is kept verbatim, so the remote script runs `command -v \\\"jq\\\"` inside `$(...)`. That parses as a fresh context, so `command -v` gets an argument with literal double-quote characters. For jq the remote shell runs `command -v '\"jq\"'`, which finds nothing, so `binary_path` is empty and the probe exits with `missing_binary:jq`. This happens for every non-wrapper binary (jq, rg, ffmpeg, uv, gh, \u2026), so Check 3 and the sandbox image check fail on every healthy deploy. Fix: `command -v ${binary}` or `command -v '${binary}'`."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 252,
+   "end_line": 252,
+   "message": "The list of expected binaries now comes from the CI checkout (`runtime_binary_manifest_in_repo`) instead of the manifest baked into the image. The in-image manifest is only checked for existence and its contents are ignored. verify.yml runs `actions/checkout@v4` with no `ref`, so it checks out the workflow ref, while `inputs.deployed_ref` can name a different build. If main adds a binary to runtime-binaries.json and you verify an older deployed ref, verify reports it missing and fails a good deploy. If main drops or changes an entry, verify can pass even though the image doesn't match. The same mismatch applies to a sandbox image built from another ref."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 358,
+   "end_line": 358,
+   "message": "`runtime_wrapper_bin` is now read from the CI runner's `OPENCLAW_RUNTIME_WRAPPER_BIN`, while the old probe read it from the container's environment, where Dockerfile and Dockerfile.sandbox set it with `ENV`. If Dockerfile or Dockerfile.sandbox ever sets OPENCLAW_RUNTIME_WRAPPER_BIN to something other than /opt/daisy/bin, the runner doesn't see that value. verify then runs `test -x /opt/daisy/bin/gemini` and fails with 'Missing wrapper-backed runtime binary' even though the wrapper is installed correctly. In the reverse case, a runner env var points the check at the wrong path."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "The calls `gce_ssh \"${manifest_check_command}\"` and `gce_ssh \"${wrapper_test_command}\"` don't redirect stdout. That output lands in the caller's `$(verify_runtime_binaries_for_target \u2026)` capture and is then printed with `printf '%s\\n' \"${runtime_bins}\"`. On a first IAP connection, gcloud prints SSH key fingerprints and randomart to stdout. `gce_ssh_lastline` exists to filter exactly this noise, but here it is mixed into the runtime_bins listing and written to CI logs, which leaks key material and corrupts the `arch=`/tab-separated output."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 258,
+   "end_line": 258,
+   "message": "The old version ran one remote probe per target. The new one makes about 2 + N SSH calls per target, plus 2 for each wrapper binary, and in image mode each call also starts a `docker run --rm` container. With the current 12-entry manifest on amd64, that is about 15 IAP SSH sessions for the app container and another 15 for the sandbox image, roughly 30 sequential gcloud IAP handshakes (several seconds each), compared with 2 before. The verify job gets much slower and more prone to flaky IAP failures. Batching all non-wrapper checks into one remote `sh -c` probe would restore a single round trip."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 172,
+   "end_line": 172,
+   "message": "The `image` branch of `build_target_direct_exec_command` duplicates the prefix match, the forbidden-character check, the `read -a` split and the `%q` arg quoting from `build_direct_exec_smoke_command`. The container branch also declares `smoke_suffix`, `arg` and `smoke_args` locals it never uses. Two copies of the long metacharacter blacklist will drift. A fix to one (for example also rejecting `$` or a backtick) silently won't apply to the other target mode. Extracting one `parse_smoke_args` helper that emits the escaped arg string, and having both branches call it, removes about 20 duplicated lines."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 118,
+   "end_line": 118,
+   "message": "`build_target_manifest_check_command`, `build_target_arch_command`, `build_target_wrapper_test_command`, `build_target_shell_command` and `build_target_direct_exec_command` each repeat the same `case container) docker exec T CMD \u2026; image) docker run --rm --entrypoint CMD T \u2026` switch. About 90 lines of boilerplate where one `build_target_exec_command mode target cmd args...` helper would do. Every change to how a target is invoked (sudo, flags, user) has to be made in five places."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 260,
+   "end_line": 260,
+   "message": "Each loop iteration pipes `entry_json` into `jq` three separate times to pull out binary, smoke and wrapper type. That is 36 extra jq processes per target for 12 entries. A single `jq -r '.[] | select(...) | [.binary, .smoke, (.install.wrapper.type // \"\")] | @tsv'` read with `IFS=$'\\t' read -r binary smoke_command wrapper_type` does the same work in one process."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 172,
+   "end_line": 172,
+   "message": "The underlying problem (wrapper-backed binaries being smoked through `sh -c`) could have been fixed inside the existing in-container probe by exec'ing `\"${binary_path}\"` directly with split args. Instead, manifest resolution, arch detection and per-binary probing were all moved to the runner. The rewrite introduces the manifest mismatch, the env mismatch, the SSH fan-out and the duplicated builders listed above, plus about 240 lines of new shell. A targeted change to the old single probe would have fixed the gemini wrapper without any of those regressions."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 57,
+   "end_line": 57,
+   "message": "AGENTS.md (included by CLAUDE.md) says: \"Fix errors by adjusting the codebase - not tests, CI checks or deployment scripts (last resort).\" This branch fixes the wrapper smoke failure by rewriting the CI verification script scripts/verify.sh. The rule asks for fixes to the codebase first and treats CI/deploy script edits as a last resort. Here the verify check itself was reworked, and in doing so it stopped using the in-image manifest as its source of truth."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 107,
+  "cost_usd": 0.5007598,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

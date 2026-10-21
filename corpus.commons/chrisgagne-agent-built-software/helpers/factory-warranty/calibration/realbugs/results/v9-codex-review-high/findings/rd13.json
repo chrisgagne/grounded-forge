@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 202,
+  "base": "2159a5434ce888127b578ad8b788e550fd3412ce",
+  "head": "7e51d062b3fd69794c941b43f3aa8830a7a1729f"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 136,
+   "end_line": 140,
+   "message": "Regenerate all affected golden fixtures. These template changes affect generated skills across all profiles, but only the Java Quarkus lifecycle fixture was updated. For example, the Go Gin lifecycle fixture still exactly matches the base version. `GoldenFileTest.profile_whenCalled_matchesGoldenFiles` compares generated output byte-for-byte for all 17 profiles, so these changes introduce parity failures. Refresh all affected profile and platform copies."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 154,
+   "end_line": 158,
+   "message": "Detect the artifacts that x-story-plan actually produces. After a normal `/x-story-plan` run, this condition cannot select PRE_PLANNED: that skill writes task plans, a task breakdown, a planning report, and a DoR checklist, rather than the standalone architecture/test/implementation/security files listed here. This patch also explicitly accepts those assessments inside the planning report. Moreover, compliance files are conditional in lifecycle Phase 1F. Recognize the consolidated report and applicable artifacts so successfully planned stories can use task-by-task execution without redundant planning."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 156,
+   "end_line": 158,
+   "message": "Include stale artifacts in planning-mode classification. If all seven artifact types exist but the story was subsequently edited, none of these modes applies: PRE_PLANNED requires freshness, HYBRID requires missing files, and INLINE requires no files. With partially populated artifacts, HYBRID also says to generate only missing files, contradicting Phase 0's requirement to regenerate stale ones. Classify stale artifacts as requiring regeneration and ensure every artifact state selects a mode."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 78,
+   "end_line": 82,
+   "message": "Propagate the resolved epic directory to subsequent steps. When only a suffix directory such as `plans/epic-0028-feature/` exists, resolution succeeds here, but Phase 0.5 still checks `plans/epic-0028/story-0028-0002.md` and aborts with NOT_FOUND. Phase 4 also retains hard-coded output paths. Use the resolved `EPIC_DIR` throughout verification and artifact generation; otherwise the newly advertised suffix support cannot complete planning."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 257,
+   "end_line": 262,
+   "message": "Require task-specific completion evidence before skipping. For a task extending an existing class, the class already exists and its existing tests may pass before the requested behavior or new tests have been implemented. This resume check therefore marks unfinished work DONE and skips its Implementation Guide and DoD entirely. Require a recorded completed task and validate its task-specific criteria rather than inferring completion from file existence and unrelated passing tests."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 435,
+   "end_line": 440,
+   "message": "Persist and consume checkpoints inside the task loop. If execution is interrupted after some tasks commit but before Phase 8, this loop has saved no task completion state: the only new lifecycle checkpoint update occurs in Phase 8. It also executes every task without checking preserved DONE statuses. Consequently, the epic's new task-level resume reclassification cannot prevent completed tasks from being rerun. Persist transitions after each task and consult the checkpoint before dispatching it."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 514,
+   "end_line": 516,
+   "message": "Avoid adding a second story prefix to the DoR filename. Story IDs in the implementation map and checkpoint already include `story-`, such as `story-0028-0002`. This interpolation therefore searches for `dor-story-story-0028-0002.md`, whereas x-story-plan generates `dor-story-0028-0002.md`. Because a missing file explicitly bypasses the gate, NOT_READY stories are dispatched unchecked. Construct the filename as `dor-{storyId}.md`."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 517,
+   "end_line": 519,
+   "message": "Read verdicts from the supported inline DoR format. For projects without `_TEMPLATE-DOR-CHECKLIST.md`, x-story-plan's supported inline fallback writes the verdict in its Header and Summary sections, with no `## Final Verdict` section. This check consequently cannot classify a valid fallback checklist, including a NOT_READY result, and defines no handling for that case. Accept the producer's inline verdict location and explicitly handle unreadable verdicts."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 672,
+   "end_line": 674,
+   "message": "Update tracked task statuses before leaving the story branch. The preceding Phase 8 step checks out and pulls `develop`, so these new story-file edits occur on `develop` after the story's commits and PR have already been created. The completion statuses are therefore absent from the reviewed PR and leave the integration checkout dirty for subsequent stories. Update and commit tracked story statuses on the feature branch before PR finalization and checkout."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 162000
+ }
+}

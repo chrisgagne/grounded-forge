@@ -140,7 +140,8 @@ the projects' test suites off). It runs on macOS only; someone with the operator
 unseen; a signature is a record, not cryptography; and the commits showing each test came first are in the factory's
 unpublished repository.
 
-[`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) and
+AWS Labs' [AI-DLC](https://github.com/awslabs/aidlc-workflows) structures a whole build with approval gates, reviewer
+agents and an audit trail; [`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) and
 [PAL MCP](https://github.com/BeehiveInnovations/pal-mcp-server) have other models review Claude Code's work;
 [TDD Guard](https://github.com/nizos/tdd-guard) enforces tests first; [in-toto](https://github.com/in-toto/in-toto)
 and [Sigstore](https://github.com/sigstore/cosign) keep cryptographically signed records of how software was made.

@@ -1,41 +1,24 @@
-// MCP endpoint (Streamable HTTP, JSON responses, stateless) for the AAR Maker library. The OAuth
+// MCP endpoint (Streamable HTTP, JSON responses, stateless) for a packed library. The OAuth
 // provider has already checked the access token before this runs; ctx.props carries the GitHub
-// login it was issued to.
+// login it was issued to. The connector's name and tool descriptions come from its profile
+// (connectors/{name}.mjs), packed into the bundle.
 import * as corpus from "./corpus.js";
 
 const PROTOCOL_VERSIONS = ["2025-11-25", "2025-06-18", "2025-03-26"];
 const ORIGIN_OK = /^https:\/\/([a-z0-9-]+\.)*(claude\.ai|claude\.com|anthropic\.com|chatgpt\.com|openai\.com)$/i;
 
-const INSTRUCTIONS = "AAR Maker: a source-grounded After-Action Review assistant built on an open library: "
-  + "distillations of openly licensed sources (US Army TC 25-20, the US Forest Service learning "
-  + "review guide, the NHS Just Culture guide, the DOE human performance handbooks, the Columbia "
-  + "accident report and others) projected onto AAR work. Before facilitating an AAR or "
-  + "answering from the library, call get_workflow with name \"guide\" once per conversation: it "
-  + "sets the discipline (blameless by default, local rationality, contributory factors not the "
-  + "cause) and the retrieval order. The guide and workflows were written for a folder install; "
-  + "where they name a file, use the matching tool: task-index.json or AAR-DISTILLATION-INDEX.md → "
-  + "route, {slug}-aar.md → read_distillation, concept-index.json → list_topics and find_concepts, "
-  + "slug-table.json → list_sources, lens-index.json → get_lenses, a skill or agent file → "
-  + "get_workflow. Cite only "
-  + "what a tool returned; if the library does not cover something, say so. The library is built "
-  + "from open and open-nc sources: [V] passages are verbatim under each source's licence, each "
-  + "distillation's Source line names that licence, and non-commercial terms apply to open-nc "
-  + "material (the guide's LICENSE-CONTENT.md and DISCLAIMER.md set out the terms).";
+const C = corpus.connector;
+const T = C.tools;
+const INSTRUCTIONS = C.instructions;
 
 const RO = { readOnlyHint: true, destructiveHint: false, openWorldHint: false };
 
 const TOOLS = [
   {
     name: "get_workflow",
-    title: "Get a workflow or the guide",
-    description: "Use this first for any after-action review, post-incident review, postmortem, "
-      + "retrospective or lessons-learned conversation, before asking the user anything. "
-      + "AAR Maker's facilitation and retrieval workflows. Call get_workflow(\"guide\") once at "
-      + "the start of any conversation that uses this library: it sets the AAR discipline, the "
-      + "retrieval order, the licensing terms, and how file paths in the workflows map to these "
-      + `tools. Workflows: ${corpus.workflowNames().filter((n) => n !== "guide").join(", ")}. `
-      + "With no file, returns the workflow's SKILL.md and lists its other "
-      + "files. Long files come in parts: read every part. Follow the workflow.",
+    title: T.get_workflow.title,
+    description: T.get_workflow.description
+      .replace("{{workflows}}", corpus.workflowNames().filter((n) => n !== "guide").join(", ")),
     inputSchema: { type: "object", required: ["name"], properties: {
       name: { type: "string", description: "Workflow name, or \"guide\"." },
       file: { type: "string", description: "A supporting file in that workflow, as named in its SKILL.md. Default SKILL.md." },
@@ -45,29 +28,19 @@ const TOOLS = [
   },
   {
     name: "route",
-    title: "Route an AAR situation",
-    description: "Use when running an after-action review, post-incident review, postmortem or "
-      + "retrospective, to choose which sources fit each phase. "
-      + "The AAR task index: the situation router. With no section, lists its sections "
-      + "(Phases 0-5: scoping, timeline and local rationality, contributory factors, just-culture "
-      + "sorting, action design, learning-loop closure). With a section, returns its rows (need → "
-      + "source id, and when it applies) and the sources those rows point to. Read before choosing "
-      + "distillations.",
+    title: T.route.title,
+    description: T.route.description,
     inputSchema: { type: "object", properties: {
-      section: { type: "string", description: "Section name or a unique part of one, e.g. \"Phase 4\" or \"Anti-Patterns\"." },
+      section: { type: "string", description: T.route.section },
     } },
     annotations: RO,
   },
   {
     name: "read_distillation",
     title: "Read a distillation",
-    description: "One distillation: a single openly licensed source (TC 25-20, the Forest Service learning "
-      + "review guide, NHS Just Culture, the DOE human performance handbooks, the Columbia accident "
-      + "report, ...) projected onto AAR work, with evidence markers [V] [AP] [AR] [AE] [BT]. Its "
-      + "Source line names the source's licence. Returns the whole distillation, or one section of "
-      + "it when `section` is given.",
+    description: T.read_distillation.description,
     inputSchema: { type: "object", required: ["source"], properties: {
-      source: { type: "string", description: "A 3-character id from route/find_concepts, or a slug (e.g. tc-25-20-army-aar)." },
+      source: { type: "string", description: T.read_distillation.source },
       section: { type: "string", description: "Optional: text from a heading, e.g. \"Phase 3\"." },
     } },
     annotations: RO,
@@ -91,7 +64,7 @@ const TOOLS = [
       + "Give either or both.",
     inputSchema: { type: "object", properties: {
       topic: { type: "string", description: "A topic id from list_topics (e.g. \"t031\") or a topic name." },
-      query: { type: "string", description: "Concept name or synonym, e.g. \"just culture\"." },
+      query: { type: "string", description: T.find_concepts.query },
       limit: { type: "integer", minimum: 1, maximum: 50, description: "For a query, default 15. A topic alone returns all its concepts." },
     } },
     annotations: RO,
@@ -102,20 +75,18 @@ const TOOLS = [
     description: "The catalogue of sources with a distillation: id, slug, title and attribution "
       + "line. Filter by author, title or slug words; with no query, lists them all.",
     inputSchema: { type: "object", properties: {
-      query: { type: "string", description: "Optional words to match, e.g. \"army\"." },
+      query: { type: "string", description: T.list_sources.query },
     } },
     annotations: RO,
   },
   {
     name: "get_lenses",
     title: "Get the lens index",
-    description: "Lenses that reweight what's salient for a named reader (builder, a PM bounded by a BA role, "
-      + "agentic builder, a named consultant-coach): purpose, when to reach for each, and its "
-      + "salience block. Apply a lens from its salience block; the full specs aren't served.",
+    description: T.get_lenses?.description ?? "",
     inputSchema: { type: "object", properties: {} },
     annotations: RO,
   },
-];
+].filter((t) => t.name !== "get_lenses" || corpus.hasLenses());
 
 class UnknownTool extends Error {}
 
@@ -161,6 +132,7 @@ const callTool = (name, args) => {
       return [toolText(out), `count=${out.count}`];
     }
     case "get_lenses":
+      if (!corpus.hasLenses()) break;
       return [toolText(corpus.loadJson("lens-index.json")), "lens-index"];
   }
   throw new UnknownTool(`unknown tool: ${name}`);
@@ -216,7 +188,7 @@ export default {
           protocolVersion: PROTOCOL_VERSIONS.includes(requested) ? requested : PROTOCOL_VERSIONS[0],
           capabilities: { tools: { listChanged: false } },
           serverInfo: {
-            name: "aar-maker", title: "AAR Maker", version: "0.2.0",
+            name: C.id, title: C.title, version: C.version,
             icons: [{ src: `${env.PUBLIC_URL}/icon-512.png`, mimeType: "image/png", sizes: ["512x512"] }],
           },
           instructions: INSTRUCTIONS,

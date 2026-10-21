@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-// Packs a compiled AAR app into src/bundle.json, the one module the Worker reads the library from:
-// the distillations, a catalogue of them, the task, concept and lens indexes, the workflows, and
-// the guide with the app's DISCLAIMER.md and LICENSE-CONTENT. Lens specs, docs and the full slug
+// Packs a compiled app into src/bundle.json, the one module the Worker reads the library from:
+// the distillations, a catalogue of them, the task, concept and lens indexes, the workflows, the
+// guide with the app's DISCLAIMER.md and LICENSE-CONTENT, and the connector's words (its name,
+// tool descriptions and pages, from connectors/{name}.mjs). Lens specs, docs and the full slug
 // table stay behind. JSON files are stored parsed, markdown as text.
 //
-//   node bundle.mjs                                  the public aar-mode app, its CLAUDE.md as the guide
-//   node bundle.mjs --app DIR                        another compiled AAR app
+//   node bundle.mjs                                  AAR Maker: the public aar-mode app, its CLAUDE.md as the guide
+//   node bundle.mjs --connector NAME                 another connector in connectors/, e.g. factory-review
+//   node bundle.mjs --app DIR                        another compiled app on the connector's task
 //   node bundle.mjs --guide FILE                     serve FILE as the guide instead of the app's CLAUDE.md
 //   node bundle.mjs --workflow DIR [--workflow DIR]  also serve a workflow folder (SKILL.md and its .md files)
 //   node bundle.mjs --drop NAME                      leave one of the app's workflows out
@@ -14,21 +16,25 @@
 // (.claude/agents/{name}.md, each served as that workflow's SKILL.md).
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const TASK = "aar"; // src/corpus.js reads {slug}-aar.md filenames
 const NOT_SERVED = [/^port-notes\.md$/, /^review-.*\.md$/]; // authoring notes kept beside a workflow
 
-const opts = { app: path.resolve(here, "../../corpus.commons/demo/apps/aar-mode"), guide: null, workflow: [], drop: [] };
+const opts = { connector: "aar-maker", app: null, guide: null, workflow: [], drop: [] };
 const argv = process.argv.slice(2);
 for (let i = 0; i < argv.length; i += 2) {
   const key = argv[i].replace(/^--/, "");
   if (!(key in opts) || argv[i + 1] === undefined) throw new Error(`usage: see the header of bundle.mjs (bad argument '${argv[i]}')`);
-  const val = path.resolve(argv[i + 1]);
-  if (Array.isArray(opts[key])) opts[key].push(key === "drop" ? argv[i + 1] : val);
+  const val = key === "drop" || key === "connector" ? argv[i + 1] : path.resolve(argv[i + 1]);
+  if (Array.isArray(opts[key])) opts[key].push(val);
   else opts[key] = val;
 }
+const connectorFile = opts.connector.includes("/") ? path.resolve(opts.connector) : path.join(here, "connectors", `${opts.connector}.mjs`);
+const connector = (await import(pathToFileURL(connectorFile).href)).default;
+const TASK = connector.task; // src/corpus.js reads {slug}-{task}.md filenames
+opts.app ??= path.resolve(here, connector.app);
+for (const dir of connector.workflows ?? []) opts.workflow.push(path.resolve(here, dir));
 
 const read = (p) => fs.readFileSync(p, "utf8");
 const isFile = (p) => fs.existsSync(p) && fs.statSync(p).isFile();
@@ -69,8 +75,18 @@ if (concepts.schema_version !== 3) {
   throw new Error(`concept-index.json is schema ${concepts.schema_version}; src/corpus.js reads schema 3 (a topics block, then concept rows). Rebuild the app on a topic-filed index.`);
 }
 files["concept-index.json"] = concepts;
-files["lens-index.json"] = JSON.parse(read(path.join(app, "lens-index.json")));
-files["task-index.json"] = JSON.parse(read(path.join(distDir, "task-index.json")));
+const lensIndex = path.join(app, "lens-index.json");
+if (isFile(lensIndex)) files["lens-index.json"] = JSON.parse(read(lensIndex)); // an app with no lenses serves no get_lenses
+// A sharded task index keeps a section's full rows in a shard file beside it; serve them inline.
+const taskIndex = JSON.parse(read(path.join(distDir, "task-index.json")));
+for (const section of taskIndex.sections) {
+  if (!section.shard) continue;
+  const shard = JSON.parse(read(path.join(distDir, section.shard)));
+  section.columns = shard.columns;
+  section.rows = shard.rows;
+  delete section.shard;
+}
+files["task-index.json"] = taskIndex;
 
 // A workflow folder's served files: its top-level markdown, less authoring notes.
 const addWorkflow = (name, dir) => {
@@ -94,13 +110,19 @@ for (const f of fs.existsSync(agents) ? fs.readdirSync(agents).sort() : []) {
 }
 for (const dir of opts.workflow) addWorkflow(path.basename(dir), dir);
 
-files["workflows/guide/SKILL.md"] = read(opts.guide ?? path.join(app, "CLAUDE.md"));
+// A connector can put a note at the top of the guide (how the guide's file names map to tools), for
+// clients that don't pass the server instructions on.
+const guideText = read(opts.guide ?? path.join(app, "CLAUDE.md"));
+files["workflows/guide/SKILL.md"] = connector.guidePreface ? `${connector.guidePreface}\n\n${guideText}` : guideText;
+// The connector's own short notice (what it is, what it receives, what it isn't), ahead of the
+// app's full disclaimer, which it points to.
+if (connector.notice) files["workflows/guide/NOTICE.md"] = connector.notice;
 files["workflows/guide/DISCLAIMER.md"] = read(path.join(app, "DISCLAIMER.md"));
 files["workflows/guide/LICENSE-CONTENT.md"] = read(path.join(app, "LICENSE-CONTENT"));
 
 const out = path.join(here, "src/bundle.json");
 const sorted = Object.fromEntries(Object.keys(files).sort().map((k) => [k, files[k]]));
-fs.writeFileSync(out, JSON.stringify({ built: today.toISOString(), files: sorted }));
+fs.writeFileSync(out, JSON.stringify({ built: today.toISOString(), connector, files: sorted }));
 const workflows = new Set(Object.keys(files).filter((k) => k.startsWith("workflows/")).map((k) => k.split("/")[1]));
 const kb = Math.round(fs.statSync(out).size / 1024);
-console.log(`bundle.json: ${Object.keys(sources).length} distillations, ${workflows.size} workflows (${[...workflows].sort().join(", ")}), ${kb} KB, from ${path.relative(process.cwd(), app) || "."}`);
+console.log(`bundle.json (${connector.id}): ${Object.keys(sources).length} distillations, ${workflows.size} workflows (${[...workflows].sort().join(", ")}), ${kb} KB, from ${path.relative(process.cwd(), app) || "."}`);

@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Factory Review: the same Worker as AAR Maker, serving the factory-warranty app.
+  // Pack it with `node bundle.mjs --connector factory-review` before deploying.
+  "name": "factory-review",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Your own domain: here, in PUBLIC_URL, and in the GitHub OAuth app's callback URL.
+  "routes": [{ "pattern": "review.groundedforge.com", "custom_domain": true }],
+  "workers_dev": false,
+  "assets": { "directory": "./public" },
+  // Its own OAuth namespace: `npx wrangler kv namespace create OAUTH_KV_REVIEW` prints the id.
+  "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "REPLACE_WITH_OAUTH_KV_ID" }],
+  "ratelimits": [{ "name": "LIMITER", "namespace_id": "1002", "simple": { "limit": 120, "period": 60 } }],
+  "observability": { "enabled": true },
+  "vars": {
+    "PUBLIC_URL": "https://review.groundedforge.com",
+    // Its own GitHub OAuth app (callback https://review.groundedforge.com/callback).
+    "GITHUB_CLIENT_ID": "Ov23liZyiqQYV3tUFecp",
+    "BLOCKED_USERS": ""
+  }
+  // Secrets, never in this file (npx wrangler secret put NAME -c ...): GITHUB_CLIENT_SECRET, COOKIE_SECRET.
+}

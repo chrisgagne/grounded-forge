@@ -7,6 +7,11 @@ const PART_BYTES = 60000; // workflow files longer than this are served in parts
 export class ToolInputError extends Error {}
 
 const files = bundle.files;
+export const connector = bundle.connector;
+const TASK = connector.task;
+const escapeRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const TASK_SUFFIX = new RegExp(`(-${escapeRe(TASK)})?\\.md$`);
+const TASK_FILE = new RegExp(`([a-z0-9][a-z0-9-]*)-${escapeRe(TASK)}\\.md`, "g");
 const bytes = (s) => new TextEncoder().encode(s).length;
 
 export const loadJson = (rel) => {
@@ -26,9 +31,9 @@ const slugToId = (slug) => {
   return null;
 };
 
-// Accepts a 3-character id, a slug, or a path/filename like distillations/aar/{slug}-aar.md.
+// Accepts a 3-character id, a slug, or a path/filename like distillations/{task}/{slug}-{task}.md.
 const resolveSource = (raw) => {
-  let ref = raw.toLowerCase().trim().replace(/^.*\//, "").replace(/(-aar)?\.md$/, "");
+  let ref = raw.toLowerCase().trim().replace(/^.*\//, "").replace(TASK_SUFFIX, "");
   if (ref in sources()) return ref;
   const id = slugToId(ref);
   if (id !== null) return id;
@@ -67,7 +72,8 @@ export const readDistillation = (ref, section) => {
   return [{ ...head, section: lines[start].replace(/^#+/, "").trim() }, out.join("\n")];
 };
 
-// Every source a JSON fragment points at: 3-character ids and {slug}-aar.md filenames.
+// Every source a JSON fragment points at: 3-character ids, {slug}-{task}.md filenames and
+// backticked slugs.
 const sourcesIn = (node, found) => {
   if (Array.isArray(node) || (node && typeof node === "object")) {
     for (const v of Object.values(node)) sourcesIn(v, found);
@@ -75,7 +81,7 @@ const sourcesIn = (node, found) => {
   }
   if (typeof node !== "string") return;
   if (node in sources()) found.add(node);
-  for (const m of node.matchAll(/([a-z0-9][a-z0-9-]*)-aar\.md/g)) {
+  for (const m of [...node.matchAll(TASK_FILE), ...node.matchAll(/`([a-z0-9][a-z0-9-]*)`/g)]) {
     const id = slugToId(m[1]);
     if (id !== null) found.add(id);
   }
@@ -85,7 +91,7 @@ export const route = (section) => {
   const sections = loadJson("task-index.json").sections;
   if (section.trim() === "") {
     return {
-      task: "aar",
+      task: TASK,
       sections: sections.map((s) => ({ section: s.section, rows: (s.rows ?? []).length })),
       next: 'Call route with a section name (or a unique part of one, e.g. "Phase 4") for its rows.',
     };
@@ -175,6 +181,8 @@ export const listSources = (query) => {
   }
   return { count: out.length, sources: out };
 };
+
+export const hasLenses = () => "lens-index.json" in files;
 
 export const workflowNames = () => [...new Set(Object.keys(files)
   .map((k) => /^workflows\/([^/]+)\/SKILL\.md$/.exec(k)?.[1])

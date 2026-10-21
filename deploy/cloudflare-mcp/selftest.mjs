@@ -7,7 +7,9 @@ import fs from "node:fs";
 import mcp from "./.wrangler/test/mcp.mjs";
 
 const PART_BYTES = 60000; // as in src/corpus.js
-const { files } = JSON.parse(fs.readFileSync(new URL("./src/bundle.json", import.meta.url), "utf8"));
+const { files, connector } = JSON.parse(fs.readFileSync(new URL("./src/bundle.json", import.meta.url), "utf8"));
+const want = connector.selftest; // this connector's expected slugs, sections and words
+const lenses = "lens-index.json" in files;
 
 let failures = 0;
 let nextId = 1;
@@ -30,15 +32,17 @@ const call = async (name, args) => {
   return { error: !!r.result?.isError || !!r.error, head: content[0] ? JSON.parse(content[0].text) : {}, body: content[1]?.text ?? "" };
 };
 
-console.log("self-test");
+console.log(`self-test: ${connector.id}`);
 let [status, r] = await post({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18" } });
-check("initialize", r.result?.serverInfo?.name === "aar-maker", `status ${status}`);
-check("instructions carry the licence terms", (r.result?.instructions ?? "").includes("non-commercial"));
+check("initialize", r.result?.serverInfo?.name === connector.id, `status ${status}`);
+check("instructions carry the licence terms", (r.result?.instructions ?? "").includes(want.licenceWord));
 
 [, r] = await post({ jsonrpc: "2.0", id: 2, method: "tools/list" });
 const names = (r.result?.tools ?? []).map((t) => t.name);
 check("tools/list", JSON.stringify([...names].sort()) === JSON.stringify(
-  ["find_concepts", "get_lenses", "get_workflow", "list_sources", "list_topics", "read_distillation", "route"]), names.join(","));
+  ["find_concepts", ...(lenses ? ["get_lenses"] : []), "get_workflow", "list_sources", "list_topics", "read_distillation", "route"]),
+  names.join(","));
+check("no unfilled placeholder in a tool description", !JSON.stringify(r.result?.tools ?? []).includes("{{"));
 
 let c = await call("get_workflow", { name: "guide" });
 check("guide, with the disclaimer and licence beside it", !c.error && c.body.length > 1000
@@ -64,18 +68,18 @@ check("path traversal refused", c.error);
 c = await call("route", {});
 check("route lists sections", (c.head.sections ?? []).length > 5, `${(c.head.sections ?? []).length} sections`);
 
-c = await call("route", { section: "Phase 4" });
-check("route Phase 4", !c.error && (c.head.rows ?? []).length > 0 && (c.head.sources ?? []).length > 0,
+c = await call("route", { section: want.phase });
+check(`route ${want.phase}`, !c.error && (c.head.rows ?? []).length > 0 && (c.head.sources ?? []).length > 0,
   `${(c.head.rows ?? []).length} rows, ${(c.head.sources ?? []).length} sources`);
 
-c = await call("read_distillation", { source: "tc-25-20-army-aar" });
-check("read by slug", !c.error && c.body.includes("After-Action"), `${c.body.length} chars`);
+c = await call("read_distillation", { source: want.slug });
+check("read by slug", !c.error && c.body.includes(want.slugText), `${c.body.length} chars`);
 const id = c.head.id ?? "";
 
 c = await call("read_distillation", { source: id });
-check("read by id", !c.error && c.head.slug === "tc-25-20-army-aar", id);
+check("read by id", !c.error && c.head.slug === want.slug, id);
 
-c = await call("read_distillation", { source: "distillations/aar/tc-25-20-army-aar-aar.md", section: "Phase 3" });
+c = await call("read_distillation", { source: want.sectionPath, section: want.section });
 check("read a section by path", !c.error && "section" in c.head, c.head.section ?? "");
 
 c = await call("read_distillation", { source: "no-such-source" });
@@ -85,7 +89,7 @@ c = await call("list_topics", {});
 const topics = c.head.topics ?? [];
 check("list_topics", !c.error && topics.length > 0, `${topics.length} topics`);
 
-c = await call("find_concepts", { query: "just culture" });
+c = await call("find_concepts", { query: want.concept });
 check("find_concepts", (c.head.matches ?? 0) > 0, `${c.head.matches ?? 0} matches`);
 
 const first = topics[0] ?? ["", "", [], "", "", "", 0];
@@ -96,14 +100,16 @@ check("find_concepts by topic returns the topic's rows", !c.error && c.head.show
 c = await call("find_concepts", {});
 check("find_concepts with neither query nor topic is a tool error", c.error);
 
-c = await call("list_sources", { query: "army" });
+c = await call("list_sources", { query: want.sourceQuery });
 check("list_sources", (c.head.count ?? 0) > 0, `${c.head.count ?? 0} sources`);
 
 c = await call("list_sources", {});
-check("list_sources all", (c.head.count ?? 0) > 20, `${c.head.count ?? 0} sources`);
+check("list_sources all", (c.head.count ?? 0) >= want.minSources, `${c.head.count ?? 0} sources`);
 
-c = await call("get_lenses", {});
-check("get_lenses", "lenses" in c.head, `${Object.keys(c.head.lenses ?? {}).length} lenses`);
+if (lenses) {
+  c = await call("get_lenses", {});
+  check("get_lenses", "lenses" in c.head, `${Object.keys(c.head.lenses ?? {}).length} lenses`);
+}
 
 [status] = await post({ jsonrpc: "2.0", id: 99, method: "ping" }, { Origin: "https://evil.example" });
 check("foreign Origin refused", status === 403, `got ${status}`);

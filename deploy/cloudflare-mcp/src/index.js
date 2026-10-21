@@ -1,10 +1,13 @@
-// AAR Maker on Cloudflare Workers: the OAuth server (workers-oauth-provider, tokens in KV) in
-// front of the MCP endpoint, with GitHub as the sign-in. Each person signs in as themselves, so
-// the logs name who used it and BLOCKED_USERS can shut one person out without touching anyone else.
-// GitHub is asked for no scopes: the Worker reads only the public login and id, and keeps no
-// GitHub token.
+// A packed library on Cloudflare Workers (AAR Maker, or another connector in connectors/): the
+// OAuth server (workers-oauth-provider, tokens in KV) in front of the MCP endpoint, with GitHub as
+// the sign-in. Each person signs in as themselves, so the logs name who used it and BLOCKED_USERS
+// can shut one person out without touching anyone else. GitHub is asked for no scopes: the Worker
+// reads only the public login and id, and keeps no GitHub token.
 import { OAuthProvider } from "@cloudflare/workers-oauth-provider";
 import mcp from "./mcp.js";
+import { connector } from "./corpus.js";
+
+const NAME = connector.title;
 
 // claude.ai's callbacks are fixed; ChatGPT's carry a per-connector callback id; Claude Code's
 // is a localhost port it picks at login.
@@ -23,8 +26,7 @@ const REMEMBER_DAYS = 30;
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-const PRIVACY = `<p>Signing in shares your public GitHub username with AAR Maker, nothing else: no email, no repositories.</p>
-<p>What's logged: your GitHub username, which tool was called and which library file it read. Never what you type, and never your incident details. Logs are kept by Cloudflare for a few days.</p>`;
+const PRIVACY = connector.pages.privacy;
 
 const page = (title, body, status = 200, headers = new Headers()) => {
   headers.set("Content-Type", "text/html; charset=utf-8");
@@ -70,15 +72,7 @@ const handler = {
     const origin = url.origin;
 
     if (url.pathname === "/" && request.method === "GET") {
-      return page("AAR Maker", `<h1>AAR Maker</h1>
-<p>A source-grounded after-action review coach, served as an MCP connector. It runs a review blameless by default and draws on openly licensed sources: US Army TC 25-20, the US Forest Service learning review guide, NHS Just Culture, the DOE human performance handbooks, the Columbia accident report and others.</p>
-<p>Connector URL: <code>${esc(origin)}/mcp</code></p>
-<p><strong>Claude</strong> (web, desktop or mobile): Settings → Connectors → Add custom connector, paste the URL, then sign in with GitHub. Open the connector and set Read-only tools to <em>Always allow</em>, or Claude will ask before every library read.</p>
-<p><strong>Claude Code:</strong> <code>claude mcp add --transport http aar-maker ${esc(origin)}/mcp</code>, then <code>/mcp</code> to sign in.</p>
-<p><strong>ChatGPT:</strong> Settings → Plugins, add a server (Streamable HTTP, the URL above, no token), then sign in with GitHub. Start your first message with “Use AAR Maker to…”: ChatGPT won't use it unless asked.</p>
-<p><strong>First run:</strong> “Help me run an after-action review of [the incident or project].” Bring the timeline and who was involved.</p>
-${PRIVACY}
-<p class="mute"><small>Built by Chris Gagné. The library's licence terms are served with it: ask the assistant for AAR Maker's licence.</small></p>`);
+      return page(NAME, connector.pages.landing.replaceAll("{{origin}}", esc(origin)).replace("{{privacy}}", PRIVACY));
     }
 
     if (url.pathname === "/authorize" && request.method === "GET") {
@@ -90,7 +84,7 @@ ${PRIVACY}
       }
       if (!redirectAllowed(authReq.redirectUri)) {
         console.log(JSON.stringify({ action: "authorize", outcome: "bad-redirect", redirect: authReq.redirectUri }));
-        return page("Can't connect", `<h1>Can't connect</h1><p>AAR Maker accepts connections from Claude, Claude Code and ChatGPT. This client's return address isn't one of theirs.</p>`, 400);
+        return page("Can't connect", `<h1>Can't connect</h1><p>${esc(NAME)} accepts connections from Claude, Claude Code and ChatGPT. This client's return address isn't one of theirs.</p>`, 400);
       }
       if (await env.OAUTH_PROVIDER.isConsentRemembered(request, authReq, { secret: env.COOKIE_SECRET })) {
         return toGitHub(env, origin, authReq, new Headers());
@@ -98,8 +92,8 @@ ${PRIVACY}
       const who = await env.OAUTH_PROVIDER.describeConsent(authReq);
       const consent = await env.OAUTH_PROVIDER.beginConsent(authReq);
       const app = who.clientName || who.redirectHost;
-      return page("Connect AAR Maker", `<h1>Connect AAR Maker</h1>
-<p><strong>${esc(app)}</strong> (returning to <code>${esc(who.redirectHost)}</code>) wants to use AAR Maker for you. Next you'll sign in with GitHub.</p>
+      return page(`Connect ${NAME}`, `<h1>Connect ${esc(NAME)}</h1>
+<p><strong>${esc(app)}</strong> (returning to <code>${esc(who.redirectHost)}</code>) wants to use ${esc(NAME)} for you. Next you'll sign in with GitHub.</p>
 ${PRIVACY}
 <form method="post" action="/authorize"><input type="hidden" name="handle" value="${esc(consent.handle)}">
 <div class="row"><button class="go" name="decision" value="approve">Continue with GitHub</button>
@@ -150,7 +144,7 @@ ${PRIVACY}
         return page("Can't connect", `<h1>GitHub sign-in failed</h1><p>Start again from your AI client.</p>`, 502, resumed.headers);
       }
       const userRes = await fetch("https://api.github.com/user", {
-        headers: { Authorization: `Bearer ${tok.access_token}`, Accept: "application/vnd.github+json", "User-Agent": "aar-maker-worker" },
+        headers: { Authorization: `Bearer ${tok.access_token}`, Accept: "application/vnd.github+json", "User-Agent": `${connector.id}-worker` },
       });
       const user = await userRes.json().catch(() => ({}));
       if (!user.login) {
@@ -159,7 +153,7 @@ ${PRIVACY}
       }
       if (blocked(env, user.login)) {
         console.log(JSON.stringify({ login: user.login, action: "callback", outcome: "blocked" }));
-        return page("Access closed", `<h1>Access closed</h1><p>This GitHub account can't use AAR Maker.</p>`, 403, resumed.headers);
+        return page("Access closed", `<h1>Access closed</h1><p>This GitHub account can't use ${esc(NAME)}.</p>`, 403, resumed.headers);
       }
       const { redirectTo } = await env.OAUTH_PROVIDER.completeAuthorization({
         request: resumed.request,
@@ -204,7 +198,7 @@ export default {
       accessTokenTTL: 3600,
       refreshTokenTTL: 365 * 86400,
       clientIdMetadataDocumentEnabled: true,
-      resourceMetadata: { resource: `${env.PUBLIC_URL}/mcp`, scopes_supported: ["corpus.read"], resource_name: "AAR Maker" },
+      resourceMetadata: { resource: `${env.PUBLIC_URL}/mcp`, scopes_supported: ["corpus.read"], resource_name: NAME },
     });
     return provider.fetch(request, env, ctx);
   },

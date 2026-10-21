@@ -19,7 +19,8 @@ For a local connector over stdio, use [`scripts/mcp/corpus-server.mjs`](../../sc
 | `src/index.js` | The OAuth server, GitHub sign-in, the landing and consent pages. |
 | `src/mcp.js` | The MCP endpoint: tools, server instructions, the per-call log line. |
 | `src/corpus.js` | Reads the packed library: distillations, indexes, workflows. |
-| `bundle.mjs` | Packs a compiled AAR app into `src/bundle.json` (a build artefact, gitignored). |
+| `bundle.mjs` | Packs a compiled app and a connector's words into `src/bundle.json` (a build artefact, gitignored). |
+| `connectors/` | One file per connector: its name, tool descriptions, pages, the app it packs and its self-test values. `aar-maker.mjs` is the default. |
 | `selftest.mjs` | Calls every tool in-process against the built bundle (`npm test`). |
 | `wrangler.jsonc` | Worker config: domain, bindings, vars. |
 | `public/` | Icons. |
@@ -35,7 +36,18 @@ node bundle.mjs --drop NAME        # leave one of the app's workflows out; repea
 
 The live AAR Maker deploys from this folder with its own guide and three facilitation workflows that aren't published here, added with `--guide` and `--workflow`. A deploy from this folder as it stands serves the app's `aar-facilitator` workflow and its `CLAUDE.md` as the guide.
 
-`src/corpus.js` reads distillations named `{slug}-aar.md` and a schema 3 concept index (a topics block, then concept rows), so `--app` takes AAR apps only. The words the connector shows (its name, the tool descriptions, the landing and consent pages) are AAR Maker's; edit `src/mcp.js` and `src/index.js` for another connector.
+`src/corpus.js` reads distillations named `{slug}-{task}.md`, for the connector's task, and a schema 3 concept index (a topics block, then concept rows). The words the connector shows (its name, the tool descriptions, the landing and consent pages) come from its file in `connectors/`.
+
+## Another connector: Factory Review
+
+The same Worker serves the [factory-warranty](../../corpus.commons/chrisgagne-agent-built-software/) app as **Factory Review** at `https://review.groundedforge.com/mcp`: the factory's review stage (the `review-change` workflow and its sign-off sheet) and its 17-source library. `connectors/factory-review.mjs` holds its words and `wrangler.review.jsonc` its config, with its own OAuth namespace and GitHub OAuth app.
+
+```bash
+npm run test:review     # pack factory-review and run the self-test against it
+npm run deploy:review   # pack it and deploy with wrangler.review.local.jsonc (your ids filled in)
+```
+
+A new connector is a file in `connectors/` (copy one), a wrangler config for its domain, and `node bundle.mjs --connector NAME`.
 
 ## Deploy your own
 

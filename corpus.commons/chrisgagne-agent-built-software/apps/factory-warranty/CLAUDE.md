@@ -20,7 +20,7 @@ The work is about agent-built software going to someone who can't judge its qual
 - **Runtime JSON indexes:**
   - `distillations/warranting-agent-built-software/task-index.json` is the stage router: for the stage and the situation, which distillations apply. Read it first. Its listener tables and its named disagreements sit in the `task-index.shard-*.json` files beside it; load a shard only for the section in play.
   - `concept-index.json` and `slug-table.json` hold the concept axis and the ID map.
-- **Skills** in `.claude/skills/`: `answer-from-corpus` for shape-aware retrieval, and `matching-references` for topic search.
+- **Skills** in `.claude/skills/`: `review-change` to review one change and write its sign-off sheet, `answer-from-corpus` for shape-aware retrieval, and `matching-references` for topic search.
 - **The factory** in `factory/`: the harness itself (spec, triage, locked tests, build, gates, blind review by two model families, the warranty pack and the human's signature). Its `README.md` says how to install and run it. Its review stage reads the distillations beside it.
 
 ## Three kinds of statement

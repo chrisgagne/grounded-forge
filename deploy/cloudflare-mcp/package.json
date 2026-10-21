@@ -6,7 +6,10 @@
     "bundle": "node bundle.mjs",
     "dev": "node bundle.mjs && wrangler dev",
     "deploy": "node bundle.mjs && wrangler deploy",
-    "test": "esbuild src/mcp.js --bundle --format=esm --platform=neutral --log-level=warning --outfile=.wrangler/test/mcp.mjs && node selftest.mjs"
+    "test": "esbuild src/mcp.js --bundle --format=esm --platform=neutral --log-level=warning --outfile=.wrangler/test/mcp.mjs && node selftest.mjs",
+    "bundle:review": "node bundle.mjs --connector factory-review",
+    "test:review": "node bundle.mjs --connector factory-review && npm test",
+    "deploy:review": "node bundle.mjs --connector factory-review && wrangler deploy -c wrangler.review.local.jsonc"
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "^1.2.3"

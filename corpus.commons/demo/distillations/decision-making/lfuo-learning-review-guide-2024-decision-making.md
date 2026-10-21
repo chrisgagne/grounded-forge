@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:5d7c12909a895e5f4a541111ca76907bd1e72f1a682f85c2232afa248088a635 -->
+<!-- derived-from-deep: sha256:f9fced2966c3cef3dc1f1746cbe0990b2d32be166abdffc9e7fae22b5aa054d8 -->
 # LFUO 2024, Decision-Making Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. 98 pages. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Distribution note:** No copyright obligation propagates from this source; derivative works are unrestricted under US copyright law.
@@ -9,7 +9,7 @@ The LFUO guide is not primarily a "decision-making" text — it is a manual for 
 
 1. **A structured framework for choosing the right learning response.** The Delegating Official faces a choice between four tools (AAR, RLS, FLA, Learning Review) and has to decide which one fits the event. The guide's argument is that the *outcome* (how bad it was) is a poor criterion; the *learning opportunity* (how much can the organisation learn?) is the right criterion. The two-inch tree-cutting case is the canonical illustration.
 
-2. **A framework for reconstructing past decisions in the FLA process itself.** The Five Hows / Lessons Learned Analysis is a structured decision-reconstruction tool. It is the central craft method by which an FLA team reaches "the same level situational awareness, belief, and expectation that was held by those involved in the accident — which they had before the accident" [V] (Part 7, "The Lessons Learned Analysis"). This applies *to* the decisions made in the field during the event.
+2. **A framework for reconstructing past decisions in the FLA process itself.** The Five Hows / Lessons Learned Analysis is a structured decision-reconstruction tool. It is the central craft method by which an FLA team reaches "the same level situational awareness, belief, and expectation that was held by those involved in the accident - which they had before the accident" [V] (Part 7, "The Lessons Learned Analysis"). This applies *to* the decisions made in the field during the event.
 
 3. **A discipline against three recurring decision-making failure modes in incident analysis.** Counterfactual reasoning, causal attribution, and the recommendations-as-default reflex are all framed as decision-making anti-patterns that degrade learning. The deeper claim is that *in complex systems* root-cause / counterfactual / recommendation-driven decision-making is itself the wrong tool. This is one of the guide's most quotable positions.
 

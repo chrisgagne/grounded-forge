@@ -13,10 +13,12 @@ Per source, in order (each step is skipped when its output is already on disk,
 so a rerun resumes):
 
   packet     freeze the deep reference; copy the tape, original, source card,
-             the Pass I spec and three calibration fixtures into a work folder
+             the Pass I spec and three calibration fixtures into a work folder,
+             with an AGENTS.md that keeps Codex legs inside it
   fixer      fix-in-place audit (the `ingest-auditor` agent), in parallel with
   blind      blind audit by the second leg, on the frozen copy
-  sort       the second leg sorts both audits against the source
+  sort       the second leg sorts both audits against the source; the legs'
+             overlap gives a capture-recapture estimate of defects neither found
   apply      a fresh agent verifies and applies the sort's remaining edits and
              brings the light reference and distillations into line
   gate       stops the source for an operator decision unless the apply leg
@@ -98,11 +100,59 @@ def codex_bin() -> str | None:
     return None
 
 
+def capture(sort_text: str) -> dict | None:
+    """Chapman capture-recapture estimate from the sort's `Capture:` line.
+
+    The two legs audit the same pre-audit deep independently, so their overlap
+    estimates how many defects neither found. It assumes every defect is equally
+    catchable; defects both legs miss for the same reason make it run low.
+    """
+    m = re.search(r"Capture:\s*fixer\s*=\s*(\d+)\s*,?\s*blind\s*=\s*(\d+)\s*,?\s*both\s*=\s*(\d+)", sort_text)
+    if not m:
+        return None
+    fixer, blind, both = map(int, m.groups())
+    if both > min(fixer, blind):
+        return {"fixer": fixer, "blind": blind, "both": both, "error": "both exceeds a leg's count"}
+    total = (fixer + 1) * (blind + 1) / (both + 1) - 1
+    found = fixer + blind - both
+    return {"fixer": fixer, "blind": blind, "both": both, "found": found,
+            "estimate": round(total, 1), "unfound": round(total - found, 1)}
+
+
 def pass_i_spec() -> str:
     text = PROTOCOL.read_text()
     start = text.index("## Pass I: Source-only audit")
     end = text.index("\n---\n", start)
     return text[start:end] + "\n"
+
+
+def packet_agents_md(work: Path) -> str:
+    """Codex loads every AGENTS.md from the git root down to its working folder,
+    and the repo root's tells an agent to read CLAUDE.md and the architecture
+    docs first: about 30K tokens, carried in every later turn of a leg. The
+    packet's own file sits deepest, so it takes precedence."""
+    checker = os.path.relpath(REPO / "scripts/check-verbatim.py", work)
+    return f"""# Pass I packet
+
+This folder is a self-contained Pass I work packet. The brief your prompt names is the whole task, and the files in this folder are everything it needs.
+
+For work in this folder, this file takes precedence over the repository's root AGENTS.md: read the brief and the packet files it names, and leave CLAUDE.md, `docs/`, `.claude/skills/` and the rest of the repository unread. The brief and `pass-i-spec.md` carry the standard you audit against.
+
+One repository tool is in scope, a mechanical check of blockquotes against the tape (name `post-audit-deep.md` instead in the sort leg):
+
+    python3 {checker} frozen-deep.md --source tape.md --no-corpus-search
+"""
+
+
+def repo_relative(text: str) -> str:
+    """Make a leg's report safe to track: Codex cites files as
+    `:codex-file-citation{path="/abs/..."}`, and an absolute path under the
+    operator's home fails the pre-push check. Write each as a repo-relative path."""
+    def cite(m: re.Match) -> str:
+        path = Path(m.group(1))
+        return f"(`{path.relative_to(REPO)}`)" if path.is_relative_to(REPO) else f"(`{path.name}`)"
+    text = re.sub(r':codex-file-citation\{path="([^"]+)"[^}]*\}', cite, text)
+    return text.replace(f"{REPO}/", "")
 
 
 class Agent:
@@ -245,6 +295,7 @@ class Source:
         (self.work / "fixtures").mkdir(exist_ok=True)
         for f in FIXTURES:
             shutil.copy(REPO / "tests/audit-fixtures" / f, self.work / "fixtures" / f)
+        (self.work / "AGENTS.md").write_text(packet_agents_md(self.work))
         return {"ok": True, "original": self.rel(self.original) if self.original else None,
                 "second": self.second}
 
@@ -278,7 +329,10 @@ class Source:
         out = self.work / "sort.md"
         res = self.agent.run(self.second, self._legprompt("sort-brief.md", "sort leg", out), self.work,
                              self.work / "sort-log.txt", out=out, read_only=True)
-        return self._expect(res, out)
+        res = self._expect(res, out)
+        if res.get("ok") and not self.args.dry_run:
+            res["capture"] = capture(out.read_text()) or {"error": "no Capture: line in the sort"}
+        return res
 
     def apply(self) -> dict:
         prompt = self.fill("apply.md")
@@ -322,11 +376,11 @@ class Source:
             second_stamp = f"fresh {steps.get('blind', {}).get('model') or 'Claude'} blind audit and sort, same family (audited-but-unverified)"
         if self.second != "none":
             tag = "crossfamily" if cross else "secondleg"
-            (aud / f"_ingest_pass_I_{self.slug}_{tag}_blind.md").write_text((self.work / "blind-findings.md").read_text())
-            (aud / f"_ingest_pass_I_{self.slug}_{tag}_sort.md").write_text((self.work / "sort.md").read_text())
-            (aud / f"_ingest_pass_I_{self.slug}_{tag}_prompts.md").write_text(
+            (aud / f"_ingest_pass_I_{self.slug}_{tag}_blind.md").write_text(repo_relative((self.work / "blind-findings.md").read_text()))
+            (aud / f"_ingest_pass_I_{self.slug}_{tag}_sort.md").write_text(repo_relative((self.work / "sort.md").read_text()))
+            (aud / f"_ingest_pass_I_{self.slug}_{tag}_prompts.md").write_text(repo_relative(
                 f"# Second-leg prompts: {self.slug}\n\n## Blind leg\n\n" + (self.work / "blind-brief.md").read_text()
-                + "\n\n## Sort leg\n\n" + (self.work / "sort-brief.md").read_text())
+                + "\n\n## Sort leg\n\n" + (self.work / "sort-brief.md").read_text()))
         promoted = self._promote() if self.args.promote_original else None
         lines = self.deep.read_text().split("\n")
         pending = re.compile(r"Pass I (has not run|not yet run|hasn't run|is pending|pending)\.?|Pass I\. Not yet run\.?", re.I)
@@ -351,8 +405,15 @@ class Source:
                         f"(sha256 `{post}`), checked each finding against the source, and sorted them. Files: "
                         + ", ".join(f"`_ingest_pass_I_{self.slug}_{tag}_{k}.md`" for k in ("blind", "sort", "prompts"))
                         + ".", "",
-                        f"**Sort result:** {report.get('sort_result')}", "",
-                        f"**Remaining edits applied ({today}):** {report.get('applied_note')}", "",
+                        f"**Sort result:** {report.get('sort_result')}", ""]
+            cap = steps.get("sort", {}).get("capture") or {}
+            if "estimate" in cap:
+                section += [f"**Capture-recapture:** of the confirmed deep-reference defects, the fix-in-place audit "
+                            f"raised {cap['fixer']}, the blind audit {cap['blind']}, both {cap['both']}. The Chapman "
+                            f"estimate is {cap['estimate']:g} in all, about {cap['unfound']:g} found by neither leg. It "
+                            "assumes every defect is equally catchable, so defects both legs miss for the same reason "
+                            "make it run low.", ""]
+            section += [f"**Remaining edits applied ({today}):** {report.get('applied_note')}", "",
                         f"**Gate:** {steps.get('gate', {}).get('gate', 'pass')}. Deep reference sha256 `{new_sha}`, stamp included."]
         with self.log.open("a") as f:
             f.write("\n".join(section) + "\n")

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:dabbe0ef776c741ebaffeec233363c5a34f599ef52c95577d42e786af332b3b8 -->
+<!-- derived-from-deep: sha256:cd7bff73dfd44b7c64ba9da0e68c7ff169a9afbba20f45eec538dd9637fe6e60 -->
 # OpenStax Principles of Economics 3e, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2022). *Principles of Economics 3e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-economics-3e. Lead author Steven A. Greenlaw; nine contributing authors.
@@ -35,7 +35,7 @@ This distillation projects that structural framework onto the seven-phase engage
 
 11. <!-- concept: property-rights --> **Coase and property rights.** Until property rights are clearly defined, the parties may squabble and nothing gets done; once they are, the responsible party finds the least costly fix. Pollution charges and marketable permits are the other market-oriented tools: permits work best where a few dozen or a few hundred parties are keen to trade, charges where millions of small emitters are not. (Source: Ch 12.3)
 
-12. <!-- concept: trade-policy --> **Trade and the consumer / worker / industry triangle.** Free trade increases consumer surplus and aggregate welfare; the text frames protectionism as "an indirect subsidy from consumers to producers" [V] (Ch 34.1), producing concentrated benefits to the protected industry at the cost of consumers and downstream firms. Cost-per-protected-job estimates (textile ~$199K, sugar ~$826K, dairy ~$685K) make the trade-off explicit. The engagement question is whether displaced workers are compensated through retraining and adjustment assistance, not whether the displacement is permitted. (Source: Ch 34.1, Ch 34.2)
+12. <!-- concept: trade-policy --> **Trade and the consumer / worker / industry triangle.** Free trade increases consumer surplus and aggregate welfare; the text frames protectionism as an indirect subsidy from consumers to producers, titling the section "Protectionism: An Indirect Subsidy from Consumers to Producers" [V] (Ch 34.1), producing concentrated benefits to the protected industry at the cost of consumers and downstream firms. Cost-per-protected-job estimates (textile ~$199K, sugar ~$826K, dairy ~$685K) make the trade-off explicit. The engagement question is whether displaced workers are compensated through retraining and adjustment assistance, not whether the displacement is permitted. (Source: Ch 34.1, Ch 34.2)
 
 13. <!-- concept: antitrust-law --> **Antitrust and the regulator-firm-consumer triangle.** Mergers and restrictive practices implicate three stakeholder groups. The four-firm concentration ratio and Herfindahl-Hirschman Index measure structural concentration; modern analysis uses competitive-effects studies. Regulatory capture is the persistent risk: industry can capture the regulator and turn protection-of-consumers into protection-of-incumbents. (Source: Ch 11)
 

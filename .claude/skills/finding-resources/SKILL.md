@@ -88,7 +88,7 @@ For each candidate, run the five checks below *in order*. Stop at the first fail
 
 **1. Licence recorded.** Find an explicit licence statement on the source page or document. Capture the exact string with version and modifiers (e.g. "CC BY-NC-SA 4.0", not "Creative Commons"). If absent or unclear, do not skip: this is a flag, not a kill. Record `Licence: unverified` and continue to the next check; the candidate may surface as `sample first` after triage with `Scope: copyrighted` as the conservative default.
 
-**2. Format → conversion path.** Confirm a deterministic conversion path exists per [`source-integrity.md`](../../../docs/architecture/source-integrity.md) ("Use deterministic converters, not the model"). PDF, EPUB, HTML, and pre-extracted markdown all pass: `markitdown` or `pymupdf4llm` will handle them. Fail conditions: behind-paywall (cannot retrieve), JavaScript-rendered-only (no static HTML), image-PDF without OCR layer, video/audio-only.
+**2. Format → conversion path.** Confirm a deterministic conversion path exists per [`source-integrity.md`](../../../docs/architecture/source-integrity.md) ("Use deterministic converters, not the model"). PDF, EPUB, HTML, and pre-extracted markdown all pass; `ingesting-resources` names the converter and coverage gate for each format. Fail conditions: behind-paywall (cannot retrieve), JavaScript-rendered-only (no static HTML), image-PDF without OCR layer, video/audio-only.
 
 **3. Self-contained?** Is the *intellectual content* in this document, or is the document a syllabus / teaching kit / link compendium pointing to external readings? Read the table of contents and one section. If the section reads as commentary on or pointers to external works, the source is scaffolding, not substance: ingesting it produces a thin deep reference. *This is the OCW lesson: a course's lecture notes are usually slide decks pointing at copyrighted textbooks, not standalone treatises.*
 
@@ -121,7 +121,7 @@ Every entry, regardless of bucket, carries:
 **Licence:** **{exact licence string}** | {url}
 **Scope:** {open|open-nc|copyrighted|confidential|personal — see below}
 **Format:** {pdf|epub|html|markdown}
-**Conversion:** {markitdown|pymupdf4llm|other}
+**Conversion:** {PyMuPDF blocks|epub-keep-notes.py|other}
 **Verdict:** {proceed|sample first|skip} — {one-line reason}
 **Likely applicable axes:** [{decision-making, stakeholder-engagement, ...}]
 **Corpus fit:** {complementary to {existing slug} on {angle} | duplicative of {existing slug} | gap-fill in {axis}/{phase}}

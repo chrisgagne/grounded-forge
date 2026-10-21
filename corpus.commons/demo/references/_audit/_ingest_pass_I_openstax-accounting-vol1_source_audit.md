@@ -122,3 +122,47 @@ The deep ref's IFRS-and-LIFO paragraph closes with "the text presents both sides
 - Pass I outcome: **PASS**
 
 The deep ref is cleared to ship. The light ref and application files derived from it inherit this audit's discipline. Image classification is partial and explicitly labelled per the Source Integrity rule.
+
+## Scoped re-audit 2026-10-17: restored feature boxes and body text
+
+**Auditor:** same-family (a fresh Claude agent, Opus), no cross-family leg. Per the protocol this scoped audit leaves the restored material audited-but-unverified.
+
+**Scope.** The deep-reference text written on 2026-10-17 for the text the 2026-10-16 re-conversion (PyMuPDF text blocks) restored to the body sections: the Coverage line (line 9), 31 box paragraphs, and the integrity note (now line 849). Everything else in the deep reference was audited earlier and was not re-audited.
+
+**Read.** Calibration: Pass I section and failure-mode reference of `.claude/skills/ingesting-resources/9-pass-protocol.md`; fixtures 01, 07, 12. Source: all 185 restored body spans (234 runs, 7,599 restored words) in the three batch files, read in full, plus the tape past each span's end wherever a box ran on (Madoff, Ch 1.4; IFRS Connection, Ch 3.1; Patriot Act, Ch 7.5; Bond Ratings table and footnote 8, Ch 13.2; IFRS Connection Table 16.1, World-Wide example and closing paragraph, Ch 16.5) and the Ch 7.1 footnote 1. Placement checked in the tape for the Amazon box (last item in Ch 6.1) and the Concepts Statements box (labelled Link to Learning, Ch 4.5). Apparatus runs: tallied 1,332 runs, 26,290 words; six sampled (tape lines 7535, 8056, 11611, 23978, 26815, 35796) are all numbered Questions, Exercise or Problem Set items. These runs were not read further, as the Coverage line states.
+
+**Verbatim check.** `python3 scripts/check-verbatim.py` before and after: 18 apostrophe, 5 initial, 1 near, 2 interrupted, all on lines outside the scope (68, 190, 306). Every `[V]` quotation in the scoped paragraphs matches the tape exactly.
+
+**Counts.** Claims audited: 84 (78 marked claims in the 31 box paragraphs, plus 6 factual statements in the Coverage line and the integrity note). Source-anchored as written: 80. Stripped: 0. Marker-corrected: 2. Corrected for added framing: 2. Quotation-corrected: 0. Paragraphs added by the auditor: 4.
+
+### Changes by line (current numbering)
+
+- **214** (Ch 7.1, "Modernization of Accounting Systems"). The paragraph opened "draws on a history of computerised accounting [BT, Sherman]" and marked the GE/UNIVAC 1955 and VisiCalc 1978 dates `[BT, Sherman]`. In the tape, footnote 1 (Fraser Sherman, "The History of Computerized Accounting", Career Trend) attaches only to the Macy's $11.06 sentence. The opening now reads "traces the computerising of accounting", the dates are marked `[AP]`, and `[BT, Sherman]` moves to the Macy's 1858 figure, naming the footnoted article. The $24 billion figure stays `[AE]`. Two marker corrections.
+- **259** (Ch 8.3). "carry the point beyond business" was added framing: the source calls not-for-profits "not-for-profit businesses". It now reads "turn to government and not-for-profit organisations".
+- **640** (Ch 14.2, Disney). "Buybacks first appear in the Ch 14.2 treasury-stock discussion" is contradicted by Ch 14.1 ("Occasionally, a company repurchases shares from investors ... These repurchased shares are called treasury stock"). It now reads "Buybacks also come up earlier, in the Ch 14.2 treasury-stock discussion".
+- **Added by the auditor (4 paragraphs).** The Coverage line promises a paragraph for each restored Link to Learning box that states a claim. Four restored boxes stated a claim and had no paragraph. Each was confirmed absent from the old conversion and is now added, closely paraphrasing the box:
+  - **424:** Ch 11.2, Georgia-Pacific lumber mill (automated production needs more PP&E investment) `[AP]`.
+  - **450:** Ch 11.5, fixed-asset management and software (Finances Online) `[AP]`.
+  - **494:** Ch 12.3, Google/Alphabet contingent liabilities `[AE]`. This parallels the Target box already added at line 200.
+  - **513:** Ch 12.5, the IRS taxpayer-simulation database and withholdings calculator, and the IRS's role for the Treasury `[AP]`.
+
+### Checked and left
+
+- **Coverage line (9).** Accurate. The figures match the run files: 1,332 apparatus runs of 26,290 words (about 26,300); 234 body runs of 7,599 words (about 7,600); about 800 words left for front matter and Index. The body sentences in the larger restored spans (Ch 1.4 SEC paragraphs, Ch 1.5 certification paragraphs, Ch 5.3, 9.4, 13.3 body) are present in the old conversion. The restored words in those spans are therefore the boxes, as the line says.
+- **Restored boxes judged pointers, so no paragraph:** the Ch 1.5 certification links; Best Buy (3.5); Accounting Coach (4.3, 10.1); My Accounting Course, IRS Pub 334, PwC working-capital survey, Target current ratio (5.x); Bean Counter, FOB animation (6.x); bookkeeping software (7.1); IIA, PCAOB (8.2); petty cash, bank reconciliation (8.4, 8.6); Investopedia (10.5); McDonald's 10-K (11.3); IRS sales-tax calculator (12.1); loan calculator (12.4); Kiva/Prosper/LendingClub, SEC bonds, US Savings Bonds (13.1); annual reports, Yahoo Finance (14.x; the annual-reports text is in the old conversion); Khan Academy, AccountingCoach, Investopedia free cash flow (16.x). The PwC, FOB, sales-tax and Kiva boxes carry a framing sentence, but each only describes what the linked resource offers. Think It Through boxes that only pose a task (Ch 2.3 "Financial Statement Analysis") make no claim.
+- **Placement and box labels.** All 31 original paragraphs name the right chapter and section, and their box types match the tape labels. "The section's ..." at lines 27, 102, 214, 351 and 714 refers to a section named by the paragraph's own citation.
+- **Markers.** Press-sourced claims carry `[BT, …]` with the right source: Blanchard; Statista; Schmidt (footnote 8, Investopedia, Table 13.1); PCAOB (footnote 5); Motley Fool. Every dollar figure and count is printed in the tape (World-Wide $1,500,000 and $1,710,000; mortgage $1,073.64, $386,513, $186,513, $266,757, $1,581.59; AmSC 6.32 and 58; Apple goodwill $5,717,000,000). None is computed. No outside facts, and no corrections of the source from outside knowledge.
+- **Line 665** (Arthur Andersen, "a case of LLP partners' exposure") is a light inference from the box. The box sets "formed as an LLP" beside "how courts can hold partners liable". Left.
+
+### Derived tier
+
+The light reference and the distillations are not stamped. The edits to line 214 (Sherman attribution), line 259 (wording) and line 640 (wording) change claims a derived file might carry if it was regenerated from the 2026-10-17 text. The four added paragraphs (424, 450, 494, 513) are new content the derived tier does not yet carry. Re-derive and stamp at the parent.
+
+### Open
+
+- **No cross-family leg.** Same-family only; the restored material is audited-but-unverified.
+- **Out-of-scope TOC gaps.** Not fixed here. The deep reference's section anchors include no Ch 10.2, 10.3, 10.4, 12.4 or 16.4, and had none for Ch 11.5 before the paragraph added at line 450. These predate this scope. They are worth a TOC-vs-anchors check in the next full Pass I.
+
+### Orchestrator follow-up, derived tier and stamp (2026-10-17)
+
+The four paragraphs the fix-in-place leg wrote (Ch 11.2 Georgia-Pacific, Ch 11.5 fixed-asset management, Ch 12.3 Google/Alphabet contingent liabilities, Ch 12.5 IRS tools) were traced by the orchestrator against the tape (≈27661, 28357, 30018, 30448 and 30530): wording and markers match. The PARTIAL notes are gone from the light reference, the distillations and the source card, replaced by a coverage statement that names the single-family audit; the derived tier carried none of the 2026-10-17 text, so the corrections need no re-derivation. A Pass I stamp on line 2 of the deep reference records this scoped audit. Derived tier restamped against the new deep-reference hash.

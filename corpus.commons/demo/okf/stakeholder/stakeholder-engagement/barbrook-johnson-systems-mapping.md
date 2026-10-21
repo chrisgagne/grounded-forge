@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-16T22:21:08+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping — Stakeholder-Engagement Distillation
 
@@ -50,7 +50,7 @@ The distillation projects these contributions onto a working pattern. Where the 
 
 7.  **The two-or-three-ways explanation test.** "Be prepared to explain how the mapping method you are using works in two or three different ways. Think about how you would describe it to a ten-year-old child. If you can't do this, then you probably can't explain it clearly to diverse sets of stakeholders." [V] (Source: Ch 10, "Common Issues")
 
-8.  **The "rules of the game" [V] front-loading principle.** "It is well worth spending an extra ten minutes at the start of workshop explaining the definitions of nodes and edges clearly, rather than discovering two hours in that people were misusing them." [V] (Source: Ch 5, "Common Issues and 'Tricks of the Trade'")
+8.  **The "rules of the game" [V] front-loading principle.** "It is well-worth spending an extra ten minutes at the start of workshop explaining the definitions of nodes and edges clearly, rather than discovering two hours in that people were misusing them." [V] (Source: Ch 5, "Common Issues and 'Tricks of the Trade'")
 
 9.  **The "always ask people to explain" [V] facilitation move.** "Your most powerful prompt during a workshop is 'could you explain that a bit more please?' Do not worry about looking stupid or not knowing the system in question; you are not the expert, the stakeholders are. This will encourage discussion and precision in thought and will surface assumptions and disagreements." [V] (Source: Ch 5, "Common Issues and 'Tricks of the Trade'")
 
@@ -202,7 +202,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 
 ## Anti-patterns this distillation helps avoid
 
-- **Selecting stakeholders by who is easy to invite, not by who is needed for system coverage** — the "who affects or is affected" [V] / "who has on-the-ground knowledge / strategic overview" / "who is often overlooked" [V] prompts are the antidote.
+- **Selecting stakeholders by who is easy to invite, not by who is needed for system coverage** — the "who affects or is affected" [V] / "who has on-the-ground knowledge and who has a strategic overview" [V] / "who is often overlooked" [V] prompts are the antidote.
 - **Building a researcher-owned map and asking stakeholders to validate** — co-ownership is the engagement design principle; validation-only engagement produces shallow buy-in.
 - **Treating disagreement as a problem to resolve before mapping** — disagreement can be preserved on the map and explored later.
 - **Treating dominant individuals as facilitation problems rather than engagement-design problems** — foreseeable power asymmetries are best handled in pre-workshop design (separate workshops, careful invitation, sequencing).
@@ -247,7 +247,7 @@ The scenario is operator-authored; all framework citations trace through `refere
 - The participation vs conceptual rigour trade-off is named and left open; practitioners must choose and communicate their choice to stakeholders.
 - Licensed CC BY 4.0 (Open Access); unrestricted with attribution.
 
-**Evidence-marker continuity.** The deep reference at `references/barbrook-johnson-systems-mapping-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (22 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; every Key Concept quotation, including those drawn from the source's "Common Issues and 'Tricks of the Trade'" and Ch 10 workshop sections, is carried as `[V]` in the deep ref. The boundary-object and interested-amateur framings are `[BT]` (Star-Griesemer and Dennett/Johnson respectively, cited in the source). The dental-care programme scenario in the Worked Example is operator-authored. The authors' positions against "black-box" modelling, the horrendogram failure mode, and the validation-as-quantitative-truth view are `[V]` in the deep ref.
+**Evidence-marker continuity.** The deep reference at `references/barbrook-johnson-systems-mapping-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (22 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; every Key Concept quotation, including those drawn from the source's "Common Issues and 'Tricks of the Trade'" and Ch 10 workshop sections, is carried as `[V]` in the deep ref. The boundary-object and interested-amateur framings are `[BT]` (Star-Griesemer and Dennett/Johnson respectively, cited in the source). The dental-care programme scenario in the Worked Example is operator-authored. The authors' position against the validation-as-quantitative-truth view is `[V]` in the deep ref; their positions against "black-box" modelling and the horrendogram failure mode are `[AP]` there, with the horrendogram passage itself quoted `[V]` (Ch 1).
 
 ## Related concepts
 

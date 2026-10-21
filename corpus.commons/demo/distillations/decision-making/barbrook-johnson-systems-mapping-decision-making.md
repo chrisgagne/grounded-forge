@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ec6ec1280ae2ab5f37a45a1b3db672a34d0a70084dc92c9cf03d938eff685f14 -->
+<!-- derived-from-deep: sha256:ea2d425e98736d7de742d47e711a5873e4c8700d3388ddc6fdec016e73f24070 -->
 # Barbrook-Johnson & Penn, Systems Mapping — Decision-Making Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature. 197 pages. **Licence:** CC BY 4.0 (Open Access). **Distribution note:** Unrestricted with attribution.

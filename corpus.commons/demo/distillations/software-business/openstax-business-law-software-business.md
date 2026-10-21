@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ae0f05cfd784b1568d8f3486c4999b72eddbf2fe6a9268e79174a50b3de60c57 -->
+<!-- derived-from-deep: sha256:84e9d1325c64c50c8d9f05feca24a2ed3abc38d61bfe317fa136b5071359b9a2 -->
 # OpenStax Business Law I Essentials, Software-Business Distillation
 
 **Source:** OpenStax (2019). *Business Law I Essentials*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-law-i-essentials. Lead author Mirande Valbrune (Esq.); six contributing authors.

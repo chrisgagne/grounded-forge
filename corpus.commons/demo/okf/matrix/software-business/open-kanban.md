@@ -12,7 +12,7 @@ sources:
     resource: https://github.com/agilelion/Open-Kanban
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-02T13:31:31+13:00
+  at: 2026-10-15T20:30:10+13:00
 ---
 # Hurtado, Open Kanban — Software-Business Distillation
 
@@ -36,7 +36,7 @@ A fourth thread runs through the licence framing: Open Kanban explicitly chose C
 
 ## Key Concepts for Software-Business
 
-1.  **Batch-size reduction as the primary flow lever.** Open Kanban's signature contrarian position: "Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around... Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts'" [V] (Source: Hurtado, "Open Kanban Practices" — Reduce the Batch Size). For software-business work, this reshapes capacity planning, roadmap commitment, and the speed-vs-quality framing.
+1.  **Batch-size reduction as the primary flow lever.** Open Kanban's signature contrarian position: "Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around... Open Kanban does not ask you to limit WIP, but it does request that you 'Reduce the Batch Size of your Efforts.'" [V] (Source: Hurtado, "Open Kanban Practices" — Reduce the Batch Size). For software-business work, this reshapes capacity planning, roadmap commitment, and the speed-vs-quality framing.
 
 2.  **Per-stage batch discipline (software case).** The mechanism is two-lever: reduce *complexity per item* (avoid epics; keep stories simple) and reduce *quantity per stage* of the SDLC. The decision is per-stage, not aggregate (Source: Hurtado, "Open Kanban Practices" — Reduce the Batch Size).
 

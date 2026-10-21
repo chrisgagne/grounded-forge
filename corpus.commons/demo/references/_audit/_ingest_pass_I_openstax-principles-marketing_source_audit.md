@@ -84,3 +84,71 @@ The verification mechanism was: for each load-bearing claim, the auditor used `g
 - Pass I outcome: **PASS**
 
 The deep ref is cleared to ship. The light ref and application files derived from it inherit this audit's discipline.
+
+## Scoped re-audit 2026-10-17: restored feature boxes and body text
+
+**Auditor:** a fresh Claude agent (same family as the drafter). No cross-family leg was run, so this scoped audit is audited-but-unverified in the protocol's terms.
+
+### Scope
+
+Only the deep-reference text written on 2026-10-17 for material the 2026-10-16 re-conversion restored (`git diff origin/main` ranges 9, 29–32, 39–40, 52–53, 58–59, 70–71, 82–83, 100–103, 130–146, 152–160, 164–165, 170–171, 188–189, 202–203, 218–219, 222, 228–229, 236–237, 244–245, 252–254, 268–270, 286–287, 294–295, 300–301, 304–306, 322–323, 328–330, 336–337, 353–355, 359–360, 375–376, 385–386, 391, 401–402, 407–408, 423–424, 431–432, 437–438, 441–443, 465–466, 473–474, 489–492, 497–498, 513–517, 523–526, 533–534, 537–543, 551–553, 557–559, 563–564, 567–568, 577–578, 601–602, 613–614, 623–626, 633–634, 641–642, 647–648, 651–652, 655–656, 724), plus the new Ch 4 In the Spotlight paragraph (RingCentral, line 164). For replaced lines, only the added clauses. Everything else was audited earlier and was not re-audited.
+
+### Read
+
+- Deep reference: all 730 lines, in full.
+- Restored-span extract (177 spans with context, tape lines 1179–34429): all 5,948 lines, in full.
+- Tape, beyond the extract: the remainder of every scoped box the extract cut short (TOMS Shoes Ch 1.7, Marketing Manager, CLV with Table 2.1 and solutions, Patagonia, Alibaba, Kforce, LEGO, Global Marketing Manager, Ch 8.6 Culturally Sensitive and Socially Inclusive Marketing, Netflix, Upside, The Five Cs of Pricing, Warby Parker, Farmer Direct Organic, Measuring the Impact of Advertising with its solutions, Cost of Customer Acquisition with Table 15.1, Domino's, Targeted Advertising with Table 16.1 and solutions, Dollar Stores and the Community, Trader Joe's Ch 18.7); the Ch 4 In the Spotlight opener (tape 7134–7151); placement context for The Reckoning (Ch 1.4 product concept), Infographics (Analyze and Interpret the Data), ROCI (Evaluate and Measure the Objectives) and National Geographic (label MARKETING IN PRACTICE, tape 29081).
+- Chapter References: every endnote behind a `[BT, …]` surname in scope (Ch 1 #62–63; Ch 2 #75–77; Ch 3 #20, 27–28; Ch 4 #1, 5–6, 24–27; Ch 5 #52, 85–87; Ch 6 #21, 26–29; Ch 7 #57, 89–92; Ch 8 #12–13, 72–74; Ch 9 #3, 11–12; Ch 10 #36–37, 52; Ch 11 #21–22, 48–49; Ch 12 #38–39; Ch 13 #21; Ch 14 #12, 29, 31–33; Ch 15 #9, 12–13; Ch 16 #32–34, 40–42; Ch 17 #9–10; Ch 18 #46–47; Ch 19 #14).
+- Feature labels were checked in the tape, where each box's label line follows the box; no PDF renders were used.
+
+### Verbatim check
+
+`python3 scripts/check-verbatim.py` before and after: 3 apostrophe, 2 initial, 1 missing (line 210, pre-existing, out of scope). No new mismatches; the two quotations added at line 563 match the tape.
+
+### Counts
+
+| | Count |
+|---|---|
+| Scoped units (new paragraphs, added clauses, Coverage and integrity lines) | 92 |
+| Claims audited (sentence-level clauses and markers; approximate) | ~320 |
+| Source-anchored without change | ~308 |
+| Stripped | 0 |
+| Marker-corrected | 8 (lines 58, 100, 146, 160, 164, 298, 515, 559) |
+| Content-corrected | 4 (lines 31, 270, 423, 563) |
+| Quotation-corrected | 0 |
+
+### Changes by line
+
+- **31** (Reconciling Segmentation and Diversity): "three press articles" → "three articles"; one of the three is the Spectrem Group Blog, not press.
+- **58** (The Reckoning): `[BT, Halberstam]` → `[AP]`. The box points to Halberstam's book for further reading; it attributes no claim to him.
+- **100** (Classic Cleaners): the 17-locations fact comes from endnote 75, Classic Cleaners' own locations page, not TBH Creative. Opening marker now `[BT, TBH Creative; Classic Cleaners]`; the locations clause carries `[BT, Classic Cleaners]`.
+- **146** (Abercrombie & Fitch): the closing sentence describes a linked CEO video, not Khan's article (endnote 20); `[BT, Khan]` → `[AP]`.
+- **160** (Patagonia): endnote 27 (Baldwin, Vox) covers the fair-trade and supplier-disclosure claims; endnote 28 ("Reasons We Love Patagonia", wearedore.com) covers recycled materials and take-back. Split the markers accordingly; the book's own "leader in environmental and social responsibility" framing, which carries no endnote, is now `[AR]`.
+- **164** (Ch 4 In the Spotlight, RingCentral): `[BT]` → `[BT, Medallia]` twice; endnote 1 is Medallia's RingCentral case study.
+- **270** (Global Marketing Manager): "career guides" → "a career guide"; the box lists one Noodle article and one video.
+- **298** (PepsiCo, added clause): `[AP]` → `[BT, Smith; Adams]`; the backlash and withdrawal sentences carry endnotes 12 (Smith, NBC News) and 13 (Adams, Essence).
+- **423** (Meta): the paragraph merged two separate source statements. Krieger's role covered engineering and design; the RIT focused on identifying ethical issues at the design and development stage. Now stated separately.
+- **515** (PepsiCo, Ch 14.4 added clause): `[AE]` → `[BT, Business Insider]`; the sentence carries endnote 12, a Business Insider video.
+- **559** (National Geographic): `[BT, Oxford]` moved from the book's own judgement ("a great way to connect…") to the Wanderlust campaign fact that endnote 33 supports.
+- **563** (Targeted Advertising): the paragraph reported the example only as a cost per click. The box's solution calls the $1.10 figure a "click-through rate" ("Was the click-through rate a good investment?"; "profited $7 on the single purchase at a click-through rate of just $1.10"), while Table 16.1's solution gives "$1.10/click". The line now gives the table's per-click figure and quotes the box's own wording `[V]`, with no outside correction.
+
+### Checked and left
+
+- Feature-type names: all 70-odd scoped box paragraphs name the label that follows the box in the tape (Careers in Marketing, Marketing in Practice, Companies with a Conscience, Marketing Dashboard, Link to Learning). No mislabels found.
+- Placement: section citations match the tape's section for every scoped box, including the Reckoning (Ch 1.4 product concept), Infographics (analysis step), ROCI (Evaluate and Measure the Objectives) and the two Ch 18 dollar-store boxes, which do link the same video ("Deal or no deal? The expansion of Dollar Stores").
+- `[BT, …]` surnames confirmed against endnotes: Naeini; TOMS; TBH Creative; Khan (A&F store practices); Medallia; Alibaba.com; Kforce; Huber; Anderson; Dodge; Holloway; Insights Association; Saad; Khoury and Semykoz; Gallup; Cain; Ethisphere; Gemeš; Kao; Nittle; Coca-Cola Australia; Day; Schneider; Mallinger; Rossy; Wilkinson; Bond; McHugh; Toporek; Nasco Gulf; Knowledge@Wharton; Farmer Direct Organic; Spary; Mycoskie; Shewan; Breen; Tentree; National Geographic Partners; Oxford; Nat Geo Wild; Apple; Kaczanowski; Allbirds; Seely; State Bags. Unendnoted attributions that the box itself makes (US Bureau of Labor Statistics, Barrios, Shen, American Marketing Association, GWI, Teeny, Garman, eMarketer, Wyzowl, Oberlo, ZipRecruiter, GS1, Marketing Dive, Advertising Association, Quantcast, Schultz) were left as attributed in the box.
+- Subway (line 228): `[BT, Holloway]` covers facts the box gives without an endnote, but the box's only endnote (87, Holloway, "First Lady, Subway Launch Healthy Eating Campaign for Kids") covers the same campaign. Left.
+- Coverage line (9) and integrity note (724): the description of what was added (feature boxes with a substantive claim, folded body sentences, pointer-only boxes excluded, the Ch 4 opener) matches the deep reference. Pointer-only Careers in Marketing boxes (Women in Marketing, B2B Jobs, Being a Buyer, the Ch 11 salaries box, the Ch 18 distribution-careers box) and the Ch 3 Situational Factors Marketing in Practice link list have no paragraph; that is consistent with "with a substantive claim".
+
+### Derived tier
+
+No stamp set. Edits that change a claim a light reference or distillation may carry: line 100 (Classic Cleaners attribution), 146 (A&F video attribution), 160 (Patagonia attribution and `[AR]`), 164 (RingCentral attribution), 298 and 515 (PepsiCo now `[BT]`), 423 (Meta: Krieger's role vs the RIT's focus), 559 (National Geographic attribution), 563 (Targeted Advertising: the box's "click-through rate" wording). Distillations were not edited. The parent re-derives.
+
+### Open
+
+- Coverage line count: line 9 gives "about 20,700 words in 350 runs". The extract's span headers sum to about 19,700 words in 177 spans (spans merge runs, and the headers are approximate). The figure was left as written; it could not be checked from the inputs supplied.
+- No cross-family leg for this scope.
+
+### Derived tier and stamp (2026-10-17, orchestrator)
+
+The PARTIAL notes are gone from the light reference, the three distillations and the source card, replaced by a coverage statement that names the single-family audit. The restored boxes are illustrative cases, career notes and dashboards that add no concept to the decision-making, software-business or stakeholder-engagement projections; none of the corrected attributions above is carried by the derived tier (grep for each case name). On the open coverage count: 20,700 words in 350 runs is what the word diff found across the whole converted text; about 1,000 of those words sit in front matter, the Answer Key and the Index, which the extract skipped as out of scope. A Pass I stamp on line 2 of the deep reference records this scoped audit. Derived tier restamped against the new deep-reference hash.

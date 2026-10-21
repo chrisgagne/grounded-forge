@@ -12,7 +12,7 @@ sources:
     resource: https://www.marines.mil/Portals/1/Publications/MCDP%201%20Warfighting.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-12T08:11:26+13:00
+  at: 2026-10-15T11:27:46+13:00
 ---
 # U.S. Marine Corps, MCDP 1: Warfighting — Stakeholder-Engagement Distillation
 
@@ -228,7 +228,7 @@ What the example takes from MCDP 1: the ranking of intent above task and the *in
 - Its adversarial concepts (tempo against an enemy, surfaces and gaps, centers of gravity and critical vulnerabilities, surprise, the clash of irreconcilable wills) presuppose an opposing will. This distillation does not transfer them to cooperative engagement.
 - Its licence is unverified. The cover carries Distribution Statement A ("Approved for public release; distribution is unlimited"), and the imprint reads "© 1997 United States Government as represented by the Secretary of the Navy. All rights reserved." The source does not itself establish public-domain status; Scope: open rests on the distribution statement.
 
-**Evidence-marker continuity.** The deep reference at `references/mcdp1-warfighting-deep.md` marks the doctrine's own words `[V]` and words it borrows from others (epigraphs, Clausewitz, Boyd, Joint Pub 1-02) `[BT]`. Every `[V]` quotation in this distillation is a span of a `[V]` passage in the deep reference, checked word for word against the converted source `corpus.commons/demo/sources/converted/mcdp1-warfighting.md`. Curly quotation marks are straightened, the ellipsis in the first Worked Example blockquote marks one omitted sentence, and quotation marks inside a quotation are set as single quotes ('yes-men', 'zero defects', 'get inside'), where the source has double. Page headers inside a passage are dropped (the mission-tactics limit in Concept 3 crosses a page break). Two quotations carry OCR repairs: the critique blockquote's "admit mistakes and discuss them", where the converted text reads "ajid", and the dash and spacing around 'yes-men', which the converted text runs together. Several passages are paraphrased with `[AP]` rather than quoted (the essence-of-war sentence in Ch 1, the two-way trust clause in Ch 3, the rest of the implicit-communication sentence in Ch 4). No `[BT]` material is quoted. Unmarked prose, including every question, pattern, anti-pattern and the Worked Example scenario, is the distillation's own.
+**Evidence-marker continuity.** The deep reference at `references/mcdp1-warfighting-deep.md` marks the doctrine's own words `[V]` and words it borrows from others (epigraphs, Clausewitz, Boyd, Joint Pub 1-02) `[BT]`. Every `[V]` quotation in this distillation is a span of a `[V]` passage in the deep reference, checked word for word against the converted source `corpus.commons/demo/sources/converted/mcdp1-warfighting.md`. Curly quotation marks are straightened, the ellipsis in the first Worked Example blockquote marks one omitted sentence, and quotation marks inside a quotation are set as single quotes ('yes-men', 'zero defects', 'get inside'), where the source has double. Page headers inside a passage are dropped (the mission-tactics limit in Concept 3 crosses a page break). Several passages are paraphrased with `[AP]` rather than quoted (the essence-of-war sentence in Ch 1, the two-way trust clause in Ch 3, the rest of the implicit-communication sentence in Ch 4). No `[BT]` material is quoted. Unmarked prose, including every question, pattern, anti-pattern and the Worked Example scenario, is the distillation's own.
 
 ## Related concepts
 

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:f87aa805a67d3e95e80fbad103f14e3e8e22461db1c60dc3e247777430a6d25d -->
+<!-- derived-from-deep: sha256:2d4a20cfd1f18fc3cdf6d95d0690c885c2c6391bd9a92f7f95bf825683af19f9 -->
 # Hurtado, Open Kanban — Decision-Making Distillation
 
 **Source:** Hurtado, J. (with Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban — Open Source Initiative to create a Kanban core that is Agile, Lean and Free*. Release 1.00 Rev A. Licence: CC BY 3.0 Unported. https://github.com/agilelion/Open-Kanban.

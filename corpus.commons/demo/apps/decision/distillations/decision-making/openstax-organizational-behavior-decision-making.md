@@ -30,7 +30,7 @@ This distillation consolidates these threads into a working pattern: how to reco
 
 9.  **Bounded rationality and the cognitive-complexity trait.** The text presents bounded rationality as foundational: managers cannot fully grasp all alternatives or implications. High-cognitive-complexity managers cope better — they seek more information, integrate discrepant data, consider more solutions, and use more complex strategies. (Source: Ch 2.2 and Ch 6.4)
 
-10.  **Equity in decision outcomes.** Equity theory (Adams) predicts that when employees compare their outcome-input ratio to a referent other's and find inequity, they will engage in restorative behaviours. The implication for decision-making is that people judge both the outcome (distributive justice) and the process used to reach it (procedural justice); layoffs based on seniority are seen as fairer than layoffs based on supervisors' opinions (Ch 7.4). (Source: Ch 7.3 and Ch 7.4)
+10.  **Equity in decision outcomes.** Equity theory (Adams) predicts that when employees compare their outcome-input ratio to a referent other's and find inequity, they will engage in restorative behaviours. The implication for decision-making is that people judge both the outcome (distributive justice) and the process used to reach it (procedural justice); layoffs based on seniority may be seen as fairer than layoffs based on supervisors' opinions (Ch 7.4). (Source: Ch 7.3 and Ch 7.4)
 
 ## Questions to Ask During Decision-Making
 
@@ -157,7 +157,7 @@ This worked example illustrates several key concepts in the source: dual-system 
 - *Herbert Simon* — cited on the selective use of decision criteria (Ch 13.2) [BT]; the Ch 6.4 treatment of bounded rationality names no originator. Key Concept 9 traces to Ch 6.4.
 - *James Rest, four-component ethical decision-making model* — moral sensitivity, moral judgment, moral motivation, moral character/action (Ch 6.5) [BT]. Key Concept 7 traces here.
 - *J. Stacy Adams, equity theory* — outcome-input ratio comparisons and restorative behaviours (Ch 7.3) [BT]. Key Concept 10 traces here.
-- *Victor Vroom, expectancy theory* — cited in the context of motivation and decision-making (Ch 7) [BT].
+- *Victor Vroom, expectancy theory* — cited, with Lawler, in the context of motivation (Ch 7.3) [BT].
 - *Edwin Locke, goal theory* — difficult, specific, accepted goals; goal commitment (Ch 7.3) [BT].
 - *Leon Festinger, cognitive dissonance* — mentioned in Ch 3.4 without explicit naming [BT].
 - *Kenneth Thomas's conflict-resolution modes* — the two-axis (assertiveness × cooperativeness) five-mode model (Ch 14.2) [BT]. Integration table reference to Thomas traces here.

@@ -10,7 +10,7 @@ scope: open
 licence: unverified
 ingested: 2026-05-21
 original_format: pdf
-converted_via: pdftotext (poppler 26.08.0)
+converted_via: "pdftotext -remove-hyphens soft (poppler 26.08.0); cover page by tesseract 5.5.3 OCR of a 300-dpi greyscale pdftoppm render; six OCR corrections, each checked against the page image (listed below)"
 checksum_sha256: 51008277a48f89dc4f302715764461086a5e616d520a41b71bdbd3f8f35097c0
 ---
 
@@ -22,7 +22,18 @@ Licence unverified. The cover carries Distribution Statement A, "Approved for pu
 
 Cited thinkers: the Notes credit John Boyd with the OODA loop (his lecture "The Patterns of Conflict", Notes 18 of Ch 2) and with implicit communication as a command tool (Notes 5 of Ch 4), and cite William S. Lind's 1985 *Maneuver Warfare Handbook* for *reconnaissance pull* and *command push* (Notes 11 of Ch 4). Clausewitz's *On War* is cited in 15 notes, more than any other work; the Notes call it and Sun Tzu's *The Art of War* essential reading for Marine officers.
 
-The original is the official PDF at the canonical URL above, fetched from its 2026-03-22 Wayback capture because the live marines.mil host 403s automated clients (`mcdp1-warfighting.pdf`, 115 pages, SHA256 `51008277a48f89dc4f302715764461086a5e616d520a41b71bdbd3f8f35097c0`; PCN 142 000006 00, foreword dated 20 June 1997). Its text layer is publisher OCR: a few character errors remain ("un- certainly", footnote numbers glued to words). Converted with pdftotext rather than markitdown, which reorders lines on this PDF (converted text SHA256 `c36d3f3f471ec6cb45503c8fa6a523627f58a7122c7a00bb5034b731d7b62182`). The deep reference was written from an earlier plain-text OCR of the same edition with heavier character errors; its quotations were re-checked against this conversion with `scripts/check-verbatim.py` on 2026-10-02.
+The original is the official PDF at the canonical URL above, fetched from its 2026-03-22 Wayback capture because the live marines.mil host 403s automated clients (`mcdp1-warfighting.pdf`, 115 pages, SHA256 `51008277a48f89dc4f302715764461086a5e616d520a41b71bdbd3f8f35097c0`; PCN 142 000006 00, foreword dated 20 June 1997). Its text layer is publisher OCR. Converted with pdftotext rather than markitdown, which reorders lines on this PDF. `-remove-hyphens soft` keeps the line-end hyphens pdftotext's default deletes, so a true compound split across a line (*self-reliant*, *no-win*, *mission-type*, *ever-increasing*) keeps its hyphen; a word split across a line reads as `un-` / `certainty`, which `scripts/check-verbatim.py` rejoins. The cover (page 1) is an image with no text layer, so its text is tesseract OCR, placed before the first page break. Footnote reference numbers are glued to the words they follow, and the text layer garbles some of them (`'8` for 18, `°` for 10); they are left as the text layer has them. Converted text SHA256 `dabeb5c0f06ce72238c3b427deb29bd3ea7587b73e863afa38ca57c08fe7163a`. The deep reference was written from an earlier plain-text OCR of the same edition with heavier character errors; its quotations were re-checked against this conversion with `scripts/check-verbatim.py` on 2026-10-15.
+
+**OCR corrections.** Each was checked against the page image. The five in the text layer were also read again by tesseract from a 300-dpi render of the page, and tesseract agrees with the page. Each OCR string occurs once in the conversion, so the replacements are exact.
+
+| PDF page | OCR text | Page reads |
+|---|---|---|
+| 1 (cover, tesseract) | `EMPER FIDELIS,` | `SEMPER FIDELIS` (the emblem's ribbon) |
+| 45 | `firepower. it is a direct` | `firepower. It is a direct` |
+| 55 | `Which, f eliminated,` | `Which, if eliminated,` |
+| 67 | `the behavior of"yes-men"-—-will` | `the behavior of "yes-men"—will` |
+| 70 | `admit mistakes ajid discuss` | `admit mistakes and discuss` |
+| 87 | `un-` / `certainly, disorder` | `un-` / `certainty, disorder` |
 
 Deep reference: [`corpus.local/aarbuddy/references/mcdp1-warfighting-deep.md`](../../references/mcdp1-warfighting-deep.md). Light reference: [`corpus.local/aarbuddy/references/mcdp1-warfighting.md`](../../references/mcdp1-warfighting.md). Pass I audit: [`corpus.local/aarbuddy/references/_audit/_ingest_pass_I_mcdp1-warfighting_source_audit.md`](../../references/_audit/_ingest_pass_I_mcdp1-warfighting_source_audit.md).
 

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:fdfb1843b80820ea78becc9e6990ac273a24a5c519107f12113fe995350a36c8 -->
+<!-- derived-from-deep: sha256:2c668822fecdf54714b63079caeca78f47bef9125fb71b948d64a18348c25144 -->
 # Heft & Pattillo (Group Jazz), Liberating Structures Handbook — Software-Business Distillation
 
 **Source:** Heft, L. & Pattillo, A. (compilers), with materials by H. Lipmanowicz and K. McCandless (2010). *Engaging Everyone with Liberating Structures Handbook*. Washington, DC: Group Jazz. Licence: CC BY-NC-SA 3.0 Unported. https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf.

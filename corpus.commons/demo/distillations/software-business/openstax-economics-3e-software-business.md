@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:dabbe0ef776c741ebaffeec233363c5a34f599ef52c95577d42e786af332b3b8 -->
+<!-- derived-from-deep: sha256:cd7bff73dfd44b7c64ba9da0e68c7ff169a9afbba20f45eec538dd9637fe6e60 -->
 # OpenStax Principles of Economics 3e, Software-Business Distillation
 
 **Source:** OpenStax (2022). *Principles of Economics 3e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-economics-3e. Lead author Steven A. Greenlaw; nine contributing authors.

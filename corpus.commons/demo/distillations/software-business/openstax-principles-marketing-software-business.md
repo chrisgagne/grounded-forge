@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:3ce94d54a8fde4de59e43729faca331d9c17379e5fcb399133342886497c1dbe -->
+<!-- derived-from-deep: sha256:5bd7a89724e270fc6488a467b1b70e19721309d4749e5cbd8f310d977fe1e41b -->
 # OpenStax, Principles of Marketing, Software-Business Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.
@@ -22,7 +22,7 @@ The Iceberg of Ignorance statistic that anchors the service-profit-chain frontli
 ## Key Concepts for Software-Business
 
 1. <!-- concept: five-cs-of-pricing --> **The Five Cs of pricing.** Cost, customers, channels of distribution, competition, compatibility with brand strategy. The checklist a software business runs before setting or revising a price. (Source: OpenStax, *Principles of Marketing*, Ch 12.2, "The Five Cs of Pricing")
-2. <!-- concept: pricing-objectives --> **Seven pricing objectives.** Customer value-based (GoToMeeting's "$49 all-you-can-meet" — directly applicable to SaaS), cost-based, sales-oriented, market-share-oriented, target return, competition-based (Amazon's algorithmic just-below-competitor model), customer-driven. The choice space for a software-business pricing decision. (Source: Ch 12.3, "Pricing Objectives")
+2. <!-- concept: pricing-objectives --> **Seven pricing objectives.** Customer value-based (GoToMeeting's $49 "all you can meet flat-rate pricing" — directly applicable to SaaS), cost-based, sales-oriented, market-share-oriented, target return, competition-based (Amazon's algorithmic just-below-competitor model), customer-driven. The choice space for a software-business pricing decision. (Source: Ch 12.3, "Pricing Objectives")
 3. <!-- concept: new-product-pricing-strategies --> **Three new-product pricing strategies.** Price skimming (Sony PlayStation 3 from $599 to $299), penetration pricing (Netflix subscription), break-even pricing (formula: fixed costs ÷ (unit price − unit variable cost)). The choice for launching a new software product, feature, or tier. (Source: Ch 12.4, "New Product Pricing Strategies")
 4. <!-- concept: price-value-equation --> **The price-value equation.** Value = perceived benefits − perceived costs. The frame for any software-business pricing decision: customer willingness-to-pay is bounded by the *perceived* value, not the engineering-effort cost. (Source: Ch 12.1, "Price as an Indicator of Value")
 5. <!-- concept: customer-lifetime-value --> **Customer lifetime value (CLV) as decision metric.** CLV = annual profit per customer × average years retained − CAC. The text's worked example computes CLV across four customer segments ($66K to $215K range), showing that retention and CAC, not gross margin alone, drive customer profitability. The load-bearing metric for any SaaS unit-economics decision. (Source: Ch 2.4, "Examples of Customer Support KPIs"; Table 2.1)

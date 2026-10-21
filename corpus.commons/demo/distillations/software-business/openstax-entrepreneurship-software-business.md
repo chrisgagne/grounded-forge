@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:1113662b0e6fb118efd3651601bd1596eb5a95e9fd1a5fbe0800d6a58bd11050 -->
+<!-- derived-from-deep: sha256:7ade4c45685ba2322fe1886eca4d73f0799d9e7686a7903b629c9d5d9ee6bfbd -->
 # OpenStax Entrepreneurship, Software-Business Distillation
 
 **Source:** OpenStax (2020). *Entrepreneurship*. Rice University. Senior contributing authors Michael Laverty and Chris Littel; 19 contributing authors. CC BY-NC-SA 4.0.

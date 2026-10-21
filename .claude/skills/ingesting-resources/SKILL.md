@@ -93,8 +93,8 @@ Required metadata (either mode):
 
 **Source preparation.** Pre-extract to markdown for better citation-anchor preservation. Converted markdown lands in `{corpus-root}/sources/converted/`.
 
-- **PDF:** default converter [markitdown](https://github.com/microsoft/markitdown) (`pip install 'markitdown[all]'`); fallback when markitdown fails: [`pymupdf4llm`](https://pypi.org/project/pymupdf4llm/).
-- **EPUB: do NOT use markitdown.** On EPUB, markitdown silently extracts only the navigation/heading layer and drops the flowing body text — observed dropping ~93–95% of the body across several EPUBs (2026-07-14) while leaving the chapter headings intact, so the output *looks* complete. Use calibre instead: `ebook-convert input.epub output.txt --txt-output-formatting=markdown`, then rename `.txt` → `.md` (calibre keys output format off the file extension and rejects `.md` directly). Record `converted_via: calibre-ebook-convert`.
+- **PDF:** PyMuPDF text blocks in content-stream order: each page's `page.get_text("blocks", sort=False)`, one block per paragraph, pages separated by form feeds (`uv run --no-project --with pymupdf==1.28.2 python -I …`). Don't use `pymupdf4llm`: version 0.2.9 silently drops the text of framed boxes, sidebars and figure callouts. Gate the result page by page against `pdftotext -remove-hyphens none`: every word pdftotext reads on a page must be in that page's converted text. Patch any line MuPDF misreads from pdftotext and record it on the card.
+- **EPUB:** `python3 scripts/epub-keep-notes.py input.epub output.md` (pandoc, `-t markdown --wrap=none`). Plain pandoc silently drops footnote and endnote text whenever the EPUB's note links aren't marked `epub:type="noteref"`; the script keeps it. Never use markitdown on EPUB: it extracts only the navigation and heading layer, so the output *looks* complete while 93–95% of the body is missing. Gate every EPUB conversion with `python3 scripts/check-epub-coverage.py input.epub output.md`, which compares it with the EPUB's own XHTML. It must exit 0. Read each gap it lists and record on the card any you accept (a contents or title page).
 
 **Mandatory post-conversion sanity check (before any pass reads the file).** Silent-truncation converters are the highest-severity source-integrity failure because the loss is invisible downstream. After converting, run `wc -w` on the output and compare against this source's own page count (roughly 250–400 words/page). Then check the end of the file: the last chapter, the back matter (notes, index) and the original's final page are present, and the file carries no truncation marker (`grep -i truncated`). A size cap can cut a long book mid-chapter and still leave a word count that looks like a whole shorter book, so the end check matters as much as the count. If the count falls short of the page count's range or the end is missing, the converter dropped text — **stop, re-convert with a different tool, and re-check.** Never hand a suspiciously-short conversion to an ingestion pass or a subagent. This check is what turns the completeness pre-flight (below) from a heading-structure glance into a coverage guarantee.
 
@@ -211,7 +211,7 @@ Directory state is the workflow indicator: anything in `sources/ingest/` is unau
    licence: {exact licence string from Pass A}
    ingested: {YYYY-MM-DD of this run}
    original_format: {pdf | epub | docx | md | ...}
-   converted_via: {markitdown <version> | pymupdf4llm <version> | manual | ...}
+   converted_via: {PyMuPDF <version> text blocks, sort=False | pandoc <version> via epub-keep-notes.py | manual | ...}
    checksum_sha256: {sha256 of the input file, if binary}
    ---
 

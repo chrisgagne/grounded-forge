@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:d837d7cba3cc7e74f6fd4557b4017d4933ef21fdf100ae48d871393459c8fb19 -->
+<!-- derived-from-deep: sha256:8652eb488af72d432beb08d370ace36252ea7bfcb11e763c6dc195475416fb94 -->
 # OpenStax Principles of Accounting Volume 2, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 2: Managerial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-managerial-accounting. Senior contributing authors Mitchell Franklin, Patty Graybeal, Dixon Cooper; 28 contributing authors.

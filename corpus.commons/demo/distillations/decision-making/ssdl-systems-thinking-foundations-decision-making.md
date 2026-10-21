@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:ccac3f75508ed49402f3b78a010b03133b0b80ee460adbee6657533d3dd6eafe -->
+<!-- derived-from-deep: sha256:a53db542968c9e8166c201add9acf2a5a79eca98c748cbbabf283e2f9d48f620 -->
 # SSDL, Systems Thinking Foundations — Decision-Making Distillation
 
 **Source:** Farrell, Hu, Chin, Branz, Evbuoma, Liem, & Ballard (2021). *Methods Briefs Series 1: Systems Thinking Foundations*. Social System Design Lab, Brown School at Washington University in St. Louis. Five briefs (1.02, 1.03, 1.05, 1.06, 1.07). **Licence:** CC BY-SA 4.0 (Attribution-ShareAlike). **Distribution note:** SA propagation — derivatives are released under CC BY-SA 4.0.

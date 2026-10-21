@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:fdfb1843b80820ea78becc9e6990ac273a24a5c519107f12113fe995350a36c8 -->
+<!-- derived-from-deep: sha256:2c668822fecdf54714b63079caeca78f47bef9125fb71b948d64a18348c25144 -->
 # Heft & Pattillo (Group Jazz), Liberating Structures Handbook — Decision-Making Distillation
 
 **Source:** Heft, L. & Pattillo, A. (compilers), with materials by H. Lipmanowicz and K. McCandless (2010). *Engaging Everyone with Liberating Structures Handbook*. Washington, DC: Group Jazz. Licence: CC BY-NC-SA 3.0 Unported. https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf.
@@ -98,7 +98,7 @@ This distillation gathers these threads into a working pattern: how to recognise
 | Convert insights into named next steps before adjourning | DADs end with "What has to happen next to make that happen? Who will do what when next?" [V] One of the handbook's stated DAD purposes is to "Identify volunteers among this group to experiment with solutions and ideas" [V]; without the closing questions, the conversation has happened but no decision has landed. |
 | Use What/So What/Now What in order | "WHAT? What is emerging here? … SO WHAT? What do the data imply? … NOW WHAT? What action may help us move forward?" [V] Do not let the group jump to Now-What before they have done the What and So-What. |
 | Avoid using surfacing tools as committing tools | 25-to-10's top-ten countdown is a surfacing signal, not a decision. Mini Constellations' positional clustering is a perception, not a vote. If a decision is needed, route to a committing tool (DAD, Troika, named-owner-and-next-step). |
-| Audit the seven Levels of Accountability ladder | Where is the group sitting — "Take Action and Learn / Make it happen, renewal" at the top, or "Wait 'n Hope / Somebody should do something" / "Blame others" / "This has nothing to do with me" [V] at the bottom? "What do we need to do to work 'above the line?'" [V] |
+| Audit the seven Levels of Accountability ladder | Where is the group sitting — "Take Action and Learn" ("Make it happen, renewal") at the top, or "Wait 'n Hope" ("Somebody should do something") / "Blame others" / "This has nothing to do with me" [V] at the bottom? "What do we need to do to work 'above the line?'" [V] |
 
 ### Phase 5: Ratifying (Implementing the decision)
 

@@ -14,7 +14,7 @@ Scrum is presented as "a lightweight framework that helps people, teams and orga
 
 The framework's foundation is empiricism and lean thinking: "Empiricism asserts that knowledge comes from experience and making decisions based on what is observed. Lean thinking reduces waste and focuses on the essentials" [V] (Scrum Theory). Scrum "employs an iterative, incremental approach to optimize predictability and to control risk" [V] (Scrum Theory). The three empirical pillars — transparency, inspection, and adaptation — are presented as a causal chain: "Transparency enables inspection. Inspection without transparency is misleading and wasteful" [V] (Scrum Theory, "Transparency"); "Inspection enables adaptation. Inspection without adaptation is considered pointless" [V] (Scrum Theory, "Inspection"); and adaptation must follow promptly because "the adjustment must be made as soon as possible to minimize further deviation" [V] (Scrum Theory, "Adaptation").
 
-A third load-bearing claim is that Scrum is fundamentally about people: it works only through "people becoming more proficient in living five values" — Commitment, Focus, Openness, Respect, and Courage [V] (Scrum Values). The values are not aspirational add-ons but conditions for empiricism: "When these values are embodied by the Scrum Team and the people they work with, the empirical Scrum pillars of transparency, inspection, and adaptation come to life building trust" [V] (Scrum Values).
+A third load-bearing claim is that Scrum is fundamentally about people: it works only through "people becoming more proficient in living five values": "Commitment, Focus, Openness, Respect, and Courage" [V] (Scrum Values). The values are not aspirational add-ons but conditions for empiricism: "When these values are embodied by the Scrum Team and the people they work with, the empirical Scrum pillars of transparency, inspection, and adaptation come to life building trust" [V] (Scrum Values).
 
 A fourth load-bearing claim is that Scrum applies beyond software: the authors observe Scrum "being adopted in many domains holding essentially complex work, beyond software product development where Scrum has its roots. As Scrum's use spreads, developers, researchers, analysts, scientists, and other specialists do the work" [V] (Purpose of the Scrum Guide). The retained term "developers" is preserved deliberately — "we use the word 'developers' in Scrum not to exclude, but to simplify. If you get value from Scrum, consider yourself included" [V] (Purpose of the Scrum Guide).
 
@@ -67,11 +67,11 @@ Three specific accountabilities are defined within the team — Developers, Prod
 
 ### Developers
 
-"Developers are the people in the Scrum Team that are committed to creating any aspect of a usable Increment each Sprint" [V] (Scrum Team, "Developers"). The specific skills "are often broad and will vary with the domain of work" [V] (Scrum Team, "Developers"). However, Developers "are always accountable for: Creating a plan for the Sprint, the Sprint Backlog; Instilling quality by adhering to a Definition of Done; Adapting their plan each day toward the Sprint Goal; and, Holding each other accountable as professionals" [V] (Scrum Team, "Developers").
+"Developers are the people in the Scrum Team that are committed to creating any aspect of a usable Increment each Sprint" [V] (Scrum Team, "Developers"). The specific skills "are often broad and will vary with the domain of work" [V] (Scrum Team, "Developers"). However, Developers "are always accountable for" four things: "Creating a plan for the Sprint, the Sprint Backlog"; "Instilling quality by adhering to a Definition of Done"; "Adapting their plan each day toward the Sprint Goal"; and "Holding each other accountable as professionals" [V] (Scrum Team, "Developers").
 
 ### Product Owner
 
-"The Product Owner is accountable for maximizing the value of the product resulting from the work of the Scrum Team. How this is done may vary widely across organizations, Scrum Teams, and individuals" [V] (Scrum Team, "Product Owner"). The Product Owner "is also accountable for effective Product Backlog management, which includes: Developing and explicitly communicating the Product Goal; Creating and clearly communicating Product Backlog items; Ordering Product Backlog items; and, Ensuring that the Product Backlog is transparent, visible and understood" [V] (Scrum Team, "Product Owner").
+"The Product Owner is accountable for maximizing the value of the product resulting from the work of the Scrum Team. How this is done may vary widely across organizations, Scrum Teams, and individuals" [V] (Scrum Team, "Product Owner"). The Product Owner "is also accountable for effective Product Backlog management, which includes": "Developing and explicitly communicating the Product Goal"; "Creating and clearly communicating Product Backlog items"; "Ordering Product Backlog items"; and "Ensuring that the Product Backlog is transparent, visible and understood" [V] (Scrum Team, "Product Owner").
 
 Delegation is permitted but accountability is not: "The Product Owner may do the above work or may delegate the responsibility to others. Regardless, the Product Owner remains accountable" [V] (Scrum Team, "Product Owner").
 
@@ -89,9 +89,9 @@ The role is framed as that of true leaders who serve: "Scrum Masters are true le
 
 The Scrum Master serves three principals — the Scrum Team, the Product Owner, and the organisation — each with specified service modes:
 
-- Serving the **Scrum Team**: "Coaching the team members in self-management and cross-functionality; Helping the Scrum Team focus on creating high-value Increments that meet the Definition of Done; Causing the removal of impediments to the Scrum Team's progress; and, Ensuring that all Scrum events take place and are positive, productive, and kept within the timebox" [V] (Scrum Team, "Scrum Master").
-- Serving the **Product Owner**: "Helping find techniques for effective Product Goal definition and Product Backlog management; Helping the Scrum Team understand the need for clear and concise Product Backlog items; Helping establish empirical product planning for a complex environment; and, Facilitating stakeholder collaboration as requested or needed" [V] (Scrum Team, "Scrum Master").
-- Serving the **organization**: "Leading, training, and coaching the organization in its Scrum adoption; Planning and advising Scrum implementations within the organization; Helping employees and stakeholders understand and enact an empirical approach for complex work; and, Removing barriers between stakeholders and Scrum Teams" [V] (Scrum Team, "Scrum Master").
+- Serving the **Scrum Team**: "Coaching the team members in self-management and cross-functionality"; "Helping the Scrum Team focus on creating high-value Increments that meet the Definition of Done"; "Causing the removal of impediments to the Scrum Team's progress"; and "Ensuring that all Scrum events take place and are positive, productive, and kept within the timebox" [V] (Scrum Team, "Scrum Master").
+- Serving the **Product Owner**: "Helping find techniques for effective Product Goal definition and Product Backlog management"; "Helping the Scrum Team understand the need for clear and concise Product Backlog items"; "Helping establish empirical product planning for a complex environment"; and "Facilitating stakeholder collaboration as requested or needed" [V] (Scrum Team, "Scrum Master").
+- Serving the **organization**: "Leading, training, and coaching the organization in its Scrum adoption"; "Planning and advising Scrum implementations within the organization"; "Helping employees and stakeholders understand and enact an empirical approach for complex work"; and "Removing barriers between stakeholders and Scrum Teams" [V] (Scrum Team, "Scrum Master").
 
 ## Part III: The Scrum Events
 
@@ -106,7 +106,7 @@ The Scrum Master serves three principals — the Scrum Team, the Product Owner, 
 
 Sprints "are fixed length events of one month or less to create consistency. A new Sprint starts immediately after the conclusion of the previous Sprint" [V] (Scrum Events, "The Sprint"). All work necessary to achieve the Product Goal happens inside the Sprint container: "All the work necessary to achieve the Product Goal, including Sprint Planning, Daily Scrums, Sprint Review, and Sprint Retrospective, happen within Sprints" [V] (Scrum Events, "The Sprint").
 
-Four during-Sprint conditions are stated: "During the Sprint: No changes are made that would endanger the Sprint Goal; Quality does not decrease; The Product Backlog is refined as needed; and, Scope may be clarified and renegotiated with the Product Owner as more is learned" [V] (Scrum Events, "The Sprint").
+Four during-Sprint conditions are stated: "During the Sprint": "No changes are made that would endanger the Sprint Goal"; "Quality does not decrease"; "The Product Backlog is refined as needed"; and "Scope may be clarified and renegotiated with the Product Owner as more is learned" [V] (Scrum Events, "The Sprint").
 
 The rationale for short Sprints is risk-and-learning: "Sprints enable predictability by ensuring inspection and adaptation of progress toward a Product Goal at least every calendar month. When a Sprint's horizon is too long the Sprint Goal may become invalid, complexity may rise, and risk may increase. Shorter Sprints can be employed to generate more learning cycles and limit risk of cost and effort to a smaller time frame. Each Sprint may be considered a short project" [V] (Scrum Events, "The Sprint").
 
@@ -168,7 +168,7 @@ Position and timebox: "The Sprint Retrospective concludes the Sprint. It is time
 
 "Scrum's artifacts represent work or value. They are designed to maximize transparency of key information. Thus, everyone inspecting them has the same basis for adaptation" [V] (Scrum Artifacts).
 
-Each artifact carries a commitment that anchors its measurable progress: "Each artifact contains a commitment to ensure it provides information that enhances transparency and focus against which progress can be measured: For the Product Backlog it is the Product Goal. For the Sprint Backlog it is the Sprint Goal. For the Increment it is the Definition of Done. These commitments exist to reinforce empiricism and the Scrum values for the Scrum Team and their stakeholders" [V] (Scrum Artifacts).
+Each artifact carries a commitment that anchors its measurable progress: "Each artifact contains a commitment to ensure it provides information that enhances transparency and focus against which progress can be measured": "For the Product Backlog it is the Product Goal"; "For the Sprint Backlog it is the Sprint Goal"; "For the Increment it is the Definition of Done". "These commitments exist to reinforce empiricism and the Scrum values for the Scrum Team and their stakeholders" [V] (Scrum Artifacts).
 
 ### Product Backlog
 
@@ -228,21 +228,21 @@ Required conformance: "The Developers are required to conform to the Definition 
 | Sprint Planning timebox (1-month Sprint) | "maximum of eight hours" | [V] (Scrum Events, "Sprint Planning") |
 | Sprint Review timebox (1-month Sprint) | "maximum of four hours" | [V] (Scrum Events, "Sprint Review") |
 | Sprint Retrospective timebox (1-month Sprint) | "maximum of three hours" | [V] (Scrum Events, "Sprint Retrospective") |
-| Number of Scrum Team accountabilities | 3 (Developers, Product Owner, Scrum Master) | [V] (Scrum Team) |
-| Number of Scrum Events | 5 (Sprint, Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective) | [V] (Scrum Theory, "Inspection"; Scrum Events) |
-| Number of Scrum Artifacts | 3 (Product Backlog, Sprint Backlog, Increment) | [V] (Scrum Artifacts) |
-| Number of Scrum Values | 5 (Commitment, Focus, Openness, Respect, Courage) | [V] (Scrum Values) |
-| Number of Scrum Theory pillars | 3 (Transparency, Inspection, Adaptation) | [V] (Scrum Theory) |
-| Sprint Planning topics | 3 (why valuable; what can be done; how it will get done) | [V] (Scrum Events, "Sprint Planning") |
-| Sprint cancellation authority | Product Owner only | [V] (Scrum Events, "The Sprint") |
+| Number of Scrum Team accountabilities | 3: "three specific accountabilities within the Scrum Team: the Developers, the Product Owner, and the Scrum Master" | [V] (Scrum Team) |
+| Number of Scrum Events | 5: "its five events" (Sprint, Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective) | [V] (Scrum Theory, "Inspection"; Scrum Events) |
+| Number of Scrum Artifacts | 3: "its three formal artifacts" (Product Backlog, Sprint Backlog, Increment) | [V] (Scrum Theory, "Transparency"; Scrum Artifacts) |
+| Number of Scrum Values | 5: "five values: Commitment, Focus, Openness, Respect, and Courage" | [V] (Scrum Values) |
+| Number of Scrum Theory pillars | 3: "the empirical Scrum pillars of transparency, inspection, and adaptation" | [V] (Scrum Theory) |
+| Sprint Planning topics | 3: "Why is this Sprint valuable?"; "What can be Done this Sprint?"; "How will the chosen work get done?" | [V] (Scrum Events, "Sprint Planning") |
+| Sprint cancellation authority | Product Owner only: "Only the Product Owner has the authority to cancel the Sprint" | [V] (Scrum Events, "The Sprint") |
 
 ## Connections the author makes in the text
 
-The Scrum Guide is a self-contained framework definition. Within the text, the only explicit external pointer is the licence reference to Creative Commons (`creativecommons.org/licenses/by-sa/4.0/`) [V] (Purpose of the Scrum Guide; End Note). The provenance section names early collaborators by name without external citation:
+The Scrum Guide is a self-contained framework definition. Within the text, the only explicit external pointer is the licence statement, which offers the Guide "for license under the Attribution Share-Alike license of Creative Commons" at `https://creativecommons.org/licenses/by-sa/4.0/` [V] (Purpose of the Scrum Guide; End Note). The provenance section names early collaborators by name without external citation:
 
-- *Jeff Sutherland* worked with *Jeff McKenna and John Scumniotales*, and *Ken Schwaber* worked with *Mike Smith and Chris Martin*, "and all of them worked together" [V] (End Note, "People"). The authors single these collaborators out as "instrumental at the start".
-- The first co-presentation of Scrum was at the *OOPSLA Conference in 1995* [V] (End Note, "Scrum Guide History"). That presentation "essentially documented the learning that Ken and Jeff gained over the previous few years and made public the first formal definition of Scrum" [V] (End Note, "Scrum Guide History"). The Guide frames itself as the record of that work, without citing any of it: "The Scrum Guide documents Scrum as developed, evolved, and sustained for 30-plus years by Jeff Sutherland and Ken Schwaber" [V] (End Note, "Scrum Guide History").
-- Early adopting organisations are named in recognition: *Individual Inc., Newspage, Fidelity Investments, and IDX (now GE Medical)* [V] (End Note, "Scrum Guide History").
+- The authors "single out those who were instrumental at the start: Jeff Sutherland worked with Jeff McKenna and John Scumniotales, and Ken Schwaber worked with Mike Smith and Chris Martin, and all of them worked together" [V] (End Note, "People").
+- Ken Schwaber and Jeff Sutherland "first co-presented Scrum at the OOPSLA Conference in 1995" [V] (End Note, "Scrum Guide History"). That presentation "essentially documented the learning that Ken and Jeff gained over the previous few years and made public the first formal definition of Scrum" [V] (End Note, "Scrum Guide History"). The Guide frames itself as the record of that work, without citing any of it: "The Scrum Guide documents Scrum as developed, evolved, and sustained for 30-plus years by Jeff Sutherland and Ken Schwaber" [V] (End Note, "Scrum Guide History").
+- Early adopting organisations are named in recognition: "To honor the first places where it was tried and proven, we recognize Individual Inc., Newspage, Fidelity Investments, and IDX (now GE Medical)" [V] (End Note, "Scrum Guide History").
 
 The Guide does not cite Agile, the Agile Manifesto, Sutherland's earlier writings, Schwaber's earlier writings, or any of the broader iterative-development literature within its body. (The Letaw 2024 *Handbook of Software Engineering Methods* references the Scrum Guide in turn for Scrum-related definitions, but that direction of citation runs from Letaw to Schwaber & Sutherland, not the reverse, and so is not a Scrum-Guide-internal connection.)
 

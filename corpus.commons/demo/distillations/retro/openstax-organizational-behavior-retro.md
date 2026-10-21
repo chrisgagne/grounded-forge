@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:56e61f3d3ff81785f0fd8788c8d8c30ad7dee84e1166921e0a06a2cf6ba2aaef -->
+<!-- derived-from-deep: sha256:b9eff8de80458b8930d4432cbe1ddcfabb75fe6427497a962992c797140e5768 -->
 # OpenStax Organizational Behavior, Retro Distillation
 
 **Source:** OpenStax (2019). *Organizational Behavior*. Lead author J. Stewart Black (INSEAD). ISBN 978-1-947172-72-2 (digital). Licence: **CC BY-NC-SA 4.0**. Scope: open-nc.
@@ -140,7 +140,7 @@ The attribution-bias, conformity, process-vs-relationship-conflict, and expectan
 
 ## Citation and Source-Integrity Notes
 
-**Borrowed-through gaps.** The Dearborn and Simon study (functional roles producing different problem readings) is cited as a classic illustration [BT] (Ch 3.1). Asch conformity experiments are cited throughout [BT] (Ch 9.2). Expectancy theory traces to Vroom; the E1/E2 formulation is adapted from Vroom's original [BT] (Ch 7.3). Self-determination theory traces to Deci and Ryan [BT] (Ch 7.2). The Taylor Cox and Stacy Blake diversity-advantages framework is cited [BT] (Ch 5.3). None of these are held directly in this corpus.
+**Borrowed-through gaps.** The Dearborn and Simon study (functional roles producing different problem readings) is cited as a classic illustration [BT] (Ch 3.1). Asch conformity experiments are cited throughout [BT] (Ch 9.2). Expectancy theory, including the E1/E2 formulation, traces to Vroom and Lawler [BT] (Ch 7.3). Self-determination theory traces to Deci and Ryan [BT] (Ch 7.2). The Taylor Cox and Stacy Blake diversity-advantages framework is cited [BT] (Ch 5.3). None of these are held directly in this corpus.
 
 **Named limits of the source.** OB is an OpenStax introductory textbook covering a broad range of organisational behaviour topics. Its retro projection focuses on the diagnostic vocabulary for team dynamics, attribution biases, conflict types, and motivation patterns. The source's content on organisational culture, diversity, global business, and strategic management does not fire in a team retro context and is not reflected in this distillation. The CC BY-NC-SA 4.0 licence means this distillation inherits the non-commercial and ShareAlike obligations.
 

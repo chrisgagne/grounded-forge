@@ -129,3 +129,41 @@ The deep ref describes content from Chapters 15 (Psychological Disorders) and 16
 - The application files name the scope constraint explicitly in their relevance section.
 
 The exclusion of clinical content from application projection is a deliberate scope choice (stated in the spawn prompt and in the deep ref), not a Pass-I source-integrity finding. The clinical content remains in the deep ref because Pass C's coverage rule is "read in full"; the constraint is on which Pass G axes the content gets projected into, not on which content the deep ref covers.
+
+## Scoped re-audit 2026-10-17: restored feature boxes and body text
+
+**Auditor:** same-family (a fresh Claude agent, cold context). No cross-family leg was run, so this scope is audited-but-unverified.
+
+**Scope.** Only the text the 2026-10-16 re-conversion restored (2,288 words in 40 runs, `sources/converted/openstax-psychology-2e.md`) and the deep-reference text written for it on 2026-10-17: lines 9, 59, 67 (added clauses only), 101, 121, 150, 186, 254, 357, 405, 417, 441, 445 and 522 of `references/openstax-psychology-2e-deep.md`. Each new paragraph's whole box was read in the tape, including the parts the old conversion already held (Medical Marijuana and Prader-Willi continuations, the Learned Helplessness reformulation paragraphs). Box labels were confirmed from the PDF's text layer (no page renders used): every paragraph's Dig Deeper / Everyday Connection label matches the PDF. The Learned Helplessness reformulation paragraphs (Peterson & Seligman) sit inside the box's shaded frame on PDF p. 526, so the paragraph's attribution of them to the box is correct. The Henner box's "Everyday Connection" label is in the PDF but absent from the tape.
+
+**Verbatim check.** `scripts/check-verbatim.py` before and after: 11 apostrophe, 10 initial, 1 interrupted (baseline, unchanged). All nine new `[V]` quotations match the tape.
+
+**Counts.** Claims audited: 52. Source-anchored without change: 43. Corrected: 9 (6 claim wording, 2 marker, 1 Coverage line). Stripped: 0. Quotation-corrected: 0. No text was added beyond the corrections below.
+
+**Changes (line: reason).**
+
+1. Line 9, Coverage: said restored "body and table text" was folded into existing paragraphs and listed "equation numbers and figure credits" as excluded scaffolding. The 40 runs are eleven feature boxes, Table 15.3 (given its own paragraph), and otherwise box labels, running headers, the front-matter promotion and index page headers; no body text, equations or figure credits. Rewritten to say so.
+2. Line 59, vaccine-autism box: "the retraction followed a significant conflict of interest" weakened the tape's causal "the retraction was made because of"; now matches.
+3. Line 121, behaviour modification box: "with the caregiver calm throughout" overstated "remain calm when directing your child to time-out"; corrected.
+4. Line 150, Solving Puzzles box: "'Puzzling Scales' logic puzzle by puzzle master Sam Loyd" asserted authorship the tape only implies by juxtaposition (it introduces the puzzle, then says Loyd "created and refined countless puzzles", cited to Cyclopedia of Puzzles). Rewritten to report the juxtaposition, with `[BT, Cyclopedia of Puzzles]` added.
+5. Line 357, federal job satisfaction box: bare `[BT]` on the 2013 study; the tape cites no source for it. Marker changed to `[AP]`.
+6. Line 405, social status box: "lower status brings stress and poor health through lack of control … and resource inequality" turned the tape's "Some factors … include" into a complete account; corrected to "include".
+7. Line 417, learned helplessness box: "dogs … later failed even to try" dropped the tape's "most"; restored.
+8. Line 441, Dancing Mania box: spider venom and ergot poisoning are cited in the tape to ("Dancing Mania," 2011), not Waller; marker now `[BT, Waller; "Dancing Mania," 2011]`.
+9. Line 445, Table 15.3: "more likely in one sex than the other" replaced the table's gender framing ("Gender Differences", men / women); reworded in the table's terms.
+
+**Known item: the two retraction accounts.** The book gives two reasons for the vaccine-autism retraction. Ch 2.3's Dig Deeper box: "the retraction was made because of a significant conflict of interest in which the leading researcher had a financial interest in establishing a link" (Offit, 2008). Ch 15.10, "Child Vaccinations and Autism Spectrum Disorder": the article "was retracted by the journal that had published it after evidence surfaced indicating fraud and unethical practices on the part of the lead researcher". Both deep-ref lines report their own passage correctly (line 59 for Ch 2.3; line 443 for Ch 15.10), so neither was changed. The tension is the book's own, and the deep reference doesn't currently point it out.
+
+**Checks with no finding.** Placement: every paragraph sits in the Part and section its box belongs to (Ch 2.3, 2.4, 4.5, 6.3, 7.3, 8.1, 10.2, 13.3, 14.3, 14.4, 15.3, 15.11), with section-name citations. No outside facts or added framing found beyond the items above. Line 522 (integrity note on the word-diff method) matches the run list.
+
+**Open.**
+
+- Part XIV heading (line 427) reads "overview only; spawn-prompt directive excludes clinical content from distillation projection". The two Ch 15 additions are consistent with that note's projection exclusion and with the Coverage line (every chapter read). The Table 15.3 paragraph, though, lists all sixteen behaviours, which is item-level detail under an "overview only" heading. Not a fidelity defect; the parent may want to shorten it to keep Part XIV's depth even.
+- Line 67 keeps "profound ethical failure" from the pre-existing sentence (outside this scope's added clauses). The tape's box says only that the guidelines "were not always applied in the past" and asks "Why is this study unethical?". This is an evaluative label for the full audit to weigh.
+- Line 67: the 1972 press discovery is cited in the tape to (Tuskegee University, n.d.); the deep ref carries no `[BT]` for it. Left as is, since the sentence's load is the `[V]` quotation.
+
+**Derived tier.** Changes 2–9 alter wording the light reference or a distillation may carry, if they quote these paragraphs (most likely the learned helplessness, social status and job satisfaction paragraphs, which fall in Ch 13–14 projection scope). The parent re-derives. Not stamped.
+
+### Orchestrator follow-up, derived tier and stamp (2026-10-17)
+
+The PARTIAL notes are gone from the light reference, the distillations and the source card, replaced by a coverage statement that names the single-family audit. The light reference's job-satisfaction summary predates this pass and carries none of the corrected wording; no distillation carries the restored boxes, so no re-derivation is needed. The Table 15.3 paragraph stays as written: it summarises a restored table in a Part the Coverage line covers, and Part XIV's "overview only" note concerns projection into distillations. A Pass I stamp on line 2 of the deep reference records this scoped audit. Derived tier restamped against the new deep-reference hash.

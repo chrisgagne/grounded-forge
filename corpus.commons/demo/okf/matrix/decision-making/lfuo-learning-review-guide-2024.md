@@ -12,7 +12,7 @@ sources:
     resource: https://lessonslearned-prod-media-bucket.s3.us-gov-west-1.amazonaws.com/2024-06/LFUO_2024.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-16T17:00:24+13:00
 ---
 # LFUO 2024, Decision-Making Distillation
 
@@ -24,7 +24,7 @@ The LFUO guide is not primarily a "decision-making" text — it is a manual for 
 
 1. **A structured framework for choosing the right learning response.** The Delegating Official faces a choice between four tools (AAR, RLS, FLA, Learning Review) and has to decide which one fits the event. The guide's argument is that the *outcome* (how bad it was) is a poor criterion; the *learning opportunity* (how much can the organisation learn?) is the right criterion. The two-inch tree-cutting case is the canonical illustration.
 
-2. **A framework for reconstructing past decisions in the FLA process itself.** The Five Hows / Lessons Learned Analysis is a structured decision-reconstruction tool. It is the central craft method by which an FLA team reaches "the same level situational awareness, belief, and expectation that was held by those involved in the accident — which they had before the accident" [V] (Part 7, "The Lessons Learned Analysis"). This applies *to* the decisions made in the field during the event.
+2. **A framework for reconstructing past decisions in the FLA process itself.** The Five Hows / Lessons Learned Analysis is a structured decision-reconstruction tool. It is the central craft method by which an FLA team reaches "the same level situational awareness, belief, and expectation that was held by those involved in the accident - which they had before the accident" [V] (Part 7, "The Lessons Learned Analysis"). This applies *to* the decisions made in the field during the event.
 
 3. **A discipline against three recurring decision-making failure modes in incident analysis.** Counterfactual reasoning, causal attribution, and the recommendations-as-default reflex are all framed as decision-making anti-patterns that degrade learning. The deeper claim is that *in complex systems* root-cause / counterfactual / recommendation-driven decision-making is itself the wrong tool. This is one of the guide's most quotable positions.
 

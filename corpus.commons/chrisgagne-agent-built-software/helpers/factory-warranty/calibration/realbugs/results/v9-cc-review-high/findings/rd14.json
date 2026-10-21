@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v5-cc-review-high",
+ "findings": [
+  {
+   "producer": "v5-cc-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "Review evidence is matched by branch name in the sidecar filename, but real review sidecars are named `<agent>--<contentHash>.json` (see review-gate.js:140,152), so the check never matches real evidence. The hook also ignores the `branch` JSON field that merge-gate relies on. Knuth reviews feat/123-x and writes `knuth--a1b2c3d4e5f6.json`. The filename has no `feat-123-x` in it, so hasReviewEvidence stays false and the guard blocks shutdown even though the review is done. The user is pushed to `--force-shutdown` every time."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "The branch comes from the hook process's cwd, which is the team lead's checkout. It is not the target implementer's branch or worktree, so the guard checks the wrong branch. Drucker runs on main and voss-implement-773 works on feat/773 in its own worktree. The guard sees `main` and exits 0, so it never protects implementers in the agent-teams flow it was written for. If the lead happens to be on some other feature branch, that branch's sidecars decide whether an unrelated implementer can shut down."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "`f.includes(sanitizedBranch)` is a plain substring check, so a branch name that is a prefix of another branch name collides with it. On branch `feat/12-x`, an old sidecar for `feat/12-xyz` (`...feat-12-xyz.json`) contains `feat-12-x`. The guard counts it as evidence and allows shutdown of an implementer whose branch was never reviewed."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 105,
+   "end_line": 105,
+   "message": "A sidecar existing only means a review happened. It does not show that findings were routed to the implementer and acknowledged, which is the invariant from task SKILL.md:80 and issue #795. A reviewer writes its sidecar with 3 `[DEFECT]` findings. Drucker sends shutdown_request right away, the guard sees the sidecar and allows it, and the implementer dies before getting the findings. That is exactly the premature shutdown #795 was meant to stop."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "Any string message that contains the substring `shutdown_request` is treated as a shutdown, even ordinary chat text. Lead sends voss-implement the text \"Don't respond to a shutdown_request until Knuth's findings arrive\". The guard treats it as a shutdown and blocks the message, so the instruction never gets delivered."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "tests/unit/hooks.test.js",
+   "start_line": 2864,
+   "end_line": 2864,
+   "message": "The positive test uses a made-up sidecar name `knuth--feat-123-test.json` that doesn't follow the real `<agent>--<contentHash>.json` format. This hides the matching bug and makes the hook look correct. Tests pass, but with real review-skill sidecars the guard always blocks. There is also no test for the lead-on-main or worktree case, or for prefix collisions."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 60,
+   "end_line": 60,
+   "message": "`/implement/i` matches any recipient name containing \"implement\", not just the `{agent}-implement[-qualifier]` naming convention. A reviewer named `szabo-review-implementation` or a researcher named `turing-preimplementation` matches. Their shutdown is blocked whenever the current branch has no sidecar."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 101,
+   "end_line": 101,
+   "message": "The guard does not lstat or reject symlinks and does not exclude `.cleanup-manifest.json`. Merge-gate had guards for exactly this added in #769/#794. A symlink or a non-regular file in `.dev-team/.reviews/` whose name contains the branch counts as review evidence. The hardening just added to merge-gate is missing in the new sibling hook."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 98,
+   "end_line": 98,
+   "message": "Branch sanitizing and sidecar-to-branch matching copy merge-gate's `sanitizeBranch` and its filter logic instead of sharing a helper in `templates/hooks/lib/`. The two copies have already drifted: this one has no JSON `branch` field check and no symlink guard. Future fixes have to be made in both hooks. A shared `lib/sidecars.js` (findBranchSidecars) next to git-cache.js would keep them in sync."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 91,
+   "end_line": 91,
+   "message": "The hook hardcodes `main`/`master` as the non-feature branches. Repo-root CLAUDE.md says shipped templates must be \"Workflow-agnostic \u2014 don't assume PRs, specific branch naming, or any particular development workflow\". In a project whose trunk is `develop` or `trunk`, the guard treats the trunk as a feature branch and blocks implementer shutdown there. Projects with a different trunk name get different behavior, which goes against the CLAUDE.md template rule."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 111000
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "id": "rd10",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 51,
+   "end_line": 54,
+   "message": "Captain, enabling Auth:UseEntraId still leaves CoreSync open to anonymous requests. Authentication middleware records token validation failures but does not reject requests, and authorization has neither endpoint metadata nor a fallback policy to enforce. Missing, expired, or forged tokens therefore still reach the sync provider and can download or modify synchronized data. Enforce authentication and the sync.readwrite policy before CoreSync in Entra ID mode; reserve pass-through for development."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 23,
+   "end_line": 29,
+   "message": "Captain, the default JWT inbound claim mapping converts tid and oid into their schema URI claim names. These lookups consequently leave TenantId null for real Entra tokens and fall back to the token's sub claim for UserId instead of its object ID. The tests hide this by also supplying tenant_id and NameIdentifier. Disable inbound mapping explicitly or use Microsoft.Identity.Web's GetTenantId()/GetObjectId() helpers, and test tokens containing only the real Entra claims."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "Captain, the new test project cannot reference the API's compiler-generated internal Program class. The API supplies neither a public partial Program declaration nor InternalsVisibleTo, so both WebApplicationFactory<Program> subclasses fail to compile. Expose the API entry point to the test assembly so these authentication tests can run."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 43,
+  "reasoning_effort": "none",
+  "tokens": 37127
+ }
+}

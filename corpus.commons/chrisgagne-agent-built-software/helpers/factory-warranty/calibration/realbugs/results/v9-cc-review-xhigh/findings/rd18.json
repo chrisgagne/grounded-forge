@@ -1,0 +1,112 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v5-cc-review-xhigh",
+ "findings": [
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+   "start_line": 12,
+   "end_line": 12,
+   "message": "The `@AssertTrue` on `harOppgittInntekt()` never runs. Hibernate Validator only treats `get*`/`is*`/`has*` methods as bean properties, so a `har*` method is skipped by `validator.validate(bean)`. Every other `@AssertTrue` in the repo uses `isX()`. The same problem exists in `OppgittInntektForPeriode.harOppgittInntekt()`. POST /aktivitetspenger/inntektsrapportering/innsending with `{\"oppgaveReferanse\":\"<uuid>\",\"oppgittInntekt\":{}}` passes `@Valid`. A k9 s\u00f8knad with a null `arbeidstakerOgFrilansInntekt` is published and journalf\u00f8rt, and the oppgave is marked l\u00f8st with a null inntekt in `RapportertInntektDto`. The required-inntekt check never fires."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "The rapportering is published to Kafka (`innsendingService.registrer`) before `markerOppgaveSomL\u00f8st`. `hentInntektsrapporteringPeriode` also never checks that the oppgave is UL\u00d8ST or of type RAPPORTER_INNTEKT. A wrong oppgavetypeData throws IllegalStateException, which surfaces as a 500 instead of a 4xx. The user submits for an oppgave that is already L\u00d8ST, or `markerOppgaveSomL\u00f8st` fails transiently. The inntekt is already on the mottatt topic and will be journalf\u00f8rt, but the user gets a 500. A retry after the 10s duplicate window publishes a second rapportering and creates a duplicate journalpost/k9 s\u00f8knad for the same oppgave."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "start_line": 193,
+   "end_line": 193,
+   "message": "`AKTIVITETSPENGER_INNTEKTRAPPORTERING` uses the placeholder brevkode `FIXME_AVP_INNTEKT_BREVKODE`. The endpoint and streams are live, and `YtelseType.enabled()` defaults to true, so nothing keeps this out of production. Once deployed, every aktivitetspenger inntektsrapportering is journalf\u00f8rt in dokarkiv with brevkode `FIXME_AVP_INNTEKT_BREVKODE`. Downstream routing and document classification that keys on brevkode will misroute or reject these journalposts, and they are hard to fix after the fact."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/AktivitetspengerInntektsrapporteringInnsending.kt",
+   "start_line": 55,
+   "end_line": 55,
+   "message": "The rapportering is built as an ordinary `Aktivitetspenger` s\u00f8knad with `s\u00f8knadsperiode` set to the inntekt period. It has no rapportering/s\u00f8knadstype marker; the ungdomsytelse equivalent sets `UngS\u00f8knadstype.RAPPORTERING_S\u00d8KNAD`. It is also validated with the full `AktivitetspengerS\u00f8knadValidator`. A consumer of the k9 JSON (ung-sak reads the cleanup topic, and the JSON is journalf\u00f8rt) sees an AKTIVITETSPENGER s\u00f8knad with s\u00f8knadsperiode 2025-01-01/2025-01-31 and empty forutg\u00e5endeBosteder. It cannot tell this apart from a new aktivitetspenger s\u00f8knad for that month and may treat the income report as a s\u00f8knad."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "Two parallel topics grant `ung-brukerdialog-api` read access on their mottatt and cleanup topics: aktivitetspenger-soknad and ungdomsytelse-inntektsrapportering (the latter also grants ung-deltakelse-opplyser). The new aktivitetspenger-inntektsrapportering topics grant only ung-sak read on cleanup and no read on mottatt. If ung-brukerdialog-api consumes these topics the way it does for the s\u00f8knad and ungdomsytelse rapportering flows (for example to track oppgave state), its consumer gets authorization errors on the new topics. Those events are then silently missing in that service."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "`arbeidstakerOgFrilansInntekt: Int?` has no `@Min(0)`/`@PositiveOrZero` constraint, so a negative inntekt passes API validation. A request with `\"arbeidstakerOgFrilansInntekt\": -5000` is accepted (unless the k9 validator happens to reject it). The oppgave is marked l\u00f8st with `RapportertInntektDto(..., -5000)`, which feeds a negative reported income into ung-sak's calculation."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "The new aktivitetspenger controller test imports `no.nav.brukerdialog.ytelse.ungdomsytelse.utils.InntektrapporteringUtils`, so it posts a serialized `UngdomsytelseInntektsrapportering` instead of the new `AktivitetspengerInntektsrapportering` fixture. It also never checks what `markerOppgaveSomL\u00f8st` receives. If the aktivitetspenger DTO later diverges (new required field, renamed property), this test keeps passing because it serializes the ungdomsytelse class. A wrong `RapportertInntektDto` (periode or bel\u00f8p) sent to ung-brukerdialog-api would also go undetected."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/pdf/AktivitetspengerInntektsrapporteringPdfGeneratorTest.kt",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "`PDF_PREFIX = \"ung\"` and the ids `1-full-inntekt-alle`/`2-arbeidstaker-og-frilansinntekt` are identical to `UngdomsytelseInntektsrapporteringPdfGeneratorTest`. The two generated cases in this test are also byte-for-byte the same input. Running the 'opprett lesbar oppsummerings-PDF' tests writes both suites to the same paths, so whichever runs last overwrites the other's PDFs. The second case adds no coverage, so a scenario such as zero or absent inntekt is never rendered."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/kafka/KafkaProducerService.kt",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "The new producer topic `AKTIVITETSPENGER_INNTEKTSRAPPORTERING_TOPIC` was added to `Topics`/`hentTopicForYtelse` but not to `KafkaProducerService.health()`'s `partitionsFor` checks. If the topic is missing or its ACL is wrong in an environment, the producer health indicator still reports UP. The failure only appears when users submit and get `MeldingRegistreringFeiletException`."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 99,
+   "end_line": 99,
+   "message": "`forsikreIkkeDuplikatInnsending` runs only after `hentInntektsrapporteringPeriode` has made a blocking HTTP call (with retries) to ung-brukerdialog-api. Every duplicate or double-clicked submission still pays a remote `hentOppgave` round-trip, plus retry/backoff on errors, before being rejected. Moving the cheap cache check (the key only needs personIdent + ytelse) before the HTTP call avoids that."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntektForPeriode.kt",
+   "start_line": 10,
+   "end_line": 10,
+   "message": "`OppgittInntekt`, `OppgittInntektForPeriode` and `UngPeriode` copy `ytelse.ungdomsytelse.api.domene.inntektsrapportering` line for line. `aktivitetspenger-rapportering-soknad.hbs` is identical to `ungdomsytelse-rapportering-soknad.hbs`, including the dead `{{ id }}` footer key, and the PdfData differs only in the ytelse class. There are two copies of the validation and k9 mapping (including the broken `har*` @AssertTrue) and two templates to keep in sync. A fix to one, such as validation, the k9 BigDecimal mapping or the template, will silently be missed in the other. Reuse the existing classes and template, or extract them to a shared package."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "`inntektrapportering` and `hentInntektsrapporteringPeriode` are verbatim copies of `UngdomsytelseService.inntektrapportering`/`hentInntektsrapporteringPeriode`. Only the Innsending class differs. Fixes to oppgave validation, ordering of Kafka publish vs. markerOppgaveSomL\u00f8st, or the RapportertInntektDto mapping must be made twice. A shared helper parameterized by an Innsending factory would remove the duplication."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/kafka/inntektsrapportering/AktivitetspengerInntektsrapporteringTopologyConfiguration.kt",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "The bean method is named `aktivitetpengerInntektsrapporteringCleanupTopic` (missing 's'). Both consumers inject the parameter `aktivitetspengerInntektsrapporteringCleanupTopic`, so wiring depends entirely on generic-type matching rather than the bean name. If another bean with an assignable `Topic<...>` type is added, Spring can no longer fall back on the parameter name to pick a candidate. Startup then fails with NoUniqueBeanDefinitionException, and the typo makes the bean hard to find by name."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/kafka/AktivitetspengerInntektRapporteringKonsumentTest.kt",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "The test has leftovers from the ungdomsytelse copy. `deltakelseId` is created and passed to `preprosessertS\u00f8knadSomJson` but never used in the JSON. The controller test stubs `barnService.hentBarn()`, which the inntekt flow never calls. Readers can't tell which inputs matter, for example whether deltakelseId should appear in the payload. Leftover stubs hide which collaborators the new flow actually uses."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 471000
+ }
+}

@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/mareklesko/ProxmoxMCP-Plus",
+  "pr_number": 1,
+  "base": "5a8047f5bc592e5e170d3828e9633dd018f13cbe",
+  "head": "b44013c3e80fd71ca639ee272b88c5e07af4b507"
+ },
+ "agent": "v5-cc-review-xhigh",
+ "findings": [
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "postCreateCommand installs `.[dev]`, but pyproject.toml (hatchling backend) defines no `[project.optional-dependencies] dev`; the `dev` extra only exists in setup.py, which hatchling ignores. So pytest, pytest-asyncio, mypy, black, ruff and types-requests are never installed. The container builds and uv only prints `warning: ... does not have an extra named dev`. Running `pytest` in the container then fails with command not found (or `No module named pytest`), and tests/test_server.py needs pytest-asyncio for its `@pytest.mark.asyncio` tests. README line 65 says it 'installs all Python dependencies automatically', which is false. The real fix is to add a `dev` extra to pyproject.toml that mirrors requirements-dev.in."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "`workspaceFolder` and `python.defaultInterpreterPath` (line 20) hardcode `/workspaces/ProxmoxMCP-Plus` with no matching `workspaceMount`. The default mount target is `/workspaces/${localWorkspaceFolderBasename}`, so these paths only exist when the local folder is named exactly `ProxmoxMCP-Plus`. A user clones into a different folder (`git clone ... pmcp`, a renamed fork, or a checkout like this one named `repo`) and picks Reopen in Container. The repo gets mounted at `/workspaces/pmcp`, VS Code opens a folder that doesn't exist, and postCreateCommand fails because its working directory is missing. Use `${containerWorkspaceFolder}` / `/workspaces/${localWorkspaceFolderBasename}`, or drop workspaceFolder."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "`uv venv` builds `.venv` inside the bind-mounted workspace. That is the same `.venv` the README's local install creates on the host, so the container replaces it with a Linux venv whose interpreter is a symlink to `/usr/local/bin/python3.11`. On every Rebuild Container it runs again against the venv the previous container left behind. A macOS/Windows developer followed the README's 'uv venv' steps on the host, then opens the Dev Container. Their host `.venv` is wiped and replaced. Back on the host, `.venv/bin/python` points at a path that doesn't exist and the host IDE and CLI break. Newer uv versions also move toward requiring `--clear` before replacing an existing env, so with unpinned uv a rebuild can start failing postCreate. Put the venv outside the workspace (e.g. `UV_PROJECT_ENVIRONMENT=/home/vscode/.venv`) or on a named volume."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "postCreateCommand runs after VS Code has already attached (default `waitFor` is `updateContentCommand`), and nothing puts `.venv/bin` on PATH. The Python extension can resolve `defaultInterpreterPath` before `.venv` exists and fall back to `/usr/local/bin/python`, which leaves terminals without the venv. In a terminal opened after container start, `mcpo`, `pytest` and `python -m proxmox_mcp.openapi_proxy` use system Python, which doesn't have the package. `./start_openapi.sh` sees no `mcpo` on PATH, pip-installs it into ~/.local, then fails with `ModuleNotFoundError: proxmox_mcp`. Fix by setting `\"waitFor\": \"postCreateCommand\"` (or using onCreateCommand) and adding `remoteEnv.PATH` with the venv bin dir."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "`apt-get install --no-install-recommends git` skips git's Recommends (`openssh-client`, `less`, `patch`). The container has git but no `ssh` binary, so SSH remotes don't work even though VS Code forwards the SSH agent. A contributor with a `git@github.com:` remote runs `git push` or `git fetch` in the container and gets `error: cannot run ssh: No such file or directory`. GitLens/Git Graph operations on that remote fail the same way. Add `openssh-client` (and `less`) explicitly."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "`useradd` is called without `-s /bin/bash`. On Debian (python:3.11-slim) the user's login shell defaults to `/bin/sh` (dash), and VS Code opens integrated terminals with that shell. The developer opens a terminal and gets a bare dash prompt with no completion or history. The README's `source .venv/bin/activate` fails with `sh: 1: source: not found`. Use `useradd -s /bin/bash ...`."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "README.md",
+   "start_line": 71,
+   "end_line": 71,
+   "message": "Step 4 says the OpenAPI proxy 'is reachable at http://localhost:8811', but the Dev Container never starts it and the README never says to run `./start_openapi.sh` with the venv active. The container also doesn't set `PROXMOX_MCP_CONFIG`, so the config.json from step 3 is ignored unless the user runs that script. The user finishes steps 1-3 and opens localhost:8811: connection refused. Running `python -m proxmox_mcp.server` by hand ignores proxmox-config/config.json, falls back to PROXMOX_HOST and the other env vars, and fails config validation. In Codespaces the forwarded URL isn't localhost at all. Add a 'run ./start_openapi.sh' step and `containerEnv.PROXMOX_MCP_CONFIG`."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "`editor.formatOnSave: true` with Black as the Python formatter is turned on for a codebase that isn't Black-formatted: 205 lines over 88 chars and 245 trailing-whitespace lines across 21 files in src/. There's also no Black config, and the extension's bundled Black version differs from the `black<24` pin. A contributor fixes one line in server.py and saves. Black rewrites the whole file (81 over-length lines in that file alone), so the PR diff is mostly formatting churn and conflicts with every other open PR that touches the file."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "The vscode user gets no sudo and the image has no sudo package, so nothing can be installed as root inside the running container. A developer needs `jq` (used by CI's manifest check), `openssh-client`, or a debugging tool. `apt-get install` fails with permission denied and the only option is to edit the Dockerfile and rebuild."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "`pip install uv` pulls whatever uv version is newest at build time, so two contributors' containers (or a rebuild) can run different uv versions with different `uv venv` / `uv pip` behavior. A future uv release that makes replacing an existing `.venv` without `--clear` an error breaks postCreateCommand on every rebuild, with no change in this repo. Pin the version (e.g. `uv==0.9.*`) or copy it from `ghcr.io/astral-sh/uv:<ver>`."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The Dockerfile rebuilds by hand what `mcr.microsoft.com/devcontainers/python:3.11` already provides: a UID-1000 `vscode` user, sudo, bash/zsh, git with openssh-client, less and curl. A uv dev container feature would cover the uv install. Maintaining a custom Dockerfile is what let the ssh-client, login-shell and sudo gaps above in. Using `\"image\": \"mcr.microsoft.com/devcontainers/python:1-3.11-bookworm\"` plus a uv feature would remove the Dockerfile and all three defects."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "`ms-azuretools.vscode-docker` gets installed, but the container has no docker CLI and no mounted Docker socket (no docker-outside-of-docker feature). GitLens and Git Graph are personal-preference extensions forced on every contributor. The Docker extension activates, can't reach a daemon, and shows errors without being able to do anything. Every contributor also gets GitLens/Git Graph installed whether they want them or not, which makes container startup slower."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "`build-essential` adds roughly 200+ MB (gcc, g++, make, libc dev headers), but every dependency (cryptography, bcrypt, pynacl via paramiko; uvloop and httptools via uvicorn[standard]; pydantic-core) ships manylinux wheels for CPython 3.11. Every first build and every Codespaces create downloads and unpacks a few hundred MB of compiler toolchain that nothing uses, which slows down onboarding."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "`build.context` is set to the repo root even though the Dockerfile has no COPY or ADD, and the repo has no .dockerignore. With the legacy builder (or anything that sends the full context), every build ships the whole repo to the daemon, including `.venv`, `.git` and the credential-bearing `proxmox-config/config.json`. Dropping `context` (default is `.devcontainer/`) has the same result at no cost."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "`\"ruff.enable\": true` is already the Ruff extension's default. `\"remoteUser\": \"vscode\"` repeats the Dockerfile's `USER vscode`, which Dev Containers already uses as the container user. Two settings that do nothing. They add config surface that can drift, for example if USERNAME is changed in the Dockerfile but not in devcontainer.json."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 212000
+ }
+}

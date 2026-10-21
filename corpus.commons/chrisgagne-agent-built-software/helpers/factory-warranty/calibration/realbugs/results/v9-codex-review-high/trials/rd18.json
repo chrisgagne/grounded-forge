@@ -1,0 +1,20 @@
+{
+ "id": "rd18",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 4,
+   "message": "Add a deployment workflow for the new Kafka topics. On a normal dev/main deployment, this manifest is never applied: no workflow references it, and the existing topic workflows each deploy an explicitly named file. The new streams start unconditionally, but their input topics and ACLs will therefore be missing, preventing income-report submissions from being processed. Add a workflow invoking `reusable-topic-workflow.yml` for this manifest, as done for the existing topic files."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 159,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v5-sol-plain",
+ "findings": [
+  {
+   "producer": "v5-sol-plain",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "Read the hook payload from stdin. Claude Code supplies command-hook input as JSON on stdin, and the registered command passes no arguments. Consequently input is always {}, and every real invocation exits successfully before checking shutdowns. The tests hide this by passing JSON as argv[2]. See the [hook input contract](https://code.claude.com/docs/en/hooks#hook-input-and-output)."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 82,
+   "end_line": 93,
+   "message": "Resolve the target implementer's branch and worktree instead of checking the sender's checkout. The documented parallel workflow runs implementers on separate branches, while this SendMessage hook executes in the orchestrator's directory. An orchestrator on main bypasses protection for every implementer; on another feature branch, its review evidence controls shutdown of unrelated agents."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 102,
+   "end_line": 103,
+   "message": "The filename check does not recognize the repository's review sidecar format, <agent>--<file-content-hash>.json, documented in ADR-029 and consumed by dev-team-review-gate.js. Completed reviews using that format never satisfy this guard, so legitimate shutdowns remain blocked unless forced. Match actual review metadata and reviewed content rather than requiring the branch name in the filename."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 108,
+   "end_line": 110,
+   "message": "A sidecar's existence does not establish that findings have been routed and acknowledged. Reviewers write sidecars when producing findings, before the implementer handles them; the first reviewer can therefore unlock shutdown while other reviews or acknowledgments remain outstanding. Check completion and acknowledgment evidence before allowing shutdown to enforce the task skill's stated liveness requirement."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 48000
+ }
+}

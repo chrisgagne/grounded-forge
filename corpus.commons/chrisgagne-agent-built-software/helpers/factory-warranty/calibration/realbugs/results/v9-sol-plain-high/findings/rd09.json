@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/capawesome-team/cli",
+  "pr_number": 126,
+  "base": "a03825128b8380f86dcf85e8d3507b3a41d9f775",
+  "head": "2d997db6e53c75213cbb13f2d3fdb636984eead4"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 53,
+   "end_line": 53,
+   "message": "appleApiKeyId is initialized without reading options, and the options schema provides no flag for it. Consequently, every non-interactive iOS API-key creation uploads the .p8 file and then exits with 'You must provide the Apple API Key ID', never creating the destination. Add an appleApiKeyId option and read it before uploading."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "The certificate password and Android key password prompts use type 'text', exposing signing credentials on screen and in terminal recordings. The App-specific password prompt in destinations/create.ts has the same issue. Use masked password prompts for these secrets."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 244000
+ }
+}

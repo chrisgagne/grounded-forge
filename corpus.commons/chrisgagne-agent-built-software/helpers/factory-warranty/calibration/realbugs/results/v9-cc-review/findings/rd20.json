@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/supa-magic/spm",
+  "pr_number": 19,
+  "base": "35ba12abad66326fe01c152803a23fc282368d67",
+  "head": "c60d2e03d217cbe8abaed6d12c4fb7b0bdb0049f"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "parseGitHubUrl matches the branch segment but throws it away, so resolveIdentifier always uses the repo's default branch instead. `spm install https://github.com/org/repo/tree/develop/path/to/skill` fetches skillset.yml and every file from `main`. That either 404s or quietly installs the wrong version. Branches with a slash (`tree/feature/x/claude/skill`) also get split wrong: `feature` is taken as the branch and `x/claude/skill` as the path."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "downloadEntries builds every GitHubSource with location.ref, including cross-repo (@owner/repo/path) entries whose owner/repository differ from the skillset's repo. The skillset lives in a repo whose default branch is `main` and references `@other/lib/skills/x`, where `other/lib` only has `master`. Every cross-repo file download fails with a 404 from raw.githubusercontent.com, so the whole install aborts."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "The path-traversal guard uses a bare `startsWith(baseDir)` with no trailing separator, and baseDir itself comes from `skillset.name`, which is never validated. A manifest with `name: ../../../Users/<author>/.ssh` makes `join(tmpdir(),'spm',name)` resolve outside tmp, and safePath then accepts any file under it, so the attacker writes arbitrary files. Separately, with name `fsd`, a file entry `../fsd-evil/x` resolves to `/tmp/spm/fsd-evil/x`, which passes `startsWith('/tmp/spm/fsd')`."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "Files are written to tmpDir/entry.path without the owner or repository, so same-path files from different repos (cross-repo sources) overwrite each other in a concurrent Promise.all. The skillset repo and a cross-repo source both have `skills/git/SKILL.md`. Both writes target the same file at the same time, and whichever finishes last silently wins. The success message still reports both files as downloaded."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "The URL regex captures the path including a trailing slash, and resolveIdentifier then appends `/skillset.yml`, producing a double slash. `https://github.com/org/repo/tree/main/claude/skill/` yields path `claude/skill/`, so the code fetches `claude/skill//skillset.yml`. The manifest fetch fails or the derived skillsetDir is wrong."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 73000
+ }
+}

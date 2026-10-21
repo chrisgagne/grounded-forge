@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 202,
+  "base": "2159a5434ce888127b578ad8b788e550fd3412ce",
+  "head": "7e51d062b3fd69794c941b43f3aa8830a7a1729f"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 517,
+   "end_line": 517,
+   "message": "The pre-check reads the verdict from a `## Final Verdict` section, but the DoR checklist that x-story-plan generates has no such section. The verdict is stored in the Header table (`| Verdict | ... |`) and in `## Summary` as `Verdict: **READY**` (bold markdown), and the spec also never says what to do when the verdict is missing or can't be parsed. For every story planned by x-story-plan/x-epic-plan the section lookup finds nothing, so the verdict is neither READY nor NOT_READY. The result is undefined: NOT_READY stories may be dispatched anyway, or the agent may compare the literal `**NOT_READY**` and fall through."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 523,
+   "end_line": 523,
+   "message": "The DoR pre-check is only added as step a0 in a code block under 1.1b. The actual Core Loop (Section 1.3, step 6) and the default parallel worktree dispatch (Section 1.4a, step 2) are unchanged: 1.4a marks every executable story IN_PROGRESS and launches them all in one message, with no DoR check. With the default (non-`--sequential`) run, a story whose dor-story file says NOT_READY is set to IN_PROGRESS and dispatched by 1.4a step 2/3 before any a0 check runs, so the gate is bypassed."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 519,
+   "end_line": 519,
+   "message": "A story blocked by the DoR check is marked BLOCKED with a free-text reason. That reason field isn't in the StoryEntry schema, and `blockedBy` is not set. On `--resume`, Step 2 keeps any BLOCKED story with undefined `blockedBy` BLOCKED, and its dependents are not block-propagated. The user fixes the plan so the DoR becomes READY and runs `--resume`. Step 2 sees `blockedBy` undefined and keeps the story BLOCKED forever, so the DoR is never re-checked. Its dependents meanwhile stay PENDING and each phase logs 'Phase is blocked' instead of marking them BLOCKED."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 514,
+   "end_line": 514,
+   "message": "The DoR path is built as `dor-story-{storyId}.md`, but story IDs in execution-state are `story-XXXX-YYYY`, while x-story-plan writes `dor-story-XXXX-YYYY.md`. The same applies to the `tasks-story-{storyId}.md` path in 1.1c. For storyId `story-0028-0002` the check looks for `plans/epic-0028/plans/dor-story-story-0028-0002.md`, which doesn't exist. It takes the 'file missing \u2192 proceed' branch, so NOT_READY stories are silently dispatched."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 285,
+   "end_line": 285,
+   "message": "Step 1b says a BLOCKED task becomes PENDING when all its task dependencies are DONE, but the per-task schema in 1.1c has no dependency field (only status/agent/type/commitSha/duration), so the rule can't be evaluated from the checkpoint. A SKIPPED dependency (terminal) is also never treated as satisfied. On resume, a BLOCKED task whose dependency is now DONE has nothing in execution-state.json to check against, so it either stays BLOCKED forever or is unblocked arbitrarily. A task that depends on a SKIPPED task can never be unblocked."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 289,
+   "end_line": 289,
+   "message": "The spec says the subagent 'receives the task state and skips DONE tasks', but the subagent prompt template (1.4) passes no task state. Also, a FAILED/PARTIAL story that is retried gets its old PR closed and a new branch/worktree, yet its DONE tasks are kept. A story fails after TASK-001/002 are DONE. On resume it goes back to PENDING (old PR closed), and a new worktree branch is created from develop. If DONE tasks are skipped as specified, the new PR is missing the TASK-001/002 commits that only existed on the abandoned branch, so the story's changes are incomplete."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 575,
+   "end_line": 575,
+   "message": "Per-task `duration` is specified in milliseconds (example 45000), while the StoryEntry `duration` in the same file is in seconds. Summing or comparing task durations against story durations in reports gives values that are off by 1000x, e.g. one 45 s task appears longer than a 600 s story."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 70000
+ }
+}

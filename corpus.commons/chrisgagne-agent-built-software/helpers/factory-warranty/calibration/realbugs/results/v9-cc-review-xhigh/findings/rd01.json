@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/CommunityToolkit/Maui",
+  "pr_number": 3181,
+  "base": "c7cb65bc98e429401e4f792f6b7aa21f94e81933",
+  "head": "1e8d2e2f880cfe1d9bcbdfbc6078cb6b72fd35ce"
+ },
+ "agent": "v5-cc-review-xhigh",
+ "findings": [
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "For a non-seekable stream with an unbounded DataSpec, `bytesRemaining` is set to `C.LengthUnset` (-1), and the `bytesRemaining < 0` guard then throws ArgumentOutOfRangeException. Non-seekable streams can never open on Android. MediaSource.FromStream(networkStream or GZipStream) with CanSeek=false: length = C.LengthUnset, dataSpec.Length = C.LengthUnset, so bytesRemaining = -1, Open throws 'Position 0 exceeds stream length -1', and playback fails with a loader error. The guard needs `bytesRemaining < 0 && bytesRemaining != C.LengthUnset`."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "FillDataRequest makes one `stream.Read` call and then calls FinishLoading. `Stream.Read` may return fewer bytes than requested, so AVFoundation gets a truncated range. Separately, `(int)RequestedLength` overflows for ranges over 2 GB, and the whole range is buffered three times (byte[], the `buffer[..bytesRead]` slice, and NSData). With a FileStream or BufferedStream, Read returns, say, 81920 bytes out of a 5 MB request. Respond sends the partial data, FinishLoading marks the request complete, and AVFoundation decodes garbage or fails. When RequestsAllDataToEndOfResource asks for a 600 MB file, about 1.8 GB is allocated (OOM on iOS). For anything over 2 GB the int cast goes negative and `new byte[]` throws (silently caught). Read in a loop and respond in chunks."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 35,
+   "end_line": 35,
+   "message": "Exceptions in FillDataRequest are caught and logged, and then `loadingRequest.FinishLoading()` is still called. AVFoundation is told the request succeeded with no data, instead of getting FinishLoadingWithError. The app disposes the stream, or a read throws IOException. The catch logs to Debug, FinishLoading() reports success with zero bytes, and AVFoundation stalls or reports a generic 'cannot open' error. MediaFailed never gets the real cause."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "start_line": 381,
+   "end_line": 381,
+   "message": "The StreamDataSourceFactory (a Java.Lang.Object) is disposed before the player's media source is replaced: before `await SetPlayerData`, and again inside CreateMediaItemFromStream. ExoPlayer still holds the Java peer and can call createDataSource on a disposed managed peer. iOS has the same pattern: the resource loader is disposed before ReplaceCurrentItemWithPlayerItem. A stream source is playing with ShouldLoopPlayback=true. The user switches to a UriMediaSource that has MetadataArtworkUrl set. The factory is disposed, then the artwork HTTP download is awaited. Meanwhile ExoPlayer creates the next looping period, which calls createDataSource on the released peer: 'Unable to activate instance of type StreamDataSourceFactory' (crash). Dispose the old factory only after SetMediaSource/SetMediaItem has replaced it."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "start_line": 765,
+   "end_line": 765,
+   "message": "When a StreamMediaSource has a null Stream, SetPlayerData falls through to `return mediaItem` (the stale builder from the previous source). Because the Source is still a StreamMediaSource, the old factory is not disposed, and the old stream is re-prepared through ProgressiveMediaSource. The app sets `streamMediaSource.Stream = null` after disposing its stream to clear playback. PlatformUpdateSource keeps currentStreamDataSourceFactory, builds the stale 'stream://media' item, and calls SetMediaSource. ExoPlayer then reads the disposed stream (ObjectDisposedException, MediaFailed) instead of clearing to None."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 60,
+   "end_line": 60,
+   "message": "For non-seekable streams, the loader reports ContentLength 0 and then serves every data request from the stream's current position, ignoring RequestedOffset. AVFoundation receives bytes that don't match the requested range. AVFoundation probes bytes 0-1, then requests a range near the end (for example the moov atom). A non-seekable stream just returns the next sequential bytes as if they were at that offset, so the asset is corrupt or fails to load. ContentLength=0 also tells AVFoundation the resource is empty."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "start_line": 545,
+   "end_line": 545,
+   "message": "GetStreamContentType returns 'public.mpeg-4' for every non-ftyp stream, so MP3, WAV, FLAC and similar streams get the wrong UTI. It also re-implements, less completely, the shared StreamExtensions.GetMimeType, which is already compiled for iOS and could be mapped to a UTI. MediaSource.FromStream(mp3Stream) on iOS: the content type is reported as public.mpeg-4, AVFoundation picks the MPEG-4 parser, and the item fails with 'Cannot Open'. Also, the finally block restores Position with no try/catch, so an IOException from Read propagates out of PlatformUpdateSource, unlike the guarded shared helper."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.windows.cs",
+   "start_line": 343,
+   "end_line": 343,
+   "message": "`Stream.AsRandomAccessStream()` throws NotSupportedException when the stream is not seekable. Nothing guards or catches this, so it escapes PlatformUpdateSource. MediaSource.FromStream(await httpClient.GetStreamAsync(url)) on Windows: AsRandomAccessStream throws NotSupportedException from the source-changed path, and the app crashes instead of reporting MediaFailed or falling back."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 173,
+   "end_line": 173,
+   "message": "UpdateSourceStream disposes the MemoryStream the MediaElement is still playing before the new copy finishes. The `sourceStream` field is also assigned and re-read across awaits outside the semaphore, so concurrent callers (OnAppearing plus Open or Record Video) interleave. ReleaseSourceStream also calls WaitAsync inside the try, so a failed wait would still Release. The user taps 'Open Video' while the BuckBunny download from OnAppearing is still copying. Both calls release, both assign `sourceStream`, and the first call's `sourceStream.Position = 0` and FromStream(sourceStream) pick up the other call's half-filled stream. Separately, during any copy the player keeps reading the already disposed old stream, which throws ObjectDisposedException in the native reader."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 58,
+   "end_line": 58,
+   "message": "`httpClient.GetStreamAsync` in the async void OnAppearing is outside UpdateSourceStream's try/catch, so any network failure is an unhandled exception in an async void method. The device is offline, or test-videos.co.uk is unreachable or retries are exhausted. GetStreamAsync throws HttpRequestException, async void rethrows it on the SynchronizationContext, and the sample app crashes as soon as the page opens."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "Every StreamDataSource created by the factory seeks and reads the same Stream instance with no locking. ExoPlayer can have more than one period or loader active (looping pre-buffer, seek reload) on different loader threads. With ShouldLoopPlayback, ExoPlayer pre-buffers the next repetition while the current period reloads after a seek. Two loader threads interleave Seek and Read on the same MemoryStream, each gets bytes from the other's offset, and extraction fails or plays corrupted frames."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+   "start_line": 142,
+   "end_line": 142,
+   "message": "A first byte of 0x47 alone classifies a stream as MPEG-TS, and the MP3 frame-sync check `(header[1] & 0xE0) == 0xE0` also matches AAC ADTS headers (FF F1/F9), labeling them audio/mpeg. On Windows, an .aac ADTS stream (FF F1 ...) is passed to MediaSource.CreateFromStream as 'audio/mpeg', so the wrong decoder is chosen and playback fails. Any stream starting with 'G' (0x47), such as a GIF, is labeled video/mp2t. Check the layer bits (== 00 means ADTS), and for TS also check for 0x47 at offset 188."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "GetMimeType makes one `stream.Read(header)` call. Read may legally return fewer than 16 bytes even when more are available, so detection runs on a truncated header. With a BufferedStream or custom seekable stream whose first Read returns 8 bytes of an MP4, the `header.Length >= 12` ftyp check fails and the result is 'application/octet-stream' (or a wrong match). Use `stream.ReadAtLeast(header, header.Length, throwOnEndOfStream: false)`."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "The page is registered as transient and implements IAsyncDisposable. Microsoft.Extensions.DI tracks disposable transients in the resolving (window) scope until that scope is disposed, so every navigation keeps a page instance alive. Each visit to 'MediaElement from Stream' resolves a new page. The window scope holds a reference for disposal, so the page, its MediaElement and its handlers are never collected while the window lives. DisposeAsync only runs at app or window teardown."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "Changing `static readonly HttpClient` to a per-instance field fixes the shared client being disposed by one MediaManager. But every MediaElement now gets its own HttpClient and handler (its own connection pool), when the root-cause fix is to keep the static client and remove `client.Dispose()`. In MediaElement CollectionView or Carousel pages, dozens of MediaManagers each create and dispose an HttpClient for artwork fetches. That means repeated TLS handshakes and socket churn (TIME_WAIT buildup) for no benefit."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 331000
+ }
+}

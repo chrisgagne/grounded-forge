@@ -1,0 +1,20 @@
+{
+ "id": "rd15",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "Remove literal backslashes from the generated binary lookup. In this unquoted heredoc, `\\\"` survives into the generated probe, producing `command -v \\\"jq\\\"` rather than `command -v \"jq\"`. The remote shell therefore searches for a binary whose name includes literal double quotes. Since `jq` is the first manifest entry, every GCE verification fails with `missing_binary:jq`, even for healthy deployments. Emit ordinary double quotes around the binary name instead."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 45,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

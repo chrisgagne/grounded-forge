@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/android",
+  "pr_number": 11084,
+  "base": "e67a3fd36ca5e24b0007a170ea77037e4437f9d3",
+  "head": "ac02d09a29b6492b0e1a01b48f5fcb3efa561a6c"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+   "start_line": 270,
+   "end_line": 270,
+   "message": "_AndroidRunNativeCompile now depends on _PreTrimmingFixLegacyDesignerUpdateItems, but that target is only defined in Microsoft.Android.Sdk.TypeMap.LlvmIr.targets, which is not imported when _AndroidTypeMapImplementation == 'trimmable'. A NativeAOT publish with the trimmable typemap (Trimmable.NativeAOT.targets exists for this) imports Trimmable.targets instead of LlvmIr.targets. MSBuild then fails with MSB4057 because target '_PreTrimmingFixLegacyDesignerUpdateItems' does not exist."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 278,
+   "end_line": 278,
+   "message": "The swap uses any file in obj/prelink whose filename matches, with no check that it came from this build. The task never deletes prelink files for assemblies it no longer modifies. Build once with library Foo 1.0 (has a legacy designer), so prelink/Foo.dll is written. Upgrade to Foo 2.0, which has no legacy designer or is already processed. The task runs again, ProcessAssemblyDesigner returns false and nothing is written, but prelink/Foo.dll from 1.0 still exists. It replaces the 2.0 assembly in ResolvedFileToPublish, so the old library version ships."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 262,
+   "end_line": 262,
+   "message": "FileWrites for the prelink copies comes only from the task's ModifiedAssemblies output, which is empty when the target is skipped by the stamp. In that build the prelink files drop out of FileWrites, and IncrementalClean can delete them while the stamp stays current. Build 1 writes prelink/*.dll and the stamp. In build 2 the target is skipped, so no FileWrites are added and IncrementalClean deletes the prelink files listed in the previous FileListAbsolute. In build 3 the stamp is still up to date, so the target is skipped again and the Exists() swap finds nothing. ILLink gets the unrewritten libraries, which still use the old legacy Resource fields, and the designer is no longer rooted, so resource IDs are wrong at runtime."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 79000
+ }
+}

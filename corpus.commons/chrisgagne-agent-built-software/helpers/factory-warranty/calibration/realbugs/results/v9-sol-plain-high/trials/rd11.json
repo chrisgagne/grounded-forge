@@ -1,0 +1,20 @@
+{
+ "id": "rd11",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 276,
+   "end_line": 279,
+   "message": "A library's previous prelink copy survives when its current version no longer needs rewriting. For example, after upgrading a legacy library to use the shared designer, ProcessAssemblyDesigner returns false without deleting prelink/Library.dll. This target still substitutes that old DLL solely because it exists, silently packaging the previous library version or causing missing-member errors. Remove stale copies when processing inputs, or maintain a current mapping of rewritten assemblies."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 204,
+  "reasoning_effort": "high",
+  "tokens": 107784
+ }
+}

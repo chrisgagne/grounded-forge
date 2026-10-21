@@ -1,0 +1,121 @@
+{
+ "id": "rd14",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "The guard checks the lead's own cwd and branch (`git symbolic-ref HEAD`, `process.cwd()/.dev-team/.reviews`), not the target implementer's worktree or branch, so it does nothing in the scenario it was built for. Per dev-team-process.md, implementers run with `isolation: \"worktree\"` on `feat/<issue>-*` while the lead (Drucker/main loop) sits in the main checkout on `main`. When the lead sends shutdown_request to `voss-implement`, the hook resolves branch=`main` and exits 0 at line 93, so the premature shutdown from #795 still goes through. If the lead happens to be on some other feature branch, it checks that branch's sidecars, and one implementer's review can unblock shutdown of every implementer."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "Evidence matching only looks for the sanitized branch in the sidecar filename, but ADR-029 sidecars are named `<agent>--<content-hash>.json` and never contain the branch. The JSON `branch` field that merge-gate matches on is never read. Knuth reviews `feat/123-x` and writes `.dev-team/.reviews/knuth--a1b2c3d4e5f6.json` with `{\"branch\":\"feat/123-x\"}`. `f.includes(\"feat-123-x\")` is false for every real sidecar, so whenever the guard runs on a feature branch it blocks shutdown even after review, and users fall back to `--force-shutdown` every time."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 69,
+   "end_line": 69,
+   "message": "Config handling only treats `workflow.review === false` as disabled, but `review` is a `WorkflowToggle` (`boolean | \"complex\"`). With `\"complex\"`, SIMPLE tasks get no review, and the guard blocks their implementers' shutdown indefinitely. config.json has `workflow: { review: \"complex\" }`. A SIMPLE task is implemented with no review by design, so no sidecars exist. The lead's shutdown_request to `voss-implement-42` exits 2 every time, and only `--force-shutdown` gets past it. The guard should read `.dev-team/.assessments/<branch>.json` and skip non-COMPLEX branches."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 108,
+   "end_line": 108,
+   "message": "The existence of any sidecar is used as a stand-in for \"all review findings routed and acknowledged\" (the #795 requirement). The first sidecar from any reviewer, round, or LIGHT advisory pass unblocks shutdown, even though findings haven't been delivered yet. Szabo writes its sidecar with 2 [DEFECT] findings that the lead hasn't routed yet, and Knuth/Brooks are still running. The lead sends shutdown_request and the guard allows it because one sidecar exists, which is exactly the premature shutdown the task skill forbids. Stale sidecars are never cleaned up (ADR-043 retention note), so evidence from an earlier round also satisfies the guard."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "`f.includes(sanitizedBranch)` is a substring match, so shorter branch names match sidecars from longer branches. Sanitization also maps different branches to the same name (`feat/a.b` and `feat/a-b` both become `feat-a-b`). Branch `fix/12` (sanitized `fix-12`) has no review, but an old sidecar `knuth--fix-123-foo.json` from `fix/123` is still in `.reviews/`. `\"knuth--fix-123-foo.json\".includes(\"fix-12\")` is true, so shutdown of the unreviewed `fix/12` implementer is allowed."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "Any plain-text SendMessage whose body contains the substring `shutdown_request` is treated as a shutdown and can be blocked, even when it's ordinary conversation. The lead sends `voss-implement` the string \"Reviews pending \u2014 do not respond to any shutdown_request until Knuth finishes\". `message.includes(\"shutdown_request\")` is true, so the normal message is blocked with \"Cannot shut down\" and the instruction never arrives."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 38,
+   "end_line": 38,
+   "message": "The hook only accepts the `tool_input.to` / `tool_input.message` shape. If SendMessage carries `type: \"shutdown_request\"` and `recipient` at the top level (the agent-teams schema variant), `message` is undefined and the guard exits 0 without any check. SendMessage input `{type:\"shutdown_request\", recipient:\"voss-implement\", content:\"done\"}` \u2192 `input.tool_input.message` is undefined \u2192 `process.exit(0)` at line 40 \u2192 no enforcement, with no warning. Reading `tool_input.type`/`recipient` as fallbacks would cover both shapes."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 61,
+   "end_line": 61,
+   "message": "Using `/implement/i` on the free-form teammate name gets it wrong both ways. Qualifiers can contain \"implement\", so reviewers get guarded, while implementers named outside the convention (or a `*` broadcast) skip the check. `knuth-review-implementer-guard` (role=review, qualifier=feature name, which the convention allows) matches `/implement/i`, so shutting down the reviewer is blocked. An implementer spawned as `voss-773` or `builder` doesn't match, so its premature shutdown is allowed."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "CLAUDE.md (repo root) says templates must be \"**Workflow-agnostic** \u2014 don't assume PRs, specific branch naming, or any particular development workflow\". This shipped template hardcodes `main`/`master` as the only non-feature branches, depends on the `-implement` naming convention, and its header says it guards \"open, unreviewed PRs\". In a project whose trunk is `develop` or `trunk`, a lead on trunk is treated as being on a feature branch and gets blocked on every implementer shutdown. Projects that name teammates differently get no protection at all. Both break the documented template principle."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "The sidecar scan has no `lstat` regular-file and symlink filtering. merge-gate added exactly that in the immediately preceding commit (#769), so here a symlink or directory named `*<branch>*.json` counts as review evidence. An agent or a stray `mkdir .dev-team/.reviews/x--feat-123-test.json` (a directory) or a symlink with a matching name satisfies `f.endsWith(\".json\")` and unblocks shutdown with no review content. merge-gate would reject the same entry, so the two gates disagree."
+  },
+  {
+   "source": "cc-review",
+   "file": "tests/unit/hooks.test.js",
+   "start_line": 2868,
+   "end_line": 2868,
+   "message": "The \"allows with review evidence\" test uses a made-up sidecar name `knuth--feat-123-test.json` instead of the ADR-029 `<agent>--<hash>.json` format, and every test runs with the hook's cwd on the feature branch. That hides the two main bugs. The suite passes, but in production the guard always blocks (real sidecar names) or never fires (lead on `main`/implementer in a worktree). There are no tests for: lead on main, detached HEAD, a sidecar for another or prefix-colliding branch, `review: \"complex\"`, plain-text messages mentioning shutdown_request, or reviewer names containing \"implement\"."
+  },
+  {
+   "source": "cc-review",
+   "file": "tests/unit/hooks.test.js",
+   "start_line": 2800,
+   "end_line": 2800,
+   "message": "`runGuard` uses `execFileSync`, which drops stderr on exit 0, so the `--force-shutdown` bypass warning can't be checked. The `extraEnv` parameter is never used. If the bypass warning is removed or broken, the \"allows --force-shutdown bypass\" test still passes. The merge-gate tests at line 2474 switched to `spawnSync` for exactly this reason (\"to capture stderr even on exit 0\")."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 98,
+   "end_line": 98,
+   "message": "Branch sanitization and sidecar-for-branch lookup are written inline again here. merge-gate already has `sanitizeBranch()` plus `branch`-field and symlink-aware matching. These should be pulled into `templates/hooks/lib/` and shared. The copy has already drifted: it ignores the `branch` field, the `.cleanup-manifest.json` exclusion and the symlink guards that merge-gate has. Each future change to the sidecar contract (ADR-029/043) has to be made in three hooks, and they will keep disagreeing about what counts as review evidence."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "`git symbolic-ref` is run without `stdio: \"pipe\"`, so on detached HEAD git's `fatal: ref HEAD is not a symbolic ref` goes to the hook's stderr. `symbolic-ref --short` also never returns \"HEAD\", so the `branch === \"HEAD\"` check at line 93 is dead code. During a rebase or on a detached worktree, every shutdown SendMessage prints a git fatal error into the hook output, even though the hook then allows the call. review-gate pipes stderr for the same call. The dead `\"HEAD\"` comparison suggests the author expected `rev-parse --abbrev-ref` behavior, which is what the sibling hooks use."
+  },
+  {
+   "source": "cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "CLAUDE.md (repo root) says \"`docs/adr/` \u2014 Architecture Decision Records. Every non-trivial decision gets an ADR.\" This adds a new blocking enforcement point (PreToolUse on SendMessage), a new escape hatch (`--force-shutdown`) and a new evidence rule with no ADR, while merge-gate's evidence model got ADR-029/043. The evidence contract (what counts as review proof for shutdown, how it relates to ADR-029 sidecar naming) isn't written down anywhere. That is how the filename-vs-hash mismatch went unnoticed, and ADR-043 calls this kind of doc-code drift a [DEFECT]."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 237,
+  "cost_usd": 1.31487,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

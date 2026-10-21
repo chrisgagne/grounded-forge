@@ -1,0 +1,121 @@
+{
+ "id": "rd07",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "The `ownerName` field was removed from `companyFields`, but `companySchema` (src/lib/schemas.ts:153) still requires `ownerName`. CreationForm's `handleSubmit` therefore always fails validation and returns early. The user opens Add Company, fills in name, address, location and type, then clicks submit. `formData.ownerName` is undefined, so `schema.safeParse` fails and `errors.ownerName` is set. No input renders that error, so `submit` is never dispatched and the user sees nothing happen."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 129,
+   "message": "`prepareForValidation` no longer returns `ownerName`, but it still validates against `companySchema`, which requires `ownerName`. `validateAllFields()` always returns false, and the error is dropped because `ownerName` isn't a config field. The newly editable `description` also has no schema rule. The user clicks Edit on a company, changes the name, and clicks Save Changes. safeParse fails on `ownerName: undefined`. `fieldExistsInConfig('ownerName')` is false, so no error appears, `onSave` is never called, and the sidebar stays in edit mode with no feedback."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "`on:keydown|stopPropagation` on the focusable (`tabindex=0`) `.modal-content` stops keydown from reaching the `<svelte:window on:keydown>` Escape handler. The user opens the location map, then clicks or drags the map to pan. This focuses `.modal-content`, the nearest focusable ancestor. The same happens when tabbing to the close button. Pressing Escape then stops propagation at `.modal-content`, `handleKeydown` never runs, and the modal no longer closes on Escape."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "The API company name goes through `titleCase`, which lowercases everything after the first letter of each word. That changes real names, and the changed value becomes the editable value in the detail sidebar. The backend name 'KSRTC' shows as 'Ksrtc', 'IBM India' as 'Ibm India', and \"McDonald's\" as \"Mcdonald's\". When company save is wired up, `editable.name` (the title-cased value) is sent back, overwriting the original casing even if the user didn't touch the name. Separately, the `titleCase` calls on lines 89\u201390 have no effect because the status/type labels are already title case."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 534,
+   "end_line": 534,
+   "message": "In view mode, the new location branch and the new renderer branch read `data[field.key]`. Every other field reads `getFieldValue(field)`, which comes from `editable`. After a save, the location link reflects the old value, and nested keys aren't supported. The user edits LOCATION to a new `POINT(...)` and clicks Save (`onSave` returns undefined, so the sidebar leaves edit mode). The other fields show the edited values, but 'Click here to view location' still opens the old coordinates. If the location was cleared or changed to non-WKT text, the stale link still shows."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 529,
+   "end_line": 529,
+   "message": "The shared `DynamicDetailSidebar` special-cases any field whose key is `'location'`. The same PR adds a generic view-mode `field.renderer` path that nothing uses. The map link belongs in a renderer (or a `type: 'location'`) set in company-detail.config. Any other entity whose config has a `location` field (for example bus stops or depots, which store WKT locations) silently gets the company map-link UI. Every new display variant would add another key-based branch to shared code instead of using the renderer hook added here."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 181,
+   "end_line": 181,
+   "message": "`parseWKTPoint` uses an unanchored regex `[\\d.\\-]+`. It matches inside `MULTIPOINT(...)`, rejects `+`/exponent forms and `POINT Z`, and accepts junk like `1.2.3` (parseFloat silently truncates it). The codebase already parses WKT with `ol/format/WKT` (MapOL.svelte, openlayers.utils.ts). `MULTIPOINT(76.2 9.9)` is shown as a single point. `POINT Z (76.2 9.9 0)` or a coordinate serialized as `1e-7` falls back to raw text with no map link. `POINT(76.2.5 9.9)` plots at 76.2 with no error."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 198,
+   "end_line": 198,
+   "message": "Open state is tracked three times: `{#if showLocationMap}`, `isOpen`, and the modal's `localOpen` with a sync `$:`. There is also a false\u2192`setTimeout`\u2192true toggle and two separate 100ms `updateSize` timers, none of them cleared. This works around `CompanyLocationMap` reading lat/lon only in `onMount`, so prop changes are ignored. This is extra state and timers to maintain. If the modal is ever kept mounted and given new coordinates, the map keeps showing the old point. A reactive center/feature update in CompanyLocationMap, plus just `{#if}` (no `isOpen`/`localOpen`/setTimeout), would do the same job."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+   "start_line": 24,
+   "end_line": 24,
+   "message": "`providerUrl`/`providerAttribution`/`providerMaxZoom` are never passed by LocationMapModal, so this map always uses OSM. Other maps (MapPreview.svelte:76\u201379) read the user's selected provider from the `tile-providers` store. `escapeHtml` and the source-building logic are copied from MapOL.svelte. A user who picked the Esri satellite or a custom provider sees plain OSM in the company location modal but their chosen provider everywhere else. The copied escape and source code can also drift from MapOL's copy."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "`CircleStyle`, `Fill` and `Stroke` are imported but never used. `@typescript-eslint/no-unused-vars` (ts.configs.recommended in eslint.config.js) reports them as errors. `npm run lint` fails on this new file. The imports also pull unused OpenLayers modules into the component."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/dummy-data.ts",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "The `companies` array was deleted, but `Company` is still in the `import type { ... }` list, so it's now unused. `npm run lint` reports `'Company' is defined but never used` (@typescript-eslint/no-unused-vars), so lint fails."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 58,
+   "end_line": 58,
+   "message": "The status options `['Verified','Under Verification','Suspended']`, the type options `['Private','Government','Other']` (line 69), and the creation-form type options (company/+page.svelte:209) are hardcoded literals. This PR adds `COMPANY_STATUS_LABEL_BY_VALUE`/`COMPANY_TYPE_LABEL_BY_VALUE` for exactly these labels. Three separate copies of the label lists can drift from the backend enum mapping. Renaming a label in constants.ts breaks `COMPANY_*_VALUE_BY_LABEL` lookups for values chosen from the stale lists."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 318,
+   "end_line": 318,
+   "message": "Unlike landmark and executive-account, this page doesn't pass `hasMore={hasNextPage}` and relies on the `totalItems = fetchedCount + 1` workaround. Also, `fetchCompanies` resets `totalItems`/`hasNextPage` to 0/false at the start of each load, so the `{#if totalItems > 0 || hasNextPage}` block unmounts Pagination during every fetch. Each page change or search hides the pagination bar and shows it again after the response arrives, so the layout jumps. The page also doesn't use Pagination's built-in has-more handling that sibling pages use."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 70,
+   "end_line": 70,
+   "message": "The subtitle shows `(longitude, latitude)`, but most people and tools (such as Google Maps) expect `lat, lon`. For Kochi, the modal shows `(76.2673, 9.9312)`. A user who copies that into Google Maps lands in the Indian Ocean or somewhere else instead of the company's location."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 935,
+   "end_line": 935,
+   "message": "The `.location-display` rule is added, but no element uses that class. The Svelte compiler warns 'Unused CSS selector \".location-display\"' and the rule is dead code."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 247,
+  "cost_usd": 1.495836,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

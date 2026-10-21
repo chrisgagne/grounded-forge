@@ -1,0 +1,60 @@
+{
+ "id": "rd05",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "The generated entropy expression calls otherwise() on F.sum(...). PySpark only permits otherwise() on a Column produced by when(), so every pipeline requesting ENTROPY fails when this expression is evaluated. Move the otherwise() inside the sum, onto the conditional expression."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 238,
+   "end_line": 239,
+   "message": "MODE selects the first non-null category after a shuffle without considering its aggregated measurement or share. This can return any category, including the least significant one, and can change between executions. Select the category with the largest aggregated value and define deterministic tie handling."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 102,
+   "end_line": 103,
+   "message": "Categorical values are interpolated directly into double-quoted Python literals, and the resulting aliases are interpolated the same way. Valid allowed_values containing a double quote, newline, or backslash can produce invalid Python or silently change the comparison value. Use Python literal escaping consistently for values, field names, and aliases."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 123,
+   "end_line": 124,
+   "message": "The generator groups by the raw source time column and never applies TimeField.target_granularity. A supported DAILY-to-MONTHLY configuration therefore produces daily aggregates and daily window positions instead of monthly features. Normalize the time column consistently before constructing MOB, Layer 2A, and Layer 2B."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 73,
+   "end_line": 76,
+   "message": "The period axis contains only dates present somewhere in the facts table. If an entire month is absent, row_number() makes the surrounding months consecutive, so PREV_MES reads an older month and rowsBetween() windows span more calendar time than configured. Generate a complete period sequence at the target granularity before assigning MOB."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "start_line": 280,
+   "end_line": 285,
+   "message": "An empty layer3 emits a standalone comma after the mob argument, making the generated script syntactically invalid. This is reachable with a valid operators_override such as {Layer2OutputType.NUMERIC: []} on a numeric-only dataset. Handle an empty feature list explicitly; generate() calls build_layer3() unconditionally."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 56,
+  "reasoning_effort": "none",
+  "tokens": 26922
+ }
+}

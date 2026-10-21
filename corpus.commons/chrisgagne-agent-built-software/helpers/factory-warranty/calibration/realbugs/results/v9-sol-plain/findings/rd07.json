@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v5-sol-plain",
+ "findings": [
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 134,
+   "message": "companySchema still requires ownerName, but prepareForValidation no longer supplies it and the field has been removed. Every sidebar save therefore fails validation, with no visible error because ownerName is absent from the configuration. The creation form has the same problem after removing its ownerName input. Update the shared schema to match the new company fields."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Stopping every keydown event inside the dialog prevents Escape from reaching the window handler. Once focus moves to the close button or dialog, Escape no longer closes the modal. Handle Escape on the dialog itself or allow that event to propagate."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+   "start_line": 112,
+   "end_line": 112,
+   "message": "Removing all map controls also removes OpenLayers' attribution control. This map defaults to OSM tiles and provides no alternative attribution in the modal, so every company map displays OpenStreetMap content without its required contributor credit. Retain the attribution control or render equivalent visible attribution."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 47000
+ }
+}

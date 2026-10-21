@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/FreeRTOS/FreeRTOS-Kernel",
+  "pr_number": 1379,
+  "base": "f1043c49d59944353291654c175852bd17b34f99",
+  "head": "c926adcf6e0be826e3313fc503a92b53a78f8ef8"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "tasks.c",
+   "start_line": 5233,
+   "end_line": 5233,
+   "message": "The new guard in SMP vTaskSwitchContext refuses every context switch while the current task has xPreemptionDisable set. That includes voluntary switches when the task blocks, suspends, or deletes itself, not only preemption. A task calls vTaskPreemptionDisable(NULL) and then vTaskDelay(10), xQueueReceive(q, &x, portMAX_DELAY), vTaskSuspend(NULL), or vTaskDelete(NULL). The TCB is moved to the delayed, suspended, or termination list and portYIELD runs, but vTaskSwitchContext only sets xYieldPendings and returns. The task keeps running while it is no longer in a ready list (it may even be deleted), which corrupts scheduler state. The same happens when another core suspends or deletes it: prvYieldCore at 2324/3239 sends the IPI and the switch is refused."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "tasks.c",
+   "start_line": 5238,
+   "end_line": 5238,
+   "message": "A switch can now be refused after another core's prvYieldCore has set xTaskRunState to taskTASK_SCHEDULED_TO_YIELD. When that happens, the run state is never set back to the core ID. Core 1 calls prvYieldCore(0), for example from vTaskSuspend or a priority change, while core 0's task has preemption disabled. The IPI's vTaskSwitchContext takes the new branch and returns, so the task's xTaskRunState stays at -2. taskTASK_IS_RUNNING() now returns false for a task that is still running. Later prvYieldCore calls skip the IPI because the state is already SCHEDULED_TO_YIELD, and vTaskPreemptionEnable's taskTASK_IS_RUNNING check fails, so the deferred yield is lost."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "tasks.c",
+   "start_line": 5504,
+   "end_line": 5504,
+   "message": "xTaskRemoveFromEventList (and the same change at 3531, 8218 and 8355) now reports 'higher priority task woken' only when xYieldPendings was false beforehand. If a yield is already pending on this core, the ISR is never told to yield. An earlier ISR called vTaskNotifyGiveFromISR(h, NULL), or ignored *pxHigherPriorityTaskWoken. prvYieldForTask set xYieldPendings[core] = pdTRUE but nothing yielded. A later ISR calls xQueueSendFromISR and wakes a higher-priority task on this core. xHigherPriorityTaskWoken stays pdFALSE, portYIELD_FROM_ISR is skipped, and the woken task waits until the next tick. Before this change the ISR yielded immediately. xTaskResumeFromISR and the notify-from-ISR APIs regress the same way."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 75000
+ }
+}

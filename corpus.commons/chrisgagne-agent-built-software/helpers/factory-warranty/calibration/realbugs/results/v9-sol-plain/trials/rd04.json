@@ -1,0 +1,28 @@
+{
+ "id": "rd04",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "tasks.c",
+   "start_line": 5234,
+   "end_line": 5241,
+   "message": "This guard suppresses voluntary and mandatory context switches as well as preemption. A task that calls vTaskPreemptionDisable(NULL) followed by vTaskDelay(), a blocking queue receive, vTaskSuspend(NULL), or vTaskDelete(NULL) now continues executing after being removed from the ready list because vTaskSwitchContext() refuses to switch it out. Explicit taskYIELD() also stops working. Disabling preemption must still allow a task to block, yield, or terminate; handle those switch requests separately rather than rejecting every switch based on xPreemptionDisable."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "tasks.c",
+   "start_line": 8218,
+   "end_line": 8219,
+   "message": "An already-set yield flag can represent a legitimate outstanding scheduling request. For example, one ISR can unblock a task with a NULL wake-output pointer, leaving xYieldPendings true, and a later ISR can unblock another higher-priority task using a wake-output pointer. This new transition check leaves that output false, so the later ISR does not request the needed context switch and execution is delayed until another scheduling opportunity. The same regression affects the other three transition checks, including builds with configUSE_TASK_PREEMPTION_DISABLE disabled. Preserve reporting of outstanding valid yields and filter preemption-disabled cores directly instead of assuming every pre-existing flag is stale."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 37,
+  "reasoning_effort": "none",
+  "tokens": 19527
+ }
+}

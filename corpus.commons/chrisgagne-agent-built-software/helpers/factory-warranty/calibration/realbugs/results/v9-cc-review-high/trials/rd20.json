@@ -1,0 +1,86 @@
+{
+ "id": "rd20",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "parseGitHubUrl matches the branch segment of /tree/<branch>/ but throws it away, so resolveIdentifier always fetches from the repo's default branch. `spm install https://github.com/org/repo/tree/develop/path/to/skill` fetches skillset.yml from `main`. It either 404s or installs the wrong version. The test 'parses GitHub URL with non-main branch' only checks owner, repo and path, so it never catches this."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "safePath uses `resolved.startsWith(baseDir)` with no path separator, so sibling directories that share the prefix get through the traversal check. baseDir is `/tmp/spm/fsd` and a manifest entry resolves to `/tmp/spm/fsd-evil/x`. `startsWith` returns true and the file is written outside the intended directory. Check `resolved === baseDir || resolved.startsWith(baseDir + sep)` instead."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 78,
+   "end_line": 78,
+   "message": "tmpDir is built from `skillset.name`, which comes straight from the remote manifest with no checks, so the base directory used by safePath can itself point anywhere. A manifest with `name: ../../../home/user/.ssh` makes `join(tmpdir(),'spm',name)` resolve outside tmp. safePath then compares against that already-escaped base, so every file write lands in an attacker-chosen directory."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "The '..' traversal check only covers bare-path sources. `./` sources, `@` sources and each `files` entry are joined into paths with no check, and the substring test also rejects legitimate names like `foo..bar`. `source: './../../../other-owner/other-repo/main'` or `files: ['../../x']` passes through. Fetch normalizes the dot segments, so the raw.githubusercontent.com URL can pull files from a different repo. Meanwhile `source: 'skills..v2'` is wrongly rejected. Validate once per path segment (segment === '..') over the final path of every entry."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "The old 'Invalid skill source' error was replaced by a catch-all bare-path fallback, so any malformed source is now silently treated as a repo-root path. A typo like `.claude/skill` (meant `./claude/skill`), an empty string, or `https://example.com/x` is no longer rejected. Downloads then 404 against a path like `https://example.com/x/SKILL.md`, or `''` becomes `/SKILL.md`, and the error message no longer explains the cause."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 6,
+   "end_line": 6,
+   "message": "The regex treats the first segment after /tree/ as the whole branch name, so branches that contain slashes are split wrongly. For `https://github.com/org/repo/tree/feature/new-skill/claude/fsd`, the branch is parsed as `feature` and the path as `new-skill/claude/fsd`, so the wrong skillset.yml path is fetched. A trailing slash or a `?query`/`#hash` also ends up in the path."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/install.ts",
+   "start_line": 78,
+   "end_line": 78,
+   "message": "The download dir `/tmp/spm/<name>` is predictable, shared, never cleaned and never made unique, so stale files build up and other local users can plant symlinks in it. Reinstalling a skillset after a file was removed upstream leaves the old file in tmpDir, and it gets reported and used. On a multi-user Linux host, another user can pre-create `/tmp/spm/fsd/...` as a symlink, and writeFile follows it. Use mkdtemp, or rm the directory before writing."
+  },
+  {
+   "source": "cc-review",
+   "file": ".spmrc.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "A generated project config (`.spmrc.yml`) was committed to the repo root. It looks like a side effect of running the CLI or integration tests, because readConfig() auto-creates it. The repo now ships a machine-specific provider detection result, and running the integration tests (`install`, which calls readConfig) keeps writing into the real repo root instead of a temp directory."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/downloader/download-from-github.ts",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "Every download is decoded with `response.text()` and written back as utf-8, which corrupts any non-text file a skill includes. A skill that ships an image, a zip or another binary asset gets invalid byte sequences replaced with U+FFFD, and the installed file is silently broken. Use `arrayBuffer()` and write a Buffer."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/core/downloader/download-from-github.ts",
+   "start_line": 4,
+   "end_line": 4,
+   "message": "downloadFromGitHub rebuilds the same raw.githubusercontent.com URL-and-fetch logic that fetchSkillset already has, and resolveSkillSource's `@` parsing duplicates parseAtIdentifier. There are two copies of the URL building, error formatting and @owner/repo/path parsing. A fix to one (auth headers, ref encoding, validation) can easily miss the other. fetchSkillset should call downloadFromGitHub, and resolveSkillSource should reuse parseAtIdentifier."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 66,
+  "cost_usd": 0.3879496,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

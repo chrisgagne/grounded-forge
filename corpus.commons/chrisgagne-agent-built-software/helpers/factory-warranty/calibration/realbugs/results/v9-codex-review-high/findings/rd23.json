@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/NIAEFEUP/enei",
+  "pr_number": 194,
+  "base": "a74461de5337f3618effdcdb6f115dccd2f94a15",
+  "head": "0442935c8fe466a2f1115b76240c9ad9df2be1e5"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "Await the registration check before testing its result. `isRegistered` returns a Promise, so negating it always yields `false`. Scanning a participant who is not registered therefore bypasses this rejection and creates a check-in anyway. Await the result before negating it so event registration is actually enforced."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 28,
+   "end_line": 30,
+   "message": "Prevent repeated scans while a check-in is pending. `CredentialScanner` enables repeated detections with `allowMultiple={true}` and `scanDelay={0}`, but this handler posts on every detection until a response closes the dialog. Holding a QR code in view can consequently submit overlapping check-ins: both requests can pass `isCheckedIn`, after which one fails the database uniqueness constraint. Pause scanning or guard submissions while a request is pending."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 315,
+   "message": "Show the scanner independently of staff registration status. This scanner trigger is inside the `!isRegistered` branch. A staff member who is also registered for the event therefore loses the only control that opens the check-in dialog and cannot check in attendees through the page. Move the staff scanner control outside the registration-status condition."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 145000
+ }
+}

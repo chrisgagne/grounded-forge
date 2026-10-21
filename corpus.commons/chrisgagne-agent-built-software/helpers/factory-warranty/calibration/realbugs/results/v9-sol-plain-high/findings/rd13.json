@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 202,
+  "base": "2159a5434ce888127b578ad8b788e550fd3412ce",
+  "head": "7e51d062b3fd69794c941b43f3aa8830a7a1729f"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 514,
+   "end_line": 516,
+   "message": "Story IDs already include the `story-` prefix, so this constructs paths such as `dor-story-story-0028-0004.md` instead of the planner's `dor-story-0028-0004.md`. The missing-file fallback then silently bypasses an existing NOT_READY verdict. Use `dor-{storyId}.md`; the task-breakdown path in Section 1.1c has the same duplicated prefix."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 154,
+   "end_line": 157,
+   "message": "PRE_PLANNED requires standalone architecture, test, implementation, security, and compliance files that x-story-plan does not generate. Its output is the consolidated planning report, task breakdown, per-task plans, and DoR checklist; this change explicitly allows those report sections to satisfy DoR. Consequently, a successfully planned READY story enters HYBRID and repeats planning instead of executing its prepared tasks. Compliance is also conditional elsewhere, so requiring its file prevents PRE_PLANNED for projects without compliance."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 156,
+   "end_line": 158,
+   "message": "No mode matches when all seven artifact types exist but at least one is stale: PRE_PLANNED requires freshness, HYBRID requires missing artifacts, and INLINE requires none. HYBRID also instructs generation of only missing artifacts, contradicting Phase 0's stale-artifact regeneration. Include stale artifacts in HYBRID detection and regeneration so editing a previously planned story produces a defined execution path."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 672,
+   "end_line": 675,
+   "message": "The only task-status write occurs in Phase 8, after implementation, reviews, and PR creation. Neither task loop initializes task entries or persists IN_PROGRESS/DONE, commit SHA, and duration as each task runs. An interruption during implementation therefore leaves no completed-task checkpoint for the new resume workflow to recover. Persist each transition during execution and ensure worktree progress reaches the orchestrator's authoritative checkpoint."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 435,
+   "end_line": 439,
+   "message": "This PRE_PLANNED loop executes every task without reading checkpoint statuses or skipping DONE/SKIPPED tasks. The epic resume section claims lifecycle automatically skips completed tasks, but this execution path provides no such check and does not invoke x-dev-implement's resume logic. A resumed epic consequently repeats completed work even when valid task state is available."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 258,
+   "end_line": 262,
+   "message": "File existence and passing component tests do not establish that this task is complete. On an initial run against an existing class, this skips pending tasks that add new behavior or tests; later security-verification and refactoring tasks targeting the same component are skipped too. Consult the task's checkpoint status and validate its specific DoD before skipping, rather than treating any green component as DONE."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 517,
+   "end_line": 519,
+   "message": "The supported inline DoR format emitted by x-story-plan Phase 5.3 has a Header verdict and a Summary verdict, but no `## Final Verdict` section. When templates are unavailable, this consumer cannot read either verdict according to its instructions and defines no handling for the missing section. Align the producer and consumer formats or support both verdict locations so the fallback still enforces NOT_READY."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 78,
+   "end_line": 82,
+   "message": "The resolved EPIC_DIR is not propagated through the workflow. Phase 0.5 still checks `plans/epic-XXXX/story-XXXX-YYYY.md` and aborts when it is absent, while Phase 4 still directs output into the unsuffixed directory. For a supported directory such as `plans/epic-0019-workflow-quality-gates`, resolution succeeds but execution immediately fails or writes artifacts elsewhere. Use EPIC_DIR consistently in subsequent checks, reads, and writes."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "java/src/test/resources/golden/java-quarkus/.claude/skills/x-dev-lifecycle/SKILL.md",
+   "start_line": 136,
+   "end_line": 138,
+   "message": "Only this lifecycle golden was refreshed. The changed epic-implement and implement sections are absent from all 17 profiles' corresponding golden files, and the lifecycle changes are absent from the other 16 profiles. GoldenFileTest compares generated content byte-for-byte during Maven verify, so the required verification suite will fail. Regenerate all affected profile and platform fixtures before merging."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 187000
+ }
+}

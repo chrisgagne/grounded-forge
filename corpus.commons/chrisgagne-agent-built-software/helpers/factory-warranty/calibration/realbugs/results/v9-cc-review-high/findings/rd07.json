@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v5-cc-review-high",
+ "findings": [
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 129,
+   "message": "prepareForValidation no longer emits ownerName, but companySchema (schemas.ts:153) still requires it, so validation always fails and the error maps to no visible field. User edits a company in the detail sidebar and clicks Save \u2192 safeParse fails on ownerName ('Owner name is required'), fieldExistsInConfig('ownerName') is false so no error is shown, validateAllFields returns false, and onSave is never called. Save silently does nothing."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "The ownerName field was removed from companyFields, but CreationForm is still given companySchema, which requires ownerName. User fills in name/address/location/type and submits \u2192 schema.safeParse(formData) fails with errors.ownerName, there is no input to show it on, and handleSubmit returns early. The form can never be submitted."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "on:keydown|stopPropagation on .modal-content stops keydown from reaching the <svelte:window> Escape handler whenever focus is inside the dialog. User clicks the map or tabs to the close button (focus moves into the tabindex=0 dialog) and presses Escape \u2192 the event is stopped at modal-content, handleKeydown never runs, and the modal stays open."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 529,
+   "end_line": 529,
+   "message": "View mode for location reads data[field.key], while every other field reads the editable copy through getFieldValue, so the location shown after a save is stale. User edits location to a new POINT and saves (isEditing=false, editable updated) \u2192 other fields show the new values, but the location link/map still opens the old coordinates from `data` until the parent refreshes. If the old value was empty, the link stays hidden."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "Company names from the API are passed through titleCase, which lowercases everything after the first letter of each word, so displayed (and later edited/saved) names no longer match the backend. Backend name 'KSRTC' or 'ABC Pvt. Ltd' displays as 'Ksrtc' / 'Abc Pvt. Ltd'. The detail sidebar seeds `editable` from this value, so saving any edit writes the mangled name back to the server."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 529,
+   "end_line": 529,
+   "message": "The shared DynamicDetailSidebar now special-cases field.key === 'location' for every entity, even though this same diff adds a view-mode `field.renderer` path (and widens DetailFieldRenderer) that no config uses. Any other entity with a field keyed 'location' (e.g. a future bus stop or depot config) silently gets the company map-link UI. The new renderer branch is dead code. The company config should set `renderer: LocationField` and the key check should be dropped."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 179,
+   "end_line": 179,
+   "message": "parseWKTPoint re-implements WKT parsing with a loose regex, while the codebase already parses WKT everywhere with ol/format/WKT (MapOL.svelte, openlayers.utils.ts). The regex accepts malformed numbers like '1.2.3' or '--5' (parseFloat silently truncates them) and rejects valid WKT such as 'POINT Z (...)' or exponent notation. Using `new WKT().readGeometry(...)` from the existing utilities avoids keeping a second parser in sync."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "createSource and escapeHtml are copy-pasted from MapOL.svelte, and the copy drops `crossOrigin: 'anonymous'`. Two tile-source factories now have to be kept in sync. Custom XYZ providers behave differently in this map than in MapOL (no CORS mode \u2192 tainted canvas). These should be extracted into openlayers.utils.ts and shared."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 15,
+   "end_line": 15,
+   "message": "The parent already gates the modal with {#if showLocationMap}, so the localOpen/isOpen sync, openLocationMap's false\u2192setTimeout\u2192true toggle, and the duplicate 100ms updateSize timers (modal + CompanyLocationMap) are redundant. CircleStyle/Fill/Stroke imports and the .location-display CSS are unused. Extra state and timers make open/close behavior harder to reason about: three async hops just to show a modal. Svelte also emits unused-selector warnings, and the unused OL modules add bundle noise. Setting showLocationMap = true directly and rendering on `{#if}` alone does the same job."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 57,
+   "end_line": 57,
+   "message": "fetchCompanies duplicates the requestId/hasNextPage/totalItems/empty-page-retry logic from landmark, executive-role and executive-account pages almost line for line, but this copy omits `hasMore={hasNextPage}` on Pagination. There are now four copies of the same pagination state machine, and they are already drifting (company passes no hasMore and relies only on the +1 totalItems hack). A shared paginated-fetch helper would keep a bug fix in one place from being missed in the others."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 100000
+ }
+}

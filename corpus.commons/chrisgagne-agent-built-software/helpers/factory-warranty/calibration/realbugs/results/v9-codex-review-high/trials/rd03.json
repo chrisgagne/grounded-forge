@@ -1,0 +1,20 @@
+{
+ "id": "rd03",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 34,
+   "message": "Apply rotation in the active rendering paths. The application registers `createDomRendererPlugin()` and `createGpuRendererPlugin()`, neither of which uses this deprecated `ShapeLayer`. `DomShapeLayer` and the GPU pipelines still render shapes without rotation, while the updated plugins now inverse-rotate hit-test points. Consequently, a non-square shape with nonzero rotation is displayed in one position but selectable in another. Update the active renderers too, or route rotated shapes through a rotation-capable fallback."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 109,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

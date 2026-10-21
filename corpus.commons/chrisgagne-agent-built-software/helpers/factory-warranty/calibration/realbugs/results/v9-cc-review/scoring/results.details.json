@@ -1,0 +1,2046 @@
+[
+  {
+    "pr_key": "CommunityToolkit_Maui_3181-1e8d2e2f",
+    "candidate_findings": [
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+        "start_line": 51,
+        "end_line": 51,
+        "message": "FillDataRequest casts RequestedLength to int and allocates one buffer for the whole range. Any exception is swallowed, and FinishLoading() still reports success. AVFoundation often sets RequestsAllDataToEndOfResource and asks for the full remaining length. For a 1.5 GB stream that means a 1.5 GB managed array; above 2 GB the cast goes negative and `new byte[]` throws. The exception is caught, FinishLoading() is called with no data, and playback stalls or fails silently instead of getting FinishLoadingWithError. Data should be served in chunks, and errors should go through FinishLoadingWithError.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2,
+          31
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.windows.cs",
+        "start_line": 343,
+        "end_line": 343,
+        "message": "Stream.AsRandomAccessStream() throws NotSupportedException when the stream is not seekable, and nothing guards or catches it. A user sets `Source = MediaSource.FromStream(httpResponseStream)` (or any network/pipe stream with CanSeek == false). PlatformUpdateSource throws NotSupportedException, so the app crashes or the element is left stuck in the Opening state.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+        "start_line": 765,
+        "end_line": 765,
+        "message": "When the StreamMediaSource's Stream is null, SetPlayerData falls through and returns the stale `mediaItem` field. currentStreamDataSourceFactory is not cleared because the source is still a StreamMediaSource, so the old stream is set up again. A user plays a stream, then sets `streamMediaSource.Stream = null` (or swaps in a new StreamMediaSource with a null Stream). The old MediaItem and old factory are reused, and the previous stream starts playing again instead of the player being cleared.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+        "start_line": 54,
+        "end_line": 54,
+        "message": "For a non-seekable stream, Open(position 0) does not reset anything and reports success. ExoPlayer then reads from wherever the stream was left, not from the start. A non-seekable stream plays to the end, then the user replays it (SeekTo(0), or RepeatMode on), or ExoPlayer retries a load after an error. Open is called again at position 0, the check passes, and Read hits EOF right away or returns mid-file bytes. Playback ends immediately or the extractor fails.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+        "start_line": 507,
+        "end_line": 507,
+        "message": "GetStreamContentType only recognizes ftyp/qt. Every other format (MP3, WAV, FLAC, etc.) gets the public.mpeg-4 UTI, even though the PR adds a full sniffer (StreamExtensions.GetMimeType) that only Windows uses. An MP3 or WAV stream on iOS/macOS reports ContentType 'public.mpeg-4' to AVFoundation, which tries to parse it as MP4 and fails, so the item errors out. The same stream plays fine on Windows.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+        "start_line": 142,
+        "end_line": 142,
+        "message": "The MPEG-TS check only tests header[0] == 0x47 ('G'), so any stream starting with that byte is labeled video/mp2t. A stream whose first byte happens to be 0x47 (for example data beginning with 'G') is passed to WinMediaSource.CreateFromStream as video/mp2t. Media Foundation picks the wrong source and fails. The check should also confirm the 0x47 sync byte repeats at offset 188.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "ComposioHQ_agent-orchestrator_1277-76652c7c",
+    "candidate_findings": [
+      {
+        "file": "packages/cli/src/commands/update.ts",
+        "start_line": 85,
+        "end_line": 85,
+        "message": "When install method is 'git' (a source checkout with .git) but the bundled ao-update.sh can't be found, the code falls back to `npm install -g @aoagents/ao@latest`, which installs a separate global package next to the user's npm-linked source checkout. A developer builds the CLI with plain `tsc` (skipping `cp -r src/assets dist/`), so dist/assets/scripts/ao-update.sh is missing. `ao update` then says 'using package-manager update flow' and offers or runs `npm install -g @aoagents/ao@latest`. That global package takes over or conflicts with the linked source launcher, and the checkout itself is never updated (no git pull or rebuild). It should fail with an error like 'rebuild the CLI' instead.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/cli/src/lib/update-check.ts",
+        "start_line": 93,
+        "end_line": 93,
+        "message": "classifyInstallPath used to require both scripts/ao-update.sh and .git. Now it returns 'git' whenever any `.git` exists four directories above the module, so an unrelated parent git repo is treated as an AO source checkout. The CLI is extracted or built outside node_modules, e.g. /home/u/work/tools/cli/dist/lib, inside a user repo /home/u/work that has .git. It is classified as 'git', and `ao update` runs ao-update.sh with AO_REPO_ROOT pointing at that unrelated repo. The script does `cd $REPO_ROOT` and runs git fetch, pnpm install and build there. Before this change it returned 'unknown'.",
+        "status": "matched_tp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+        "start_line": 31,
+        "end_line": 31,
+        "message": "The scripts moved from <repo>/scripts to packages/cli/src/assets/scripts (and dist/assets/scripts), but the default `REPO_ROOT=$(dirname BASH_SOURCE)/..` was not updated. It now resolves to packages/cli/src/assets instead of the repo or package root (ao-update.sh line 43 has the same problem). Running `bash packages/cli/src/assets/scripts/ao-doctor.sh` directly, without AO_REPO_ROOT, as the docs/design notes still describe for scripts/ao-doctor.sh: REPO_ROOT becomes .../src/assets, layout detection picks source-checkout, and node_modules, launcher and runtime checks all fail falsely. Running ao-update.sh directly would `cd` into the assets dir and run git and pnpm there.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "EdV4H_usketch_534-719aa834",
+    "candidate_findings": [
+      {
+        "file": "apps/server/src/rooms/yjs-sync.ts",
+        "start_line": 67,
+        "end_line": 67,
+        "message": "`saveScheduled` is now reset in `finally` after `storage.put` finishes, not before the snapshot is taken, so updates pushed while the put is in flight call `scheduleSave()`, hit the guard, and are dropped. The timer fires and snapshots `updates`, then awaits `storage.put`. During that await a client sends an update: `pushUpdate` adds it and `scheduleSave()` returns early because `saveScheduled` is still true. The put then resolves and the flag clears without scheduling another save. If no more edits come in before the Durable Object is evicted, that last update never reaches storage and is lost on reload. The old code cleared the flag before taking the snapshot, so this did not happen.",
+        "status": "matched_tp",
+        "matched_golden_index": 12,
+        "covered_golden_indices": [
+          12
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "apps/server/src/rooms/partition-manager.ts",
+        "start_line": 56,
+        "end_line": 56,
+        "message": "The new per-partition debounce has the same gap: `saveScheduled` for a partition is cleared only after `storage.put` resolves, so updates tracked during the write are never saved. `trackUpdate` runs while the 5s timer's `storage.put` for `yjs_updates:<partition>` is pending. The payload goes into `partitionUpdates`, but `schedulePartitionSave` returns early. Once the put finishes, nothing schedules another save, so the stored partition is missing the trailing updates until some later edit lands in that same partition.",
+        "status": "matched_tp",
+        "matched_golden_index": 13,
+        "covered_golden_indices": [
+          13
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "FreeRTOS_FreeRTOS-Kernel_1379-c926adcf",
+    "candidate_findings": [
+      {
+        "file": "tasks.c",
+        "start_line": 5233,
+        "end_line": 5233,
+        "message": "The new guard in SMP vTaskSwitchContext refuses every context switch while the current task has xPreemptionDisable set. That includes voluntary switches when the task blocks, suspends, or deletes itself, not only preemption. A task calls vTaskPreemptionDisable(NULL) and then vTaskDelay(10), xQueueReceive(q, &x, portMAX_DELAY), vTaskSuspend(NULL), or vTaskDelete(NULL). The TCB is moved to the delayed, suspended, or termination list and portYIELD runs, but vTaskSwitchContext only sets xYieldPendings and returns. The task keeps running while it is no longer in a ready list (it may even be deleted), which corrupts scheduler state. The same happens when another core suspends or deletes it: prvYieldCore at 2324/3239 sends the IPI and the switch is refused.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tasks.c",
+        "start_line": 5238,
+        "end_line": 5238,
+        "message": "A switch can now be refused after another core's prvYieldCore has set xTaskRunState to taskTASK_SCHEDULED_TO_YIELD. When that happens, the run state is never set back to the core ID. Core 1 calls prvYieldCore(0), for example from vTaskSuspend or a priority change, while core 0's task has preemption disabled. The IPI's vTaskSwitchContext takes the new branch and returns, so the task's xTaskRunState stays at -2. taskTASK_IS_RUNNING() now returns false for a task that is still running. Later prvYieldCore calls skip the IPI because the state is already SCHEDULED_TO_YIELD, and vTaskPreemptionEnable's taskTASK_IS_RUNNING check fails, so the deferred yield is lost.",
+        "status": "matched_fp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "performance",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "performance"
+      },
+      {
+        "file": "tasks.c",
+        "start_line": 5504,
+        "end_line": 5504,
+        "message": "xTaskRemoveFromEventList (and the same change at 3531, 8218 and 8355) now reports 'higher priority task woken' only when xYieldPendings was false beforehand. If a yield is already pending on this core, the ISR is never told to yield. An earlier ISR called vTaskNotifyGiveFromISR(h, NULL), or ignored *pxHigherPriorityTaskWoken. prvYieldForTask set xYieldPendings[core] = pdTRUE but nothing yielded. A later ISR calls xQueueSendFromISR and wakes a higher-priority task on this core. xHigherPriorityTaskWoken stays pdFALSE, portYIELD_FROM_ISR is skipped, and the woken task waits until the next tick. Before this change the ISR yielded immediately. xTaskResumeFromISR and the notify-from-ISR APIs regress the same way.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "Mirkiux_featkit_17-de0187b0",
+    "candidate_findings": [
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 232,
+        "end_line": 232,
+        "message": "The ENTROPY expression is `F.sum(F.when(...)).otherwise(...)`, which calls `.otherwise()` on an aggregate column instead of on the `when` column. If a pipeline has any ENTROPY distributional column, the generated script raises a PySpark error at runtime: \"otherwise() can only be applied on a Column previously generated by when()\". Layer 2B never gets built.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 284,
+        "end_line": 284,
+        "message": "build_layer3 always emits `{feat_list},`. When pipeline.layer3 is empty, the generated select contains a bare `,` line, which is a SyntaxError. build_final_join explicitly allows an empty layer3, but this method doesn't handle it. If TemporalSpaceBuilder returns no features (for example, operators_override filters every operator out), the generated script contains `\"mob\",\\n,\\n)`. The whole script then fails to compile. The same thing happens in build_layer2a when layer2a is empty (`.agg(\\n,\\n)`).",
+        "status": "matched_tp",
+        "matched_golden_index": 6,
+        "covered_golden_indices": [
+          6,
+          29
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 238,
+        "end_line": 238,
+        "message": "MODE is generated as `F.first(cat_col, ignorenulls=True)`, which returns an arbitrary category that depends on row order. It does not return the category with the largest aggregated value. Take an entity-period where category A has a value of 100 and category B has a value of 1. Depending on partition order, MODE can return B. The result is wrong and also differs from run to run.",
+        "status": "matched_fp",
+        "matched_golden_index": 23,
+        "covered_golden_indices": [
+          23,
+          28
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 331,
+        "end_line": 331,
+        "message": "CREC is a windowed operator (window_size is required), but the generated expression always uses lag 1 over base_window and ignores `w`. CREC features with window_size 3 and 6 produce the same values under different column names. Growth over the requested window is never computed.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 317,
+        "end_line": 317,
+        "message": "Several operators reuse another operator's code: PROM_P is identical to PROM_U, SUM_P to SUM_U, XM to FREQ, and RATIO to SUM_U. The distinct semantics these operators exist for are lost. If a pipeline requests both PROM_U_3 and PROM_P_3 (or RATIO on composed windows), the output columns are numerically identical, so the features are silently wrong.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2,
+          8,
+          12
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "NIAEFEUP_enei_194-0442935c",
+    "candidate_findings": [
+      {
+        "file": "apps/website/app/controllers/events_controller.ts",
+        "start_line": 106,
+        "end_line": 106,
+        "message": "`this.eventService.isRegistered(...)` is async but is called without `await`, so `!promise` is always false and the registration check never rejects anyone. A staff member scans the QR code of a participant who never registered for the event. The guard is skipped, `checkin` attaches the row, and an unregistered participant ends up checked in.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+        "start_line": 18,
+        "end_line": 18,
+        "message": "`if (!isOpen) return null;` runs before `useTuyau()`/`useForm()`, so the number of hooks changes between renders. The page always renders the dialog for staff. On first render isOpen=false and no hooks run. When the staff member clicks the QR icon, isOpen becomes true and useForm's internal useState runs, so React throws 'Rendered more hooks than during the previous render' and the page crashes.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "apps/website/app/controllers/events_controller.ts",
+        "start_line": 104,
+        "end_line": 104,
+        "message": "`User.findBy(\"participantProfileId\", ...)` can return null, but the result is used with `user!` straight away (`user.id` in isCheckedIn/checkin). If a participant profile exists without a linked user (an orphan profile, or a slug from another profile type), `user.id` throws a TypeError and the request returns a 500 instead of a flash error.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "apps/website/inertia/pages/events/show/page.tsx",
+        "start_line": 313,
+        "end_line": 313,
+        "message": "The staff QR scanner button sits inside the `{!isRegistered && ...}` block, so it only shows when the *viewing* staff user is not registered for the event. A staff user who is also registered for the event (isRegistered=true) opens the event page. The QR icon never renders and they cannot run check-in for that event.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "apps/website/inertia/components/credentials/scanner.tsx",
+        "start_line": 19,
+        "end_line": 19,
+        "message": "The scanner uses `allowMultiple` with `scanDelay={0}`, and each detection posts a check-in. Server-side the isCheckedIn-then-attach sequence isn't atomic, and the unique (event_id,user_id) constraint makes the losing request fail. A QR code held in front of the camera fires onScan several times within milliseconds. Two requests both pass `isCheckedIn` and both call attach. The second hits the unique constraint and returns a 500, and the staff member sees an error toast even though the check-in worked.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "apps/website/database/seeders/mock_staff_profile_seeder.ts",
+        "start_line": 7,
+        "end_line": 7,
+        "message": "This unconditional seeder runs on every `db:seed`. It calls `User.findOrFail(1)` and turns that user into staff with no department. On a fresh database where no user with id 1 exists yet (depending on seeder order), `db:seed` aborts with E_ROW_NOT_FOUND. Otherwise it silently gives staff privileges to whichever account has id 1.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "NightHawkATL_ntp-dashboard_96-23782271",
+    "candidate_findings": [
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 31,
+        "end_line": 31,
+        "message": "The 'Resolve source workflow run ID' step defines `env:` twice; GitHub Actions rejects duplicate mapping keys, so the whole workflow file fails to load. On any workflow_run completion or manual dispatch, GitHub reports an invalid workflow file ('env' is already defined) and no job runs, so no remediation issue is ever created.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 94,
+        "end_line": 94,
+        "message": "The run script has two `else` branches (the old fallback and the new same-week one), which is a bash syntax error. Bash parses the whole `if` before running any of it, so every path fails. Even the workflow_run path (`elif`) never runs. Bash fails with `syntax error near unexpected token else`, the step fails, and the run ID is never set.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 42,
+        "end_line": 42,
+        "message": "Inside the `if` branches, the heredoc body and the `PY` terminator are indented 2 spaces past the block's base indentation. YAML keeps those spaces, so `<<'PY'` never finds a terminator at column 0, and the Python code starts with an unexpected indent. Even with the duplicate `else` fixed, manual dispatch without run_id either swallows the rest of the script into the heredoc or fails with a Python IndentationError, so the fallback lookup never works.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 322,
+        "end_line": 322,
+        "message": "The issue step only runs when has_recommendations == 'true'. If a later scan has no fixable packages, the existing open issue is never updated or closed and keeps listing outdated recommendations. Week 1 creates an issue listing openssl -> 3.x. Week 2 is clean, so the step is skipped and the issue still tells maintainers to upgrade packages that are already fixed.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 208,
+        "end_line": 208,
+        "message": "urllib follows the 302 from archive_download_url to blob storage and forwards the `Authorization: Bearer` header. Signed blob URLs commonly reject requests that also carry an Authorization header. The artifact download gets 400/403 AuthenticationFailed from the storage host after the redirect, and the step fails before building the report.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "security"
+      },
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 37,
+        "end_line": 37,
+        "message": "`${{ inputs.run_id }}` is pasted straight into the bash script, so a crafted dispatch input can run arbitrary shell commands in a job holding an issues:write token. A dispatcher passes run_id `1\"; curl ... $GH_TOKEN; echo \"` and the command runs with the token in the environment. It should go through an env var and be checked as numeric.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "security"
+      },
+      {
+        "file": ".github/workflows/grype-remediation-suggestions.yml",
+        "start_line": 23,
+        "end_line": 23,
+        "message": "The workflow_run trigger accepts successful weekly-scan runs from any branch, but the fallback logic and the issue text assume pre-update-release. A successful scan run on a feature branch or PR overwrites the tracking issue with that branch's results.",
+        "status": "novel_fp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "fp",
+        "classifier_severity": "low",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "Nixbug_entebus-web-executive_120-630b29d5",
+    "candidate_findings": [
+      {
+        "file": "src/lib/configs/company-detail.config.ts",
+        "start_line": 750,
+        "end_line": 750,
+        "message": "prepareForValidation no longer sends ownerName, but companySchema (src/lib/schemas.ts:153) still has ownerName as a required cleanString field, so every edit save fails validation. The user opens a company, clicks Edit, changes the name and saves. safeParse returns 'Owner name is required' for ownerName. No field in the config maps to ownerName, so the error appears nowhere and the save is silently blocked every time.",
+        "status": "matched_tp",
+        "matched_golden_index": 22,
+        "covered_golden_indices": [
+          22,
+          28
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/routes/company/+page.svelte",
+        "start_line": 190,
+        "end_line": 190,
+        "message": "The ownerName input was removed from companyFields, but ModalForm still validates against companySchema, which requires ownerName, so the create form can never pass validation. The user fills in Name, Address, Location and Type and clicks submit. CreationForm.handleSubmit runs schema.safeParse(formData), gets an ownerName error, sets errors.ownerName (no input renders it) and returns. Nothing visible happens and the form never submits.",
+        "status": "matched_tp",
+        "matched_golden_index": 27,
+        "covered_golden_indices": [
+          27
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "Waferguard_waferguard-ml_17-62d4f66f",
+    "candidate_findings": [
+      {
+        "file": "wafer_images/waferguard_financial_impact.ipynb",
+        "start_line": 274,
+        "end_line": 274,
+        "message": "The notebook calls `wg_fin.run_inference(...)` and `wg_fin.load_artifacts(...)`, but `financial_impact/financial.py` defines neither, and nothing else in the repo does either. On a fresh run, `load_artifacts` raises AttributeError, which the try/except swallows. The fallback branch then calls `wg_fin.run_inference`, which raises AttributeError and is re-raised, so the pipeline cell always crashes and no reports are produced. The committed output came from a module version that isn't in this PR.",
+        "status": "matched_tp",
+        "matched_golden_index": 6,
+        "covered_golden_indices": [
+          6
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "financial_impact/financial.py",
+        "start_line": 227,
+        "end_line": 227,
+        "message": "`compute_financials` accepts a `financial_params` override but never uses it: `get_params` always reads the module-level `FINANCIAL_PARAMS`. A caller (e.g. the Streamlit app) passes custom repair/yield parameters to model a different fab. They are silently ignored and the report is computed with the defaults, so the dollar figures are wrong.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "wafer_images/waferguard_financial_impact.ipynb",
+        "start_line": 178,
+        "end_line": 178,
+        "message": "`repo_root` is hardcoded to `/Users/<author>/...`, and `from financial_impact import financial` runs before that path is added to `sys.path`. Any other developer, or a kernel started in `wafer_images/`, gets ModuleNotFoundError on the import. Even if the import works, the dataset and model paths point at another user's home directory, so they fail with FileNotFoundError.",
+        "status": "matched_tp",
+        "matched_golden_index": 7,
+        "covered_golden_indices": [
+          7,
+          19,
+          23
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "maintainability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "maintainability"
+      },
+      {
+        "file": "financial_impact/financial.py",
+        "start_line": 272,
+        "end_line": 272,
+        "message": "When `df_batch` is empty, `rows` is empty and `pd.DataFrame([]).sort_values(\"priority_score\")` raises KeyError before the later `if not df_financial.empty` guards are reached. An empty upload or batch (zero wafers) goes through `build_batch_df` (which returns an empty DataFrame) and then `compute_financials`. It crashes with KeyError: 'priority_score' instead of returning the zero summary the guards were written to produce.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "financial_impact/financial.py",
+        "start_line": 156,
+        "end_line": 156,
+        "message": "`decode_labels` maps any class ID missing from `id_to_binary` to \"00000000\" (Normal). If the mapping is empty or misaligned (e.g. the artifacts branch uses `artifacts.get(\"id_to_binary\", {})`), every defective wafer is counted as Normal. The report then shows a 0% defect rate and $0 loss instead of raising an error.",
+        "status": "matched_fp",
+        "matched_golden_index": 15,
+        "covered_golden_indices": [
+          15
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "capawesome-team_cli_126-2d997db6",
+    "candidate_findings": [
+      {
+        "file": "src/commands/apps/destinations/create.ts",
+        "start_line": 245,
+        "end_line": 245,
+        "message": "`appleApiKeyId` is a local initialized to undefined and is never exposed as a CLI option, so the `if (!appleApiKeyId)` check always fires and API-key authentication cannot work in non-interactive mode. In CI, `apps:destinations:create --platform ios --apple-api-key-file key.p8 --apple-issuer-id X --apple-team-id T ...` uploads the .p8 file, then always exits with 'You must provide the Apple API Key ID…'. The error message even tells users to pass only --apple-api-key-file and --apple-issuer-id, which can never succeed. The uploaded key is left orphaned on the server.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/commands/apps/destinations/create.ts",
+        "start_line": 230,
+        "end_line": 230,
+        "message": "The Apple API key file (and likewise the Google service account key at line 177) is uploaded right after its path is collected, before the remaining required fields are validated or the destination is created. If any later required field is missing (key ID, issuer ID, team ID in non-interactive mode, or the user cancels or leaves a prompt empty), or the destination POST fails, the process exits after the key was already uploaded. This leaves orphaned credential records. Each retry uploads another copy.",
+        "status": "matched_tp",
+        "matched_golden_index": 24,
+        "covered_golden_indices": [
+          24,
+          25,
+          37,
+          38
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/commands/apps/certificates/create.ts",
+        "start_line": 160,
+        "end_line": 160,
+        "message": "Provisioning profiles are uploaded and persisted before the certificate is created, and nothing cleans them up if the certificate creation fails. A wrong `--password` for a .p12 makes the server reject the certificate POST. The provisioning profiles uploaded just before it stay on the server with no linked certificate. Re-running uploads duplicates.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/commands/apps/certificates/create.ts",
+        "start_line": 125,
+        "end_line": 125,
+        "message": "The certificate password, key password, and Apple app-specific password (destinations/create.ts:293) are read with `type: 'text'` prompts, so the secrets are shown in plain text on the terminal. When a user types the keystore password interactively, it appears on screen and in any terminal recording or screen share, as well as in the scrollback.",
+        "status": "matched_fp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "medium",
+        "result_category": "security"
+      }
+    ]
+  },
+  {
+    "pr_key": "davidortinau_SentenceStudio_72-8941b5da",
+    "candidate_findings": [
+      {
+        "file": "src/SentenceStudio.Web/Program.cs",
+        "start_line": 52,
+        "end_line": 52,
+        "message": "UseAuthentication/UseAuthorization are added, but UseCoreSyncHttpServer is plain middleware with no authorization metadata, and the 'RequireSyncReadWrite' policy is never applied, so the sync endpoints stay anonymous even with Auth:UseEntraId=true. With Entra ID enabled, a client that sends no Authorization header (or an invalid one) to the CoreSync HTTP endpoints still gets a 200 and can pull or push the whole database. UseAuthorization only enforces on endpoints that carry [Authorize] or RequireAuthorization metadata, and middleware has neither, so the bearer token the MAUI client now sends is never actually checked.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "src/SentenceStudio.Api/Program.cs",
+        "start_line": 30,
+        "end_line": 30,
+        "message": "Auth:UseEntraId is only set in appsettings.Development.json and there is no base appsettings.json, so GetValue<bool> returns false in Production/Staging and every request is auto-authenticated as dev-user/dev-tenant. If the API is deployed with ASPNETCORE_ENVIRONMENT=Production and nobody sets Auth__UseEntraId, the app falls back to DevAuthHandler. Anonymous callers then pass every RequireAuthorization() check and can use the AI and speech endpoints. AppHost also hard-codes Auth__UseEntraId=false for every environment. Missing configuration should fail closed, not open.",
+        "status": "matched_tp",
+        "matched_golden_index": 21,
+        "covered_golden_indices": [
+          21
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "security"
+      },
+      {
+        "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+        "start_line": 24,
+        "end_line": 24,
+        "message": "Microsoft.Identity.Web/JwtBearer maps inbound claims by default, so 'tid' and 'oid' arrive as the long schemas.microsoft.com URIs. FindFirstValue(\"tid\") then returns null, and the fallbacks return null for tenant or the pairwise 'sub' (mapped to NameIdentifier) for user. With a real Entra token and UseEntraId=true, TenantContext.TenantId is null, and UserId comes from 'sub' instead of 'oid', so it won't match the IDs used elsewhere. The tests miss this because TestJwtGenerator also adds 'tenant_id' and NameIdentifier claims and uses a plain JwtBearer handler. Use Identity.Web's GetTenantId()/GetObjectId() helpers, or check the ClaimConstants.TenantId/ObjectId URIs.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/SentenceStudio.Api/Program.cs",
+        "start_line": 37,
+        "end_line": 37,
+        "message": "The scope policies RequireUserRead, RequireAiAccess and RequireSyncReadWrite are registered, but every endpoint calls RequireAuthorization() with no policy name, so token scopes are never checked. A token for this API audience that only has user.read (or no scp claim at all) can call /api/v1/ai/chat, /speech/synthesize and so on. Those require ai.access by design but get only the default authenticated-user check.",
+        "status": "matched_tp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      }
+    ]
+  },
+  {
+    "pr_key": "dotnet_android_11084-ac02d09a",
+    "candidate_findings": [
+      {
+        "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+        "start_line": 270,
+        "end_line": 270,
+        "message": "_AndroidRunNativeCompile now depends on _PreTrimmingFixLegacyDesignerUpdateItems, but that target is only defined in Microsoft.Android.Sdk.TypeMap.LlvmIr.targets, which is not imported when _AndroidTypeMapImplementation == 'trimmable'. A NativeAOT publish with the trimmable typemap (Trimmable.NativeAOT.targets exists for this) imports Trimmable.targets instead of LlvmIr.targets. MSBuild then fails with MSB4057 because target '_PreTrimmingFixLegacyDesignerUpdateItems' does not exist.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+        "start_line": 278,
+        "end_line": 278,
+        "message": "The swap uses any file in obj/prelink whose filename matches, with no check that it came from this build. The task never deletes prelink files for assemblies it no longer modifies. Build once with library Foo 1.0 (has a legacy designer), so prelink/Foo.dll is written. Upgrade to Foo 2.0, which has no legacy designer or is already processed. The task runs again, ProcessAssemblyDesigner returns false and nothing is written, but prelink/Foo.dll from 1.0 still exists. It replaces the 2.0 assembly in ResolvedFileToPublish, so the old library version ships.",
+        "status": "matched_fp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+        "start_line": 262,
+        "end_line": 262,
+        "message": "FileWrites for the prelink copies comes only from the task's ModifiedAssemblies output, which is empty when the target is skipped by the stamp. In that build the prelink files drop out of FileWrites, and IncrementalClean can delete them while the stamp stays current. Build 1 writes prelink/*.dll and the stamp. In build 2 the target is skipped, so no FileWrites are added and IncrementalClean deletes the prelink files listed in the previous FileListAbsolute. In build 3 the stamp is still up to date, so the target is skipped again and the Exists() swap finds nothing. ILLink gets the unrewritten libraries, which still use the old legacy Resource fields, and the designer is no longer rooted, so resource IDs are wrong at runtime.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "edercnj_ia-dev-environment_198-76a99258",
+    "candidate_findings": [
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "SkillsAssembler.selectCoreSkills auto-discovers every directory under skills/core, so this new skill is emitted for every profile, but no golden files (or README skill-table updates) were added. GoldenFileTest compares generated vs golden file sets and fails on `extra` files: .claude/skills/x-story-plan/{SKILL.md,README.md,references/planning-guide.md} (plus README index changes) for every profile, so the build is red.",
+        "status": "matched_tp",
+        "matched_golden_index": 28,
+        "covered_golden_indices": [
+          28
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "testing",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "testing"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 688,
+        "end_line": 688,
+        "message": "Phase 4.5 (and PO amendments in Rule 5) rewrite the story file after the tasks file is written in 4.1, so mtime(story) > mtime(tasks) after every run. Run /x-story-plan story-0028-0002, then run it again with no story changes: Phase 0.3 sees the story as newer than tasks-story-*.md, logs 'Regenerating stale story plan' and relaunches all 5 agents. The RULE-002 reuse path never fires.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 741,
+        "end_line": 741,
+        "message": "total_checks is computed as mandatory_passed + conditional_applicable, not 10 + conditional_applicable, so the denominator shrinks when mandatory checks fail. With 7 of 10 mandatory checks passing and no conditionals applicable, the summary shows 'Passed: 7/7' while the verdict is NOT_READY. The checklist looks fully passed and contradicts the verdict.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 715,
+        "end_line": 715,
+        "message": "DoR checks 1, 2, 3 and 9 require architecture, test, security and implementation plan files or agent output, but the skill never writes those files. On the reuse path no agents run (line 104), so these checks have nothing to inspect. On the second run, when artifacts are fresh, Phase 0.3 skips straight to Phase 5 and invokes no subagents. With no architecture-/tests-/security-/plan-story files on disk, checks 1, 2, 3 and 9 fail, and an earlier READY story flips to NOT_READY.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2,
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 505,
+        "end_line": 505,
+        "message": "The implicit rule 'domain tasks before application before adapter' applies to every task, including SEC/TL/PO verify tasks. Those tasks are told to depend explicitly on the implementation tasks they verify, which can sit in outer layers. SEC-001 (layer: domain, verifies input validation) depends on ARCH-004 (adapter.inbound controller). The implicit rule adds ARCH-004 -> depends on SEC-001, which creates a cycle. Phase 3.4 then aborts with 'Circular dependency detected'.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 284,
+        "end_line": 284,
+        "message": "The QA prompt orders TPP levels as scalar(3), conditional(4), collection(5), iteration(6). Consolidation (line 494) and planning-guide.md order them as scalar, collection, conditional, iteration. QA emits UT tasks with conditional before collection as instructed. Consolidation re-sorts them with collection first, so the final order differs from the QA test plan. DoR check 2 ('UT-N follow TPP ordering 1 through 6') can be judged against either ordering.",
+        "status": "matched_tp",
+        "matched_golden_index": 32,
+        "covered_golden_indices": [
+          32
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+        "start_line": 703,
+        "end_line": 703,
+        "message": "The update rule only says to preserve existing Section 8 content and add 8.1 below it. It never says to replace an 8.1 left by a previous run. Running with --force, or the always-stale case caused by finding 2, appends another '### 8.1 Detailed Tasks (generated by x-story-plan)' block each run. The story file then holds several conflicting task lists.",
+        "status": "matched_tp",
+        "matched_golden_index": 14,
+        "covered_golden_indices": [
+          14
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "edercnj_ia-dev-environment_202-7e51d062",
+    "candidate_findings": [
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+        "start_line": 517,
+        "end_line": 517,
+        "message": "The pre-check reads the verdict from a `## Final Verdict` section, but the DoR checklist that x-story-plan generates has no such section. The verdict is stored in the Header table (`| Verdict | ... |`) and in `## Summary` as `Verdict: **READY**` (bold markdown), and the spec also never says what to do when the verdict is missing or can't be parsed. For every story planned by x-story-plan/x-epic-plan the section lookup finds nothing, so the verdict is neither READY nor NOT_READY. The result is undefined: NOT_READY stories may be dispatched anyway, or the agent may compare the literal `**NOT_READY**` and fall through.",
+        "status": "matched_fp",
+        "matched_golden_index": 16,
+        "covered_golden_indices": [
+          16
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+        "start_line": 523,
+        "end_line": 523,
+        "message": "The DoR pre-check is only added as step a0 in a code block under 1.1b. The actual Core Loop (Section 1.3, step 6) and the default parallel worktree dispatch (Section 1.4a, step 2) are unchanged: 1.4a marks every executable story IN_PROGRESS and launches them all in one message, with no DoR check. With the default (non-`--sequential`) run, a story whose dor-story file says NOT_READY is set to IN_PROGRESS and dispatched by 1.4a step 2/3 before any a0 check runs, so the gate is bypassed.",
+        "status": "matched_tp",
+        "matched_golden_index": 23,
+        "covered_golden_indices": [
+          23
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+        "start_line": 519,
+        "end_line": 519,
+        "message": "A story blocked by the DoR check is marked BLOCKED with a free-text reason. That reason field isn't in the StoryEntry schema, and `blockedBy` is not set. On `--resume`, Step 2 keeps any BLOCKED story with undefined `blockedBy` BLOCKED, and its dependents are not block-propagated. The user fixes the plan so the DoR becomes READY and runs `--resume`. Step 2 sees `blockedBy` undefined and keeps the story BLOCKED forever, so the DoR is never re-checked. Its dependents meanwhile stay PENDING and each phase logs 'Phase is blocked' instead of marking them BLOCKED.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+        "start_line": 514,
+        "end_line": 514,
+        "message": "The DoR path is built as `dor-story-{storyId}.md`, but story IDs in execution-state are `story-XXXX-YYYY`, while x-story-plan writes `dor-story-XXXX-YYYY.md`. The same applies to the `tasks-story-{storyId}.md` path in 1.1c. For storyId `story-0028-0002` the check looks for `plans/epic-0028/plans/dor-story-story-0028-0002.md`, which doesn't exist. It takes the 'file missing → proceed' branch, so NOT_READY stories are silently dispatched.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0,
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+        "start_line": 285,
+        "end_line": 285,
+        "message": "Step 1b says a BLOCKED task becomes PENDING when all its task dependencies are DONE, but the per-task schema in 1.1c has no dependency field (only status/agent/type/commitSha/duration), so the rule can't be evaluated from the checkpoint. A SKIPPED dependency (terminal) is also never treated as satisfied. On resume, a BLOCKED task whose dependency is now DONE has nothing in execution-state.json to check against, so it either stays BLOCKED forever or is unblocked arbitrarily. A task that depends on a SKIPPED task can never be unblocked.",
+        "status": "matched_fp",
+        "matched_golden_index": 10,
+        "covered_golden_indices": [
+          10
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+        "start_line": 289,
+        "end_line": 289,
+        "message": "The spec says the subagent 'receives the task state and skips DONE tasks', but the subagent prompt template (1.4) passes no task state. Also, a FAILED/PARTIAL story that is retried gets its old PR closed and a new branch/worktree, yet its DONE tasks are kept. A story fails after TASK-001/002 are DONE. On resume it goes back to PENDING (old PR closed), and a new worktree branch is created from develop. If DONE tasks are skipped as specified, the new PR is missing the TASK-001/002 commits that only existed on the abandoned branch, so the story's changes are incomplete.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+        "start_line": 575,
+        "end_line": 575,
+        "message": "Per-task `duration` is specified in milliseconds (example 45000), while the StoryEntry `duration` in the same file is in seconds. Summing or comparing task durations against story durations in reports gives values that are off by 1000x, e.g. one 45 s task appears longer than a 600 s story.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "documentation",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "documentation"
+      }
+    ]
+  },
+  {
+    "pr_key": "fredericboyer_dev-team_797-3bc9ea25",
+    "candidate_findings": [
+      {
+        "file": "templates/hooks/dev-team-implementer-guard.js",
+        "start_line": 83,
+        "end_line": 83,
+        "message": "The guard finds the branch from the hook process's cwd, which is the orchestrator/lead session. It never looks at the branch of the implementer being shut down. The lead runs on `main` (or a detached HEAD) while `implementer-1` works on `feat/x` in a worktree. The lead sends a shutdown_request to implementer-1. `symbolic-ref` returns `main` (or fails on detached HEAD), so the hook exits 0 and the shutdown goes through with no review. In the normal multi-agent worktree setup the guard never blocks anything. When the lead is on some unrelated feature branch, it instead blocks or allows based on that branch's sidecars.",
+        "status": "matched_tp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9,
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "templates/hooks/dev-team-implementer-guard.js",
+        "start_line": 97,
+        "end_line": 97,
+        "message": "Review evidence is looked up in `process.cwd()/.dev-team/.reviews`, the lead's checkout. Sidecars for a worktree-isolated implementer's branch may be written to a different directory. Reviewers write sidecars inside the implementer's worktree (`.claude/worktrees/.../.dev-team/.reviews`). The lead's directory has none, so the guard blocks even after the review is complete and pushes users toward routinely using --force-shutdown.",
+        "status": "matched_fp",
+        "matched_golden_index": 5,
+        "covered_golden_indices": [
+          5
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "templates/hooks/dev-team-implementer-guard.js",
+        "start_line": 101,
+        "end_line": 101,
+        "message": "The branch match uses an unanchored `f.includes(sanitizedBranch)`, so a sidecar from a different branch whose name contains this one counts as evidence. Branch `feat-1` has no review, but `.reviews/` holds `knuth-feat-12.json` from branch `feat-12`. `includes('feat-1')` is true, so the implementer for `feat-1` is shut down before review. The same applies to `fix` versus `fix-login` and similar names.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "templates/hooks/dev-team-implementer-guard.js",
+        "start_line": 101,
+        "end_line": 101,
+        "message": "Shutdown is allowed once any .json sidecar exists for the branch. That doesn't show the review findings were routed and acknowledged, which is the condition the hook says it enforces. A single reviewer writes its sidecar with open DEFECT findings while other reviewers are still running. The lead immediately shuts the implementer down and the guard allows it, so nobody is left to address the findings. This is the premature-shutdown case from #795.",
+        "status": "matched_tp",
+        "matched_golden_index": 14,
+        "covered_golden_indices": [
+          14
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "documentation",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "documentation"
+      }
+    ]
+  },
+  {
+    "pr_key": "hughdidit_DAISy-Agency_309-ac6e2196",
+    "candidate_findings": [
+      {
+        "file": "scripts/verify.sh",
+        "start_line": 270,
+        "end_line": 270,
+        "message": "In the unquoted heredoc, `\\\"` is not an escape sequence, so the generated probe contains `command -v \\\"jq\\\"`. Inside `$(...)` the remote sh treats those as literal quote characters and looks up a binary named `\"jq\"`, quotes included. For every non-wrapper entry (jq, rg, ffmpeg, uv, gh, ...), the probe runs `binary_path=\"$(command -v \\\"jq\\\" || true)\"`. That resolves to empty, so the probe prints `missing_binary:jq` and exits 1. Check 3 then always fails with 'Failed to validate runtime binary jq', even on a correctly built image. The sandbox-image check fails the same way.",
+        "status": "matched_tp",
+        "matched_golden_index": 16,
+        "covered_golden_indices": [
+          16
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "scripts/verify.sh",
+        "start_line": 250,
+        "end_line": 250,
+        "message": "The list of binaries to verify now comes from the local repo copy `scripts/docker/runtime-binaries.json`. The in-image manifest is only checked for existence, so verification no longer reflects what the deployed container or sandbox image was actually built with. verify.sh is run from a checkout whose manifest differs from DEPLOYED_REF, or the sandbox image was built from an older ref. Binaries added in the checkout make a correct deployment fail. Binaries the image actually ships under its own manifest are never checked, so a regression in them passes silently.",
+        "status": "matched_tp",
+        "matched_golden_index": 6,
+        "covered_golden_indices": [
+          6
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "mamu7211_feirb-mailclient_215-d15c6ca6",
+    "candidate_findings": [
+      {
+        "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+        "start_line": 61,
+        "end_line": 61,
+        "message": "getHtml returns Quill 2's internal `root.innerHTML` rather than `getSemanticHTML()`, so the email gets Quill's editor-only markup. With Quill 2.0.3, a user makes a bullet list. Quill stores it as `<ol><li data-list=\"bullet\">`, and HtmlSanitizer strips `data-*` attributes, so recipients get a numbered list. Code blocks (`div.ql-code-block`) and class-based indent/alignment (`ql-indent-1`) are also lost. Turndown has the same problem when switching to Markdown.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/Feirb.Api/Services/MailSendingService.cs",
+        "start_line": 104,
+        "end_line": 104,
+        "message": "`client.GetFolder(SpecialFolder.Sent)` throws NotSupportedException on servers without SPECIAL-USE/XLIST, so the `?? GetFoldersAsync(...)` fallback never runs. The IMAP server lacks SPECIAL-USE but has a plain \"Sent\" folder. GetFolder throws, the outer catch logs a warning, and the sent message is never saved, even though the fallback was written for exactly this case.",
+        "status": "novel_fp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "fp",
+        "classifier_severity": "low",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+        "start_line": 26,
+        "end_line": 26,
+        "message": "Minimal APIs don't check the DataAnnotations on SendMailRequest (Program.cs has no AddValidation), so null `To`, `Subject` or `Body` reach the code without being checked. POST `{\"mailboxId\":\"...\",\"subject\":\"x\",\"body\":\"y\",\"contentType\":\"plain\"}` without `to`: `request.To.Length` throws NullReferenceException → 500. A null `subject` makes `message.Subject = null` throw ArgumentNullException inside the service → 500 instead of 400. ContentType/StringLength limits are also not enforced.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+        "start_line": 47,
+        "end_line": 47,
+        "message": "Only InvalidOperationException is caught and it is always mapped to 'MailboxNotFound'. SMTP/auth/decrypt failures are not handled, and MailKit's ServiceNotConnected/ServiceNotAuthenticated exceptions (subclasses of InvalidOperationException) get mislabeled. Wrong SMTP password → AuthenticationException → unhandled 500. Recipient rejected → SmtpCommandException → 500. Keys rotated → CryptographicException from Unprotect → 500. A MailKit connection-state InvalidOperationException → 404 'Mailbox not found' for a mailbox that exists.",
+        "status": "matched_tp",
+        "matched_golden_index": 28,
+        "covered_golden_indices": [
+          28,
+          39
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+        "start_line": 66,
+        "end_line": 66,
+        "message": "setHtml writes `root.innerHTML` directly instead of going through Quill (`clipboard.convert`/`setContents` or `dangerouslyPasteHTML`), so marked's `<ul>`/`<pre>` output doesn't go through Quill's blot normalization. Switch from Markdown with a bullet list or fenced code block back to Rich Text. The raw `<ul>`/`<pre><code>` is put in the editor without Quill's model, so it gets mangled or reverted on the next edit, and getText/isEmpty can disagree with what is shown.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "mareklesko_ProxmoxMCP-Plus_1-b44013c3",
+    "candidate_findings": [
+      {
+        "file": ".devcontainer/devcontainer.json",
+        "start_line": 8,
+        "end_line": 8,
+        "message": "postCreateCommand installs `.[dev]`, but pyproject.toml (the hatchling build backend, so setup.py is ignored) defines no `dev` optional-dependencies, so the dev tools never get installed. On container creation, uv prints a warning that `proxmox-mcp-plus` has no extra named `dev` and installs only the runtime deps. pytest, pytest-asyncio, black, ruff and mypy are missing from .venv, so running `pytest` fails and the configured Black formatter / Ruff integration can't find their tools. The README's claim that all dependencies are installed is wrong.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": ".devcontainer/devcontainer.json",
+        "start_line": 7,
+        "end_line": 7,
+        "message": "workspaceFolder and python.defaultInterpreterPath are hardcoded to /workspaces/ProxmoxMCP-Plus, but there's no workspaceMount, so the repo is mounted at /workspaces/<local-folder-name>. If a user clones into a directory with a different name (e.g. `git clone ... proxmox-mcp`, or the cloned repo is a fork with another name), the source is mounted at /workspaces/proxmox-mcp. VS Code then opens an empty /workspaces/ProxmoxMCP-Plus, postCreateCommand runs `uv venv && uv pip install -e .` in a directory without pyproject.toml and fails, and the interpreter path points to a venv that doesn't exist. Use `${localWorkspaceFolderBasename}` or add an explicit workspaceMount.",
+        "status": "matched_fp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "maintainability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "maintainability"
+      },
+      {
+        "file": "README.md",
+        "start_line": 71,
+        "end_line": 71,
+        "message": "The README says the OpenAPI proxy is reachable at http://localhost:8811, but the dev container only forwards the port and never starts the proxy. A user follows steps 1–4 and opens http://localhost:8811, but nothing is listening because no postStart/postAttach command runs start_openapi.sh or `python -m proxmox_mcp.openapi_proxy`. The README should tell users to start the proxy themselves first.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "documentation",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "documentation"
+      }
+    ]
+  },
+  {
+    "pr_key": "navikt_k9-brukerdialog-prosessering_480-f828e2d8",
+    "candidate_findings": [
+      {
+        "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/AktivitetspengerInntektsrapporteringInnsending.kt",
+        "start_line": 42,
+        "end_line": 42,
+        "message": "The k9 søknad built for an income report is a plain `Aktivitetspenger` ytelse with `søknadsperiode` set to the reporting period. Nothing marks it as a report. The Ungdomsytelse version sets `UngSøknadstype.RAPPORTERING_SØKNAD` for this. A user reports income for the period 2026-03-01..2026-03-31. The JSON journalført to the archive, and passed on to downstream processing, is an ordinary Aktivitetspenger søknad with søknadsperiode March 2026 and no type marker. A consumer that reads the k9 format can take it for a new Aktivitetspenger application for that month instead of an income report. It is also validated with `AktivitetspengerSøknadValidator`, which may reject it if that validator expects fields from a real application (e.g. forutgående bosteder).",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "obot-platform_obot_6351-343e5688",
+    "candidate_findings": [
+      {
+        "file": "pkg/api/handlers/mcpcatalogs.go",
+        "start_line": 179,
+        "end_line": 179,
+        "message": "The \"*\" (keep) branch only looks up existingCred.Env[u] using the new URL. The UI renames the credential key from oldUrl to newUrl with value \"*\" to request a transfer, but the backend never looks up the old URL's token, so the token is silently dropped. An admin edits the source https://gitlab.com/org/repo (token stored) to https://gitlab.com/org/repo/dev and leaves the token field empty. The UI sends {\".../repo/dev\": \"*\"}. existingCred.Env has no \".../repo/dev\" key, and the old URL is no longer active, so newTokens is empty and the credential is deleted. The next sync of the private repo fails with an auth error.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "pkg/api/handlers/mcpcatalogs.go",
+        "start_line": 126,
+        "end_line": 126,
+        "message": "Update rewrites scheme-less SourceURLs to https://..., but the SourceURLCredentials keys are not normalized. activeURLs then no longer contains the client's key, so the newly entered token is skipped by `if !active { continue }`. In the dialog an admin enters \"github.com/acme/private-catalog\" with a PAT. SourceURLs becomes [\"https://github.com/acme/private-catalog\"] while the credential key stays \"github.com/acme/private-catalog\". The token is discarded without any error, and the sync fails because the repo is private.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "pkg/controller/handlers/mcpcatalog/github.go",
+        "start_line": 59,
+        "end_line": 59,
+        "message": "isGitRepoURL now treats every gitlab.com URL as a git repo. Raw-file catalog URLs that used to be fetched over HTTP are now sent to parseGitURL, which takes the trailing path as a branch name. An existing source https://gitlab.com/org/repo/-/raw/main/catalog.yaml now produces the branch \"-/raw/main/catalog.yaml\". validateBranchName rejects it because of the leading \"-\", so a catalog that used to sync now fails every time.",
+        "status": "matched_fp",
+        "matched_golden_index": 19,
+        "covered_golden_indices": [
+          19
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "security"
+      },
+      {
+        "file": "pkg/controller/handlers/mcpcatalog/git_fs.go",
+        "start_line": 53,
+        "end_line": 53,
+        "message": "sizeLimitedFS is shared by the .git storer (chrooted) and the worktree, so the 100 MB budget is charged for both the packfile and the checked-out files. A repository whose real size is well under 100 MB can still fail. A repo with a 55 MB packfile that expands to 50 MB of checked-out files writes about 105 MB in total. The clone aborts with \"repository is too large (limit: 100 MB)\", even though GitHub reports the repo size as 55 MB, which is under the limit.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "pkg/controller/handlers/mcpcatalog/github.go",
+        "start_line": 43,
+        "end_line": 43,
+        "message": "resolveToken only falls back to GITHUB_AUTH_TOKEN when the URL exactly matches the hard-coded default catalog URL. Existing private GitHub catalogs that relied on the env token, and any catalog URL with a branch suffix or a custom default path, now clone and call the API without authentication. A deployment configured GITHUB_AUTH_TOKEN to sync https://github.com/acme/private-catalog. After upgrading, the size check gets a 404 or rate-limit 403 from the unauthenticated GitHub API and the sync fails, with no migration path other than re-entering a per-URL token.",
+        "status": "matched_tp",
+        "matched_golden_index": 5,
+        "covered_golden_indices": [
+          5
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "supa-magic_spm_19-c60d2e03",
+    "candidate_findings": [
+      {
+        "file": "src/core/resolver/parse-identifier.ts",
+        "start_line": 5,
+        "end_line": 5,
+        "message": "parseGitHubUrl matches the branch segment but throws it away, so resolveIdentifier always uses the repo's default branch instead. `spm install https://github.com/org/repo/tree/develop/path/to/skill` fetches skillset.yml and every file from `main`. That either 404s or quietly installs the wrong version. Branches with a slash (`tree/feature/x/claude/skill`) also get split wrong: `feature` is taken as the branch and `x/claude/skill` as the path.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/commands/install.ts",
+        "start_line": 30,
+        "end_line": 30,
+        "message": "downloadEntries builds every GitHubSource with location.ref, including cross-repo (@owner/repo/path) entries whose owner/repository differ from the skillset's repo. The skillset lives in a repo whose default branch is `main` and references `@other/lib/skills/x`, where `other/lib` only has `master`. Every cross-repo file download fails with a 404 from raw.githubusercontent.com, so the whole install aborts.",
+        "status": "matched_tp",
+        "matched_golden_index": 19,
+        "covered_golden_indices": [
+          19
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/commands/install.ts",
+        "start_line": 44,
+        "end_line": 44,
+        "message": "The path-traversal guard uses a bare `startsWith(baseDir)` with no trailing separator, and baseDir itself comes from `skillset.name`, which is never validated. A manifest with `name: ../../../Users/<author>/.ssh` makes `join(tmpdir(),'spm',name)` resolve outside tmp, and safePath then accepts any file under it, so the attacker writes arbitrary files. Separately, with name `fsd`, a file entry `../fsd-evil/x` resolves to `/tmp/spm/fsd-evil/x`, which passes `startsWith('/tmp/spm/fsd')`.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0,
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "security",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "security"
+      },
+      {
+        "file": "src/commands/install.ts",
+        "start_line": 83,
+        "end_line": 83,
+        "message": "Files are written to tmpDir/entry.path without the owner or repository, so same-path files from different repos (cross-repo sources) overwrite each other in a concurrent Promise.all. The skillset repo and a cross-repo source both have `skills/git/SKILL.md`. Both writes target the same file at the same time, and whichever finishes last silently wins. The success message still reports both files as downloaded.",
+        "status": "matched_tp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/core/resolver/parse-identifier.ts",
+        "start_line": 5,
+        "end_line": 5,
+        "message": "The URL regex captures the path including a trailing slash, and resolveIdentifier then appends `/skillset.yml`, producing a double slash. `https://github.com/org/repo/tree/main/claude/skill/` yields path `claude/skill/`, so the code fetches `claude/skill//skillset.yml`. The manifest fetch fails or the derived skillsetDir is wrong.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "sw5005-sus_ceramicraft-argocd-deploy_89-d7a45321",
+    "candidate_findings": [
+      {
+        "file": "agent/ai-secure-agent.yaml",
+        "start_line": 25,
+        "end_line": 25,
+        "message": "The new Deployment drops the chart's `envFrom: secretRef: ms-secret-vault`, so none of the Vault-synced secrets (e.g. MySQL password, LLM/API keys) reach the container. ai-secure-agent-config.yaml configures MySQL as user `root` with no password and Kafka/LLM settings that rely on env secrets; once synced, the pod starts without those env vars and fails to authenticate to MySQL or other services, then crashes or errors at runtime.",
+        "status": "matched_tp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "app-of-apps.yaml",
+        "start_line": 433,
+        "end_line": 433,
+        "message": "`agent-app` sets `targetRevision: AI-20-AISecureAgent-Feature-collection`, a feature branch, while every other in-repo app tracks HEAD. After this merges to main, Argo CD still reads the `agent/` manifests from the feature branch, so changes to `agent/` on main are never deployed. If the feature branch is deleted after merge, the app goes into ComparisonError and can't sync.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "reliability"
+      },
+      {
+        "file": "helm_backend/ai-secure-agent-ms/values.yaml",
+        "start_line": 1,
+        "end_line": 1,
+        "message": "Deleting this directory makes the helm-app ApplicationSet delete the `ai-secure-agent-ms` Application, which cascade-prunes Deployment `ai-secure-agent-ms` and Service `ai-secure-agent-ms-svc`. The new `agent-app` creates resources with the same names in the same namespace. During rollout both Applications claim the same resources (SharedResourceWarning). Depending on ordering, the old app's cascading delete removes the Deployment/Service the new app just adopted. That causes an outage until selfHeal recreates them, and the two apps can flap if both exist at once.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "high",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "high",
+        "result_category": "reliability"
+      },
+      {
+        "file": "agent/ai-secure-agent.yaml",
+        "start_line": 19,
+        "end_line": 19,
+        "message": "The migration drops the liveness/readiness probes on `/ai-secure-agent-ms/v1/ping` and the CPU/memory requests and limits (256Mi/345Mi) the chart used to apply. The Service routes traffic to the pod before the app is ready, and a hung process is never restarted. With no memory limit, a leak in the Python/MLflow process (the reason MALLOC_ARENA_MAX=2 is set) can grow without bound and get other pods on the node OOM-evicted.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1,
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      }
+    ]
+  },
+  {
+    "pr_key": "vriesdemichael_keycloak-operator_696-4db0ddea",
+    "candidate_findings": [
+      {
+        "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+        "start_line": 794,
+        "end_line": 794,
+        "message": "decodeSecretKey base64-decodes any value whose length is a multiple of 4 and contains only base64 characters, which corrupts ordinary plain-text credentials. The operator generates 16-char admin passwords from letters+digits+'!@#$%^&*'. About 14% of these, (62/70)^16, are all alphanumeric. Those decode as valid base64 into binary garbage, so the password grant fails with 401. The same happens to any username or password like 'user' or 'abcd1234'.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0,
+          8
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+        "start_line": 766,
+        "end_line": 766,
+        "message": "resolveURL picks status.endpoints.admin/public, which the operator always sets to http://<name>-keycloak.<ns>.svc.cluster.local:8080. That address only resolves inside the cluster, but this CLI runs outside it. A user runs `import-users --keycloak my-kc -n ns --realm r` from a workstation, as the docs show. The token request goes to *.svc.cluster.local and fails DNS resolution. The spec.hostname fallback is never reached, and that field doesn't exist on the CR anyway (the real fields are spec.ingress.host and spec.tls.hostname).",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tools/migration-toolkit/internal/k8s/types.go",
+        "start_line": 243,
+        "end_line": 243,
+        "message": "KeycloakSpec.Hostname maps to `spec.hostname`, but the Keycloak CRD has no such field (hostnames live at spec.ingress.host and spec.tls.hostname). The hostname fallback in resolveURL is dead code. A CR with ingress.host=keycloak.example.com but no status endpoints yields an empty URL. The tool errors with 'spec.hostname is not set', telling the user to set a field that doesn't exist.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tools/migration-toolkit/internal/userimport/importer.go",
+        "start_line": 357,
+        "end_line": 357,
+        "message": "When importBatch returns an error (HTTP 409/403/5xx, network error, token refresh failure), ImportUsers returns a nil result. The caller's 'print partial result' path prints nothing, and the counts from earlier successful batches are lost. With --mode fail and 3 batches, batch 3 gets a 409. Batches 1-2 were already committed, but the summary is skipped (result==nil), so the operator can't tell how many users were imported.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "maintainability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "maintainability"
+      },
+      {
+        "file": "tools/migration-toolkit/internal/userimport/importer.go",
+        "start_line": 472,
+        "end_line": 472,
+        "message": "Keycloak's PartialImportResults JSON has added/skipped/overwritten/results with actions ADDED/SKIPPED/OVERWRITTEN. It has no 'errors' field and no ERROR/FAILED action, so the Errors check is dead and overwritten users are never counted. With --mode overwrite on existing users, Keycloak returns overwritten=N. The summary reports Added: 0, Skipped: 0, which looks like nothing was imported.",
+        "status": "matched_tp",
+        "matched_golden_index": 6,
+        "covered_golden_indices": [
+          6
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tools/migration-toolkit/internal/k8s/types.go",
+        "start_line": 242,
+        "end_line": 242,
+        "message": "The operator accepts the legacy `admin_access` alias for spec.admin (AliasChoices), but the Go struct only reads `admin`. A CR using spec.admin_access.existingSecret=my-secret makes the tool fall back to '<name>-admin-credentials'. That secret doesn't exist, or holds different credentials, so the secret read fails or authentication fails.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  }
+]

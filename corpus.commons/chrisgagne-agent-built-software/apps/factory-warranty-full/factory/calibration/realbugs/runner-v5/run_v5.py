@@ -100,6 +100,11 @@ def part_e_cases() -> list[dict]:
     return part_c_cases()
 
 
+def part_f_cases() -> list[dict]:
+    """PREREG-v9 reuses v7's sample."""
+    return part_d_cases()
+
+
 def part_b_cases() -> list[dict]:
     return json.loads((REALBUGS / "v5-controls.json").read_text())["cases"]
 
@@ -144,7 +149,7 @@ def checkout(case: dict, part: str, dest: Path) -> tuple[Path, str]:
     """A git repository at dest with branch `base` at the change's start and HEAD at its end; returns (repo, story)."""
     git = lambda *a, cwd=dest: subprocess.run(["git", "-c", "core.hooksPath=/dev/null", *a], cwd=cwd, check=True,
                                               capture_output=True)
-    if part in ("a", "c", "d", "e"):
+    if part in ("a", "c", "d", "e", "f"):
         mirror = ensure_mirror(case)
         ensure_commits(case, mirror)
         subprocess.run(["git", "clone", "-q", "--shared", "--no-checkout", str(mirror), str(dest)], check=True)
@@ -189,11 +194,13 @@ def codex_home() -> Path:
 CODEX_FINDING = re.compile(r"^- \[P(\d)\] (.+?) — (.+?):(\d+)(?:-(\d+))?\s*$\n((?:^  .*\n?)*)", re.M)
 
 
-def run_codex_review(repo: Path, story_title: str, log: Path) -> tuple[list[dict], dict]:
+def run_codex_review(repo: Path, story_title: str, log: Path, effort: str = "") -> tuple[list[dict], dict]:
+    """OpenAI's `codex review`; `effort` sets its reasoning effort (PREREG-v9 Amendment 1), else the CLI's default."""
     env = dict(os.environ, CODEX_HOME=str(codex_home()))
     t0 = time.time()
     try:
-        r = subprocess.run([CODEX, "review", "--base", "base", "--title", story_title[:200], "-c", f'model="{CODEX_MODEL}"'],
+        r = subprocess.run([CODEX, "review", "--base", "base", "--title", story_title[:200], "-c", f'model="{CODEX_MODEL}"',
+                            *(["-c", f'model_reasoning_effort="{effort}"'] if effort else [])],
                            cwd=repo, env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=TIMEOUT_S)
     except subprocess.TimeoutExpired:
         log.write_text("timed out\n")
@@ -205,7 +212,9 @@ def run_codex_review(repo: Path, story_title: str, log: Path) -> tuple[list[dict
         out.append({"source": "codex", "priority": int(m.group(1)), "file": rel(m.group(3), repo), "start_line": start,
                     "end_line": int(m.group(5) or start),
                     "message": f"{m.group(2).strip()}. {' '.join(l.strip() for l in m.group(6).splitlines())}".strip()})
-    return out, {"exit": r.returncode, "seconds": round(time.time() - t0), "outage": "usage limit" in r.stderr}
+    shown = re.search(r"^reasoning effort:\s*(\S+)", r.stdout + r.stderr, re.M)
+    return out, {"exit": r.returncode, "seconds": round(time.time() - t0), "outage": "usage limit" in r.stderr,
+                 "reasoning_effort": shown.group(1) if shown else None}
 
 
 def json_items(text: str) -> tuple[list, int]:
@@ -317,9 +326,10 @@ def run_claude_command(repo: Path, prompt: str, extra: list[str], log: Path) -> 
     return events, meta
 
 
-def run_cc_review(repo: Path, log: Path) -> tuple[list[dict], dict]:
-    """Claude Code's built-in /code-review: what it hands ReportFindings (its last call), else its final message."""
-    events, meta = run_claude_command(repo, "/code-review", [], log)
+def run_cc_review(repo: Path, log: Path, level: str = "") -> tuple[list[dict], dict]:
+    """Claude Code's built-in /code-review (at `level`, else its own choice): what it hands ReportFindings (its last
+    call), else its final message."""
+    events, meta = run_claude_command(repo, f"/code-review {level}".strip(), [], log)
     calls = [c["input"] for e in events if e.get("type") == "assistant"
              for c in e["message"].get("content", []) if c.get("type") == "tool_use" and c.get("name") == "ReportFindings"]
     if calls:
@@ -369,6 +379,54 @@ def run_brooks(repo: Path, log: Path) -> tuple[list[dict], dict]:
                     "end_line": line, "message": f"{head_line}. {fields}".strip()})
     meta["health_score"] = (re.search(r"Health Score:\*{0,2}\s*(\d+)", report) or [None, None])[1]
     return out, meta
+
+
+def run_codex_plain(repo: Path, story: str, log: Path, effort: str = "") -> tuple[list[dict], dict]:
+    """PREREG-v9: Sol given the same plain prompt Claude Code gets, run as the factory runs its own Codex leg
+    (`codex exec`, read-only, user config ignored, no personal instructions), with no output schema, as the Claude
+    plain arm has none. `effort` sets Codex's reasoning effort; left out, the CLI's default ("none") applies, as it did
+    for every Sol leg before v9."""
+    diff = repo.parent / "change.diff"
+    diff.write_bytes(subprocess.run(["git", "diff", "--no-color", "base...HEAD"], cwd=repo, capture_output=True,
+                                    check=True).stdout)
+    out = repo.parent / "codex-final.txt"
+    env = dict(os.environ, CODEX_HOME=str(codex_home()))
+    t0 = time.time()
+    try:
+        r = subprocess.run([CODEX, "exec", "-m", CODEX_MODEL, "-s", "read-only", "--skip-git-repo-check", "--ephemeral",
+                            "--ignore-user-config", "-C", str(repo), "-o", str(out),
+                            *(["-c", f'model_reasoning_effort="{effort}"'] if effort else []),
+                            CLAUDE_PROMPT.format(diff=diff, story=story)],
+                           cwd=repo, env=env, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=TIMEOUT_S)
+    except subprocess.TimeoutExpired:
+        log.write_text("timed out\n")
+        return [], {"timed_out": True, "seconds": TIMEOUT_S}
+    text = r.stdout + r.stderr
+    log.write_text(f"exit {r.returncode}\n--- stdout\n{r.stdout}\n--- stderr\n{r.stderr[-20000:]}")
+    meta = {"exit": r.returncode, "seconds": round(time.time() - t0)}
+    shown = re.search(r"^reasoning effort:\s*(\S+)", text, re.M)
+    meta["reasoning_effort"] = shown.group(1) if shown else None
+    tokens = re.search(r"tokens used\s*\n?\s*([\d,]+)", text, re.I)
+    if tokens:
+        meta["tokens"] = int(tokens.group(1).replace(",", ""))
+    if "usage limit" in text:
+        meta["outage"] = True
+        return [], meta
+    final = out.read_text() if out.exists() else ""
+    items, broken = json_items(final)
+    if broken:
+        meta["items_unreadable"] = broken
+    if not final.strip():
+        meta["unreadable"] = "no final message"
+    findings = []
+    for it in items:
+        if not isinstance(it, dict) or not it.get("file"):
+            continue
+        start = int(it.get("start_line") or 1)
+        findings.append({"source": "sol-plain", "severity": str(it.get("severity") or "").lower(),
+                         "file": rel(it["file"], repo), "start_line": start, "end_line": int(it.get("end_line") or start),
+                         "message": str(it.get("message") or "").strip()})
+    return findings, meta
 
 
 def anthropic_key() -> str:
@@ -455,10 +513,23 @@ def one_external(part: str, arm: str, case: dict, out: Path) -> str:
     repo, story = checkout(case, part, work / "repo")
     (out / "logs").mkdir(parents=True, exist_ok=True)
     findings, meta = [], {}
-    if arm in ("cc-review", "brooks"):  # PREREG-v8
+    if arm in ("cc-review", "cc-review-high", "cc-review-xhigh", "brooks"):  # PREREG-v8, v9
         as_local_branch(repo)
-        run = run_cc_review if arm == "cc-review" else run_brooks
-        findings, meta = run(repo, out / "logs" / f"{case['id']}-{arm}.log")
+        lg = out / "logs" / f"{case['id']}-{arm}.log"
+        findings, meta = (run_brooks(repo, lg) if arm == "brooks" else
+                          run_cc_review(repo, lg, arm.removeprefix("cc-review").removeprefix("-")))
+    elif arm == "codex-review-high":  # PREREG-v9 Amendment 1
+        findings, meta = run_codex_review(repo, case.get("title") or story.splitlines()[0],
+                                          out / "logs" / f"{case['id']}-codex-review-high.log", "high")
+        if meta.get("outage"):
+            shutil.rmtree(work, ignore_errors=True)
+            return f"{case['id']}: codex usage limit; left for the next pass"
+    elif arm in ("sol-plain", "sol-plain-high"):  # PREREG-v9
+        findings, meta = run_codex_plain(repo, story, out / "logs" / f"{case['id']}-{arm}.log",
+                                         "high" if arm == "sol-plain-high" else "")
+        if meta.get("outage"):  # not recorded: re-run once Codex answers again
+            shutil.rmtree(work, ignore_errors=True)
+            return f"{case['id']}: codex usage limit; left for the next pass"
     elif arm == "claude-again":  # PREREG-v6's control: a second, separate plain Claude Code review
         findings, meta = run_claude_review(repo, story, out / "logs" / f"{case['id']}-claude.log")
     elif arm == "vendors":
@@ -478,7 +549,7 @@ def one_external(part: str, arm: str, case: dict, out: Path) -> str:
         rec["stopped"] = stop(arm, findings, meta)
     rec_path.parent.mkdir(parents=True, exist_ok=True)
     rec_path.write_text(json.dumps(rec, indent=1))
-    if part in ("a", "c", "d", "e"):
+    if part in ("a", "c", "d", "e", "f"):
         (out / "findings").mkdir(exist_ok=True)
         (out / "findings" / f"{case['id']}.json").write_text(
             json.dumps(rb_file(case, f"v5-{arm}", findings, meta.get("seconds", 0)), indent=1))
@@ -508,18 +579,21 @@ def factory_to_rb(cases: list[dict], out: Path) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("part", choices=["a", "b", "c", "d", "e"],
-                    help="c is PREREG-v6's sample, d PREREG-v7's, e PREREG-v8's (v6's sample again)")
-    ap.add_argument("arm", choices=["factory", "vendors", "pr-agent", "claude-again", "cc-review", "brooks"])
+    ap.add_argument("part", choices=["a", "b", "c", "d", "e", "f"],
+                    help="c is PREREG-v6's sample, d PREREG-v7's, e PREREG-v8's (v6's sample again), f PREREG-v9's "
+                         "(v7's sample again)")
+    ap.add_argument("arm", choices=["factory", "vendors", "pr-agent", "claude-again", "cc-review", "cc-review-high",
+                                    "cc-review-xhigh", "brooks", "sol-plain", "sol-plain-high",
+                                    "codex-review-high"])
     ap.add_argument("--only")
     ap.add_argument("--to-rb", action="store_true", help="factory arm: convert its trials to ReviewBench files only")
     args = ap.parse_args()
     cases = {"a": part_a_cases, "b": part_b_cases, "c": part_c_cases, "d": part_d_cases,
-             "e": part_e_cases}[args.part]()
+             "e": part_e_cases, "f": part_f_cases}[args.part]()
     if args.only:
         wanted = set(args.only.split(","))
         cases = [c for c in cases if c["id"] in wanted]
-    out = REALBUGS / "results" / ({"c": f"v6-{args.arm}", "d": f"v7-{args.arm}", "e": f"v8-{args.arm}"}.get(args.part)
+    out = REALBUGS / "results" / ({"c": f"v6-{args.arm}", "d": f"v7-{args.arm}", "e": f"v8-{args.arm}", "f": f"v9-{args.arm}"}.get(args.part)
                                   or f"v5-{args.part}-{args.arm}")
     out.mkdir(parents=True, exist_ok=True)
     if args.arm == "factory":

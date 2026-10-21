@@ -1,0 +1,72 @@
+{
+ "id": "rd21",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The raw Deployment drops the chart's `envFrom: secretRef: ms-secret-vault`, so the agent no longer receives the Vault-synced secrets, such as the MySQL password. backend/ai-secure-agent-config.yaml configures MySQL as `username: root` with no password, and Kafka/Redis credentials also come from the ExternalSecret `ms-secret-vault` (k8s-configs/eos-microservice.yaml). The chart injected that secret through envFrom (charts/templates/deployment.yaml:76-78). Without it, the pod starts with no DB, Kafka or LLM secrets, so MySQL auth fails and the service crash-loops or returns errors."
+  },
+  {
+   "source": "cc-review",
+   "file": "app-of-apps.yaml",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "agent-app is pinned to the feature branch `AI-20-AISecureAgent-Feature-collection`, while every other app tracks HEAD. Argo syncs `agent/` from the feature branch, not from main. Changes merged to main's agent/ai-secure-agent.yaml (tag bumps, the secret fix) never deploy. If that branch is deleted after merge, or lacks the `agent/` dir, the app goes ComparisonError/Unknown. With `prune: true`, an empty or missing path can prune the running Deployment."
+  },
+  {
+   "source": "cc-review",
+   "file": "helm_backend/ai-secure-agent-ms/values.yaml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Deleting the values dir makes the helm-app ApplicationSet delete its generated `ai-secure-agent-ms` Application, which cascade-deletes a Deployment and Service with the same names agent-app now creates. Both apps manage `Deployment/ai-secure-agent-ms` and `Service/ai-secure-agent-ms-svc` in `default`. The ApplicationSet-generated Application carries the resources finalizer, so removing it deletes those objects. Depending on sync order, agent-app's freshly applied Deployment and Service get deleted (outage until selfHeal re-creates them), or Argo flags a SharedResource conflict while both apps exist."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "The image tag is now hardcoded in a raw manifest, but the CI tag-bump flow writes `image.tag` into `helm_backend/<svc>/values.yaml`. History shows CI bot commits editing helm_backend/ai-secure-agent-ms/values.yaml (e.g. cffc861). The next CI bump either fails or re-creates helm_backend/ai-secure-agent-ms/values.yaml with only `image.tag`. That spawns a new helm-app Application that renders broken (missing probes, volumes and resources) and fights agent-app over the same resource names. The agent image itself never gets bumped."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "CPU and memory requests and limits were dropped. The old values (256Mi request, 345Mi limit) had been tuned for this service. The pod now runs BestEffort with no memory cap on a shared single-node k3s cluster. An LLM or MLflow memory spike can OOM neighbouring services, and BestEffort pods are evicted first under node pressure. MALLOC_ARENA_MAX=2 was set alongside the 345Mi limit, which suggests memory growth was a known issue."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 22,
+   "end_line": 22,
+   "message": "Liveness and readiness probes on `/ai-secure-agent-ms/v1/ping` were dropped. The Service routes traffic to the pod as soon as the container starts, before config, MySQL and Kafka are ready. A hung Python process (e.g. a deadlocked Kafka consumer) is never restarted. The chart enforced both probes for every backend service."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "The `applogs` hostPath volume (/tmp/logs/ai-secure-agent-ms mounted at /app/logs) and its fix-perm initContainer were dropped. If the app writes to /app/logs, as every chart-based service does, the logs now go to the container's ephemeral filesystem. They are lost on restart and missing from the host path that other services' logs use. If the image's runtime user can't create /app/logs, file logging fails."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The shared Helm chart is hand-copied into a raw manifest only to deploy this service from a different branch, which duplicates the chart and loses its invariants. Every chart behaviour (secret injection, probes, resources, anti-affinity, log volume, HPA) now has to be re-added and maintained by hand for one service, and it has already drifted (findings above). A cleaner fix: keep helm_backend/ai-secure-agent-ms/values.yaml and use a separate Application for the `charts` path with this values file, if a separate revision is truly needed."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 71,
+  "cost_usd": 0.39341499999999996,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/EdV4H/usketch",
+  "pr_number": 534,
+  "base": "ff729b7dce02efaf7d1054780536289f86e8a5e7",
+  "head": "719aa8340584e714552d132a9ec6971582673a8b"
+ },
+ "agent": "v5-cc-review-high",
+ "findings": [
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 112,
+   "end_line": 112,
+   "message": "trackUpdate now calls savePartitionMeta() when partitionMeta is null, but webSocketMessage never awaits loadFromStorage, so after a hibernation wake it writes a brand-new single-partition meta over the stored one. DO hibernates with partition_meta={partitions:[2026-Q2,2026-Q3]}; it wakes on webSocketMessage (no fetch, so loadFromStorage never runs), partitionMeta is null, trackUpdate builds {partitions:[2026-Q4]} and saves it right away. Older partitions drop out of meta and can no longer be requested or loaded."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/server/src/board-room.ts",
+   "start_line": 118,
+   "end_line": 118,
+   "message": "The MSG_YJS_UPDATE path pushes to and saves the updates buffer without awaiting yjsSync.loadUpdates(), so after a hibernation wake the 5s save overwrites the persisted yjs_updates with only the new updates. DO is evicted while sockets stay hibernated; a client sends an update, updates=[] and loaded=false, pushUpdate appends one entry, and scheduleSave puts JSON of [that one update] to 'yjs_updates'. All earlier board history is gone, and SYNC_STEP1 also returns an empty set."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "saveScheduled now resets in finally, after storage.put resolves, instead of when the timer fires, so a scheduleSave() call made while the put is in flight returns early and no follow-up save is ever scheduled. The timer fires and put() starts serializing; while it awaits, clients send updates U1..Un. Each scheduleSave sees saveScheduled=true and returns. finally clears the flag, but U1..Un are never saved unless another update arrives later. If the DO is evicted, those edits are lost."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 56,
+   "end_line": 56,
+   "message": "The new per-partition saveScheduled flag clears only in finally after the put completes, so trackUpdate calls during the in-flight put skip scheduling and their updates are never written. An update arrives while storage.put(`yjs_updates:2026-Q4`) is awaiting. schedulePartitionSave returns early because the flag is still true, and once the flag clears nothing reschedules. The latest partition updates stay in memory only and are lost on eviction."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "applyClientUpdate returns true without validating when no Y.Doc exists yet, so the new 'skip corrupt update' guard in board-room only works after some HTTP path has created the doc. In a fresh room where no thumbnail, AI, or snapshot call has run, doc is null. A malformed payload returns true, gets pushed to the buffer, broadcast to every peer, and persisted. Peers then hit decode errors, and getOrCreateDoc later has to skip it."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "ShapeLayer applies a CSS rotate to every shape, but only some plugins wrap hitTest in withRotation. Frame, group, connector, freedraw, counter, board-portal, island, community-chat and community-region still hit-test the unrotated box. A frame or freedraw shape with rotation=45 renders rotated, but clicks on its visible rotated corners miss while clicks in empty space inside the unrotated box select it. Applying the rotation once in the registry or hit-test dispatcher (or in tool-select's caller) would cover every plugin without per-plugin opt-in."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "packages/store/src/collision-utils.ts",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "collision-utils keeps its own shapeToBounds that ignores rotation, while board-store's shapeToBounds now uses getRotatedAABB, so frame containment and intersection checks disagree with the spatial index. A rotated shape whose rotated AABB extends past a frame is still reported as fully contained by findContained or findContainers, and intersection checks miss rotated overlaps. Share one rotation-aware shapeToBounds helper (export it from shared) and call it from both places."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "plugins/usketch-plugin-shape-basic/src/plugin.tsx",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "GPU primitives pass raw data.rotation (not run through safeRotation) for rect and ellipse, the rect shader never reads params.w, and lineGpuPrimitive omits rotation entirely, so the GPU path draws shapes unrotated while hit-testing treats them as rotated. With the GPU renderer active, a rectangle or line at rotation=30 draws axis-aligned, but withRotation hit-tests the rotated outline, so clicks on the visible shape can miss. A NaN rotation is also written straight into the instance buffer."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "start_line": 92,
+   "end_line": 92,
+   "message": "deltaToLocal re-implements the same cos/sin rotation as rotatePoint instead of calling rotatePoint(delta, {x:0,y:0}, -rad). Two copies of the rotation formula have to stay in sync. If the sign convention changes in one (for example clockwise vs counter-clockwise), resize-under-rotation and hit-testing quietly diverge."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "snapAngle divides by step without a guard, so step=0 returns NaN (and a negative step behaves oddly). That NaN then flows into rotation, where safeRotation silently resets it to 0. A caller with a configurable snap step set to 0 (snapping disabled) calls snapAngle(37, 0) and gets NaN. The shape's rotation is stored as NaN and renders as 0, so the user's rotation is silently discarded."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 87000
+ }
+}

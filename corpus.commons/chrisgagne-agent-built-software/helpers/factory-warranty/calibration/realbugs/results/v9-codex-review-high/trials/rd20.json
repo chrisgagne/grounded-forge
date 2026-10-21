@@ -1,0 +1,52 @@
+{
+ "id": "rd20",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "Keep manifest names from escaping the temporary directory. A remote manifest's `name` is only validated as a string, so a name containing `../` segments can make `tmpDir` point anywhere writable by the user. Because `safePath` then trusts that directory, ordinary repository paths such as `.ssh/authorized_keys` can overwrite files outside temporary storage. Use a generated temporary directory or validate the name as a single path component."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/commands/install.ts",
+   "start_line": 42,
+   "end_line": 44,
+   "message": "Check directory boundaries when validating output paths. For a base directory `/tmp/spm/demo`, the path `../demo-evil/README.md` resolves outside that directory but still passes `startsWith(baseDir)`. Manifest entries can therefore escape into sibling skillset directories and overwrite their files. Check containment using a path-relative boundary check rather than a plain string prefix."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 8,
+   "message": "Preserve the branch specified in GitHub URLs. When a URL points to a non-default branch, this parser discards that branch and `resolveIdentifier` substitutes the repository's default branch. For example, `/tree/develop/pkg` downloads `pkg/skillset.yml` from `main` when that is the default, potentially installing different content or failing with a 404. Carry the URL's ref through resolution and only discover the default branch when no ref was supplied."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/commands/install.ts",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "Resolve the ref for each cross-repository source. For cross-repository skills, `entry.owner` and `entry.repository` identify the dependency, but `location.ref` belongs to the manifest repository. A manifest on `main` referencing a dependency whose default branch is `master` therefore requests a nonexistent `main` branch and aborts the entire download. Resolve and cache the appropriate ref for each source repository instead of applying the manifest's ref universally."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/commands/install.ts",
+   "start_line": 84,
+   "end_line": 86,
+   "message": "Namespace output paths by their source repository. If two skills reference different repositories containing the same path, such as `skill/SKILL.md`, both downloads are written to the same destination because only `result.path` is used. The concurrent writes overwrite one another even though installation reports both files as downloaded. Include the source repository or another unique skill namespace in the destination mapping."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 127,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

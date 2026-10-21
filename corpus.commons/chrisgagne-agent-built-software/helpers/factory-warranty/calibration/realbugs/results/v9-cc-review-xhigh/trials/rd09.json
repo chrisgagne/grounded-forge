@@ -1,0 +1,121 @@
+{
+ "id": "rd09",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "`appleApiKeyId` is a local `let` that is never read from options (create has no `appleApiKeyId` CLI option), so `if (!appleApiKeyId)` is always true and non-interactive iOS API-key destination creation always fails. CI runs `apps:destinations:create --platform ios --apple-api-key-file key.p8 --apple-issuer-id X --apple-team-id T ...` \u2192 key file is uploaded, then `!appleApiKeyId` && !isInteractive() \u2192 'You must provide the Apple API Key ID\u2026' and exit(1). No flag exists to supply it (update.ts has `--apple-api-key-id`, create does not), and the auth error message at line ~212 doesn't mention it either."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 235,
+   "end_line": 235,
+   "message": "The Apple API key (.p8) is uploaded before the key ID, issuer ID and team ID are collected, and the Google service-account key is uploaded before the destination POST, so any later exit or failure leaves an orphaned uploaded credential on the server. User passes `--apple-api-key-file` interactively, then cancels at the 'Enter the Apple API Key ID' prompt (prompt() calls process.exit(0)) or leaves it empty (exit 1); or destination create returns 400 \u2192 the .p8/JSON key already sits in /apple-api-keys or /google-service-account-keys with no destination referencing it. Every retry uploads another copy."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 158,
+   "end_line": 158,
+   "message": "Provisioning profiles are uploaded one by one before the certificate is created; if a later profile path is missing (readFileSync throws) or certificate creation fails (wrong password, validation), the already-uploaded profiles remain unlinked on the server. `--provisioning-profile a.mobileprovision --provisioning-profile typo.mobileprovision` \u2192 a is uploaded, then readFileSync(typo) throws ENOENT; or both upload and `appCertificatesService.create` rejects a bad p12 password \u2192 orphaned profiles with no certificate, duplicated on each retry."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/utils/prompt.ts",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "The shared `promptAppSelection` now hard-limits the app list to 50 with no pagination, so apps beyond the first 50 become unselectable in every interactive command, and the post-create refetch on line 57 omits the limit, making the two calls inconsistent. An organization with 60 apps runs any command interactively (channels, builds, deployments, certificates\u2026) \u2192 only 50 apps are offered; the user can't pick the others and has to find and pass --app-id manually. This is a cross-cutting change in a PR scoped to certificate/destination commands."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/destinations/get.ts",
+   "start_line": 76,
+   "end_line": 76,
+   "message": "`AppDestinationDto` includes `appleAppPassword`, and `get`/`list` dump the entire DTO via console.table/JSON, so if the API returns it the app-specific password is printed in plain text. `capawesome apps:destinations:list --app-id X` in a CI job \u2192 the Apple app-specific password shows up in CI logs and terminal scrollback (destinations/list.ts:41 has the same issue)."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/delete.ts",
+   "start_line": 56,
+   "end_line": 56,
+   "message": "When `--name` is given without `--platform` in interactive mode, the name filter is dropped and the user gets an unfiltered picker; the same applies to certificates/get.ts:55 and destinations get/delete. `apps:certificates:delete --app-id X --name prod-cert` \u2192 prompts for a platform, then lists every certificate for that platform ignoring 'prod-cert'; the user can pick and delete a different certificate than the one they named."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/update.ts",
+   "start_line": 41,
+   "end_line": 41,
+   "message": "The prompted certificate ID isn't checked for empty, and the command doesn't check that any update field was given, so it can PATCH the collection URL or send a no-op PATCH and still print success (destinations/update.ts:68 has the same issue). User presses Enter at 'Enter the certificate ID:' \u2192 PATCH `/v1/apps/X/certificates/` \u2192 confusing 404/405. Or `apps:certificates:update --app-id X --certificate-id Y` with no fields \u2192 'Certificate updated successfully.' though nothing changed."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 193,
+   "end_line": 193,
+   "message": "Auth-method detection quietly prefers API key when both kinds of options are passed, but all password fields (and fields for the other platform) are still sent in the create payload. `--platform ios --apple-api-key-file k.p8 --apple-issuer-id I --apple-id me@x --apple-app-password pw` \u2192 API-key flow runs, but appleId/appleAppPassword are also posted, giving a destination with both credential sets stored. Likewise `--platform android --apple-id \u2026` sends Apple fields for an Android destination."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 113,
+   "end_line": 113,
+   "message": "A non-empty password is required for every iOS certificate, but .p12 files are often exported with an empty password, so they can't be uploaded. User exports a p12 from Keychain with no password, runs create interactively and presses Enter at the password prompt \u2192 'You must provide a certificate password.' exit(1). Non-interactively, `--password ''` is falsy and also fails."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "Certificate password, key password and the Apple app-specific password (destinations/create.ts) are read with `type: 'text'` prompts, which echo the secret on screen. During interactive create, the keystore or p12 password is shown in clear text in the terminal and scrollback or screen shares. `@clack/prompts` (already a dependency) provides a masked `password()` prompt."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/services/app-provisioning-profiles.ts",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "Profile create sends the link as form field `certificateId`, while the response DTO and updateMany use `appCertificateId`, so the field name is probably wrong (and no caller uses it yet). Once a caller passes `certificateId` (the obvious simplification of create.ts), the server likely ignores the unknown field and the profile stays unlinked, with no error."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 154,
+   "end_line": 154,
+   "message": "New file reads use raw `fs.readFileSync` with no existence check, instead of the repo's `fileExistsAtPath` (utils/file.ts) and `createBufferFromPath` (utils/buffer.ts) used by liveupdates register/upload; the same applies at destinations/create.ts:180 and :233. A mistyped path (or `~/cert.p12` from the text prompt, which isn't tilde-expanded) throws an uncaught ENOENT instead of the clean 'The path does not exist.' + exit(1) that other commands give, and it blocks on synchronous I/O."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/get.ts",
+   "start_line": 35,
+   "end_line": 35,
+   "message": "The ~35-line 'resolve ID by name+platform or interactive picker' block is copy-pasted almost verbatim in certificates/get, certificates/delete, destinations/get and destinations/delete, which breaks CLAUDE.md's 'DRY Code: Avoid code duplication by using services and utility functions.' CLAUDE.md (repo root) rule: \"**DRY Code**: Avoid code duplication by using services and utility functions.\" Any fix (e.g. the dropped --name filter above) has to be made four times. A shared `promptCertificateSelection`/`promptDestinationSelection` helper in utils/prompt.ts, next to promptAppSelection, would remove it."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "Uploading profiles, then the certificate, then a separate `updateMany` link call is more work than needed: the profile create endpoint already takes a certificate ID. An extra PATCH round trip, the `provisioningProfileIds` bookkeeping, and the whole `updateMany` service method exist only because of the order. Creating the certificate first and passing `certificateId` to each profile create removes them, and also prevents orphaned profiles when the certificate is rejected."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The ten new certificate/destination commands and four new services have no tests, while the sibling channels commands each have a *.test.ts. The non-interactive iOS API-key path (always fails) and the orphaned-upload ordering would both have been caught by a basic nock-based test like channels/create.test.ts."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 204,
+  "cost_usd": 1.3297387999999999,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

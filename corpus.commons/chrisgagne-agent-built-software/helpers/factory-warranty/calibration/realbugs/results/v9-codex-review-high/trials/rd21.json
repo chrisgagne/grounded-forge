@@ -1,0 +1,28 @@
+{
+ "id": "rd21",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 27,
+   "message": "Restore the shared secret environment injection. The Helm Deployment injected `ms-secret-vault` through `envFrom`, but this replacement supplies only the listed non-secret variables. Credentials provided by the existing ExternalSecret are therefore no longer available to the unchanged agent image. In deployments using those credentials for authenticated dependencies, the agent will fail to connect. Preserve the previous `envFrom.secretRef` in this Deployment."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 22,
+   "end_line": 25,
+   "message": "Preserve the agent's readiness and liveness probes. The replacement Deployment drops both HTTP probes previously configured for `/ai-secure-agent-ms/v1/ping`. During startup or rollout, Kubernetes will now consider the container ready before the HTTP server is accepting requests, potentially routing traffic prematurely and terminating the previous healthy pod. A running but unresponsive agent also no longer triggers a restart. Restore the existing health checks in this manifest."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 82,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "id": "rd17",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "postCreateCommand installs `.[dev]`, but pyproject.toml (the hatchling build backend, so setup.py is ignored) defines no `dev` optional-dependencies, so the dev tools never get installed. On container creation, uv prints a warning that `proxmox-mcp-plus` has no extra named `dev` and installs only the runtime deps. pytest, pytest-asyncio, black, ruff and mypy are missing from .venv, so running `pytest` fails and the configured Black formatter / Ruff integration can't find their tools. The README's claim that all dependencies are installed is wrong."
+  },
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "workspaceFolder and python.defaultInterpreterPath are hardcoded to /workspaces/ProxmoxMCP-Plus, but there's no workspaceMount, so the repo is mounted at /workspaces/<local-folder-name>. If a user clones into a directory with a different name (e.g. `git clone ... proxmox-mcp`, or the cloned repo is a fork with another name), the source is mounted at /workspaces/proxmox-mcp. VS Code then opens an empty /workspaces/ProxmoxMCP-Plus, postCreateCommand runs `uv venv && uv pip install -e .` in a directory without pyproject.toml and fails, and the interpreter path points to a venv that doesn't exist. Use `${localWorkspaceFolderBasename}` or add an explicit workspaceMount."
+  },
+  {
+   "source": "cc-review",
+   "file": "README.md",
+   "start_line": 71,
+   "end_line": 71,
+   "message": "The README says the OpenAPI proxy is reachable at http://localhost:8811, but the dev container only forwards the port and never starts the proxy. A user follows steps 1\u20134 and opens http://localhost:8811, but nothing is listening because no postStart/postAttach command runs start_openapi.sh or `python -m proxmox_mcp.openapi_proxy`. The README should tell users to start the proxy themselves first."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 30,
+  "cost_usd": 0.1521584,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": null,
+  "fallback_file": 0
+ }
+}

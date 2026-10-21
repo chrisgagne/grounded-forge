@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/NIAEFEUP/enei",
+  "pr_number": 194,
+  "base": "a74461de5337f3618effdcdb6f115dccd2f94a15",
+  "head": "0442935c8fe466a2f1115b76240c9ad9df2be1e5"
+ },
+ "agent": "v5-cc-review-xhigh",
+ "findings": [
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "`this.eventService.isRegistered(user!, event)` is not awaited, so `!promise` is always false and the registration check never rejects anyone. Staff scans the QR code of a participant who never registered for the event (or the event is full/registration closed). The un-awaited Promise is truthy, the guard is skipped, and the participant is checked in."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "CredentialScanner runs with `scanDelay={0}` and `allowMultiple={true}`, so `onScan` fires on many frames while the QR is in view, and each one calls `post` with no guard on `processing` or the last slug. Holding a QR code in front of the camera sends many POSTs. Inertia cancels the earlier client visits, so the first request succeeds on the server but its onSuccess never runs. The later requests get 'Participante j\u00e1 checked-in', so staff see an error toast and the dialog stays open after a check-in that actually worked."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/app/services/event_service.ts",
+   "start_line": 34,
+   "end_line": 34,
+   "message": "`isCheckedIn` followed by `attach` is a check-then-act race. The unique (event_id, user_id) constraint rejects the second insert, and nothing catches that error. Two near-simultaneous check-in requests for the same participant (very likely given the repeated scanner callbacks) both pass `isCheckedIn`. The second `attach` throws a unique-violation error, which surfaces as a 500 instead of the 'j\u00e1 checked-in' message."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 104,
+   "end_line": 104,
+   "message": "`User.findBy(\"participantProfileId\", ...)` can return null, but the code then uses `user!` in isRegistered, isCheckedIn and checkin without checking. A ParticipantProfile with no linked user (orphaned or partially created) is scanned. `user.id` throws a TypeError, which becomes a 500. The floating, un-awaited isRegistered promise also rejects with no handler (an unhandled rejection), on top of the awaited isCheckedIn failure."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/database/seeders/mock_staff_profile_seeder.ts",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "The new seeder has no `app.inDev` guard (unlike 2_account_seeder.dev.ts). It gives a staff profile to whichever user has id 1. Running `node ace db:seed` against staging or prod (or any populated DB) silently gives staff privileges (check-in, product collection) to user 1. In dev, user 1 is the participant test@eneiconf.pt, so the test participant also becomes staff, and its role changes from 'participant' to 'staff'."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "`if (!isOpen) return null;` runs before `useTuyau()`/`useForm()`, which breaks the Rules of Hooks: the hook count changes between open and closed renders. Opening and closing the dialog switches between N hooks and 0 hooks. React DEV logs internal hook and static-flag errors, and useForm's effect cleanups are skipped on close. The `<Dialog open={isOpen}>` is also always true when rendered, so the close animation never plays."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 313,
+   "message": "The staff QR button sits inside the `{!isRegistered && ...}` block, so it only shows when the logged-in staff user is not registered for the event. A staff member who is also registered for a workshop opens the event page. They see 'Inscrito' with no QR icon and cannot open the check-in scanner for that event."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/database/seeders/8_staff_seeder.ts",
+   "start_line": 9,
+   "end_line": 9,
+   "message": "8_staff_seeder creates staff@eneiconf.pt with password 'password' and no `app.inDev` guard. It also inserts Department with a hard-coded `id: 99`. Seeding outside dev creates a staff account anyone can log into. On Postgres, the explicit id 99 doesn't advance the serial sequence, so a later `Department.create` eventually collides on id 99. Re-running `db:seed` also fails with duplicate key/email errors."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/database/migrations/1743633554088_create_create_event_checkins_table.ts",
+   "start_line": 10,
+   "end_line": 10,
+   "message": "The event_id/user_id foreign keys have no `onDelete(\"CASCADE\")` (event_users has it) and are nullable, unlike the sibling pivot table. Deleting a user or event that has any check-in row fails with an FK violation. Nullable columns also mean rows with NULL user_id/event_id are allowed and bypass the unique constraint."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "Check-in requires a row in event_users, but events with `requiresRegistration=false` reject registration outright, so nobody can ever be registered for them. Once the missing await is fixed, every scan at an open talk (requiresRegistration=false) returns 'Participante n\u00e3o registado no evento', so check-in can't be used for those events."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/app/models/user.ts",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "Moving `isStaff()` to the top of the `role` getter means a user with both a staff and a promoter profile now reports 'staff' and loses every role === 'promoter' check. A promoter who is also given a staff profile no longer sees the PromoterNotification banner (common/page.tsx checks role !== 'promoter'), and any other promoter-gated UI that depends on role disappears for them."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/inertia/components/credentials/scanner.tsx",
+   "start_line": 9,
+   "end_line": 9,
+   "message": "The shared CredentialScanner now always sits in a fixed `w-64` wrapper. That suits the 96-wide dialog but also limits the existing staff scanner page. On /qrcode/scan (qrscanner/page.tsx), the scanner used to fill the `w-3/4` column; it is now capped at 16rem on all screens, so the camera viewport is smaller for the existing profile-scan flow."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/start/routes.ts",
+   "start_line": 201,
+   "end_line": 201,
+   "message": "The check-in route puts the participant slug where every sibling `/events/:id/...` route has the event id, and reads the event id from an unvalidated body field (`request.input(\"eventID\")`). A missing eventID gives `Event.findOrFail(undefined)`, and a non-numeric one gives a Postgres cast error and a 500 instead of a validation error. The event id also stays frozen in useForm's initial state. `/events/:id/check-in/:slug` (or a VineJS validator) would fix this at the root."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 38,
+   "end_line": 38,
+   "message": "`await user?.load(\"staffProfile\")` is now unneeded, because `isStaff()`/`role` read `staffProfileId` directly. Every authenticated view of an event page runs an extra SELECT on staff_profiles whose result is never used."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "apps/website/app/services/event_service.ts",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "`checkin` calls `await event.save()` even though no event field changed, and it sets `checked_in_at: new Date()` even though the migration already defaults it to `this.now()`. Each check-in does wasted work. On the default better-sqlite3 connection, knex binds the JS Date as epoch milliseconds while the column default writes a CURRENT_TIMESTAMP string, so the column ends up holding mixed formats."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 369000
+ }
+}

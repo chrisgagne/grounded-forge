@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/Waferguard/waferguard-ml",
+  "pr_number": 17,
+  "base": "56411efab470a71e9ef342bc1e10fab767751de5",
+  "head": "62d4f66fbeaef3dd84578b7cd547f37d43086a26"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 257,
+   "end_line": 257,
+   "message": "The notebook calls wg_fin.run_inference(), but financial_impact.financial defines neither run_inference nor load_artifacts. The missing loader is caught and forces the fallback path; inference then raises AttributeError, preventing report generation even when models and data are available. Implement inference and artifact loading in the notebook or another module and update these calls."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 169,
+   "end_line": 173,
+   "message": "The repository root is hardcoded to the author's desktop directory, so dataset, model, and output paths fail in other checkouts. The package import also precedes sys.path setup, causing ModuleNotFoundError when the kernel starts in wafer_images. Resolve the actual checkout root and configure imports before importing financial_impact."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 291,
+   "end_line": 293,
+   "message": "The artifacts saved by model.ipynb contain pattern_to_id, but no id_to_binary. This therefore supplies an empty mapping to decode_labels, which silently converts every prediction to '00000000'. Once artifact loading works, defective batches will be reported as entirely Normal with zero financial loss. Construct id_to_binary by reversing the saved pattern_to_id mapping."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "financial_impact/financial.py",
+   "start_line": 239,
+   "end_line": 240,
+   "message": "The financial_params argument is never used: get_params always reads the global FINANCIAL_PARAMS. Callers supplying custom costs or yield assumptions silently receive calculations using the defaults. Pass the supplied mapping through parameter lookup and combination aggregation."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "financial_impact/financial.py",
+   "start_line": 248,
+   "end_line": 251,
+   "message": "Break-even excludes downtime costs even though EVoA deducts them for the same repair. With an all-Center batch and default settings, the report shows 0.1 days to break even, while the $275,000 repair plus $16,400,000 downtime cost requires about 5.6 days of avoided losses. Include downtime costs in the payback calculation so the financial metrics agree."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "financial_impact/financial.py",
+   "start_line": 273,
+   "end_line": 273,
+   "message": "An empty batch produces rows=[], so the constructed DataFrame has no priority_score column and sort_values raises KeyError. This prevents the subsequent empty-batch handling from returning a zero-valued summary. Preserve the output schema or handle empty input before sorting."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The batch average confidence is calculated as an unweighted mean of pattern averages, giving rare patterns the same influence as common ones. For 99 wafers at 0.99 confidence and one different-pattern wafer at 0.10, this reports 0.545 instead of 0.9811. Weight each pattern average by its wafer count."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "financial_impact/financial.py",
+   "start_line": 268,
+   "end_line": 268,
+   "message": "The evoa_30d column uses the configurable PLANNING_HORIZON rather than a fixed 30 days. Setting the horizon to 7 therefore exports a seven-day result labeled as a 30-day result, and the report does not record the actual horizon. Use a horizon-neutral field with explicit horizon metadata, or keep this field fixed at 30 days."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 187000
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/vriesdemichael/keycloak-operator",
+  "pr_number": 696,
+  "base": "bd0524bce599ccc367a4481f9b792305a8b074a1",
+  "head": "4db0ddeaea75e5d1d1a312473465153ed8f60661"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 174,
+   "end_line": 179,
+   "message": "Secret.Data already contains decoded bytes. Decoding again whenever a credential resembles base64 corrupts valid values such as username \"john\" or password \"password\", causing authentication failures. This also affects generated passwords that happen to contain only alphanumeric characters. Return the stored bytes unchanged."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 146,
+   "end_line": 151,
+   "message": "The operator populates status.endpoints.admin and public with http://{name}-keycloak.{namespace}.svc.cluster.local:8080. Those addresses are normally unreachable from the host running this toolkit, so the documented default cluster invocation fails even when ingress is configured. Resolve an externally reachable endpoint or establish a port-forward."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 104,
+   "end_line": 105,
+   "message": "Hardcoding authentication to master prevents explicit credentials from working for administrators defined in the target realm, even when they have sufficient import permissions. This leaves the realm-manager workflow requested by #490 unsupported. Add a configurable authentication realm; Keycloak supports administrators within individual realms ([documentation](https://www.keycloak.org/docs/latest/server_admin/index.html))."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 174,
+   "end_line": 180,
+   "message": "Both HTTP operations use DefaultClient without a timeout, and the command supplies context.Background(). A server or proxy that accepts the connection but stalls can therefore block the migration indefinitely. Configure a bounded, preferably configurable request timeout covering response-body reads ([Go documentation](https://pkg.go.dev/net/http#Client))."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 194,
+   "end_line": 197,
+   "message": "The response parser omits Keycloak's overwritten counter. An overwrite-only migration consequently reports Added: 0, Skipped: 0, Errors: 0 despite replacing every user, making the summary misleading for a destructive operation. Parse, aggregate, and display overwritten results ([response implementation](https://raw.githubusercontent.com/keycloak/keycloak/26.4.0/server-spi-private/src/main/java/org/keycloak/partialimport/PartialImportResults.java))."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 80,
+   "end_line": 82,
+   "message": "Returning nil on a batch failure discards statistics from previously completed batches. The caller explicitly tries to print partial progress, but receives nil and prints nothing for HTTP conflicts, permission failures, or network errors. Return the accumulated result alongside the error here and on token-refresh failures."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 228000
+ }
+}

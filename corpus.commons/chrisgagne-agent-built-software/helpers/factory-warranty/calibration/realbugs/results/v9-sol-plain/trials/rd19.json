@@ -1,0 +1,28 @@
+{
+ "id": "rd19",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "ui/user/src/lib/components/admin/McpServerGitSync.svelte",
+   "start_line": 160,
+   "end_line": 173,
+   "message": "Editing a private source URL silently deletes its stored token. The UI moves the '*' marker to the new URL, but the backend only preserves existingCred.Env[newURL]; the token remains keyed by oldURL and is subsequently dropped. Changing a branch or adding a .git suffix therefore breaks authentication unless the administrator re-enters the PAT. Implement an explicit credential transfer or require a replacement token."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 124,
+   "end_line": 128,
+   "message": "Scheme-less URLs are normalized only in SourceURLs, leaving SourceURLCredentials keyed by the original input. For example, submitting 'gitlab.com/org/private.git' with a PAT changes the active URL to 'https://gitlab.com/org/private.git', so the credential loop rejects the original key as inactive. The request succeeds but discards the PAT and private-repository sync fails. Normalize credential keys alongside their source URLs."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 86,
+  "reasoning_effort": "none",
+  "tokens": 44231
+ }
+}

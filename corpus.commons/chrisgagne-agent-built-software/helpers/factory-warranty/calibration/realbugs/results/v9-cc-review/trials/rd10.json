@@ -1,0 +1,44 @@
+{
+ "id": "rd10",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 52,
+   "end_line": 52,
+   "message": "UseAuthentication/UseAuthorization are added, but UseCoreSyncHttpServer is plain middleware with no authorization metadata, and the 'RequireSyncReadWrite' policy is never applied, so the sync endpoints stay anonymous even with Auth:UseEntraId=true. With Entra ID enabled, a client that sends no Authorization header (or an invalid one) to the CoreSync HTTP endpoints still gets a 200 and can pull or push the whole database. UseAuthorization only enforces on endpoints that carry [Authorize] or RequireAuthorization metadata, and middleware has neither, so the bearer token the MAUI client now sends is never actually checked."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/SentenceStudio.Api/Program.cs",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "Auth:UseEntraId is only set in appsettings.Development.json and there is no base appsettings.json, so GetValue<bool> returns false in Production/Staging and every request is auto-authenticated as dev-user/dev-tenant. If the API is deployed with ASPNETCORE_ENVIRONMENT=Production and nobody sets Auth__UseEntraId, the app falls back to DevAuthHandler. Anonymous callers then pass every RequireAuthorization() check and can use the AI and speech endpoints. AppHost also hard-codes Auth__UseEntraId=false for every environment. Missing configuration should fail closed, not open."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 24,
+   "end_line": 24,
+   "message": "Microsoft.Identity.Web/JwtBearer maps inbound claims by default, so 'tid' and 'oid' arrive as the long schemas.microsoft.com URIs. FindFirstValue(\"tid\") then returns null, and the fallbacks return null for tenant or the pairwise 'sub' (mapped to NameIdentifier) for user. With a real Entra token and UseEntraId=true, TenantContext.TenantId is null, and UserId comes from 'sub' instead of 'oid', so it won't match the IDs used elsewhere. The tests miss this because TestJwtGenerator also adds 'tenant_id' and NameIdentifier claims and uses a plain JwtBearer handler. Use Identity.Web's GetTenantId()/GetObjectId() helpers, or check the ClaimConstants.TenantId/ObjectId URIs."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/SentenceStudio.Api/Program.cs",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "The scope policies RequireUserRead, RequireAiAccess and RequireSyncReadWrite are registered, but every endpoint calls RequireAuthorization() with no policy name, so token scopes are never checked. A token for this API audience that only has user.read (or no scp claim at all) can call /api/v1/ai/chat, /speech/synthesize and so on. Those require ai.access by design but get only the default authenticated-user check."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 44,
+  "cost_usd": 0.30375060000000004,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "medium",
+  "fallback_file": 0
+ }
+}

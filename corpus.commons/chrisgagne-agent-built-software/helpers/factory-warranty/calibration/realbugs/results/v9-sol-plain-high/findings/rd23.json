@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/NIAEFEUP/enei",
+  "pr_number": 194,
+  "base": "a74461de5337f3618effdcdb6f115dccd2f94a15",
+  "head": "0442935c8fe466a2f1115b76240c9ad9df2be1e5"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "isRegistered() returns a Promise, so this condition is always false. Every existing participant can check in without registering, bypassing event admission limits. Await the result before testing it."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "apps/website/database/seeders/8_staff_seeder.ts",
+   "start_line": 27,
+   "end_line": 29,
+   "message": "This unrestricted seeder creates a verified staff account with publicly known credentials. Running the seeders in production grants anyone staff access. The new mock_staff_profile_seeder also unconditionally grants staff privileges to user 1. Restrict both test seeders to development."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 28,
+   "end_line": 30,
+   "message": "CredentialScanner enables repeated detections with scanDelay=0, but this handler submits on every detection without pausing or guarding an outstanding request. Holding a QR code in view sends overlapping POSTs; Inertia can cancel earlier visits after the server has committed them, leaving staff with an already-checked-in error instead of confirmation. Lock submission immediately until the request completes."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 111,
+   "end_line": 116,
+   "message": "The duplicate check and insertion are separate operations. Concurrent requests for the same participant can both pass isCheckedIn(), after which one insertion violates the unique constraint and returns an unhandled server error. Make insertion atomic and handle an existing check-in explicitly."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 315,
+   "message": "The scanner control is inside the !isRegistered branch. Staff can also have participant profiles and register for events, so registering removes their only way to open the check-in scanner for that event. Render the staff control independently of registration status."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "apps/website/database/migrations/1743633554088_create_create_event_checkins_table.ts",
+   "start_line": 10,
+   "end_line": 11,
+   "message": "These foreign keys default to rejecting parent deletion. Once a check-in exists, deleting the event or user through the existing admin interface fails with a foreign-key error. Unlike event_users, this table has no cascading deletion or application cleanup. Define and implement cleanup for check-ins when their parent is deleted."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 104,
+   "end_line": 106,
+   "message": "A participant profile can exist without an associated user, for example after user deletion or profile reassignment. findBy() then returns null, and the non-null assertion provides no runtime protection: both service methods dereference user.id and fail. Handle a missing user as a participant-not-found error before calling the services."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 18,
+   "end_line": 24,
+   "message": "The parent keeps this component mounted while isOpen changes, but the early return skips useTuyau() and useForm() whenever it closes. This changes the hooks executed by the same component and drops the form's effect lifecycle without unmounting it. Call hooks before the conditional return, or conditionally mount the component in the parent."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 140000
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/AktivitetspengerInntektsrapporteringInnsending.kt",
+   "start_line": 42,
+   "end_line": 42,
+   "message": "The k9 s\u00f8knad built for an income report is a plain `Aktivitetspenger` ytelse with `s\u00f8knadsperiode` set to the reporting period. Nothing marks it as a report. The Ungdomsytelse version sets `UngS\u00f8knadstype.RAPPORTERING_S\u00d8KNAD` for this. A user reports income for the period 2026-03-01..2026-03-31. The JSON journalf\u00f8rt to the archive, and passed on to downstream processing, is an ordinary Aktivitetspenger s\u00f8knad with s\u00f8knadsperiode March 2026 and no type marker. A consumer that reads the k9 format can take it for a new Aktivitetspenger application for that month instead of an income report. It is also validated with `AktivitetspengerS\u00f8knadValidator`, which may reject it if that validator expects fields from a real application (e.g. forutg\u00e5ende bosteder)."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 51000
+ }
+}

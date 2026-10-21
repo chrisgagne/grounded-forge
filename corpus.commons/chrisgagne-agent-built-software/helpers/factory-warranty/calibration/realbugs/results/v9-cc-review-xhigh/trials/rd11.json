@@ -1,0 +1,114 @@
+{
+ "id": "rd11",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+   "start_line": 270,
+   "end_line": 270,
+   "message": "`_AndroidRunNativeCompile` now has `DependsOnTargets=\"_PreTrimmingFixLegacyDesignerUpdateItems;\u2026\"`, but that target only exists in Microsoft.Android.Sdk.TypeMap.LlvmIr.targets. That file is not imported when `_AndroidTypeMapImplementation == 'trimmable'`. A NativeAOT app built with `_AndroidTypeMapImplementation=trimmable` (a supported pairing: Trimmable.targets imports Trimmable.NativeAOT.targets). Xamarin.Android.Common.targets:2878-2881 imports only Trimmable.targets. The inner build reaches `_AndroidRunNativeCompile` (no condition, runs after ComputeResolvedFilesToPublishList) and fails with MSB4057 \"target _PreTrimmingFixLegacyDesignerUpdateItems does not exist\", in every configuration."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "The swap only rewrites `ResolvedFileToPublish`. For NativeAOT, the ILC package's `_ComputeManagedAssemblyForILLink` rebuilds `ManagedAssemblyToLink` from `_ManagedResolvedAssembliesToPublish`, which comes from `_ResolvedCopyLocalPublishAssets` (the comment at line 401-407 notes this replacement). So ILLink still trims the original, un-rewritten libraries. The post-trim FixLegacy step that used to exist was deleted. A NativeAOT release app references a legacy-designer library (old AndroidX or Xamarin.Forms package). PreTrimmingFixLegacyDesigner writes prelink/Lib.dll, but ILLink/ILC consume the NuGet-cache Lib.dll. The library keeps `ldsfld Lib.Resource/Layout::X` with library-local IDs and no UpdateIdValues, so wrong resource IDs are used at runtime. Also, ILLink's `ResolvedFileToPublish Remove=\"@(ManagedAssemblyToLink)\"` doesn't match the prelink paths, so the prelink items leak into ResolvedFileToPublish next to the linked copies. apkdesc sizes and the device test (which only prints Foo.Hello) can't tell the difference."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 277,
+   "end_line": 277,
+   "message": "`_PreTrimmingFixLegacyDesignerUpdateItems` swaps in any `prelink/<name>.dll` that exists on disk, not the set the task produced for the current inputs. The task never clears the directory or removes copies for assemblies it no longer modifies, and Clean doesn't remove `prelink/`. Build 1: library Foo 1.0 has a legacy designer, so prelink/Foo.dll is written. The user then updates to Foo 2.0, which has no legacy designer (`ProcessAssemblyDesigner` returns false), or the designer fails to resolve. The task reruns, doesn't write Foo, and leaves the old file. The swap then replaces Foo 2.0 with the rewritten Foo 1.0 copy. The app ships old library code, and dependants compiled against 2.0 can hit MissingMethodException or TypeLoadException."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 250,
+   "end_line": 250,
+   "message": "`Inputs=\"@(_PreTrimmingAssembly)\"` with only a stamp as output detects newer timestamps only. Adding an assembly, or switching to one with older file times, doesn't rerun the task. Neither do property or task-assembly changes. Other targets in this repo add `$(_AndroidBuildPropertiesCache)` or a resolved-assemblies hash for this reason. NuGet keeps zip-entry timestamps on extraction. After a successful build, the user adds a legacy-designer package whose DLL dates are older than the stamp, or downgrades Foo 2.0 to Foo 1.0 that is already in the cache. `_PreTrimmingFixLegacyDesigner` is skipped. The new library isn't rewritten (wrong resource IDs at runtime), or the downgraded Foo is replaced by the stale rewritten prelink copy of 2.0."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "The deleted `PostTrimmingFixLegacyResourceDesignerStep` deliberately ran on every assembly (\"matching the behavior of the former ILLink path which processed all assemblies without StepContext flag filtering\"). The new task skips the main assembly, so release builds no longer rewrite app-side reads of legacy library Resource fields. App code reads `SomeLib.Resource.Layout.Foo` directly (compiled as `ldsfld SomeLib.Resource/Layout::Foo`). The library is processed and `ClearDesignerClass(completely: true)` removes its nested types. Before, the main assembly hit the unresolved-member fallback (`_Linker.Generated.Resource`) and was redirected to the designer getter. Now it is skipped, so ILLink sees an unresolved field and the app throws MissingFieldException at runtime."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 246,
+   "end_line": 246,
+   "message": "The pre-trim designer fix doesn't depend on the typemap, but it lives in the LlvmIr typemap file and patches `ResolvedFileToPublish`. NativeAOT then needs a special-case DependsOn. The trimmable typemap path never gets the fix, and NativeAOT's ILLink input path is missed. Each ILLink entry path (MonoVM/CoreCLR, NativeAOT, trimmable typemap) needs its own wiring, and two of three are broken (see the MSB4057 and NativeAOT findings). A simpler fix: move these targets to shared targets (e.g. Xamarin.Android.Resource.Designer.targets) and swap `ManagedAssemblyToLink` right before `_RunILLink`, after both `_ComputeManagedAssemblyToLink` and `_ComputeManagedAssemblyForILLink`. That covers every ILLink caller with no runtime-specific hook."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 276,
+   "end_line": 276,
+   "message": "Only `.dll` items are moved to `prelink/`. The SDK's `_PDBToLink` pairs PDBs with `ManagedAssemblyToLink` by `%(RelativeDir)%(Filename).pdb`, so the original PDB in the NuGet or obj folder no longer matches the prelink DLL. The PDB the task writes to `prelink/` isn't added to ResolvedFileToPublish either. In a release build with symbols included (AndroidIncludeDebugSymbols=true, or TrimmerRemoveSymbols off), the original Foo.pdb is no longer seen as a linked PDB. It stays in ResolvedFileToPublish and ships next to the trimmed, rewritten Foo.dll. Symbolication or debugging uses a PDB whose IL offsets and MVID don't match."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 262,
+   "end_line": 262,
+   "message": "`FileWrites` is filled from the task's `ModifiedAssemblies` output, which can't be inferred when the target is skipped, so it is empty on no-op builds. It also leaves out the `.pdb` files written to `prelink/`, and `_CleanMonoAndroidIntermediateDir` doesn't remove the `prelink` directory. On an incremental build where `_PreTrimmingFixLegacyDesigner` is skipped, the prelink DLLs aren't in FileWrites, so an IncrementalClean pass treats them as orphans. Meanwhile `clean` never removes `prelink/*.pdb` or the directory itself. The leftover copies feed the Exists()-based swap (stale prelink finding)."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "If `_Microsoft.Android.Resource.Designer` can't be resolved from the collected search directories, `ProcessAssemblyDesigner` returns false with only a debug-level \"Not using \u2026\" message. The task succeeds and touches the stamp, and the root descriptor safety net has been removed. Designer resolution only works if the designer DLL sits next to some collected assembly (today via `_FixupIntermediateAssembly`). Under NativeAOT, `_AndroidRunNativeCompile` runs before `_AddResourceDesignerToPublishFiles`. If those paths diverge, every legacy library is left unfixed with no warning, and the stamp then suppresses reruns. Users get wrong resource IDs at runtime instead of a build error."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 65,
+   "end_line": 65,
+   "message": "The inline main/framework filter claims to \"match the filtering in FixLegacyResourceDesignerStep.ProcessAssembly\", but that method filters `IsMainAssembly || !IsAndroidUserAssembly`, which is narrower. The task also duplicates resolver setup from PostTrimmingPipeline and write logic that `SaveChangedAssemblyStep` already provides (write if modified, copy otherwise). Two filter definitions now drift apart: non-Android user libraries are processed here but not in LinkAssembliesNoShrink. Reusing `StepContext` plus `fixLegacyStep.ProcessAssembly` (or `SaveChangedAssemblyStep`, which writes every destination) would also fix the stale prelink problem."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "`ModifiedAssemblies`, `CopyMetadataTo`, and the `OriginalPath` metadata are consumed only by `FileWrites`. The swap target re-derives the modified set from `Exists()` checks instead. Dead metadata and two sources of truth for \"which assemblies were rewritten\". Persisting the list (e.g. WriteLinesToFile as the target Output, ReadLinesFromFile in UpdateItems) would replace both and remove the stale-file risk."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 238,
+   "end_line": 238,
+   "message": "`_CollectPreTrimmingAssemblies` and `_PreTrimmingFixLegacyDesigner` both declare `AfterTargets=\"ComputeResolvedFilesToPublishList\"`, but they are already pulled in through the DependsOnTargets chain of `_PreTrimmingFixLegacyDesignerUpdateItems`. The same three-part Condition is copied on all three targets. Extra scheduling edges make ordering harder to reason about (NativeAOT already needed a manual DependsOn fix). The duplicated conditions can drift. One AfterTargets on the leaf target plus a shared property for the condition does the same job."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 49,
+   "end_line": 49,
+   "message": "The resolver is created with `loadDebugSymbols: true`, so symbols are read for every non-framework assembly scanned, though nearly all have no legacy designer and are never written. Each rerun (any input touched, including the designer DLL after a resource edit) reads PDBs for every NuGet library just to check custom attributes and member refs. Loading symbols only for assemblies about to be written (or `ReadSymbols` on demand) avoids that I/O."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 271,
+   "end_line": 271,
+   "message": "No test checks that the linked output actually contains the rewritten designer-getter calls, that a no-op build skips `_PreTrimmingFixLegacyDesigner` but still swaps, or the NativeAOT and trimmable typemap paths. apkdesc size drops look the same whether libraries were fixed or the designer was just trimmed. The device test `FixLegacyResourceDesignerStep` only logs `Foo.Hello` without checking its value. The NativeAOT, stale-file, and incremental bugs above can all pass CI."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 856,
+  "cost_usd": 4.2243352,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

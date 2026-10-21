@@ -1,0 +1,86 @@
+{
+ "id": "rd13",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 517,
+   "end_line": 517,
+   "message": "The DoR pre-check reads a `## Final Verdict` section, but the DoR checklist that x-story-plan writes has no such section. The verdict appears only as `| Verdict | X |` in the Header table and as `Verdict: **X**` under `## Summary`, and there is no branch for a verdict that can't be parsed. x-story-plan writes `dor-story-0028-0002.md` with `Verdict: **NOT_READY**` under `## Summary`. The epic orchestrator looks for `## Final Verdict`, finds nothing, and matches neither the READY nor the NOT_READY branch. The behaviour is undefined, and in practice the story gets dispatched even though its DoR failed."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 621,
+   "end_line": 621,
+   "message": "The DoR step `a0` is described only in Section 1.1b. The real Core Loop in Section 1.3 (step 6) and parallel dispatch (Section 1.4a, line 783) were not updated. Parallel stories are also dispatched at step 4, before step 6 runs, so a check placed at 6.a0 would come after dispatch anyway. An agent following the 1.3 algorithm literally dispatches the parallelBatch through worktrees at step 4 and marks the stories IN_PROGRESS without any DoR check. NOT_READY stories still get implemented."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 284,
+   "end_line": 284,
+   "message": "Step 1b keeps DONE tasks as DONE even for stories that Step 1 moved from FAILED to PENDING for a retry. A retry closes the old PR and the lifecycle starts a new branch from develop, so the DONE tasks' commits are not on the new branch. A story fails after TASK-001 and TASK-002 are DONE (commitSha on `feat/story-...`). On `--resume` the PR is closed and the story is re-dispatched from develop. The subagent skips TASK-001 and TASK-002 because they are DONE, and the new PR is missing their code."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 670,
+   "end_line": 670,
+   "message": "The per-task status update (editing story Section 8.1 and execution-state) comes after Phase 8 step 10, `git checkout develop && git pull origin develop`. The story-file edits therefore land on develop's working tree instead of the story branch or PR. In PRE_PLANNED mode the lifecycle checks out develop and then marks each TASK-NNN as Concluida in the story file. The changes are left uncommitted on develop (or get committed straight to develop) and never appear in the story's PR."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 674,
+   "end_line": 674,
+   "message": "Task statuses are written only once, in Phase 8, after every task is finished, and nothing ever writes IN_PROGRESS or per-task DONE as tasks complete. The task-level resume in epic-implement Step 1b therefore never has partial progress to resume from. A story is interrupted after 3 of 6 tasks are committed. execution-state has no `tasks` entries, or all of them are PENDING, because Phase 8 never ran. On resume all 6 tasks run again, which contradicts the advertised 'only incomplete tasks are re-executed'."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 156,
+   "end_line": 156,
+   "message": "PRE_PLANNED requires all 7 standalone artifacts. x-story-plan does not write architecture, test, security or compliance files (that content lives in planning-report sections), and the compliance file exists only when compliance is active. The mode table also has no row for 'all artifacts exist but some are stale'. After running x-story-plan on a project without compliance, the files `compliance-story-*.md`, `architecture-story-*.md` and others are missing. The mode resolves to HYBRID and the task-by-task path never runs. Separately, if all 7 exist but one is stale, no mode row matches (it is not PRE_PLANNED, and HYBRID/INLINE don't apply)."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 519,
+   "end_line": 519,
+   "message": "A story blocked by DoR is marked BLOCKED with no `blockedBy` field. On resume, Step 2 keeps any story with undefined `blockedBy` BLOCKED permanently, so it stays blocked even after the DoR is fixed and re-planned to READY. story-0028-0003 is NOT_READY and gets marked BLOCKED. The user re-runs x-story-plan, which now returns READY, then runs `--resume`. Step 2 sees `blockedBy` undefined and keeps it BLOCKED, so getExecutableStories never returns it and its dependents stall."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 514,
+   "end_line": 514,
+   "message": "The DoR path is hardcoded to `plans/epic-{epicId}/plans/...`, while x-story-plan now resolves suffix directories (`plans/epic-XXXX-*`). x-story-plan's own step 0.5 `test -f` and its output paths (Sections 4.x) also still use the hardcoded path. The epic lives at `plans/epic-0028-foo/`. x-story-plan writes the DoR there, but the epic orchestrator looks in `plans/epic-0028/plans/`, finds nothing, and takes the 'backward compatible, proceed' branch. NOT_READY stories are silently dispatched."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 296,
+   "end_line": 296,
+   "message": "The TPP levels were swapped (Level 4 = collection, Level 5 = conditional). This contradicts x-test-plan, which defines Level 4 as Complex Conditions and Level 5 as Iterations. The QA agent in x-story-plan orders UTs collection-before-conditional, while x-test-plan or the existing tests-story plans order them the other way. DoR check #2 ('UT-N follow TPP ordering 1\u20136') then gives different answers depending on which definition is applied, and task order becomes inconsistent across skills."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/test/resources/golden/java-quarkus/.claude/skills/x-dev-implement/SKILL.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Only the java-quarkus/.claude x-dev-lifecycle golden was regenerated. The x-dev-implement and x-dev-epic-implement goldens, and the other ~69 x-dev-lifecycle goldens (other profiles and the .github/.codex/.agents targets), still have the old content. Golden-file comparison tests generate output from the updated templates and diff it against these stale goldens. They fail for every profile/target except java-quarkus/.claude x-dev-lifecycle."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 154,
+  "cost_usd": 0.8937318,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

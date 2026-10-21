@@ -1,0 +1,36 @@
+{
+ "id": "rd11",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 276,
+   "end_line": 279,
+   "message": "Selecting replacement assemblies solely by file existence can publish stale code. If a previously rewritten library is upgraded or rebuilt without a legacy designer, ProcessAssemblyDesigner returns false and leaves its old prelink copy intact. This target then substitutes that old DLL for the current library, silently discarding the update. Remove obsolete outputs and use a persisted manifest of current modified assemblies to select replacements."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 74,
+   "end_line": 75,
+   "message": "ProcessAssemblyDesigner scans every method and reports XA8000 for resource references missing from the shared designer. Running it before trimming now makes references in unreachable methods, or entirely unused legacy libraries, fail the build even though ILLink previously removed that code before the rewrite. Missing-resource validation needs to account for reachability so unused legacy code does not become a new build failure."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+   "start_line": 270,
+   "end_line": 270,
+   "message": "This unconditional dependency breaks NativeAOT builds using _AndroidTypeMapImplementation=trimmable. Xamarin.Android.Common.targets imports TypeMap.Trimmable.targets instead of TypeMap.LlvmIr.targets for that configuration, so _PreTrimmingFixLegacyDesignerUpdateItems is never defined and MSBuild fails with MSB4057. Define the shared preprocessing targets in an import available to both implementations, or condition this dependency appropriately."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 60,
+  "reasoning_effort": "none",
+  "tokens": 50974
+ }
+}

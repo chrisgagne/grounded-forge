@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/sw5005-sus/ceramicraft-argocd-deploy",
+  "pr_number": 89,
+  "base": "9cf42c1eecc554ca953c3685fa1b6a34eeed910c",
+  "head": "d7a4532170487a111654cf8aa742f4007334b6e2"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 27,
+   "message": "Restore the shared secret environment injection. The Helm Deployment injected `ms-secret-vault` through `envFrom`, but this replacement supplies only the listed non-secret variables. Credentials provided by the existing ExternalSecret are therefore no longer available to the unchanged agent image. In deployments using those credentials for authenticated dependencies, the agent will fail to connect. Preserve the previous `envFrom.secretRef` in this Deployment."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 22,
+   "end_line": 25,
+   "message": "Preserve the agent's readiness and liveness probes. The replacement Deployment drops both HTTP probes previously configured for `/ai-secure-agent-ms/v1/ping`. During startup or rollout, Kubernetes will now consider the container ready before the HTTP server is accepting requests, potentially routing traffic prematurely and terminating the previous healthy pod. A running but unresponsive agent also no longer triggers a restart. Restore the existing health checks in this manifest."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 82000
+ }
+}

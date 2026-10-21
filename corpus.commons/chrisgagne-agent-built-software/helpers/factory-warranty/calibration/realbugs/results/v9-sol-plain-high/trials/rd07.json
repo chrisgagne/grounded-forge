@@ -1,0 +1,52 @@
+{
+ "id": "rd07",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 134,
+   "message": "companySchema still requires ownerName, but the validation payload and company forms no longer include it. Every save fails validation, and the sidebar hides the error because ownerName has no corresponding field. Creation is blocked by the same mismatch. Update the schema alongside the removed fields."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "The dashboard now receives a numeric company ID, but its operator, vehicle, role, fare, and route pages still filter fixture records using IDs such as COMP-001. None of those records match the new parameter, so navigating from a company dashboard produces empty management lists. Update the downstream consumers together with this identifier change."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "low",
+   "file": "src/lib/constants.ts",
+   "start_line": 121,
+   "end_line": 124,
+   "message": "The new 'Under Verification' label is not recognized by DetailAvatarCard or the company dashboard, which still check for 'Validating'/'Verifying'. Companies with status 1 therefore lose their avatar status badge and dashboard status message. Update those consumers to recognize the new label."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "low",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 60,
+   "end_line": 62,
+   "message": "Stopping every keydown event on the dialog prevents Escape from reaching the window handler. Once focus enters the dialog or its close button, Escape no longer dismisses the map. Handle Escape on the dialog itself or allow that event to propagate."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "low",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 111,
+   "end_line": 112,
+   "message": "A full final page always advertises another page. When the company count is an exact multiple of itemsPerPage, clicking Next fetches an empty page, falls back to the previous page, and enables the same nonexistent Next page again indefinitely. Fetch one extra record to determine whether another page exists, or use a backend total."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 134,
+  "reasoning_effort": "high",
+  "tokens": 73424
+ }
+}

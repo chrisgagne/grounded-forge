@@ -1,0 +1,86 @@
+{
+ "id": "rd16",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "Catching InvalidOperationException to return 404 MailboxNotFound also catches MailKit's ServiceNotAuthenticated/ServiceNotConnected exceptions (which derive from InvalidOperationException), and every other SMTP failure (SmtpCommandException, AuthenticationException, SocketException, CryptographicException from Unprotect, ParseException) escapes as an unhandled 500. If a mailbox has SmtpRequiresAuth=false (or an empty stored password) and the server needs auth, SendAsync throws ServiceNotAuthenticatedException and the user gets 404 'Mailbox not found'. If the SMTP server rejects a recipient or is unreachable, the user gets a raw 500 with no localized message."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Shared/Mail/SendMailRequest.cs",
+   "start_line": 302,
+   "end_line": 302,
+   "message": "The DataAnnotations on SendMailRequest ([Required], [MinLength], [StringLength(998)], [MaxLength], [RegularExpression]) are never enforced because the API doesn't call AddValidation(), and minimal APIs don't validate them otherwise. POST {\"mailboxId\":...,\"subject\":\"x\",\"body\":\"y\",\"contentType\":\"x\"} with no `to` binds To=null, so `request.To.Length` throws an NRE (500). A null Subject throws inside the MimeKit Subject setter. A multi-MB body or an arbitrary ContentType also passes through."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 104,
+   "end_line": 104,
+   "message": "ImapClient.GetFolder(SpecialFolder.Sent) throws NotSupportedException when the server lacks SPECIAL-USE/XLIST instead of returning null, so the `??` name-based fallback never runs. On GreenMail (the dev server) or any IMAP server without SPECIAL-USE, the exception is swallowed by the outer catch, nothing is appended to Sent, and the only trace is a warning log. Sent mail never shows up in the Sent folder."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 761,
+   "end_line": 761,
+   "message": "getHtml returns Quill 2's internal root.innerHTML, where every list is an <ol> with data-list=\"bullet|ordered\" and indent/align are ql-* classes, instead of using getSemanticHTML(). A bullet list in the rich editor arrives at the recipient as a numbered list: the sanitizer strips data-* attributes and recipients don't have Quill's CSS. Turndown also turns it into '1.' items when switching to Markdown. Indentation and colors that rely on classes are lost."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 766,
+   "end_line": 766,
+   "message": "setHtml assigns root.innerHTML directly, which bypasses Quill's clipboard/Delta model; it should use quill.clipboard.dangerouslyPasteHTML (or setContents). After switching Markdown\u2192Rich, Quill's Delta and history aren't in sync with the DOM. Undo can wipe the content, and markup that marked produces but Quill doesn't support (tables, nested blocks) sits in the editor unnormalized and gets sent as-is."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 640,
+   "end_line": 640,
+   "message": "The error response body is read into `error` and then discarded, so the server's localized messages (e.g. which address is invalid, mailbox not found) are never shown; every failure shows the generic 'ComposeSendFailed'. The server rejects 'bob@example' as invalid and returns {message, email}, but the user only sees 'Send failed' with no hint of which field to fix. The unused variable also wastes a read."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 74,
+   "end_line": 74,
+   "message": "SMTP/IMAP connect uses the bool overload (false \u2192 StartTlsWhenAvailable), while MailTestEndpoints tests the same mailbox settings with SecureSocketOptions.None/SslOnConnect, so the connection test and real send negotiate TLS differently. If a server advertises STARTTLS with a self-signed or invalid certificate, the mailbox 'Test connection' succeeds (None), but sending fails with an SslHandshakeException, which surfaces as a 500."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "HTML mail is sent as a lone text/html part with no text/plain alternative; use BodyBuilder with both HtmlBody and TextBody. Every rich-text or 'send formatted' message is HTML-only. That raises spam scores (e.g. SpamAssassin MIME_HTML_ONLY) and leaves text-only clients with raw markup."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "Re-declares the 'MailboxSmtpPassword'/'MailboxImapPassword' purpose strings as private constants, now a fourth copy, instead of adding them to the existing DataProtectionPurposes class. IsValidEmail is also duplicated between ComposeEndpoints and Compose.razor rather than living in Feirb.Shared. A typo or rename in any one copy silently breaks Unprotect for that path (CryptographicException at send time). The two IsValidEmail copies can drift apart, so the client accepts addresses the server rejects."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 563,
+   "end_line": 563,
+   "message": "The Task.Delay(50) and lazy-init branch in SwitchToRichTextAsync are dead in practice: Quill is always initialized in OnAfterRenderAsync, since RichText is the initial mode and the container is only hidden with display:none. Each Markdown\u2192Rich switch adds an arbitrary 50ms delay plus a timing-dependent code path that never runs. If it ever did run, it would rely on a fixed delay instead of OnAfterRender."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 87,
+  "cost_usd": 0.588852,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

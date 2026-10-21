@@ -5,9 +5,9 @@
 > domain, MIT, Creative Commons and the like) on what good AI-built software looks like. I directed this one, and
 > signed off its one real change from the sign-off sheet without reading the code. A naïve junior developer like me
 > can now build review tooling that beats PR-Agent (the most-starred open-source AI reviewer we found), brooks-lint and
-> Claude Code's own `/code-review`. It adds little if you already ask Claude Code for a plain review and run
-> `codex review` beside it, though on OpenAI's model alone it found more than `codex review`. What it adds is the rest:
-> locked tests, a sheet I could sign from, and a record of what was and wasn't shown.
+> the labs' own review commands at their default settings. Turn those up to higher effort and they catch up, and on
+> either model a plain "review this as a careful senior engineer" prompt does as well. What it adds is the rest: locked
+> tests, a sheet I could sign from, and a record of what was and wasn't shown.
 >
 > *Chris Gagné*
 
@@ -18,10 +18,11 @@ grading and picking test cases. Every test was written down before it ran.
 
 - **Its review hasn't beaten `codex review` and Claude Code with a plain prompt, pooled.** With those two added as
   its reviewers, it came out level.
-- **It beat the other reviewers we tried,** with two to three and a half times the recall of PR-Agent, brooks-lint
-  (Claude reviewing against twelve engineering books) and `/code-review`.
-- **On OpenAI's model its brief and library beat `codex review`; on Anthropic's, a plain prompt did as well or
-  better.** We haven't yet tried a plain prompt on OpenAI's model. Neither model found more serious bugs with them.
+- **It beat the other reviewers we tried at their default settings,** with one and a half to three and a half times
+  the recall of PR-Agent, brooks-lint (Claude reviewing against twelve engineering books) and `/code-review`. Turned up to higher
+  effort, both labs' review commands caught up.
+- **Its brief and library don't beat a plain prompt on either model.** Its wins are over tools that hold the model
+  back. Effort mattered more: `/code-review xhigh` found the most serious bugs of anything we tried.
 - **Several stops on "good" changes were real changes in behaviour** that upstream had accepted. Making each stop
   quick for a non-coder to judge is the open problem.
 
@@ -72,17 +73,29 @@ No arm beat another; a third review of any kind added a little recall and nearly
 findings were found by every arm.
 
 **With one model**, on 23 fresh pull requests chosen for their serious findings
-([v7](helpers/factory-warranty/calibration/realbugs/results/v7-RESULTS.md)):
+([v7](helpers/factory-warranty/calibration/realbugs/results/v7-RESULTS.md),
+[v9](helpers/factory-warranty/calibration/realbugs/results/v9-RESULTS.md)):
 
-| Model | Reviewing with | Precision | Recall | Serious found |
+| Model | Reviewing with | Precision | Recall | Serious found (of 48)\* |
 |---|---|---|---|---|
-| Sol | the factory's brief and library | 86.8% | 19.8% | 21 |
+| Sol | the factory's brief and library | 86.8% | 19.8% | 20 |
+| Sol | a plain prompt | 85.4% | 22.1% | 26 |
+| Sol | a plain prompt, reasoning effort "high" | 86.0% | 28.4% | 30 |
 | Sol | `codex review` | 84.9% | 14.7% | 22 |
+| Sol | `codex review`, reasoning effort "high" | 89.8% | 22.1% | 27 |
 | Opus | the factory's brief and library | 87.2% | 45.1% | 28 |
-| Opus | Claude Code with a plain prompt | 87.2% | 49.6% | 29 |
+| Opus | Claude Code with a plain prompt | 87.2% | 49.6% | 30 |
+| Opus | Claude Code's `/code-review` | 84.7% | 26.6% | 25 |
+| Opus | `/code-review high` | 87.8% | 46.2% | 28 |
+| Opus | `/code-review xhigh` | 82.7% | 55.9% | 34 |
 
-On Sol the factory's version did better; on Opus, about the same. Two factory runs that failed on an unrelated bug
-were re-run under a dated amendment; as first judged, Claude Code found 3 more serious bugs.
+\*v7 counted 1 more for the first Sol arm and 1 fewer for the Opus plain prompt.
+
+On both models the brief came out about the same as a plain prompt. Both labs' review commands hold the model back at
+their defaults: at higher effort `codex review` drew level with the brief and `/code-review` with the plain prompt, and
+`xhigh` found the most serious bugs, for about four times the plain prompt's cost. Sol ran at its CLI's default
+reasoning effort ("none") everywhere except the two "high" rows. Two factory runs that failed on an unrelated bug were
+re-run under a dated amendment, and the `codex review` "high" row was added after the rest were judged.
 
 **Against other Claude reviewers**, on v6's pull requests, each judged alone
 ([v8](helpers/factory-warranty/calibration/realbugs/results/v8-RESULTS.md)):
@@ -94,13 +107,13 @@ were re-run under a dated amendment; as first judged, Claude Code found 3 more s
 | Claude Code's built-in `/code-review` | 74.5% | 18.7% |
 | [brooks-lint](https://github.com/hyhmrright/brooks-lint) 1.8.0 `/brooks-review` | 72.2% | 13.7% |
 
-The factory's reviewer beat both tools, and the plain prompt beat it. Neither tool aims at an answer key of mostly
+The factory's reviewer beat both tools (`/code-review` at its default), and the plain prompt beat it. Neither tool aims at an answer key of mostly
 bugs: `/code-review` reports only what it's sure of, and brooks-lint looks for maintainability risks. A third of
 brooks-lint's findings named no file and went on each change's first file; at best its recall would have been 30.6%.
 
 **Limits:** one try per reviewer; 20 to 25 pull requests per test, none over 2,000 changed lines in the fresh
 samples; an answer key mostly raised by AI reviewers, and a Claude judge; PR-Agent in its diff-only local mode; v8
-reused v6's pull requests.
+reused v6's pull requests and v9 reused v7's.
 
 ## Showing, not arguing
 

@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/FreeRTOS/FreeRTOS-Kernel",
+  "pr_number": 1379,
+  "base": "f1043c49d59944353291654c175852bd17b34f99",
+  "head": "c926adcf6e0be826e3313fc503a92b53a78f8ef8"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "tasks.c",
+   "start_line": 5233,
+   "end_line": 5239,
+   "message": "Preserve voluntary switches when task preemption is disabled. With task preemption disabled, this guard also rejects context switches explicitly required by blocking or deleting the current task. For example, `vTaskDelay()` removes the task from the ready list, but this branch leaves it executing, so the delay returns immediately while its TCB remains blocked. Similarly, self-deletion can return into a deleted task. Suppress involuntary preemption without preventing voluntary yields or mandatory switches after task-state changes."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "tasks.c",
+   "start_line": 5504,
+   "end_line": 5505,
+   "message": "Report ISR yields that are already pending. On SMP, an earlier FromISR call with a NULL wake-flag pointer can leave the local `xYieldPendings` true without requesting a hardware context switch. If a subsequent queue ISR operation wakes another higher-priority task, this new edge-only check returns false, so `xQueueGenericSendFromISR()` does not set its caller's wake flag and `portYIELD_FROM_ISR()` skips the required switch until the next tick. The equivalent checks added to the resume and notification paths have the same problem. Preserve reporting of an outstanding eligible yield rather than requiring a false-to-true transition."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 97000
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 176,
+   "end_line": 179,
+   "message": "Preserve the stored token when editing a source URL. When an administrator edits a token-protected source URL without entering a replacement token, `McpServerGitSync.svelte` sends `\"*\"` under the new URL. This lookup only checks the new key, while the stored token remains under the old URL. The old key is subsequently dropped, silently deleting the credential and breaking private-repository sync. Implement an explicit old-to-new credential transfer for URL edits."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 126,
+   "end_line": 128,
+   "message": "Normalize credential keys alongside source URLs. When a user adds a scheme-less URL such as `gitlab.com/org/repo` with a token, the UI keys `sourceURLCredentials` by that original input. This normalization changes only `SourceURLs`, so the credential-processing loop rejects the original key as inactive. Saving succeeds but discards the token, leaving private-repository sync unauthenticated. Apply the same normalization to credential-map keys."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 58,
+   "end_line": 60,
+   "message": "Keep GitLab raw-file URLs on the HTTP download path. Existing sources such as `https://gitlab.com/group/repo/-/raw/main/catalog.yaml` previously used the raw-file download path. Classifying every GitLab URL as a repository now sends these through `parseGitURL`, which interprets `-/raw/main/catalog.yaml` as a branch and rejects it. Distinguish GitLab raw-file URLs from repository URLs so existing catalog sources continue syncing."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 407000
+ }
+}

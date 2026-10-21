@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/Waferguard/waferguard-ml",
+  "pr_number": 17,
+  "base": "56411efab470a71e9ef342bc1e10fab767751de5",
+  "head": "62d4f66fbeaef3dd84578b7cd547f37d43086a26"
+ },
+ "agent": "v5-sol-plain",
+ "findings": [
+  {
+   "producer": "v5-sol-plain",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "The notebook calls load_artifacts and run_inference on financial_impact.financial, but neither function exists in the new module. The first AttributeError is swallowed as a missing-artifacts error, and the fallback subsequently fails at run_inference, so even with valid models and data the pipeline cannot generate reports. Implement these operations separately and update the notebook to call them."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 169,
+   "end_line": 173,
+   "message": "repo_root is hardcoded to the author's local checkout, so dataset/model loading and report output target a nonexistent directory on other machines. Also, financial_impact is imported before sys.path is updated, which can fail when launching this notebook from wafer_images. Discover the repository root and configure the import path before importing the package."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "financial_impact/financial.py",
+   "start_line": 235,
+   "end_line": 240,
+   "message": "The financial_params argument is never used: get_params always reads the global FINANCIAL_PARAMS table. A caller supplying customized financial assumptions silently receives costs and recommendations based on the defaults. Pass the supplied mapping through both direct lookups and combination aggregation."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "financial_impact/financial.py",
+   "start_line": 273,
+   "end_line": 273,
+   "message": "An empty batch produces rows=[], so this DataFrame has no priority_score column and sort_values raises KeyError. Consequently, compute_financials cannot return the zero-valued summary its later empty checks anticipate. Define the output schema or handle the empty case before sorting."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The batch average confidence is calculated as an unweighted mean of pattern averages, giving a one-wafer pattern the same weight as a pattern containing thousands of wafers. For 99 wafers at confidence 1.0 and one wafer at 0.5, this reports 0.75 instead of 0.995. Weight each pattern's average by its count to report the batch confidence correctly."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 37000
+ }
+}

@@ -1,0 +1,108 @@
+{
+ "id": "rd12",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 437,
+   "end_line": 443,
+   "message": "MERGE matches only component and layer, so it can combine an Architect implementation task with QA RED/GREEN tasks and verification tasks for that component. These tasks have incompatible phases and DoD criteria; retaining their dependencies can also create self-dependencies after merging. Restrict merging to equivalent work for the same scenario and phase, preserving separate test and verification tasks."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 252,
+   "end_line": 252,
+   "message": "The agents return plan summaries, but neither their prompts nor Phase 4 writes architecture-story, plan-story, tests-story, or security-story files. A first invocation therefore cannot satisfy the file-existence requirements in DoR checks 1 and 9, and subsequent sessions lose the detailed test and security plans. Persist all four complete artifacts before validation."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 1,
+   "end_line": 6,
+   "message": "SkillsAssembler automatically copies every core skill, so adding this directory immediately changes generated output. GoldenFileTest rejects extra generated files, but none of the golden directories includes x-story-plan. Consequently, Maven verification will reject this change; deferring fixture updates to story-0028-0007 leaves this merge failing the existing integration gate."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 686,
+   "end_line": 688,
+   "message": "Phase 4.1 writes the tasks file before Phase 4.5 modifies the story. This makes mtime(story) newer than mtime(tasks) immediately after successful planning, so the next invocation regenerates everything and launches all five agents despite no user changes. Finalize story updates before writing the artifact used as the freshness marker."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 93,
+   "end_line": 104,
+   "message": "A fresh tasks file alone does not establish that multi-agent planning completed. The existing x-lib-task-decomposer writes this exact filename, and an interrupted run can also leave it without a planning report or task plans. This branch skips all generation in either case, leaving missing artifacts unrecoverable without --force. Verify the complete artifact set before reusing it."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 721,
+   "end_line": 721,
+   "message": "Counting only Scenario: rejects the repository's normal Portuguese story format. Every story in epic-0028 uses Cenario:, with five or six scenarios each, but this check counts zero and returns NOT_READY. Recognize the scenario headings produced by the story template, including localized headings and scenario outlines."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "The implementation-map path does not match the upstream producer: x-story-map saves implementation-map-XXXX.md, and this epic contains implementation-map-0028.md. Looking only for IMPLEMENTATION-MAP.md therefore discards dependency and phase context for normally generated epics. Resolve the producer's filename, optionally retaining the uppercase name as a fallback."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 486,
+   "end_line": 494,
+   "message": "Ordering all RED tasks before all GREEN tasks batches test writing across every scenario instead of producing incremental Red-Green-Refactor cycles. Later scenarios are introduced before earlier transformations pass, and the suite remains failing throughout the early GREEN tasks. Order tasks by scenario and TPP progression, keeping each inner-loop cycle together while leaving acceptance tests as the outer loop."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 476,
+   "end_line": 480,
+   "message": "PO amendments are applied after QA has planned tests from the original story in parallel. Newly added or changed Gherkin scenarios consequently have no corresponding acceptance-test plan or implementation tasks, while DoR only checks that some AT entries exist and can still declare READY. Reconcile the amended criteria with QA and implementation proposals before generating artifacts."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 703,
+   "end_line": 703,
+   "message": "Always preserving Section 8 and appending another Section 8.1 duplicates the generated task section. The current story template already contains Section 8.1, and every forced or stale regeneration adds another copy containing potentially obsolete task IDs. Replace the existing generated subsection while preserving manually maintained tasks."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 795,
+   "end_line": 795,
+   "message": "Verdict handling updates only the planning report. Story-0028-0002 explicitly requires READY to update the story status to Pronta para Desenvolvimento and synchronize its Section 4 DoR checkmarks. As written, successful planning leaves the story marked Pendente with unchecked readiness criteria, contradicting the emitted verdict."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "low",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 741,
+   "end_line": 742,
+   "message": "total_checks uses mandatory_passed instead of the ten mandatory checks evaluated. With eight mandatory passes and no conditional checks, the checklist reports Passed: 8/8 despite two failures. Calculate the denominator as 10 + conditional_applicable so failed checks remain visible in the summary."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 217,
+  "reasoning_effort": "high",
+  "tokens": 98915
+ }
+}

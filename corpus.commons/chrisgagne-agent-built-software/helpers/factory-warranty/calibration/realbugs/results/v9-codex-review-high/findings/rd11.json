@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/android",
+  "pr_number": 11084,
+  "base": "e67a3fd36ca5e24b0007a170ea77037e4437f9d3",
+  "head": "ac02d09a29b6492b0e1a01b48f5fcb3efa561a6c"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 276,
+   "end_line": 279,
+   "message": "Remove obsolete prelink copies before substituting assemblies. When a previously rewritten library is upgraded to use the modern designer, `ProcessAssemblyDesigner` returns false and leaves its old prelink DLL untouched. This existence-only check then substitutes that obsolete DLL for the newly resolved library, silently discarding the upgrade or causing missing-member errors. Remove stale copies when an assembly no longer requires rewriting, and substitute only outputs valid for the current inputs."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 74,
+   "end_line": 75,
+   "message": "Preserve trimming-aware missing-resource diagnostics. If a legacy dependency contains an unused method referencing a resource absent from the application's designer, this call now fails the build: `FixLegacyResourceDesignerStep.FixBody` scans every method and reports XA8000 for the missing getter. Previously ILLink could remove that unused method before the rewrite, allowing the application to build. Missing-resource diagnostics should remain conditional on the referencing code surviving trimming."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 264000
+ }
+}

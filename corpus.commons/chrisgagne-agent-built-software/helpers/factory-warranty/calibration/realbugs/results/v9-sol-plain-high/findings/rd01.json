@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/CommunityToolkit/Maui",
+  "pr_number": 3181,
+  "base": "c7cb65bc98e429401e4f792f6b7aa21f94e81933",
+  "head": "1e8d2e2f880cfe1d9bcbdfbc6078cb6b72fd35ce"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "start_line": 63,
+   "end_line": 70,
+   "message": "Non-seekable streams set bytesRemaining to C.LengthUnset (-1) for an unbounded request, then immediately fail this negative-value check. Consequently, sources such as HttpClient.GetStreamAsync() cannot start playback. Exclude LengthUnset from the range validation; unknown lengths are explicitly permitted by the [DataSource contract](https://developer.android.com/reference/androidx/media3/datasource/DataSource)."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 50,
+   "end_line": 51,
+   "message": "RequestsAllDataToEndOfResource is ignored, and RequestedLength is narrowed to int before allocating a buffer. AVFoundation can supply NSIntegerMax for these requests, producing a negative array length after conversion; large finite requests also require excessive allocations. Honor the [all-to-end contract](https://developer.apple.com/documentation/avfoundation/avassetresourceloadingdatarequest/requestsalldatatoendofresource?language=objc) and respond incrementally using bounded buffers."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 65,
+   "end_line": 72,
+   "message": "A single Stream.Read may return fewer bytes than requested without reaching EOF. The caller nevertheless immediately invokes FinishLoading, prematurely completing the request and truncating valid media from streams that return partial reads. Continue reading and responding until the requested range is satisfied, EOF is reached, or the request is cancelled."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 75,
+   "end_line": 78,
+   "message": "Read and seek failures are swallowed, after which ShouldWaitForLoadingOfRequestedResource reports successful completion through FinishLoading. An IOException therefore becomes an apparently successful empty or truncated response, preventing accurate playback-error reporting. Propagate the failure to the loading request using FinishLoadingWithError instead of completing it successfully."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 41,
+   "end_line": 43,
+   "message": "Every non-seekable stream is advertised as having zero content bytes, even when it contains media. AVPlayer consequently receives an empty-resource description rather than an unknown-length stream. Buffer such sources to obtain a usable length and support subsequent requests, or explicitly reject them before configuring the asset."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "start_line": 543,
+   "end_line": 545,
+   "message": "All formats other than recognized QuickTime files are advertised as public.mpeg-4, including MP3 and WAV audio. The extensionless stream://media URL supplies no alternative format hint, so otherwise supported audio can fail to open. Detect the actual container or expose a content-type hint; Apple's [contentType contract](https://developer.apple.com/documentation/avfoundation/avassetresourceloadingcontentinformationrequest/contenttype?language=objc) requires its actual UTI."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "src/CommunityToolkit.Maui.MediaElement/MediaSource/StreamMediaSource.shared.cs",
+   "start_line": 28,
+   "end_line": 28,
+   "message": "Declaring this conversion only on StreamMediaSource does not enable the advertised assignments MediaSource source = myStream or mediaElement.Source = myStream. C# does not search derived target classes for conversion operators, so both fail to compile. Add the Stream-to-MediaSource operator to MediaSource, alongside its existing string and Uri conversions."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 173,
+   "end_line": 178,
+   "message": "ReleaseSourceStream disposes the current playback stream while MediaElement.Source still references it. Native playback can continue reading that disposed stream throughout the replacement copy, causing playback errors; if copying fails, the selected source remains permanently unusable. Coordinate stopping and detaching the previous source before releasing its stream."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 54,
+   "end_line": 59,
+   "message": "The initial HTTP request occurs outside UpdateSourceStream's exception handler. Opening this page offline, or receiving an HTTP error, therefore lets an exception escape async void OnAppearing and can terminate the sample application. Handle download failures within this lifecycle callback."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 210,
+   "end_line": 215,
+   "message": "The new capture flow requires an android.media.action.VIDEO_CAPTURE entry in the Android manifest's queries section, which currently contains only the TTS intent. On Android 11+ the camera activity may be invisible, causing CaptureVideoAsync to throw before recording. The [MAUI implementation](https://github.com/dotnet/maui/blob/10.0.60/src/Essentials/src/MediaPicker/MediaPicker.android.cs#L77-L79) explicitly checks this configuration."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 210,
+   "end_line": 223,
+   "message": "Permission denial and unsupported capture devices throw from CaptureVideoAsync, but this async void event handler catches neither case. Denying camera or microphone access, or pressing Record Video on an unsupported device, can terminate the application. Check capture availability and handle native picker exceptions in the event handler."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 278000
+ }
+}

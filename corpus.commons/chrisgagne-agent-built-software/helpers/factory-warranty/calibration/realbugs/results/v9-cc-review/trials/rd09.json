@@ -1,0 +1,44 @@
+{
+ "id": "rd09",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 245,
+   "end_line": 245,
+   "message": "`appleApiKeyId` is a local initialized to undefined and is never exposed as a CLI option, so the `if (!appleApiKeyId)` check always fires and API-key authentication cannot work in non-interactive mode. In CI, `apps:destinations:create --platform ios --apple-api-key-file key.p8 --apple-issuer-id X --apple-team-id T ...` uploads the .p8 file, then always exits with 'You must provide the Apple API Key ID\u2026'. The error message even tells users to pass only --apple-api-key-file and --apple-issuer-id, which can never succeed. The uploaded key is left orphaned on the server."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 230,
+   "end_line": 230,
+   "message": "The Apple API key file (and likewise the Google service account key at line 177) is uploaded right after its path is collected, before the remaining required fields are validated or the destination is created. If any later required field is missing (key ID, issuer ID, team ID in non-interactive mode, or the user cancels or leaves a prompt empty), or the destination POST fails, the process exits after the key was already uploaded. This leaves orphaned credential records. Each retry uploads another copy."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 160,
+   "end_line": 160,
+   "message": "Provisioning profiles are uploaded and persisted before the certificate is created, and nothing cleans them up if the certificate creation fails. A wrong `--password` for a .p12 makes the server reject the certificate POST. The provisioning profiles uploaded just before it stay on the server with no linked certificate. Re-running uploads duplicates."
+  },
+  {
+   "source": "cc-review",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 125,
+   "end_line": 125,
+   "message": "The certificate password, key password, and Apple app-specific password (destinations/create.ts:293) are read with `type: 'text'` prompts, so the secrets are shown in plain text on the terminal. When a user types the keystore password interactively, it appears on screen and in any terminal recording or screen share, as well as in the scrollback."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 51,
+  "cost_usd": 0.5363198,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

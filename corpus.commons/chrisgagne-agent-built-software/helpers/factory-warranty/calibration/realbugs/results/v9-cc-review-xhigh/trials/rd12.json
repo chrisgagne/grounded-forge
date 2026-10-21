@@ -1,0 +1,121 @@
+{
+ "id": "rd12",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 688,
+   "end_line": 688,
+   "message": "Phase 4.5 (and PO amendments under Rule 5) rewrite the story file after Phase 4.1 wrote tasks-story-XXXX-YYYY.md, so mtime(story) > mtime(tasks) on every completed run and the RULE-002 freshness check can never pass. Run /x-story-plan story-0028-0002 to completion, then run it again with no edits: Phase 0.3 sees mtime(story) > mtime(tasks), logs 'Regenerating stale story plan' and relaunches all 5 agents. Worse, x-dev-lifecycle Phase 0 and x-lib-task-decomposer Step 0 use the same mtime(story) vs mtime(tasks) rule, mark the breakdown stale, and overwrite the multi-agent tasks file with a generic decomposer breakdown."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 715,
+   "end_line": 715,
+   "message": "The Architect, QA and Security outputs are never written to architecture-story / tests-story / plan-story / security-story files. Yet DoR checks 1, 2, 3 and 9 pass only on 'agent output or existing file', and the reuse path (line 104) runs Phase 5 without launching any agent. First run: checks 1/2/3/9 pass using in-memory agent output and the verdict is READY. A second run with fresh artifacts skips to Phase 5, finds no agent output and no files, rewrites dor-story-*.md as NOT_READY, and x-dev-epic-implement (story-0028-0006) then BLOCKS the story. x-dev-lifecycle PRE_PLANNED (story-0028-0004 \u00a75.1) also expects x-story-plan to have produced those four files, and they never exist."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 721,
+   "end_line": 721,
+   "message": "Check 7 counts `Scenario:` lines, but _TEMPLATE-STORY.md and every epic-0028 story write Gherkin in pt-BR with `Cenario:` (RULE-006), so the count is 0. story-0028-0002.md has 6 `Cenario:` scenarios and zero `Scenario:` lines, so check 7 reports 0 scenarios and the verdict is always NOT_READY. Every story generated from the project's own story template becomes permanently BLOCKED in x-dev-epic-implement."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 2,
+   "end_line": 2,
+   "message": "SkillsAssembler.selectCoreSkills auto-discovers every directory under skills/core, so x-story-plan is now emitted for every profile, but no golden fixtures were added or regenerated. GoldenFileTest.validateCompleteness fails for all 17 profiles: `.claude/skills/x-story-plan/{SKILL.md,README.md,references/planning-guide.md}` are 'Extra files (generated, not in golden)'. The generated .claude/README.md skill table and counts ('Total: 73 skills', 'Skills (.claude) | 49') also differ byte-for-byte, so the build is red until story-0028-0007 lands."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 501,
+   "end_line": 501,
+   "message": "The SEC, TL and PO prompts tell agents to depend on other agents' tasks, but all 5 agents run in parallel without seeing each other's IDs. Phase 3.4 also says to 'preserve all explicit dependencies' without remapping ARCH-/QA-/SEC- IDs to TASK-NNN or redirecting IDs consumed by MERGE. The Security agent guesses `dependencies: [ARCH-003]` while the Architect's ARCH-003 is an unrelated config class. Or SEC-002 is merged into ARCH-003 and a TL task still depends on SEC-002. The resulting DAG has wrong or dangling edges, and the 'Depends On' column carries agent-scoped IDs that match no TASK-NNN row."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 486,
+   "end_line": 486,
+   "message": "Phase 3.3 sorts every RED task before every GREEN task and has no 'dependencies override' rule (planning-guide.md step 4 has one), so TASK-NNN order breaks the RED\u2192GREEN\u2192REFACTOR cycle and is not a topological order. QA's constant-level RED depends on the nil-level GREEN, as in _TEMPLATE-TASK-BREAKDOWN, where TASK-4 RED depends on TASK-3 REFACTOR. Phase 3.3 still numbers all RED tests TASK-001..00k ahead of their GREEN dependencies. x-dev-implement, which runs in breakdown order (story-0028-0005), then writes every failing test before any implementation and runs tasks before their prerequisites."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 437,
+   "end_line": 437,
+   "message": "Rule 1 merges any cross-agent tasks that share a component and layer, regardless of tdd_phase or type. Because it runs before Rule 2, it also absorbs the SEC tasks that AUGMENT says must stay as verification tasks. The planning-guide example QA-001 (RED, domain, [UserValidator, UserValidatorTest]) and ARCH-003 (GREEN, domain, UserValidator) share a component and layer, so they merge into one task with mixed RED/GREEN semantics and the test-first split is lost. Likewise ARCH-003 + SEC-002 merge, leaving no SEC verification task, which contradicts Rule 2's 'Do NOT remove the original SEC task'."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 741,
+   "end_line": 741,
+   "message": "`total_checks = mandatory_passed + conditional_applicable` uses the number of passed mandatory checks instead of all 10, so the denominator shrinks with each failure. With 2 mandatory checks failing and no conditional checks applicable, total_checks = 8 and total_passed = 8, so the DoR file says 'Passed: 8/8' while the verdict is NOT_READY. The checks_passed/checks_total contract in story \u00a75.3 is therefore wrong."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 730,
+   "end_line": 730,
+   "message": "Check 11 looks for a compliance assessment with regulatory mapping in the Security output, and check 12 looks for contract-test scenarios in the QA output. Neither prompt asks for these: Security only 'reads compliance/SKILL.md if enabled' and QA never mentions contract tests. For any compliance-enabled profile (e.g., java-spring-fintech-pci) or a project with contract_tests == true, the agents follow their prompts and produce neither artifact. The applicable conditional check fails and the story is NOT_READY on every run."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 505,
+   "end_line": 505,
+   "message": "Phase 3.4 adds blanket implicit edges ('all domain tasks before all application tasks before all adapter tasks'). These conflict with explicit VERIFY dependencies that point outward (PO/TL/SEC tasks 'depend on the tasks they verify'). A PO or TL VERIFY task tagged layer=domain explicitly depends on an adapter.inbound controller task, while the implicit rule makes every adapter task depend on that domain task. The cycle check then aborts with 'Circular dependency detected\u2026 Manual resolution required.' Even without cycles, the blanket edges serialize the graph, so the 'Parallelizable Tasks' count collapses."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 570,
+   "end_line": 570,
+   "message": "Phase 4.2 writes one task-plan-TASK-NNN file per task but never deletes task-plan files from an earlier run, so regenerating with fewer tasks leaves stale plans behind. The first run produces TASK-001..TASK-012. After a story edit, regeneration consolidates to 9 tasks, but task-plan-TASK-010..012 files remain. x-dev-lifecycle PRE_PLANNED and x-dev-implement glob `task-plan-TASK-*-story-XXXX-YYYY.md` (story-0028-0004/0005) and pick up obsolete tasks that no longer exist in the breakdown."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 703,
+   "end_line": 703,
+   "message": "Phase 4.5 targets '## 8. Sub-Tasks' and always appends a new 8.1. _TEMPLATE-STORY.md uses '## 8. Sub-tarefas' and already contains '### 8.1 Detailed Tasks (Multi-Agent Planning)' with Task ID/Description/Agent/Type/Layer/DoD/Status columns. On a template-generated story the skill misses the template's 8.1 placeholder table and adds a second 8.1 with different columns (no Agent/DoD/Status). Each regeneration, which #1 forces, appends yet another 8.1. Consumers that read Status from 8.1 find the wrong table."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "The skill looks for `plans/epic-XXXX/IMPLEMENTATION-MAP.md`, but its declared upstream x-story-map saves `implementation-map-XXXX.md` (e.g., plans/epic-0028/implementation-map-0028.md). The map content read in Phase 1.3 is also never injected into any agent prompt. On this repo's own epic-0028, Phase 1.3 never finds the map and logs 'WARNING: Implementation map not found'. Even when the map is found, no prompt has a placeholder for it, so the read is wasted and agents never get the dependency or critical-path context."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "The staleness check keys only on tasks-story-*.md, which Phase 4.1 writes first, so a run interrupted during 4.2\u20134.4 leaves a 'fresh' sentinel with missing task plans and planning report. The story AC also specifies the planning report as the sentinel, with the log 'Reusing existing planning artifacts'. The session is interrupted after 4.1 writes the tasks file but before the task-plan files and planning report exist. The next invocation sees mtime(story) <= mtime(tasks), skips to Phase 5 without regenerating, and the missing task plans and report are never produced unless the user knows to pass --force."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 494,
+   "end_line": 494,
+   "message": "The QA prompt defines Level 4 = conditional and Level 5 = collection (matching x-test-plan: conditions before iterations). The TASK_PROPOSAL enum, Phase 3.3 and planning-guide.md instead order nil\u2192constant\u2192scalar\u2192collection\u2192conditional\u2192iteration. QA emits UT tasks with conditional (L4) before collection (L5). Consolidation re-sorts them collection-first, so the final order no longer matches the QA test plan, and DoR check 2 ('UT-N follow TPP level ordering 1 through 6') gets a different answer depending on which definition the orchestrator applies."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 496,
+  "cost_usd": 2.8217782,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 168,
+   "end_line": 193,
+   "message": "Editing a source URL silently deletes its stored token. When the URL changes, the UI moves the mask to the new key (`{[newUrl]: '*'}`) and removes the old key, expecting the backend to carry the token over. The comment here says the same (\"transferred from a renamed one\"). But the `\"*\"` case only looks up `existingCred.Env[u]` under the new URL, which never exists. The old URL is also no longer active, so its token is dropped. If no other tokens remain, the whole credential is deleted. Changing the branch or adding `.git` to a private-repo URL therefore loses the PAT, and later syncs fail with auth errors. If you add a transfer, keep it on the same host (or require the token to be re-entered). Otherwise an admin could send a stored token they can't read to a host they control just by renaming the URL."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 31,
+   "end_line": 47,
+   "message": "Backward-compatibility regression. Before this change, `GITHUB_AUTH_TOKEN` was used for every github.com catalog URL, for both the clone and the API size check. Now it is used only when the URL exactly matches a hard-coded `https://github.com/obot-platform/mcp-catalog`. Deployments that sync private GitHub repos through `GITHUB_AUTH_TOKEN`, or that point `OBOT_SERVER_DEFAULT_MCPCATALOG_PATH` at their own fork, will stop syncing after upgrade. Every other GitHub source now hits api.github.com unauthenticated (60 requests/hour per IP); chart/values.yaml says this token exists to avoid exactly that rate limit. The stated reason (not leaking the token to attacker-controlled endpoints) doesn't apply: the old code only sent it to github.com. Keep the fallback for any github.com host, and compare against the configured `defaultCatalogPath`, not a constant."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 124,
+   "end_line": 129,
+   "message": "Scheme-less inputs are now rewritten in `SourceURLs` (`github.com/org/repo` becomes `https://github.com/org/repo`), but the keys of `SourceURLCredentials` are not. The UI keys the token by the raw text the user typed. The check at L169-172 then finds that key isn't an active URL and skips it, so the PAT is silently discarded. The URL is saved without a token, and the sync of the private repo fails. Apply the same normalization to the credential keys, or reject keys that don't match."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 53,
+   "end_line": 66,
+   "message": "`isGitRepoURL` now treats every gitlab.com URL as a git repository. Raw-file sources on gitlab.com used to be fetched as plain files and worked, e.g. `https://gitlab.com/org/repo/-/raw/main/catalog.yaml` or `/api/v4/projects/.../raw` URLs. They now go through `parseGitURL`, which reads `-/raw/main/...` as a branch name and rejects it because it starts with `-`. Existing catalogs using these URLs break on upgrade. Consider classifying gitlab.com URLs that contain `/-/` or `/api/` as raw files."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 337,
+   "end_line": 343,
+   "message": "The clone now uses `osfs.New(tempDir)` instead of `git.PlainClone`. `osfs.New` defaults to the legacy ChrootOS filesystem, which follows symlinks during checkout. As far as I know, go-git's `PlainInit`/`PlainClone` have used `osfs.WithBoundOS()` since v5.11, which keeps resolved paths inside the base directory. With this PR, arbitrary third-party hosts can be cloned, so losing that guard against a crafted repo or server writing through a symlink outside the temp dir weakens security. Use `osfs.New(tempDir, osfs.WithBoundOS())`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 195,
+   "end_line": 218,
+   "message": "The catalog spec is saved before the credential is written. If `CreateCredential` or `DeleteCredential` fails, the API returns an error but the new URL is already saved without its token. When the admin retries \"Add\", it fails with \"duplicate URL found\". Separately, if the last sync was more than an hour ago, the spec update can start a sync that reads the credential before it has been stored. Write or delete the credential first, then update the catalog."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/git_fs.go",
+   "start_line": 337,
+   "end_line": 341,
+   "message": "`sizeLimitedFS` wraps both the `.git` storer and the worktree, so the 100 MB budget is shared by the compressed packfile, the index, and the uncompressed checkout. A repo with roughly a 50 MB pack whose files expand to 50+ MB will be rejected as \"repository is too large (limit: 100 MB)\". That makes the real limit about half the advertised one, and inconsistent with the GitHub and GitLab API checks, which measure repo size. Consider counting only the packfile writes, or document the effective limit. (Lines refer to the wiring in pkg/controller/handlers/mcpcatalog/github.go.)"
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 59,
+   "end_line": 85,
+   "message": "List and Get now reveal the plaintext credential just to compute a presence mask, and they return an error on any credential-store failure other than not-found. A temporary credential-store problem therefore breaks the whole catalog listing and the admin MCP Servers page, even though the masks aren't needed to render it. Consider logging the error and leaving `sourceURLCredentials` out instead."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+   "start_line": 57,
+   "end_line": 72,
+   "message": "The comment says credential-store failures will be \"visible in the sync status\", but they are only logged. The sync then continues with an empty token, so the admin sees a misleading \"authentication required\" or 404 error for the private repo instead of the real cause. The credential is also re-revealed once per source URL. Reveal it once per sync and record any failure in `SyncErrors`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 212,
+   "end_line": 219,
+   "message": "The doc comment for `readGitCatalog` (\"clones a git repository over HTTPS...\") was merged into the comment above `parseGitURL`, so `parseGitURL`'s doc now describes the wrong function and `readGitCatalog` (L277) has none. Move the first two lines down to `readGitCatalog`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 505000
+ }
+}

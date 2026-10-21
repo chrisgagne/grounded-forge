@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 178,
+   "end_line": 178,
+   "message": "Editing a private source URL without entering a replacement token deletes its saved credential and breaks authenticated sync. McpServerGitSync.svelte moves the '*' marker from the old URL to the edited URL, but Update only looks up existingCred.Env[u] under the new URL. Changing /org/repo to /org/repo/my-branch therefore finds no token; the old URL is inactive and its token is dropped from storage."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 128,
+   "end_line": 128,
+   "message": "Adding a scheme-less source URL with a token silently discards the token, preventing private repository access. For sourceURLs=['gitlab.com/org/private'] and sourceURLCredentials={'gitlab.com/org/private':'token'}, normalization changes only SourceURLs to 'https://gitlab.com/org/private'. The credential loop at lines 169\u2013171 rejects the original key because it no longer matches activeURLs, so the successful response contains no saved credential."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 59,
+   "end_line": 59,
+   "message": "Existing GitLab raw-file catalog URLs now fail because every gitlab.com URL is classified as a Git repository. Previously only github.com entered the clone path. A source such as https://gitlab.com/org/repo/-/raw/main/catalog.yaml previously used the raw-file HTTP reader; now isGitRepoURL returns true, parseGitURL interprets '-/raw/main/catalog.yaml' as the branch, and validateBranchName rejects its leading '-'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+   "start_line": 69,
+   "end_line": 69,
+   "message": "Credential-store errors are swallowed, allowing sync to continue anonymously and conceal the credential failure from sync status. revealCatalogCredential logs non-not-found errors and returns an empty token. Sync then calls readMCPCatalog normally and records only that call's error. If the source permits anonymous reads, SyncErrors remains empty and pruning remains enabled despite the failed credential retrieval."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "ui/user/src/routes/admin/mcp-servers/SourceUrlsView.svelte",
+   "start_line": 60,
+   "end_line": 60,
+   "message": "The new icon-only edit button has no accessible name, making its purpose unavailable to screen-reader users. The button contains only a Pencil SVG and has no aria-label, labelled text, or title identifying the edit action."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

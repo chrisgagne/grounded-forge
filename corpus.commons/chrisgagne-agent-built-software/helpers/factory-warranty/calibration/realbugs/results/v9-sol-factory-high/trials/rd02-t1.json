@@ -1,0 +1,54 @@
+{
+ "id": "rd02",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests",
+  "gate:added-tests",
+  "gate:ratchet:semgrep_findings"
+ ],
+ "first": "gate",
+ "cost_usd": 0.3746,
+ "codex_tokens": 85865,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd02-t1-24oj3pzv",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "ao-update.sh:43 and ao-doctor.sh:31 still fall back to `$(dirname BASH_SOURCE)/..`. After the move that resolves to packages/cli/src/assets, not the repo root, so running either script directly looks for packages/agent-orchestrator and node_modules in the wrong place. The CLI path is not affected because script-runner.ts now always sets AO_REPO_ROOT, and the tests set it too, so nothing covers direct invocation. Severity stays medium.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "line": 43,
+   "claim": "The relocated scripts keep the old fallback for the repo root. If you run them directly without AO_REPO_ROOT set, they treat packages/cli/src/assets as the repository root and fail.",
+   "evidence": "Both shell scripts still derive REPO_ROOT from their parent directory, which is now packages/cli/src/assets. Running the updater directly with --smoke-only reproduced MODULE_NOT_FOUND under src/assets/packages/agent-orchestrator/bin/ao.js. The doctor script likewise checks dependencies and builds beneath the incorrect root. The script tests supply AO_REPO_ROOT and therefore bypass this calculation.",
+   "axis_row": "L3.9",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "packages/cli/src/assets/scripts/ao-update.sh",
+     "line": 43,
+     "claim": "The relocated scripts retain the old root calculation, so direct invocation without AO_REPO_ROOT uses the assets directory as the repository root and fails.",
+     "evidence": "Both shell scripts still derive REPO_ROOT from their parent directory, which is now packages/cli/src/assets. Running the updater directly with --smoke-only reproduced MODULE_NOT_FOUND under src/assets/packages/agent-orchestrator/bin/ao.js. The doctor script likewise checks dependencies and builds beneath the incorrect root. The script tests supply AO_REPO_ROOT and therefore bypass this calculation."
+    }
+   ],
+   "id": "F1"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests",
+   "gate:added-tests",
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": []
+ }
+}

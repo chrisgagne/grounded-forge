@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/Waferguard/waferguard-ml",
+  "pr_number": 17,
+  "base": "56411efab470a71e9ef342bc1e10fab767751de5",
+  "head": "62d4f66fbeaef3dd84578b7cd547f37d43086a26"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 257,
+   "end_line": 257,
+   "message": "The report pipeline calls library functions that do not exist, preventing report generation. financial_impact/financial.py defines neither load_artifacts nor run_inference. The call to load_artifacts at line 185 raises AttributeError and is caught as though artifacts were missing; with a valid dataset, the fallback then calls run_inference at line 257, catches its AttributeError, and re-raises it. The artifacts branch also calls the missing run_inference function."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 171,
+   "end_line": 171,
+   "message": "The notebook hardcodes one developer's checkout path, preventing execution from other checkouts. repo_root is assigned '/Users/<author>/Desktop/Capstone/waferguard-ml'. Dataset loading at lines 237\u2013239, both model paths, and report output paths derive from that location. A user with the repository and dataset elsewhere reaches np.load with a nonexistent path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The artifacts branch would classify every wafer as Normal when given the artifacts produced by the training notebook. model.ipynb saves pattern_to_id and id_to_pattern but does not save id_to_binary. This branch reads artifacts.get('id_to_binary', {}), then passes the empty mapping to decode_labels. financial.py line 151 defaults every unmapped class to '00000000'; isolated execution confirmed that class 3 with pattern name Near_Full becomes that Normal binary label. Once the missing loading and inference functions are repaired, this path would report zero defects and zero financial loss."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 240,
+   "end_line": 240,
+   "message": "Caller-supplied financial parameters are ignored, so customized financial assumptions have no effect on reports. compute_financials accepts financial_params, but its only references check for None and assign the default. Every row calls get_params(binary_label), which reads the global FINANCIAL_PARAMS exclusively. Passing a mapping with different repair costs or yield assumptions therefore still calculates losses, costs, and recommendations from the global values."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The batch average confidence gives each pattern equal weight, producing incorrect confidence summaries for uneven batches. build_batch_df aggregates wafers into pattern rows containing count and avg_confidence. compute_financials then takes df_batch['avg_confidence'].mean() without weighting by count. For 99 wafers of one pattern at confidence 0.99 and one wafer of another at 0.10, the report returns 0.545 instead of the batch average 0.9811."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 273,
+   "end_line": 273,
+   "message": "An empty batch raises an exception instead of producing the zero-valued summary the surrounding code attempts to support. build_batch_df([], empty_confidences, mapping) produces an empty DataFrame. compute_financials creates no financial rows and immediately calls pd.DataFrame(rows).sort_values('priority_score'); that DataFrame has no priority_score column, so sorting raises KeyError before the later empty-frame guards execute."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "financial_impact/financial.py",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new financial pipeline has no automated regression tests covering its calculations or notebook integration. The diff adds the financial library and notebook without any test files. The notebook contains saved printed output but no assertions, leaving missing helper functions, ignored parameter overrides, incorrect confidence aggregation, and empty-batch behavior unchecked."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

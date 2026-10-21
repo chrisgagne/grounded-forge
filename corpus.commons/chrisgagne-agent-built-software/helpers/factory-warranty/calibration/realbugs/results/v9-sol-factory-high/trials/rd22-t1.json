@@ -1,0 +1,189 @@
+{
+ "id": "rd22",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:deps",
+  "gate:required",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 0.4912,
+ "codex_tokens": 114987,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd22-t1-qgxkoo5i",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "kubeclient.go:106-110 pass client-go secret.Data (already decoded) to decodeSecretKey, which decodes again at :177-179 whenever isBase64 holds. The operator generates 16-character passwords from letters, digits and !@#$%^&* (utils/kubernetes.py:1428-1429), so about 14% are pure alphanumeric, length 16, and will decode to different bytes. Authentication then fails on the default cluster path.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "line": 177,
+   "claim": "Cluster credential resolution base64-decodes already-decoded secret values that happen to look like base64, corrupting valid credentials.",
+   "evidence": "ResolveFromCluster passes the already-decoded secret.Data values to decodeSecretKey, which decodes them again whenever isBase64 succeeds. For example, a legitimate username 'test' becomes bytes b5eb2d, and password 'YWJjZGVmZ2hpamts' becomes 'abcdefghijkl'. authenticate then sends these changed credentials.",
+   "breaks": "story",
+   "axis_row": "L2.1",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+     "line": 177,
+     "claim": "Cluster credential resolution corrupts valid credentials that happen to match base64 syntax, preventing authentication.",
+     "evidence": "ResolveFromCluster passes the already-decoded secret.Data values to decodeSecretKey, which decodes them again whenever isBase64 succeeds. For example, a legitimate username 'test' becomes bytes b5eb2d, and password 'YWJjZGVmZ2hpamts' becomes 'abcdefghijkl'. authenticate then sends these changed credentials."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "resolveURL returns Endpoints.Admin first (kubeclient.go:149). keycloak_reconciler.py:464-466 always sets admin/public to http://{name}-keycloak.{ns}.svc.cluster.local:8080. The documented cluster-mode examples in migration-toolkit.md and export-realms.md leave out --server-url, and nothing sets up port forwarding, so the documented flow fails from outside the cluster.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "line": 149,
+   "claim": "Without --server-url, cluster mode picks status.endpoints.admin, which is an in-cluster svc.cluster.local address, so the documented workstation command can't connect.",
+   "evidence": "Without --server-url, resolveURL returns status.endpoints.admin. src/keycloak_operator/services/keycloak_reconciler.py:464 sets both admin and public to http://{name}-keycloak.{namespace}.svc.cluster.local:8080. The importer connects directly to that address without establishing forwarding, while the documented cluster-mode examples omit --server-url.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+     "line": 149,
+     "claim": "The documented cluster-mode command fails from a workstation without cluster-network access because automatic URL resolution selects an internal service address.",
+     "evidence": "Without --server-url, resolveURL returns status.endpoints.admin. src/keycloak_operator/services/keycloak_reconciler.py:464 sets both admin and public to http://{name}-keycloak.{namespace}.svc.cluster.local:8080. The importer connects directly to that address without establishing forwarding, while the documented cluster-mode examples omit --server-url."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "importer.go:76 and :82 return nil instead of result after earlier batches have added to result.Added and result.Skipped. printImportSummary in cmd/import_users.go returns early on nil, so runImportUsers' 'print partial result' never prints the earlier progress.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "line": 82,
+   "claim": "HTTP or token-refresh failures in later batches return a nil result, so the partial summary of earlier committed batches is lost.",
+   "evidence": "After a successful first batch updates result.Added and result.Skipped, an HTTP failure in batch two returns nil instead of result; token-refresh failures do the same at line 76. runImportUsers attempts to print the partial summary, but printImportSummary immediately returns for nil.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "tools/migration-toolkit/internal/userimport/importer.go",
+     "line": 82,
+     "claim": "Failures in later batches discard the accumulated result, hiding the changes already committed by earlier batches.",
+     "evidence": "After a successful first batch updates result.Added and result.Skipped, an HTTP failure in batch two returns nil instead of result; token-refresh failures do the same at line 76. runImportUsers attempts to print the partial summary, but printImportSummary immediately returns for nil."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "authenticate and importBatch use http.DefaultClient.Do, which has no Timeout, and runImportUsers passes context.Background() (import_users.go:344) with no deadline. A server that accepts the connection but never answers blocks the command indefinitely.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "line": 174,
+   "claim": "There is no HTTP timeout or context deadline, so a stalled server hangs the import forever.",
+   "evidence": "Both authenticate and importBatch use http.DefaultClient.Do and unbounded io.ReadAll calls. runImportUsers supplies context.Background() without a timeout. A server that accepts a connection but never finishes its response therefore prevents the command from completing or reporting failure.",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "tools/migration-toolkit/internal/userimport/importer.go",
+     "line": 174,
+     "claim": "A stalled HTTP server can leave the import waiting indefinitely because neither requests nor their context have a deadline.",
+     "evidence": "Both authenticate and importBatch use http.DefaultClient.Do and unbounded io.ReadAll calls. runImportUsers supplies context.Background() without a timeout. A server that accepts a connection but never finishes its response therefore prevents the command from completing or reporting failure."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The importResp struct only reads added, skipped and errors, and ImportResult and printImportSummary have no overwritten field. Keycloak's PartialImportResults reports replaced resources under 'overwritten', so a run with --mode overwrite that replaces users shows Added 0 and Skipped 0.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "line": 194,
+   "claim": "Overwrite counts from the Partial Import response are dropped, so overwrite mode reports zero changes.",
+   "evidence": "The response struct reads only added, skipped and errors, and ImportResult and printImportSummary likewise have no overwritten count. A response with added=0, skipped=0 and overwritten=500 therefore produces an all-zero outcome summary. Keycloak reports replacements through getOverwritten() in [PartialImportResults](https://raw.githubusercontent.com/keycloak/keycloak/26.4.0/server-spi-private/src/main/java/org/keycloak/partialimport/PartialImportResults.java).",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "tools/migration-toolkit/internal/userimport/importer.go",
+     "line": 194,
+     "claim": "Successful overwrites are omitted from the import result, so overwrite mode can change every user while reporting zero changes.",
+     "evidence": "The response struct reads only added, skipped and errors, and ImportResult and printImportSummary likewise have no overwritten count. A response with added=0, skipped=0 and overwritten=500 therefore produces an all-zero outcome summary. Keycloak reports replacements through getOverwritten() in [PartialImportResults](https://raw.githubusercontent.com/keycloak/keycloak/26.4.0/server-spi-private/src/main/java/org/keycloak/partialimport/PartialImportResults.java)."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "importer_test.go contains only TestChunk_* and loader_test.go only TestLoadUsersFile_*. No test calls ImportUsers, authenticate, importBatch, ResolveFromCluster or decodeSecretKey, which is why the X1 decode bug got through. This is a test-coverage gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tools/migration-toolkit/internal/userimport/importer_test.go",
+   "line": 15,
+   "claim": "The new tests cover only chunk and file loading. Auth, credential resolution and HTTP import are untested.",
+   "evidence": "Every test in importer_test.go exercises only chunk; loader_test.go covers file loading. No added test invokes ImportUsers, authenticate, importBatch, ResolveFromCluster or decodeSecretKey, or checks token renewal, conflict modes, HTTP failures or partial results.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "low",
+     "file": "tools/migration-toolkit/internal/userimport/importer_test.go",
+     "line": 15,
+     "claim": "The new tests leave authentication, credential resolution and HTTP import behavior untested, allowing regressions in the command's core behavior to pass.",
+     "evidence": "Every test in importer_test.go exercises only chunk; loader_test.go covers file loading. No added test invokes ImportUsers, authenticate, importBatch, ResolveFromCluster or decodeSecretKey, or checks token renewal, conflict modes, HTTP failures or partial results."
+    }
+   ],
+   "id": "F6"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:deps",
+   "gate:required"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

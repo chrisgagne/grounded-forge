@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/NIAEFEUP/enei",
+  "pr_number": 194,
+  "base": "a74461de5337f3618effdcdb6f115dccd2f94a15",
+  "head": "0442935c8fe466a2f1115b76240c9ad9df2be1e5"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 106,
+   "message": "Unregistered participants can be checked into events because the registration check is never awaited. EventService.isRegistered is async, so `!this.eventService.isRegistered(user!, event)` tests a truthy Promise and always skips rejection. For a valid participant who is neither registered nor checked in, execution reaches checkin at line 116; the service attaches the user without another registration check. Executing the handler with isRegistered resolving false confirmed this path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 313,
+   "message": "Staff registered for an event cannot open its check-in scanner. The only control that sets scannerModalOpen to true is nested inside `!isRegistered` at line 290. EventsController.show calculates registration for the current user, so a registered staff member loses that control while the dialog remains closed."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/website/database/seeders/8_staff_seeder.ts",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "The new test seeders can grant staff access outside development, including through publicly known credentials. Running 8_staff_seeder creates the verified account staff@eneiconf.pt with password `password` and associates a staff profile, without an environment guard. UserService.getUserWithCredentials authenticates that account, and StaffMiddleware accepts its staffProfileId. The other new seeder, mock_staff_profile_seeder.ts, unconditionally grants staff status to user ID 1. The existing 2_account_seeder.dev.ts demonstrates an app.inDev guard."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/website/app/services/event_service.ts",
+   "start_line": 34,
+   "end_line": 34,
+   "message": "Concurrent check-ins for the same participant can produce an unhandled database error. EventsController.checkin separately awaits isCheckedIn and then calls checkin. Two requests can both observe no check-in before this unconditional attach. The migration enforces UNIQUE(event_id,user_id), but neither the service nor controller handles the losing insert as an already-checked-in result."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 104,
+   "end_line": 104,
+   "message": "Scanning a participant profile without an associated user causes an exception instead of participant-not-found feedback. The controller checks whether the profile exists but never checks the result of User.findBy. A null user is passed to isRegistered and isCheckedIn, both of which dereference user.id. The profile-to-user association is not guaranteed by the schema; ProfilesController.index explicitly handles this same missing-user state."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 314,
+   "end_line": 314,
+   "message": "The scanner control is inaccessible to keyboard users and has no accessible action name. The action is attached directly to a QrCode SVG with only onClick. It has no button wrapper, tabIndex, keyboard handler, or accessible label."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/website/tests",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new check-in behavior has no automated regression coverage. The diff adds the controller action, service methods, migration, and scanner dialog without adding tests. The exported tests directory contains only bootstrap.ts, leaving registration rejection, duplicate check-ins, staff authorization, and scanner availability unchecked."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

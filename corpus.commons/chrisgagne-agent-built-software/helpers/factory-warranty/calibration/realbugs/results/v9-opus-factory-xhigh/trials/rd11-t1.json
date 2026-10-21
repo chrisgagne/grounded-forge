@@ -1,0 +1,203 @@
+{
+ "id": "rd11",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 3.7188,
+ "codex_tokens": 0,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd11-t1-fb6dpp32",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "LlvmIr.targets:277 swaps in any prelink/<name>.dll that exists, without checking that this run wrote it. PreTrimmingFixLegacyDesigner.cs only creates the directory and writes a file when ProcessAssemblyDesigner returns true; it never deletes anything. When a library is upgraded to a version with no legacy designer, ProcessAssemblyDesigner returns false ('has no designer' or 'already processed', FixLegacyResourceDesignerStep.cs:72-80), so the old v1 copy is still swapped in and shipped.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "line": 277,
+   "claim": "Stale prelink copies are never cleared, so a library that no longer needs rewriting is still replaced by an old rewritten copy from an earlier build.",
+   "evidence": "The swap target picks any ResolvedFileToPublish .dll for which `Exists('$(IntermediateOutputPath)prelink/%(Filename)%(Extension)')` is true and points it at that file. It does not check whether the current run produced the file. PreTrimmingFixLegacyDesigner.RunTask only calls `Directory.CreateDirectory (OutputDirectory)` (PreTrimmingFixLegacyDesigner.cs:46) and writes a file only when `ProcessAssemblyDesigner` returns true. It never deletes anything. The `<FileWrites>` entry is added in the inner per-RID build, where IncrementalClean is deliberately removed (AssemblyResolution.targets:23-26), so nothing else cleans the directory. Trigger: build once with library X v1, which has a legacy Resource class; prelink/X.dll is written. Then upgrade X to v2, built with the designer assembly. The task reruns because its inputs are newer, but FixLegacyResourceDesignerStep.ProcessAssemblyDesigner returns false for v2 (\"has already been processed\" / \"has no designer\"), so nothing is written. Exists() still finds the v1 prelink copy, so ResolvedFileToPublish is pointed at the old v1 code before ILLink runs.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+     "line": 277,
+     "claim": "Prelink copies are never cleared, so a library that no longer needs rewriting is still replaced by an old rewritten copy left by an earlier build, and ILLink then trims and ships the old version of that library.",
+     "evidence": "The swap target picks any ResolvedFileToPublish .dll for which `Exists('$(IntermediateOutputPath)prelink/%(Filename)%(Extension)')` is true and points it at that file. It does not check whether the current run produced the file. PreTrimmingFixLegacyDesigner.RunTask only calls `Directory.CreateDirectory (OutputDirectory)` (PreTrimmingFixLegacyDesigner.cs:46) and writes a file only when `ProcessAssemblyDesigner` returns true. It never deletes anything. The `<FileWrites>` entry is added in the inner per-RID build, where IncrementalClean is deliberately removed (AssemblyResolution.targets:23-26), so nothing else cleans the directory. Trigger: build once with library X v1, which has a legacy Resource class; prelink/X.dll is written. Then upgrade X to v2, built with the designer assembly. The task reruns because its inputs are newer, but FixLegacyResourceDesignerStep.ProcessAssemblyDesigner returns false for v2 (\"has already been processed\" / \"has no designer\"), so nothing is written. Exists() still finds the v1 prelink copy, so ResolvedFileToPublish is pointed at the old v1 code before ILLink runs."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The target's Outputs is only _PreTrimmingFixLegacyDesigner.stamp; the prelink files are not listed. MSBuild skips the target when every input is older than the stamp, which happens when a NuGet library whose dll keeps an old pack timestamp is added. The diff also removed the post-trim FixLegacyResourceDesignerStep, so nothing else rewrites that library.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "line": 251,
+   "claim": "The rewrite target's up-to-date check uses only a stamp file, so a newly added assembly that is older than the stamp, or a deleted prelink directory, skips the rewrite with no error.",
+   "evidence": "`Inputs=\"@(_PreTrimmingAssembly)\" Outputs=\"$(_AndroidStampDirectory)_PreTrimmingFixLegacyDesigner.stamp\"`. The prelink files are not listed as outputs. The update target only swaps files that `Exists()`, so when prelink/ is missing while the stamp is current, nothing is rewritten and nothing is swapped. In that case nothing fixes the library: this change removed the post-trimming FixLegacyResourceDesignerStep from PostTrimmingPipeline and removed the designer TrimmerRootDescriptor. The unrewritten library keeps reading its own Resource fields, which hold the IDs from its own compile. Elsewhere this repo tracks item-set changes with hash files (e.g. `_ResolvedUserAssembliesHashFile` in AssemblyResolution.targets); this target has no such check.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+     "line": 251,
+     "claim": "The rewrite target counts as up to date based on a single stamp file. If the prelink copies are deleted, or an assembly is added whose timestamp is older than the stamp, the target is skipped and legacy libraries go to ILLink without being rewritten, with no error at build time.",
+     "evidence": "`Inputs=\"@(_PreTrimmingAssembly)\" Outputs=\"$(_AndroidStampDirectory)_PreTrimmingFixLegacyDesigner.stamp\"`. The prelink files are not listed as outputs. The update target only swaps files that `Exists()`, so when prelink/ is missing while the stamp is current, nothing is rewritten and nothing is swapped. In that case nothing fixes the library: this change removed the post-trimming FixLegacyResourceDesignerStep from PostTrimmingPipeline and removed the designer TrimmerRootDescriptor. The unrewritten library keeps reading its own Resource fields, which hold the IDs from its own compile. Elsewhere this repo tracks item-set changes with hash files (e.g. `_ResolvedUserAssembliesHashFile` in AssemblyResolution.targets); this target has no such check."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "_PreTrimmingFixLegacyDesignerUpdateItems is defined only in TypeMap.LlvmIr.targets. Xamarin.Android.Common.targets:2880-2881 imports that file only when _AndroidTypeMapImplementation != 'trimmable', and TypeMap.Trimmable.targets:30-31 accepts NativeAOT. NativeAOT.targets:270 depends on that target unconditionally. Kept at medium because the trimmable path is experimental.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+   "line": 270,
+   "claim": "With NativeAOT and the trimmable typemap, _AndroidRunNativeCompile depends on a target that is never defined, so the build fails with MSB4057.",
+   "evidence": "`DependsOnTargets=\"_PreTrimmingFixLegacyDesignerUpdateItems;NativeCompile\"`. That target is defined only in Microsoft.Android.Sdk.TypeMap.LlvmIr.targets. Xamarin.Android.Common.targets:2880-2881 imports that file only when `'$(_AndroidTypeMapImplementation)' != 'trimmable'`. The trimmable path is a supported NativeAOT combination: TypeMap.Trimmable.targets:9 imports TypeMap.Trimmable.NativeAOT.targets, and `_ValidateTrimmableTypeMapRuntime` accepts NativeAOT. NativeAOT.targets is always imported for `_AndroidRuntime=NativeAOT` (Microsoft.Android.Sdk.targets:36), and a missing target in DependsOnTargets is a hard error. This path is experimental, which is why this is medium.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+     "line": 270,
+     "claim": "With NativeAOT and the trimmable typemap, `_AndroidRunNativeCompile` now depends on a target that does not exist in that configuration, so MSBuild stops with MSB4057.",
+     "evidence": "`DependsOnTargets=\"_PreTrimmingFixLegacyDesignerUpdateItems;NativeCompile\"`. That target is defined only in Microsoft.Android.Sdk.TypeMap.LlvmIr.targets. Xamarin.Android.Common.targets:2880-2881 imports that file only when `'$(_AndroidTypeMapImplementation)' != 'trimmable'`. The trimmable path is a supported NativeAOT combination: TypeMap.Trimmable.targets:9 imports TypeMap.Trimmable.NativeAOT.targets, and `_ValidateTrimmableTypeMapRuntime` accepts NativeAOT. NativeAOT.targets is always imported for `_AndroidRuntime=NativeAOT` (Microsoft.Android.Sdk.targets:36), and a missing target in DependsOnTargets is a hard error. This path is experimental, which is why this is medium."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "noise",
+   "reason": "FixLegacyResourceDesignerStep.ProcessAssembly:63 does skip IsMainAssembly, so the comment's main-assembly claim holds. ProcessAssemblyDesigner (lines 69-105) only rewrites ldsfld against the assembly's own legacy designer, so processing the main assembly never fixed its references into another library's Resource class. The described breakage is not caused by this change.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "line": 67,
+   "claim": "The new task skips the main assembly, unlike the removed post-trim wrapper, and its comment claims a filter match.",
+   "evidence": "The comment says \"Match the filtering in FixLegacyResourceDesignerStep.ProcessAssembly\", followed by `if (Path.GetFileNameWithoutExtension (item.ItemSpec) == TargetName) continue;` and an IsFrameworkAssembly skip. ProcessAssembly actually filters on `context.IsMainAssembly || !context.IsAndroidUserAssembly`, so the two filters differ. The removed PostTrimmingFixLegacyResourceDesignerStep doc said it called ProcessAssemblyDesigner directly, \"matching the behavior of the former ILLink path which processed all assemblies without StepContext flag filtering\". The rewritten libraries get `ClearDesignerClass (designer, completely: true)`, which empties NestedTypes, so an `ldsfld Lib.Resource/Layout::X` in the skipped main assembly can no longer resolve.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+     "line": 67,
+     "claim": "The new task skips the main assembly, which the removed post-trimming wrapper deliberately processed, and its comment claims a filter match that isn't there. Main-app references into a legacy library's Resource fields may be left pointing at nested types the rewrite deletes.",
+     "evidence": "The comment says \"Match the filtering in FixLegacyResourceDesignerStep.ProcessAssembly\", followed by `if (Path.GetFileNameWithoutExtension (item.ItemSpec) == TargetName) continue;` and an IsFrameworkAssembly skip. ProcessAssembly actually filters on `context.IsMainAssembly || !context.IsAndroidUserAssembly`, so the two filters differ. The removed PostTrimmingFixLegacyResourceDesignerStep doc said it called ProcessAssemblyDesigner directly, \"matching the behavior of the former ILLink path which processed all assemblies without StepContext flag filtering\". The rewritten libraries get `ClearDesignerClass (designer, completely: true)`, which empties NestedTypes, so an `ldsfld Lib.Resource/Layout::X` in the skipped main assembly can no longer resolve."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds PreTrimmingFixLegacyDesigner.cs and three targets, and its only test changes are six .apkdesc files. No test covers the prelink swap, incremental skipping or stale copies. This is a test-coverage gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "line": null,
+   "claim": "The new task and its three targets have no tests; only apkdesc baselines changed.",
+   "evidence": "The diff adds PreTrimmingFixLegacyDesigner.cs and the _CollectPreTrimmingAssemblies, _PreTrimmingFixLegacyDesigner and _PreTrimmingFixLegacyDesignerUpdateItems targets. The only test files it changes are six .apkdesc resources. No test checks that prelink copies are swapped in, that the target is skipped on a no-op rebuild, or that a library which stops needing the rewrite is no longer swapped (the defect above).",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+     "line": null,
+     "claim": "The new MSBuild task and its three targets have no tests, so the swap, the up-to-date behaviour and the stale-copy cases are unchecked. The only build evidence is the regenerated apkdesc size baselines.",
+     "evidence": "The diff adds PreTrimmingFixLegacyDesigner.cs and the _CollectPreTrimmingAssemblies, _PreTrimmingFixLegacyDesigner and _PreTrimmingFixLegacyDesignerUpdateItems targets. The only test files it changes are six .apkdesc resources. No test checks that prelink copies are swapped in, that the target is skipped on a no-op rebuild, or that a library which stops needing the rewrite is no longer swapped (the defect above)."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes the sizes of libcoreclr.so, libclrjit.so, libSystem.Native.so, libmonodroid.so and libmonosgen-2.0.so in the apkdesc files. A managed pre-link rewrite cannot change these native binaries, so the baselines also capture a different runtime build. This is a test-baseline hygiene issue, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Xamarin.Android.Build.Tasks/Tests/Xamarin.ProjectTools/Resources/Base/BuildReleaseArm64SimpleDotNet.CoreCLR.apkdesc",
+   "line": 17,
+   "claim": "The regenerated size baselines include native runtime size changes that this managed-only change cannot cause.",
+   "evidence": "The updated apkdesc files change sizes for libcoreclr.so (5766640\u21925769760), libclrjit.so (3202072\u21923207768), libSystem.Native.so (107904\u2192108424), libmonosgen-2.0.so and libmonodroid.so. They also raise SimpleDotNet MonoVM/NativeAOT PackageSize by 4096 and NativeAOT libUnnamedProject.so by ~15 KB. None of these come from the designer/ILLink change. They look like a different runtime/SDK build captured as expected values (BuildTest2.BuildReleaseArm64 compares against these with 3%/5% thresholds).",
+   "axis_row": "L3.14",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Xamarin.Android.Build.Tasks/Tests/Xamarin.ProjectTools/Resources/Base/BuildReleaseArm64SimpleDotNet.CoreCLR.apkdesc",
+     "line": 17,
+     "claim": "The regenerated size baselines include size changes in native runtime libraries that this managed-linker change cannot cause, so the size-regression check no longer measures this change alone.",
+     "evidence": "The updated apkdesc files change sizes for libcoreclr.so (5766640\u21925769760), libclrjit.so (3202072\u21923207768), libSystem.Native.so (107904\u2192108424), libmonosgen-2.0.so and libmonodroid.so. They also raise SimpleDotNet MonoVM/NativeAOT PackageSize by 4096 and NativeAOT libUnnamedProject.so by ~15 KB. None of these come from the designer/ILLink change. They look like a different runtime/SDK build captured as expected values (BuildTest2.BuildReleaseArm64 compares against these with 3%/5% thresholds)."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "Xamarin.Android.Build.Tasks.csproj:47 still names LinkAssembliesNoShrink and PostTrimmingPipeline as the linker-source consumers, and nothing reads the OriginalPath metadata set at PreTrimmingFixLegacyDesigner.cs:85. The designer-targets comment applies to every typemap, but the pre-trim rewrite exists only in LlvmIr.targets. This is a documentation issue, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Xamarin.Android.Build.Tasks/MSBuild/Xamarin/Android/Xamarin.Android.Resource.Designer.targets",
+   "line": 230,
+   "claim": "Comments are stale and the OriginalPath/FileWrites outputs are unused.",
+   "evidence": "Resource.Designer.targets is imported for every typemap. Its new comment says the pre-trim rewrite makes the descriptor unnecessary, but that rewrite exists only in TypeMap.LlvmIr.targets, not in the trimmable path. Xamarin.Android.Build.Tasks.csproj:47 still says the linker sources are for \"LinkAssembliesNoShrink and PostTrimmingPipeline\", but FixLegacyResourceDesignerStep is now used by PreTrimmingFixLegacyDesigner. PreTrimmingFixLegacyDesigner.cs:85 sets `OriginalPath` metadata that nothing reads, and `_PreTrimmingModifiedAssembly` only goes to FileWrites in an inner build that has no IncrementalClean.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Xamarin.Android.Build.Tasks/MSBuild/Xamarin/Android/Xamarin.Android.Resource.Designer.targets",
+     "line": 230,
+     "claim": "Comments and metadata are now stale or unused: the designer-targets comment says no root descriptor is needed in general, the csproj comment names the wrong consumer, and the OriginalPath/FileWrites outputs are never used.",
+     "evidence": "Resource.Designer.targets is imported for every typemap. Its new comment says the pre-trim rewrite makes the descriptor unnecessary, but that rewrite exists only in TypeMap.LlvmIr.targets, not in the trimmable path. Xamarin.Android.Build.Tasks.csproj:47 still says the linker sources are for \"LinkAssembliesNoShrink and PostTrimmingPipeline\", but FixLegacyResourceDesignerStep is now used by PreTrimmingFixLegacyDesigner. PreTrimmingFixLegacyDesigner.cs:85 sets `OriginalPath` metadata that nothing reads, and `_PreTrimmingModifiedAssembly` only goes to FileWrites in an inner build that has no IncrementalClean."
+    }
+   ],
+   "id": "F7"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

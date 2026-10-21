@@ -75,3 +75,29 @@ One new arm on the same 23 pull requests: `codex-review-high`, OpenAI's `codex r
 by the same rule against `sol-own` (`codex review` at its default), `sol-plain-high` (Sol, plain prompt, "high") and
 `sol-factory` (Sol with the factory's brief). These comparisons were chosen after seeing v9's other results; they are
 reported as such, and nothing already reported changes.
+
+## Amendment 2 (2026-10-21, after Amendment 1's result, before these arms run): the factory's brief at higher effort
+
+v9 turned up the labs' review commands and Sol's plain prompt, but never the factory's own reviewers: every factory
+review so far ran at each CLI's default effort (Codex reports "none"; Claude Code's default was never set). So "turned
+up, they catch up" compares their higher setting with the factory's default. Chris approved closing that (2026-10-21).
+The factory gains two optional settings for this, `review.claude_effort` and `review.codex_effort` (default unset, so
+earlier behaviour is unchanged).
+
+Three new arms on the same 23 pull requests, judged the same way:
+
+| Arm | What runs |
+|---|---|
+| `sol-factory-high` | The factory at the commit recorded in `results/v9-sol-factory-high.commit`, review legs `codex` only, `review.codex_effort: high`, the open build's library, as in v7 otherwise; reported: the Codex reviewer's own findings, before the sort |
+| `opus-factory-xhigh` | The same with review legs `claude` only and `review.claude_effort: xhigh` |
+| `opus-plain-xhigh` | Claude Code with v5 to v8's plain prompt, as v7's `opus-plain`, with `--effort xhigh` |
+
+The same rule decides, against these comparisons (chosen after seeing v9's other results, and reported as such):
+`sol-factory-high` against `sol-plain-high` (does the brief add anything once Sol reasons more?) and against
+`sol-factory` (does effort help the brief?); `opus-factory-xhigh` against `opus-plain-xhigh` and against
+`opus-factory`. Reported beside them: each against the labs' commands turned up (`codex-review-high`,
+`cc-review-high`, `cc-review-xhigh`).
+
+**Limits:** v7's factory arms ran both reviewers in one replay and reported each one's findings; these run one
+reviewer each, so the sort sees only that reviewer's findings. Findings are taken before the sort in both, so the
+difference doesn't reach what is scored.

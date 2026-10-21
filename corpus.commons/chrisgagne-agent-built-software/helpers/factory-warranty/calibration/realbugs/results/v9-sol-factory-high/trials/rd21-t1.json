@@ -1,0 +1,101 @@
+{
+ "id": "rd21",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "gate:ratchet:semgrep_findings"
+ ],
+ "first": "gate",
+ "cost_usd": 0.3546,
+ "codex_tokens": 66224,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd21-t1-oq82j207",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "charts/templates/deployment.yaml:76-78 always injects envFrom secretRef ms-secret-vault, and the deleted helm_backend/ai-secure-agent-ms/values.yaml was rendered by that chart through the ApplicationSet at app-of-apps.yaml:102-115. The new agent/ai-secure-agent.yaml:25-35 sets only five literal env vars and no secretRef. backend/ai-secure-agent-config.yaml sets the MySQL user to root with no password, so the credentials could only have come from that secret.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 25,
+   "claim": "The replacement Deployment drops the Vault secret injection (envFrom ms-secret-vault), so the agent no longer gets the credentials it used to receive.",
+   "evidence": "The deleted values file selected the shared chart, whose deployment.yaml injects ms-secret-vault through envFrom.secretRef. The replacement supplies only five literal environment variables and a ConfigMap volume, with no secret reference. backend/ai-secure-agent-config.yaml contains connection settings but no credentials to replace that injection.",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 25,
+     "claim": "The replacement Deployment drops Vault secret injection, making previously supplied credentials unavailable to the agent.",
+     "evidence": "The deleted values file selected the shared chart, whose deployment.yaml injects ms-secret-vault through envFrom.secretRef. The replacement supplies only five literal environment variables and a ConfigMap volume, with no secret reference. backend/ai-secure-agent-config.yaml contains connection settings but no credentials to replace that injection."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The deleted values set both probes to /ai-secure-agent-ms/v1/ping, and charts/templates/deployment.yaml:55-68 rendered them. The container spec in agent/ai-secure-agent.yaml:18-46 has neither probe, so the Service sends traffic to the pod as soon as it starts and kubelet never restarts it if it hangs.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 24,
+   "claim": "The new manifest has no readiness or liveness probes, so traffic can reach a pod that isn't ready and a hung process never gets restarted.",
+   "evidence": "The deleted Helm values configured both probes at /ai-secure-agent-ms/v1/ping, and the shared chart rendered them. The replacement container has neither probe. During startup it can receive Service traffic before HTTP initialization completes; if the process remains running but stops responding, no liveness check restarts it.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 24,
+     "claim": "Removing readiness and liveness probes allows traffic to reach an unready agent and leaves a hung process serving indefinitely.",
+     "evidence": "The deleted Helm values configured both probes at /ai-secure-agent-ms/v1/ping, and the shared chart rendered them. The replacement container has neither probe. During startup it can receive Service traffic before HTTP initialization completes; if the process remains running but stops responding, no liveness check restarts it."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The deleted values requested 100m CPU / 256Mi and limited the pod to 200m / 345Mi, which the chart rendered at deployment.yaml:69-75. The new container in agent/ai-secure-agent.yaml has no resources block. This is a real loss of scheduling and isolation guarantees, but no failure is traced, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 19,
+   "claim": "The replacement drops the CPU and memory requests and limits.",
+   "evidence": "The deleted values reserved 100m CPU and 256Mi memory and limited usage to 200m CPU and 345Mi memory. The new container has no resources section, so this manifest supplies neither those reservations nor those limits.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "low",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 19,
+     "claim": "The replacement removes CPU and memory reservations and limits, weakening scheduling guarantees and resource isolation.",
+     "evidence": "The deleted values reserved 100m CPU and 256Mi memory and limited usage to 200m CPU and 345Mi memory. The new container has no resources section, so this manifest supplies neither those reservations nor those limits."
+    }
+   ],
+   "id": "F3"
+  }
+ ],
+ "blocking": [],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast",
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": []
+ }
+}

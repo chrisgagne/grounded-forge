@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/EdV4H/usketch",
+  "pr_number": 534,
+  "base": "ff729b7dce02efaf7d1054780536289f86e8a5e7",
+  "head": "719aa8340584e714552d132a9ec6971582673a8b"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "Rotation is added only to the deprecated renderer, so application shapes remain unrotated while their hit areas rotate. apps/web/src/app.tsx registers createGpuRendererPlugin() and createDomRendererPlugin(), neither of which uses ShapeLayer. DomShapeLayer has no rotation transform, and the active GPU pipeline ignores rotation. Meanwhile, the changed basic-shape hit tests use withRotation. For a 200\u00d750 rectangle at (0,0) with rotation=90, execution confirmed that clicking the visible point (10,25) misses, while the empty point (100,-50) hits."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "The new corruption guard accepts malformed updates before the server document is initialized, allowing them to be persisted and rebroadcast. doc starts as null, and WebSocket setup calls loadUpdates() without creating it. applyClientUpdate() skips validation when doc is null and returns true. A focused execution after loadUpdates() confirmed that payload [255] returns true. BoardRoom.webSocketMessage() then buffers the payload, tracks it in the partition, broadcasts it, and schedules persistence."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/shared/src/__tests__/rotation.test.ts",
+   "start_line": 205,
+   "end_line": 205,
+   "message": "The rotation-aware hit-test tests cannot detect removal of rotation handling. The only nonzero-rotation case uses a 100\u00d7100 square rotated 90\u00b0, testing its center and an outside point; both results are unchanged without rotation. Executing the test file's assertion bodies with withRotation replaced by a function that returns its original hit-test function still passed all 31 tests."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,383 @@
+{
+ "id": "rd19",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 2.8329,
+ "codex_tokens": 0,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd19-t1-7l73itr3",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "McpServerGitSync.svelte:162-171 sends {newUrl:'*'} and deletes the old key. The Update `case \"*\"` only looks up existingCred.Env[newUrl], which does not exist, and the old URL is no longer active. newTokens ends up empty, so the credential is deleted at diff lines 227-233 and the handler still returns 200. The comment about tokens 'transferred from a renamed one' describes behaviour the code does not have.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "line": 191,
+   "claim": "Editing the URL of a source that has a saved token silently deletes the token, even though the UI is built to carry it over.",
+   "evidence": "When a URL changes, McpServerGitSync.svelte lines 162-171 send `sourceURLCredentials[newUrl] = '*'` and remove the old key. Update's `case \"*\"` only does `if tok, ok := existingCred.Env[u]; ok`, where u is the new URL. That key does not exist in the stored credential. The old URL is no longer in activeURLs, so its token is skipped too. newTokens ends up empty, Update deletes the credential at lines 211-217 and still returns 200. The next sync of a private repo then runs without a token. The comment at line 177, \"transferred from a renamed one\", describes behaviour the code does not have. Any fix should not move the token to a different host without asking.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "pkg/api/handlers/mcpcatalogs.go",
+     "line": 176,
+     "claim": "Changing the URL of a source that has a saved token silently deletes the token, even though the UI is written to carry it over to the new URL.",
+     "evidence": "When a URL changes, McpServerGitSync.svelte lines 162-171 send `sourceURLCredentials[newUrl] = '*'` and remove the old key. Update's `case \"*\"` only does `if tok, ok := existingCred.Env[u]; ok`, where u is the new URL. That key does not exist in the stored credential. The old URL is no longer in activeURLs, so its token is skipped too. newTokens ends up empty, Update deletes the credential at lines 211-217 and still returns 200. The next sync of a private repo then runs without a token. The comment at line 177, \"transferred from a renamed one\", describes behaviour the code does not have. Any fix should not move the token to a different host without asking."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Update rewrites manifest.SourceURLs[i] but leaves the credential map keys alone. The UI (McpServerGitSync.svelte:182-186) keys the token by the raw editingSource.value, so the `activeURLs` check skips it and the token is silently discarded. Lowered to medium: the trigger needs scheme-less input, and the result is a visible sync failure, not a leak.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "line": 156,
+   "claim": "A scheme-less URL is rewritten to https:// in SourceURLs but not in the SourceURLCredentials keys, so a token entered with it is dropped.",
+   "evidence": "Lines 126-128 rewrite `manifest.SourceURLs[i] = \"https://\" + urlStr` and leave manifest.SourceURLCredentials untouched. The UI (McpServerGitSync.svelte 183-186) keys the token by the raw `editingSource.value`, e.g. \"github.com/acme/private\". At line 170 `if _, active := activeURLs[u]; !active { continue }` that key is not found among the rewritten URLs, so the token is dropped. The URL is saved, the response is 200, and the private repo then fails to sync.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "high",
+     "file": "pkg/api/handlers/mcpcatalogs.go",
+     "line": 127,
+     "claim": "A URL entered without a scheme gets `https://` added in SourceURLs but not in the SourceURLCredentials keys, so a token entered with it is silently thrown away.",
+     "evidence": "Lines 126-128 rewrite `manifest.SourceURLs[i] = \"https://\" + urlStr` and leave manifest.SourceURLCredentials untouched. The UI (McpServerGitSync.svelte 183-186) keys the token by the raw `editingSource.value`, e.g. \"github.com/acme/private\". At line 170 `if _, active := activeURLs[u]; !active { continue }` that key is not found among the rewritten URLs, so the token is dropped. The URL is saved, the response is 200, and the private repo then fails to sync."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "isGitRepoURL returns true for any gitlab.com host. For .../org/repo/-/raw/main/catalog.yaml, parseGitURL takes the branch '-/raw/main/catalog.yaml', and validateBranchName rejects the leading '-'. The baseline's isGitHubURL only matched github.com, so this URL used to go through http.Get.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "line": 440,
+   "claim": "isGitRepoURL now treats every gitlab.com URL as a git repo, so GitLab raw-file catalog URLs that used to be fetched directly now fail.",
+   "evidence": "`case \"github.com\", \"gitlab.com\": return true`. Take `https://gitlab.com/org/repo/-/raw/main/catalog.yaml`, which the baseline (isGitHubURL, github.com only) fetched with http.Get. It now goes to parseGitURL, which falls back to repoPath `org/repo.git` with branch `-/raw/main/catalog.yaml`. validateBranchName rejects the leading \"-\", so the sync records an error. Self-hosted raw URLs whose path contains `.git/` are now misrouted the same way. TestIsGitRepoURL only tries raw files on example.com.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "pkg/controller/handlers/mcpcatalog/github.go",
+     "line": 59,
+     "claim": "isGitRepoURL now treats every gitlab.com URL as a git repo, so GitLab raw-file catalog URLs that used to be downloaded directly now fail to sync.",
+     "evidence": "`case \"github.com\", \"gitlab.com\": return true`. Take `https://gitlab.com/org/repo/-/raw/main/catalog.yaml`, which the baseline (isGitHubURL, github.com only) fetched with http.Get. It now goes to parseGitURL, which falls back to repoPath `org/repo.git` with branch `-/raw/main/catalog.yaml`. validateBranchName rejects the leading \"-\", so the sync records an error. Self-hosted raw URLs whose path contains `.git/` are now misrouted the same way. TestIsGitRepoURL only tries raw files on example.com."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "disputed",
+   "reason": "resolveToken does compare against the const defaultCatalogURL rather than h.defaultCatalogPath, and the baseline used githubToken for every github.com URL. The code comment and the new docs line 69 show the narrowing is a deliberate anti-leak choice, though. Without the story I can't tell whether the migration impact was accepted.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "line": 423,
+   "claim": "The GITHUB_AUTH_TOKEN fallback now applies only to the exact hard-coded default catalog URL. Private GitHub sources and overridden default paths that relied on it stop syncing after upgrade.",
+   "evidence": "`if catalogURL == defaultCatalogURL` compares against the const `https://github.com/obot-platform/mcp-catalog`. The controller already has the configured `h.defaultCatalogPath` (mcpcatalog.go:51), and OBOT_SERVER_DEFAULT_MCPCATALOG_PATH can override it (Dockerfile:61). The baseline used `githubToken` for every github.com clone and size check. A `.git` or branch-qualified form of the default URL also misses the exact-match check. Nothing in the diff moves existing deployments' reliance on GITHUB_AUTH_TOKEN into per-URL credentials.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "pkg/controller/handlers/mcpcatalog/github.go",
+     "line": 43,
+     "claim": "The GITHUB_AUTH_TOKEN fallback now applies only when the URL exactly matches a hard-coded string. After upgrade, private GitHub sources that relied on that token, and any overridden default catalog path, stop syncing, and nothing migrates them.",
+     "evidence": "`if catalogURL == defaultCatalogURL` compares against the const `https://github.com/obot-platform/mcp-catalog`. The controller already has the configured `h.defaultCatalogPath` (mcpcatalog.go:51), and OBOT_SERVER_DEFAULT_MCPCATALOG_PATH can override it (Dockerfile:61). The baseline used `githubToken` for every github.com clone and size check. A `.git` or branch-qualified form of the default URL also misses the exact-match check. Nothing in the diff moves existing deployments' reliance on GITHUB_AUTH_TOKEN into per-URL credentials."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds tests only for isGitRepoURL, parseGitURL, readGitCatalog and sizeLimitedFS.Create. Nothing exercises Update's '*'/''/new-value merge, convertMCPCatalog masking, resolveToken or checkGitLabRepoSize. Lowered to low as a test-coverage point; the defects it would have caught are C1 and C2.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "line": 173,
+   "claim": "The new credential logic has no tests: the token merge, the masking, the env-token fallback and the GitLab size check.",
+   "evidence": "Nothing under pkg/ tests Update's `\"*\"`/`\"\"`/new-value/removed-URL handling, convertMCPCatalog masking, revealCatalogTokens, resolveToken or checkGitLabRepoSize (a grep for these names finds only the implementations). git_fs_test.go only exercises sizeLimitedFS.Create. It does not exercise TempFile, which go-git uses for packfiles, or the clone path.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "pkg/api/handlers/mcpcatalogs.go",
+     "line": 168,
+     "claim": "The new credential logic has no tests: the token merge, the masking that keeps tokens out of API responses, the scope of the env-token fallback, and the GitLab size check. Tests would have caught the two token-loss defects above.",
+     "evidence": "Nothing under pkg/ tests Update's `\"*\"`/`\"\"`/new-value/removed-URL handling, convertMCPCatalog masking, revealCatalogTokens, resolveToken or checkGitLabRepoSize (a grep for these names finds only the implementations). git_fs_test.go only exercises sizeLimitedFS.Create. It does not exercise TempFile, which go-git uses for packfiles, or the clone path."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "revealCatalogCredential logs non-not-found errors and returns \"\". Nothing writes the error into Status.SyncErrors, and the function is called once per source URL in Sync.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+   "line": 955,
+   "claim": "A credential-store read failure is only logged and sync carries on without a token, despite the comment saying it shows in sync status.",
+   "evidence": "revealCatalogCredential logs the non-not-found error and returns \"\". Its doc comment says the failure is \"visible in the sync status\", but nothing writes it to mcpCatalog.Status.SyncErrors. Sync (line 118) also calls it once per source URL, decrypting the same credential N times.",
+   "axis_row": "L5.37",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+     "line": 66,
+     "claim": "If reading the credential store fails, the error is only logged and the sync carries on without a token. The admin then sees a misleading GitHub 404 or auth error, despite the comment saying the failure shows in sync status.",
+     "evidence": "revealCatalogCredential logs the non-not-found error and returns \"\". Its doc comment says the failure is \"visible in the sync status\", but nothing writes it to mcpCatalog.Status.SyncErrors. Sync (line 118) also calls it once per source URL, decrypting the same credential N times."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "List and Get return any non-not-found error from revealCatalogTokens. +page.svelte:110-111 polls getMCPCatalog on an interval during sync, so the credential is revealed on every poll.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "line": 124,
+   "claim": "Catalog List and Get now fail completely on any credential-store error, and every call decrypts the tokens just to show a presence flag.",
+   "evidence": "List and Get call revealCatalogTokens and `return err` on any non-not-found error. Before this change these reads never touched the credential store. The admin page polls getMCPCatalog while a sync runs (+page.svelte lines 111-126), so every poll reveals the credential.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "pkg/api/handlers/mcpcatalogs.go",
+     "line": 62,
+     "claim": "Catalog List and Get now fail completely whenever the credential store errors, and every call decrypts the stored tokens just to show a presence flag.",
+     "evidence": "List and Get call revealCatalogTokens and `return err` on any non-not-found error. Before this change these reads never touched the credential store. The admin page polls getMCPCatalog while a sync runs (+page.svelte lines 111-126), so every poll reveals the credential."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "req.Update(&catalog) runs before CreateCredential/DeleteCredential, so a failure there returns 500 with the URLs already saved. existingCred is read once and the whole map is rewritten, with no conflict check.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "line": 212,
+   "claim": "Update saves the spec before writing the credential, and the credential map is read-modify-write with no conflict check.",
+   "evidence": "`req.Update(&catalog)` at 197 runs before `CreateCredential` at 203. On failure the handler returns 500 with the spec already changed. existingCred is read at 153 and rewritten whole at 203, with no conflict check.",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "pkg/api/handlers/mcpcatalogs.go",
+     "line": 197,
+     "claim": "Update saves the catalog spec before writing the token credential, and the credential is a shared read-modify-write map. A failed credential write leaves URLs saved without tokens, and two concurrent updates can drop each other's tokens.",
+     "evidence": "`req.Update(&catalog)` at 197 runs before `CreateCredential` at 203. On failure the handler returns 500 with the spec already changed. existingCred is read at 153 and rewritten whole at 203, with no conflict check."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "The same limitedFS backs both the chroot .git storer and the worktree passed to git.CloneContext, and sizeLimitedFile.Write adds every write to a single counter.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "line": 751,
+   "claim": "The pack data and the checked-out worktree share one 100 MB counter, so a repo of about half that size can be rejected as too large.",
+   "evidence": "One `limitedFS` with `maxBytes: maxRepoSizeMB * 1024 * 1024` serves both as the `.git` storer (`chroot.New(limitedFS, \".git\")`) and as the worktree passed to `git.CloneContext`. Its single `written` counter adds the compressed pack, the idx and index files, and the uncompressed checkout.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "pkg/controller/handlers/mcpcatalog/github.go",
+     "line": 337,
+     "claim": "The size limit counts packfile and checked-out files against one 100 MB counter. A repo of roughly half that size can be rejected with an error that says the repository is too large (limit: 100 MB).",
+     "evidence": "One `limitedFS` with `maxBytes: maxRepoSizeMB * 1024 * 1024` serves both as the `.git` storer (`chroot.New(limitedFS, \".git\")`) and as the worktree passed to `git.CloneContext`. Its single `written` counter adds the compressed pack, the idx and index files, and the uncompressed checkout."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "disputed",
+   "reason": "The change does replace PlainClone with a bare osfs.New. The go-git source is not in the export, so I can't confirm what PlainClone sets. isPathSafe still guards the read-back.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "line": 752,
+   "claim": "Switching from PlainClone to CloneContext over osfs.New(tempDir) may lose filesystem hardening that PlainClone applies.",
+   "evidence": "The baseline called `git.PlainClone(tempDir, ...)`. The change builds its own `osfs.New(tempDir)` with no options, which is ChrootOS by default and follows symlinks. The go-git v5.17 source is not in this export, so I could not confirm whether PlainClone uses `osfs.WithBoundOS()`. Reading back is still guarded by isPathSafe.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "pkg/controller/handlers/mcpcatalog/github.go",
+     "line": 338,
+     "claim": "Switching from git.PlainClone to CloneContext over `osfs.New(tempDir)` may lose filesystem hardening that PlainClone applies when cloning repositories whose contents third parties control.",
+     "evidence": "The baseline called `git.PlainClone(tempDir, ...)`. The change builds its own `osfs.New(tempDir)` with no options, which is ChrootOS by default and follows symlinks. The go-git v5.17 source is not in this export, so I could not confirm whether PlainClone uses `osfs.WithBoundOS()`. Reading back is still guarded by isPathSafe."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "TestReadGitHubCatalog becomes TestReadGitCatalog and now calls readGitCatalog(ctx, url, \"\"). The original cases are kept and two are added, so the test is not weakened, but acceptance.md says baseline tests are locked and the diff records no sign-off.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "pkg/controller/handlers/mcpcatalog/github_test.go",
+   "line": 882,
+   "claim": "The diff renames and edits a locked baseline acceptance test with no recorded approval.",
+   "evidence": "acceptance.md says the baseline's tests are the locked acceptance tests. The diff renames `TestReadGitHubCatalog` to `TestReadGitCatalog` and changes `readGitHubCatalog(tt.catalog)` to `readGitCatalog(context.Background(), tt.catalog, \"\")`. The original cases and expectations are kept, so the edit does not weaken the test, but no one signed off on it.",
+   "axis_row": "L3.1",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": "pkg/controller/handlers/mcpcatalog/github_test.go",
+     "line": 112,
+     "claim": "The diff edits a locked baseline acceptance test, renaming it and changing its call, with no recorded reason or approval.",
+     "evidence": "acceptance.md says the baseline's tests are the locked acceptance tests. The diff renames `TestReadGitHubCatalog` to `TestReadGitCatalog` and changes `readGitHubCatalog(tt.catalog)` to `readGitCatalog(context.Background(), tt.catalog, \"\")`. The original cases and expectations are kept, so the edit does not weaken the test, but no one signed off on it."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "The pointer form becomes `gptscript.ErrNotFound{}`, matching the value form used across pkg/ (e.g. mcp.go:228). It is very likely a correct fix, but it changes delete-missing behaviour in a secrets path outside the story's scope. Kept as a low scope note.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "pkg/api/handlers/credentials.go",
+   "line": 40,
+   "claim": "The diff changes the generic DeleteCredential handler, which the story does not touch.",
+   "evidence": "`(*gptscript.ErrNotFound)(nil)` becomes `(gptscript.ErrNotFound{})`. That matches the value form used elsewhere and is probably a real fix. But none of the catalog code calls this handler (Update calls GPTClient.DeleteCredential directly), and the change sits in a secrets-class path.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C12",
+     "leg": "claude",
+     "severity": "low",
+     "file": "pkg/api/handlers/credentials.go",
+     "line": 40,
+     "claim": "The diff changes the generic DeleteCredential API handler, which the story does not touch: deleting a missing credential now returns success instead of an error.",
+     "evidence": "`(*gptscript.ErrNotFound)(nil)` becomes `(gptscript.ErrNotFound{})`. That matches the value form used elsewhere and is probably a real fix. But none of the catalog code calls this handler (Update calls GPTClient.DeleteCredential directly), and the change sits in a secrets-class path."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C13"
+   ],
+   "verdict": "confirmed",
+   "reason": "chart/values.yaml:90 still says GITHUB_AUTH_TOKEN authenticates catalog pulls. Public repos clone with an empty token. checkGitLabRepoSize returns nil on 401/403, so read_api is optional.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "docs/docs/configuration/mcp-server-gitops.md",
+   "line": 69,
+   "claim": "The docs are inaccurate about tokens: the chart, the claim that other GitHub URLs require a token, and read_api listed as required.",
+   "evidence": "chart/values.yaml:90 still reads \"used to authenticate catalog and tool pulls\". Line 69 says \"Other GitHub repository URLs require a token\", but public repos clone with an empty token. Line 67 lists `read_api` under required scopes, yet checkGitLabRepoSize returns nil on 401/403 and skips the check.",
+   "members": [
+    {
+     "id": "C13",
+     "leg": "claude",
+     "severity": "low",
+     "file": "docs/docs/configuration/mcp-server-gitops.md",
+     "line": 69,
+     "claim": "The docs are now inaccurate about tokens: the chart says GITHUB_AUTH_TOKEN authenticates catalog pulls, the new page implies every other GitHub URL needs a token, and it lists read_api as required.",
+     "evidence": "chart/values.yaml:90 still reads \"used to authenticate catalog and tool pulls\". Line 69 says \"Other GitHub repository URLs require a token\", but public repos clone with an empty token. Line 67 lists `read_api` under required scopes, yet checkGitLabRepoSize returns nil on 401/403 and skips the check."
+    }
+   ],
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "C14"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the diff, the Pencil button has no aria-label or title, and the format help is `use:tooltip` on a plain <span> wrapping an Info icon.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "ui/user/src/routes/admin/mcp-servers/SourceUrlsView.svelte",
+   "line": 60,
+   "claim": "The new icon-only Edit button has no accessible name, and the URL-format help exists only in a hover tooltip on a span that cannot be focused.",
+   "evidence": "`<button class=\"icon-button\" ...><Pencil class=\"size-4\" /></button>` has no aria-label or title. In McpServerGitSync.svelte lines 65-73 the supported-format text sits in `use:tooltip` on a plain `<span>` with only an Info icon inside.",
+   "members": [
+    {
+     "id": "C14",
+     "leg": "claude",
+     "severity": "low",
+     "file": "ui/user/src/routes/admin/mcp-servers/SourceUrlsView.svelte",
+     "line": 60,
+     "claim": "The new Edit control is an icon-only button with no accessible name, and the URL-format help exists only in a hover tooltip on a span that cannot be focused.",
+     "evidence": "`<button class=\"icon-button\" ...><Pencil class=\"size-4\" /></button>` has no aria-label or title. In McpServerGitSync.svelte lines 65-73 the supported-format text sits in `use:tooltip` on a plain `<span>` with only an Info icon inside."
+    }
+   ],
+   "id": "F14"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

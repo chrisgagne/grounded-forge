@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/ComposioHQ/agent-orchestrator",
+  "pr_number": 1277,
+  "base": "ba77929c9345a0dc897d53115504d0ae32745ce5",
+  "head": "76652c7ccefa3a371be74e8648c5204adc7f09a5"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The relocated scripts retain the old root calculation, so direct invocation without AO_REPO_ROOT uses the assets directory as the repository root and fails. Both shell scripts still derive REPO_ROOT from their parent directory, which is now packages/cli/src/assets. Running the updater directly with --smoke-only reproduced MODULE_NOT_FOUND under src/assets/packages/agent-orchestrator/bin/ao.js. The doctor script likewise checks dependencies and builds beneath the incorrect root. The script tests supply AO_REPO_ROOT and therefore bypass this calculation."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

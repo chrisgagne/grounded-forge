@@ -1,0 +1,406 @@
+{
+ "id": "rd08",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 1.5404,
+ "codex_tokens": 0,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd08-t1-prycdu8n",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "financial.py in the diff defines only merge_predictions, decode_labels, build_batch_df, decompose, get_params, compute_financials and save_reports, and grep across the export finds no load_artifacts/run_inference. The load_artifacts AttributeError is swallowed by the broad except, then the run_inference call in the reconstruct branch raises and is re-raised, so no report is ever produced.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "line": 257,
+   "claim": "Notebook calls wg_fin.load_artifacts and wg_fin.run_inference, which financial.py does not define, so the pipeline cell always fails.",
+   "evidence": "financial.py defines only merge_predictions, decode_labels, build_batch_df, decompose, get_params, compute_financials and save_reports, and its docstring says it is 'Fully decoupled from inference and artifact loading'. Trace: notebook line 185 `artifacts = wg_fin.load_artifacts(artifact_dir)` raises AttributeError. The broad `except Exception as e:` catches it and prints the misleading 'No artifacts.pkl; will try to reconstruct...'. Execution then reaches line 257 `pred_cnn, pred_tl = wg_fin.run_inference(...)`, which raises AttributeError and is re-raised by `raise`. The artifacts branch at line 289 makes the same call. The committed output at line 118 shows '[Errno 2] No such file or directory: training_artifacts/artifacts.pkl', which only a version of the library that had load_artifacts could print.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "wafer_images/waferguard_financial_impact.ipynb",
+     "line": 257,
+     "claim": "The notebook's pipeline cell calls `wg_fin.load_artifacts` and `wg_fin.run_inference`, but `financial_impact/financial.py` defines neither, so the cell fails on every run and never produces the reports it exists to make.",
+     "evidence": "financial.py defines only merge_predictions, decode_labels, build_batch_df, decompose, get_params, compute_financials and save_reports, and its docstring says it is 'Fully decoupled from inference and artifact loading'. Trace: notebook line 185 `artifacts = wg_fin.load_artifacts(artifact_dir)` raises AttributeError. The broad `except Exception as e:` catches it and prints the misleading 'No artifacts.pkl; will try to reconstruct...'. Execution then reaches line 257 `pred_cnn, pred_tl = wg_fin.run_inference(...)`, which raises AttributeError and is re-raised by `raise`. The artifacts branch at line 289 makes the same call. The committed output at line 118 shows '[Errno 2] No such file or directory: training_artifacts/artifacts.pkl', which only a version of the library that had load_artifacts could print."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the cell source the import comes before `repo_root = \"/Users/<author>/...\"` and `sys.path.insert`, and data_path/models_dir are built from that literal path. A kernel started in wafer_images/ or run on any other machine fails on the import or on np.load.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "line": 169,
+   "claim": "`from financial_impact import financial` runs before sys.path gets the repo root, and repo_root is hard-coded to the author's home directory.",
+   "evidence": "Line 169 `from financial_impact import financial as wg_fin` runs before line 171 `repo_root = \"/Users/<author>/Desktop/Capstone/waferguard-ml\"` and the later `sys.path.insert(0, repo_root)`. Jupyter starts the kernel in wafer_images/, where `financial_impact` (a repo-root package) can't be found. pyproject.toml doesn't package it either: the project is named waferguard-ml and CI runs `poetry install --no-root`. Even if the import worked, data_path and models_dir are built from that literal user path, so `np.load(data_path)` fails anywhere else.",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "wafer_images/waferguard_financial_impact.ipynb",
+     "line": 169,
+     "claim": "The notebook imports `financial_impact` before it puts the repo root on sys.path, and it hard-codes the author's own absolute path as repo_root. A fresh kernel, or any other machine, fails with ModuleNotFoundError or FileNotFoundError.",
+     "evidence": "Line 169 `from financial_impact import financial as wg_fin` runs before line 171 `repo_root = \"/Users/<author>/Desktop/Capstone/waferguard-ml\"` and the later `sys.path.insert(0, repo_root)`. Jupyter starts the kernel in wafer_images/, where `financial_impact` (a repo-root package) can't be found. pyproject.toml doesn't package it either: the project is named waferguard-ml and CI runs `poetry install --no-root`. Even if the import worked, data_path and models_dir are built from that literal user path, so `np.load(data_path)` fails anywhere else."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "financial_params is defaulted to FINANCIAL_PARAMS and never read again. get_params/decompose look things up in the module-level FINANCIAL_PARAMS, so costs a caller passes in are silently dropped.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "financial_impact/financial.py",
+   "line": 240,
+   "claim": "compute_financials ignores its financial_params argument.",
+   "evidence": "Lines 235-236 set `financial_params = FINANCIAL_PARAMS` when it is None, and the variable is never read again. Line 240 `params = get_params(binary_label)` and get_params/decompose (lines 188-199) look everything up in the module-level FINANCIAL_PARAMS.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "financial_impact/financial.py",
+     "line": 240,
+     "claim": "`compute_financials` accepts a `financial_params` argument but never uses it. A caller who passes site-specific costs silently gets figures computed from the built-in FINANCIAL_PARAMS.",
+     "evidence": "Lines 235-236 set `financial_params = FINANCIAL_PARAMS` when it is None, and the variable is never read again. Line 240 `params = get_params(binary_label)` and get_params/decompose (lines 188-199) look everything up in the module-level FINANCIAL_PARAMS."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "build_batch_df([]) returns a DataFrame with no columns, so rows stays empty and `pd.DataFrame(rows).sort_values(\"priority_score\")` raises KeyError. That makes the later `if not df_financial.empty` / `df_batch.empty` fallbacks unreachable.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "financial_impact/financial.py",
+   "line": 273,
+   "claim": "An empty batch raises KeyError 'priority_score' before the empty-frame guards run.",
+   "evidence": "`build_batch_df([], ...)` returns `pd.DataFrame([])`, which has no columns. In compute_financials the loop adds no rows, and line 273 `pd.DataFrame(rows).sort_values(\"priority_score\", ...)` then raises KeyError 'priority_score' before lines 275-295 can apply their empty-frame fallbacks.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "financial_impact/financial.py",
+     "line": 273,
+     "claim": "`compute_financials` raises KeyError on an empty batch, so the `if not df_financial.empty` / `if not df_batch.empty` guards below it are dead and a zero-wafer batch crashes instead of returning a zero summary.",
+     "evidence": "`build_batch_df([], ...)` returns `pd.DataFrame([])`, which has no columns. In compute_financials the loop adds no rows, and line 273 `pd.DataFrame(rows).sort_values(\"priority_score\", ...)` then raises KeyError 'priority_score' before lines 275-295 can apply their empty-frame fallbacks."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The summary uses `df_batch[\"avg_confidence\"].mean()` over one row per pattern and ignores `count`, so a pattern with few wafers weighs as much as a large one. That fits the committed 0.9806 figure, even though the big patterns sit at about 0.995 or higher.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "financial_impact/financial.py",
+   "line": 291,
+   "claim": "The batch avg_confidence is an unweighted mean of per-pattern averages, not a mean over wafers.",
+   "evidence": "Line 291 `round(float(df_batch[\"avg_confidence\"].mean()) ...)` averages the per-pattern `avg_confidence` column that build_batch_df (line 175) computes once per unique label, and ignores `count`. The committed output shows a batch avg_confidence of 0.9806, although the top patterns each sit at 0.995 or higher.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "financial_impact/financial.py",
+     "line": 291,
+     "claim": "The summary's batch `avg_confidence` is the unweighted mean of per-pattern averages, not the mean over wafers, so a pattern with a handful of wafers counts as much as one with thousands and the reported batch confidence is wrong.",
+     "evidence": "Line 291 `round(float(df_batch[\"avg_confidence\"].mean()) ...)` averages the per-pattern `avg_confidence` column that build_batch_df (line 175) computes once per unique label, and ignores `count`. The committed output shows a batch avg_confidence of 0.9806, although the top patterns each sit at 0.995 or higher."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "`id_to_binary.get(int(cid), \"00000000\")` sends unmapped IDs to Normal with zero loss, and get_params also falls back to Normal. I lowered it to low: the only path that could pass an incomplete mapping is the notebook's artifacts branch, which is unreachable today, so no current trigger is traced.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "financial_impact/financial.py",
+   "line": 151,
+   "claim": "decode_labels maps unknown class IDs to '00000000' (Normal), which fails open on an incomplete mapping.",
+   "evidence": "Line 151 `id_to_binary.get(int(cid), \"00000000\")`. The notebook's artifacts branch (line 291) passes `artifacts.get(\"id_to_binary\", {})`, so an artifacts file without that key would decode every wafer as Normal. compute_financials would then report defective_wafers 0, total_daily_loss 0 and top_action 'None'. get_params (lines 197-198) also returns Normal params for any label it can't decompose.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "financial_impact/financial.py",
+     "line": 151,
+     "claim": "`decode_labels` maps any class ID missing from `id_to_binary` to '00000000' (Normal: 'No action required \u2014 wafer passes electrical test'). An incomplete mapping therefore fails open and reports defective wafers as good, with zero loss.",
+     "evidence": "Line 151 `id_to_binary.get(int(cid), \"00000000\")`. The notebook's artifacts branch (line 291) passes `artifacts.get(\"id_to_binary\", {})`, so an artifacts file without that key would decode every wafer as Normal. compute_financials would then report defective_wafers 0, total_daily_loss 0 and top_action 'None'. get_params (lines 197-198) also returns Normal params for any label it can't decompose."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The comment says 'copied from notebook', but the added notebook has no such table. get_params adds its own rules (summed repair, max downtime, half-weighted secondary yield) with no spec or reference. This is a provenance point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "financial_impact/financial.py",
+   "line": 17,
+   "claim": "The FINANCIAL_PARAMS figures and the combo aggregation rules have no source or sign-off.",
+   "evidence": "Line 17 `# --- Financial mapping (copied from notebook)`, but the notebook added in this diff has no such table. get_params (lines 200-210) invents rules: repair costs are summed, downtime takes the max, yield is `ylos[0] + 0.5 * sum(ylos[1:])` capped at 1.0, and replacement cost skips None (Random). No spec, data file or comment traces any of these.",
+   "axis_row": "L4.31",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "financial_impact/financial.py",
+     "line": 17,
+     "claim": "The dollar costs, downtime rates and yield ranges in FINANCIAL_PARAMS, and the combo aggregation rules in get_params, are hard-coded business figures. Nothing in the repo shows a source or sign-off for them, yet they drive the ranked repair recommendations.",
+     "evidence": "Line 17 `# --- Financial mapping (copied from notebook)`, but the notebook added in this diff has no such table. get_params (lines 200-210) invents rules: repair costs are summed, downtime takes the max, yield is `ylos[0] + 0.5 * sum(ylos[1:])` capped at 1.0, and replacement cost skips None (Random). No spec, data file or comment traces any of these."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff removes PresentationPDFs/ and architecture_report.pdf, adds requirements.txt, and adds a single hard-coded reports_LOT_001/.../batch_summary_LOT_001.json. save_reports also writes CSVs and other batch IDs, and those are not covered.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".gitignore",
+   "line": 89,
+   "claim": "Unrelated .gitignore changes, and only the LOT_001 summary JSON is ignored.",
+   "evidence": "The diff removes `PresentationPDFs/` and `architecture_report.pdf` and adds `requirements.txt` and `reports_LOT_001/refactor_demo/batch_summary_LOT_001.json`. save_reports writes `batch_summary_{batch_id}.json` under `reports_{BATCH_ID}/`, so only the LOT_001 path is covered.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".gitignore",
+     "line": 89,
+     "claim": "The diff changes .gitignore in ways the financial refactor doesn't need. It stops ignoring PresentationPDFs/ and architecture_report.pdf, starts ignoring requirements.txt, and ignores only one hard-coded LOT_001 JSON report, so reports for any other batch ID would show up as untracked files.",
+     "evidence": "The diff removes `PresentationPDFs/` and `architecture_report.pdf` and adds `requirements.txt` and `reports_LOT_001/refactor_demo/batch_summary_LOT_001.json`. save_reports writes `batch_summary_{batch_id}.json` under `reports_{BATCH_ID}/`, so only the LOT_001 path is covered."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds no test files, and a glob for test_*.py in the export finds none. A smoke test would have caught the missing functions from C1.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": null,
+   "line": null,
+   "claim": "The new financial library has no tests.",
+   "evidence": "The diff adds financial_impact/financial.py (326 lines) and no test file. The export has no tests/ directory, and .factory/config.yaml's test command is `echo 'replay: the project suite is not run...' && exit 0`.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": null,
+     "line": null,
+     "claim": "The new financial library has no tests. The aggregation math, the summary payload and the notebook's calls into the module are unchecked, and even a single smoke test would have caught the missing run_inference/load_artifacts.",
+     "evidence": "The diff adds financial_impact/financial.py (326 lines) and no test file. The export has no tests/ directory, and .factory/config.yaml's test command is `echo 'replay: the project suite is not run...' && exit 0`."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The outputs show /Users/<author> paths and an en-dash yield_range, while financial.py formats yield_range with a hyphen. They also show a load_artifacts error that the current module can't produce, and the cell's execution_count is null.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "line": 116,
+   "claim": "Committed outputs contain personal absolute paths and come from a different version of financial.py.",
+   "evidence": "Lines 116-122 and 162 contain '/Users/<author>/Desktop/Capstone/...'. Line 124 shows yield_range '18%\u201385%' with an en dash, while financial.py line 261 formats it with a hyphen: `f\"{...}%-{...}%\"`. The cell's execution_count is null, and its output includes a load_artifacts error that the current module can't produce.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "wafer_images/waferguard_financial_impact.ipynb",
+     "line": 116,
+     "claim": "The committed cell outputs carry the author's personal absolute paths and username, and they came from a different version of financial.py, so the report figures shown can't be reproduced from this code.",
+     "evidence": "Lines 116-122 and 162 contain '/Users/<author>/Desktop/Capstone/...'. Line 124 shows yield_range '18%\u201385%' with an en dash, while financial.py line 261 formats it with a hyphen: `f\"{...}%-{...}%\"`. The cell's execution_count is null, and its output includes a load_artifacts error that the current module can't produce."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "The markdown cites `waferguard.financial`, but the package is financial_impact. The cell comment promises a synthetic demo, but the code only re-raises or calls SystemExit. The compute_financials docstring lists CONFIDENCE_THRESHOLD, which the function never reads.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "line": 102,
+   "claim": "The documentation names the wrong library, promises a synthetic fallback that doesn't exist, and lists an unused config key.",
+   "evidence": "Line 102 says 'using the `waferguard.financial` library', but the package is `financial_impact.financial`. Line 167 says 'otherwise fall back to synthetic demo', but the cell has no synthetic path: it re-raises or calls `raise SystemExit`. financial.py line 233 lists CONFIDENCE_THRESHOLD among the needed config keys, but compute_financials reads `config.get(\"low_conf_count\", 0)` and never uses it.",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": "wafer_images/waferguard_financial_impact.ipynb",
+     "line": 102,
+     "claim": "The notebook's documentation contradicts the code: it names a `waferguard.financial` library that doesn't exist, and it promises a synthetic-demo fallback that isn't implemented. financial.py's docstring also lists a config key the function ignores.",
+     "evidence": "Line 102 says 'using the `waferguard.financial` library', but the package is `financial_impact.financial`. Line 167 says 'otherwise fall back to synthetic demo', but the cell has no synthetic path: it re-raises or calls `raise SystemExit`. financial.py line 233 lists CONFIDENCE_THRESHOLD among the needed config keys, but compute_financials reads `config.get(\"low_conf_count\", 0)` and never uses it."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "The notebook defines a 38-entry label_mapping inline even though app/labels.py:3 already defines ID_TO_PATTERN/PATTERN_TO_ID, so the two can drift apart. y_class_all is computed and never used. This is a maintainability point, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "line": 192,
+   "claim": "The notebook duplicates the label mapping that app/labels.py already provides.",
+   "evidence": "Lines 192-231 define `label_mapping` inline, and lines 232-235 derive pattern_to_id, id_to_pattern and id_to_binary by sorting. app/labels.py already defines ID_TO_PATTERN and PATTERN_TO_ID with the same ordering. `y_class_all` (line 247) is computed and never used.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C12",
+     "leg": "claude",
+     "severity": "low",
+     "file": "wafer_images/waferguard_financial_impact.ipynb",
+     "line": 192,
+     "claim": "The notebook hard-codes a 38-entry label mapping and rebuilds class IDs from it, duplicating the mapping app/labels.py already provides, so the two can drift apart.",
+     "evidence": "Lines 192-231 define `label_mapping` inline, and lines 232-235 derive pattern_to_id, id_to_pattern and id_to_binary by sorting. app/labels.py already defines ID_TO_PATTERN and PATTERN_TO_ID with the same ordering. `y_class_all` (line 247) is computed and never used."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C13"
+   ],
+   "verdict": "disputed",
+   "reason": "The f-string paths do take batch_id unchecked, but the only caller passes the notebook's own BATCH_ID constant. No user-controlled input reaches it today, so the path-traversal risk is hypothetical.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "financial_impact/financial.py",
+   "line": 319,
+   "claim": "save_reports puts an unsanitised batch_id into file paths.",
+   "evidence": "Line 319 `csv_path = f\"{outdir}/financial_report_{batch_id}.csv\"`, and lines 320-321 do the same, with no validation of batch_id. The module docstring advertises the library as Streamlit-compatible.",
+   "members": [
+    {
+     "id": "C13",
+     "leg": "claude",
+     "severity": "low",
+     "file": "financial_impact/financial.py",
+     "line": 319,
+     "claim": "save_reports builds file paths by inserting an unsanitised batch_id into an f-string. If the 'Streamlit-compatible' library is ever fed a user-supplied batch ID, a value containing '../' could write files outside outdir.",
+     "evidence": "Line 319 `csv_path = f\"{outdir}/financial_report_{batch_id}.csv\"`, and lines 320-321 do the same, with no validation of batch_id. The module docstring advertises the library as Streamlit-compatible."
+    }
+   ],
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "C14"
+   ],
+   "verdict": "confirmed",
+   "reason": "`avoided = daily_loss * planning_horizon` uses config PLANNING_HORIZON, but the key is hard-coded as \"evoa_30d\", so the name is wrong whenever the horizon is not 30.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "financial_impact/financial.py",
+   "line": 268,
+   "claim": "The evoa_30d column is computed from a configurable PLANNING_HORIZON.",
+   "evidence": "Line 249 `avoided = daily_loss * planning_horizon`, where `planning_horizon = config.get(\"PLANNING_HORIZON\", 30)` (line 245). Line 268 writes the result as `\"evoa_30d\"`.",
+   "members": [
+    {
+     "id": "C14",
+     "leg": "claude",
+     "severity": "low",
+     "file": "financial_impact/financial.py",
+     "line": 268,
+     "claim": "The output column `evoa_30d` is named for a fixed 30-day horizon, but it is computed from the configurable PLANNING_HORIZON, so the column is mislabelled whenever the horizon is changed.",
+     "evidence": "Line 249 `avoided = daily_loss * planning_horizon`, where `planning_horizon = config.get(\"PLANNING_HORIZON\", 30)` (line 245). Line 268 writes the result as `\"evoa_30d\"`."
+    }
+   ],
+   "id": "F14"
+  },
+  {
+   "sources": [
+    "C15"
+   ],
+   "verdict": "confirmed",
+   "reason": "The list comprehension over enumerate(binary_labels) sits inside the loop over pattern_counts. That is correct but quadratic-ish work where a single grouped pass would do. Performance only, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "financial_impact/financial.py",
+   "line": 168,
+   "claim": "build_batch_df rescans every label for each unique pattern (O(wafers \u00d7 patterns)).",
+   "evidence": "Line 168 `confs_this = [float(confidences[i]) for i, lbl in enumerate(binary_labels) if lbl == binary_label]` sits inside the loop over `pattern_counts`. For the notebook's 38,015-wafer batch with up to 38 labels, that is about 1.4M iterations.",
+   "members": [
+    {
+     "id": "C15",
+     "leg": "claude",
+     "severity": "low",
+     "file": "financial_impact/financial.py",
+     "line": 168,
+     "claim": "build_batch_df rescans the whole label list once per unique label to collect confidences, doing O(wafers \u00d7 patterns) Python work on the batch path where a single grouped pass would do.",
+     "evidence": "Line 168 `confs_this = [float(confidences[i]) for i, lbl in enumerate(binary_labels) if lbl == binary_label]` sits inside the loop over `pattern_counts`. For the notebook's 38,015-wafer batch with up to 38 labels, that is about 1.4M iterations."
+    }
+   ],
+   "id": "F15"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

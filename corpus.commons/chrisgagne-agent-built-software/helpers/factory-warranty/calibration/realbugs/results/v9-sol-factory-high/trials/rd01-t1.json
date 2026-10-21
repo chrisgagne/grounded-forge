@@ -1,0 +1,235 @@
+{
+ "id": "rd01",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "gate:invisible",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.4908,
+ "codex_tokens": 137165,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd01-t1-qj685daq",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "For a non-seekable stream the constructor sets length to C.LengthUnset. Open at position 0 with dataSpec.Length unset then computes bytesRemaining = C.LengthUnset (-1), and the `bytesRemaining < 0` guard throws ArgumentOutOfRangeException. Read already handles LengthUnset, so the guard is the bug. As a result, any non-seekable Stream passed to FromStream fails on Android.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "line": 67,
+   "claim": "Android throws instead of playing when the stream is non-seekable and the first read has no length limit.",
+   "evidence": "For a non-seekable stream, the constructor sets length to C.LengthUnset. Opening at position zero with an unspecified length therefore sets bytesRemaining to C.LengthUnset (-1), and the `bytesRemaining < 0` guard throws. The [Media3 contract](https://developer.android.com/reference/androidx/media3/datasource/DataSource) explicitly permits returning an unresolved length.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+     "line": 67,
+     "claim": "Android rejects non-seekable streams during their initial unbounded read, preventing playback.",
+     "evidence": "For a non-seekable stream, the constructor sets length to C.LengthUnset. Opening at position zero with an unspecified length therefore sets bytesRemaining to C.LengthUnset (-1), and the `bytesRemaining < 0` guard throws. The [Media3 contract](https://developer.android.com/reference/androidx/media3/datasource/DataSource) explicitly permits returning an unresolved length."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "OnAppearing is async void and awaits httpClient.GetStreamAsync outside any try/catch. The try/catch only exists inside UpdateSourceStream, so a network or HTTP failure escapes and crashes the app. Lowered from high to medium because this is sample code, not the library.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "line": 58,
+   "claim": "Opening the stream sample while offline can crash the app with an unhandled exception in an async void method.",
+   "evidence": "The async-void OnAppearing method awaits GetStreamAsync without a try/catch. Connection failures and unsuccessful HTTP responses throw before UpdateSourceStream is called, so that method's error handling cannot catch them.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+     "line": 58,
+     "claim": "Opening the stream sample offline can terminate the app through an uncaught asynchronous exception.",
+     "evidence": "The async-void OnAppearing method awaits GetStreamAsync without a try/catch. Connection failures and unsuccessful HTTP responses throw before UpdateSourceStream is called, so that method's error handling cannot catch them."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "FillDataRequest calls stream.Read only once and responds with bytesRead. ShouldWaitForLoadingOfRequestedResource then always calls FinishLoading, so a short read leaves the rest of the requested range undelivered. RequestsAllDataToEndOfResource is never checked, and RequestedLength is cast to int and allocated as a single buffer.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "line": 67,
+   "claim": "On Apple, a short read finishes the data request early, so playback can be cut short.",
+   "evidence": "FillDataRequest calls Stream.Read once, responds with only bytesRead, and ShouldWaitForLoadingOfRequestedResource immediately calls FinishLoading. A stream returning 4 KiB for a 64 KiB request leaves available bytes undelivered. It also never handles RequestsAllDataToEndOfResource, which [requires incremental delivery through the resource's end](https://developer.apple.com/documentation/avfoundation/avassetresourceloadingdatarequest/requestsalldatatoendofresource?language=objc).",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+     "line": 67,
+     "claim": "The Apple loader prematurely completes data requests when a stream returns a short read, potentially truncating playback.",
+     "evidence": "FillDataRequest calls Stream.Read once, responds with only bytesRead, and ShouldWaitForLoadingOfRequestedResource immediately calls FinishLoading. A stream returning 4 KiB for a 64 KiB request leaves available bytes undelivered. It also never handles RequestsAllDataToEndOfResource, which [requires incremental delivery through the resource's end](https://developer.apple.com/documentation/avfoundation/avassetresourceloadingdatarequest/requestsalldatatoendofresource?language=objc)."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The catch in FillDataRequest only writes to Debug and returns. ShouldWaitForLoadingOfRequestedResource then always calls loadingRequest.FinishLoading() and never FinishLoadingWithError, so AVFoundation never receives the error.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "line": 75,
+   "claim": "On Apple, stream read errors are logged and then reported to AVFoundation as successful loads.",
+   "evidence": "If Seek or Read throws IOException, FillDataRequest catches it and only writes to Debug. Control then returns to the unconditional loadingRequest.FinishLoading(); no error is passed to AVFoundation.",
+   "axis_row": "L5.37",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+     "line": 75,
+     "claim": "The Apple loader reports stream read failures as successful resource loads, losing the original error.",
+     "evidence": "If Seek or Read throws IOException, FillDataRequest catches it and only writes to Debug. Control then returns to the unconditional loadingRequest.FinishLoading(); no error is passed to AVFoundation."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "GetStreamContentType returns com.apple.quicktime-movie only for a 'qt' ftyp brand. Everything else, including ID3 and RIFF headers, falls through to public.mpeg-4, which is passed to ContentInformationRequest.ContentType. The shared StreamExtensions.GetMimeType already detects these formats but is only used on Windows.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "line": 545,
+   "claim": "On Apple, MP3, WAV and other non-MP4 streams are labelled public.mpeg-4.",
+   "evidence": "GetStreamContentType only distinguishes a QuickTime ftyp brand; an ID3-prefixed MP3 or RIFF/WAVE stream falls through to `public.mpeg-4`. StreamAssetResourceLoader assigns that value to ContentInformationRequest.ContentType, which [must describe the resource's actual data type](https://developer.apple.com/documentation/avfoundation/avassetresourceloadingcontentinformationrequest/contenttype?changes=_10&language=objc).",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+     "line": 545,
+     "claim": "The Apple implementation mislabels MP3 and WAV streams as MPEG-4, which may prevent otherwise supported audio from loading.",
+     "evidence": "GetStreamContentType only distinguishes a QuickTime ftyp brand; an ID3-prefixed MP3 or RIFF/WAVE stream falls through to `public.mpeg-4`. StreamAssetResourceLoader assigns that value to ContentInformationRequest.ContentType, which [must describe the resource's actual data type](https://developer.apple.com/documentation/avfoundation/avassetresourceloadingcontentinformationrequest/contenttype?changes=_10&language=objc)."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "UpdateSourceStream first awaits ReleaseSourceStream, which disposes sourceStream, then awaits CopyToAsync. It only reassigns MediaElement.Source afterwards, so the native loaders can read the disposed MemoryStream in between. This is sample code, so it stays at medium.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "line": 173,
+   "claim": "When the video is replaced, the player can keep reading the old stream after it has been disposed.",
+   "evidence": "OnOpenVideoClicked calls UpdateSourceStream, which first disposes sourceStream through ReleaseSourceStream. MediaElement.Source still references that stream throughout the subsequent awaited CopyToAsync and is replaced only afterward. Any native read during that interval encounters the disposed stream.",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+     "line": 173,
+     "claim": "Replacing a video can leave the player reading a disposed stream while its replacement is copied.",
+     "evidence": "OnOpenVideoClicked calls UpdateSourceStream, which first disposes sourceStream through ReleaseSourceStream. MediaElement.Source still references that stream throughout the subsequent awaited CopyToAsync and is replaced only afterward. Any native read during that interval encounters the disposed stream."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "X7"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only new MediaElement test checks the type returned by FromStream, and StreamExtensionsTests covers MIME sniffing only. Neither the Android data source nor the Apple resource loader is tested. This is a test-coverage gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/CommunityToolkit.Maui.UnitTests/Views/MediaElement/MediaSourceTests.cs",
+   "line": 43,
+   "claim": "The new tests do not exercise native stream playback (open, read, seek, source replacement).",
+   "evidence": "MediaSourceFromStreamShouldBeStreamMediaSource only asserts the constructed object's type, while StreamExtensionsTests tests MIME detection. The test project targets plain net10.0, and Directory.Build.targets excludes the Android, Apple, and Windows adapters from that target; no added test checks native opening, reading, seeking, or source replacement.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "X7",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/CommunityToolkit.Maui.UnitTests/Views/MediaElement/MediaSourceTests.cs",
+     "line": 43,
+     "claim": "The added tests do not exercise the native stream playback implementations, leaving their request and lifecycle behavior unchecked.",
+     "evidence": "MediaSourceFromStreamShouldBeStreamMediaSource only asserts the constructed object's type, while StreamExtensionsTests tests MIME detection. The test project targets plain net10.0, and Directory.Build.targets excludes the Android, Apple, and Windows adapters from that target; no added test checks native opening, reading, seeking, or source replacement."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "X8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The XML docs on StreamMediaSource.Stream and MediaSource.FromStream only say the stream is used as a source. The Android and Apple loaders explicitly leave disposal to the caller, Windows needs a random-access stream, and Tizen throws NotSupportedException, but none of this is documented. This is a documentation gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/CommunityToolkit.Maui.MediaElement/MediaSource/StreamMediaSource.shared.cs",
+   "line": 18,
+   "claim": "The public stream API does not document who owns the stream, how long it must stay open, or the per-platform limits.",
+   "evidence": "Stream and FromStream documentation do not explain how long the caller must keep the stream open or who disposes it, although the Android and Apple loaders retain the supplied stream and explicitly leave disposal to the caller. The documentation also omits the Windows random-access requirement and the explicit NotSupportedException on Tizen.",
+   "members": [
+    {
+     "id": "X8",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/CommunityToolkit.Maui.MediaElement/MediaSource/StreamMediaSource.shared.cs",
+     "line": 18,
+     "claim": "The public stream API omits ownership and platform restrictions that callers need to use it correctly.",
+     "evidence": "Stream and FromStream documentation do not explain how long the caller must keep the stream open or who disposes it, although the Android and Apple loaders retain the supplied stream and explicitly leave disposal to the caller. The documentation also omits the Windows random-access requirement and the explicit NotSupportedException on Tizen."
+    }
+   ],
+   "id": "F8"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast",
+   "gate:invisible"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

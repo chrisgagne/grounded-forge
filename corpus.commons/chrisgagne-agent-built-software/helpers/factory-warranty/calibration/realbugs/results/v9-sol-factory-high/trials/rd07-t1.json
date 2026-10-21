@@ -1,0 +1,179 @@
+{
+ "id": "rd07",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.4299,
+ "codex_tokens": 97906,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd07-t1-649fyfkm",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "schemas.ts:153 still requires ownerName (min 2). prepareForValidation now returns only name/address/location/type, and companyFields has no ownerName. Both CreationForm.svelte:171-179 and DynamicDetailSidebar.svelte:121-148 return on safeParse failure. The sidebar error is dropped because fieldExistsInConfig('ownerName') is false, so neither form can submit.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "line": 129,
+   "claim": "Company create/edit always fails validation because ownerName was removed from inputs but companySchema still requires it.",
+   "evidence": "companySchema in src/lib/schemas.ts still requires ownerName. The new prepareForValidation returns only name, address, location and type, and companyFields in src/routes/company/+page.svelte likewise omits ownerName. Both submission handlers call safeParse and return on failure; the sidebar also suppresses the error because ownerName is absent from its configured fields.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/lib/configs/company-detail.config.ts",
+     "line": 129,
+     "claim": "Company creation and editing always fail validation because the required ownerName field was removed without updating the schema.",
+     "evidence": "companySchema in src/lib/schemas.ts still requires ownerName. The new prepareForValidation returns only name, address, location and type, and companyFields in src/routes/company/+page.svelte likewise omits ownerName. Both submission handlers call safeParse and return on failure; the sidebar also suppresses the error because ownerName is absent from its configured fields."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "dashboardLink now sends id=apiId (e.g. 1). The dashboard forwards its search params (dashboard/+page.svelte:54), and vehicles/operator-account/operator-role/local-fare/service-route filter `companyId === id` against dummy data using 'COMP-001'-style ids, so nothing matches. Lowered to medium because the child pages still run on placeholder data.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "line": 13,
+   "claim": "Dashboard link now passes the numeric apiId, so company-scoped child lists come up empty.",
+   "evidence": "For an API company with id 1, dashboardLink now supplies id=1. The dashboard forwards this query to its child pages, where operator-account, vehicles, operator-role, local-fare and service-route compare it directly against companyId. Their records in src/lib/dummy-data.ts use identifiers such as COMP-001, so none match '1'.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/lib/configs/company-detail.config.ts",
+     "line": 13,
+     "claim": "Passing the numeric API ID into dashboard navigation makes the existing company child lists empty.",
+     "evidence": "For an API company with id 1, dashboardLink now supplies id=1. The dashboard forwards this query to its child pages, where operator-account, vehicles, operator-role, local-fare and service-route compare it directly against companyId. Their records in src/lib/dummy-data.ts use identifiers such as COMP-001, so none match '1'."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The new status mapping produces 'Under Verification', but dashboard/+page.svelte:80-98 only renders the 'Validating', 'Verified' and 'Suspended' branches, so that status shows no indicator.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/routes/company/+page.svelte",
+   "line": 89,
+   "claim": "'Under Verification' companies show no status indicator on the dashboard.",
+   "evidence": "COMPANY_STATUS_LABEL_BY_VALUE maps status 1 to 'Under Verification', which this mapping stores and dashboardLink forwards as the status query parameter. src/routes/company/dashboard/+page.svelte renders indicators only for 'Validating', 'Verified' and 'Suspended', so 'Under Verification' renders none.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/routes/company/+page.svelte",
+     "line": 89,
+     "claim": "Companies under verification lose their status indicator when users open their dashboard.",
+     "evidence": "COMPANY_STATUS_LABEL_BY_VALUE maps status 1 to 'Under Verification', which this mapping stores and dashboardLink forwards as the status query parameter. src/routes/company/dashboard/+page.svelte renders indicators only for 'Validating', 'Verified' and 'Suspended', so 'Under Verification' renders none."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The dialog div has on:keydown|stopPropagation, and handleKeydown is only on svelte:window. A keydown fired inside the dialog stops bubbling before it reaches window, so Escape does nothing while focus is in the modal.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "line": 62,
+   "claim": "Escape does not close the location dialog when focus is inside it.",
+   "evidence": "The dialog element uses on:keydown|stopPropagation, while handleKeydown is registered on svelte:window. After focusing the dialog or its close button, pressing Escape stops at the dialog and never reaches the close handler.",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/lib/components/company-components/LocationMapModal.svelte",
+     "line": 62,
+     "claim": "Escape cannot close the location dialog when keyboard focus is inside it.",
+     "evidence": "The dialog element uses on:keydown|stopPropagation, while handleKeydown is registered on svelte:window. After focusing the dialog or its close button, pressing Escape stops at the dialog and never reaches the close handler."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The modal sets aria-modal and tabindex=0 but never moves focus into the dialog, traps it, or restores it on close. This is an accessibility point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "line": 54,
+   "claim": "Location dialog lacks focus management/trap.",
+   "evidence": "Opening the component sets localOpen but never moves focus into the dialog. The markup declares aria-modal=true and tabindex=0, but implements no focus trap, background inertness or focus restoration.",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/lib/components/company-components/LocationMapModal.svelte",
+     "line": 54,
+     "claim": "The location dialog lacks focus management, allowing keyboard users to interact with content behind the modal.",
+     "evidence": "Opening the component sets localOpen but never moves focus into the dialog. The markup declares aria-modal=true and tabindex=0, but implements no focus trap, background inertness or focus restoration."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds no test files for fetchCompanies, filter mapping, stale-response handling or LocationMapModal. Missing coverage is a maintainability point, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/routes/company/+page.svelte",
+   "line": null,
+   "claim": "New API listing and map dialog have no automated tests.",
+   "evidence": "The diff adds fetching, filter translation, stale-response handling, pagination recovery and map-dialog behavior without adding any tests. package.json also defines no test command, leaving these new branches without executable regression checks.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/routes/company/+page.svelte",
+     "line": null,
+     "claim": "The new API listing and location dialog have no automated regression coverage.",
+     "evidence": "The diff adds fetching, filter translation, stale-response handling, pagination recovery and map-dialog behavior without adding any tests. package.json also defines no test command, leaving these new branches without executable regression checks."
+    }
+   ],
+   "id": "F6"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

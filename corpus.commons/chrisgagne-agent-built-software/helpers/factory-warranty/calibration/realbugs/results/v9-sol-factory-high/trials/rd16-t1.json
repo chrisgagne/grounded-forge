@@ -1,0 +1,189 @@
+{
+ "id": "rd16",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "gate:added-tests",
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.4189,
+ "codex_tokens": 135211,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd16-t1-1rzus64i",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Compose.razor SwitchToRichTextAsync passes the output of markedInterop.toHtml (marked.parse with no sanitizer) to quillInterop.setHtml, which sets root.innerHTML directly. auth.js:5-6 keeps both tokens in localStorage, so an img onerror payload could read them. Lowered from high because the user has to paste the attacker's Markdown into their own editor (self-XSS); nothing in this change loads outside content into it.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "line": 37,
+   "claim": "Switching Markdown to rich text runs any HTML in the Markdown without sanitizing it, so script in that content executes in the logged-in app.",
+   "evidence": "Compose.SwitchToRichTextAsync passes markedInterop.toHtml output directly to setHtml, which assigns root.innerHTML without sanitizing it. Pasting `<img src=x onerror=\"alert(localStorage.getItem('AccessToken'))\">` into Markdown and switching modes reaches this sink. [Marked explicitly preserves unsafe HTML](https://marked.js.org/#usage). The outgoing server sanitizer runs only during sending; auth.js stores both authentication tokens in localStorage.",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+     "line": 37,
+     "claim": "Switching untrusted Markdown to rich text can execute attacker-supplied JavaScript in the authenticated application.",
+     "evidence": "Compose.SwitchToRichTextAsync passes markedInterop.toHtml output directly to setHtml, which assigns root.innerHTML without sanitizing it. Pasting `<img src=x onerror=\"alert(localStorage.getItem('AccessToken'))\">` into Markdown and switching modes reaches this sink. [Marked explicitly preserves unsafe HTML](https://marked.js.org/#usage). The outgoing server sanitizer runs only during sending; auth.js stores both authentication tokens in localStorage."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "getHtml returns Quill's internal root.innerHTML. Quill 2.0.3 (index.html loads that version) writes every list as <ol> and marks bullets only with data-list plus editor CSS. That HTML goes out as the body unchanged (Quill's getSemanticHTML is not used), so recipients see ordered lists. Lowered to medium: the formatting is wrong but no content or data is lost.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "line": 32,
+   "claim": "Rich-text bullet lists reach recipients as numbered lists.",
+   "evidence": "getHtml returns Quill's internal root.innerHTML, and Compose.GetBodyAndContentTypeAsync sends that markup as the HTML body. [Quill 2.0.3 represents all lists using OL containers](https://github.com/slab/quill/blob/v2.0.3/packages/quill/src/formats/list.ts), distinguishing bullets through data-list and editor CSS. MailSendingService sends a TextPart without that stylesheet, so bullet lists retain ordered-list HTML instead of portable UL markup.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+     "line": 32,
+     "claim": "Sending a rich-text bullet list changes its formatting into a numbered list for recipients.",
+     "evidence": "getHtml returns Quill's internal root.innerHTML, and Compose.GetBodyAndContentTypeAsync sends that markup as the HTML body. [Quill 2.0.3 represents all lists using OL containers](https://github.com/slab/quill/blob/v2.0.3/packages/quill/src/formats/list.ts), distinguishing bullets through data-list and editor CSS. MailSendingService sends a TextPart without that stylesheet, so bullet lists retain ordered-list HTML instead of portable UL markup."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "AddValidation is not registered anywhere under src, so the [Required]/[StringLength]/[RegularExpression] attributes on SendMailRequest are not enforced. The endpoint only checks request.To.Length and address syntax. A request with To:null throws at line 32 (500), and an empty subject or any ContentType value goes through to SMTP.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "line": 32,
+   "claim": "The validation attributes on SendMailRequest never run; required fields and size limits go unchecked, and a null recipient list causes a server error.",
+   "evidence": "SendMailRequest declares Required, StringLength, MaxLength and ContentType constraints, but Program.cs never registers AddValidation and the endpoint manually checks only recipient count and address syntax. [ASP.NET Core requires AddValidation to activate these attributes](https://learn.microsoft.com/en-us/aspnet/core/release-notes/aspnetcore-10.0#enable-built-in-validation-support-for-minimal-apis). A request with valid recipients and an empty subject reaches SMTP; `To: null` fails at request.To.Length, and a null recipient fails at email.Trim().",
+   "axis_row": "L5.35",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+     "line": 26,
+     "claim": "Inactive request validation lets callers bypass required fields and size limits, while null recipients cause server errors.",
+     "evidence": "SendMailRequest declares Required, StringLength, MaxLength and ContentType constraints, but Program.cs never registers AddValidation and the endpoint manually checks only recipient count and address syntax. [ASP.NET Core requires AddValidation to activate these attributes](https://learn.microsoft.com/en-us/aspnet/core/release-notes/aspnetcore-10.0#enable-built-in-validation-support-for-minimal-apis). A request with valid recipients and an empty subject reaches SMTP; `To: null` fails at request.To.Length, and a null recipient fails at email.Trim()."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "client.GetFolder(SpecialFolder.Sent) runs before the ?? fallback. MailKit throws NotSupportedException when neither extension is available instead of returning null, so the fallback is skipped. The outer catch only logs a warning, and SendMailAsync still reports success without saving a copy.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "line": 104,
+   "claim": "On IMAP servers without SPECIAL-USE or XLIST, the fallback to a folder named \"Sent\" never runs, so sent mail is not saved.",
+   "evidence": "AppendToSentFolderAsync calls GetFolder(SpecialFolder.Sent) before its null-coalescing folder-name lookup. [MailKit 4.15.1 throws NotSupportedException when neither extension is supported](https://github.com/jstedfast/MailKit/blob/4.15.1/MailKit/Net/Imap/ImapClient.cs#L2159-L2165), even if an ordinary Sent folder exists. The outer catch logs the exception and returns without appending; SendMailAsync subsequently reports success.",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/Feirb.Api/Services/MailSendingService.cs",
+     "line": 104,
+     "claim": "The Sent-folder fallback never runs on servers without SPECIAL-USE or XLIST, so successfully sent messages lose their saved copy.",
+     "evidence": "AppendToSentFolderAsync calls GetFolder(SpecialFolder.Sent) before its null-coalescing folder-name lookup. [MailKit 4.15.1 throws NotSupportedException when neither extension is supported](https://github.com/jstedfast/MailKit/blob/4.15.1/MailKit/Net/Imap/ImapClient.cs#L2159-L2165), even if an ordinary Sent folder exists. The outer catch logs the exception and returns without appending; SendMailAsync subsequently reports success."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "LogInformation logs mailbox.EmailAddress and string.Join of request.To. appsettings.json sets the default level to Information, so this is written on every send. It is a privacy and hygiene issue, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "line": 33,
+   "claim": "Each successful send writes the sender and recipient addresses to Information-level logs and telemetry.",
+   "evidence": "LogInformation records mailbox.EmailAddress and string.Join(\", \", request.To). The default log level is Information, and ServiceDefaults enables formatted OpenTelemetry logging with export when OTEL_EXPORTER_OTLP_ENDPOINT is configured. This duplicates personal mail metadata outside the mailbox access controls.",
+   "axis_row": "L2.2",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/Feirb.Api/Services/MailSendingService.cs",
+     "line": 33,
+     "claim": "Every successful send exposes sender and recipient addresses in routine application logs and configured telemetry.",
+     "evidence": "LogInformation records mailbox.EmailAddress and string.Join(\", \", request.To). The default log level is Information, and ServiceDefaults enables formatted OpenTelemetry logging with export when OTEL_EXPORTER_OTLP_ENDPOINT is configured. This duplicates personal mail metadata outside the mailbox access controls."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "The fixture removes IMailSendingService and registers an NSubstitute substitute. The CC/BCC test matches Arg.Any<SendMailRequest>, and the 404 test makes the substitute throw. MailSendingService itself, including its owner filter, recipient handling and Sent-folder logic, is never run. This is a test-coverage gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/Feirb.Api.Tests/Endpoints/ComposeEndpointsTests.cs",
+   "line": 36,
+   "claim": "The new tests replace the whole sending service, so delivery, the mailbox-ownership check and Sent-folder handling are untested.",
+   "evidence": "The fixture removes IMailSendingService and installs a substitute returning a fixed message ID. The invalid-mailbox test configures that substitute to throw for every request, while the CC/BCC assertion accepts any SendMailRequest. No test exercises MailSendingService, so removing its owner filter, dropping recipients, or breaking SMTP/Sent handling would leave these tests passing.",
+   "axis_row": "L3.3",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "low",
+     "file": "tests/Feirb.Api.Tests/Endpoints/ComposeEndpointsTests.cs",
+     "line": 36,
+     "claim": "The new tests leave actual delivery and mailbox ownership enforcement unverified because they replace the entire sending service.",
+     "evidence": "The fixture removes IMailSendingService and installs a substitute returning a fixed message ID. The invalid-mailbox test configures that substitute to throw for every request, while the CC/BCC assertion accepts any SendMailRequest. No test exercises MailSendingService, so removing its owner filter, dropping recipients, or breaking SMTP/Sent handling would leave these tests passing."
+    }
+   ],
+   "id": "F6"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast",
+   "gate:added-tests",
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

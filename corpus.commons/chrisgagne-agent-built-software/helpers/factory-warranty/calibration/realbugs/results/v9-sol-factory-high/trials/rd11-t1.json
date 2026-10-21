@@ -1,0 +1,127 @@
+{
+ "id": "rd11",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.332,
+ "codex_tokens": 119784,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd11-t1-q4ob3869",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "PreTrimmingFixLegacyDesigner.cs only writes to prelink when ProcessAssemblyDesigner returns true and never deletes earlier outputs. FixLegacyResourceDesignerStep.cs:71-81 returns false for an assembly that has no designer or was already processed. _PreTrimmingFixLegacyDesignerUpdateItems swaps in any DLL that has a matching prelink/<name>.dll using only Exists(). So if a library is upgraded to a version that needs no rewrite, the old rewritten copy is still packaged.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "line": 276,
+   "claim": "Stale prelink copies of a library override the current assembly on incremental builds.",
+   "evidence": "After a legacy library produces prelink/Library.dll, replace it with a version using the new designer format. FixLegacyResourceDesignerStep.ProcessAssemblyDesigner returns false for an already processed designer, so PreTrimmingFixLegacyDesigner neither overwrites nor deletes the old copy. UpdateItems selects that stale copy solely through Exists(), replacing the current Library.dll before trimming.",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+     "line": 276,
+     "claim": "An incremental build can silently package an older library because stale prelink copies override current assemblies.",
+     "evidence": "After a legacy library produces prelink/Library.dll, replace it with a version using the new designer format. FixLegacyResourceDesignerStep.ProcessAssemblyDesigner returns false for an already processed designer, so PreTrimmingFixLegacyDesigner neither overwrites nor deletes the old copy. UpdateItems selects that stale copy solely through Exists(), replacing the current Library.dll before trimming."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "_AndroidRunNativeCompile now depends on _PreTrimmingFixLegacyDesignerUpdateItems unconditionally. The only definition of that target is in TypeMap.LlvmIr.targets, and Xamarin.Android.Common.targets:2880-2881 imports that file only when _AndroidTypeMapImplementation != 'trimmable'. A NativeAOT build with the trimmable typemap (TypeMap.Trimmable.NativeAOT.targets exists) therefore hits MSBuild's missing-target error (MSB4057).",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+   "line": 270,
+   "claim": "NativeAOT with the trimmable typemap depends on an undefined target.",
+   "evidence": "_AndroidRunNativeCompile unconditionally depends on _PreTrimmingFixLegacyDesignerUpdateItems. Its only definition is in Microsoft.Android.Sdk.TypeMap.LlvmIr.targets, which Xamarin.Android.Common.targets explicitly excludes when _AndroidTypeMapImplementation is 'trimmable'. The alternative trimmable imports provide no definition, leaving this configuration with a missing dependency.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+     "line": 270,
+     "claim": "NativeAOT with the trimmable typemap now depends on an undefined target and fails before native compilation.",
+     "evidence": "_AndroidRunNativeCompile unconditionally depends on _PreTrimmingFixLegacyDesignerUpdateItems. Its only definition is in Microsoft.Android.Sdk.TypeMap.LlvmIr.targets, which Xamarin.Android.Common.targets explicitly excludes when _AndroidTypeMapImplementation is 'trimmable'. The alternative trimmable imports provide no definition, leaving this configuration with a missing dependency."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "_PreTrimmingFixLegacyDesigner lists only the stamp file in Outputs, so a missing prelink DLL doesn't make the target run again. UpdateItems then silently keeps the original, unpatched DLL. The diff also removes the post-trimming FixLegacyResourceDesignerStep from PostTrimmingPipeline, so nothing else fixes that library. Another likely trigger, which I didn't trace through IncrementalClean: FileWrites for the prelink outputs is added only when the target actually runs.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "line": 251,
+   "claim": "Missing prelink assemblies don't invalidate the incremental target, so later builds skip the resource rewriting.",
+   "evidence": "The target declares only _PreTrimmingFixLegacyDesigner.stamp as its output. If prelink/Library.dll is deleted while the newer stamp survives and inputs remain unchanged, rewriting is skipped. UpdateItems then leaves the original DLL in ResolvedFileToPublish because its Exists() condition fails. The diff also removes the post-trimming designer fix, so nothing subsequently repairs that library.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+     "line": 251,
+     "claim": "Missing prelink assemblies do not invalidate the incremental target, allowing subsequent builds to bypass required resource rewriting.",
+     "evidence": "The target declares only _PreTrimmingFixLegacyDesigner.stamp as its output. If prelink/Library.dll is deleted while the newer stamp survives and inputs remain unchanged, rewriting is skipped. UpdateItems then leaves the original DLL in ResolvedFileToPublish because its Exists() condition fails. The diff also removes the post-trimming designer fix, so nothing subsequently repairs that library."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff's only test changes are the six .apkdesc size baselines. No test covers a rebuild after a library changes, or after a prelink output is removed. This is a test-coverage gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "line": 44,
+   "claim": "The new prelink caching has no regression tests for incremental rebuilds or recovering missing outputs.",
+   "evidence": "The diff introduces the task and three scheduling targets, but its only test changes update six APK size baseline files. BuildReleaseArm64 performs one build and compares package sizes; it does not replace a previously rewritten library or remove a cached output before rebuilding.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+     "line": 44,
+     "claim": "The new prelink cache behavior lacks regression tests for incremental rebuilds and output recovery.",
+     "evidence": "The diff introduces the task and three scheduling targets, but its only test changes update six APK size baseline files. BuildReleaseArm64 performs one build and compares package sizes; it does not replace a previously rewritten library or remove a cached output before rebuilding."
+    }
+   ],
+   "id": "F4"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

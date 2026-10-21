@@ -1,0 +1,94 @@
+{
+ "id": "rd03",
+ "arm": "plain-xhigh",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 14,
+   "end_line": 34,
+   "message": "The `rotate()` transform is added to canvas-engine's `ShapeLayer`, but nothing mounts that component. It is only re-exported from `packages/canvas-engine/src/index.ts`. `apps/web` (`app.tsx`, `community.tsx`, `world-map.tsx`, benchmark) draws shapes through `createDomRendererPlugin()`, i.e. `packages/dom-renderer/src/dom-shape-layer.tsx`, plus `GpuShapeLayer`. Neither `DomShapeLayer`'s `ShapeWrapper` nor its unknown-type fallback got the transform. As a result, in the real app the hit tests (`withRotation`) and the spatial index now treat shapes as rotated while they are still drawn unrotated. Clicking a visible corner of a rotated shape misses, and clicking empty space inside its rotated footprint selects it. Before this change, drawing and hit testing were both unrotated and at least agreed. Apply the transform in `DomShapeLayer` (wrapper and fallback), or have both layers share one wrapper. The unchecked manual test in the PR would have caught this."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "plugins/usketch-plugin-shape-basic/src/plugin.tsx",
+   "start_line": 45,
+   "end_line": 54,
+   "message": "rectangle, rounded-rect, ellipse and line also have a `gpuPrimitive`. When WebGPU is available (`createGpuRendererPlugin()` is in `basePlugins`), the GPU renderer claims these shapes and `DomShapeLayer` skips them. The GPU path ignores rotation: `rect.wgsl`/`rect.ts` never reads `params.w`, the shape-sdf pipeline has no rotation, and `lineGpuPrimitive` doesn't pass it. GPU hover detection and selection highlights also use the unrotated AABB. So even after the DOM layer is fixed, these shapes are drawn unrotated while their `hitTest` is now rotated. Either support rotation in the GPU pipelines or return `null` from `gpuPrimitive` when `safeRotation(data.rotation) !== 0`, so they fall back to DOM."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "plugins/usketch-plugin-shape-text/src/plugin.tsx",
+   "start_line": 244,
+   "end_line": 254,
+   "message": "Double-click/edit detection in the `canvas:pointerdown` handler still calls the raw, unwrapped `hitTest`, while the registered definition now uses `withRotation(hitTest)`. For a rotated text shape, the select tool and the editing state machine now disagree. A click on the rotated area outside the unrotated box selects the shape but never enters editing. A click inside the unrotated box but outside the rotated shape sends `POINTER_DOWN` for a shape that wasn't hit. Create the wrapped function once (e.g. `const rotatedHitTest = withRotation(hitTest)`) and use it both here and in `register`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "plugins/usketch-plugin-shape-sticky/src/plugin.tsx",
+   "start_line": 444,
+   "end_line": 455,
+   "message": "Same problem as in the text plugin. Sticky's `canvas:pointerdown` edit detection calls the unwrapped `hitTest`, but the registered `hitTest` is `withRotation(hitTest)`. On rotated stickies, double-click-to-edit uses different geometry than selection, so editing can fail to start or start on the wrong shape. Use the same rotation-aware function in both places."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "plugins/usketch-plugin-shape-freedraw/src/plugin.tsx",
+   "start_line": 261,
+   "end_line": 264,
+   "message": "Rotation support is partial. The renderer change applies `rotate()` to every shape, and `shapeToBounds` expands the AABB for every shape. However, only the basic, image, text, wireframe and sticky plugins wrap `hitTest`. freedraw, counter, frame, group, island, connector, board-portal, community-region and chat-widget keep unrotated hit tests. `rotation` is a generic `ShapeData` field that the debug HUD, sync and AI paths can set on any shape, and any of these types with a non-zero rotation would be drawn rotated but hit-tested unrotated. Either wrap these too, or make rotation opt-in per shape definition (e.g. a `rotatable` flag) and only apply the transform/AABB expansion to opted-in types."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "apps/server/src/board-room.ts",
+   "start_line": 117,
+   "end_line": 126,
+   "message": "Gating relay/persistence on `applyClientUpdate` only works while a server-side Y.Doc exists. `applyClientUpdate` returns `true` when `doc` is `null`. The doc is created only by the AI, thumbnail and snapshot endpoints, and `destroyDoc()` runs whenever the last socket closes. So in the common case nothing is validated, and malformed payloads are still pushed into `updates`, persisted, broadcast, and replayed to every new client via `SYNC_STEP1`. `getOrCreateDoc` later just logs and skips them. Validate unconditionally, for example by applying to a lazily created doc or a throwaway doc. Also, a rejected update is dropped silently, so the sender stays permanently diverged with no error message or resync."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 111,
+   "end_line": 126,
+   "message": "`trackUpdate` now persists `partition_meta`, but nothing guarantees that `loadFromStorage()` ran first. Only `fetch()` loads state; `webSocketMessage()` never awaits `loadUpdates()` or `loadFromStorage()`. If the BoardRoom is re-instantiated while hibernatable sockets (`acceptWebSocket`) stay attached, `partitionMeta` is `null` on the first update. The code then builds a fresh meta containing only the current quarter and writes it over the stored meta, orphaning every older partition. The same missing load already lets `scheduleSave` overwrite `yjs_updates` with only the post-wake updates. Have `webSocketMessage` await both loaders before mutating state, or skip persistence until loaded."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 59,
+   "end_line": 70,
+   "message": "The debounce flag now resets in `finally`, after `await storage.put`, but the snapshot of `updates` is taken before the await. Any `scheduleSave()` call made while the put is in flight returns early, so those updates are not persisted until some later update schedules another save. The old code reset the flag before taking the snapshot and did not have this gap. `schedulePartitionSave` in `partition-manager.ts:43-59` has the same pattern. A failed put is also only logged and never retried. Reset the flag before taking the snapshot, and reschedule on failure."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/shared/src/__tests__/rotation.test.ts",
+   "start_line": 205,
+   "end_line": 211,
+   "message": "This `withRotation` test uses a 100x100 square rotated 90\u00b0, which looks the same as the unrotated square. Both assertions would still pass if `withRotation` were a no-op or rotated the wrong way. The test therefore doesn't check that hit testing matches CSS `rotate()` (clockwise in y-down coordinates). Add a non-symmetric case, e.g. a 100x20 rect at 90\u00b0 or 45\u00b0, checking a point inside only the rotated shape and a point inside only the unrotated one. There is also no test for the rotated AABB in `board-store`'s `shapeToBounds`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/store/src/board-store.ts",
+   "start_line": 34,
+   "end_line": 39,
+   "message": "This change creates several inconsistent notions of shape bounds. The spatial index and click hit tests are now rotation-aware, but marquee selection (`findShapesInRect` uses `def.getBounds`), the selection overlay and resize handles, snap, comment anchors, and `collision-utils.ts`'s own `shapeToBounds` (frame/island containment) all still use the unrotated box. For example, a rotated shape can be click-selected at a point outside its drawn selection box, and marquee selection disagrees with click selection. Consider a single shared rotation-aware bounds helper, or at least track these call sites as known follow-ups."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 347,
+  "cost_usd": 1.745778,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

@@ -1,0 +1,156 @@
+{
+ "id": "rd09",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.6608,
+ "codex_tokens": 116442,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd09-t1-21b_tiun",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The options schema (create.ts:17-35) has no appleApiKeyId, and line 53 declares `let appleApiKeyId: string | undefined` without reading options. With --apple-api-key-file and --apple-issuer-id in a non-interactive run, the key gets uploaded at lines 235-240 and then the check at 242-245 always exits(1). That is a traced trigger, so high stands. update.ts does accept --apple-api-key-id, which shows the option was meant to exist.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "line": 53,
+   "claim": "iOS API-key destinations cannot be created non-interactively because there is no way to pass the Apple API key ID.",
+   "evidence": "The options schema omits appleApiKeyId, and the action initializes it to undefined without reading options. With --apple-api-key-file and --apple-issuer-id, it uploads the key, then exits at lines 242\u2013245 because appleApiKeyId is missing. An in-memory execution reproduced this even when appleApiKeyId was explicitly passed to the action.",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/commands/apps/destinations/create.ts",
+     "line": 53,
+     "claim": "Creating an iOS destination with API-key authentication always fails in non-interactive mode because the Apple API key ID cannot be supplied.",
+     "evidence": "The options schema omits appleApiKeyId, and the action initializes it to undefined without reading options. With --apple-api-key-file and --apple-issuer-id, it uploads the key, then exits at lines 242\u2013245 because appleApiKeyId is missing. An in-memory execution reproduced this even when appleApiKeyId was explicitly passed to the action."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "disputed",
+   "reason": "prompt.ts:46 now passes a hard-coded limit: 50 and builds the choices from that single response with no pagination. The code before sent no limit, so this may cut the list or may raise the server's default page size. The API's default isn't in the repo, so the code doesn't settle whether this is a regression. Line 57 also re-fetches without a limit, which is inconsistent.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/utils/prompt.ts",
+   "line": 46,
+   "claim": "The shared app picker only fetches 50 apps, so apps past the first 50 cannot be picked.",
+   "evidence": "promptAppSelection now requests limit: 50 and builds its choices directly from that single response, without pagination or another lookup. With a mocked service containing 51 apps and honoring the limit, execution displayed only 50 choices.",
+   "axis_row": "L4.31",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/utils/prompt.ts",
+     "line": 46,
+     "claim": "The shared app picker excludes apps beyond the first 50, preventing their selection in interactive commands.",
+     "evidence": "promptAppSelection now requests limit: 50 and builds its choices directly from that single response, without pagination or another lookup. With a mocked service containing 51 apps and honoring the limit, execution displayed only 50 choices."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff shows `prompt('Enter the certificate password:', { type: 'text' })` and the same for the key password and the App-specific password in destinations/create.ts. The wrapper in prompt.ts:3-11 passes these options straight to consola.prompt without masking, so the secret shows on screen as it is typed. Whether consola 3.3.0 offers a masked type could not be checked (node_modules is not in the export).",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/commands/apps/certificates/create.ts",
+   "line": 119,
+   "claim": "Certificate passwords, key passwords and the Apple app-specific password are entered through visible text prompts.",
+   "evidence": "Certificate password and key-password prompts use type: 'text' at lines 119 and 139; the Apple app-specific password prompt in destinations/create.ts:296 does the same. The shared prompt wrapper forwards these options to consola.prompt without masking.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/commands/apps/certificates/create.ts",
+     "line": 119,
+     "claim": "Interactive password entry uses visible text prompts, exposing credentials to terminal observers and recordings.",
+     "evidence": "Certificate password and key-password prompts use type: 'text' at lines 119 and 139; the Apple app-specific password prompt in destinations/create.ts:296 does the same. The shared prompt wrapper forwards these options to consola.prompt without masking."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The action uploads the profiles, creates the certificate, then awaits updateMany (lines 186-193) with no try/catch. The certificate ID is only logged afterward, at line 195. So if the PATCH fails, the user gets an unhandled rejection, orphaned server resources and no ID to recover with, and a retry creates duplicates.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/commands/apps/certificates/create.ts",
+   "line": 186,
+   "claim": "If linking the provisioning profiles fails, the new certificate and uploaded profiles are left behind and their IDs are never printed.",
+   "evidence": "The action uploads profiles, creates the certificate, then awaits updateMany before printing the certificate ID. There is no catch or cleanup. Injecting an updateMany failure reproduced profile and certificate creation followed by rejection, with no ID output. Retrying repeats creation rather than resuming the link.",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/commands/apps/certificates/create.ts",
+     "line": 186,
+     "claim": "A provisioning-profile linking failure leaves a newly created certificate and uploaded profiles behind without reporting their IDs or providing recovery.",
+     "evidence": "The action uploads profiles, creates the certificate, then awaits updateMany before printing the certificate ID. There is no catch or cleanup. Injecting an updateMany failure reproduced profile and certificate creation followed by rejection, with no ID output. Retrying repeats creation rather than resuming the link."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes no test files while adding ten commands and three services with many input branches and multi-request flows. This is a test-coverage gap, not a defect in itself, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/commands/apps/destinations/create.ts",
+   "line": null,
+   "claim": "The ten new certificate and destination commands and the new upload services ship without tests.",
+   "evidence": "The diff adds ten CRUD commands and three upload services without adding or changing any test files. Existing src/index.test.ts constructs an empty commands registry, so it does not exercise the new commands or their registration.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/commands/apps/destinations/create.ts",
+     "line": null,
+     "claim": "The new certificate and destination commands lack automated coverage for their input branches and multi-request workflows.",
+     "evidence": "The diff adds ten CRUD commands and three upload services without adding or changing any test files. Existing src/index.test.ts constructs an empty commands registry, so it does not exercise the new commands or their registration."
+    }
+   ],
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

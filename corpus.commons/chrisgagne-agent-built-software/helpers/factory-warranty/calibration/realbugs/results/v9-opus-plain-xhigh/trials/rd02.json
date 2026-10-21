@@ -1,0 +1,54 @@
+{
+ "id": "rd02",
+ "arm": "plain-xhigh",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 81,
+   "end_line": 87,
+   "message": "The fallback runs when `detectInstallMethod()` returned \"git\", meaning a source checkout. In that case it hard-codes `npm-global` and offers to run `npm install -g @aoagents/ao@latest`. On a source install, `ao` is usually provided by `npm link` from `packages/ao`, which is a symlink at `{prefix}/lib/node_modules/@aoagents/ao`. A global npm install replaces that symlink, so the user's checkout gets silently swapped for a registry copy and the checkout itself is never updated. A missing script in a source checkout means the build is incomplete (for example, assets were not copied into dist). The right response is an error telling the user to rebuild (`pnpm --filter @aoagents/ao-cli build`), not a switch to a different install method. The fallback also calls `handleNpmUpdate(opts)`, which prints \"--skip-smoke and --smoke-only only apply to git source installs. Ignoring.\" even though this is a git install. A user who passed `--smoke-only` (no fetch or rebuild) then gets offered a full global reinstall."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 90,
+   "end_line": 95,
+   "message": "Removing the `scripts/ao-update.sh` sentinel leaves `.git` four directories up as the only signal for a \"git\" install. The tests that guarded this were deleted (\"returns 'unknown' when .git exists but scripts/ao-update.sh does not\"). Now any non-node_modules copy of the CLI whose ancestor four levels up is an unrelated git repo is classified as \"git\". `ao update` then runs `ao-update.sh` with REPO_ROOT set to that repo, which runs `git fetch`/`git pull --ff-only origin main`, `pnpm install`, and `pnpm --filter ... clean/build` there. The sentinel should move to the new location (for example `packages/cli/src/assets/scripts/ao-update.sh` or `packages/ao/package.json`) rather than being dropped."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 31,
+   "end_line": 39,
+   "message": "The script now lives at `packages/cli/{src,dist}/assets/scripts/`, but the default REPO_ROOT is still `$(dirname BASH_SOURCE)/..`. That resolves to the `assets/` directory, not the repo root or the package root. If AO_REPO_ROOT is unset (running the script directly, or any caller that doesn't inject the env), every layout check runs against the wrong directory. The new package-install auto-detection can then never match, because `assets/` has no `package.json` or `dist/index.js`. It is effectively dead code, since `runRepoScript` always sets AO_SCRIPT_LAYOUT anyway. The default should be computed relative to the new location (`../../..` from dist/assets/scripts for a package; the repo root is further up for a checkout)."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "After the move, the unchanged fallback `REPO_ROOT=$(dirname BASH_SOURCE)/..` points at `packages/cli/src/assets` (or `dist/assets`) instead of the repo root. Running the script directly without AO_REPO_ROOT now partly works and then fails. The `git rev-parse` check passes because the directory is inside the worktree, so `git pull` and `pnpm install`/build run. Then `cd \"$REPO_ROOT/packages/ao\"` fails and the smoke tests point at nonexistent paths. The update is left half-applied. The relative default needs updating to match the new depth."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "packages/cli/__tests__/lib/script-runner.test.ts",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "The regex-escape pattern is written inside a `${...}` expression, so it is ordinary JS rather than string content, but it is double-escaped as if it were a string: `/[.*+?^${}()|[\\\\]\\\\\\\\]/g`. The character class closes after `[\\\\`, so the pattern only matches a special character followed by a literal `\\\\]`. In practice it never escapes anything. The test only passes because the checkout path happens to have no regex metacharacters. A path containing `(`, `+`, `[`, etc. will make the test fail or throw on an invalid regex. Use `/[.*+?^${}()|[\\]\\\\]/g`."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 190,
+  "cost_usd": 1.0091972,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

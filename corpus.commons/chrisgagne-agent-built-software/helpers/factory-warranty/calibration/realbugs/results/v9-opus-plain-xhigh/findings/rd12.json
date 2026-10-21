@@ -1,0 +1,168 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 198,
+  "base": "949c62fe2ace8c41d41dd9d7dfd7b51ab268d25f",
+  "head": "76a992582e9e73897987a43bd520bb581f0e7ce7"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 721,
+   "end_line": 721,
+   "message": "DoR check #7 counts `Scenario:` lines, but the stories it reads use Portuguese Gherkin. `_TEMPLATE-STORY.md` and x-story-create/x-story-epic-full emit `Cenario:` with DADO/QUANDO/ENT\u00c3O (story-0028-0002 itself does this). So every story produced by this toolchain gets 0 scenarios, check #7 always fails, and the verdict is always NOT_READY. Under story-0028-0006, x-dev-epic-implement blocks any story whose DoR is not READY, so this would block every story. The count needs to accept `Cenario:`/`Cen\u00e1rio:` as well as `Scenario:`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 715,
+   "end_line": 724,
+   "message": "Phase 4 never saves the architecture plan, implementation plan, test plan or security assessment. The subagent prompts don't tell the agents to save them either. Yet DoR checks 1 and 9 require 'File exists', and checks 2 and 3 fall back to existing `tests-story`/`security-story` files. Consequences: (a) on a first run with no pre-existing plans, checks 1 and 9 fail; (b) on the reuse path (Phase 0 jumps to Phase 5 without running agents) there is no agent output, so checks 1, 2, 3 and 9 all fail and a READY story flips to NOT_READY on an unchanged re-run; (c) x-dev-lifecycle Phase 2 treats `tests-story-*.md` as MANDATORY, and it is never produced. The story spec says the Architect, QA and Security agents generate these artifacts, and its Gherkin checks for `tests-story-XXXX-YYYY.md`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 89,
+   "end_line": 104,
+   "message": "The staleness check works against itself. The sentinel is mtime(story) <= mtime(tasks file). Phase 4.1 writes the tasks file, then Phase 4.5 rewrites the story file (Section 8.1), and Rule 5 also writes PO amendments into the story. After any successful run the story is newer than the tasks file, so every later invocation counts as stale: all 5 subagents relaunch and Section 8.1 is appended again. This breaks the RULE-002 idempotency the PR claims. Use an artifact that is written after the story update as the sentinel, such as the planning report the story spec names (its DoR Status is updated in Phase 5), or write the story update first."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 93,
+   "end_line": 94,
+   "message": "The freshness marker `tasks-story-XXXX-YYYY.md` is the same file x-lib-task-decomposer writes, called from x-dev-lifecycle Phase 1C. If the lifecycle or decomposer has already run for a story, x-story-plan sees a 'fresh' tasks file and skips all planning, so no task plans and no planning report are produced and DoR fails. Only `--force` recovers. The reverse also happens: the lifecycle reuses x-story-plan's tasks file, which has a different schema. Story-0028-0002's acceptance criterion specifies the planning report as the sentinel and the log message 'Reusing existing planning artifacts'."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 738,
+   "end_line": 742,
+   "message": "`total_checks = mandatory_passed + conditional_applicable` makes the denominator depend on how many checks passed. With 2 failed mandatory checks and no applicable conditionals, the report says 'Passed: 8/8' next to 'Verdict: NOT_READY'. That misleads readers and contradicts the `checks_total` contract. It should be `10 + conditional_applicable`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 486,
+   "end_line": 495,
+   "message": "Task ordering is phase-first: all RED tasks, then all GREEN, then all REFACTOR. That batches every failing test before any implementation, which breaks the per-cycle Red-Green-Refactor TDD the project requires and the interleaved RED/GREEN/REFACTOR sequence in `_TEMPLATE-TASK-BREAKDOWN.md`. The SKILL.md algorithm also drops the planning guide's rule that a dependency comes before its dependents. As a result, tasks such as SEC RED tasks that depend on ARCH GREEN tasks get lower TASK-NNN numbers than their prerequisites."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 435,
+   "end_line": 455,
+   "message": "The MERGE key is only 'same component + same layer' and ignores `tdd_phase` and the test scenario. A QA RED task (components [UserValidator, UserValidatorTest]), the QA GREEN task and the ARCH GREEN task for UserValidator in the domain layer all match and collapse into one task with conflicting TDD phases, wiping out the RED/GREEN pairing and TPP sequence. MERGE also runs before AUGMENT and absorbs any SEC task on the same component, which contradicts AUGMENT's 'Do NOT remove the original SEC task'. Even the guide's examples (ARCH+SEC merged vs ARCH+SEC augmented) are resolved differently, so the result is not deterministic."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 457,
+   "end_line": 464,
+   "message": "PAIR only checks QA-NNN GREEN tasks. The Architect is told to mark every implementation task GREEN (line 248), and SEC also emits GREEN tasks. Any of these that were not merged end up as production-code tasks with no failing test before them, which violates test-first. It also contradicts planning-guide.md line 117: 'Every GREEN task MUST have exactly one RED predecessor'."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "The implementation map path is `plans/epic-XXXX/IMPLEMENTATION-MAP.md`, but x-story-map (listed as the upstream skill) and x-story-epic-full save it as `plans/epic-XXXX/implementation-map-XXXX.md` (e.g. `plans/epic-0028/implementation-map-0028.md`). Phase 1.3 will always log 'Implementation map not found' and plan without dependency context."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 686,
+   "end_line": 703,
+   "message": "The story-file update has several problems. (1) `_TEMPLATE-STORY.md` already contains '## 8. Sub-tarefas' with an '### 8.1 Detailed Tasks (Multi-Agent Planning)' placeholder table, but the skill writes a new '## 8. Sub-Tasks' / '### 8.1 ...' block 'below it'. That produces duplicate 8.1 sections, and since every run counts as stale, one more is appended each run. (2) The skill's columns (#, TDD Phase, Depends On, Effort) don't match the template's (Agent, DoD, Status). The Status column is what story-0028-0004 uses to mark TASK-NNN complete. On re-runs the existing 8.1 should be replaced, not appended."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 795,
+   "end_line": 795,
+   "message": "Required story updates are missing. Story-0028-0002 says the story Status must change to 'Pronta para Desenvolvimento' when READY (and stay 'Pendente' otherwise), and that Section 4 DoR checkmarks must be updated. Phase 5 only updates the planning report, so the `story_status_update` output in the data contract is never produced."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "'Language: English ONLY' conflicts with epic RULE-006, which story-0028-0002 lists as applicable: all content generated by planning skills must be pt-BR, except technical terms and IDs. The sibling planning skills (x-story-create, x-story-epic, x-story-map, x-story-epic-full) use the pt-BR policy, so this skill's planning reports, task plans and amended Gherkin will be in the wrong language."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 730,
+   "end_line": 731,
+   "message": "Conditional checks 11 and 12 look for a compliance assessment with regulatory mapping in the Security agent's output, and for contract-test scenarios in the QA agent's output. Neither prompt asks for these: Security only reads the compliance KP (lines 307-308), and QA never mentions contract tests. In compliance- or contract-enabled projects these checks will usually fail, making the story NOT_READY."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 1,
+   "end_line": 7,
+   "message": "The new core skill is picked up automatically by SkillsAssembler.selectCoreSkills, so every profile's generated output gains `skills/x-story-plan/**`. GoldenFileTest's completeness check (extra files) will therefore fail for all 17 profiles, and the `claude-skills`/`codex-skills` counts in smoke/expected-artifacts.json go out of date. These run under failsafe, which is why the 5521 surefire tests still pass. The story DoD also requires at least one automated test validating the SKILL.md frontmatter and required sections, and none is added. Deferring this to story-0028-0007 means merging a red `mvn verify`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 502,
+   "end_line": 507,
+   "message": "The implicit 'Domain layer tasks before application layer tasks' and 'Application before adapter' edges are added between every pair of tasks in those layers, regardless of type. Combined with explicit dependencies, they can create spurious cycles. Example: a domain-layer SEC test task that depends on the adapter task it augments (as the Security prompt instructs) becomes a cycle with the implicit domain\u2192adapter edge. Step 3 then aborts the whole run with 'Circular dependency detected'."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 279,
+   "end_line": 284,
+   "message": "TPP order is inconsistent. The QA prompt orders levels nil \u2192 constant \u2192 scalar \u2192 conditional \u2192 collection \u2192 iteration, while consolidation (line 494) and planning-guide.md line 194 order them ... \u2192 collection \u2192 conditional \u2192 .... TPP and the story template both put conditions before iterations/collections, so consolidation reorders the QA agent's test sequence incorrectly, and DoR check 2 checks against yet another numbering."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 289,
+   "end_line": 296,
+   "message": "No agent is ever asked to produce REFACTOR tasks. QA emits only RED+GREEN pairs, ARCH only GREEN, SEC RED/GREEN, TL/PO VERIFY. Yet the ordering (line 489) and DAG (line 504) assume REFACTOR tasks exist, the story spec has QA proposing RED/GREEN/REFACTOR, and the project rules require explicit refactoring after green."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 724,
+   "end_line": 724,
+   "message": "Check #10 requires the planning report to exist 'with all sections populated', but its DoR Status section is only filled after validation (line 795). Read strictly, the check fails against the skill's own output, or the result depends on interpretation."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 520,
+   "end_line": 559,
+   "message": "The inline task-breakdown table doesn't match `_TEMPLATE-TASK-BREAKDOWN.md`. It omits Test Scenario Ref, Tier and Budget, uses TASK-001 where the template uses TASK-1, and says Agent/DoD are 'extended from standard template' when the template already has them. The DoR inline format (Mandatory/Conditional sections) also differs from `_TEMPLATE-DOR-CHECKLIST.md` (Architecture/Test/Security... Readiness). So output differs depending on whether templates are present, contrary to the claim that the inline format produces 'the same conceptual sections'. Downstream consumers of the tasks file (x-dev-lifecycle, x-lib-task-decomposer reuse) expect the template schema."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 191,
+   "end_line": 205,
+   "message": "The TASK_PROPOSAL schema departs from the story's data contract. The contract specifies source enum ARCHITECT/QA/..., type DEV/TEST/SEC/QUALITY/VALIDATION and effort as 'Nh'; the skill uses XS\u2013XL T-shirt sizes, which can't be summed into the 'Estimated Effort {total}' field. Section 3.1 also lists an `implementation` type that isn't in the enum. The merged-task source is `merged(a,b)`, but the acceptance criterion expects Agent = \"MERGED\"."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 87,
+   "end_line": 112,
+   "message": "Phase 0 runs `mkdir -p` (0.2) and the mtime staleness comparison (0.3) before checking that the story file exists (0.4). A missing story can therefore create stray `plans/epic-9999/plans` directories, and if an old tasks file exists the comparison runs against a nonexistent file before the 'Story file not found' abort. The existence check should come first."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "`allowed-tools` omits `Agent`, even though Phase 2's core purpose is dispatching 5 subagents. Other subagent-dispatching skills in this repo list it (x-codebase-audit, x-threat-model, x-hardening-eval). The story contract also specifies `AskUserQuestion` and an argument-hint that accepts a story path; neither is reflected here."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 1302000
+ }
+}

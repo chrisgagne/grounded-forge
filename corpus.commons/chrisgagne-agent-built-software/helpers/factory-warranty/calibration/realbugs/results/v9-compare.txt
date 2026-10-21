@@ -107,6 +107,36 @@
    "reasoning_effort": {
     "high": 23
    }
+  },
+  "sol-factory-high": {
+   "grounded_precision": 0.8753623188405797,
+   "grounded_recall": 0.27048888341048327,
+   "high_found": 27,
+   "pull_requests": 23,
+   "findings_per_pr": 5.3,
+   "cost_usd": 11.78,
+   "codex_tokens": 2516980,
+   "failed": 0
+  },
+  "opus-factory-xhigh": {
+   "grounded_precision": 0.7979437229437228,
+   "grounded_recall": 0.5132185382797262,
+   "high_found": 27,
+   "pull_requests": 23,
+   "findings_per_pr": 12.83,
+   "cost_usd": 60.26,
+   "codex_tokens": 0,
+   "failed": 0
+  },
+  "opus-plain-xhigh": {
+   "grounded_precision": 0.8855919442875965,
+   "grounded_recall": 0.5231567157494926,
+   "high_found": 34,
+   "pull_requests": 23,
+   "findings_per_pr": 11.52,
+   "cost_usd": 33.46,
+   "codex_tokens": 0,
+   "failed": 0
   }
  }
 }
@@ -124,6 +154,14 @@ Primary: codex-review-high against sol-own: codex-review-high did better
 Primary: codex-review-high against sol-plain-high: about the same on these pull requests
 
 Primary: codex-review-high against sol-factory: about the same on these pull requests
+
+Primary: sol-factory-high against sol-plain-high: about the same on these pull requests
+
+Primary: sol-factory-high against sol-factory: sol-factory-high did better
+
+Primary: opus-factory-xhigh against opus-plain-xhigh: opus-plain-xhigh did better
+
+Primary: opus-factory-xhigh against opus-factory: about the same on these pull requests
 
   sol-factory did better than sol-own
   opus-factory did better than sol-factory
@@ -144,4 +182,16 @@ Primary: codex-review-high against sol-factory: about the same on these pull req
   cc-review-high did better than sol-plain
   cc-review-high did better than sol-plain-high
   cc-review-high did better than cc-review
+  cc-review-high did better than sol-factory-high
   codex-review-high did better than sol-own
+  sol-factory-high did better than sol-factory
+  sol-factory-high did better than sol-own
+  opus-plain-xhigh did better than sol-factory
+  opus-plain-xhigh did better than sol-own
+  opus-plain-xhigh did better than opus-factory
+  opus-plain-xhigh did better than sol-plain
+  opus-plain-xhigh did better than sol-plain-high
+  opus-plain-xhigh did better than cc-review
+  opus-plain-xhigh did better than cc-review-high
+  opus-plain-xhigh did better than sol-factory-high
+  opus-plain-xhigh did better than opus-factory-xhigh

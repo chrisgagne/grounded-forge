@@ -1,0 +1,206 @@
+{
+ "id": "rd08",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5494,
+ "codex_tokens": 83520,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd08-t1-_exap9bn",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "I grepped the export and found no def load_artifacts or def run_inference anywhere; financial.py only defines merge_predictions, decode_labels, build_batch_df, decompose, get_params, compute_financials and save_reports. Running the cell, load_artifacts raises AttributeError, which the code catches and treats as 'no artifacts'. The fallback then calls run_inference, which also raises AttributeError and is re-raised, so no report is produced.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "line": 257,
+   "claim": "The notebook calls wg_fin.load_artifacts and wg_fin.run_inference, but neither exists in financial_impact/financial.py, so the report pipeline cannot run.",
+   "evidence": "financial_impact/financial.py defines neither load_artifacts nor run_inference. The call to load_artifacts at line 185 raises AttributeError and is caught as though artifacts were missing; with a valid dataset, the fallback then calls run_inference at line 257, catches its AttributeError, and re-raises it. The artifacts branch also calls the missing run_inference function.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "wafer_images/waferguard_financial_impact.ipynb",
+     "line": 257,
+     "claim": "The report pipeline calls library functions that do not exist, preventing report generation.",
+     "evidence": "financial_impact/financial.py defines neither load_artifacts nor run_inference. The call to load_artifacts at line 185 raises AttributeError and is caught as though artifacts were missing; with a valid dataset, the fallback then calls run_inference at line 257, catches its AttributeError, and re-raises it. The artifacts branch also calls the missing run_inference function."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The cell sets repo_root = '/Users/<author>/Desktop/Capstone/waferguard-ml', and the dataset path, model paths and report output directory are all built from it, so np.load fails on any other machine. I lowered this from high to medium: it is a reproducibility defect in a demo notebook, not a library defect.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "line": 171,
+   "claim": "repo_root is hardcoded to one developer's absolute path, so the notebook fails on any other checkout.",
+   "evidence": "repo_root is assigned '/Users/<author>/Desktop/Capstone/waferguard-ml'. Dataset loading at lines 237\u2013239, both model paths, and report output paths derive from that location. A user with the repository and dataset elsewhere reaches np.load with a nonexistent path.",
+   "axis_row": "L5.8",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "wafer_images/waferguard_financial_impact.ipynb",
+     "line": 171,
+     "claim": "The notebook hardcodes one developer's checkout path, preventing execution from other checkouts.",
+     "evidence": "repo_root is assigned '/Users/<author>/Desktop/Capstone/waferguard-ml'. Dataset loading at lines 237\u2013239, both model paths, and report output paths derive from that location. A user with the repository and dataset elsewhere reaches np.load with a nonexistent path."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "model.ipynb:3302-3329 pickles pattern_to_id and id_to_pattern but no id_to_binary. The notebook therefore calls artifacts.get('id_to_binary', {}), and decode_labels (financial.py:151) defaults every unmapped id to '00000000', i.e. Normal. This only bites once X1 is fixed, so medium is right.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "line": 291,
+   "claim": "The artifacts branch reads id_to_binary, which model.ipynb never saves, so every wafer decodes to the Normal label 00000000.",
+   "evidence": "model.ipynb saves pattern_to_id and id_to_pattern but does not save id_to_binary. This branch reads artifacts.get('id_to_binary', {}), then passes the empty mapping to decode_labels. financial.py line 151 defaults every unmapped class to '00000000'; isolated execution confirmed that class 3 with pattern name Near_Full becomes that Normal binary label. Once the missing loading and inference functions are repaired, this path would report zero defects and zero financial loss.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "wafer_images/waferguard_financial_impact.ipynb",
+     "line": 291,
+     "claim": "The artifacts branch would classify every wafer as Normal when given the artifacts produced by the training notebook.",
+     "evidence": "model.ipynb saves pattern_to_id and id_to_pattern but does not save id_to_binary. This branch reads artifacts.get('id_to_binary', {}), then passes the empty mapping to decode_labels. financial.py line 151 defaults every unmapped class to '00000000'; isolated execution confirmed that class 3 with pattern name Near_Full becomes that Normal binary label. Once the missing loading and inference functions are repaired, this path would report zero defects and zero financial loss."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "compute_financials only defaults financial_params to FINANCIAL_PARAMS and then calls get_params(binary_label) for each row. get_params and decompose read only the module-level FINANCIAL_PARAMS, so a caller's override is silently ignored. No current caller passes the argument.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "financial_impact/financial.py",
+   "line": 240,
+   "claim": "The financial_params argument of compute_financials is accepted but never used; get_params always reads the global FINANCIAL_PARAMS.",
+   "evidence": "compute_financials accepts financial_params, but its only references check for None and assign the default. Every row calls get_params(binary_label), which reads the global FINANCIAL_PARAMS exclusively. Passing a mapping with different repair costs or yield assumptions therefore still calculates losses, costs, and recommendations from the global values.",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "financial_impact/financial.py",
+     "line": 240,
+     "claim": "Caller-supplied financial parameters are ignored, so customized financial assumptions have no effect on reports.",
+     "evidence": "compute_financials accepts financial_params, but its only references check for None and assign the default. Every row calls get_params(binary_label), which reads the global FINANCIAL_PARAMS exclusively. Passing a mapping with different repair costs or yield assumptions therefore still calculates losses, costs, and recommendations from the global values."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "summary_payload computes df_batch['avg_confidence'].mean() over the per-pattern rows built by build_batch_df, without weighting by count. A batch with uneven pattern counts therefore reports a skewed confidence. I lowered this from high to medium: it misstates one summary number but does not affect the loss figures or recommendations.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "financial_impact/financial.py",
+   "line": 291,
+   "claim": "The summary avg_confidence is an unweighted mean of per-pattern averages, not the true batch average.",
+   "evidence": "build_batch_df aggregates wafers into pattern rows containing count and avg_confidence. compute_financials then takes df_batch['avg_confidence'].mean() without weighting by count. For 99 wafers of one pattern at confidence 0.99 and one wafer of another at 0.10, the report returns 0.545 instead of the batch average 0.9811.",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "high",
+     "file": "financial_impact/financial.py",
+     "line": 291,
+     "claim": "The batch average confidence gives each pattern equal weight, producing incorrect confidence summaries for uneven batches.",
+     "evidence": "build_batch_df aggregates wafers into pattern rows containing count and avg_confidence. compute_financials then takes df_batch['avg_confidence'].mean() without weighting by count. For 99 wafers of one pattern at confidence 0.99 and one wafer of another at 0.10, the report returns 0.545 instead of the batch average 0.9811."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "With an empty df_batch no rows are built, and pd.DataFrame([]).sort_values('priority_score') raises KeyError because the column doesn't exist. That happens before the later 'if not df_financial.empty' guards can run. I lowered this to low because an empty batch doesn't happen in the notebook's own flow.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "financial_impact/financial.py",
+   "line": 273,
+   "claim": "An empty batch raises KeyError in compute_financials instead of returning the zero-valued summary.",
+   "evidence": "build_batch_df([], empty_confidences, mapping) produces an empty DataFrame. compute_financials creates no financial rows and immediately calls pd.DataFrame(rows).sort_values('priority_score'); that DataFrame has no priority_score column, so sorting raises KeyError before the later empty-frame guards execute.",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "financial_impact/financial.py",
+     "line": 273,
+     "claim": "An empty batch raises an exception instead of producing the zero-valued summary the surrounding code attempts to support.",
+     "evidence": "build_batch_df([], empty_confidences, mapping) produces an empty DataFrame. compute_financials creates no financial rows and immediately calls pd.DataFrame(rows).sort_values('priority_score'); that DataFrame has no priority_score column, so sorting raises KeyError before the later empty-frame guards execute."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "X7"
+   ],
+   "verdict": "confirmed",
+   "reason": "A glob for test* in the export finds no test files, and the diff adds the library and notebook without any. This would have caught X1 and X4-X6. It is a coverage gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "financial_impact/financial.py",
+   "line": null,
+   "claim": "The new financial library and notebook ship with no automated tests.",
+   "evidence": "The diff adds the financial library and notebook without any test files. The notebook contains saved printed output but no assertions, leaving missing helper functions, ignored parameter overrides, incorrect confidence aggregation, and empty-batch behavior unchecked.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "X7",
+     "leg": "codex",
+     "severity": "low",
+     "file": "financial_impact/financial.py",
+     "line": null,
+     "claim": "The new financial pipeline has no automated regression tests covering its calculations or notebook integration.",
+     "evidence": "The diff adds the financial library and notebook without any test files. The notebook contains saved printed output but no assertions, leaving missing helper functions, ignored parameter overrides, incorrect confidence aggregation, and empty-batch behavior unchecked."
+    }
+   ],
+   "id": "F7"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F5"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/NightHawkATL/ntp-dashboard",
+  "pr_number": 96,
+  "base": "28cb0f12873107287c8f2ba7b7c330339d432c9c",
+  "head": "2378227172859b977f576fa1a1e3dfd4b52fa524"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "The 'Resolve source workflow run ID' step declares the `env:` key twice, so GitHub's workflow parser will reject the file and the remediation workflow will never run on any trigger. Lines 29-31 and 32-34 are identical `env:` mappings (`GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}`, `REPO: ${{ github.repository }}`) on the same step. YAML mapping keys must be unique, and GitHub Actions rejects such files with \"'env' is already defined\". Trigger: any completion of 'Weekly Grype Security Scan', or any manual dispatch, finds an invalid workflow file and no job starts."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 94,
+   "end_line": 94,
+   "message": "The Resolve step's shell script cannot be parsed. It has two `else` branches and heredoc terminators that will never match, so the step fails on every trigger (including the normal workflow_run path), and no artifact is downloaded and no issue is created. The `if ... elif ... else` block opens a second `else` at line 94 before the closing `fi` at line 163, which is a bash syntax error. Separately, the block scalar's base indentation is 10 spaces (`set -euo pipefail`, line 36), so the `PY` terminators at lines 93 and 162 keep 2 leading spaces. A plain `<<'PY'` heredoc only ends on a line that is exactly `PY`, so the heredoc runs to EOF and `fi` is never seen. The Python body would also get leading spaces and raise IndentationError. Bash parses the whole `if` compound before running any branch, so even the `workflow_run` branch at line 40 never executes. The two Python blocks (lines 42-93 and 95-162) are near-duplicates, which suggests a half-finished edit that was never run."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 38,
+   "end_line": 38,
+   "message": "The workflow_dispatch `run_id` input is pasted straight into the shell script, so whoever dispatches the workflow can run arbitrary commands with the job's `issues: write` token or inject extra `$GITHUB_OUTPUT` keys. Line 37 `[ -n \"${{ inputs.run_id }}\" ]` and line 38 `echo \"id=${{ inputs.run_id }}\" >> \"$GITHUB_OUTPUT\"` expand the expression before bash runs, so an input like `\"; curl \u2026 ; echo \"` becomes shell code. The value is never checked to be numeric and is later placed in an API URL path (`/actions/runs/{run_id}/artifacts`, line 183). Dispatch needs write access, which limits who can trigger it. The input should be passed through `env:` and checked against `^[0-9]+$`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 51,
+   "end_line": 51,
+   "message": "The fallback that looks up the latest successful weekly scan filters on `branch=pre-update-release`, but the weekly scan runs on a schedule, and scheduled runs are recorded against the default branch. The manual-dispatch-without-run_id path may therefore never find a run. `weekly-security-grype.yml` triggers on `schedule` (cron `0 12 * * 3`). It only checks out `pre-update-release` via `ref: ${{ env.BASE_BRANCH }}`, so its run's `head_branch` is the default branch. Lines 51 and 105 set `branch = \"pre-update-release\"`, and the runs query uses it (lines 75-79, 129-133). Unless someone has manually dispatched the scan from `pre-update-release`, the query returns no runs and the step exits with 'No successful runs found'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 319,
+   "end_line": 319,
+   "message": "When a weekly scan reports no fixable vulnerabilities, the existing open tracking issue is neither updated nor closed, so it keeps recommending upgrades that have already been made. Line 292 sets `has_recommendations = \"false\"` when `ordered` is empty, and the only issue step is gated by `if: steps.report.outputs.has_recommendations == 'true'` (line 319). No branch updates or closes the issue found by title, so the last non-empty report stays open indefinitely."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "The guard is gated on `github.actor`, so it is skipped whenever a human pushes to, or closes and reopens, a Dependabot PR. A skipped job counts as passing for required checks, so a regressing dependency update can merge unscanned. `if: github.actor == 'dependabot[bot]'` checks who triggered this event, not who authored the PR. A maintainer pushing a fix-up commit to the Dependabot branch fires `pull_request: synchronize` with `github.actor` set to the maintainer, so the `grype-guard` job is skipped. Checking `github.event.pull_request.user.login == 'dependabot[bot]'` would keep the gate tied to Dependabot PRs."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "The 'underfixed' check blames the PR for every vulnerable package whose version changed. A Dependabot base-image bump that lowers High/Critical counts is still blocked whenever any OS package in the new image keeps a fixable High/Critical. `changed_vulnerable_pkgs` (lines 179-184) includes any package whose vulnerable-version set differs between the base and PR images. `underfixed_updates` (186-189) keeps those with any fixed High/Critical in the PR scan, and line 205 raises SystemExit before the count-regression check. For a `docker` ecosystem PR (e.g. `python:3.14-alpine3.21` \u2192 a newer tag), most OS package versions change, so one remaining fixable High in an untouched OS package fails the guard even though `pr_counts['High'] < base_counts['High']`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 203,
+   "end_line": 203,
+   "message": "The regression gate only compares counts per severity, so a PR that fixes one High and adds a different, not-yet-fixable High passes as 'no regression'. `critical_regression`/`high_regression` (lines 202-203) compare only `pr_counts` against `base_counts`, which come from `counts()` (Counter by severity). The other check, `underfixed_updates`, only catches packages with `fix.state == 'fixed'` (lines 129-130 via `fixed_high_critical_recommendations`). A new High with state `not-fixed` or `wont-fix` that replaces a removed High therefore leaves both checks green. Comparing vulnerability IDs per package would catch the swap."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 42,
+   "end_line": 42,
+   "message": "The gate's scanner is whatever Grype release is 'latest' at run time, pulled by a mutable tag and given the Docker socket. The gate's verdict can change between runs, and an unverified image gets root-equivalent control of the runner. Line 36 resolves the tag from an unauthenticated call to `api.github.com/repos/anchore/grype/releases/latest`, which can also hit rate limits and fail the gate. Line 42 runs `docker pull \"anchore/grype:${{ steps.grype-release.outputs.tag }}\"` with no digest. The scan steps mount `-v /var/run/docker.sock:/var/run/docker.sock` (line 68). Actions are pinned to major tags only (`actions/checkout@v6`, `actions/upload-artifact@v7`, and `actions/github-script@v8` in the remediation workflow). This copies the pre-existing weekly-scan pattern."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 209,
+   "end_line": 209,
+   "message": "The artifact download sends the GITHUB_TOKEN bearer header to the archive URL, and Python's urllib keeps that header when following the redirect to the storage host. This may leak the token off api.github.com and may make the download fail. Lines 202-206 build `dl_req` for `selected[\"archive_download_url\"]` with `\"Authorization\": f\"Bearer {token}\"`, and line 209 `urllib.request.urlopen(dl_req, ...)` follows GitHub's 302 to a pre-signed blob URL. urllib's default redirect handler copies the request's non-content headers to the new request."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 336,
+   "end_line": 336,
+   "message": "The tracking issue is found by title alone, so the bot will write its report into any open issue with that title, including one opened by an outside user, who can then edit the 'recommendations' that maintainers read. `issues.find(i => i.title.toLowerCase() === title.toLowerCase() && !i.pull_request)` has no filter on `i.user.login` (e.g. `github-actions[bot]`), and then calls `github.rest.issues.update` on that issue's number."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 308,
+   "end_line": 308,
+   "message": "The generated issue says the guard 'enforces no High/Critical regression on merge', but nothing in the change makes the guard a required check. The guard is also skipped for non-Dependabot actors, so the note overstates the protection. The README does not mention either new workflow. Line 308: `\"- The Dependabot Grype Guard workflow enforces no High/Critical regression on merge.\"` The diff adds no branch-protection or required-check configuration. `dependabot-grype-guard.yml` line 14 skips non-Dependabot actors. A grep of README.md for grype/dependabot/security returns nothing."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 173,
+   "end_line": 173,
+   "message": "The guard's inline script has duplicated and dead code, which makes it harder to maintain. `recs = fixed_recommendations(pr)` is computed at line 159 and again at line 173. `fixed_recommendations` and `fixed_high_critical_recommendations` are near-identical except for a severity filter. `vulnerable_pkg_versions` collects `severities` (line 152) that nothing reads."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 297,
+   "end_line": 297,
+   "message": "The remediation report labels Negligible- and Unknown-only packages as 'Low', leaves those severities out of the snapshot, and checks for a report file it never reads. Line 297: `highest = \"Critical\" if ... else \"High\" if ... else \"Medium\" if ... else \"Low\"`, so any package without Critical/High/Medium is shown as Low. The snapshot (lines 281-284) lists only Critical/High/Medium/Low. `report_md` (line 228) is only used in an existence check."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change adds two workflows with substantial inline gate logic but no tests or workflow lint. The parse errors in the remediation workflow show it was never executed before being submitted. `.factory/config.yaml` sets the test command to `echo 'replay: the project suite is not run\u2026' && exit 0`. The diff adds no tests and no actionlint/yamllint step. The guard's comparison logic and the remediation report logic live only in YAML heredocs that cannot be unit-tested. The duplicate `env:` (line 32) and the double `else` (line 94) would fail on the first run."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

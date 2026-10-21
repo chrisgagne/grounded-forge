@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/android",
+  "pr_number": 11084,
+  "base": "e67a3fd36ca5e24b0007a170ea77037e4437f9d3",
+  "head": "ac02d09a29b6492b0e1a01b48f5fcb3efa561a6c"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 271,
+   "end_line": 281,
+   "message": "The swap replaces any ResolvedFileToPublish .dll whose file name happens to exist in `$(IntermediateOutputPath)prelink/`. It does not check whether this build wrote that file. `PreTrimmingFixLegacyDesigner` only writes assemblies it modified and never deletes old outputs, so a file left from an earlier build keeps getting swapped in. Example: a NuGet package or ProjectReference moves from a legacy MonoAndroid build that has Resource fields to a net8+/designer-assembly build (common with AndroidX/GPS package updates). The task no longer modifies it, but the old rewritten `prelink/Foo.dll` still exists. It is fed to ILLink and the app silently ships the old library code. Neither `Clean` nor `_CleanIntermediateIfNeeded` removes the per-RID inner `obj/.../<rid>/prelink` directory or the inner stamp, so this survives a clean build. Suggested fix: have the task clear OutputDirectory, or remove files it did not produce. Drive the swap from a list persisted by the task, mapping each original path to its prelink copy, and swap only items whose ItemSpec matches an original path. Remove the directory on clean."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 246,
+   "end_line": 251,
+   "message": "Up-to-date checking compares only the timestamps of `@(_PreTrimmingAssembly)` against a single stamp file, so a change in the set or version of input assemblies is not detected. NuGet extracts files with the timestamp from the nupkg entry, so a newly added or upgraded package's DLL is usually older than the stamp, and the target is skipped. The new legacy library is then never rewritten: in designer-assembly mode nothing else updates its Resource field values, so resource IDs are wrong at runtime. If an older version was rewritten before, the stale prelink copy is swapped in instead (see the previous issue). The designer DLL is also an input, but it only changes when R.txt changes, so a library update with the same resources does not trigger a rerun. Changes to Xamarin.Android.Build.Tasks.dll are not tracked either. Add a hash or list file of the input item specs as an input, as is done with `_ResolvedUserAssembliesHashFile`, plus `$(MSBuildAllProjects)` or the project assets file, and add an incremental-build test that upgrades or replaces a legacy library."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 274,
+   "end_line": 301,
+   "message": "The designer assembly is found only through the search directories collected from `Assemblies`. If `_Microsoft.Android.Resource.Designer.dll` is not in that list, `LoadDesigner` logs only a debug message and `ProcessAssemblyDesigner` returns false for every assembly, so the task silently does nothing. This change also removes the root descriptor that used to act as a safety net, so ILLink then trims the designer and legacy libraries keep their stale field IDs with no diagnostic. On NativeAOT this ordering really is different: `_AndroidRunNativeCompile` now pulls `_CollectPreTrimmingAssemblies` in before `_AddResourceDesignerToPublishFiles` runs, so the designer is found only if the `_FixupIntermediateAssembly` ReferenceCopyLocalPaths item happens to reach ResolvedFileToPublish. Consider passing `$(_GenerateResourceDesignerAssemblyOutput)` to the task explicitly, making `_CollectPreTrimmingAssemblies` depend on `_AddResourceDesignerToPublishFiles`, and warning when the designer cannot be resolved."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+   "start_line": 268,
+   "end_line": 270,
+   "message": "This runtime-specific file now hard-depends on `_PreTrimmingFixLegacyDesignerUpdateItems`, which is defined only in Microsoft.Android.Sdk.TypeMap.LlvmIr.targets. That file is not imported when `_AndroidTypeMapImplementation` is `trimmable`, so NativeAOT with the trimmable typemap fails with MSB4057 (target does not exist). That combination is already fragile because of the existing `_PrepareLinking` dependency, but this adds another cross-file coupling. Inject the dependency from LlvmIr.targets instead, for example with a property-based DependsOn list or `BeforeTargets=\"_AndroidRunNativeCompile\"`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Xamarin.Android.Build.Tasks/Tests/Xamarin.ProjectTools/Resources/Base/BuildReleaseArm64SimpleDotNet.NativeAOT.apkdesc",
+   "start_line": 10,
+   "end_line": 12,
+   "message": "The regenerated baselines include size changes that this change cannot cause. Native runtime binaries change in every file (libSystem.Native.so, libmonodroid.so, libclrjit.so, libcoreclr.so, libmscordaccore.so), and the Simple NativeAOT libUnnamedProject.so grows by about 15 KB. The Simple MonoVM PackageSize also grows, although an app with no legacy libraries should only get smaller once the descriptor is removed. Mixing runtime drift into these baselines hides the real effect of this change and ties the test to a specific runtime build. Regenerate them from the same runtime as base, or call out the drift separately."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 2388000
+ }
+}

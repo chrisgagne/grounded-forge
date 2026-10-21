@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/sw5005-sus/ceramicraft-argocd-deploy",
+  "pr_number": 89,
+  "base": "9cf42c1eecc554ca953c3685fa1b6a34eeed910c",
+  "head": "d7a4532170487a111654cf8aa742f4007334b6e2"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The new Deployment no longer gets the Vault-backed `ms-secret-vault` secret that the Helm chart gave it, so the agent will likely start without the MySQL password and any other credentials it reads from the environment. The deleted Helm release was rendered by `charts/templates/deployment.yaml:76-78`, which adds `envFrom: - secretRef: name: {{ .Values.externalSecret.targetName | default \"ms-secret-vault\" }}` to every service. The new container's `env:` (lines 25-35) sets only CONFIG_PATH, PYTHONUNBUFFERED, ENABLE_MLFLOW_TRACING, MLFLOW_TRACKING_URI and MALLOC_ARENA_MAX, and it has no `envFrom`. The mounted `backend/ai-secure-agent-config.yaml` has `mysql: username: \"root\"` but no password field. The repo's convention, stated in `backend/log-config.yaml:5-6` and `backend/mcp-server-config.yaml:6-7`, is that secrets are 'injected through the Vault external secret (ms-secret-vault)', and `k8s-configs/eos-microservice.yaml` creates that secret from `secret/ceramicraft`. Trigger: agent-app syncs this Deployment, the pod starts with no Vault-held variables, and its MySQL connection as root has no password."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "app-of-apps.yaml",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "The new `agent-app` deploys production from the feature branch `AI-20-AISecureAgent-Feature-collection` instead of HEAD. Pushes to that branch go live without merge review, edits to `agent/` on the default branch never deploy, and deleting the branch after merge leaves the app unable to resolve its source. `targetRevision: AI-20-AISecureAgent-Feature-collection` with `syncPolicy.automated: prune: true, selfHeal: true` (lines 433-441). Every other Git-sourced Application and the helm-app ApplicationSet in this file use `targetRevision: HEAD` / `revision: HEAD` (lines 10, 77, 100, 111, 137, 272, 334, 388, 411). So once this change merges, the `helm_backend/ai-secure-agent-ms` removal takes effect from HEAD, while the replacement is read only from the feature branch."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "helm_backend/ai-secure-agent-ms/values.yaml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Deleting the Helm values makes the ApplicationSet remove the `ai-secure-agent-ms` Application and cascade-delete its Deployment, Service and HPA. Those objects have the same names the new `agent-app` manifest creates, so the cutover may delete the replacement or cause an outage, depending on which Argo app acts first. The helm-app ApplicationSet generates one Application per `helm_backend/*` directory on HEAD (`app-of-apps.yaml:97-102`) with prune enabled. The chart names the objects `{{ .Release.Name }}` and `{{ .Release.Name }}-svc` (`charts/templates/deployment.yaml:4`, `service.yaml:4`), and the chart's default `hpa.enabled: true` (`charts/values.yaml:46-50`) adds HPA `ai-secure-agent-ms`, giving `ai-secure-agent-ms` and `ai-secure-agent-ms-svc`. The new manifest creates Deployment `ai-secure-agent-ms` and Service `ai-secure-agent-ms-svc` in `default` (`agent/ai-secure-agent.yaml:4,49`). `agent-app` exists only in the root `app-of-apps.yaml`, which no synced path applies, so the old release goes away automatically on merge but the replacement appears only when someone re-applies that file by hand."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "The rewritten Deployment drops the liveness and readiness probes and all resource requests and limits that the chart applied. The Service can send traffic to a pod that isn't ready, a hung agent is never restarted, and the Python LLM agent can now use unbounded memory on the shared node as a BestEffort pod. The deleted values set `livenessProbe`/`readinessProbe` on `/ai-secure-agent-ms/v1/ping` and `resources: requests cpu 100m, memory 256Mi; limits cpu 200m, memory 345Mi`, rendered by `charts/templates/deployment.yaml:55-75`. The new container spec (lines 19-41) has no `livenessProbe`, `readinessProbe` or `resources`. The retained `MALLOC_ARENA_MAX: \"2\"` shows memory use was already a concern."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "The image is pinned to a mutable `debug-` tag with `IfNotPresent`, so different nodes may run different builds under the same tag, and the deployed artefact can't be tied to a reviewed build. `image: lian1280/ceramicraft-ai-secure-agent:debug-202604071410` with `imagePullPolicy: IfNotPresent`. There is no `@sha256:` digest. The deleted values used the same tag, but this change writes it into a new hand-maintained manifest."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The service moves out of the shared Helm chart into a one-off raw manifest. That duplicates the chart and silently drops chart behaviour every other microservice keeps (hostPath log volume, anti-affinity, HPA, the explicit `linkerd.io/inject: disabled` annotation, the grpc port), and the change explains none of these removals. `charts/templates/deployment.yaml` provides `podAnnotations`, `podAntiAffinity` (lines 21-29), the `fix-perm` initContainer and `applogs` hostPath `/tmp/logs/<svc>` (lines 30-36, 87-90), and the grpc port. All `helm_backend/*/values.yaml` still use it. The deleted values had `podAnnotations: linkerd.io/inject: disabled` and `logPath: /tmp/logs/ai-secure-agent-ms`. The new manifest has no annotations, no log volume and only port 8080. Without the explicit opt-out, mesh injection now depends on namespace settings this repo doesn't show."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

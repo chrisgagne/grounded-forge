@@ -21,8 +21,9 @@ grading and picking test cases. Every test was written down before it ran.
 - **It beat PR-Agent, brooks-lint (Claude reviewing against twelve engineering books), and both labs' review commands
   at their default levels,** with 1.3 to 3.5 times their recall. Turned up to higher effort, the labs' commands caught
   up.
-- **Its brief and library don't beat a plain prompt on either model.** Its wins are over tools that hold the model
-  back. Effort mattered more: `/code-review xhigh` found the most serious bugs of anything we tried.
+- **Its brief and library don't beat a plain prompt on either model, at any effort we tried.** Its wins are over tools
+  that hold the model back. Effort mattered more: Claude Code with a plain prompt at `xhigh` and `/code-review xhigh`
+  found the most serious bugs of anything we tried.
 - **Several stops on "good" changes were real changes in behaviour** that upstream had accepted. Making each stop
   quick for a non-coder to judge is the open problem.
 
@@ -83,19 +84,24 @@ findings were found by every arm.
 | Sol | a plain prompt, reasoning effort "high" | 86.0% | 28.4% | 30 |
 | Sol | `codex review` | 84.9% | 14.7% | 22 |
 | Sol | `codex review`, reasoning effort "high" | 89.8% | 22.1% | 27 |
+| Sol | the factory's brief and library, reasoning effort "high" | 87.5% | 27.0% | 27 |
 | Opus | the factory's brief and library | 87.2% | 45.1% | 28 |
 | Opus | Claude Code with a plain prompt | 87.2% | 49.6% | 30 |
 | Opus | Claude Code's `/code-review` | 84.7% | 26.6% | 25 |
 | Opus | `/code-review high` | 87.8% | 46.2% | 28 |
 | Opus | `/code-review xhigh` | 82.7% | 55.9% | 34 |
+| Opus | the factory's brief and library, `--effort xhigh` | 79.8% | 51.3% | 27 |
+| Opus | Claude Code with a plain prompt, `--effort xhigh` | 88.6% | 52.3% | 34 |
 
 \*v7 counted 1 more for the first Sol arm and 1 fewer for the Opus plain prompt.
 
-On both models the brief came out about the same as a plain prompt. Both labs' review commands hold the model back at
-their defaults: at higher effort `codex review` drew level with the brief and `/code-review` with the plain prompt, and
-`xhigh` found the most serious bugs, for about four times the plain prompt's cost. Sol ran at its CLI's default
-reasoning effort ("none") everywhere except the two "high" rows. Two factory runs that failed on an unrelated bug were
-re-run under a dated amendment, and the `codex review` "high" row was added after the rest were judged.
+At the defaults, the brief came out about the same as a plain prompt on both models. Both labs' review commands hold
+the model back at their defaults: turned up, `codex review` drew level with the brief and `/code-review` with the plain
+prompt. Turning the brief up didn't pull it ahead: on Sol it stayed level with the plain prompt, and on Opus the plain
+prompt did better, as the brief's precision fell. A plain prompt at `xhigh` found as many serious bugs as
+`/code-review xhigh` at higher precision and lower cost. Sol ran at its CLI's default reasoning effort ("none") except
+in the "high" rows. Two factory runs that failed on an unrelated bug were re-run under a dated amendment, and the rows
+at "high" or `xhigh` other than `/code-review`'s were added after the rest were judged.
 
 **Against other Claude reviewers**, on v6's pull requests, each judged alone
 ([v8](helpers/factory-warranty/calibration/realbugs/results/v8-RESULTS.md)):

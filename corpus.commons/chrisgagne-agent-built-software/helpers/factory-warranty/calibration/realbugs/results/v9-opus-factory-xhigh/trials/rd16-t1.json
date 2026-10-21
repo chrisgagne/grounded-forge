@@ -1,0 +1,367 @@
+{
+ "id": "rd16",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "gate:added-tests",
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 2.7728,
+ "codex_tokens": 0,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd16-t1-10dg3i2y",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "ComposeEndpoints.cs:51 catches only InvalidOperationException and returns NotFound. Program.cs has no UseExceptionHandler or ProblemDetails (grep finds none), so SmtpCommandException, socket and auth errors become 500s. MailKit's ServiceNotAuthenticatedException derives from InvalidOperationException, so it is reported as a missing mailbox. MailboxEndpoints.cs:73 stores a null SMTP password when none is given, which makes that path reachable. SendMailFailed appears only in the resx files.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "line": 51,
+   "claim": "Send endpoint maps every InvalidOperationException to 404 MailboxNotFound and lets other SMTP/IMAP/crypto failures escape as 500s; SendMailFailed is never used.",
+   "evidence": "SendMailAsync wraps the service call in `try { ... } catch (InvalidOperationException) { return Results.NotFound(new { message = localizer[\"MailboxNotFound\"].Value }); }`. Program.cs has no UseExceptionHandler or ProblemDetails. A grep finds SendMailFailed only in the four ApiMessages*.resx files, never in code. Traced case: MailSendingService.SendViaSmtpAsync skips AUTH when `SmtpEncryptedPassword` is empty, which MailboxEndpoints.CreateMailboxAsync stores as null when no password is given. The server then answers 530 and MailKit throws ServiceNotAuthenticatedException, a subclass of InvalidOperationException, so the user gets 404 MailboxNotFound. SmtpCommandException, AuthenticationException, SocketException and CryptographicException from `protector.Unprotect` are not caught at all and become 500s.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+     "line": 45,
+     "claim": "The send endpoint handles only InvalidOperationException and maps it to 404 \"Mailbox not found\". So SMTP auth or connection failures either escape as unhandled 500s or get reported as a missing mailbox, and the localized SendMailFailed message added for this case is never returned.",
+     "evidence": "SendMailAsync wraps the service call in `try { ... } catch (InvalidOperationException) { return Results.NotFound(new { message = localizer[\"MailboxNotFound\"].Value }); }`. Program.cs has no UseExceptionHandler or ProblemDetails. A grep finds SendMailFailed only in the four ApiMessages*.resx files, never in code. Traced case: MailSendingService.SendViaSmtpAsync skips AUTH when `SmtpEncryptedPassword` is empty, which MailboxEndpoints.CreateMailboxAsync stores as null when no password is given. The server then answers 530 and MailKit throws ServiceNotAuthenticatedException, a subclass of InvalidOperationException, so the user gets 404 MailboxNotFound. SmtpCommandException, AuthenticationException, SocketException and CryptographicException from `protector.Unprotect` are not caught at all and become 500s."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff uses `client.GetFolder(SpecialFolder.Sent) ?? ...` inside a catch-all that only logs a warning. On servers with neither SPECIAL-USE nor XLIST, MailKit's GetFolder(SpecialFolder) throws NotSupportedException rather than returning null, so the `??` fallback is skipped and the send still returns success. The fallback also matches only the name \"Sent\".",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "line": 104,
+   "claim": "Sent-folder name fallback never runs on servers without SPECIAL-USE/XLIST because GetFolder(SpecialFolder) throws, and the sent copy is silently dropped.",
+   "evidence": "`var sent = client.GetFolder(SpecialFolder.Sent) ?? (await client.GetFoldersAsync(client.PersonalNamespaces[0], ...)).FirstOrDefault(f => f.Name.Equals(\"Sent\", ...))`. MailKit's ImapClient.GetFolder(SpecialFolder) throws NotSupportedException when the server advertises neither SPECIAL-USE nor XLIST; it does not return null. That exception skips the `??` branch and lands in `catch (Exception ex) { logger.LogWarning(...) }`, and SendMailAsync still returns the message ID. The name match also accepts only \"Sent\", so common names such as \"Sent Items\" and \"Sent Messages\" are missed. The repo's dev IMAP server is GreenMail (docs/phases/phase-3-mail/05-greenmail-dev-server.md).",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/Feirb.Api/Services/MailSendingService.cs",
+     "line": 104,
+     "claim": "The fallback that finds the Sent folder by name never runs on IMAP servers without SPECIAL-USE or XLIST, which are the servers that need it. On those servers the sent copy is silently dropped while the API still reports success.",
+     "evidence": "`var sent = client.GetFolder(SpecialFolder.Sent) ?? (await client.GetFoldersAsync(client.PersonalNamespaces[0], ...)).FirstOrDefault(f => f.Name.Equals(\"Sent\", ...))`. MailKit's ImapClient.GetFolder(SpecialFolder) throws NotSupportedException when the server advertises neither SPECIAL-USE nor XLIST; it does not return null. That exception skips the `??` branch and lands in `catch (Exception ex) { logger.LogWarning(...) }`, and SendMailAsync still returns the message ID. The name match also accepts only \"Sent\", so common names such as \"Sent Items\" and \"Sent Messages\" are missed. The repo's dev IMAP server is GreenMail (docs/phases/phase-3-mail/05-greenmail-dev-server.md)."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Grep finds no AddValidation in src, so minimal APIs do not run these attributes. ComposeEndpoints.cs:32 dereferences request.To.Length (a null To throws NullReferenceException and returns 500), and `email.Trim()` throws on a null element. BuildMimeMessage compares `ContentType == \"html\"` exactly, so \"HTML\" goes out as text/plain.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Feirb.Shared/Mail/SendMailRequest.cs",
+   "line": 16,
+   "claim": "DataAnnotations on SendMailRequest are not enforced server-side; null To or null entries throw, and non-lowercase ContentType sends HTML as plain text.",
+   "evidence": "Minimal APIs do not run DataAnnotations without AddValidation, and Program.cs never calls it. Existing endpoints check by hand instead (ClassificationRuleEndpoints.cs:43 `request.Instruction.Length > 500`). ComposeEndpoints checks only `request.To.Length == 0` and the email format. Results: `\"contentType\":\"HTML\"` fails `request.ContentType == \"html\"` (MailSendingService.cs:58), so raw markup goes out as text/plain. `[MaxLength(1_048_576)]` on Body does not stop a large body from being parsed by HtmlSanitizer. An omitted `to` makes `request.To.Length` throw NullReferenceException. A null array element makes `email.Trim()` throw. A null Subject throws when assigned to MimeMessage.Subject. Only Compose.razor checks `string.IsNullOrWhiteSpace(_subject)` and the body.",
+   "axis_row": "L5.35",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/Feirb.Shared/Mail/SendMailRequest.cs",
+     "line": 16,
+     "claim": "The DataAnnotations on SendMailRequest are never enforced on the server. A content type other than html/plain, an oversized body or subject, missing fields or null entries all reach the service; some give wrong output and others give 500s. Subject and body are required only in the Blazor client.",
+     "evidence": "Minimal APIs do not run DataAnnotations without AddValidation, and Program.cs never calls it. Existing endpoints check by hand instead (ClassificationRuleEndpoints.cs:43 `request.Instruction.Length > 500`). ComposeEndpoints checks only `request.To.Length == 0` and the email format. Results: `\"contentType\":\"HTML\"` fails `request.ContentType == \"html\"` (MailSendingService.cs:58), so raw markup goes out as text/plain. `[MaxLength(1_048_576)]` on Body does not stop a large body from being parsed by HtmlSanitizer. An omitted `to` makes `request.To.Length` throw NullReferenceException. A null array element makes `email.Trim()` throw. A null Subject throws when assigned to MimeMessage.Subject. Only Compose.razor checks `string.IsNullOrWhiteSpace(_subject)` and the body."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "quill-interop.js getHtml returns `this._instance.root.innerHTML`, with Quill 2.0.3 loaded. Quill 2 renders bullets as `<ol><li data-list=\"bullet\">` and depends on its own CSS. HtmlSanitizer's defaults strip data-* attributes, so the bullet marker is lost. getSemanticHTML is not used.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "line": 32,
+   "claim": "getHtml returns Quill's internal root.innerHTML instead of semantic HTML, so bullet lists and indents can reach recipients and Turndown as numbered lists or plain divs.",
+   "evidence": "`getHtml: function () { return this._instance.root.innerHTML; }` with Quill 2.0.3 loaded (index.html:56), and the toolbar offers `{ 'list': 'bullet' }` and indent and code-block buttons. Quill 2 renders every list as `<ol>` with `<li data-list=\"bullet\">` and relies on its own CSS and classes (ql-indent-N, ql-code-block). Its getSemanticHTML() exists to produce portable `<ul>`/`<ol>` markup. Server-side, OutgoingHtmlSanitizer uses HtmlSanitizer defaults, which strip data-* attributes, and the recipient's mail client has no Quill CSS, so a bullet list is shown numbered. The same markup goes to Turndown when switching to Markdown (`markedInterop.toMarkdown(html)`), so bullets become `1.` items there too.",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+     "line": 32,
+     "claim": "The rich-text body is taken from Quill's internal editor DOM rather than its exported HTML. Bullet lists, indents and code blocks from the toolbar may arrive at recipients as numbered lists or plain divs.",
+     "evidence": "`getHtml: function () { return this._instance.root.innerHTML; }` with Quill 2.0.3 loaded (index.html:56), and the toolbar offers `{ 'list': 'bullet' }` and indent and code-block buttons. Quill 2 renders every list as `<ol>` with `<li data-list=\"bullet\">` and relies on its own CSS and classes (ql-indent-N, ql-code-block). Its getSemanticHTML() exists to produce portable `<ul>`/`<ol>` markup. Server-side, OutgoingHtmlSanitizer uses HtmlSanitizer defaults, which strip data-* attributes, and the recipient's mail client has no Quill CSS, so a bullet list is shown numbered. The same markup goes to Turndown when switching to Markdown (`markedInterop.toMarkdown(html)`), so bullets become `1.` items there too."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The test constructor replaces IMailSendingService with an NSubstitute mock. The 404 test passes only because the mock throws, and the Cc/Bcc test asserts `Received(1)` with Arg.Any, never checking Cc or Bcc. The diff adds no test for MailSendingService, OutgoingHtmlSanitizer or sending from another user's mailbox.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "tests/Feirb.Api.Tests/Endpoints/ComposeEndpointsTests.cs",
+   "line": 68,
+   "claim": "Compose tests mock IMailSendingService, so the mailbox-ownership check, MIME building, sanitizing and Sent-folder logic are untested.",
+   "evidence": "The constructor does `services.RemoveAll<IMailSendingService>(); services.AddScoped(_ => _mailSendingService);`. SendMail_InvalidMailbox_Returns404Async gets its 404 only because the mock is told to `.ThrowsAsync(new InvalidOperationException(\"Mailbox not found\"))`; the real `m.Id == request.MailboxId && m.UserId == userId` filter in MailSendingService never runs. SendMail_WithCcAndBcc_CallsServiceAsync asserts `Received(1).SendMailAsync(Arg.Any<Guid>(), Arg.Any<SendMailRequest>(), ...)` and never checks that Cc or Bcc were passed. No test sends from a second user's mailbox, unlike MailboxEndpointsTests.ListMailboxes_OnlyReturnsCurrentUserMailboxesAsync. No test exists for MailSendingService or OutgoingHtmlSanitizer.",
+   "axis_row": "L3.3",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "tests/Feirb.Api.Tests/Endpoints/ComposeEndpointsTests.cs",
+     "line": 68,
+     "claim": "The compose tests replace IMailSendingService with a mock. The mailbox-ownership check that keeps one user from sending through another user's mailbox, and all MIME building, sanitizing and Sent-folder logic, have no tests, and the tests named for these behaviours would pass even if that logic were wrong.",
+     "evidence": "The constructor does `services.RemoveAll<IMailSendingService>(); services.AddScoped(_ => _mailSendingService);`. SendMail_InvalidMailbox_Returns404Async gets its 404 only because the mock is told to `.ThrowsAsync(new InvalidOperationException(\"Mailbox not found\"))`; the real `m.Id == request.MailboxId && m.UserId == userId` filter in MailSendingService never runs. SendMail_WithCcAndBcc_CallsServiceAsync asserts `Received(1).SendMailAsync(Arg.Any<Guid>(), Arg.Any<SendMailRequest>(), ...)` and never checks that Cc or Bcc were passed. No test sends from a second user's mailbox, unlike MailboxEndpointsTests.ListMailboxes_OnlyReturnsCurrentUserMailboxesAsync. No test exists for MailSendingService or OutgoingHtmlSanitizer."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "MailSendingService logs `Mail sent from {From} to {To}` with mailbox.EmailAddress and the joined To list at LogInformation. That is personal data in the logs, while the service's other log lines use only MailboxId.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "line": 33,
+   "claim": "Each send logs sender and all To addresses at Information level.",
+   "evidence": "`logger.LogInformation(\"Mail sent from {From} to {To} via mailbox {MailboxId}\", mailbox.EmailAddress, string.Join(\", \", request.To), mailbox.Id);`. Other log lines in this service identify the mailbox only by `{MailboxId}`. The risk class personal-data asks what is logged.",
+   "axis_row": "L2.2",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Feirb.Api/Services/MailSendingService.cs",
+     "line": 33,
+     "claim": "Every user send writes the sender's address and all To recipients' addresses to the application log at Information level, building a log of each user's correspondents.",
+     "evidence": "`logger.LogInformation(\"Mail sent from {From} to {To} via mailbox {MailboxId}\", mailbox.EmailAddress, string.Join(\", \", request.To), mailbox.Id);`. Other log lines in this service identify the mailbox only by `{MailboxId}`. The risk class personal-data asks what is logged."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "In SendViaSmtpAsync, `DisconnectAsync(quit: true)` follows SendAsync with no try/catch, so an exception there propagates as a failure after the message was accepted. Compose.razor then shows \"Failed to send email. Please try again.\"",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "line": 84,
+   "claim": "A failure in SMTP DisconnectAsync after SendAsync succeeds makes the request fail, inviting a duplicate resend.",
+   "evidence": "In SendViaSmtpAsync, `await client.SendAsync(message, cancellationToken);` is followed by `await client.DisconnectAsync(quit: true, cancellationToken);` with no try/catch. An exception there propagates out of SendMailAsync before the Sent-folder append. Compose.razor treats any non-success or exception as `Notifications.Add(L[\"ComposeSendFailed\"], ...)`, whose text is \"Failed to send email. Please try again.\"",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Feirb.Api/Services/MailSendingService.cs",
+     "line": 84,
+     "claim": "If the SMTP QUIT/disconnect fails after the server has accepted the message, the request fails and the UI asks the user to try again, so the mail can be sent twice.",
+     "evidence": "In SendViaSmtpAsync, `await client.SendAsync(message, cancellationToken);` is followed by `await client.DisconnectAsync(quit: true, cancellationToken);` with no try/catch. An exception there propagates out of SendMailAsync before the Sent-folder append. Compose.razor treats any non-success or exception as `Notifications.Add(L[\"ComposeSendFailed\"], ...)`, whose text is \"Failed to send email. Please try again.\""
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "setHtml assigns `root.innerHTML = html`, fed by `marked.parse` in SwitchToRichTextAsync, and marked passes raw HTML through. Only the user's own input reaches it today, so this is self-XSS; low is right.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "line": 37,
+   "claim": "setHtml writes unsanitized marked output into the live DOM (self-XSS today, a real sink once reply/forward prefill exists).",
+   "evidence": "`setHtml: function (html) { this._instance.root.innerHTML = html; }` is fed by `markedInterop.toHtml` \u2192 `marked.parse(markdown)` (line 55). marked passes raw HTML through, so `<img src=x onerror=...>` typed in Markdown mode runs when SwitchToRichTextAsync calls `quillInterop.setHtml`. auth.js stores `AccessToken`/`RefreshToken` in localStorage. Writing root.innerHTML also bypasses Quill's model, where clipboard.dangerouslyPasteHTML or setContents would go through it.",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+     "line": 37,
+     "claim": "Switching from Markdown to rich text writes unsanitized marked output straight into the live DOM of the app origin, where JWTs are kept in localStorage. Today this is self-XSS only, but it becomes a real XSS sink once reply or forward prefill the body with received mail.",
+     "evidence": "`setHtml: function (html) { this._instance.root.innerHTML = html; }` is fed by `markedInterop.toHtml` \u2192 `marked.parse(markdown)` (line 55). marked passes raw HTML through, so `<img src=x onerror=...>` typed in Markdown mode runs when SwitchToRichTextAsync calls `quillInterop.setHtml`. auth.js stores `AccessToken`/`RefreshToken` in localStorage. Writing root.innerHTML also bypasses Quill's model, where clipboard.dangerouslyPasteHTML or setContents would go through it."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "index.html adds three jsdelivr script tags with no integrity or crossorigin attributes (grep finds no `integrity` in the file), and the csproj adds HtmlSanitizer 9.0.892. Versions are pinned. The existing CDN tags also lack SRI, so this follows the current pattern; it stays a low supply-chain point.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Feirb.Web/wwwroot/index.html",
+   "line": 56,
+   "claim": "New CDN scripts (quill, marked, turndown) and the HtmlSanitizer package were added without SRI hashes or a recorded vetting step.",
+   "evidence": "`<script src=\"https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js\">`, `marked@15.0.7/marked.min.js` and `turndown@7.2.0/dist/turndown.js` have no `integrity`/`crossorigin` attributes. Feirb.Api.csproj adds `<PackageReference Include=\"HtmlSanitizer\" Version=\"9.0.892\" />`. The versions are pinned, but nothing guards the CDN content.",
+   "axis_row": "L4.4",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Feirb.Web/wwwroot/index.html",
+     "line": 56,
+     "claim": "The change adds three third-party scripts from a CDN (quill, marked, turndown) and a NuGet package (HtmlSanitizer) without integrity hashes or a recorded vetting step. These scripts run on every page, in the origin that holds the user's tokens.",
+     "evidence": "`<script src=\"https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js\">`, `marked@15.0.7/marked.min.js` and `turndown@7.2.0/dist/turndown.js` have no `integrity`/`crossorigin` attributes. Feirb.Api.csproj adds `<PackageReference Include=\"HtmlSanitizer\" Version=\"9.0.892\" />`. The versions are pinned, but nothing guards the CDN content."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the diff the Body label has no `for`, the Quill div and textarea carry no id or aria-label, the mode buttons show selection only by CSS class, and `for=\"mailbox\"` points at nothing in the single-mailbox case. This is an accessibility point with no functional defect, so it is low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "line": 111,
+   "claim": "Compose form accessibility gaps: the body label has no for, the editors have no accessible name, the mode toggle has no aria-pressed, and errors are not linked to fields.",
+   "evidence": "`<label class=\"form-label fw-semibold mb-0\">@L[\"ComposeBody\"]</label>` has no `for`. The Quill div (line 130) and the Markdown `<textarea>` (line 141) have no id, aria-label or aria-labelledby. The Rich text/Markdown buttons show selection only by CSS class, with no aria-pressed. `<label ... for=\"mailbox\">` (line 33) points at nothing when only one mailbox exists. `invalid-feedback` divs are not linked with aria-describedby. The sending spinner has role=\"status\" but no text.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Feirb.Web/Pages/Compose.razor",
+     "line": 111,
+     "claim": "The compose form has accessibility gaps on the compose flow that docs/phases/phase-7-quality/02-wcag.md calls critical: the body editors and mode toggle have no accessible name or state, and validation errors are not tied to their fields.",
+     "evidence": "`<label class=\"form-label fw-semibold mb-0\">@L[\"ComposeBody\"]</label>` has no `for`. The Quill div (line 130) and the Markdown `<textarea>` (line 141) have no id, aria-label or aria-labelledby. The Rich text/Markdown buttons show selection only by CSS class, with no aria-pressed. `<label ... for=\"mailbox\">` (line 33) points at nothing when only one mailbox exists. `invalid-feedback` divs are not linked with aria-describedby. The sending spinner has role=\"status\" but no text."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "docs/API.md:52 reads `POST /api/mail` and docs/ARCHITECTURE.md:177 reads `Not started`, while ComposeEndpoints maps `/send` under the /mail group. The diff touches neither doc. Documentation only, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "docs/API.md",
+   "line": 52,
+   "claim": "docs/API.md lists POST /api/mail for sending, while the code ships POST /api/mail/send; ARCHITECTURE.md still says Phase 5 is not started.",
+   "evidence": "docs/API.md:52 `| POST | /api/mail | Send a new message | 5 |`. ComposeEndpoints maps `group.MapPost(\"/send\", SendMailAsync)` under the `/api/mail` group (Program.cs:178). docs/ARCHITECTURE.md:177 `| Phase 5 | Mail Compose & Send | Not started |`. The diff touches neither doc.",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": "docs/API.md",
+     "line": 52,
+     "claim": "The API docs still list the send endpoint as `POST /api/mail`, while the change ships `POST /api/mail/send`, and ARCHITECTURE.md still marks Phase 5 Mail Compose & Send as \"Not started\".",
+     "evidence": "docs/API.md:52 `| POST | /api/mail | Send a new message | 5 |`. ComposeEndpoints maps `group.MapPost(\"/send\", SendMailAsync)` under the `/api/mail` group (Program.cs:178). docs/ARCHITECTURE.md:177 `| Phase 5 | Mail Compose & Send | Not started |`. The diff touches neither doc."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff shows `var error = await response.Content.ReadAsStringAsync();` never used. ComposeValidationMailbox is added to the resx files but not referenced in Compose.razor. IsValidEmail is identical in Compose.razor and ComposeEndpoints, and MailSendingService redeclares the purpose strings. Maintainability, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "line": 309,
+   "claim": "Dead code and duplication: the server error body is read and discarded, ComposeValidationMailbox is unused, and IsValidEmail and the password-purpose constants are duplicated.",
+   "evidence": "`var error = await response.Content.ReadAsStringAsync();` is never used, so the server's specific message (e.g. which address was invalid) never reaches the user. `ComposeValidationMailbox` is added to all four SharedResources files but nothing references it. `IsValidEmail` (Compose.razor:352) duplicates ComposeEndpoints.IsValidEmail line for line, so the two can drift apart. MailSendingService adds a third copy of the `\"MailboxSmtpPassword\"`/`\"MailboxImapPassword\"` purpose constants already in MailboxEndpoints and ImapSyncService.",
+   "axis_row": "L6.25",
+   "members": [
+    {
+     "id": "C12",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Feirb.Web/Pages/Compose.razor",
+     "line": 309,
+     "claim": "The change leaves dead code and duplication behind: the server's error body is read and thrown away, a localized validation key is never used, and the email validator is copied between client and server.",
+     "evidence": "`var error = await response.Content.ReadAsStringAsync();` is never used, so the server's specific message (e.g. which address was invalid) never reaches the user. `ComposeValidationMailbox` is added to all four SharedResources files but nothing references it. `IsValidEmail` (Compose.razor:352) duplicates ComposeEndpoints.IsValidEmail line for line, so the two can drift apart. MailSendingService adds a third copy of the `\"MailboxSmtpPassword\"`/`\"MailboxImapPassword\"` purpose constants already in MailboxEndpoints and ImapSyncService."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C13"
+   ],
+   "verdict": "confirmed",
+   "reason": "BuildMimeMessage uses `mailbox.DisplayName ?? mailbox.Name`, where Name is the label shown on the badge, and it sets a single `TextPart(\"html\")` with no multipart/alternative. A minor deliverability and presentation issue, so low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "line": 43,
+   "claim": "From falls back to the mailbox's internal label as the sender name, and HTML mail has no text/plain alternative.",
+   "evidence": "`message.From.Add(new MailboxAddress(mailbox.DisplayName ?? mailbox.Name, mailbox.EmailAddress));`, where Mailbox.Name is the user's label for the mailbox (MailboxListResponse shows it as the badge text). For html, `message.Body = new TextPart(\"html\") { Text = sanitizedHtml };` is a single part with no multipart/alternative, e.g. via BodyBuilder.",
+   "members": [
+    {
+     "id": "C13",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/Feirb.Api/Services/MailSendingService.cs",
+     "line": 43,
+     "claim": "When a mailbox has no DisplayName, the From header shows the mailbox's internal label (such as \"Work\" or \"Test\") as the sender name. HTML mails are also sent with no text/plain alternative, which hurts text-only clients and spam scoring.",
+     "evidence": "`message.From.Add(new MailboxAddress(mailbox.DisplayName ?? mailbox.Name, mailbox.EmailAddress));`, where Mailbox.Name is the user's label for the mailbox (MailboxListResponse shows it as the badge text). For html, `message.Body = new TextPart(\"html\") { Text = sanitizedHtml };` is a single part with no multipart/alternative, e.g. via BodyBuilder."
+    }
+   ],
+   "id": "F13"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast",
+   "gate:added-tests",
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

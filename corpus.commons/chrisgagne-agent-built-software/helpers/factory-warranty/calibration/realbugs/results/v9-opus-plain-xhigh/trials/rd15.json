@@ -1,0 +1,70 @@
+{
+ "id": "rd15",
+ "arm": "plain-xhigh",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "scripts/verify.sh",
+   "start_line": 277,
+   "end_line": 279,
+   "message": "Every non-wrapper binary fails its probe because of a quoting bug. The heredoc uses an unquoted delimiter (`<<SH`), and in that kind of heredoc `\\\"` is not an escape, so the backslashes stay in the generated script: `binary_path=\"$(command -v \\\"jq\\\" || true)\"`. A `$(...)` inside double quotes is parsed separately from the outer quotes, so `\\\"` becomes a literal quote and the shell runs `command -v '\"jq\"'`. That lookup always fails, the probe prints `missing_binary:jq` and exits 1. Check 3 will therefore always fail on the first manifest entry (jq), and so will the sandbox check, before gemini is ever reached. `bash -n` can't catch this. The base version used a quoted heredoc, so `\"${binary}\"` was correct there. Fix: use `command -v ${binary}` (or `'${binary}'`), or pass the binary and smoke command as positional args to `sh -c` instead of interpolating them."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "scripts/verify.sh",
+   "start_line": 258,
+   "end_line": 298,
+   "message": "If the quoting bug above is fixed, this loop silently stops after the first entry. It reads entries from a here-string (`done <<< \"${entries_json}\"`), and every iteration calls `gce_ssh`, i.e. `gcloud compute ssh`. Without `-n`, ssh reads its stdin to EOF and forwards it to the remote side, even when the remote command never reads it. The first SSH call therefore consumes all remaining manifest lines, the next `read` hits EOF, and the loop exits. Only the first entry (jq) gets verified. Gemini, the binary this PR is about, and every other binary are skipped while verify reports success: the check fails open. The old code made a single SSH call, so this is new. Fix: give each in-loop `gce_ssh` stdin from `/dev/null` (or pass `--ssh-flag=-n`), or read the loop from a different file descriptor (`while read -r entry_json <&3; ... done 3<<<...`)."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "scripts/verify.sh",
+   "start_line": 240,
+   "end_line": 255,
+   "message": "The verifier now takes its list of required binaries from the runner's checkout (`scripts/docker/runtime-binaries.json`) instead of from the manifest baked into the deployed image. The in-image manifest is only checked for existence (`test -f`); its contents are ignored. `verify.yml` checks out the workflow ref, not `DEPLOYED_REF`. `deploy-staging-on-release.yml` runs on `workflow_run`, so the checkout is the default branch HEAD rather than `workflow_run.head_sha`, and a manual production verify runs against whichever branch it was dispatched from. Whenever the checkout and the image differ (commits landed after the release, rollbacks, production verified from dev), verify either fails falsely on binaries the image never promised, or misses checking binaries the image's own manifest lists. Fix: read the in-image manifest (e.g. `docker exec ... cat` or `docker run --entrypoint cat`) and parse it locally with jq, or check out `DEPLOYED_REF`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "scripts/verify.sh",
+   "start_line": 358,
+   "end_line": 358,
+   "message": "`runtime_wrapper_bin` now comes from `OPENCLAW_RUNTIME_WRAPPER_BIN` in the CI runner's environment. Before, it was read inside the container, where the Dockerfile sets it. `verify.yml` never sets it, so the path is hard-coded to `/opt/daisy/bin`. If the image ever changes its wrapper prefix, verify will look in the wrong place, and an unrelated runner env var could also redirect the check. Read the value from the target, e.g. `docker exec <c> printenv OPENCLAW_RUNTIME_WRAPPER_BIN` or `docker image inspect` for the image."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "scripts/verify.sh",
+   "start_line": 258,
+   "end_line": 298,
+   "message": "Splitting the single probe into per-entry remote calls takes one SSH session per check, previously one per target. Each target now needs about 14 IAP-tunneled `gcloud compute ssh` sessions: the manifest check, the arch check, one per non-wrapper binary, and two for the wrapper. That is roughly 28 per run when sandboxing is on, and in image mode each one also starts a fresh `docker run --rm` container. This adds minutes to verify and gives IAP/SSH flakiness many more chances to cause spurious failures. Only wrapper-backed entries needed direct exec. Non-wrapper entries could still go through one batched shell probe per target."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "scripts/verify.sh",
+   "start_line": 242,
+   "end_line": 243,
+   "message": "Any non-zero exit from `gce_ssh` is reported as \"Runtime binary manifest missing\". That includes transport failures: IAP tunnel errors, ssh exit 255, `docker exec` failing because the container is gone. Operators will be pointed at image provisioning when the real problem is connectivity, the same verifier-vs-image confusion this PR set out to fix. The same applies to the wrapper `test -x` check at 267-268. Distinguish exit 1 from `test` from other failures, or word the message to cover both."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "scripts/verify.sh",
+   "start_line": 185,
+   "end_line": 207,
+   "message": "The `image` branch of `build_target_direct_exec_command` copies the smoke-suffix parsing, the metacharacter guard, and the arg re-quoting from `build_direct_exec_smoke_command` instead of calling it. It could pass `sudo docker run --rm --entrypoint <path> <image>` as the prefix, though that would require separating where the binary path and args go. The `smoke_suffix`, `arg` and `smoke_args` locals are also unused in the container branch. If the two copies drift, container and sandbox verification will behave differently. Also, the guard's `*'\\\\'*` pattern matches two consecutive backslashes, not one. This is harmless only because `printf '%q'` re-quotes every arg anyway."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 202,
+  "cost_usd": 0.9677401999999999,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

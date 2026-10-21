@@ -1,0 +1,267 @@
+{
+ "id": "rd12",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.1578,
+ "codex_tokens": 106653,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd12-t1-re11bqmd",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "In Phase 2 the agents only return summaries and TASK_PROPOSALs. Phase 4.1\u20134.5 writes only the tasks file, the task plans, the planning report, the DoR checklist and story Section 8, and no step writes architecture-story-*.md or plan-story-*.md. DoR checks 1 and 9 pass only if 'File exists', so a first run with no earlier plans gets NOT_READY. Story 3.1 and the READY scenario expect these plans to be generated.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 514,
+   "claim": "First-time planning never writes the architecture, implementation, test or security plan files, yet DoR checks 1 and 9 require those files to exist.",
+   "evidence": "The subagents return summaries and proposals, while Phase 4 writes only task breakdowns, task plans, the planning report, and story subtasks. No step writes architecture-story-*.md, plan-story-*.md, tests-story-*.md, or security-story-*.md. With no pre-existing plans, mandatory checks 1 and 9 require files this workflow never creates.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 514,
+     "claim": "First-time planning never saves the architecture, implementation, test, or security plans required for readiness and subsequent reuse.",
+     "evidence": "The subagents return summaries and proposals, while Phase 4 writes only task breakdowns, task plans, the planning report, and story subtasks. No step writes architecture-story-*.md, plan-story-*.md, tests-story-*.md, or security-story-*.md. With no pre-existing plans, mandatory checks 1 and 9 require files this workflow never creates."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Phase 0.3 compares mtime(story) with mtime(tasks file). Phase 4.1 writes the tasks file before Phase 4.5 edits the story's Section 8, so the story is always newer and the 'Regenerate (stale)' branch runs every time. The story's reuse scenario uses the planning report and the log 'Reusing existing planning artifacts'; the skill uses the tasks file and a different message.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 93,
+   "claim": "The freshness check compares the story against the tasks file, and Phase 4.5 then rewrites the story, so the next run always looks stale and launches all five agents again.",
+   "evidence": "Phase 0 compares the story against the tasks file, although the acceptance scenario specifies the planning report. Phase 4.1 writes tasks before Phase 4.5 updates the story, making the story newer than tasks after normal generation. The next invocation therefore takes the stale branch and launches all five agents again.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 93,
+     "claim": "The freshness check regenerates completed planning on subsequent invocations instead of reusing it.",
+     "evidence": "Phase 0 compares the story against the tasks file, although the acceptance scenario specifies the planning report. Phase 4.1 writes tasks before Phase 4.5 updates the story, making the story newer than tasks after normal generation. The next invocation therefore takes the stale branch and launches all five agents again."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Check 7 says to count `Scenario:` lines. story-0028-0002.md has six `Cenario:` headings and no `Scenario:`, and x-story-create/x-story-epic-full tell writers to use Portuguese Gherkin (`Cenario`). Every story the project's own tooling generates therefore fails the \u22654 threshold.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 721,
+   "claim": "DoR check 7 counts only `Scenario:` lines, so Portuguese stories that use `Cenario:` show zero scenarios and fail.",
+   "evidence": "Mandatory check 7 instructs counting only `Scenario:` lines. The supplied story-0028-0002.md contains six `Cenario:` headings and zero `Scenario:` headings, so following this check produces zero scenarios and fails the four-scenario threshold.",
+   "breaks": "story",
+   "axis_row": "L5.21",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 721,
+     "claim": "The scenario-count check rejects valid Portuguese stories as NOT_READY.",
+     "evidence": "Mandatory check 7 instructs counting only `Scenario:` lines. The supplied story-0028-0002.md contains six `Cenario:` headings and zero `Scenario:` headings, so following this check produces zero scenarios and fails the four-scenario threshold."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "Phase 5.3 writes the DoR checklist and updates the planning report's DoR Status, and that is all. The only story edit anywhere is Section 8.1 (Phase 4.5), and 'Pronta para Desenvolvimento' does not appear in the skill. The story's READY scenario and its 3.3 artifacts list (Section 4 checkmarks) both require these updates.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 795,
+   "claim": "A READY verdict never sets the story status to 'Pronta para Desenvolvimento' and never adds the Section 4 DoR checkmarks.",
+   "evidence": "The READY acceptance scenario requires updating the story status to `Pronta para Desenvolvimento`, and Section 3.3 requires Section 4 readiness checkmarks. Phase 5 updates only the planning report and checklist; the only prescribed story edits concern acceptance criteria and Section 8 subtasks.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 795,
+     "claim": "A READY verdict leaves the story pending instead of marking it ready for development.",
+     "evidence": "The READY acceptance scenario requires updating the story status to `Pronta para Desenvolvimento`, and Section 3.3 requires Section 4 readiness checkmarks. Phase 5 updates only the planning report and checklist; the only prescribed story edits concern acceptance criteria and Section 8 subtasks."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "SKILL.md:11 says 'English ONLY'. The story lists RULE-006 as applicable, and epic-0028.md:55 requires planning-skill output in pt-BR. Sibling planning skills (x-story-create, x-story-map, x-story-epic) all set pt-BR. I lowered this to medium because it is wrong output language, not a broken flow.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 11,
+   "claim": "The skill says 'Language: English ONLY', which conflicts with RULE-006 (planning content must be in pt-BR).",
+   "evidence": "Story-0028-0002 explicitly applies RULE-006, which requires generated planning content in pt-BR except technical terms and identifiers. Every invocation instead receives the unconditional instruction `Language: English ONLY`, with no Portuguese override for generated artifacts.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 11,
+     "claim": "The English-only output policy violates the required Brazilian Portuguese planning output.",
+     "evidence": "Story-0028-0002 explicitly applies RULE-006, which requires generated planning content in pt-BR except technical terms and identifiers. Every invocation instead receives the unconditional instruction `Language: English ONLY`, with no Portuguese override for generated artifacts."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "SkillsAssembler.selectCoreSkills (lines 87-112) lists every core directory and copyCoreSkill copies it. GoldenFileTest.validateCompleteness (lines 173-189) fails when generated files are not in the golden set. Nothing under java/src/test mentions x-story-plan, so every profile's parity test now fails. The story's DoD also asks for a golden-file match.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 1,
+   "claim": "The new core skill is picked up automatically, but no golden fixture includes it, so GoldenFileTest fails on extra files.",
+   "evidence": "SkillsAssembler.selectCoreSkills() scans every core directory and copyCoreSkill() copies its contents. The new directory therefore adds generated x-story-plan files for profiles such as java-spring, but no golden fixture contains them. GoldenFileTest.validateCompleteness() explicitly fails when generated files include paths absent from the golden set.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "high",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 1,
+     "claim": "Adding the automatically discovered core skill without updating golden fixtures breaks the existing golden parity tests.",
+     "evidence": "SkillsAssembler.selectCoreSkills() scans every core directory and copyCoreSkill() copies its contents. The new directory therefore adds generated x-story-plan files for profiles such as java-spring, but no golden fixture contains them. GoldenFileTest.validateCompleteness() explicitly fails when generated files include paths absent from the golden set."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "X7"
+   ],
+   "verdict": "confirmed",
+   "reason": "Rule 1 (SKILL.md Phase 3.2) merges tasks from different agents on component+layer alone, with no tdd_phase check. Its own example merges ARCH-003 with SEC-002, while Rule 2 says the SEC task must be kept as a separate verification task. Rule 3 only repairs QA GREEN tasks and cannot undo an ARCH GREEN + QA RED merge.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 437,
+   "claim": "MERGE joins any proposals that share a component and layer without checking their TDD phase, so RED/GREEN tasks or a separate SEC verification task can collapse into one.",
+   "evidence": "Rule 1 merges proposals from different agents without checking their TDD phases. For example, an Architect GREEN proposal and a QA RED proposal targeting the same domain component become one task, which cannot retain both phases. Rule 3 subsequently repairs only QA GREEN tasks; it does not undo this merge. Likewise, merging an ARCH and SEC proposal occurs before AUGMENT requires retaining the separate SEC verification task.",
+   "members": [
+    {
+     "id": "X7",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 437,
+     "claim": "Unconditional merging by component and layer can collapse separate test, implementation, and verification tasks.",
+     "evidence": "Rule 1 merges proposals from different agents without checking their TDD phases. For example, an Architect GREEN proposal and a QA RED proposal targeting the same domain component become one task, which cannot retain both phases. Rule 3 subsequently repairs only QA GREEN tasks; it does not undo this merge. Likewise, merging an ARCH and SEC proposal occurs before AUGMENT requires retaining the separate SEC verification task."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "X8"
+   ],
+   "verdict": "confirmed",
+   "reason": "Phase 5.3 sets total_checks = mandatory_passed + conditional_applicable, so the total depends on how many mandatory checks passed instead of being fixed at 10. With 9 of 10 mandatory passing and no conditional checks it reports 9/9. The story's checks_total and its '10/10 checks passed' expect a fixed denominator.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 741,
+   "claim": "total_checks = mandatory_passed + conditional_applicable leaves failed mandatory checks out of the total, so a failing run can print 'Passed: 9/9'.",
+   "evidence": "The formula uses `total_checks = mandatory_passed + conditional_applicable` instead of ten mandatory checks plus applicable conditional checks. With nine mandatory passes, one mandatory failure, and no conditional checks, the checklist prints `Passed: 9/9` despite evaluating ten checks.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X8",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 741,
+     "claim": "Failed mandatory checks are excluded from the reported total, making incomplete readiness results appear fully passed.",
+     "evidence": "The formula uses `total_checks = mandatory_passed + conditional_applicable` instead of ten mandatory checks plus applicable conditional checks. With nine mandatory passes, one mandatory failure, and no conditional checks, the checklist prints `Passed: 9/9` despite evaluating ten checks."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "X9"
+   ],
+   "verdict": "confirmed",
+   "reason": "Phase 0.2 resolves IMPLEMENTATION-MAP.md, but x-story-map/SKILL.md:170 saves `implementation-map-XXXX.md`, and the repo has plans/epic-0028/implementation-map-0028.md. Phase 1.3 therefore takes the 'not found' warning branch even though the map exists. Other skills (x-dev-epic-implement) also use the uppercase name, so the convention is inconsistent across the project; it stays medium because the skill only logs a warning and continues.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "line": 81,
+   "claim": "The skill looks for plans/epic-XXXX/IMPLEMENTATION-MAP.md, but x-story-map writes implementation-map-XXXX.md, so planning always proceeds without dependency context.",
+   "evidence": "The path table resolves `plans/epic-XXXX/IMPLEMENTATION-MAP.md`, and Phase 1.3 warns and continues when it is absent. Existing x-story-map/SKILL.md specifies `implementation-map-XXXX.md`; the supplied epic has implementation-map-0028.md. Planning that epic therefore takes the missing-map branch despite its map existing.",
+   "members": [
+    {
+     "id": "X9",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+     "line": 81,
+     "claim": "The implementation-map lookup misses maps generated by the existing story-mapping skill, dropping dependency context.",
+     "evidence": "The path table resolves `plans/epic-XXXX/IMPLEMENTATION-MAP.md`, and Phase 1.3 warns and continues when it is absent. Existing x-story-map/SKILL.md specifies `implementation-map-XXXX.md`; the supplied epic has implementation-map-0028.md. Planning that epic therefore takes the missing-map branch despite its map existing."
+    }
+   ],
+   "id": "F9"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4",
+  "F5",
+  "F6"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

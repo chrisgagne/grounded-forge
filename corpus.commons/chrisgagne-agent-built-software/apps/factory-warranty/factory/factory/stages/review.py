@@ -486,19 +486,21 @@ def _run(change, cfg: dict, lc: dict, work: Path) -> bool:
             return legs.run_claude(ask(packet), export, logs / logname[name], model=cfg["claude_model"],
                                    timeout_s=timeout_s, read_only=True, add_dirs=(packet,),
                                    setting_sources=lc.get("setting_sources"), settings=claude_settings[name],
-                                   json_schema=FINDINGS_SCHEMA)
+                                   json_schema=FINDINGS_SCHEMA, effort=cfg.get("claude_effort"))
         if name == "codex":
             return legs.run_codex(ask(packet), export, logs / logname[name], logs / "codex-final.md",
                                   model=cfg.get("codex_model"), timeout_s=timeout_s,
-                                  output_schema=logs / "findings-schema.json")
+                                  output_schema=logs / "findings-schema.json", effort=cfg.get("codex_effort"))
         if name == "claude-plain":
             prompt = brief("reviewer-plain.md", diff=packet / "diff.patch", story=story_text)
             change.path(f"review/packet-{name}/plain-brief.md").write_text(prompt)
             return legs.run_claude(prompt, export, logs / logname[name], model=cfg["claude_model"],
                                    timeout_s=timeout_s, read_only=True, add_dirs=(packet,),
-                                   setting_sources=lc.get("setting_sources"), settings=claude_settings[name])
+                                   setting_sources=lc.get("setting_sources"), settings=claude_settings[name],
+                                   effort=cfg.get("claude_effort"))
         return legs.run_codex_review(export, logs / logname[name], base="base", title=story_text.splitlines()[0][:200],
-                                     model=cfg.get("codex_model"), timeout_s=timeout_s, home=legs.codex_home(work))
+                                     model=cfg.get("codex_model"), timeout_s=timeout_s, home=legs.codex_home(work),
+                                     effort=cfg.get("codex_effort"))
 
     def leg(name: str) -> dict:
         """One reviewer, retried when it runs out of time; each earlier attempt's log is kept and listed."""

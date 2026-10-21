@@ -1,0 +1,217 @@
+{
+ "id": "rd23",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:deps",
+  "gate:rollback",
+  "gate:required",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 0.4592,
+ "codex_tokens": 97329,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd23-t1-1v9ilmqc",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "event_service.ts:5 declares isRegistered as async, and the controller tests `!this.eventService.isRegistered(user!, event)` without await. A Promise is always truthy, so the rejection branch never runs and checkin attaches any scanned participant who is not already checked in.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "line": 106,
+   "claim": "Unregistered participants can be checked in because the isRegistered check is not awaited.",
+   "evidence": "EventService.isRegistered is async, so `!this.eventService.isRegistered(user!, event)` tests a truthy Promise and always skips rejection. For a valid participant who is neither registered nor checked in, execution reaches checkin at line 116; the service attaches the user without another registration check. Executing the handler with isRegistered resolving false confirmed this path.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "apps/website/app/controllers/events_controller.ts",
+     "line": 106,
+     "claim": "Unregistered participants can be checked into events because the registration check is never awaited.",
+     "evidence": "EventService.isRegistered is async, so `!this.eventService.isRegistered(user!, event)` tests a truthy Promise and always skips rejection. For a valid participant who is neither registered nor checked in, execution reaches checkin at line 116; the service attaches the user without another registration check. Executing the handler with isRegistered resolving false confirmed this path."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "page.tsx:290 wraps the only QrCode trigger (line 313-315) inside `{!isRegistered && ...}`, and the controller computes isRegistered for the logged-in user. A registered staff member therefore has no way to set scannerModalOpen. Lowered to medium because it only affects staff who registered themselves.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "line": 313,
+   "claim": "Staff who are registered for an event cannot open its check-in scanner.",
+   "evidence": "The only control that sets scannerModalOpen to true is nested inside `!isRegistered` at line 290. EventsController.show calculates registration for the current user, so a registered staff member loses that control while the dialog remains closed.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "apps/website/inertia/pages/events/show/page.tsx",
+     "line": 313,
+     "claim": "Staff registered for an event cannot open its check-in scanner.",
+     "evidence": "The only control that sets scannerModalOpen to true is nested inside `!isRegistered` at line 290. EventsController.show calculates registration for the current user, so a registered staff member loses that control while the dialog remains closed."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "disputed",
+   "reason": "8_staff_seeder.ts and mock_staff_profile_seeder.ts have no app.inDev guard, unlike 2_account_seeder.dev.ts:11, so db:seed in production would create staff@eneiconf.pt/password. However, no deploy script in the repo runs db:seed, so the code doesn't show that production seeding happens. Lowered from high because there is no traced trigger.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "apps/website/database/seeders/8_staff_seeder.ts",
+   "line": 29,
+   "claim": "New seeders create a staff account with a known password, and grant staff to user 1, with no environment guard.",
+   "evidence": "Running 8_staff_seeder creates the verified account staff@eneiconf.pt with password `password` and associates a staff profile, without an environment guard. UserService.getUserWithCredentials authenticates that account, and StaffMiddleware accepts its staffProfileId. The other new seeder, mock_staff_profile_seeder.ts, unconditionally grants staff status to user ID 1. The existing 2_account_seeder.dev.ts demonstrates an app.inDev guard.",
+   "axis_row": "L5.33",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "high",
+     "file": "apps/website/database/seeders/8_staff_seeder.ts",
+     "line": 29,
+     "claim": "The new test seeders can grant staff access outside development, including through publicly known credentials.",
+     "evidence": "Running 8_staff_seeder creates the verified account staff@eneiconf.pt with password `password` and associates a staff profile, without an environment guard. UserService.getUserWithCredentials authenticates that account, and StaffMiddleware accepts its staffProfileId. The other new seeder, mock_staff_profile_seeder.ts, unconditionally grants staff status to user ID 1. The existing 2_account_seeder.dev.ts demonstrates an app.inDev guard."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The controller awaits isCheckedIn and then checkin attaches without handling the error, while the migration adds UNIQUE(event_id,user_id). scanner.tsx sets allowMultiple={true} and scanDelay={0}, so one QR can send duplicate posts close together, and the losing insert returns a 500 instead of 'already checked in'.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "apps/website/app/services/event_service.ts",
+   "line": 34,
+   "claim": "Concurrent check-ins of the same participant raise an unhandled unique-constraint error.",
+   "evidence": "EventsController.checkin separately awaits isCheckedIn and then calls checkin. Two requests can both observe no check-in before this unconditional attach. The migration enforces UNIQUE(event_id,user_id), but neither the service nor controller handles the losing insert as an already-checked-in result.",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "apps/website/app/services/event_service.ts",
+     "line": 34,
+     "claim": "Concurrent check-ins for the same participant can produce an unhandled database error.",
+     "evidence": "EventsController.checkin separately awaits isCheckedIn and then calls checkin. Two requests can both observe no check-in before this unconditional attach. The migration enforces UNIQUE(event_id,user_id), but neither the service nor controller handles the losing insert as an already-checked-in result."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "disputed",
+   "reason": "The result of User.findBy at line 104 is used with `user!` without a null check, and isCheckedIn dereferences user.id. The schema link is user\u2192profile (users.participantProfileId is nullable), so an orphan profile is possible but the code doesn't show how one would arise. Lowered to low.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "line": 104,
+   "claim": "A participant profile with no linked user causes an exception instead of a not-found message.",
+   "evidence": "The controller checks whether the profile exists but never checks the result of User.findBy. A null user is passed to isRegistered and isCheckedIn, both of which dereference user.id. The profile-to-user association is not guaranteed by the schema; ProfilesController.index explicitly handles this same missing-user state.",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "apps/website/app/controllers/events_controller.ts",
+     "line": 104,
+     "claim": "Scanning a participant profile without an associated user causes an exception instead of participant-not-found feedback.",
+     "evidence": "The controller checks whether the profile exists but never checks the result of User.findBy. A null user is passed to isRegistered and isCheckedIn, both of which dereference user.id. The profile-to-user association is not guaranteed by the schema; ProfilesController.index explicitly handles this same missing-user state."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "page.tsx:314 renders `<QrCode onClick=...>` with no button wrapper, tabIndex, key handler or aria-label. This is an accessibility point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "line": 314,
+   "claim": "The scanner trigger is a bare SVG with onClick, so keyboard users can't reach it and it has no accessible name.",
+   "evidence": "The action is attached directly to a QrCode SVG with only onClick. It has no button wrapper, tabIndex, keyboard handler, or accessible label.",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "low",
+     "file": "apps/website/inertia/pages/events/show/page.tsx",
+     "line": 314,
+     "claim": "The scanner control is inaccessible to keyboard users and has no accessible action name.",
+     "evidence": "The action is attached directly to a QrCode SVG with only onClick. It has no button wrapper, tabIndex, keyboard handler, or accessible label."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "X7"
+   ],
+   "verdict": "confirmed",
+   "reason": "apps/website/tests contains only bootstrap.ts, and the diff adds no tests for the checkin action, service, or scanner. The missing registration check (X1) is the kind of defect a test would have caught.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/website/tests",
+   "line": null,
+   "claim": "The new check-in behaviour has no automated tests.",
+   "evidence": "The diff adds the controller action, service methods, migration, and scanner dialog without adding tests. The exported tests directory contains only bootstrap.ts, leaving registration rejection, duplicate check-ins, staff authorization, and scanner availability unchecked.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "X7",
+     "leg": "codex",
+     "severity": "low",
+     "file": "apps/website/tests",
+     "line": null,
+     "claim": "The new check-in behavior has no automated regression coverage.",
+     "evidence": "The diff adds the controller action, service methods, migration, and scanner dialog without adding tests. The exported tests directory contains only bootstrap.ts, leaving registration rejection, duplicate check-ins, staff authorization, and scanner availability unchecked."
+    }
+   ],
+   "id": "F7"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:deps",
+   "gate:rollback",
+   "gate:required"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

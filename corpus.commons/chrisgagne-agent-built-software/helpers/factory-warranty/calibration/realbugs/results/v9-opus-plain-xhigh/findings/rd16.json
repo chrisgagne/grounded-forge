@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/mamu7211/feirb-mailclient",
+  "pr_number": 215,
+  "base": "76d9db59beaf6a0942c84522b9d33058f721ee86",
+  "head": "d15c6ca689e20a95a1c5468d0e87f71f8b5e7496"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 30,
+   "end_line": 33,
+   "message": "`getHtml` returns `quill.root.innerHTML`, which is Quill 2's internal editor markup, not portable HTML. Quill 2 renders every list as `<ol>` and tells bullets apart only by `data-list=\"bullet\"`. It marks indents with `ql-indent-N` classes and wraps code blocks in `<div class=\"ql-code-block\">`. The server-side HtmlSanitizer strips `data-*` and `class` attributes by default, and recipients don't have Quill's CSS. So every bullet list arrives as a numbered list, and indentation and code-block formatting are lost. Rich\u2192Markdown has the same problem: Turndown turns bullet lists into `1.` lists and code blocks into plain text. Use `quill.getSemanticHTML()` (Quill 2 API), which produces proper `<ul>`/`<ol>`/`<pre>` markup."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 35,
+   "end_line": 38,
+   "message": "`setHtml` assigns `quill.root.innerHTML` directly, which skips Quill's clipboard matchers and Delta model. marked emits tags Quill doesn't model (`<ul>`, `<pre><code>`, tables, raw HTML), so after switching Markdown\u2192Rich, the DOM and Quill's internal content can disagree. `isEmpty()`/`getText()` and undo history then become unreliable, and the content isn't normalized. marked also passes raw HTML through, so markdown such as `<img src=x onerror=...>` runs when injected via innerHTML (self-XSS). Use `quill.clipboard.dangerouslyPasteHTML(html)` or `setContents(quill.clipboard.convert({ html }))`, ideally after sanitizing the marked output."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 104,
+   "end_line": 106,
+   "message": "`ImapClient.GetFolder(SpecialFolder.Sent)` doesn't return null when the server lacks SPECIAL-USE/XLIST; it throws `NotSupportedException`. So the `?? GetFoldersAsync(...)` fallback only runs on servers that support SPECIAL-USE but have no \\Sent folder. On servers without the extension, including GreenMail used in dev, the outer catch swallows the exception and the copy is never saved to Sent. No Sent folder is created when missing, the name match only covers \"Sent\" (not \"Sent Items\" or \"Sent Messages\"), and `PersonalNamespaces[0]` can throw when the list is empty. Check `client.Capabilities` before calling `GetFolder`, fall back to name matching, and create the folder if it doesn't exist."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 40,
+   "end_line": 48,
+   "message": "Only `InvalidOperationException` is caught, and it is always turned into 404 \"Mailbox not found\". SMTP failures (SmtpCommandException, AuthenticationException, SslHandshakeException, SocketException, CryptographicException from Unprotect, MimeKit ParseException) escape as raw 500s. The `SendMailFailed` resource added in this PR is never used. Several MailKit exceptions also derive from `InvalidOperationException` (`ServiceNotAuthenticatedException`, `ServiceNotConnectedException`). For example, when `SmtpRequiresAuth` is true but no password is stored, MailSendingService.cs:76 silently skips auth, the server replies 530, MailKit throws ServiceNotAuthenticatedException, and the user sees \"Mailbox not found\". Use a dedicated not-found result or exception type, and map send failures to a localized error (e.g. 502 or 400 with `SendMailFailed`)."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 74,
+   "end_line": 74,
+   "message": "`ConnectAsync(host, port, bool useSsl)` maps `true` to implicit TLS (SslOnConnect) and `false` to opportunistic `StartTlsWhenAvailable`. The mailbox form and entity default to port 587 with SmtpUseTls=true, which means an implicit-TLS handshake on the STARTTLS submission port. That fails with SslHandshakeException for most providers. MailTestEndpoints uses explicit `SslOnConnect`/`None` instead, so the connection test and the real send disagree. With TLS unchecked, the test connects in plaintext but send tries STARTTLS and can fail on self-signed NAS certificates. Pass an explicit `SecureSocketOptions` that matches the test endpoint, e.g. SslOnConnect for 465 and StartTls otherwise."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 259,
+   "end_line": 298,
+   "message": "The CC/BCC toggle only hides the inputs; it doesn't clear them. Addresses typed in and then collapsed are still parsed, validated and sent, so hidden BCC/CC recipients get the mail even though the user may believe they removed them. Validation errors for cc/bcc render only inside the collapsed block, so an invalid hidden address makes Send silently do nothing. Either clear the values when collapsing, or keep the section open whenever it has values or errors."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Shared/Mail/SendMailRequest.cs",
+   "start_line": 5,
+   "end_line": 16,
+   "message": "Minimal APIs don't enforce DataAnnotations here: there is no `AddValidation()` or manual validation. `[Required]`, `[MinLength(1)]`, `[MaxLength(1_048_576)]`, `[StringLength(998)]` and the ContentType regex have no effect. A request with a missing `to` causes a NullReferenceException at ComposeEndpoints.cs:26. A null `subject`, or a null `body` with plain content type, throws ArgumentNullException in MimeKit. All of these surface as 500s, and body size is only bounded by Kestrel's 30 MB default. Validate explicitly in the endpoint or enable built-in validation."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Web/Pages/Compose.razor",
+   "start_line": 309,
+   "end_line": 310,
+   "message": "The server's error body is read into `error` and then discarded, and a generic \"Failed to send\" is always shown. The API returns specific localized messages (invalid address with the offending email, mailbox not found) that the user never sees. Parse and display `message` from the response."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 58,
+   "end_line": 66,
+   "message": "HTML mail is sent as a single `text/html` part with no `text/plain` alternative. This hurts deliverability (spam scoring), plain-text-only clients and accessibility, and `TextBody` is null for the stored copy. Use MimeKit's `BodyBuilder` with both `HtmlBody` and a plain-text rendering, which gives multipart/alternative."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 42,
+   "end_line": 43,
+   "message": "The Message-Id comes from the parameterless `MimeMessage()` constructor, which calls `MimeUtils.GenerateMessageId()` with the local machine/container hostname as the domain. That leaks the internal host name and often produces a non-FQDN id, which spam filters penalize. Generate it from the sender's domain, e.g. `MimeUtils.GenerateMessageId(MailboxAddress.Parse(mailbox.EmailAddress).Domain)`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tests/Feirb.Api.Tests/Endpoints/ComposeEndpointsTests.cs",
+   "start_line": 60,
+   "end_line": 74,
+   "message": "The '404 for invalid mailbox' test stubs `IMailSendingService` to throw, so the mailbox ownership check the PR advertises is never tested. No test has one user try to send through another user's mailbox. MailSendingService has no tests for MIME building, sanitization, or Sent-folder behavior. `SendMail_WithCcAndBcc_CallsServiceAsync` uses `Arg.Any<SendMailRequest>()`, so it doesn't verify that CC/BCC reach the service."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 343000
+ }
+}

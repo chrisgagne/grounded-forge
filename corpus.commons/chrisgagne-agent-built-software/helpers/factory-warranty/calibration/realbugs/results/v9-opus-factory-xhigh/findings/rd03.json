@@ -1,0 +1,91 @@
+{
+ "pr": {
+  "repo": "https://github.com/EdV4H/usketch",
+  "pr_number": 534,
+  "base": "ff729b7dce02efaf7d1054780536289f86e8a5e7",
+  "head": "719aa8340584e714552d132a9ec6971582673a8b"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "Rotation rendering was added only to the deprecated ShapeLayer, which the app never registers, so the renderers the app actually uses still draw shapes unrotated while every wrapped hit test now un-rotates the pointer; on a rotated shape, clicking the visible shape misses it and clicking empty canvas selects it. canvas-engine/src/index.ts:4 marks ShapeLayer `@deprecated Use createDomRendererPlugin`, and apps/web/src/app.tsx:64-65 registers `createGpuRendererPlugin()` and `createDomRendererPlugin()`. dom-renderer/src/dom-shape-layer.tsx:25-34 sets no `transform`, and gpu-renderer/src/shaders/rect.wgsl fs_main reads only params.x/y/z, so the rotation that rectGpuPrimitive packs into params.w is ignored. Meanwhile shape-basic plugin.tsx:46-53 wraps every hit test in withRotation. Trace: a 200x40 rectangle at (0,0) with rotation 90 (set through the debug HUD `rot` field in shapes-panel.tsx:223-229, or arriving in synced data) is drawn horizontally. A click at (190,20) is un-rotated about (100,20) to (100,-70), so aabbHitTest returns false. A click at (100,-70), which is empty canvas as drawn, maps to (10,20) and returns true. gpu-shape-layer.tsx:76-80 hover also stays on the unrotated AABB."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "plugins/usketch-plugin-tool-select/src/plugin.tsx",
+   "start_line": 98,
+   "end_line": 98,
+   "message": "Rotation support is only partly wired: marquee selection, the selection overlay and handles, resize, export, thumbnails and several shape types still treat rotated shapes as unrotated, so they disagree with the new rotated hit tests and the rotated spatial-index bounds. findShapesInRect (tool-select plugin.tsx:98-101) uses `def.getBounds(data)`, which for text and the other plugins returns plain x/y/width/height (text plugin.tsx:109-111). selection-overlay.tsx:39-50 draws an unrotated rect from getShapeBounds. resize-utils.ts never calls deltaToLocal. plugins/usketch-plugin-export/src/exporter.ts:62 emits only `translate(${shape.x}, ${shape.y})`. apps/server/src/rooms/thumbnail-handler.ts:33-46 drops `rotation`. The hit tests for freedraw, frame, connector, counter, island, group and board-portal are not wrapped in withRotation (they register `hitTest` directly). Only board-store.ts:34-39 shapeToBounds uses getRotatedAABB."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 109,
+   "end_line": 109,
+   "message": "The new rejection of corrupt client updates only works when a Y.Doc already exists; in a normal session no doc exists yet, so applyClientUpdate returns true and malformed updates are still buffered, broadcast, tracked and persisted, where they can push real history out of the 500-entry buffer. applyClientUpdate runs `Y.applyUpdate` only inside `if (doc) { ... }` and otherwise falls through to `return true;`. `doc` is set only by getOrCreateDoc, which only the AI handlers, /thumbnail and snapshots call. BoardRoom.fetch (board-room.ts:36-37) calls only loadUpdates/loadFromStorage. So in webSocketMessage (board-room.ts:118-126), `applied` is true and pushUpdate, trackUpdate, broadcast and scheduleSave all run on a corrupt payload. pushUpdate trims to `updates.slice(-MAX_UPDATES_BUFFER)`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/shared/src/__tests__/rotation.test.ts",
+   "start_line": 205,
+   "end_line": 205,
+   "message": "The withRotation tests cannot tell a working wrapper from a no-op: `withRotation = (fn) => fn` passes all four, so nothing in the suite checks that hit tests actually account for rotation. The 'rotation=90' case rotates a 100x100 square by 90\u00b0, which maps the square onto itself, and its probe points (50,50) inside and (150,50) outside give the same answer whether or not the point is un-rotated. The 'NaN rotation' case (line 213) uses `alwaysTrue`, which returns true whatever point it receives. No case uses a non-square shape or a non-symmetric angle, which is the only kind of input that would catch a wrong or missing un-rotation (or a reversed sign)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "start_line": 90,
+   "end_line": 90,
+   "message": "The change may not deliver user-facing rotation: no tool or handle sets `rotation`, and the helpers a rotate/resize interaction would need (deltaToLocal, snapAngle, normalizeAngle) are exported but never called outside the tests. A grep for deltaToLocal|snapAngle|normalizeAngle across packages/plugins/apps src finds them only in rotation.ts, index.ts and rotation.test.ts. The deltaToLocal doc comment says `\u56de\u8ee2\u4e2d\u306e\u30ea\u30b5\u30a4\u30ba\u3067\u4f7f\u7528` (used for resize while rotated), but resize-utils.ts and the plugins' `resize` functions never call it. plugins/usketch-plugin-tool-select contains no rotation code. In production nothing writes a non-zero rotation (the debug HUD is DEV-only per app.tsx:70 and shows the field only `shape.rotation !== undefined`). Whether this misses an acceptance criterion can't be checked because story.md isn't available."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "plugins/usketch-plugin-shape-text/src/plugin.tsx",
+   "start_line": 249,
+   "end_line": 249,
+   "message": "Double-click-to-edit detection for text and sticky shapes still calls the unwrapped hit test, so on a rotated shape the area that selects it and the area that enters edit mode differ. Registration uses `hitTest: withRotation(hitTest)` (text plugin.tsx:270, sticky plugin.tsx:478), but the canvas:pointerdown listeners call the raw `hitTest(shape, event.worldPoint)` (text plugin.tsx:249, sticky plugin.tsx:448)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "Moving the debounce-flag reset into `finally` after the awaited put means an update that arrives while the put is in flight doesn't schedule another save, and a failed put is only logged and not retried, so the latest edits may stay unpersisted until some later edit happens. The old code set `saveScheduled = false` when the timer fired, before taking the snapshot. Now `saveScheduled = false` runs in `finally` after `await deps.storage.put(...)`, and `scheduleSave` returns early while it is true. The catch only does `console.error(\"[BoardRoom] Failed to persist Yjs updates:\", e)` and schedules no retry. partition-manager.ts:46-59 does the same with `saveScheduled.set(partitionName, false)`. Durable Object input gates may close the in-flight window. The no-retry path remains."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 125,
+   "end_line": 125,
+   "message": "trackUpdate now writes partition_meta whenever in-memory meta is null, but the WebSocket message path never loads stored meta first; if the object's memory is reset while hibernatable sockets stay attached, the first update may overwrite stored meta with only the current quarter and orphan older partitions. trackUpdate sets `metaChanged = true` when `!partitionMeta` and calls `void savePartitionMeta()`, which puts `partition_meta`. webSocketMessage (board-room.ts:107-126) never calls `partitions.loadFromStorage()`; only fetch (board-room.ts:37) does. Sockets are accepted with `this.ctx.acceptWebSocket` (board-room.ts:89), the hibernation API. Before this change, trackUpdate did not save meta, so stored meta survived that path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "start_line": 74,
+   "end_line": 74,
+   "message": "The new angle helpers return wrong values on simple edge inputs: normalizeAngle(-360) returns -0, and snapAngle with step 0 returns NaN. `const mod = deg % 360; return mod < 0 ? mod + 360 : mod;`: -360 % 360 is -0, and `-0 < 0` is false, so -0 is returned (Object.is(-0, 0) is false, so a `toBe(0)` check would fail). snapAngle computes `Math.round(deg / step) * step` without guarding step, so step 0 gives NaN. Neither case is tested."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Only the pure rotation helpers are tested; the changed persistence, update-rejection, store-bounds, renderer and plugin wiring ship with no tests. The only test file in the diff is packages/shared/src/__tests__/rotation.test.ts. A glob for apps/server/src/**/*.test.ts finds nothing, so the yjs-sync loadPromise/scheduleSave changes, the partition-manager debounce and meta save, the board-room `applied` gate and the thumbnail-handler type checks are untested. No test covers board-store shapeToBounds with rotation or the withRotation wrapping in the plugins."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/shared/src/types/shape.ts",
+   "start_line": 16,
+   "end_line": 16,
+   "message": "The change makes `rotation` mean degrees but leaves the field without a stated unit, while existing docs say radians, and the new public rotation API is undocumented. shape-layer.tsx uses `rotate(${rotation}deg)` and withRotation uses `(rotation * Math.PI) / 180`, but `rotation?: number;` in shape.ts and apps/docs reference/shared.mdx:48 states no unit, and docs/v1/api/README.md:86 says `rotation: number;  // \u30e9\u30b8\u30a2\u30f3` (radians). The new exports in packages/shared/src/index.ts (withRotation, getRotatedAABB, safeRotation, ...) are not mentioned in apps/docs."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

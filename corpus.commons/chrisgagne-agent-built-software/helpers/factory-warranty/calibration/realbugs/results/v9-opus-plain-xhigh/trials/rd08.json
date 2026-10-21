@@ -1,0 +1,142 @@
+{
+ "id": "rd08",
+ "arm": "plain-xhigh",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 185,
+   "end_line": 289,
+   "message": "The notebook calls `wg_fin.load_artifacts(...)` and `wg_fin.run_inference(...)`, but `financial_impact/financial.py` defines neither. Its docstring even says it is 'decoupled from inference and artifact loading'. The `load_artifacts` AttributeError is caught by the broad `except Exception` and printed as 'No artifacts.pkl', which hides the real cause. Execution then reaches `run_inference` (line 257, or 289 in the artifacts branch), which raises AttributeError and is re-raised, so the only code cell always fails. The committed output (an '[Errno 2] ... artifacts.pkl' message, en-dash yield ranges the code can't produce, `execution_count: null`) came from an older library version and was never re-run against this module."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 169,
+   "end_line": 174,
+   "message": "`repo_root` is hardcoded to one developer's machine (`/Users/<author>/Desktop/Capstone/waferguard-ml`), so the dataset, model and output paths are wrong for everyone else. Also, `from financial_impact import financial` runs before `sys.path.insert(0, repo_root)`, so the path fix can't help the import. From `wafer_images/` the import fails unless the kernel happens to start at the repo root. Work out the root relative to the notebook (e.g. `Path.cwd().parent`) and add it to the path before importing."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 102,
+   "end_line": 162,
+   "message": "Stale outputs are committed. They show a developer's local home path/username and results that don't match the current library: en-dash yield ranges, and an artifacts error message that can no longer happen. The markdown also points readers to a `waferguard.financial` library that doesn't exist; the package is `financial_impact`. Clear the outputs and fix the reference."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 249,
+   "end_line": 249,
+   "message": "The 'production batch' is the whole MixedWM38 dataset, including the samples the models were trained on. The reported avg confidence (0.98), low_conf_count (49) and per-pattern financials are therefore biased and don't reflect a real lot. Use a held-out split, or label this clearly as a demo."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "financial_impact/financial.py",
+   "start_line": 235,
+   "end_line": 240,
+   "message": "`compute_financials` accepts a `financial_params` override and assigns it, but never uses it. `get_params()` always reads the module-level `FINANCIAL_PARAMS`. Custom cost tables (e.g. user-tuned repair or downtime costs from the Streamlit UI) are silently ignored and the report uses the defaults. Pass `financial_params` through to `get_params`/`decompose`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "financial_impact/financial.py",
+   "start_line": 151,
+   "end_line": 152,
+   "message": "Any class ID missing from `id_to_binary` silently becomes '00000000' (Normal: 'wafer passes electrical test', $0 loss, not counted as defective). A mapping mismatch, or the notebook's `artifacts.get(\"id_to_binary\", {})` default, would show the whole lot as clean, with understated defect rate and losses and no error. The pattern name falls back to 'Unknown' while the binary label falls back to Normal, which is inconsistent. Raise an error, or carry an explicit unknown label that isn't treated as passing."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "financial_impact/financial.py",
+   "start_line": 248,
+   "end_line": 251,
+   "message": "`break_even_days` uses only `repair / daily_loss`, while EVoA also subtracts `dt * REPAIR_HOURS`. That downtime term is up to ~$19.6M, against repair costs of about $0.1\u20130.5M. The report contradicts itself: in the committed output, 10101010 has a 3.0-day break-even but a 30-day EVoA of -$10.9M, and 01101010 shows 0.6 days against a real payback of ~22 days. Include downtime cost in break-even so the recommendation isn't misleadingly optimistic."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "The batch `avg_confidence` in the summary is an unweighted mean of per-pattern averages. A pattern with 1 wafer counts as much as one with 5,000, so the headline confidence is skewed by rare classes and isn't the average over wafers. Weight by `count`, or compute it from the raw per-wafer confidences."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "financial_impact/financial.py",
+   "start_line": 273,
+   "end_line": 273,
+   "message": "With an empty batch (e.g. an uploaded .npz of shape (0, 52, 52), which passes `parse_npz_upload` validation), `rows` is empty and `pd.DataFrame([]).sort_values(\"priority_score\")` raises KeyError. The later `if not df_financial.empty` / `df_batch.empty` guards can never run. Return early, or build the DataFrame with explicit columns."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "financial_impact/financial.py",
+   "start_line": 293,
+   "end_line": 295,
+   "message": "`dominant_pattern` takes the first non-Normal row of `df_batch`, so it is only correct if the caller passes rows sorted by count descending. `build_batch_df` happens to do that, but `compute_financials` is a public API and will report the wrong pattern for any other ordering. Pick the row with max `count` (e.g. `idxmax`)."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "financial_impact/financial.py",
+   "start_line": 233,
+   "end_line": 233,
+   "message": "The docstring lists `CONFIDENCE_THRESHOLD` as a required config key, but it is never read. `low_conf_count` (line 280) silently defaults to 0 unless the caller computes it, so the summary will show 0 low-confidence wafers unless the Streamlit integration happens to replicate the notebook's calculation."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "financial_impact/financial.py",
+   "start_line": 268,
+   "end_line": 268,
+   "message": "The column is hardcoded as `evoa_30d`, but the value uses the configurable `PLANNING_HORIZON`. Any other horizon gives a mislabeled column in the CSV and UI."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "financial_impact/financial.py",
+   "start_line": 319,
+   "end_line": 321,
+   "message": "Output paths are built by string interpolation of an unsanitized `batch_id`. If the Streamlit app takes the batch/lot ID from user input, values with `/` or `..` would write files outside `outdir`. Sanitize `batch_id` and use `os.path.join`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".gitignore",
+   "start_line": 89,
+   "end_line": 90,
+   "message": "The change removes the existing `PresentationPDFs/` and `architecture_report.pdf` ignore entries, which looks like a bad merge-conflict resolution in the 'Merge branch main' commit. Those binaries can now be committed by accident. Restore those lines next to the new entries."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".gitignore",
+   "start_line": 90,
+   "end_line": 90,
+   "message": "Only one generated file (`reports_LOT_001/refactor_demo/batch_summary_LOT_001.json`) is ignored, but `save_reports` writes `reports_<BATCH_ID>/...` at the repo root for any batch ID. JSON reports for every other lot will appear as untracked files and may get committed. Ignore `reports_*/` instead."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".gitignore",
+   "start_line": 89,
+   "end_line": 89,
+   "message": "This ignores `requirements.txt`, which is unrelated to the feature and surprising for a Streamlit integration: hosted deployments often rely on a committed requirements.txt. If it is meant to be a local poetry export only, document that; otherwise don't ignore it."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 207,
+  "cost_usd": 0.8461204,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

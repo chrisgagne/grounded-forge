@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/supa-magic/spm",
+  "pr_number": 19,
+  "base": "35ba12abad66326fe01c152803a23fc282368d67",
+  "head": "c60d2e03d217cbe8abaed6d12c4fb7b0bdb0049f"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "An untrusted manifest name can redirect downloads to arbitrary user-writable directories and overwrite existing files. validateSkillset only checks that name is a string. With tmpdir()='/tmp', name='../../home/alice', source='.' and files=['.bashrc'], join constructs '/home/alice', safePath accepts '/home/alice/.bashrc', and writeFile overwrites it with downloaded content. An in-memory execution recorded that destination."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "The prefix-based containment check permits traversal into sibling skillset directories and overwriting their downloads. With name='demo', source='@org/repo/../demo-evil' and files=['payload.md'], resolveSkillset emits '../demo-evil/payload.md'. safePath('/tmp/spm/demo', ...) accepts '/tmp/spm/demo-evil/payload.md' because startsWith(baseDir) is true. The raw GitHub URL normalizes to the demo-evil branch, so a repository containing that branch and file can supply the payload. An in-memory execution recorded the sibling write destination."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "GitHub URLs discard their requested branch, causing installation of different content or a download failure. For 'https://github.com/org/repo/tree/develop/pkg', parseGitHubUrl returns only owner, repository and path. resolveIdentifier then fetches the repository's default branch. With default_branch='main', an in-memory execution requested '/org/repo/main/pkg/skillset.yml' and downloaded files from main despite the explicit develop URL."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 30,
+   "end_line": 30,
+   "message": "Cross-repository skills use the manifest repository's branch, causing valid dependencies on other branches to fail. downloadEntries passes location.ref to every toGitHubSource call, including entries whose owner and repository differ. If the manifest repository defaults to main and '@other/legacy/skills/example' exists only on master, the downloader requests '/other/legacy/main/skills/example/SKILL.md'; its 404 rejects Promise.all and aborts installation before writing files. No branch lookup is performed for other/legacy."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "Files from different repositories with identical repository-relative paths overwrite one another during download. Two skills sourced from '@one/repo/skills/example' and '@two/repo/skills/example', each listing 'SKILL.md', both reach writeFile at '/tmp/spm/demo/skills/example/SKILL.md'. The destination uses result.path without owner or repository, and Promise.all writes both concurrently. An in-memory execution recorded both different contents targeting that same file."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/integration/cli.test.ts",
+   "start_line": 50,
+   "end_line": 50,
+   "message": "The install integration test passes on an installation failure and leaves the download-and-write pipeline unverified. The test runs 'install test-skillset' and asserts only that stdout contains 'Resolving test-skillset'. That message is printed before parseIdentifier rejects the unsupported bare identifier; the catch sets exitCode=1. An in-memory execution produced the expected message with exitCode=1, zero fetches and zero writes, while the test ignores both code and stderr."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "README.md",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "The documented installation example now fails, leaving users without a working usage example. README recommends 'spm install nextjs-fsd' and says it installs into the project. The new install action passes that bare name directly to resolveIdentifier, whose parser accepts only @ identifiers or GitHub URLs. Successful downloads are written under tmpdir()/spm rather than into the project."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

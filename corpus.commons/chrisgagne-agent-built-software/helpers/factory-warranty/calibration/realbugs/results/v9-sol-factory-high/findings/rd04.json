@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/FreeRTOS/FreeRTOS-Kernel",
+  "pr_number": 1379,
+  "base": "f1043c49d59944353291654c175852bd17b34f99",
+  "head": "c926adcf6e0be826e3313fc503a92b53a78f8ef8"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "tasks.c",
+   "start_line": 5234,
+   "end_line": 5234,
+   "message": "The new guard prevents voluntary context switches, allowing tasks with preemption disabled to continue executing after blocking calls. On SMP with configUSE_TASK_PREEMPTION_DISABLE=1, call vTaskPreemptionDisable(NULL) followed by vTaskDelay(10). vTaskDelay calls prvAddCurrentTaskToDelayedList(), which removes the caller from the ready list, then requests a yield. The new vTaskSwitchContext branch only sets xYieldPendings and skips task selection, so the same task resumes and vTaskDelay returns while its TCB remains on the delayed list."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tasks.c",
+   "start_line": 8218,
+   "end_line": 8218,
+   "message": "Requiring a false-to-true transition of the pending-yield flag can suppress an ISR wake flag and delay a higher-priority task until a later tick. With preemption enabled on SMP, an ISR can notify a blocked task using a NULL wake-flag pointer, setting the calling core's xYieldPendings without requesting a hardware switch. If another notification then unblocks a higher-priority task pinned to that core with a fresh wake flag, xYieldPendingBefore is already true, so the new condition leaves the flag false. prvYieldForTask skips cores with a pending yield, and vTaskExitCriticalFromISR does not issue one. The same transition check also affects xTaskResumeFromISR, xTaskRemoveFromEventList and vTaskGenericNotifyGiveFromISR."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

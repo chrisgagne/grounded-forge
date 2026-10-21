@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new topic manifest is never deployed by the repository workflows, leaving income reporting unusable in environments where these topics do not already exist. No workflow references this manifest; every other topic manifest has a deployment workflow. build-and-deploy.yml excludes nais/topics/* and does not apply these resources, while AktivitetspengerInntektsrapporteringTopologyConfiguration immediately enables streams consuming the new topics."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "An empty income object bypasses the declared required-income validation because the constraint annotates a non-getter method. For oppgittInntekt: {}, arbeidstakerOgFrilansInntekt defaults to null. @AssertTrue annotates harOppgittInntekt(), which is not a bean property getter and is never explicitly called. Controller @Valid and InnsendingService.validator.validate() therefore do not evaluate this check; OppgittInntektForPeriode repeats the same ineffective constraint."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "A task-completion failure after Kafka publication leaves a submitted report marked incomplete and allows retries to create duplicate reports. inntektrapportering() calls registrer() before markerOppgaveSomL\u00f8st(). KafkaProducerService completes executeInTransaction before registrer() returns. If the subsequent API call fails before updating the task, there is no recovery record or compensation. After the local duplicate cache expires, retrying publishes another message with fresh metadata before attempting task completion again."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "start_line": 193,
+   "end_line": 193,
+   "message": "The new archive document type uses a placeholder letter code that may prevent correct document classification. AKTIVITETSPENGER_INNTEKTRAPPORTERING sets brevKode to \"FIXME_AVP_INNTEKT_BREVKODE\". AktivitetspengerInntektsrapporteringPreprosessert selects this type, and JournalPostRequestV1Factory.mapDokument() copies the placeholder directly into the outgoing document's brevkode."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "The new tests do not verify task completion or its payload, so they can pass when that update is omitted or contains incorrect income or dates. The controller test stubs markerOppgaveSomL\u00f8st(any(), any()) and asserts only HTTP status and a header. The new Kafka integration test also mocks task completion but verifies only document deletion and notification fields; neither test asserts the completion call or its arguments."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

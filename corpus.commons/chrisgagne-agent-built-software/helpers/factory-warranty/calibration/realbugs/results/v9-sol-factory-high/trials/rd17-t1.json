@@ -1,0 +1,76 @@
+{
+ "id": "rd17",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.3581,
+ "codex_tokens": 70572,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd17-t1-un6ds2lm",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "pyproject.toml uses hatchling.build and has no [project.optional-dependencies]; the dev extra exists only in setup.py extras_require, which Hatchling ignores. requirements-dev.in (pytest, pytest-asyncio, ruff, black) is never installed, so a fresh container cannot run tests/ and the README's claim that all dependencies are installed is false. Lowered from high to medium: it breaks only the dev environment, not runtime behaviour.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": ".devcontainer/devcontainer.json",
+   "line": 8,
+   "claim": "postCreateCommand installs '.[dev]', but the project defines no dev extra that the build backend reads, so pytest and the other dev tools are never installed in the container.",
+   "evidence": "postCreateCommand installs '.[dev]', but pyproject.toml selects hatchling.build and defines no dev optional dependency. The dev extra in setup.py is not read by Hatchling, and requirements-dev.in is never installed. In a fresh container, the setup therefore omits pytest and pytest-asyncio, which tests/test_server.py requires.",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": ".devcontainer/devcontainer.json",
+     "line": 8,
+     "claim": "The container setup omits development dependencies, leaving developers unable to run the test suite.",
+     "evidence": "postCreateCommand installs '.[dev]', but pyproject.toml selects hatchling.build and defines no dev optional dependency. The dev extra in setup.py is not read by Hatchling, and requirements-dev.in is never installed. In a fresh container, the setup therefore omits pytest and pytest-asyncio, which tests/test_server.py requires."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "devcontainer.json:7 sets workspaceFolder and line 20 sets python.defaultInterpreterPath to /workspaces/ProxmoxMCP-Plus, with no workspaceMount. The default mount is /workspaces/<checkout folder name>, so a renamed clone gets a missing workspace and a broken venv path. Lowered to low because the README's own clone command (README.md:95-96) creates a folder named ProxmoxMCP-Plus, so the default path works.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": ".devcontainer/devcontainer.json",
+   "line": 7,
+   "claim": "workspaceFolder and the interpreter path are hard-coded to /workspaces/ProxmoxMCP-Plus with no workspaceMount, so a checkout in a folder with a different name opens a directory that doesn't exist.",
+   "evidence": "workspaceFolder is fixed to /workspaces/ProxmoxMCP-Plus without a workspaceMount override. A checkout named proxmox-dev is mounted by default at /workspaces/proxmox-dev, leaving the configured workspace and postCreateCommand working directory nonexistent. Line 20 also fixes the interpreter to the unmatched path.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": ".devcontainer/devcontainer.json",
+     "line": 7,
+     "claim": "Opening a checkout with a different directory name fails because the configured workspace path does not match its mount.",
+     "evidence": "workspaceFolder is fixed to /workspaces/ProxmoxMCP-Plus without a workspaceMount override. A checkout named proxmox-dev is mounted by default at /workspaces/proxmox-dev, leaving the configured workspace and postCreateCommand working directory nonexistent. Line 20 also fixes the interpreter to the unmatched path."
+    }
+   ],
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

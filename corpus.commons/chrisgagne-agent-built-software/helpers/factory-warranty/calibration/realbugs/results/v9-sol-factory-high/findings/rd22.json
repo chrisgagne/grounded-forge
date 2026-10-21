@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/vriesdemichael/keycloak-operator",
+  "pr_number": 696,
+  "base": "bd0524bce599ccc367a4481f9b792305a8b074a1",
+  "head": "4db0ddeaea75e5d1d1a312473465153ed8f60661"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 177,
+   "end_line": 177,
+   "message": "Cluster credential resolution corrupts valid credentials that happen to match base64 syntax, preventing authentication. ResolveFromCluster passes the already-decoded secret.Data values to decodeSecretKey, which decodes them again whenever isBase64 succeeds. For example, a legitimate username 'test' becomes bytes b5eb2d, and password 'YWJjZGVmZ2hpamts' becomes 'abcdefghijkl'. authenticate then sends these changed credentials."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 149,
+   "end_line": 149,
+   "message": "The documented cluster-mode command fails from a workstation without cluster-network access because automatic URL resolution selects an internal service address. Without --server-url, resolveURL returns status.endpoints.admin. src/keycloak_operator/services/keycloak_reconciler.py:464 sets both admin and public to http://{name}-keycloak.{namespace}.svc.cluster.local:8080. The importer connects directly to that address without establishing forwarding, while the documented cluster-mode examples omit --server-url."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "Failures in later batches discard the accumulated result, hiding the changes already committed by earlier batches. After a successful first batch updates result.Added and result.Skipped, an HTTP failure in batch two returns nil instead of result; token-refresh failures do the same at line 76. runImportUsers attempts to print the partial summary, but printImportSummary immediately returns for nil."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 174,
+   "end_line": 174,
+   "message": "A stalled HTTP server can leave the import waiting indefinitely because neither requests nor their context have a deadline. Both authenticate and importBatch use http.DefaultClient.Do and unbounded io.ReadAll calls. runImportUsers supplies context.Background() without a timeout. A server that accepts a connection but never finishes its response therefore prevents the command from completing or reporting failure."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 194,
+   "end_line": 194,
+   "message": "Successful overwrites are omitted from the import result, so overwrite mode can change every user while reporting zero changes. The response struct reads only added, skipped and errors, and ImportResult and printImportSummary likewise have no overwritten count. A response with added=0, skipped=0 and overwritten=500 therefore produces an all-zero outcome summary. Keycloak reports replacements through getOverwritten() in [PartialImportResults](https://raw.githubusercontent.com/keycloak/keycloak/26.4.0/server-spi-private/src/main/java/org/keycloak/partialimport/PartialImportResults.java)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tools/migration-toolkit/internal/userimport/importer_test.go",
+   "start_line": 15,
+   "end_line": 15,
+   "message": "The new tests leave authentication, credential resolution and HTTP import behavior untested, allowing regressions in the command's core behavior to pass. Every test in importer_test.go exercises only chunk; loader_test.go covers file loading. No added test invokes ImportUsers, authenticate, importBatch, ResolveFromCluster or decodeSecretKey, or checks token renewal, conflict modes, HTTP failures or partial results."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

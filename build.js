@@ -1282,7 +1282,15 @@ source text — they are your citable provenance.
       readmeOrigin = "root";
     }
     if (readmeSrc) {
-      this.copyFileRewriting(readmeSrc, path.join(outputDir, "README.md"));
+      const readmeDest = path.join(outputDir, "README.md");
+      this.copyFileRewriting(readmeSrc, readmeDest);
+      if (readmeOrigin === "root") {
+        // The root README's images live in docs/assets/, which no app ships. Point them back at the repository's
+        // copy rather than duplicating several MB of PNG into every app; they render on GitHub and in a clone.
+        const up = path.relative(outputDir, this.repoRoot).split(path.sep).join("/");
+        const text = fs.readFileSync(readmeDest, "utf8");
+        fs.writeFileSync(readmeDest, text.replace(/(!\[[^\]]*\]\()(docs\/assets\/)/g, `$1${up}/$2`));
+      }
       console.log(`  README: copied from ${readmeOrigin}`);
     }
     for (const legalFile of ["LICENSE", "LICENSE-CONTENT", "DISCLAIMER.md"]) {

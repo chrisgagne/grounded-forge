@@ -22,7 +22,19 @@ export default {
     + "what a tool returned; if the library does not cover something, say so. The library is built "
     + "from open and open-nc sources: [V] passages are verbatim under each source's licence, each "
     + "distillation's Source line names that licence, and non-commercial terms apply to open-nc "
-    + "material (the guide's LICENSE-CONTENT.md and DISCLAIMER.md set out the terms).",
+    + "material. The guide's NOTICE.md says what this connector is and isn't; its LICENSE-CONTENT.md and "
+    + "DISCLAIMER.md set out the terms.",
+
+  notice: `# Using AAR Maker
+
+AAR Maker is a hosted connector run by Approach Perfect, Limited (the Supplier named in DISCLAIMER.md). It serves an after-action review library and its facilitation workflows to your own AI assistant.
+
+- **It facilitates nothing itself.** Your assistant runs the review, on your model provider's service and under their terms. The connector receives only what its tools are called with: workflow and section names, source ids and search words. Your incident details reach it only if your assistant puts some in a search.
+- **It isn't professional advice.** A review run with it is not legal, safety, clinical or HR advice (DISCLAIMER.md, clause 4), and its findings are yours to weigh.
+- **What's logged:** your GitHub username, the tool called and the library file it read, never the words of a search. Cloudflare keeps the logs for a few days.
+- **No service promise.** It's free, it may change or stop at any time, and access can be withdrawn.
+- **Terms.** DISCLAIMER.md applies to everything served here, including clause 6 on the risks of using large language models: don't put confidential, personal or legally privileged incident material into a session without your own security review. Each source keeps its own licence, and non-commercial terms apply to open-nc material (LICENSE-CONTENT.md).
+`,
 
   tools: {
     get_workflow: {

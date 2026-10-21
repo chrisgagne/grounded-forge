@@ -27,7 +27,19 @@ export default {
     + "Cite only what a tool returned; if the library does not cover something, say so. Every source "
     + "is open and licensed for commercial use; [V] passages are verbatim under each source's licence, "
     + "each distillation's Source line names it, and share-alike sources keep their attribution and "
-    + "licence when quoted (the guide's LICENSE-CONTENT.md and DISCLAIMER.md set out the terms).",
+    + "licence when quoted. The guide's NOTICE.md says what this connector is and isn't; its LICENSE-CONTENT.md and "
+    + "DISCLAIMER.md set out the terms.",
+
+  notice: `# Using Factory Review
+
+Factory Review is a hosted connector run by Approach Perfect, Limited (the Supplier named in DISCLAIMER.md). It serves the factory-warranty library and its review workflow to your own AI assistant.
+
+- **It reviews nothing itself.** Your assistant does the reviewing, on your model provider's service and under their terms. The connector receives only what its tools are called with: workflow and section names, source ids and search words. Your code reaches it only if your assistant puts some in a search.
+- **A review is not a warranty.** The sign-off sheet says what the code shows and what it doesn't. It isn't a sign-off, and nothing in it is the Supplier's warranty of any change. Whoever signs a change is responsible for it.
+- **What's logged:** your GitHub username, the tool called and the library file it read, never the words of a search. Cloudflare keeps the logs for a few days.
+- **No service promise.** It's free, it may change or stop at any time, and access can be withdrawn.
+- **Terms.** DISCLAIMER.md applies to everything served here, including clause 6 on the risks of using large language models: don't put confidential or regulated material into a review without your own security review. Each source keeps its own licence (LICENSE-CONTENT.md).
+`,
 
   guidePreface: "> **Using this guide through the Factory Review connector.** It was written for a folder install. "
     + "Where it names a file, use the matching tool: `task-index.json`, its `task-index.shard-*.json` files or "
@@ -35,7 +47,8 @@ export default {
     + "→ `read_distillation`; `concept-index.json` → `list_topics` and `find_concepts`; `slug-table.json` → "
     + "`list_sources`; a skill in `.claude/skills/` → `get_workflow`. The factory harness (`factory/`) and the "
     + "repository's `docs/` aren't served; they're in the public repository, " + REPO + ". To review a change, "
-    + "follow `get_workflow(\"review-change\")`.",
+    + "follow `get_workflow(\"review-change\")`. What this connector is and isn't: "
+    + "`get_workflow(\"guide\", \"NOTICE.md\")`.",
 
   tools: {
     get_workflow: {

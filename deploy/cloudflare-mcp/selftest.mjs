@@ -46,7 +46,8 @@ check("no unfilled placeholder in a tool description", !JSON.stringify(r.result?
 
 let c = await call("get_workflow", { name: "guide" });
 check("guide, with the disclaimer and licence beside it", !c.error && c.body.length > 1000
-  && ["DISCLAIMER.md", "LICENSE-CONTENT.md"].every((f) => (c.head.other_files ?? []).includes(f)), `${c.body.length} chars`);
+  && ["DISCLAIMER.md", "LICENSE-CONTENT.md", ...(connector.notice ? ["NOTICE.md"] : [])]
+    .every((f) => (c.head.other_files ?? []).includes(f)), `${c.body.length} chars`);
 
 // The longest workflow file: in parts if it's over PART_BYTES, whole otherwise.
 const [longest] = Object.keys(files).filter((k) => /^workflows\/[^/]+\/[^/]+\.md$/.test(k))

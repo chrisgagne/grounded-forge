@@ -114,6 +114,9 @@ for (const dir of opts.workflow) addWorkflow(path.basename(dir), dir);
 // clients that don't pass the server instructions on.
 const guideText = read(opts.guide ?? path.join(app, "CLAUDE.md"));
 files["workflows/guide/SKILL.md"] = connector.guidePreface ? `${connector.guidePreface}\n\n${guideText}` : guideText;
+// The connector's own short notice (what it is, what it receives, what it isn't), ahead of the
+// app's full disclaimer, which it points to.
+if (connector.notice) files["workflows/guide/NOTICE.md"] = connector.notice;
 files["workflows/guide/DISCLAIMER.md"] = read(path.join(app, "DISCLAIMER.md"));
 files["workflows/guide/LICENSE-CONTENT.md"] = read(path.join(app, "LICENSE-CONTENT"));
 

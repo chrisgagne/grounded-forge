@@ -155,7 +155,11 @@ Microsoft, OpenSSF and the UK government. It names 29 places where they disagree
 
 ## Try it
 
-Needs macOS, Python 3.12+, [uv](https://docs.astral.sh/uv/), Claude Code, the Codex CLI, `gitleaks`, `osv-scanner`
+**Without installing anything:** add `https://review.groundedforge.com/mcp` to Claude or ChatGPT as a custom connector
+and sign in with GitHub. Your own assistant reviews a change with the factory's brief and library and writes the
+sign-off sheet ([how](https://review.groundedforge.com/)). That's the review stage only.
+
+**The whole factory** needs macOS, Python 3.12+, [uv](https://docs.astral.sh/uv/), Claude Code, the Codex CLI, `gitleaks`, `osv-scanner`
 and `semgrep`.
 
 ```bash

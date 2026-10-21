@@ -1,0 +1,158 @@
+{
+ "id": "rd18",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests",
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.7072,
+ "codex_tokens": 126173,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd18-t1-aode9f6f",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Every other topic manifest, including aktivitetspenger-soknad-topics.yml, has its own .github/workflows/deploy-*-topics.yml. No workflow references the new file, and build-and-deploy.yml:14 ignores changes under nais/topics/*. Lowered from high because the topics could still be applied by hand. Without that, deploying to a new environment leaves the three new streams with nothing to consume.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "line": 1,
+   "claim": "The new topic manifest is never deployed by any workflow, so the income-reporting topics may not exist where the streams run.",
+   "evidence": "No workflow references this manifest; every other topic manifest has a deployment workflow. build-and-deploy.yml excludes nais/topics/* and does not apply these resources, while AktivitetspengerInntektsrapporteringTopologyConfiguration immediately enables streams consuming the new topics.",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+     "line": 1,
+     "claim": "The new topic manifest is never deployed by the repository workflows, leaving income reporting unusable in environments where these topics do not already exist.",
+     "evidence": "No workflow references this manifest; every other topic manifest has a deployment workflow. build-and-deploy.yml excludes nais/topics/* and does not apply these resources, while AktivitetspengerInntektsrapporteringTopologyConfiguration immediately enables streams consuming the new topics."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Hibernate Validator only treats get/is/has methods as getters, and no custom getter strategy exists in src. So harOppgittInntekt() at OppgittInntekt.kt:12 and OppgittInntektForPeriode.kt:17 is never evaluated, and {} with null income passes @Valid. The same dead constraint already exists in the ungdomsytelse code this change copied.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+   "line": 11,
+   "claim": "@AssertTrue sits on harOppgittInntekt(), which is not a bean getter, so an empty oppgittInntekt passes validation.",
+   "evidence": "For oppgittInntekt: {}, arbeidstakerOgFrilansInntekt defaults to null. @AssertTrue annotates harOppgittInntekt(), which is not a bean property getter and is never explicitly called. Controller @Valid and InnsendingService.validator.validate() therefore do not evaluate this check; OppgittInntektForPeriode repeats the same ineffective constraint.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+     "line": 11,
+     "claim": "An empty income object bypasses the declared required-income validation because the constraint annotates a non-getter method.",
+     "evidence": "For oppgittInntekt: {}, arbeidstakerOgFrilansInntekt defaults to null. @AssertTrue annotates harOppgittInntekt(), which is not a bean property getter and is never explicitly called. Controller @Valid and InnsendingService.validator.validate() therefore do not evaluate this check; OppgittInntektForPeriode repeats the same ineffective constraint."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "disputed",
+   "reason": "The order is real: registrer() at AktivitetspengerService.kt:100 runs before markerOppgaveSomL\u00f8st() at :102, and the latter throws when the call fails. But UngdomsytelseService.kt:135-137 uses the same order, so this looks like an accepted project pattern rather than a new defect. The duplicate cache also limits retries.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "line": 102,
+   "claim": "If marking the task complete fails after the Kafka publish, the report stays published but the task stays open, and a later retry can publish a duplicate.",
+   "evidence": "inntektrapportering() calls registrer() before markerOppgaveSomL\u00f8st(). KafkaProducerService completes executeInTransaction before registrer() returns. If the subsequent API call fails before updating the task, there is no recovery record or compensation. After the local duplicate cache expires, retrying publishes another message with fresh metadata before attempting task completion again.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+     "line": 102,
+     "claim": "A task-completion failure after Kafka publication leaves a submitted report marked incomplete and allows retries to create duplicate reports.",
+     "evidence": "inntektrapportering() calls registrer() before markerOppgaveSomL\u00f8st(). KafkaProducerService completes executeInTransaction before registrer() returns. If the subsequent API call fails before updating the task, there is no recovery record or compensation. After the local duplicate cache expires, retrying publishes another message with fresh metadata before attempting task completion again."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff sets brevKode to \"FIXME_AVP_INNTEKT_BREVKODE\" for AKTIVITETSPENGER_INNTEKTRAPPORTERING. The existing AKTIVITETSPENGER_S\u00d8KNAD entry uses a FIXME placeholder too, so this is a known pending value, not a new pattern. Kept low as a hard-coded value with no source.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "line": 193,
+   "claim": "The new archive document type uses the placeholder brevkode \"FIXME_AVP_INNTEKT_BREVKODE\".",
+   "evidence": "AKTIVITETSPENGER_INNTEKTRAPPORTERING sets brevKode to \"FIXME_AVP_INNTEKT_BREVKODE\". AktivitetspengerInntektsrapporteringPreprosessert selects this type, and JournalPostRequestV1Factory.mapDokument() copies the placeholder directly into the outgoing document's brevkode.",
+   "axis_row": "L4.31",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+     "line": 193,
+     "claim": "The new archive document type uses a placeholder letter code that may prevent correct document classification.",
+     "evidence": "AKTIVITETSPENGER_INNTEKTRAPPORTERING sets brevKode to \"FIXME_AVP_INNTEKT_BREVKODE\". AktivitetspengerInntektsrapporteringPreprosessert selects this type, and JournalPostRequestV1Factory.mapDokument() copies the placeholder directly into the outgoing document's brevkode."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "The test at AktivitetspengerControllerTest.kt:104-135 stubs markerOppgaveSomL\u00f8st(any(), any()) but checks only the 202 status and the correlation header. It has no verify on the completion call or its RapportertInntektDto arguments. This is a test-quality gap.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+   "line": 119,
+   "claim": "The new tests never check that the task-completion call happens or what it sends.",
+   "evidence": "The controller test stubs markerOppgaveSomL\u00f8st(any(), any()) and asserts only HTTP status and a header. The new Kafka integration test also mocks task completion but verifies only document deletion and notification fields; neither test asserts the completion call or its arguments.",
+   "axis_row": "L3.15",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+     "line": 119,
+     "claim": "The new tests do not verify task completion or its payload, so they can pass when that update is omitted or contains incorrect income or dates.",
+     "evidence": "The controller test stubs markerOppgaveSomL\u00f8st(any(), any()) and asserts only HTTP status and a header. The new Kafka integration test also mocks task completion but verifies only document deletion and notification fields; neither test asserts the completion call or its arguments."
+    }
+   ],
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests",
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

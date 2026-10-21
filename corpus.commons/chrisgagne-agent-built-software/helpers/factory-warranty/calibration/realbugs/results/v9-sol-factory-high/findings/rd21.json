@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/sw5005-sus/ceramicraft-argocd-deploy",
+  "pr_number": 89,
+  "base": "9cf42c1eecc554ca953c3685fa1b6a34eeed910c",
+  "head": "d7a4532170487a111654cf8aa742f4007334b6e2"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The replacement Deployment drops Vault secret injection, making previously supplied credentials unavailable to the agent. The deleted values file selected the shared chart, whose deployment.yaml injects ms-secret-vault through envFrom.secretRef. The replacement supplies only five literal environment variables and a ConfigMap volume, with no secret reference. backend/ai-secure-agent-config.yaml contains connection settings but no credentials to replace that injection."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 24,
+   "end_line": 24,
+   "message": "Removing readiness and liveness probes allows traffic to reach an unready agent and leaves a hung process serving indefinitely. The deleted Helm values configured both probes at /ai-secure-agent-ms/v1/ping, and the shared chart rendered them. The replacement container has neither probe. During startup it can receive Service traffic before HTTP initialization completes; if the process remains running but stops responding, no liveness check restarts it."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "The replacement removes CPU and memory reservations and limits, weakening scheduling guarantees and resource isolation. The deleted values reserved 100m CPU and 256Mi memory and limited usage to 200m CPU and 345Mi memory. The new container has no resources section, so this manifest supplies neither those reservations nor those limits."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

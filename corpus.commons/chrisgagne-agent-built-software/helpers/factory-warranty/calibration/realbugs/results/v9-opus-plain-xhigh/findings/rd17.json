@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/mareklesko/ProxmoxMCP-Plus",
+  "pr_number": 1,
+  "base": "5a8047f5bc592e5e170d3828e9633dd018f13cbe",
+  "head": "b44013c3e80fd71ca639ee272b88c5e07af4b507"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "`postCreateCommand` installs `.[dev]`, but `pyproject.toml` has no `[project.optional-dependencies]` and the build backend is hatchling. Hatchling ignores the `extras_require` in `setup.py`, so the `dev` extra does not exist. uv only prints \"does not have an extra named `dev`\" and still exits successfully. As a result pytest, pytest-asyncio, mypy, black, ruff and types-requests never get installed in the container, and the README's `pytest` / `mypy .` / `black .` / `ruff .` commands fail. Define a `dev` extra or dependency group in pyproject.toml, or install from `requirements-dev.in`. The README line saying 'installs all Python dependencies automatically' (README.md:65) is wrong for the same reason."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "`workspaceFolder` is hard-coded to `/workspaces/ProxmoxMCP-Plus` and `workspaceMount` is not overridden. The source is still bind-mounted at the default `/workspaces/${localWorkspaceFolderBasename}`. If the clone directory has any other name (a fork or worktree, a different name passed to `git clone`, or a lowercase name, since Linux paths are case-sensitive), VS Code opens a directory that does not exist, `postCreateCommand` fails because its cwd is missing, and the interpreter path at line 20 points nowhere. Remove `workspaceFolder` and use `${containerWorkspaceFolder}/.venv/bin/python` for the interpreter."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 21,
+   "end_line": 24,
+   "message": "This turns on `editor.formatOnSave` with Black as the default Python formatter, but the codebase is not Black-formatted: it uses single quotes and has lines well over 88 characters, e.g. `src/proxmox_mcp/config/loader.py:64-84`. Because black is not installed in the venv (missing `dev` extra), the extension falls back to its bundled Black, which is newer than the `black<24` pinned in setup.py/requirements-dev.in. Every save reformats the whole file, so contributors' PRs fill up with unrelated formatting changes. Drop formatOnSave, or reformat the repo once and pin the formatter version first."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "`uv venv` creates `.venv` in the bind-mounted workspace, the same path the README's host install tells contributors to use. If a contributor already has a host `.venv` (macOS/Windows), `uv venv` replaces it with a Linux venv, or warns/errors depending on the uv version, which is unpinned. That breaks the host environment. Switching back to a host venv then breaks the container's interpreter. Put the container venv somewhere else (e.g. `UV_PROJECT_ENVIRONMENT` / `VIRTUAL_ENV` outside the workspace, or a named volume mounted over `.venv`)."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 4,
+   "end_line": 8,
+   "message": "`--no-install-recommends` on top of `python:3.11-slim` leaves git without its recommended `openssh-client` and `less`. With an SSH remote (`git@github.com:...`), `git fetch` and `git push` fail inside the container with `cannot run ssh`, even though Dev Containers forwards the host SSH agent. Without `less`, git's pager is missing. Install `openssh-client` (and `less`) explicitly."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 3,
+   "end_line": 6,
+   "message": "The build context is `..` (the whole repo), but the Dockerfile copies nothing, and the repo has no `.dockerignore`. Every image build sends `.git`, `.venv` and `proxmox-config/config.json` (which contains Proxmox API token secrets) to the Docker daemon for no reason. Use `\"context\": \".\"` or drop the context."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 9,
+   "end_line": 10,
+   "message": "`PROXMOX_MCP_CONFIG` is never set (no `containerEnv`/`remoteEnv`), unlike the production Dockerfile. After following README step 3, running `python -m proxmox_mcp.server` (the README's Development Mode) silently ignores `proxmox-config/config.json` and falls back to env vars, so it fails with 'Proxmox host must be provided'. Set `PROXMOX_MCP_CONFIG` to `${containerWorkspaceFolder}/proxmox-config/config.json`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "README.md",
+   "start_line": 71,
+   "end_line": 71,
+   "message": "This step implies the OpenAPI proxy is reachable at http://localhost:8811 once the container is up, but nothing starts it. The user still has to run `./start_openapi.sh`. In browser-based Codespaces the forwarded port is served from a `*.app.github.dev` URL, not localhost. Document the start command and the Codespaces URL behaviour."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 383000
+ }
+}

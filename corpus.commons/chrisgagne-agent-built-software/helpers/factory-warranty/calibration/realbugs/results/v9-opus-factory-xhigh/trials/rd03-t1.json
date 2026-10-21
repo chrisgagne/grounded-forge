@@ -1,0 +1,338 @@
+{
+ "id": "rd03",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 2.9676,
+ "codex_tokens": 0,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd03-t1-rdnn98d9",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "canvas-engine/src/index.ts:4 marks ShapeLayer @deprecated, and app.tsx:64-65 registers createGpuRendererPlugin and createDomRendererPlugin. dom-shape-layer.tsx:25-34 sets no transform, and the GPU path only packs rotation into params without using it. Meanwhile shape-basic and the other plugins wrap their hit tests in withRotation, so a shape with rotation set (through the debug HUD or synced data) is hit-tested rotated but drawn unrotated.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "line": 33,
+   "claim": "Rotation rendering was added only to the deprecated ShapeLayer. The DOM and GPU renderers the app actually registers still draw shapes unrotated, while the wrapped hit tests now un-rotate the pointer, so on a rotated shape clicks miss the shape as drawn.",
+   "evidence": "canvas-engine/src/index.ts:4 marks ShapeLayer `@deprecated Use createDomRendererPlugin`, and apps/web/src/app.tsx:64-65 registers `createGpuRendererPlugin()` and `createDomRendererPlugin()`. dom-renderer/src/dom-shape-layer.tsx:25-34 sets no `transform`, and gpu-renderer/src/shaders/rect.wgsl fs_main reads only params.x/y/z, so the rotation that rectGpuPrimitive packs into params.w is ignored. Meanwhile shape-basic plugin.tsx:46-53 wraps every hit test in withRotation. Trace: a 200x40 rectangle at (0,0) with rotation 90 (set through the debug HUD `rot` field in shapes-panel.tsx:223-229, or arriving in synced data) is drawn horizontally. A click at (190,20) is un-rotated about (100,20) to (100,-70), so aabbHitTest returns false. A click at (100,-70), which is empty canvas as drawn, maps to (10,20) and returns true. gpu-shape-layer.tsx:76-80 hover also stays on the unrotated AABB.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+     "line": 33,
+     "claim": "Rotation rendering was added only to the deprecated ShapeLayer, which the app never registers, so the renderers the app actually uses still draw shapes unrotated while every wrapped hit test now un-rotates the pointer; on a rotated shape, clicking the visible shape misses it and clicking empty canvas selects it.",
+     "evidence": "canvas-engine/src/index.ts:4 marks ShapeLayer `@deprecated Use createDomRendererPlugin`, and apps/web/src/app.tsx:64-65 registers `createGpuRendererPlugin()` and `createDomRendererPlugin()`. dom-renderer/src/dom-shape-layer.tsx:25-34 sets no `transform`, and gpu-renderer/src/shaders/rect.wgsl fs_main reads only params.x/y/z, so the rotation that rectGpuPrimitive packs into params.w is ignored. Meanwhile shape-basic plugin.tsx:46-53 wraps every hit test in withRotation. Trace: a 200x40 rectangle at (0,0) with rotation 90 (set through the debug HUD `rot` field in shapes-panel.tsx:223-229, or arriving in synced data) is drawn horizontally. A click at (190,20) is un-rotated about (100,20) to (100,-70), so aabbHitTest returns false. A click at (100,-70), which is empty canvas as drawn, maps to (10,20) and returns true. gpu-shape-layer.tsx:76-80 hover also stays on the unrotated AABB."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "tool-select plugin.tsx:98-100 builds marquee bounds from def.getBounds(data), not the rotated AABB. The diff wraps only basic, image, sticky, text and wireframe hit tests in withRotation and touches no overlay, resize or exporter code. Only board-store shapeToBounds uses getRotatedAABB, so selection and the spatial index disagree.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "plugins/usketch-plugin-tool-select/src/plugin.tsx",
+   "line": 98,
+   "claim": "Rotation is only partly wired: marquee selection, the overlay, resize, export, thumbnails and several shape types still treat shapes as unrotated.",
+   "evidence": "findShapesInRect (tool-select plugin.tsx:98-101) uses `def.getBounds(data)`, which for text and the other plugins returns plain x/y/width/height (text plugin.tsx:109-111). selection-overlay.tsx:39-50 draws an unrotated rect from getShapeBounds. resize-utils.ts never calls deltaToLocal. plugins/usketch-plugin-export/src/exporter.ts:62 emits only `translate(${shape.x}, ${shape.y})`. apps/server/src/rooms/thumbnail-handler.ts:33-46 drops `rotation`. The hit tests for freedraw, frame, connector, counter, island, group and board-portal are not wrapped in withRotation (they register `hitTest` directly). Only board-store.ts:34-39 shapeToBounds uses getRotatedAABB.",
+   "breaks": "story",
+   "axis_row": "L6.14",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "plugins/usketch-plugin-tool-select/src/plugin.tsx",
+     "line": 98,
+     "claim": "Rotation support is only partly wired: marquee selection, the selection overlay and handles, resize, export, thumbnails and several shape types still treat rotated shapes as unrotated, so they disagree with the new rotated hit tests and the rotated spatial-index bounds.",
+     "evidence": "findShapesInRect (tool-select plugin.tsx:98-101) uses `def.getBounds(data)`, which for text and the other plugins returns plain x/y/width/height (text plugin.tsx:109-111). selection-overlay.tsx:39-50 draws an unrotated rect from getShapeBounds. resize-utils.ts never calls deltaToLocal. plugins/usketch-plugin-export/src/exporter.ts:62 emits only `translate(${shape.x}, ${shape.y})`. apps/server/src/rooms/thumbnail-handler.ts:33-46 drops `rotation`. The hit tests for freedraw, frame, connector, counter, island, group and board-portal are not wrapped in withRotation (they register `hitTest` directly). Only board-store.ts:34-39 shapeToBounds uses getRotatedAABB."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "applyClientUpdate only calls Y.applyUpdate inside `if (doc)` and otherwise returns true. doc is created only by getOrCreateDoc, which board-room.ts calls from the AI, thumbnail and snapshot paths, and the auto-snapshot runs after an hour. So in webSocketMessage (board-room.ts:118-125) a corrupt payload still reaches pushUpdate and broadcast in a fresh session. This is not a regression, but the new gate is incomplete.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "line": 109,
+   "claim": "Corrupt client updates are rejected only when a Y.Doc already exists. Without one, applyClientUpdate returns true and the update is buffered, broadcast and persisted.",
+   "evidence": "applyClientUpdate runs `Y.applyUpdate` only inside `if (doc) { ... }` and otherwise falls through to `return true;`. `doc` is set only by getOrCreateDoc, which only the AI handlers, /thumbnail and snapshots call. BoardRoom.fetch (board-room.ts:36-37) calls only loadUpdates/loadFromStorage. So in webSocketMessage (board-room.ts:118-126), `applied` is true and pushUpdate, trackUpdate, broadcast and scheduleSave all run on a corrupt payload. pushUpdate trims to `updates.slice(-MAX_UPDATES_BUFFER)`.",
+   "axis_row": "L6.14",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "apps/server/src/rooms/yjs-sync.ts",
+     "line": 109,
+     "claim": "The new rejection of corrupt client updates only works when a Y.Doc already exists; in a normal session no doc exists yet, so applyClientUpdate returns true and malformed updates are still buffered, broadcast, tracked and persisted, where they can push real history out of the 500-entry buffer.",
+     "evidence": "applyClientUpdate runs `Y.applyUpdate` only inside `if (doc) { ... }` and otherwise falls through to `return true;`. `doc` is set only by getOrCreateDoc, which only the AI handlers, /thumbnail and snapshots call. BoardRoom.fetch (board-room.ts:36-37) calls only loadUpdates/loadFromStorage. So in webSocketMessage (board-room.ts:118-126), `applied` is true and pushUpdate, trackUpdate, broadcast and scheduleSave all run on a corrupt payload. pushUpdate trims to `updates.slice(-MAX_UPDATES_BUFFER)`."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The rotation=90 case uses a 100x100 square centred at (50,50), which maps onto itself, and the NaN case uses alwaysTrue, so `fn => fn` passes every case. Lowered from medium: this is a test-quality gap, not a code defect in itself.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "packages/shared/src/__tests__/rotation.test.ts",
+   "line": 205,
+   "claim": "The withRotation tests would also pass if withRotation did nothing.",
+   "evidence": "The 'rotation=90' case rotates a 100x100 square by 90\u00b0, which maps the square onto itself, and its probe points (50,50) inside and (150,50) outside give the same answer whether or not the point is un-rotated. The 'NaN rotation' case (line 213) uses `alwaysTrue`, which returns true whatever point it receives. No case uses a non-square shape or a non-symmetric angle, which is the only kind of input that would catch a wrong or missing un-rotation (or a reversed sign).",
+   "axis_row": "L3.9",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "packages/shared/src/__tests__/rotation.test.ts",
+     "line": 205,
+     "claim": "The withRotation tests cannot tell a working wrapper from a no-op: `withRotation = (fn) => fn` passes all four, so nothing in the suite checks that hit tests actually account for rotation.",
+     "evidence": "The 'rotation=90' case rotates a 100x100 square by 90\u00b0, which maps the square onto itself, and its probe points (50,50) inside and (150,50) outside give the same answer whether or not the point is un-rotated. The 'NaN rotation' case (line 213) uses `alwaysTrue`, which returns true whatever point it receives. No case uses a non-square shape or a non-symmetric angle, which is the only kind of input that would catch a wrong or missing un-rotation (or a reversed sign)."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "disputed",
+   "reason": "A grep finds rotation written only by the debug HUD (shapes-panel.tsx:228) and board-info-tab (rotation: 0), and the helpers appear only in rotation.ts and the tests. Whether a rotate interaction was in scope can't be checked because story.md is missing.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "line": 90,
+   "claim": "No tool or handle sets rotation, and deltaToLocal, snapAngle and normalizeAngle are never called outside tests, so users may not get rotation at all.",
+   "evidence": "A grep for deltaToLocal|snapAngle|normalizeAngle across packages/plugins/apps src finds them only in rotation.ts, index.ts and rotation.test.ts. The deltaToLocal doc comment says `\u56de\u8ee2\u4e2d\u306e\u30ea\u30b5\u30a4\u30ba\u3067\u4f7f\u7528` (used for resize while rotated), but resize-utils.ts and the plugins' `resize` functions never call it. plugins/usketch-plugin-tool-select contains no rotation code. In production nothing writes a non-zero rotation (the debug HUD is DEV-only per app.tsx:70 and shows the field only `shape.rotation !== undefined`). Whether this misses an acceptance criterion can't be checked because story.md isn't available.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "packages/shared/src/utils/rotation.ts",
+     "line": 90,
+     "claim": "The change may not deliver user-facing rotation: no tool or handle sets `rotation`, and the helpers a rotate/resize interaction would need (deltaToLocal, snapAngle, normalizeAngle) are exported but never called outside the tests.",
+     "evidence": "A grep for deltaToLocal|snapAngle|normalizeAngle across packages/plugins/apps src finds them only in rotation.ts, index.ts and rotation.test.ts. The deltaToLocal doc comment says `\u56de\u8ee2\u4e2d\u306e\u30ea\u30b5\u30a4\u30ba\u3067\u4f7f\u7528` (used for resize while rotated), but resize-utils.ts and the plugins' `resize` functions never call it. plugins/usketch-plugin-tool-select contains no rotation code. In production nothing writes a non-zero rotation (the debug HUD is DEV-only per app.tsx:70 and shows the field only `shape.rotation !== undefined`). Whether this misses an acceptance criterion can't be checked because story.md isn't available."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "text plugin.tsx:249 and sticky plugin.tsx:448 call the raw hitTest(shape, event.worldPoint), while registration at :270 and :478 uses withRotation(hitTest).",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "plugins/usketch-plugin-shape-text/src/plugin.tsx",
+   "line": 249,
+   "claim": "Double-click-to-edit on text and sticky shapes uses the unwrapped hit test, so it disagrees with selection on rotated shapes.",
+   "evidence": "Registration uses `hitTest: withRotation(hitTest)` (text plugin.tsx:270, sticky plugin.tsx:478), but the canvas:pointerdown listeners call the raw `hitTest(shape, event.worldPoint)` (text plugin.tsx:249, sticky plugin.tsx:448).",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "plugins/usketch-plugin-shape-text/src/plugin.tsx",
+     "line": 249,
+     "claim": "Double-click-to-edit detection for text and sticky shapes still calls the unwrapped hit test, so on a rotated shape the area that selects it and the area that enters edit mode differ.",
+     "evidence": "Registration uses `hitTest: withRotation(hitTest)` (text plugin.tsx:270, sticky plugin.tsx:478), but the canvas:pointerdown listeners call the raw `hitTest(shape, event.worldPoint)` (text plugin.tsx:249, sticky plugin.tsx:448)."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "In the diff, saveScheduled = false now runs only after await storage.put completes, and scheduleSave returns early while the flag is true. The catch only logs. Partition-manager has the same pattern. The latest edits stay unsaved until another edit arrives.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "line": 67,
+   "claim": "Resetting saveScheduled in `finally` drops a save for updates that arrive while a put is in flight, and a failed put is not retried.",
+   "evidence": "The old code set `saveScheduled = false` when the timer fired, before taking the snapshot. Now `saveScheduled = false` runs in `finally` after `await deps.storage.put(...)`, and `scheduleSave` returns early while it is true. The catch only does `console.error(\"[BoardRoom] Failed to persist Yjs updates:\", e)` and schedules no retry. partition-manager.ts:46-59 does the same with `saveScheduled.set(partitionName, false)`. Durable Object input gates may close the in-flight window. The no-retry path remains.",
+   "axis_row": "L5.37",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/server/src/rooms/yjs-sync.ts",
+     "line": 67,
+     "claim": "Moving the debounce-flag reset into `finally` after the awaited put means an update that arrives while the put is in flight doesn't schedule another save, and a failed put is only logged and not retried, so the latest edits may stay unpersisted until some later edit happens.",
+     "evidence": "The old code set `saveScheduled = false` when the timer fired, before taking the snapshot. Now `saveScheduled = false` runs in `finally` after `await deps.storage.put(...)`, and `scheduleSave` returns early while it is true. The catch only does `console.error(\"[BoardRoom] Failed to persist Yjs updates:\", e)` and schedules no retry. partition-manager.ts:46-59 does the same with `saveScheduled.set(partitionName, false)`. Durable Object input gates may close the in-flight window. The no-retry path remains."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "board-room.ts:89 uses the hibernation acceptWebSocket API, and webSocketMessage (board-room.ts:107-126) never calls partitions.loadFromStorage (only fetch does at :37). So partitionMeta is null after a wake, and the new code calls savePartitionMeta with partitions: [current]. Raised to medium because this is a new path that overwrites persisted data.",
+   "severity": "medium",
+   "raw_severity": "low",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "line": 125,
+   "claim": "After a hibernation wake, trackUpdate can overwrite stored partition_meta with only the current quarter, leaving older partitions orphaned.",
+   "evidence": "trackUpdate sets `metaChanged = true` when `!partitionMeta` and calls `void savePartitionMeta()`, which puts `partition_meta`. webSocketMessage (board-room.ts:107-126) never calls `partitions.loadFromStorage()`; only fetch (board-room.ts:37) does. Sockets are accepted with `this.ctx.acceptWebSocket` (board-room.ts:89), the hibernation API. Before this change, trackUpdate did not save meta, so stored meta survived that path.",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/server/src/rooms/partition-manager.ts",
+     "line": 125,
+     "claim": "trackUpdate now writes partition_meta whenever in-memory meta is null, but the WebSocket message path never loads stored meta first; if the object's memory is reset while hibernatable sockets stay attached, the first update may overwrite stored meta with only the current quarter and orphan older partitions.",
+     "evidence": "trackUpdate sets `metaChanged = true` when `!partitionMeta` and calls `void savePartitionMeta()`, which puts `partition_meta`. webSocketMessage (board-room.ts:107-126) never calls `partitions.loadFromStorage()`; only fetch (board-room.ts:37) does. Sockets are accepted with `this.ctx.acceptWebSocket` (board-room.ts:89), the hibernation API. Before this change, trackUpdate did not save meta, so stored meta survived that path."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "rotation.ts computes `deg % 360` and only adds 360 when the result is < 0, so -0 is returned. snapAngle divides by step without a guard. Both helpers are currently unused, so the impact is minimal.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "line": 74,
+   "claim": "normalizeAngle(-360) returns -0, and snapAngle(x, 0) returns NaN.",
+   "evidence": "`const mod = deg % 360; return mod < 0 ? mod + 360 : mod;`: -360 % 360 is -0, and `-0 < 0` is false, so -0 is returned (Object.is(-0, 0) is false, so a `toBe(0)` check would fail). snapAngle computes `Math.round(deg / step) * step` without guarding step, so step 0 gives NaN. Neither case is tested.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/shared/src/utils/rotation.ts",
+     "line": 74,
+     "claim": "The new angle helpers return wrong values on simple edge inputs: normalizeAngle(-360) returns -0, and snapAngle with step 0 returns NaN.",
+     "evidence": "`const mod = deg % 360; return mod < 0 ? mod + 360 : mod;`: -360 % 360 is -0, and `-0 < 0` is false, so -0 is returned (Object.is(-0, 0) is false, so a `toBe(0)` check would fail). snapAngle computes `Math.round(deg / step) * step` without guarding step, so step 0 gives NaN. Neither case is tested."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only test file in diff.patch is packages/shared/src/__tests__/rotation.test.ts. Nothing covers board-store shapeToBounds, the yjs-sync and partition-manager changes, or the board-room applied gate.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "line": null,
+   "claim": "Only the pure rotation helpers have tests. The server persistence and rejection changes, store bounds and plugin wiring have none.",
+   "evidence": "The only test file in the diff is packages/shared/src/__tests__/rotation.test.ts. A glob for apps/server/src/**/*.test.ts finds nothing, so the yjs-sync loadPromise/scheduleSave changes, the partition-manager debounce and meta save, the board-room `applied` gate and the thumbnail-handler type checks are untested. No test covers board-store shapeToBounds with rotation or the withRotation wrapping in the plugins.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "apps/server/src/rooms/partition-manager.ts",
+     "line": null,
+     "claim": "Only the pure rotation helpers are tested; the changed persistence, update-rejection, store-bounds, renderer and plugin wiring ship with no tests.",
+     "evidence": "The only test file in the diff is packages/shared/src/__tests__/rotation.test.ts. A glob for apps/server/src/**/*.test.ts finds nothing, so the yjs-sync loadPromise/scheduleSave changes, the partition-manager debounce and meta save, the board-room `applied` gate and the thumbnail-handler type checks are untested. No test covers board-store shapeToBounds with rotation or the withRotation wrapping in the plugins."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "acceptance.md refers to story.md and tests.lock, but neither is in the packet, which holds only diff.patch, acceptance.md, risk.json and axis-rows.md. It is a process gap rather than a code defect.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": null,
+   "line": null,
+   "claim": "The spec (story.md) and tests.lock are missing, so the change can't be checked against its acceptance criteria.",
+   "evidence": "acceptance.md says `story.md is the spec ... tests.lock lists them`, but a glob for story/tests.lock/acceptance files in the export finds none, and the packet holds only brief.md, diff.patch, acceptance.md, risk.json, axis-rows.md and the distillations.",
+   "axis_row": "L1.1",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "low",
+     "file": null,
+     "line": null,
+     "claim": "The spec and locked-test list this review is told to judge against are missing, so the reviewer can't confirm whether the change meets its acceptance criteria or whether the server hunks are in scope.",
+     "evidence": "acceptance.md says `story.md is the spec ... tests.lock lists them`, but a glob for story/tests.lock/acceptance files in the export finds none, and the packet holds only brief.md, diff.patch, acceptance.md, risk.json, axis-rows.md and the distillations."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "shape.ts:16 is a bare `rotation?: number;`, docs/v1/api/README.md:86 says `// \u30e9\u30b8\u30a2\u30f3` (radians), and the new code uses `rotate(${rotation}deg)` and multiplies by \u03c0/180. This is a documentation point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/shared/src/types/shape.ts",
+   "line": 16,
+   "claim": "rotation is now treated as degrees, but the type has no stated unit and the existing docs say radians.",
+   "evidence": "shape-layer.tsx uses `rotate(${rotation}deg)` and withRotation uses `(rotation * Math.PI) / 180`, but `rotation?: number;` in shape.ts and apps/docs reference/shared.mdx:48 states no unit, and docs/v1/api/README.md:86 says `rotation: number;  // \u30e9\u30b8\u30a2\u30f3` (radians). The new exports in packages/shared/src/index.ts (withRotation, getRotatedAABB, safeRotation, ...) are not mentioned in apps/docs.",
+   "members": [
+    {
+     "id": "C12",
+     "leg": "claude",
+     "severity": "low",
+     "file": "packages/shared/src/types/shape.ts",
+     "line": 16,
+     "claim": "The change makes `rotation` mean degrees but leaves the field without a stated unit, while existing docs say radians, and the new public rotation API is undocumented.",
+     "evidence": "shape-layer.tsx uses `rotate(${rotation}deg)` and withRotation uses `(rotation * Math.PI) / 180`, but `rotation?: number;` in shape.ts and apps/docs reference/shared.mdx:48 states no unit, and docs/v1/api/README.md:86 says `rotation: number;  // \u30e9\u30b8\u30a2\u30f3` (radians). The new exports in packages/shared/src/index.ts (withRotation, getRotatedAABB, safeRotation, ...) are not mentioned in apps/docs."
+    }
+   ],
+   "id": "F12"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

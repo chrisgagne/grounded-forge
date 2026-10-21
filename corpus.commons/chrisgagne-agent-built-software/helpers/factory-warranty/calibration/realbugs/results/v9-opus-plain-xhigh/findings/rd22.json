@@ -1,0 +1,147 @@
+{
+ "pr": {
+  "repo": "https://github.com/vriesdemichael/keycloak-operator",
+  "pr_number": 696,
+  "base": "bd0524bce599ccc367a4481f9b792305a8b074a1",
+  "head": "4db0ddeaea75e5d1d1a312473465153ed8f60661"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 169,
+   "end_line": 198,
+   "message": "The `isBase64` heuristic in `decodeSecretKey` corrupts valid credentials. client-go already returns decoded `Secret.Data` bytes, and the operator writes these secrets single-encoded (`create_admin_secret`). So any username or password that happens to fit the base64 alphabet, with a length divisible by 4, gets 'decoded' a second time into random bytes. The operator generates 16-character passwords from a 70-character alphabet (`ascii_letters + digits + '!@#$%^&*'`). About 14% of those, (62/70)^16, use only alphanumerics and are silently mangled, so authentication fails with a 401 that is hard to diagnose. User-supplied values like `Password1234` or usernames like `root`/`user` are hit the same way. Remove the double-decode and return `string(raw)` as-is."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 146,
+   "end_line": 167,
+   "message": "In cluster mode the server URL comes from `status.endpoints.admin`. The operator always sets that to `http://{name}-keycloak.{namespace}.svc.cluster.local:8080` (`keycloak_reconciler.py:464-467`), and `public` gets the same value. This CLI runs on a workstation or CI host, which cannot resolve cluster-internal DNS. AGENTS.md calls out exactly this failure for integration tests. The code comment says it prefers admin because the toolkit runs outside the cluster, but admin is the internal URL. As a result the default, documented flow (every cluster-mode example in the docs and help text leaves out `--server-url`) fails with a DNS or connection error. Possible fixes: derive the URL from `spec.ingress.host`/`tlsEnabled`, open a port-forward, or require `--server-url` and say so in the docs."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 158,
+   "end_line": 165,
+   "message": "The fallback builds a URL from `spec.hostname` and `spec.tls.enabled`, but the Keycloak CRD has no `spec.hostname`. The hostname fields are `spec.ingress.host` and `spec.tls.hostname`. Also, `status.endpoints.internal` is never set by the operator. So these fallbacks are dead code, and the error message points users to a field that doesn't exist. `internal/k8s/types.go` models the same non-existent field."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 194,
+   "end_line": 221,
+   "message": "The response parsing doesn't match Keycloak's `PartialImportResults`. That object has `added`, `skipped`, `overwritten` and `results[]`, and each result's `action` is ADDED, SKIPPED or OVERWRITTEN. There is no `errors` count and no ERROR/FAILED action. This means: (1) the advertised 'hard fail on errors > 0' (lines 90-96) is dead code, because real failures come back as non-2xx responses with the whole request rolled back; (2) `overwritten` is never read, so `--mode overwrite` reports Added: 0, Skipped: 0 even when every user was replaced. Parse `overwritten` and drop the fictional error accounting. Also add an `httptest`-based test against a real response shape."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "docs/decisions/093-user-import-via-migration-toolkit.yaml",
+   "start_line": 47,
+   "end_line": 64,
+   "message": "The ADR rests on a wrong premise. Keycloak runs each `partialImport` request in a single transaction and calls `setRollbackOnly` on any error, so a batch is atomic. Partial progress only happens across batches. The 'errors > 0 in SKIP mode' agent instruction refers to a response field that doesn't exist. These statements will mislead future agents and maintainers. The same claim appears in the `--batch-size` row of `docs/how-to/migration-toolkit.md:259` ('Partial Import is non-atomic')."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 78,
+   "end_line": 78,
+   "message": "The only way to pass the explicit admin password is the `--password` flag, which puts the master-realm admin password in process argv. Other local users and monitoring agents can read it via `ps` or `/proc/<pid>/cmdline`, and shell history may record it. The documented CI pattern `--password \"$KEYCLOAK_ADMIN_PASSWORD\"` still expands into argv. Support an environment variable such as `KEYCLOAK_ADMIN_PASSWORD`, a `--password-file`, or `--password-stdin`, and recommend that in the docs instead."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 62,
+   "end_line": 83,
+   "message": "Authentication, token refresh, HTTP and transport failures all return a `nil` result. `runImportUsers` then calls `printImportSummary(nil)`, which prints nothing, so the 'Print partial result before returning error so user can see progress' path never runs for the most common failures. After batch 7 of 10 fails, the user cannot see how many users were already added. Return the accumulated `result` together with the error."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 120,
+   "end_line": 120,
+   "message": "`http.DefaultClient` has no timeout, here and at line 174. A stalled Keycloak or a load balancer that drops the connection makes the migration hang forever mid-batch. Use a dedicated `http.Client` with a sensible or configurable timeout. There is also no way to supply a CA bundle for Keycloak instances behind an internal CA."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 185,
+   "end_line": 188,
+   "message": "Every 409 is labelled `(mode=FAIL)`. Partial Import also returns 409 for any `ModelDuplicateException`, which can happen in SKIP or OVERWRITE mode, for example a conflicting unique constraint such as a federated identity link. The hard-coded label sends the user in the wrong direction. Report the actual mode that was used."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 47,
+   "end_line": 49,
+   "message": "`--batch-size 0` or a negative value is silently changed to 500 instead of being rejected. Validate it in the command, and also guard `chunk()`: called directly with `n <= 0` it loops forever, because `i += 0` never advances."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 113,
+   "end_line": 113,
+   "message": "If both `--keycloak` and `--username`/`--password` are given, explicit credentials silently win and `--keycloak` and `--namespace` are ignored. The docs say 'Exactly one mode must be chosen'. Either reject the combination or fix the docs."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 72,
+   "end_line": 78,
+   "message": "Only `Ready` is accepted. The project's phase semantics (AGENTS.md / TESTING.md) treat `Degraded` as operational too, so a running Keycloak in `Degraded` blocks the import and there is no override."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 95,
+   "end_line": 99,
+   "message": "This reads the user-supplied `spec.admin.existingSecret` rather than the operator-managed `{name}-admin-credentials` copy, which is always kept in sync and recorded in `status.adminSecret`. The operator itself always reads the copy. Reading the original needs extra RBAC on a secret that may be managed elsewhere, and it ignores the legacy `spec.admin_access` alias. It also contradicts the PR description, which says the command reads the operator-generated secret."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/loader.go",
+   "start_line": 28,
+   "end_line": 39,
+   "message": "The 'stale export' check uses the mtime of `users.json`. That measures time since `transform` ran, or since the last `cp`/`git checkout`, not how old the export is. The error's advice to re-run `transform` just resets the mtime on the same stale data. The check gives a false sense of safety, and the 24h default will block the multi-day GitOps rollout in the docs' own Full Migration example. Also, `%.0f hours` prints '0 hours' for sub-hour limits."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer_test.go",
+   "start_line": 1,
+   "end_line": 90,
+   "message": "Only `chunk()` and the loader are tested. Nothing covers `authenticate`, `importBatch`, token refresh, `ImportUsers` error paths, `decodeSecretKey`, `resolveURL`, `ResolveFromFlags`, or `parseImportMode`. Both high-severity bugs above, credential mangling and the internal-DNS URL, plus the wrong response schema, would have been caught by simple `httptest` and table tests. The 85% patch-coverage requirement is not plausibly met for this code."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "docs/decisions/093-user-import-via-migration-toolkit.yaml",
+   "start_line": 66,
+   "end_line": 69,
+   "message": "The default path requires `get` on Secrets in the Keycloak namespace and gives master-realm superadmin credentials to whoever runs the CLI. That conflicts with the project's core 'least privilege: no access to the Keycloak instance other than through the CRDs' requirement. The ADR presents both paths as 'equally valid' and never records this deviation or its trade-off."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/go.mod",
+   "start_line": 8,
+   "end_line": 9,
+   "message": "This pins client-go/apimachinery v0.32.3, which pulls in `golang.org/x/net v0.30.0` and `golang.org/x/oauth2 v0.23.0`. Both versions have published Go vulnerability advisories (e.g. x/net html/proxy fixes in 0.33\u20130.38, oauth2 jws fix in 0.27), and code scanning will flag them. The module already targets Go 1.25, so use a current k8s.io release."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 158,
+   "end_line": 159,
+   "message": "Files are not gofmt-formatted. Map keys and struct fields here, the `importResp` struct at lines 198-204, and `internal/k8s/types.go:30-31` are misaligned. Run `gofmt -w`, and consider adding a gofmt check to `toolkit:lint`, since `go vet` won't catch this."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "docs/how-to/export-realms.md",
+   "start_line": 225,
+   "end_line": 235,
+   "message": "The docs call this a 'GitOps-friendly import' and say 'Credentials are resolved automatically from the cluster'. It is an imperative CLI run against a live cluster, and as written it fails out of the box because of the internal-only endpoint URL. Also, `internal/output/nextsteps.go` (the generated NEXT-STEPS.md) still only lists the manual Admin Console and kcadm options and doesn't mention `import-users`."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 303000
+ }
+}

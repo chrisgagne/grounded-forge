@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/FreeRTOS/FreeRTOS-Kernel",
+  "pr_number": 1379,
+  "base": "f1043c49d59944353291654c175852bd17b34f99",
+  "head": "c926adcf6e0be826e3313fc503a92b53a78f8ef8"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tasks.c",
+   "start_line": 5233,
+   "end_line": 5242,
+   "message": "The new `xPreemptionDisable` check in `vTaskSwitchContext()` also blocks context switches that the task asks for itself, not only preemption. A task with preemption disabled can still call `vTaskDelay()`, block on a queue/semaphore/notification, call `vTaskSuspend(NULL)` or call `vTaskDelete(NULL)`. Each of these first takes the task off the ready list (moving it to the delayed/event/suspended/termination list) and then yields. With this check the switch is refused, so the task keeps running while its list items say it is blocked, suspended or deleted. Results: `vTaskDelay()` returns at once. `xQueueReceive()` loops back and calls `vTaskPlaceOnEventList()` again, inserting `xEventListItem` into a list it is already in. `vListInsert` has no guard against this, so the list is corrupted. `vTaskDelete(NULL)` returns to its caller, and the deleted TCB sits at the head of `xTasksWaitingTermination`, which stalls cleanup of every later deletion. Before this change these paths worked, because `prvSelectHighestPriorityTask()` picked another task, and the `vTaskPreemptionDisable()` docs do not forbid blocking. The check should apply only when the current task is still ready and running (for example `listIS_CONTAINED_WITHIN(&pxReadyTasksLists[prio], &xStateListItem)`), or be dropped in favour of the root-cause fix."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tasks.c",
+   "start_line": 5233,
+   "end_line": 5242,
+   "message": "Yield requests sent to this core from another core can now hang it. `prvYieldCore()` sets the remote task's `xTaskRunState = taskTASK_SCHEDULED_TO_YIELD`. This happens in `vTaskDelete`/`vTaskSuspend` of a task running on another core, in `vTaskCoreAffinitySet`, and in the `configRUN_MULTIPLE_PRIORITIES == 0` path of `prvYieldForTask` that yields all lower-priority cores. Normally `prvSelectHighestPriorityTask()` sets the state back to `xCoreID`. The new early-return branch skips that, so the task stays in `taskTASK_SCHEDULED_TO_YIELD`. The next time it calls `taskENTER_CRITICAL()`, `prvCheckForRunStateChange()` loops forever: the yield interrupt has already been handled and refused, so nothing clears the state. The comment's promise that the yield happens on re-enable does not hold. `vTaskPreemptionEnable()` itself enters a critical section, and when called from another core it skips `prvYieldCore()` because `taskTASK_IS_RUNNING()` is false for that state. Deleting or suspending a preemption-disabled task from another core also breaks the documented rule that the task must be evicted before the critical section exits."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tasks.c",
+   "start_line": 5500,
+   "end_line": 5508,
+   "message": "The 'before/after' check changes what the SMP return value means (the same pattern is at 3527-3535, 8214-8225 and 8351-8362). `prvYieldForTask()` never selects a core whose `xYieldPendings` is already set (line 932). So whenever the current core already has a legitimate pending yield, these functions now always report no yield. That pending yield can come from a previous FromISR call that passed NULL for `pxHigherPriorityTaskWoken` (explicitly supported; that is why the flag is latched), from a nested ISR, or from a deliberately separate woken variable. `portYIELD_FROM_ISR()` then does not switch, and the waiting higher-priority task is delayed until the next tick. Single-core still returns pdTRUE based on priority. `xTaskRemoveFromEventList()`'s return value drives every queue, semaphore and stream-buffer FromISR API, so the effect is wide. Since the time-slicing guard already stops the stale flag from being set, this extra layer mostly hides real pending yields. Consider dropping it, or reporting a yield whenever the flag is set and the current task is not preemption-disabled."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tasks.c",
+   "start_line": 5239,
+   "end_line": 5239,
+   "message": "The new branch deliberately leaves `xYieldPendings[xCoreID] = pdTRUE` while the current task has preemption disabled, which recreates the stale flag this PR is trying to remove. `vTaskExitCritical()` reads this flag and calls `portYIELD()` on every outermost critical-section exit. As a result, each critical section a preemption-disabled task leaves now costs a full yield trap plus a refused `vTaskSwitchContext()` (taking both locks) until preemption is re-enabled. The same flag also makes `xTaskResumeAll()` report `xAlreadyYielded = pdTRUE` when no switch happened."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 281000
+ }
+}

@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/CommunityToolkit/Maui",
+  "pr_number": 3181,
+  "base": "c7cb65bc98e429401e4f792f6b7aa21f94e81933",
+  "head": "1e8d2e2f880cfe1d9bcbdfbc6078cb6b72fd35ce"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 49,
+   "end_line": 73,
+   "message": "Each data request is served by allocating one buffer the size of the whole requested range. AVPlayer often asks for everything up to the end of the resource (requestsAllDataToEndOfResource), so a 30 MB clip allocates about 30 MB, then copies it again with `buffer[..bytesRead]`, then a third time in `NSData.FromArray`. This repeats on every seek. For a resource over 2 GB, `(int)dataRequest.RequestedLength` overflows to a negative value, `new byte[negative]` throws, the catch swallows it, and playback fails. There is only one `stream.Read` call with no loop, so streams that return partial reads (FileStream, network or decrypting streams) deliver less data than requested. Because all the work happens synchronously inside `ShouldWaitForLoadingOfRequestedResource` on a serial queue, cancellations cannot be delivered either. Fix: read and `Respond` in bounded chunks (for example 64 KB to 1 MB) in a loop, stop when `loadingRequest.IsCancelled`, and use long arithmetic for the length."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 75,
+   "end_line": 79,
+   "message": "Read and seek errors are only written to Debug output, and `ShouldWaitForLoadingOfRequestedResource` then calls `loadingRequest.FinishLoading()` (line 35) anyway. That tells AVFoundation the request succeeded even though no data, or truncated data, was sent. The player then stalls or shows a vague parse error instead of the real cause, and the failure never reaches `MediaFailed` with a useful message. On failure, call `loadingRequest.FinishLoadingWithError(...)` with an NSError, and only call `FinishLoading()` after the data was actually delivered."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "start_line": 63,
+   "end_line": 71,
+   "message": "Non-seekable streams always fail to open. When the stream can't seek, `length` is `C.LengthUnset` (-1), and ExoPlayer usually opens with `dataSpec.Length == C.LengthUnset`, so `bytesRemaining` becomes -1. The check `if (bytesRemaining < 0)` then throws `ArgumentOutOfRangeException`. The unknown-length handling in `Read` can never run. The check should exclude `C.LengthUnset`, for example `bytesRemaining != C.LengthUnset && bytesRemaining < 0`. Otherwise non-seekable streams should be explicitly rejected and documented, since the description promises they work with limited functionality."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "start_line": 378,
+   "end_line": 383,
+   "message": "`currentStreamDataSourceFactory` (a managed `Java.Lang.Object` subclass) is disposed while ExoPlayer may still hold the old `ProgressiveMediaSource` that references it. Here it happens before `SetPlayerData`, which can await network artwork downloads for seconds while the old item keeps playing. It also happens in `CreateMediaItemFromStream` (lines 804-805) before `SetMediaSource` swaps the source. If the player thread calls `createDataSource()` on the disposed peer (for example when queuing the next period while looping), the runtime tries to re-create the peer through a missing `(IntPtr, JniHandleOwnership)` constructor and throws `NotSupportedException`. The factory owns no native resources, so just drop the reference, or dispose it only after the player has been given the new source."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.windows.cs",
+   "start_line": 339,
+   "end_line": 346,
+   "message": "`Stream.AsRandomAccessStream()` throws `NotSupportedException` for non-seekable streams. This runs after an `await` inside `async ValueTask PlatformUpdateSource`, and `MediaElementHandler.MapSource` discards that ValueTask, so the exception is lost. The element stays in its previous state, `MediaFailed` is never raised, and the user gets no feedback. Check `CanSeek` and report the problem through `MediaElement.MediaFailed`, or buffer the stream yourself."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "start_line": 507,
+   "end_line": 546,
+   "message": "`GetStreamContentType` only distinguishes QuickTime from 'everything else = public.mpeg-4'. MP3, WAV, FLAC, AAC/ADTS and similar audio streams are reported to AVFoundation as MPEG-4, so their parsing fails, which contradicts the claim that iOS/macOS works with both audio and video. It also duplicates the more complete sniffing in the shared `StreamExtensions.GetMimeType`. Reuse the shared detection and map the MIME type to a UTI (for example `public.mp3`, `com.microsoft.waveform-audio`, `public.mpeg-4-audio`). The final `return \"public.mpeg-4\"` should also use `StreamAssetResourceLoader.DefaultContentType`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 39,
+   "end_line": 44,
+   "message": "For non-seekable streams, `ContentLength` is set to 0 and byte-range access is disabled. AVFoundation then treats the resource as empty, so playback fails with no clear error. Non-seekable streams can't work through this path, so reject them up front with a `MediaFailed` message rather than advertising a zero-length resource."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.tizen.cs",
+   "start_line": 189,
+   "end_line": 195,
+   "message": "On Tizen, `NotSupportedException` is thrown synchronously from `PlatformUpdateSource`, which `MapSource` calls directly. Just setting `Source` therefore crashes the app from inside a property mapper. It also happens after `Player.Unprepare()` and `CurrentStateChanged(Opening)`, leaving the player unprepared and stuck in Opening. Report the limitation through `MediaElement.MediaFailed` and reset state instead of throwing from the mapper."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/MediaSource/StreamMediaSource.shared.cs",
+   "start_line": 24,
+   "end_line": 28,
+   "message": "The description and docs advertise `MediaSource source = myStream;` and implicit assignment to `MediaElement.Source`, but neither compiles. C# only considers user-defined conversions declared on the source type, its base classes, or the target type itself, so an operator on the derived `StreamMediaSource` is ignored when the target is `MediaSource`. The existing string and Uri conversions are declared on `MediaSource` for this reason. Add `public static implicit operator MediaSource(Stream stream)` on `MediaSource`, or correct the documentation."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/MediaSource/MediaSource.shared.cs",
+   "start_line": 63,
+   "end_line": 63,
+   "message": "`FromStream` does not validate its argument, unlike `FromUri`, which calls `ArgumentNullException.ThrowIfNull`. `MediaSource.FromStream(null!)` silently creates a source with no stream, and every platform then quietly does nothing. Add `ArgumentNullException.ThrowIfNull(stream)`. Returning `StreamMediaSource` here, while `FromFile`, `FromUri` and `FromResource` return `MediaSource`, is also inconsistent with the existing factory pattern."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+   "start_line": 129,
+   "end_line": 145,
+   "message": "Some signatures are too weak, and the result is passed straight to `WinMediaSource.CreateFromStream` as a content-type hint. Any stream whose first byte is 0x47 ('G') is classified as `video/mp2t`. The frame-sync check `0xFF 0xEx/0xFx` also matches ADTS AAC (0xFFF1/0xFFF9) and reports it as `audio/mpeg`. A wrong hint can send Media Foundation to the wrong handler. For MPEG-TS, require a sync byte at offset 188 as well (or at least several packets), and exclude the ADTS layer bits. For unknown content, consider returning `string.Empty`, as the existing Windows header path does, rather than `application/octet-stream`. Separately, the class summary says 'on Windows platform', but the file is shared."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 54,
+   "end_line": 60,
+   "message": "`httpClient.GetStreamAsync` runs in an `async void` override outside any try/catch. The try/catch in `UpdateSourceStream` doesn't cover it, so opening the page offline, or getting an HTTP error, throws an unhandled exception and crashes the sample. `OnAppearing` also re-downloads the 30 MB file into memory every time the page reappears. Wrap the download in the same error handling, and consider loading it only once."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 169,
+   "end_line": 185,
+   "message": "The sample disposes the `MemoryStream` while `MediaElement.Source` still points to it. `UpdateSourceStream` releases the old stream before the new copy finishes, and `OnDisappearing` runs before `OnNavigatedFrom` stops the player. In both cases the native player can keep reading a disposed stream on its background thread. This is the lifetime mistake the feature docs warn callers about. Set `MediaElement.Source = null` or stop playback before disposing. Also, the semaphore only covers the dispose: `UpdateSourceStream` and the null check in `ReleaseSourceStream` (line 255) run outside it, so overlapping calls (the initial download plus Open/Record Video) can leak or dispose the active stream."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "start_line": 11,
+   "end_line": 35,
+   "message": "The page implements `IAsyncDisposable` and is registered as transient (`AddHttpClient<MediaElementFromStreamPage>` plus `AddTransientWithShellRoute`). Microsoft.Extensions.DependencyInjection tracks transient disposables in the scope that resolved them, so every navigation creates a page instance the container keeps until the app or window scope is disposed. `DisposeAsync` is effectively never called during normal navigation. Since cleanup already happens in `OnDisappearing`, drop `IAsyncDisposable` from the page to avoid the leak."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "start_line": 787,
+   "end_line": 811,
+   "message": "`CreateMediaItemFromStream` copies the metadata and artwork logic of `CreateMediaItem` line for line, so future fixes to one will be missed in the other. It could call `CreateMediaItem(\"stream://media\", cancellationToken)` and then set the factory. Also, the dispose-then-null at lines 804-805 is immediately followed by another assignment, which makes it redundant."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 339000
+ }
+}

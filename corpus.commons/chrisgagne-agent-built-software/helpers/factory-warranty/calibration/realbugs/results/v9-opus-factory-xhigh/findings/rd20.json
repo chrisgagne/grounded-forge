@@ -1,0 +1,126 @@
+{
+ "pr": {
+  "repo": "https://github.com/supa-magic/spm",
+  "pr_number": 19,
+  "base": "35ba12abad66326fe01c152803a23fc282368d67",
+  "head": "c60d2e03d217cbe8abaed6d12c4fb7b0bdb0049f"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "The temp directory is built from `skillset.name`, which comes from the remote manifest and is never validated, so a malicious skillset can climb out of the temp dir with `..` and write files anywhere the user can write, such as `~/.ssh` or `/root`. install.ts:77 `const tmpDir = join(tmpdir(), 'spm', skillset.name)`. `path.join` normalises `..` segments. fetch-skillset.ts:12-14 `validateSkillset` only checks `typeof record[field] !== 'string'` for name. `safePath(tmpDir, result.path)` (install.ts:41-49) then checks against this already-escaped base, so it passes. Trigger: on Linux (`tmpdir()` = `/tmp`) running as root, a manifest with `name: \"../../root\"` and skill `x: {source: '@attacker/r2/.ssh', files: ['authorized_keys']}` gives tmpDir `/root` and entry path `.ssh/authorized_keys`. `safePath` returns `/root/.ssh/authorized_keys`, and line 86 `writeFile` overwrites it with attacker content. The `..` check in resolve-skillset.ts:33 does not cover `name`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "The branch in a GitHub `tree/<branch>/` URL is matched and then thrown away, so `spm install https://github.com/org/repo/tree/develop/path` installs from the default branch instead of `develop`, or fails with a 404 when the path only exists on that branch. The regex `/^https?:\\/\\/github\\.com\\/([^/]+)\\/([^/]+)\\/tree\\/[^/]+\\/(.+)$/` has no capture group for the branch, and line 8 returns only `{ owner, repository, path }`. `SkillIdentifier` (types.ts:1-5) has no ref field. resolve-identifier.ts:20 always calls `fetchDefaultBranch`, which returns `default_branch ?? 'main'`, and fetch-skillset.ts:26 and download-from-github.ts:179 build URLs from that ref. Branch names containing `/` (e.g. `feature/x`) are also split wrongly, because `[^/]+` takes `feature` and moves `x` into the path. The new test 'parses GitHub URL with non-main branch' never checks which branch is used."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/core/resolver/resolve-skillset.test.ts",
+   "start_line": 177,
+   "end_line": 177,
+   "message": "The diff deletes the locked acceptance test 'throws on invalid skill source format' and replaces it with a test asserting the opposite. The code no longer rejects unrecognised skill sources, so the locked criterion now fails. acceptance.md: 'The baseline's tests are the locked acceptance tests.' The diff removes `expect(() => resolveSkillset(manifest, location)).toThrow('Invalid skill source')` for `source: 'invalid-source'` and adds 'resolves bare path as repo-root relative'. resolve-skillset.ts:31-43 replaces the `throw new Error('Invalid skill source ...')` with a fallback that treats any string not starting with `./` or `@` as a repo-root path. Trigger: `source: 'invalid-source'` (or a mistyped `https://...` URL) now resolves to `invalid-source/SKILL.md`, and the user only sees a later 404 download error instead of the format error."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/integration/cli.test.ts",
+   "start_line": 28,
+   "end_line": 28,
+   "message": "The locked version test is loosened from the exact version to any semver string, alongside a version bump nobody asked for. The test no longer checks that `--version` reports the package's version. The diff changes `expect(stdout.trim()).toBe('0.1.0')` to `toMatch(/^\\d+\\.\\d+\\.\\d+$/)` and bumps package.json `\"version\": \"0.1.0\"` to `\"0.2.0\"`. The original locked test would fail on the bumped package. Any hard-coded or stale version, such as a `__VERSION__` define pointing at the wrong source, would still pass the new regex. No new dependency was added. The triaged `dependency` risk is only this version line."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/integration/cli.test.ts",
+   "start_line": 48,
+   "end_line": 48,
+   "message": "The only test of the new install command checks printed text, using an input that fails parsing, so it passes when install exits with an error. Nothing tests the download-and-write path in install.ts, including `safePath` and the temp-dir layout. `run('install', 'test-skillset')` reaches `info(`Resolving ${input}...`)`, then `parseIdentifier` throws 'Must start with @' because the input lacks `@`. The action sets `process.exitCode = 1`, but the test only asserts `expect(stdout).toContain('Resolving test-skillset')` and ignores the exit code and stderr. No test file in the diff imports `@/commands/install`, so `downloadEntries`, `safePath` and the writes at lines 82-89 have no test. That is how the `skillset.name` traversal went unnoticed."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 85,
+   "end_line": 85,
+   "message": "Downloads go to a predictable, shared temp path that is never cleaned, so stale files from earlier installs mix with new ones. On multi-user Linux, another local user can pre-create `/tmp/spm/<name>` as a symlink and redirect the victim's writes. tmpDir is `join(tmpdir(), 'spm', skillset.name)`, which is `/tmp/spm/fsd` on Linux. There is no `mkdtemp` and no removal before or after the run. `mkdir(dirname(filePath), { recursive: true })` and `writeFile(filePath, ...)` follow symlinks, and `safePath` (lines 41-49) compares strings only, never calling `realpath`. The success output `item('location', tmpDir)` points the user at a directory that can still hold files from a previous version of the skillset."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 58,
+   "end_line": 58,
+   "message": "The command may not do what its name and description say: it downloads files into an OS temp directory and never writes anything into the project or the configured provider path. `readConfig()` is called and its result (including `config.providers`, e.g. `.claude`) is discarded. The only writes are to `join(tmpdir(), 'spm', skillset.name)`. `.description('Install a skillset into the project')` (line 55) and README.md:23 'This installs the corresponding skillset into the project' describe a project install, but the action ends with `success('Downloaded ...')` and the tmp location. story.md is not in the packet, so whether a temp-only download was the intended scope can't be confirmed."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "`safePath`'s containment check uses a bare string prefix, so a path that resolves to a sibling directory sharing the prefix (e.g. `/tmp/spm/fsd-evil/...` for base `/tmp/spm/fsd`) passes. `if (!resolved.startsWith(baseDir))` has no trailing separator, and `path.relative` is not used. Entry paths can contain `..` through `./` skill sources, `@` sources, `setup` and the agents/hooks/mcp/memory/rules lists, none of which are checked for `..` (resolve-skillset.ts:7-29, 53-98). For example, `setup: '../fsd-x/f'` resolves outside the base and is accepted."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "The new `..` traversal check guards only the bare-path branch. `./` sources, `@` sources, `files` entries, `setup` and the local file lists still accept `..`, so the check and its 'rejects path traversal' test suggest protection the resolver doesn't have. The check also rejects legitimate names containing `..` such as `v1..2`. Line 33 `if (normalized.includes('..'))` sits only after the `./` (lines 7-15) and `@` (lines 17-29) branches return. `source.slice(2)` for `./../../x` and `parts.slice(2).join('/')` for `@o/r/../../x` pass through unchecked. At download, a `..` in the raw.githubusercontent URL is normalised by `fetch` and can point at a different owner or repo. Writes rely on `safePath` instead."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 28,
+   "end_line": 28,
+   "message": "Every manifest entry is fetched at once with no concurrency limit and no timeout, so a large manifest can trip raw.githubusercontent.com rate limits and one hung request stalls the install forever. `downloadEntries` runs `Promise.all(entries.map(... downloadFile(source) ...))`. download-from-github.ts:180 `await fetch(url)` passes no `AbortSignal` or timeout."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 84,
+   "end_line": 84,
+   "message": "Files are written under their repo-relative path without their owner or repo, so a cross-repo skill can collide with a local file of the same path. The two `writeFile` calls then race and either file may win. `safePath(tmpDir, result.path)` uses only `entry.path`. An `@other/repo/claude/fsd/skills/git` source and a `./skills/git` source in a manifest at `claude/fsd` both give `claude/fsd/skills/git/SKILL.md`. Both writes run concurrently inside `Promise.all` (lines 82-89)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/install.ts",
+   "start_line": 69,
+   "end_line": 69,
+   "message": "Strings from the remote manifest (name, version, file paths) are printed to the terminal without stripping control characters, so a malicious manifest can inject ANSI/OSC escape sequences that rewrite what the user sees. `item('skillset', `${skillset.name} v${skillset.version}`)` and `item(result.type, result.path)` (line 87) pass manifest values directly to `console.log` via utils/log.ts `item`. `validateSkillset` only checks that the values are strings."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".spmrc.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change commits a project config file the story didn't ask for. It looks like a side effect of running the CLI or tests in the repo, and records the developer's local provider layout. The new `.spmrc.yml` contains `version: 1` / `providers: claude: path: .claude`, which is exactly what `readConfig()` writes via `createDefaultConfig` (spmrc.ts:27-30) when the file is missing. The integration test `run('install', ...)` calls `readConfig()` from the repo root. Nothing in the change reads this file."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/core/downloader/index.ts",
+   "start_line": 9,
+   "end_line": 9,
+   "message": "`downloadFromUrl` and `readLocalFile`, along with the `url`/`local` variants of `downloadFile`, are added and exported but nothing in the change calls them. This is dead public surface, and `readLocalFile` reads any path it is given. install.ts only builds `kind: 'github'` sources via `toGitHubSource`. No other module in src imports `downloadFromUrl` or `readLocalFile`, and download-file.ts:156-160 dispatches to them only for `url` and `local` sources, which nothing creates."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/core/downloader/download-file.test.ts",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "The 'dispatches to GitHub handler' and 'dispatches to URL handler' tests can't detect wrong dispatch, because the fetch mock returns the same content for any argument and the tests never check what was fetched. `beforeEach` stubs `fetch` to always resolve `text: () => '# Remote Content'`. Both tests only assert `result.content` and `result.source`. There is no `expect(fetch).toHaveBeenCalledWith(...)`, so routing a GitHub source to `downloadFromUrl` (fetching `undefined`) would still pass."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "README.md",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "Now that install is implemented, the README's usage example fails, and the new GitHub-URL form isn't documented. README.md:20 shows `spm install nextjs-fsd`. parse-identifier.ts:40-44 rejects that with 'Must start with @ or be a GitHub URL.' The README never mentions the `@owner/repo/path` or `https://github.com/.../tree/<branch>/...` forms, or that files land in a temp directory."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,156 @@
+{
+ "id": "rd19",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "review"
+ ],
+ "first": "review",
+ "cost_usd": 0.5288,
+ "codex_tokens": 125447,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd19-t1-bi4de0qv",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "McpServerGitSync.svelte moves the '*' marker to the edited URL key and deletes the old key, but Update's '*' case only reads existingCred.Env[u] under the new URL, which has no entry, so the old token never reaches newTokens. The credential is then rewritten without it, or deleted if it was the only one. The comment says 'transferred from a renamed one', but no code does the transfer. Trigger traced: edit /org/repo to /org/repo/my-branch and leave the token field empty.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "line": 193,
+   "claim": "Editing a source URL without re-entering the token silently deletes its stored credential.",
+   "evidence": "McpServerGitSync.svelte moves the '*' marker from the old URL to the edited URL, but Update only looks up existingCred.Env[u] under the new URL. Changing /org/repo to /org/repo/my-branch therefore finds no token; the old URL is inactive and its token is dropped from storage.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "pkg/api/handlers/mcpcatalogs.go",
+     "line": 178,
+     "claim": "Editing a private source URL without entering a replacement token deletes its saved credential and breaks authenticated sync.",
+     "evidence": "McpServerGitSync.svelte moves the '*' marker from the old URL to the edited URL, but Update only looks up existingCred.Env[u] under the new URL. Changing /org/repo to /org/repo/my-branch therefore finds no token; the old URL is inactive and its token is dropped from storage."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "Lines 154-159 rewrite manifest.SourceURLs[i] to 'https://...' but leave the SourceURLCredentials keys alone. The UI keys the token by the raw value the user typed (editingSource.value). The activeURLs check then skips that key, so the token is silently dropped while the save still succeeds.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "line": 154,
+   "claim": "A scheme-less source URL entered with a token loses the token because normalization rewrites SourceURLs but not the credential map keys.",
+   "evidence": "For sourceURLs=['gitlab.com/org/private'] and sourceURLCredentials={'gitlab.com/org/private':'token'}, normalization changes only SourceURLs to 'https://gitlab.com/org/private'. The credential loop at lines 169\u2013171 rejects the original key because it no longer matches activeURLs, so the successful response contains no saved credential.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "pkg/api/handlers/mcpcatalogs.go",
+     "line": 128,
+     "claim": "Adding a scheme-less source URL with a token silently discards the token, preventing private repository access.",
+     "evidence": "For sourceURLs=['gitlab.com/org/private'] and sourceURLCredentials={'gitlab.com/org/private':'token'}, normalization changes only SourceURLs to 'https://gitlab.com/org/private'. The credential loop at lines 169\u2013171 rejects the original key because it no longer matches activeURLs, so the successful response contains no saved credential."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "Before this change only github.com used the clone path; gitlab.com URLs went to the raw HTTP GET. Now isGitRepoURL returns true for every gitlab.com URL. For https://gitlab.com/org/repo/-/raw/main/catalog.yaml, parseGitURL takes parts[2:] ('-/raw/main/catalog.yaml') as the branch, and validateBranchName rejects the leading '-', so sync fails for a source that used to work.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "line": 440,
+   "claim": "Every gitlab.com URL now goes to the git clone path, so existing GitLab raw-file catalog URLs stop syncing.",
+   "evidence": "Previously only github.com entered the clone path. A source such as https://gitlab.com/org/repo/-/raw/main/catalog.yaml previously used the raw-file HTTP reader; now isGitRepoURL returns true, parseGitURL interprets '-/raw/main/catalog.yaml' as the branch, and validateBranchName rejects its leading '-'.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "high",
+     "file": "pkg/controller/handlers/mcpcatalog/github.go",
+     "line": 59,
+     "claim": "Existing GitLab raw-file catalog URLs now fail because every gitlab.com URL is classified as a Git repository.",
+     "evidence": "Previously only github.com entered the clone path. A source such as https://gitlab.com/org/repo/-/raw/main/catalog.yaml previously used the raw-file HTTP reader; now isGitRepoURL returns true, parseGitURL interprets '-/raw/main/catalog.yaml' as the branch, and validateBranchName rejects its leading '-'."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "revealCatalogCredential logs errors other than not-found and returns \"\". Sync then calls readMCPCatalog without a token and records only that call's error. A public or anonymously readable source therefore shows no sync error, even though the doc comment says credential failures are 'visible in the sync status'.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+   "line": 955,
+   "claim": "Credential-store errors during sync are only logged; sync continues without a token and SyncErrors stays clean.",
+   "evidence": "revealCatalogCredential logs non-not-found errors and returns an empty token. Sync then calls readMCPCatalog normally and records only that call's error. If the source permits anonymous reads, SyncErrors remains empty and pruning remains enabled despite the failed credential retrieval.",
+   "axis_row": "L5.37",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+     "line": 69,
+     "claim": "Credential-store errors are swallowed, allowing sync to continue anonymously and conceal the credential failure from sync status.",
+     "evidence": "revealCatalogCredential logs non-not-found errors and returns an empty token. Sync then calls readMCPCatalog normally and records only that call's error. If the source permits anonymous reads, SyncErrors remains empty and pruning remains enabled despite the failed credential retrieval."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "SourceUrlsView.svelte:60-68 renders a button that contains only a <Pencil> icon, with no aria-label or title. The existing trash button has the same gap. This is an accessibility point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "ui/user/src/routes/admin/mcp-servers/SourceUrlsView.svelte",
+   "line": 60,
+   "claim": "The new icon-only edit button has no accessible name.",
+   "evidence": "The button contains only a Pencil SVG and has no aria-label, labelled text, or title identifying the edit action.",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "low",
+     "file": "ui/user/src/routes/admin/mcp-servers/SourceUrlsView.svelte",
+     "line": 60,
+     "claim": "The new icon-only edit button has no accessible name, making its purpose unavailable to screen-reader users.",
+     "evidence": "The button contains only a Pencil SVG and has no aria-label, labelled text, or title identifying the edit action."
+    }
+   ],
+   "id": "F5"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [],
+  "review": [
+   "review"
+  ]
+ }
+}

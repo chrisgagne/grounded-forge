@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 309,
+  "base": "130fc084dcec4731e67de96162d1abccae44f7ce",
+  "head": "ac6e2196f5c307fd09fa6ad8a64ba9ada14ab385"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "Every Verify run on the GCE path now fails at check 3 because the probe for non-wrapper binaries looks up a command name that includes literal double quotes. Even when `jq` is installed, the check reports it missing, and checks 4\u201311 (Trello, GWS auth, Alertmanager, sandbox image, DEPLOYED_REF, mongodb-mcp) never run. The probe is built with an unquoted heredoc: `nonwrapper_probe=\"$(cat <<SH ... binary_path=\"\\$(command -v \\\"${binary}\\\" || true)\"`. In an unquoted bash heredoc, a backslash escapes only `$`, backtick, `\\` and newline, so `\\\"` stays as `\\\"`. The generated script therefore reads `binary_path=\"$(command -v \\\"jq\\\" || true)\"`. `shell_single_quote` passes that through unchanged to `sudo docker exec <container> sh -c '...'`. Inside the `$(...)`, dash parses `\\\"jq\\\"` as the word `\"jq\"` (with quote characters), so `command -v` finds nothing, `|| true` leaves `binary_path` empty, and the probe exits with `missing_binary:jq`. `jq` is the first entry in scripts/docker/runtime-binaries.json and uses `install.method: system` (not a wrapper), so the first loop iteration hits `|| fail \"Failed to validate runtime binary jq in ...\"`. The outer call at line 361 then fails. Check 3 runs whenever `GCE_INSTANCE_NAME` is set, which covers both staging and production."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 357,
+   "end_line": 357,
+   "message": "The runtime binary check now uses the manifest from the CI runner's checkout instead of the one baked into the deployed image. Verify can therefore check binaries the image was never built with, or skip ones it was, whenever the checked-out commit and the image's build commit differ. Line 357 sets `runtime_binary_manifest_in_repo=\"${repo_root}/scripts/docker/runtime-binaries.json\"`, and line 252 runs `jq ... \"${runtime_binary_manifest_in_repo}\"` on the runner. The manifest inside the image (`/usr/local/share/openclaw/runtime-binaries.json`, installed by Dockerfile:135 and Dockerfile.sandbox:23) only gets `test -f` (lines 240-243); its contents are never read. The removed probe ran `jq` on the in-image manifest, so the image was always checked against its own manifest. .github/workflows/verify.yml:35 uses `actions/checkout@v4` with no `ref`. deploy-staging-on-release.yml calls verify from a `workflow_run` trigger, where the default checkout is the default branch, but the image under test is built from `github.event.workflow_run.head_sha` on daisy/dev. If those branches differ, the two manifests may disagree."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 358,
+   "end_line": 358,
+   "message": "The wrapper directory is now read from the CI runner's environment instead of the target image's environment, so Verify would look in the wrong place if an image ever set a different `OPENCLAW_RUNTIME_WRAPPER_BIN`. `runtime_wrapper_bin=\"${OPENCLAW_RUNTIME_WRAPPER_BIN:-/opt/daisy/bin}\"` is evaluated on the runner, and verify.yml never sets that variable, so the value is always the default. The removed probe evaluated the same expression inside the container (quoted `<<'SH'` heredoc), where the image's own `ENV OPENCLAW_RUNTIME_WRAPPER_BIN` applied (Dockerfile:25, Dockerfile.sandbox:4). The two match today only because both Dockerfiles hard-code /opt/daisy/bin."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 232,
+   "end_line": 232,
+   "message": "About 170 lines of new remote-command and probe-generation shell logic arrived with no tests. A single local run of the generated probe would have caught the quoting defect that makes every Verify fail. The diff touches only scripts/verify.sh. A search for tests that reference scripts/verify.sh or the new functions (`verify_runtime_binaries_for_target`, `build_direct_exec_smoke_command`, `build_target_*`) found none, and the packet contains no acceptance test for this behaviour."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "The image branch of `build_target_direct_exec_command` copies the smoke-command parsing and validation from `build_direct_exec_smoke_command` instead of reusing it, and the shared backslash guard checks for the wrong pattern. Lines 186-206 repeat lines 91-113 (the `case \"${smoke_command}\" in \"${binary}\"|\"${binary} \"*)` suffix split, the metacharacter blocklist and the `read -r -a` / `printf '%q'` argument loop). Only the command prefix differs, so a fix to one copy will not reach the other. In both copies, `*'\\\\'*` is single-quoted and so matches two consecutive backslashes, not one. The `%q` escaping makes this harmless, but the guard does not do what it appears to."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 294,
+   "end_line": 294,
+   "message": "The runtime binary check now opens one IAP SSH session per manifest entry, and in image mode starts one container per check, instead of one SSH call per target. This adds several minutes to every Verify run. Each target runs `gce_ssh` for the manifest check (242) and the arch check (247), once per non-wrapper entry (295), and twice per wrapper entry (267, 271). With the 12 amd64 entries (11 non-wrapper plus gemini), that is about 15 `gcloud compute ssh --tunnel-through-iap` calls for the gateway and 15 more `docker run --rm` sessions for the sandbox image. Before the change, each target made a single `gce_ssh` call."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 284,
+   "end_line": 284,
+   "message": "The non-wrapper probe splices manifest strings into a script that runs as `sudo docker exec` without escaping them, while the wrapper path in the same change escapes its arguments with `%q` and rejects shell metacharacters. The two paths are inconsistent. Lines 279-285 interpolate `${binary}` and `${smoke_command}` straight into the heredoc (`if ! ${smoke_command} >/dev/null 2>&1; then`, `echo \"failed_smoke:${binary}:${smoke_command}\"`). The wrapper path builds its arguments with `printf '%q'` and rejects `; & | < > ' \"` (lines 102-112). The manifest is repo-controlled and the removed probe also ran `sh -c` on it, so this is not a new trust boundary. However, any `\"` in a smoke string will now break the generated script."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -217,15 +217,17 @@ def run_claude(prompt: str, cwd: Path, log: Path, *, model: str, timeout_s: int,
 
 
 def run_codex(prompt: str, cwd: Path, log: Path, out: Path, *, model: str | None, timeout_s: int,
-              sandbox: str = "read-only", output_schema: Path | None = None) -> dict:
+              sandbox: str = "read-only", output_schema: Path | None = None, effort: str | None = None) -> dict:
     """One `codex exec` leg; its final message is written to `out` and comes back as `result`. With `output_schema`
-    (a JSON Schema file), Codex holds the final message to that shape."""
+    (a JSON Schema file), Codex holds the final message to that shape. `effort` sets Codex's reasoning effort; left
+    out, the CLI's default applies (it reports "none")."""
     binary = codex_bin()
     if not binary:
         return {"ok": False, "family": "codex", "cmd": "codex exec", "error": "Codex CLI not found (set CODEX_BIN)",
                 "started": now(), "finished": now(), "duration_s": 0, "log_path": None}
     cmd = [binary, "exec", *(["-m", model] if model else []), "-s", sandbox, "--skip-git-repo-check",
            "--ephemeral", "--ignore-user-config", "-C", str(cwd), "-o", str(out),
+           *(["-c", f'model_reasoning_effort="{effort}"'] if effort else []),
            *(["--output-schema", str(output_schema)] if output_schema else []), prompt]
     env, _ = scrubbed_env(keep=CODEX_AUTH)
     for attempt in range(CODEX_RETRIES + 1):
@@ -263,14 +265,15 @@ def codex_home(root: Path) -> Path:
 
 
 def run_codex_review(repo: Path, log: Path, *, base: str, title: str, model: str | None, timeout_s: int,
-                     home: Path) -> dict:
+                     home: Path, effort: str | None = None) -> dict:
     """OpenAI's own review command, `codex review --base`, on a repository whose `base` branch is where the change
     started and whose HEAD is where it ends. Its review is the stdout (the `result`); progress goes beside it."""
     binary = codex_bin()
     if not binary:
         return {"ok": False, "family": "codex", "cmd": "codex review", "error": "Codex CLI not found (set CODEX_BIN)",
                 "started": now(), "finished": now(), "duration_s": 0, "log_path": None}
-    cmd = [binary, "review", "--base", base, "--title", title[:200], *(["-c", f'model="{model}"'] if model else [])]
+    cmd = [binary, "review", "--base", base, "--title", title[:200], *(["-c", f'model="{model}"'] if model else []),
+           *(["-c", f'model_reasoning_effort="{effort}"'] if effort else [])]
     env, _ = scrubbed_env(keep=CODEX_AUTH)
     env["CODEX_HOME"] = str(home)
     res = _spawn(cmd, repo, log, timeout_s, env, stderr_log=log.with_suffix(".progress.txt"))

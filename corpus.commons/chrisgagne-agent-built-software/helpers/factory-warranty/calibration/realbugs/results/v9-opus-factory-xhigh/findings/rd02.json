@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/ComposioHQ/agent-orchestrator",
+  "pr_number": 1277,
+  "base": "ba77929c9345a0dc897d53115504d0ae32745ce5",
+  "head": "76652c7ccefa3a371be74e8648c5204adc7f09a5"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "Git-install detection now treats any directory with a `.git` four levels above the CLI module as an Agent Orchestrator checkout. A CLI copy sitting outside node_modules inside some other git repo is therefore classified \"git\", and `ao update` then runs the update script against that unrelated repo. The diff removes the `existsSync(resolve(repoRoot, \"scripts/ao-update.sh\"))` marker and keeps only `if (existsSync(resolve(repoRoot, \".git\")))`. Nothing replaces the marker, although the script still exists at `packages/cli/src/assets/scripts/ao-update.sh` and could have been checked there. Trigger: the CLI package copied (vendored) into another monorepo, e.g. `other-repo/packages/cli/dist/lib/update-check.js`. `classifyInstallPath` returns \"git\". In `handleGitUpdate`, `hasRepoScript(\"ao-update.sh\")` is still true because the bundled copy sits in `dist/assets/scripts`, so the npm fallback never fires. `runRepoScript` passes `AO_REPO_ROOT` = `resolveDefaultRepoRootFromPath` = `../../../../` = `other-repo`. `ao-update.sh` then runs `cd \"$REPO_ROOT\"`, `git pull --ff-only origin main`, `pnpm install` and `pnpm --filter @aoagents/ao-cli clean/build` in that repo. The diff also deletes the update-check tests \"returns 'unknown' when .git exists but scripts/ao-update.sh does not\" and \"\u2026when scripts/ao-update.sh exists but .git does not\", so nothing guards this any more."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "After the move, both scripts' fallback for locating themselves now points at the `assets/` directory instead of the repo or package root. Running either script directly, without the CLI, uses the wrong root. Because the CLI always sets the root, the doctor script's new layout auto-detection is never reached when the CLI runs it. `REPO_ROOT=\"${AO_REPO_ROOT:-$(cd \"$(dirname \"${BASH_SOURCE[0]}\")/..\" && pwd)}\"` (also `ao-doctor.sh:31`) was correct when the file lived at `scripts/`. Now it resolves to `packages/cli/src/assets` or `<pkg>/dist/assets`. If `ao-update.sh` is run directly, `cd \"$REPO_ROOT\"` lands inside the work tree, so `git rev-parse` passes. `git pull` and `pnpm install` then run before `cd \"$REPO_ROOT/packages/ao\"` fails partway through. `ao-doctor.sh:33-39` detects the package-install layout from `$REPO_ROOT/package.json`/`dist/index.js`, which the stale default can never satisfy. `runRepoScript` always exports `AO_REPO_ROOT` and `AO_SCRIPT_LAYOUT`, so that branch is dead code under the CLI."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 85,
+   "end_line": 85,
+   "message": "When the update script is missing, the fallback passes a git-install user into the npm flow. That user is told their git-only flags \"only apply to git source installs\", and gets an npm-version \"already latest\" verdict that says nothing about whether their checkout is behind main. `handleGitUpdate` calls `handleNpmUpdate(opts, \"npm-global\")` with the original `opts`. `handleNpmUpdate` then prints `\"--skip-smoke and --smoke-only only apply to git source installs. Ignoring.\"` to a user whose install was just detected as \"git\". It also returns `Already on latest version` whenever `info.isOutdated` is false, and that flag only compares `package.json` versions with the registry."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/__tests__/scripts/doctor-script.test.ts",
+   "start_line": 216,
+   "end_line": 216,
+   "message": "The packaged-install doctor test only tries the easy input combination. It never checks that pnpm is downgraded to optional, or that the script detects its own layout, so a regression that again fails npm users who lack pnpm would still pass. The test sets `AO_SCRIPT_LAYOUT: \"package-install\"` explicitly, which skips the heuristic at `ao-doctor.sh:33-39`. It also calls `createHealthyPath(binDir)`, which installs a fake `pnpm`, so `check_pnpm` passes whether `pnpm_requirement` is \"required\" or \"optional\". No test runs the packaged layout without pnpm on PATH."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/__tests__/lib/script-runner.test.ts",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "The regex-escaping helper in the missing-script test escapes nothing. The test therefore relies on path characters happening to match themselves, and it will fail or throw on a checkout path containing characters such as `(`, `+` or `[`. In `expectedScriptsDir.replace(/[.*+?^${}()|[\\\\]\\\\\\\\]/g, \"\\\\$&\")` the character class closes at the first `]` after `\\\\`. The pattern therefore matches one special character followed by a literal `\\\\]`, which never occurs in a path, so `replace` returns the path unchanged before it is put into `new RegExp(...)`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 56,
+   "end_line": 56,
+   "message": "Several names in the script runner no longer describe what they hold, which invites misuse. `hasRepoScript` checks `CLI_DIST_ROOT/assets/scripts`, a file bundled in the CLI package, not anything in a repo. `resolveRepoRoot()` and the exported `AO_REPO_ROOT` now return the npm package directory for package installs. `CLI_DIST_ROOT` is `packages/cli/src` when the CLI runs from source via tsx."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 277,
+   "end_line": 277,
+   "message": "When the CLI runs `ao doctor`, its \"bundled doctor script is available\" check can never fail, because it tests for the very file that is running. `runRepoScript` resolves the script as `resolve(CLI_DIST_ROOT, \"assets\", \"scripts\", \"ao-doctor.sh\")` = `<pkg>/dist/assets/scripts/ao-doctor.sh`, and passes `AO_REPO_ROOT=<pkg>`. The check `[ -f \"$REPO_ROOT/dist/assets/scripts/ao-doctor.sh\" ]` therefore tests the script that is currently executing."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

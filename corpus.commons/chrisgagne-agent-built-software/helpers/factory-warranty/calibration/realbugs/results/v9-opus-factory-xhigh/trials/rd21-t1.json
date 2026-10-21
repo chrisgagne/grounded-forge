@@ -1,0 +1,212 @@
+{
+ "id": "rd21",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "gate:ratchet:semgrep_findings",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 1.3136,
+ "codex_tokens": 0,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd21-t1-cizu5yf3",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "charts/templates/deployment.yaml:76-78 adds envFrom secretRef ms-secret-vault to every chart service; the new container in agent/ai-secure-agent.yaml has only an env list and no envFrom, and backend/ai-secure-agent-config.yaml has mysql username root with no password. On sync, the pod loses every Vault-injected variable.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 25,
+   "claim": "New Deployment drops the envFrom ms-secret-vault secretRef the Helm chart applied, so the agent starts without Vault-held credentials (e.g. MySQL password).",
+   "evidence": "The deleted Helm release was rendered by `charts/templates/deployment.yaml:76-78`, which adds `envFrom: - secretRef: name: {{ .Values.externalSecret.targetName | default \"ms-secret-vault\" }}` to every service. The new container's `env:` (lines 25-35) sets only CONFIG_PATH, PYTHONUNBUFFERED, ENABLE_MLFLOW_TRACING, MLFLOW_TRACKING_URI and MALLOC_ARENA_MAX, and it has no `envFrom`. The mounted `backend/ai-secure-agent-config.yaml` has `mysql: username: \"root\"` but no password field. The repo's convention, stated in `backend/log-config.yaml:5-6` and `backend/mcp-server-config.yaml:6-7`, is that secrets are 'injected through the Vault external secret (ms-secret-vault)', and `k8s-configs/eos-microservice.yaml` creates that secret from `secret/ceramicraft`. Trigger: agent-app syncs this Deployment, the pod starts with no Vault-held variables, and its MySQL connection as root has no password.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 25,
+     "claim": "The new Deployment no longer gets the Vault-backed `ms-secret-vault` secret that the Helm chart gave it, so the agent will likely start without the MySQL password and any other credentials it reads from the environment.",
+     "evidence": "The deleted Helm release was rendered by `charts/templates/deployment.yaml:76-78`, which adds `envFrom: - secretRef: name: {{ .Values.externalSecret.targetName | default \"ms-secret-vault\" }}` to every service. The new container's `env:` (lines 25-35) sets only CONFIG_PATH, PYTHONUNBUFFERED, ENABLE_MLFLOW_TRACING, MLFLOW_TRACKING_URI and MALLOC_ARENA_MAX, and it has no `envFrom`. The mounted `backend/ai-secure-agent-config.yaml` has `mysql: username: \"root\"` but no password field. The repo's convention, stated in `backend/log-config.yaml:5-6` and `backend/mcp-server-config.yaml:6-7`, is that secrets are 'injected through the Vault external secret (ms-secret-vault)', and `k8s-configs/eos-microservice.yaml` creates that secret from `secret/ceramicraft`. Trigger: agent-app syncs this Deployment, the pod starts with no Vault-held variables, and its MySQL connection as root has no password."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "app-of-apps.yaml:433 sets targetRevision to the feature branch, while every other in-repo source uses HEAD (lines 10, 77, 100, 111, 137, 272, 334, 388, 411). After merge, edits to agent/ on the default branch never deploy, and deleting the branch leaves the app with no source it can resolve.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "app-of-apps.yaml",
+   "line": 433,
+   "claim": "agent-app tracks the feature branch AI-20-AISecureAgent-Feature-collection instead of HEAD, with automated prune/selfHeal.",
+   "evidence": "`targetRevision: AI-20-AISecureAgent-Feature-collection` with `syncPolicy.automated: prune: true, selfHeal: true` (lines 433-441). Every other Git-sourced Application and the helm-app ApplicationSet in this file use `targetRevision: HEAD` / `revision: HEAD` (lines 10, 77, 100, 111, 137, 272, 334, 388, 411). So once this change merges, the `helm_backend/ai-secure-agent-ms` removal takes effect from HEAD, while the replacement is read only from the feature branch.",
+   "axis_row": "L6.8",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "high",
+     "file": "app-of-apps.yaml",
+     "line": 433,
+     "claim": "The new `agent-app` deploys production from the feature branch `AI-20-AISecureAgent-Feature-collection` instead of HEAD. Pushes to that branch go live without merge review, edits to `agent/` on the default branch never deploy, and deleting the branch after merge leaves the app unable to resolve its source.",
+     "evidence": "`targetRevision: AI-20-AISecureAgent-Feature-collection` with `syncPolicy.automated: prune: true, selfHeal: true` (lines 433-441). Every other Git-sourced Application and the helm-app ApplicationSet in this file use `targetRevision: HEAD` / `revision: HEAD` (lines 10, 77, 100, 111, 137, 272, 334, 388, 411). So once this change merges, the `helm_backend/ai-secure-agent-ms` removal takes effect from HEAD, while the replacement is read only from the feature branch."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The helm-app ApplicationSet (app-of-apps.yaml:97-125) generates an app per helm_backend/* on HEAD with prune on, and the chart names resources ai-secure-agent-ms / -svc, the same names agent/ai-secure-agent.yaml creates. app-of-apps.yaml is the only file defining Applications and nothing synced applies it, so the old release goes away on merge while agent-app only appears if someone applies the file by hand. Which Argo app acts first can't be read from the code, so this stays medium.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "helm_backend/ai-secure-agent-ms/values.yaml",
+   "line": null,
+   "claim": "Deleting the Helm values removes the ApplicationSet-generated ai-secure-agent-ms app and its same-named resources, so the cutover risks deleting the replacement or causing an outage.",
+   "evidence": "The helm-app ApplicationSet generates one Application per `helm_backend/*` directory on HEAD (`app-of-apps.yaml:97-102`) with prune enabled. The chart names the objects `{{ .Release.Name }}` and `{{ .Release.Name }}-svc` (`charts/templates/deployment.yaml:4`, `service.yaml:4`), and the chart's default `hpa.enabled: true` (`charts/values.yaml:46-50`) adds HPA `ai-secure-agent-ms`, giving `ai-secure-agent-ms` and `ai-secure-agent-ms-svc`. The new manifest creates Deployment `ai-secure-agent-ms` and Service `ai-secure-agent-ms-svc` in `default` (`agent/ai-secure-agent.yaml:4,49`). `agent-app` exists only in the root `app-of-apps.yaml`, which no synced path applies, so the old release goes away automatically on merge but the replacement appears only when someone re-applies that file by hand.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "helm_backend/ai-secure-agent-ms/values.yaml",
+     "line": null,
+     "claim": "Deleting the Helm values makes the ApplicationSet remove the `ai-secure-agent-ms` Application and cascade-delete its Deployment, Service and HPA. Those objects have the same names the new `agent-app` manifest creates, so the cutover may delete the replacement or cause an outage, depending on which Argo app acts first.",
+     "evidence": "The helm-app ApplicationSet generates one Application per `helm_backend/*` directory on HEAD (`app-of-apps.yaml:97-102`) with prune enabled. The chart names the objects `{{ .Release.Name }}` and `{{ .Release.Name }}-svc` (`charts/templates/deployment.yaml:4`, `service.yaml:4`), and the chart's default `hpa.enabled: true` (`charts/values.yaml:46-50`) adds HPA `ai-secure-agent-ms`, giving `ai-secure-agent-ms` and `ai-secure-agent-ms-svc`. The new manifest creates Deployment `ai-secure-agent-ms` and Service `ai-secure-agent-ms-svc` in `default` (`agent/ai-secure-agent.yaml:4,49`). `agent-app` exists only in the root `app-of-apps.yaml`, which no synced path applies, so the old release goes away automatically on merge but the replacement appears only when someone re-applies that file by hand."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The deleted values set probes on /ai-secure-agent-ms/v1/ping and requests/limits (cpu 100m/200m, memory 256Mi/345Mi), which charts/templates/deployment.yaml:55-75 rendered. The new container spec has none of them, so the pod is BestEffort with no health checks.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 19,
+   "claim": "The rewritten Deployment drops the liveness/readiness probes and the resource requests/limits the chart applied.",
+   "evidence": "The deleted values set `livenessProbe`/`readinessProbe` on `/ai-secure-agent-ms/v1/ping` and `resources: requests cpu 100m, memory 256Mi; limits cpu 200m, memory 345Mi`, rendered by `charts/templates/deployment.yaml:55-75`. The new container spec (lines 19-41) has no `livenessProbe`, `readinessProbe` or `resources`. The retained `MALLOC_ARENA_MAX: \"2\"` shows memory use was already a concern.",
+   "axis_row": "L5.13",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 19,
+     "claim": "The rewritten Deployment drops the liveness and readiness probes and all resource requests and limits that the chart applied. The Service can send traffic to a pod that isn't ready, a hung agent is never restarted, and the Python LLM agent can now use unbounded memory on the shared node as a BestEffort pod.",
+     "evidence": "The deleted values set `livenessProbe`/`readinessProbe` on `/ai-secure-agent-ms/v1/ping` and `resources: requests cpu 100m, memory 256Mi; limits cpu 200m, memory 345Mi`, rendered by `charts/templates/deployment.yaml:55-75`. The new container spec (lines 19-41) has no `livenessProbe`, `readinessProbe` or `resources`. The retained `MALLOC_ARENA_MAX: \"2\"` shows memory use was already a concern."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "Line 20 uses lian1280/ceramicraft-ai-secure-agent:debug-202604071410 with IfNotPresent. The deleted values used the same tag, so this carries over an existing practice rather than adding a new defect; low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 20,
+   "claim": "Image is pinned to a mutable debug- tag with IfNotPresent and no digest.",
+   "evidence": "`image: lian1280/ceramicraft-ai-secure-agent:debug-202604071410` with `imagePullPolicy: IfNotPresent`. There is no `@sha256:` digest. The deleted values used the same tag, but this change writes it into a new hand-maintained manifest.",
+   "axis_row": "L5.40",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "low",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 20,
+     "claim": "The image is pinned to a mutable `debug-` tag with `IfNotPresent`, so different nodes may run different builds under the same tag, and the deployed artefact can't be tied to a reviewed build.",
+     "evidence": "`image: lian1280/ceramicraft-ai-secure-agent:debug-202604071410` with `imagePullPolicy: IfNotPresent`. There is no `@sha256:` digest. The deleted values used the same tag, but this change writes it into a new hand-maintained manifest."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "confirmed",
+   "reason": "charts/templates/deployment.yaml has podAnnotations, podAntiAffinity, the fix-perm initContainer, the applogs hostPath and the grpc port; the deleted values set linkerd.io/inject: disabled. The new manifest has none of these, so mesh injection now depends on namespace defaults. This is a maintainability and consistency point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "agent/ai-secure-agent.yaml",
+   "line": 1,
+   "claim": "Moving the service out of the shared chart into a raw manifest drops the log hostPath, anti-affinity, HPA, linkerd annotation and grpc port without explanation.",
+   "evidence": "`charts/templates/deployment.yaml` provides `podAnnotations`, `podAntiAffinity` (lines 21-29), the `fix-perm` initContainer and `applogs` hostPath `/tmp/logs/<svc>` (lines 30-36, 87-90), and the grpc port. All `helm_backend/*/values.yaml` still use it. The deleted values had `podAnnotations: linkerd.io/inject: disabled` and `logPath: /tmp/logs/ai-secure-agent-ms`. The new manifest has no annotations, no log volume and only port 8080. Without the explicit opt-out, mesh injection now depends on namespace settings this repo doesn't show.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "agent/ai-secure-agent.yaml",
+     "line": 1,
+     "claim": "The service moves out of the shared Helm chart into a one-off raw manifest. That duplicates the chart and silently drops chart behaviour every other microservice keeps (hostPath log volume, anti-affinity, HPA, the explicit `linkerd.io/inject: disabled` annotation, the grpc port), and the change explains none of these removals.",
+     "evidence": "`charts/templates/deployment.yaml` provides `podAnnotations`, `podAntiAffinity` (lines 21-29), the `fix-perm` initContainer and `applogs` hostPath `/tmp/logs/<svc>` (lines 30-36, 87-90), and the grpc port. All `helm_backend/*/values.yaml` still use it. The deleted values had `podAnnotations: linkerd.io/inject: disabled` and `logPath: /tmp/logs/ai-secure-agent-ms`. The new manifest has no annotations, no log volume and only port 8080. Without the explicit opt-out, mesh injection now depends on namespace settings this repo doesn't show."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "acceptance.md refers to story.md and tests.lock, but neither is in the packet. .factory/config.yaml's test command only echoes and exits 0, and the diff adds no helm template or kubeconform check. This is a process gap, not a code defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": null,
+   "line": null,
+   "claim": "No spec, tests or manifest validation check this change.",
+   "evidence": "`acceptance.md` says 'story.md is the spec. The baseline's tests are the locked acceptance tests', but the packet has no story.md, and the repo has no test files. `.factory/config.yaml` sets `test: 'echo ''replay: the project suite is not run...'' && exit 0'`. The diff adds no `helm template`/kubeconform check and no README note (README.md is a single heading).",
+   "axis_row": "L1.1",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "low",
+     "file": null,
+     "line": null,
+     "claim": "Nothing checks this change: no spec or tests are available to judge it against, and no manifest validation runs. A broken manifest or failed cutover would only show up in the live cluster.",
+     "evidence": "`acceptance.md` says 'story.md is the spec. The baseline's tests are the locked acceptance tests', but the packet has no story.md, and the repo has no test files. `.factory/config.yaml` sets `test: 'echo ''replay: the project suite is not run...'' && exit 0'`. The diff adds no `helm template`/kubeconform check and no README note (README.md is a single heading)."
+    }
+   ],
+   "id": "F7"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast",
+   "gate:ratchet:semgrep_findings"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

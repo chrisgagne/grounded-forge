@@ -23,11 +23,16 @@ from compare_v6 import high_found  # noqa: E402
 ARMS = {"sol-factory": "v7-sol-factory", "sol-own": "v7-sol-own", "opus-factory": "v7-opus-factory",
         "opus-plain": "v7-opus-own", "sol-plain": "v9-sol-plain", "sol-plain-high": "v9-sol-plain-high",
         "cc-review": "v9-cc-review", "cc-review-high": "v9-cc-review-high", "cc-review-xhigh": "v9-cc-review-xhigh",
-        "codex-review-high": "v9-codex-review-high"}  # the last added by Amendment 1
+        "codex-review-high": "v9-codex-review-high",  # added by Amendment 1
+        "sol-factory-high": "v9-sol-factory-high", "opus-factory-xhigh": "v9-opus-factory-xhigh",
+        "opus-plain-xhigh": "v9-opus-plain-xhigh"}  # added by Amendment 2
 PRIMARY = [("sol-factory", "sol-plain"), ("opus-plain", "cc-review"), ("opus-plain", "cc-review-high"),
            ("opus-plain", "cc-review-xhigh"),
            # Amendment 1 (2026-10-21): codex review at "high" against Sol's other arms
-           ("codex-review-high", "sol-own"), ("codex-review-high", "sol-plain-high"), ("codex-review-high", "sol-factory")]
+           ("codex-review-high", "sol-own"), ("codex-review-high", "sol-plain-high"), ("codex-review-high", "sol-factory"),
+           # Amendment 2 (2026-10-21): the factory's brief at higher effort
+           ("sol-factory-high", "sol-plain-high"), ("sol-factory-high", "sol-factory"),
+           ("opus-factory-xhigh", "opus-plain-xhigh"), ("opus-factory-xhigh", "opus-factory")]
 
 
 def arm(folder: str) -> dict | None:
@@ -42,7 +47,11 @@ def arm(folder: str) -> dict | None:
            "high_found": high_found(p.with_name("results.details.json")),
            "pull_requests": len(files),
            "findings_per_pr": round(sum(len(json.loads(f.read_text())["findings"]) for f in files) / len(files), 2)}
-    metas = [json.loads(t.read_text())["meta"] for t in sorted((RESULTS / folder / "trials").glob("*.json"))]
+    # A factory trial records its cost at the top level, not in a `meta` block (fixed after Amendment 2's runs; the
+    # scoring above is unchanged).
+    recs = [json.loads(t.read_text()) for t in sorted((RESULTS / folder / "trials").glob("*.json"))]
+    metas = [r.get("meta") or {"cost_usd": r.get("cost_usd"), "tokens": r.get("codex_tokens"),
+                               "unreadable": r.get("error")} for r in recs]
     if metas:
         out["cost_usd"] = round(sum(m.get("cost_usd") or 0 for m in metas), 2)
         out["codex_tokens"] = sum(m.get("tokens") or 0 for m in metas)

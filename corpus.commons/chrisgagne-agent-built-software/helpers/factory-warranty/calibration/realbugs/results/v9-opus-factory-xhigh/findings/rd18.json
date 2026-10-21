@@ -1,0 +1,112 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Nothing in the repo deploys the new topics file, so the three aktivitetspenger-inntektsrapportering topics will not be created. Every submission to the new endpoint then fails at the Kafka produce step, and the three new streams have no source topic to read. Every other file in nais/topics/ has its own workflow that passes its path to reusable-topic-workflow.yml (for example .github/workflows/deploy-aktivitetspenger-soknad-topics.yml with TOPICS_PATH 'nais/topics/aktivitetspenger-soknad-topics.yml'). No such workflow is added for aktivitetspenger-inntektsrapportering-topics.yml, and build-and-deploy.yml lists 'nais/topics/*' under paths-ignore. Trace: POST /aktivitetspenger/inntektsrapportering/innsending \u2192 InnsendingService.registrerS\u00f8knadUtenVedlegg \u2192 kafkaProdusent.produserKafkaMelding to the topic from hentTopicForYtelse(AKTIVITETSPENGER_INNTEKTSRAPPORTERING) = 'dusseldorf.aktivitetspenger-inntektsrapportering-mottatt'. That topic does not exist, so the call throws MeldingRegistreringFeiletException. The streams in AktivitetspengerInntektsrapporteringPreprosessering, Journalf\u00f8ring and Cleanup subscribe to the same missing topics."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/AktivitetspengerInntektsrapporteringInnsending.kt",
+   "start_line": 54,
+   "end_line": 54,
+   "message": "The k9-format message for an income report looks the same as an aktivitetspenger application: ytelse type AKTIVITETSPENGER with a s\u00f8knadsperiode covering the reporting month, and no marker saying it is a report. Downstream consumers such as ung-sak, which this change grants read access to the cleanup topic, may treat a monthly income report as a new application for that period. somK9Format builds `Aktivitetspenger().medS\u00f8knadsperiode(oppgittInntektForPeriode.periodeForInntekt.somUngPeriode()).medInntekter(...)` and validates it with `AktivitetspengerS\u00f8knadValidator()` (line 72), which is the validator for applications. The ungdomsytelse version it copies sets `.medS\u00f8knadType(UngS\u00f8knadstype.RAPPORTERING_S\u00d8KNAD)`, and its test expects \"s\u00f8knadType\": \"RAPPORTERING_S\u00d8KNAD\". The new test's expected JSON has only \"type\": \"AKTIVITETSPENGER\", \"s\u00f8knadsperiode\": \"2025-01-01/2025-01-31\" and inntekter. The journalpost brevkode is also a placeholder (see the separate finding), so it cannot tell the two apart either."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "start_line": 193,
+   "end_line": 193,
+   "message": "Every income report is journalf\u00f8rt with the placeholder brevkode \"FIXME_AVP_INNTEKT_BREVKODE\". The archive and anything that routes on brevkode get a meaningless code, and dokarkiv may reject it. `AKTIVITETSPENGER_INNTEKTRAPPORTERING(brevkode = BrevKode(brevKode = \"FIXME_AVP_INNTEKT_BREVKODE\", dokumentKategori = \"SOK\"), ...)`. AktivitetspengerInntektsrapporteringPreprosessert.tilJournaf\u00f8rigsRequest uses this YtelseType, and JournalPostRequestV1Factory copies ytelseType.brevkode into the journalpost request. Other ytelser use real form codes, for example UNGDOMSYTELSE_INNTEKTRAPPORTERING uses \"NAV 76-13.93\"."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/kafka/Aktivitetspengers\u00f8knadKonsumentTest.kt",
+   "start_line": 176,
+   "end_line": 176,
+   "message": "A locked baseline test was edited to accept new output. This hides that the k9-format bump changes the wire format of existing aktivitetspenger applications sent to downstream consumers, and nothing records who agreed to the change. The diff changes the expected k9Format JSON of the existing application test from `}` to `}, \"inntekter\": null`. acceptance.md says the baseline's tests are the locked acceptance tests. The change comes from build.gradle.kts bumping k9FormatVersion from 12.9.2 to 12.10.0. The existing aktivitetspenger-soknad-mottatt and -cleanup topics are read by ung-brukerdialog-api, which now receives the new field."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "The report is put on Kafka before the oppgave is marked as l\u00f8st, and the two steps are not atomic. If markerOppgaveSomL\u00f8st fails, the user gets an error but the report is still journalf\u00f8rt. A retry inside the cache window gets a 400 duplicate error, and a later retry creates a second journalpost. Line 99 calls `duplikatInnsendingSjekker.forsikreIkkeDuplikatInnsending(cacheKey)`, which caches the key before anything else runs. Line 100 calls `innsendingService.registrer(...)`, which produces the Kafka message. Lines 102-110 then call `ungBrukerdialogApiService.markerOppgaveSomL\u00f8st(...)`, whose @Recover handlers rethrow `markerOppgaveSomL\u00f8stFeil`. The cache key is never removed on failure. hentInntektsrapporteringPeriode does not check the oppgave's status, so an oppgave that is already l\u00f8st is also accepted. The pattern is copied from UngdomsytelseService.inntektrapportering."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/AktivitetspengerInntektsrapportering.kt",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "The received timestamp comes from the request body, so a user can backdate or postdate when their income report was received. That date ends up in the k9 message and the journalpost. `@Schema(hidden = true) val mottatt: ZonedDateTime = ZonedDateTime.now(ZoneOffset.UTC)` only hides the field in Swagger. Jackson still binds it from JSON, and no config ignores it. AktivitetspengerService passes `mottatt = rapportetInntekt.mottatt` into the innsending. From there it reaches `.medMottattDato(mottatt)` in somK9Format and `mottatt = mottatt` in tilJournaf\u00f8rigsRequest. The new tests post `mottatt = 2025-01-01T03:04:05Z`, and the request is accepted. The same pattern exists in the other dialogs."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+   "start_line": 105,
+   "end_line": 105,
+   "message": "No test checks the endpoint's main effects: what is sent to ung-brukerdialog-api to mark the oppgave as l\u00f8st, and the period and amount in the submitted innsending. Swapped dates or a dropped amount would still pass. `Innsending av inntekt er OK` stubs `innsendingService.registrer` and `ungBrukerdialogApiService.markerOppgaveSomL\u00f8st(any(), any())`, but only asserts `status { isAccepted() }` and the correlation-id header, with no `verify`/`coVerify` on either mock. The integration test `forvent at melding konsumeres riktig...` only checks `slettDokumenter` and four fields of the dittnav beskjed. It never checks the L\u00f8sOppgaveRequest or the k9 content produced through the HTTP path."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/kafka/AktivitetspengerInntektRapporteringKonsumentTest.kt",
+   "start_line": 98,
+   "end_line": 98,
+   "message": "The only test that asserts the k9 JSON content builds its input with a test helper that copies the production mapping. A bug in the production somK9Format would not be caught. The test calls `InntektrapporteringUtils.gyldigInntektsrapportering(...)`, which calls `gyldigK9Format`. That helper repeats `Aktivitetspenger().medS\u00f8knadsperiode(...).medInntekter(UngOppgittInntekt(setOf(...somUngOppgittInntektForPeriode())))` from AktivitetspengerInntektsrapporteringInnsending.somK9Format. The message is put straight on the mottatt topic, so the production somK9Format never runs. `val deltakelseId` (line 100) is passed to `preprosessertS\u00f8knadSomJson` but never used there."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "The new topics give ung-brukerdialog-api no read access, unlike both topic files this change follows. A consumer that expects to read income-report events may be denied. In the new file, the mottatt and cleanup ACLs list only k9-brukerdialog-prosessering, plus ung-sak on cleanup. aktivitetspenger-soknad-topics.yml and ungdomsytelse-inntektsrapportering-topics.yml both grant `team: k9saksbehandling, application: ung-brukerdialog-api, access: read` on mottatt and cleanup."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "start_line": 187,
+   "end_line": 187,
+   "message": "The change also renames the journalpost title of existing aktivitetspenger applications. The income-report work did not need this, and it changes how applications are titled in the archive. AKTIVITETSPENGER_S\u00d8KNAD tittel changes from \"S\u00f8knad om ungdomsprogramytelse - NAV Aktivitetspenger\" to \"S\u00f8knad om aktivitetspenger - NAV Aktivitetspenger\" in the same hunk that adds AKTIVITETSPENGER_INNTEKTRAPPORTERING."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "The reported income has no lower bound, so a negative amount passes validation. It is then sent to ung-brukerdialog-api and put into the k9 message. `val arbeidstakerOgFrilansInntekt: Int? = null` has only `@AssertTrue harOppgittInntekt() = arbeidstakerOgFrilansInntekt != null`, with no @Min/@PositiveOrZero. `valider()` in the innsending returns an empty list. AktivitetspengerService turns the value into `BigDecimal.valueOf(it.toLong())` for RapportertInntektDto."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/pdf/AktivitetspengerInntektsrapporteringPdfGeneratorTest.kt",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The PDF test runs two identical cases, asserts nothing about the output, and writes to the same file paths as the ungdomsytelse PDF test, so each test overwrites the other's readable PDFs. Both cases use `arbeidstakerOgFrilansInntekt = 6000` with the same 2025-01-01..2025-01-31 period, and the test only calls `generator.genererPDF(...)`. `PDF_PREFIX = \"ung\"` with ids \"1-full-inntekt-alle\" and \"2-arbeidstaker-og-frilansinntekt\" match UngdomsytelseInntektsrapporteringPdfGeneratorTest exactly. `pdfPath` resolves to `$prefix-pdf-$soknadId.pdf`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntektForPeriode.kt",
+   "start_line": 27,
+   "end_line": 27,
+   "message": "The aktivitetspenger income-report code is an almost line-for-line copy of the ungdomsytelse version, including names that point to ungdomsytelse. Fixes now have to be made in two places, and the names mislead readers. OppgittInntekt, OppgittInntektForPeriode, `data class UngPeriode`, AktivitetspengerInntektsrapporteringPdfData, aktivitetspenger-rapportering-soknad.hbs, and AktivitetspengerService.inntektrapportering/hentInntektsrapporteringPeriode match their ungdomsytelse counterparts except for type names. The PDF template still carries the unused `{{ id }}` footer span."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "The aktivitetspenger controller test builds its request from the ungdomsytelse test fixture. It only passes because the two JSON shapes happen to match. `import no.nav.brukerdialog.ytelse.ungdomsytelse.utils.InntektrapporteringUtils` gives `defaultInntektsrapportering` of type UngdomsytelseInntektsrapportering. The change adds an aktivitetspenger `InntektrapporteringUtils.defaultInntektsrapportering` of type AktivitetspengerInntektsrapportering that the test does not use. The test also stubs `barnService.hentBarn()`, which the income-report path never calls."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

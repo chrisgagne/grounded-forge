@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 309,
+  "base": "130fc084dcec4731e67de96162d1abccae44f7ce",
+  "head": "ac6e2196f5c307fd09fa6ad8a64ba9ada14ab385"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "The nonwrapper probe reports installed binaries as missing, causing healthy GCE deployments to fail verification. The unquoted heredoc preserves the backslashes before double quotes, generating `command -v \\\"jq\\\"` for the first manifest entry. The target shell therefore searches for a name containing literal quotes. Executing that generated probe returned `missing_binary:jq` and status 1 despite `command -v jq` succeeding. Lines 295\u2013296 propagate this failure and abort verification."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 295,
+   "end_line": 295,
+   "message": "The refactor multiplies SSH connections and sandbox container launches, adding avoidable deployment-verification overhead. The baseline ran one remote probe per target. The new function separately connects for manifest existence, architecture, each ordinary binary, and wrapper existence and execution. With the current 12 amd64 manifest entries, successful verification requires 15 SSH calls per target; image mode also launches 15 containers."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "scripts/verify.sh",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "The image branch duplicates smoke-command parsing and validation, making future fixes require changes in two places. Lines 186\u2013205 repeat the prefix matching, suffix rejection, argument splitting, and escaping already implemented by build_direct_exec_smoke_command at lines 91\u2013112. The container branch uses that helper, while image mode maintains its own equivalent parser."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -1,0 +1,109 @@
+{
+ "id": "rd03",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.3806,
+ "codex_tokens": 149138,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd03-t1-bqxr4a33",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "apps/web/src/app.tsx:64-65 registers the GPU and DOM renderer plugins. ShapeLayer is marked @deprecated in canvas-engine/src/index.ts:4. DomShapeLayer (dom-shape-layer.tsx:25-34) applies no rotate transform, and the active GPU shape-sdf shader uses params.w as the shape kind, not rotation. Meanwhile, every shape plugin's hitTest is now wrapped in withRotation, so a rotated shape is hit where it is not drawn.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "line": 33,
+   "claim": "Rotation is only added to the deprecated ShapeLayer. The renderers the app actually uses don't draw shapes rotated, but hit tests now treat them as rotated, so clicks land on the wrong spots.",
+   "evidence": "apps/web/src/app.tsx registers createGpuRendererPlugin() and createDomRendererPlugin(), neither of which uses ShapeLayer. DomShapeLayer has no rotation transform, and the active GPU pipeline ignores rotation. Meanwhile, the changed basic-shape hit tests use withRotation. For a 200\u00d750 rectangle at (0,0) with rotation=90, execution confirmed that clicking the visible point (10,25) misses, while the empty point (100,-50) hits.",
+   "breaks": "story",
+   "axis_row": "L6.14",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+     "line": 33,
+     "claim": "Rotation is added only to the deprecated renderer, so application shapes remain unrotated while their hit areas rotate.",
+     "evidence": "apps/web/src/app.tsx registers createGpuRendererPlugin() and createDomRendererPlugin(), neither of which uses ShapeLayer. DomShapeLayer has no rotation transform, and the active GPU pipeline ignores rotation. Meanwhile, the changed basic-shape hit tests use withRotation. For a 200\u00d750 rectangle at (0,0) with rotation=90, execution confirmed that clicking the visible point (10,25) misses, while the empty point (100,-50) hits."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "yjs-sync.ts:99-110 only calls Y.applyUpdate when doc is set and otherwise returns true. fetch() calls only loadUpdates() (board-room.ts:36), and doc is only created by getOrCreateDoc() on the AI, thumbnail and snapshot paths. So on a plain WebSocket session, board-room.ts:118-125 pushes, tracks, broadcasts and saves an unvalidated payload.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "line": 100,
+   "claim": "The new corrupt-update guard returns true without validating while the server Y.Doc is still null, so malformed updates are still buffered, broadcast and persisted.",
+   "evidence": "doc starts as null, and WebSocket setup calls loadUpdates() without creating it. applyClientUpdate() skips validation when doc is null and returns true. A focused execution after loadUpdates() confirmed that payload [255] returns true. BoardRoom.webSocketMessage() then buffers the payload, tracks it in the partition, broadcasts it, and schedules persistence.",
+   "breaks": "story",
+   "axis_row": "L6.14",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "apps/server/src/rooms/yjs-sync.ts",
+     "line": 100,
+     "claim": "The new corruption guard accepts malformed updates before the server document is initialized, allowing them to be persisted and rebroadcast.",
+     "evidence": "doc starts as null, and WebSocket setup calls loadUpdates() without creating it. applyClientUpdate() skips validation when doc is null and returns true. A focused execution after loadUpdates() confirmed that payload [255] returns true. BoardRoom.webSocketMessage() then buffers the payload, tracks it in the partition, broadcasts it, and schedules persistence."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only nonzero-rotation case (diff test lines 205-211) is a 100\u00d7100 square rotated 90\u00b0, tested at its center (50,50) and at (150,50). Both results are the same with or without un-rotating the point, so a no-op withRotation would still pass. This is a test-quality gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "packages/shared/src/__tests__/rotation.test.ts",
+   "line": 205,
+   "claim": "The withRotation tests can't detect if rotation handling is removed.",
+   "evidence": "The only nonzero-rotation case uses a 100\u00d7100 square rotated 90\u00b0, testing its center and an outside point; both results are unchanged without rotation. Executing the test file's assertion bodies with withRotation replaced by a function that returns its original hit-test function still passed all 31 tests.",
+   "axis_row": "L3.4",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "low",
+     "file": "packages/shared/src/__tests__/rotation.test.ts",
+     "line": 205,
+     "claim": "The rotation-aware hit-test tests cannot detect removal of rotation handling.",
+     "evidence": "The only nonzero-rotation case uses a 100\u00d7100 square rotated 90\u00b0, testing its center and an outside point; both results are unchanged without rotation. Executing the test file's assertion bodies with withRotation replaced by a function that returns its original hit-test function still passed all 31 tests."
+    }
+   ],
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/mareklesko/ProxmoxMCP-Plus",
+  "pr_number": 1,
+  "base": "5a8047f5bc592e5e170d3828e9633dd018f13cbe",
+  "head": "b44013c3e80fd71ca639ee272b88c5e07af4b507"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "The container's install step asks for a `dev` extra that pyproject.toml doesn't define, so pytest, pytest-asyncio and mypy never get installed. A contributor who runs the test suite inside the container hits a missing-module error, even though the new README says the container installs all Python dependencies. postCreateCommand is `uv venv && uv pip install -e '.[dev]'`. pyproject.toml uses the hatchling backend and its `[project]` table has no `[project.optional-dependencies]` section, so there is no `dev` extra. The only `dev` extra is in setup.py `extras_require`, and hatchling ignores setup.py. Without the extra, only runtime dependencies are installed. tests/test_server.py:7 and tests/test_container_console.py:5 both `import pytest`, and README lines 898 and 1047 tell users to run `pytest`. The new README line 65 says \"installs all Python dependencies automatically (`uv pip install -e \".[dev]\"`)\"."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "The workspace folder and interpreter path are hard-coded to `/workspaces/ProxmoxMCP-Plus`. If the repository is cloned or forked under any other folder name, the container opens a path that doesn't exist, postCreateCommand runs in the wrong place, and VS Code points at a missing interpreter. Line 7 sets `\"workspaceFolder\": \"/workspaces/ProxmoxMCP-Plus\"` and line 20 sets `\"python.defaultInterpreterPath\": \"/workspaces/ProxmoxMCP-Plus/.venv/bin/python\"`. No `workspaceMount` is set, so Dev Containers uses its default mount, `/workspaces/<local folder name>`. The two paths only match when the clone folder is named exactly `ProxmoxMCP-Plus`. Using `${localWorkspaceFolderBasename}` and `${containerWorkspaceFolder}` would avoid this."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "`uv venv` runs inside the bind-mounted checkout. A contributor who already created `.venv` on the host, as the README's Installation section tells them to, may have it replaced by a Linux virtualenv that no longer works on the host. With uv versions that require `--clear` to replace an existing venv, the command may instead fail, and then nothing is installed in the container. postCreateCommand runs `uv venv` in the workspace folder, which is the host checkout mounted into the container, and creates `.venv` there. README line 99, in the existing Installation steps, runs `uv venv` in the same checkout on the host. .gitignore line 25 ignores `.venv`, so the host venv is present but untracked when the container is first created. uv is installed unpinned (Dockerfile line 17, `pip install --no-cache-dir uv`), so how it treats an existing `.venv` depends on which uv version the image build pulls."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "README.md",
+   "start_line": 71,
+   "end_line": 71,
+   "message": "The new README step says the OpenAPI proxy is reachable at http://localhost:8811 once the container is up, but nothing starts the proxy. The container also doesn't set PROXMOX_MCP_CONFIG, so running the server after step 3 fails unless the user knows to use start_openapi.sh or set the variable. devcontainer.json has `forwardPorts: [8811]` but no `postStartCommand` and no `containerEnv`. server.py:496 reads `config_path = os.getenv(\"PROXMOX_MCP_CONFIG\")`. When that is unset, loader.py:62-100 falls back to environment variables and raises `ValueError(\"Proxmox host must be provided ...\")`. The root Dockerfile (line 28) and docker-compose.yml (line 11) set PROXMOX_MCP_CONFIG explicitly; the dev container does not."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "Format-on-save with Black is turned on for every contributor, but the codebase isn't Black-formatted. Saving any existing file will reformat it, and those unrelated whitespace and quote changes end up in contributors' pull requests. Lines 21-23 set `\"editor.formatOnSave\": true` and `\"editor.defaultFormatter\": \"ms-python.black-formatter\"`. Existing code doesn't follow Black's style. For example, src/proxmox_mcp/config/loader.py:64-84 uses single-quoted keys (`'proxmox'`, `'host'`), which Black rewrites to double quotes, and line 77 is far longer than Black's 88-character limit. There is no `[tool.black]` configuration in pyproject.toml."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "The build context is the whole repository, but the Dockerfile copies nothing from it. Every container build therefore sends the full checkout to the Docker daemon for no purpose, including proxmox-config/config.json with the Proxmox API token, which widens where that secret travels. Line 5 is `\"context\": \"..\"`. .devcontainer/Dockerfile has no `COPY` or `ADD` instruction. The repository has no .dockerignore (no file matches **/.dockerignore). The new README step 3 has users put credentials in proxmox-config/config.json, which then falls inside the build context. Setting `\"context\": \".\"` would leave the build unchanged."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 35,
+   "end_line": 35,
+   "message": "The extension list forces optional, preference-based extensions on every contributor's container, and one of them can't work in this image. Lines 32-35 install `eamodio.gitlens`, `mhutchie.git-graph`, `redhat.vscode-yaml` and `ms-azuretools.vscode-docker`. .devcontainer/Dockerfile installs only git, curl and build-essential. It has no docker CLI and does not mount the Docker socket, so the Docker extension has nothing to connect to. Nothing in the diff records why each tool joins the development environment."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 17,
+   "end_line": 17,
+   "message": "The dev image's tool versions aren't pinned, so rebuilding the same commit at different times can produce a different environment. The uv version in particular decides how the `uv venv` postCreateCommand behaves. Line 1 is `FROM python:3.11-slim`, a mutable tag with no digest. Line 17 is `RUN pip install --no-cache-dir uv`, with no version. Project dependencies are resolved at container creation from open-ended ranges in pyproject.toml (e.g. `mcp>=1.2.0`), and uv.lock is git-ignored (.gitignore line 70)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/ci.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "No automated check builds the dev container or runs its postCreateCommand, so the missing extra, the hard-coded workspace path and the venv collision above all ship without anything detecting them. ci.yml only installs requirements.txt, imports `ProxmoxMCPServer` and validates manifest.json. It never references .devcontainer. The diff adds only the two .devcontainer files and README text, with no test or CI step that exercises them (e.g. `devcontainer build` or `devcontainers/ci`)."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

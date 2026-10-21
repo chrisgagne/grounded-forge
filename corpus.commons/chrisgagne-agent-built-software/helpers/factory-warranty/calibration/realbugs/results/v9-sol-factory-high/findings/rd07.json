@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 129,
+   "message": "Company creation and editing always fail validation because the required ownerName field was removed without updating the schema. companySchema in src/lib/schemas.ts still requires ownerName. The new prepareForValidation returns only name, address, location and type, and companyFields in src/routes/company/+page.svelte likewise omits ownerName. Both submission handlers call safeParse and return on failure; the sidebar also suppresses the error because ownerName is absent from its configured fields."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "Passing the numeric API ID into dashboard navigation makes the existing company child lists empty. For an API company with id 1, dashboardLink now supplies id=1. The dashboard forwards this query to its child pages, where operator-account, vehicles, operator-role, local-fare and service-route compare it directly against companyId. Their records in src/lib/dummy-data.ts use identifiers such as COMP-001, so none match '1'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 89,
+   "end_line": 89,
+   "message": "Companies under verification lose their status indicator when users open their dashboard. COMPANY_STATUS_LABEL_BY_VALUE maps status 1 to 'Under Verification', which this mapping stores and dashboardLink forwards as the status query parameter. src/routes/company/dashboard/+page.svelte renders indicators only for 'Validating', 'Verified' and 'Suspended', so 'Under Verification' renders none."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Escape cannot close the location dialog when keyboard focus is inside it. The dialog element uses on:keydown|stopPropagation, while handleKeydown is registered on svelte:window. After focusing the dialog or its close button, pressing Escape stops at the dialog and never reaches the close handler."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 54,
+   "end_line": 54,
+   "message": "The location dialog lacks focus management, allowing keyboard users to interact with content behind the modal. Opening the component sets localOpen but never moves focus into the dialog. The markup declares aria-modal=true and tabindex=0, but implements no focus trap, background inertness or focus restoration."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new API listing and location dialog have no automated regression coverage. The diff adds fetching, filter translation, stale-response handling, pagination recovery and map-dialog behavior without adding any tests. package.json also defines no test command, leaving these new branches without executable regression checks."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

@@ -57,6 +57,10 @@ review:
   claude_model: opus
   codex_model: gpt-6.1-sol
   grounding: seeds        # none | seeds (the spec's seed rows) | distillations (the index's listener rows and the distillations they cite)
+  # Optional: reviewer effort. Left out, each CLI's default applies (Codex reports "none"). On ReviewBench, raising it
+  # helped more than the brief did (calibration/realbugs/results/v9-RESULTS.md).
+  # claude_effort: xhigh  # low | medium | high | xhigh | max
+  # codex_effort: high
 # Optional, with defaults:
 legs: {claude_model: opus, permission_mode: acceptEdits, timeout_minutes: 30, setting_sources: project}
 gate: {timeout_minutes: 15, semgrep_config: p/default}   # plus the pinned rules; `auto` needs semgrep metrics on

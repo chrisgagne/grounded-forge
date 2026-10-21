@@ -1,0 +1,126 @@
+{
+ "id": "rd23",
+ "arm": "plain-xhigh",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 106,
+   "end_line": 109,
+   "message": "`this.eventService.isRegistered(user!, event)` is never awaited. It returns a Promise, which is always truthy, so `!promise` is always false and the 'not registered for the event' check never runs. Staff can check in any participant to any event even if that person never registered. Add `await`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 104,
+   "end_line": 116,
+   "message": "`User.findBy(...)` can return null, for example for an orphaned participant profile, but the code then uses `user!` three times. A null user crashes at `user.id` inside the service with an unhandled TypeError and a 500, not the flashed error the client expects. Handle `!user` the same way as `!profile`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "apps/website/app/services/event_service.ts",
+   "start_line": 33,
+   "end_line": 38,
+   "message": "The check-then-insert is not atomic. `isCheckedIn()` and `attach()` are separate queries, and the pivot table has `unique(event_id, user_id)`, so two concurrent requests for the same participant both pass the check and the second insert throws a uniqueness error that nobody catches (500). The scanner fires many requests per QR code (see scanner.tsx), so this will happen in practice. Catch the unique violation (or use insert ... on conflict do nothing) and turn it into the 'already checked-in' error."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "apps/website/inertia/components/credentials/scanner.tsx",
+   "start_line": 12,
+   "end_line": 20,
+   "message": "With `allowMultiple={true}` and `scanDelay={0}`, `onScan` runs on every frame while a code is in view. The new check-in dialog sends a POST for each callback and has no in-flight or last-slug guard. One scan produces a burst of check-in requests: duplicate inserts and 500s server-side, plus repeated error toasts. On failure the dialog stays open and keeps re-posting the same slug until the camera moves. Debounce or ignore repeats of the same slug while a request is in flight. Use a real scanDelay or `allowMultiple={false}` for this use case."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 18,
+   "end_line": 26,
+   "message": "Rules of Hooks violation: the component returns early (`if (!isOpen) return null`) before calling `useTuyau()` and `useForm()`. The number of hooks therefore changes between renders as `isOpen` toggles. React lint flags this, it can cause hook-order errors, and form state is thrown away on every open. Call the hooks unconditionally and let `<Dialog open={isOpen}>` handle visibility."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 313,
+   "end_line": 315,
+   "message": "The scanner trigger is rendered inside the `{!isRegistered && (...)}` block, so a staff member who is registered for the event never sees the check-in QR button. Staff visibility should not depend on the viewer's own registration. The trigger is also a bare `<QrCode>` SVG with `onClick`: it is not focusable or keyboard-operable and has no accessible label. Use a `<Button>`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 92,
+   "end_line": 95,
+   "message": "`eventID` comes straight from the request body without validation and is passed to `findOrFail`. A missing or invalid id produces a 404/exception response instead of a flashed error the dialog can show. The route is also `/events/:slug/check-in` with a participant slug as the path param under the events resource, while the event id travels in the body. Consider `/events/:id/check-in` with the slug validated in the body."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "apps/website/database/migrations/1743633554088_create_create_event_checkins_table.ts",
+   "start_line": 10,
+   "end_line": 12,
+   "message": "`event_id` and `user_id` are nullable and have no `onDelete('CASCADE')`, unlike the analogous `event_users` table. Rows with null keys can be inserted, and deleting a user or event that has check-ins fails the FK constraint on Postgres. Add `.unsigned().notNullable()` and `.onDelete('CASCADE')`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "apps/website/app/services/event_service.ts",
+   "start_line": 34,
+   "end_line": 37,
+   "message": "`checked_in_at: new Date()` overrides the column's `defaultTo(this.now())`. With the default better-sqlite3 connection, knex binds Date as epoch milliseconds, while the column default stores a timestamp string, so stored formats are inconsistent. Rely on the DB default (or use a luxon DateTime). The `await event.save()` that follows is a no-op, because nothing on the event changed."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 38,
+   "end_line": 38,
+   "message": "`await user?.load('staffProfile')` adds a DB query to every event page view, but the result is never used. `isStaff()` now reads `staffProfileId`, and the inertia shared data computes `role` separately. Remove it."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "apps/website/database/seeders/8_staff_seeder.ts",
+   "start_line": 8,
+   "end_line": 30,
+   "message": "The seeder has no `app.inDev` guard, unlike `2_account_seeder.dev.ts`, so any `db:seed` run creates a staff account `staff@eneiconf.pt` with password `password`, which can check people in and collect store products. It also inserts `Department` with a hard-coded `id: 99`. On Postgres that does not advance the sequence, so a later department insert will collide when the sequence reaches 99."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "apps/website/database/seeders/mock_staff_profile_seeder.ts",
+   "start_line": 7,
+   "end_line": 11,
+   "message": "This mock seeder runs on every `db:seed` with no environment guard. It silently grants a staff profile (with no department) to whatever user has id 1, which is the admin account from `2_admin_seeder`. It duplicates what `8_staff_seeder` already does and fails if no user 1 exists. Remove it or guard it to dev."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "apps/website/app/models/event.ts",
+   "start_line": 54,
+   "end_line": 57,
+   "message": "The new relations use `public checkedInUsers!:` (and `public checkedInEvents!:` in user.ts:56), while every other Lucid column and relation uses `declare`. With target ESNext / useDefineForClassFields this emits a real class field initialized on the instance. Lucid docs require `declare` so fields don't shadow ORM-managed properties. Use `declare` for consistency and safety."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 54,
+   "end_line": 57,
+   "message": "`DialogContent className=\"h-96 w-96\"` fixes the dialog at 384px. Staff will mostly scan on phones, and many are narrower than that plus padding, so the dialog overflows the viewport. The `w-64` wrapper added in scanner.tsx also shrinks the existing `/qrcode/scan` page's scanner. Use responsive sizing (e.g. `w-full max-w-sm`)."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 249,
+  "cost_usd": 0.9569422000000002,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

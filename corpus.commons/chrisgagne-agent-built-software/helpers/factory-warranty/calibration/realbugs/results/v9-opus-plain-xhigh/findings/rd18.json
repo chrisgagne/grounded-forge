@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 69,
+   "message": "Nothing deploys this new topics file. Every other topics file under nais/topics has its own .github/workflows/deploy-*-topics.yml that calls reusable-topic-workflow.yml (for example deploy-aktivitetspenger-soknad-topics.yml), but this PR adds no such workflow. So the three dusseldorf.aktivitetspenger-inntektsrapportering-* topics are never created in Aiven dev or prod. Once deployed, KafkaProducerService will fail to produce to the mottatt topic and the endpoint will return 500 (MeldingRegistreringFeiletException). The three new Kafka Streams will also go to ERROR because their source topics are missing. Add a deploy-aktivitetspenger-inntektsrapportering-topics.yml workflow."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "start_line": 192,
+   "end_line": 197,
+   "message": "AKTIVITETSPENGER_INNTEKTRAPPORTERING journals with the placeholder brevkode \"FIXME_AVP_INNTEKT_BREVKODE\". The new endpoint has no feature toggle, so real income reports will be archived in dokarkiv under an invalid brevkode. Classification and routing downstream depend on the brevkode, and journalposts that are already created cannot be fixed afterwards. Get a real brevkode before merging, or gate the endpoint until there is one."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/AktivitetspengerInntektsrapporteringInnsending.kt",
+   "start_line": 53,
+   "end_line": 72,
+   "message": "The income report is encoded as a plain Aktivitetspenger k9 s\u00f8knad, with s\u00f8knadsperiode set to the reporting month and the default s\u00f8knad validator (AktivitetspengerS\u00f8knadValidator). Nothing in it marks it as a report. The ungdomsytelse equivalent sets UngS\u00f8knadstype.RAPPORTERING_S\u00d8KNAD and no s\u00f8knadsperiode. Here the k9 payload looks like a real aktivitetspenger application for that month; the only difference is that `inntekter` is non-null. A consumer that reads the k9 format (ung-sak, or a fordel based on the journalpost JSON) could treat an income report as a new application. Agree on an explicit type marker in the k9 contract, or leave out s\u00f8knadsperiode, before this goes live."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 17,
+   "end_line": 20,
+   "message": "These ACLs differ from both sibling topic files, which looks unintentional. aktivitetspenger-soknad-mottatt and ungdomsytelse-inntektsrapportering-mottatt both grant read to k9saksbehandling/ung-brukerdialog-api, and so do both siblings' cleanup topics. The new mottatt and cleanup topics do not; the cleanup topic grants only ung-sak (lines 63-69). If ung-brukerdialog-api consumes these topics the way it does for the other flows, its consumers will be denied. Check which consumers need access and align the ACLs."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+   "start_line": 10,
+   "end_line": 12,
+   "message": "`@AssertTrue fun harOppgittInntekt()` never runs. Hibernate Validator only treats get*/is*/has* methods as bean properties, and \"har\" is none of those, so this is just an unenforced return-value constraint during bean validation. A request without arbeidstakerOgFrilansInntekt passes @Valid, and a null income is sent to the k9 format and to RapportertInntektDto, despite the message \"M\u00e5 ha oppgitt inntekt\". The same applies to OppgittInntektForPeriode.harOppgittInntekt (OppgittInntektForPeriode.kt:15-17). Rename the method to e.g. `isOppgittInntekt`/`hasOppgittInntekt`, or use `@field:NotNull`. If null is meant to be allowed, remove the misleading constraint."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 99,
+   "end_line": 110,
+   "message": "The oppgave is marked as l\u00f8st only after the message has been produced to Kafka and the duplicate-check key has been set. If markerOppgaveSomL\u00f8st fails (it rethrows after retries), the user gets an error even though the report has already been sent for journalf\u00f8ring. A retry within the dedup TTL is then rejected as a duplicate, and the oppgave stays open in ung-brukerdialog-api. The ungdomsytelse flow has the same pattern, but it is worth handling here: catch and log or alert instead of failing the request, or reconcile asynchronously."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "The aktivitetspenger controller test imports the ungdomsytelse fixture (no.nav.brukerdialog.ytelse.ungdomsytelse.utils.InntektrapporteringUtils), so it posts an UngdomsytelseInntektsrapportering. It only passes because the two JSON shapes happen to match today, and it will hide regressions if the aktivitetspenger model diverges. Import no.nav.brukerdialog.ytelse.aktivitetspenger.utils.InntektrapporteringUtils instead."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/pdf/AktivitetspengerInntektsrapporteringPdfGeneratorTest.kt",
+   "start_line": 25,
+   "end_line": 29,
+   "message": "PDF_PREFIX = \"ung\" and the ids \"1-full-inntekt-alle\"/\"2-arbeidstaker-og-frilansinntekt\" are the same as in UngdomsytelseInntektsrapporteringPdfGeneratorTest. The two tests write to the same files and overwrite each other's readable output, which can also race when tests run in parallel. Use a distinct prefix such as \"aktivitetspenger-inntekt\"."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 292000
+ }
+}

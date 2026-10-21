@@ -1,0 +1,105 @@
+{
+ "pr": {
+  "repo": "https://github.com/supa-magic/spm",
+  "pr_number": 19,
+  "base": "35ba12abad66326fe01c152803a23fc282368d67",
+  "head": "c60d2e03d217cbe8abaed6d12c4fb7b0bdb0049f"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "The output directory is built from `skillset.name`, which comes from the untrusted remote manifest (validateSkillset only checks that it is a string). A name like `../../../../../../home/victim` sends tmpDir outside the temp area. safePath can't catch this because it only checks paths against tmpDir, which has already escaped. Together with manifest file entries like `../../.bashrc` (which normalize to `.bashrc` and are fetched from attacker-controlled raw.githubusercontent URLs), a malicious skillset can overwrite arbitrary user files such as ~/.bashrc and get code execution. Validate or sanitize the name (e.g. a strict slug regex, or reject path separators and `..`), and check every write against a fixed, trusted root."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 3,
+   "end_line": 9,
+   "message": "The branch segment of `https://github.com/owner/repo/tree/<branch>/path` is matched but thrown away. SkillIdentifier has no ref field, and resolveIdentifier always uses the repo's default branch. A URL for `tree/develop/...`, a tag (`tree/v1.0.0`) or a commit SHA quietly installs content from the default branch instead: wrong files, version pinning ignored, and possibly a confusing 404 if the path only exists on that branch. The new test 'parses GitHub URL with non-main branch' passes only because it doesn't check the branch. Carry the ref through to ResolvedLocation and skip the default-branch lookup when a ref is given."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/commands/install.ts",
+   "start_line": 41,
+   "end_line": 49,
+   "message": "safePath uses `resolved.startsWith(baseDir)` with no path separator, so sibling directories with the same prefix pass. With baseDir `/tmp/spm/fsd`, an entry path that normalizes to `../fsd-evil/x` resolves to `/tmp/spm/fsd-evil/x` and is accepted. Use `path.relative(baseDir, resolved)` and reject results that start with `..` or are absolute, or compare against `baseDir + path.sep`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 86,
+   "message": "Files go to a predictable shared path, `os.tmpdir()/spm/<name>`. On Linux that is the world-writable /tmp, so another local user can create `/tmp/spm/<name>` (or symlinks inside it) first. mkdir with recursive:true and writeFile both follow existing symlinks, so the victim's install can be redirected to overwrite their own files, or end up with attacker-planted content alongside the downloads. Use a per-run `mkdtemp` directory or a project-local directory. This also contradicts the PR description, which says files are stored in `.tmp/<skillset-name>/`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/commands/install.ts",
+   "start_line": 28,
+   "end_line": 31,
+   "message": "Every entry is downloaded with `location.ref`, the main skillset repo's default branch, including cross-repo `@owner/repo/path` skill sources. If the other repo's default branch is different (e.g. `master`), or a non-default ref was intended, those downloads 404 or fetch the wrong content. Each foreign repo needs its own ref, either from its default branch or from an explicit ref in the source."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/core/resolver/resolve-skillset.ts",
+   "start_line": 31,
+   "end_line": 37,
+   "message": "The new `..` check only covers bare-path sources. `./` relative sources (e.g. `./../../x`), `@` cross-repo paths, `files` entries, `setup`, and the agents/hooks/mcp/memory/rules lists all build paths from manifest data with no traversal check, so the protection is inconsistent and gives a false sense of safety. The substring check also rejects legitimate names such as `skills..v2`. Validate path segments (reject any segment equal to `..`) once, for every manifest-derived path."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/core/downloader/download-from-github.ts",
+   "start_line": 12,
+   "end_line": 12,
+   "message": "All downloads are read with `response.text()` and written back with 'utf-8' (install.ts:86, and the same pattern in download-from-url.ts and read-local-file.ts). Skills can ship binary assets such as images, PDFs, fonts or archives, and these get silently corrupted by UTF-8 decoding and re-encoding. Download as ArrayBuffer/Buffer and write the bytes unchanged."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 4,
+   "end_line": 6,
+   "message": "The GitHub URL regex captures everything after the branch as the path, including a trailing slash, query string or fragment. Pasting a URL like `.../tree/main/claude/fsd/` or `...?tab=readme` produces a manifest path such as `claude/fsd//skillset.yml` or `claude/fsd?tab=readme/skillset.yml`, which won't resolve. Branch names that contain `/` (e.g. `feature/x`) are also mis-split into the path. Parse with `new URL()` and strip trailing slashes."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/commands/install.ts",
+   "start_line": 82,
+   "end_line": 89,
+   "message": "Writes are keyed only by the repo-relative `result.path`, so entries from different repos (cross-repo skills) with the same path collide. They are written concurrently to the same file and the last one wins. Also, the target directory is never cleared between runs, so files from an earlier install of the same skillset stay mixed in with the new download."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/commands/install.ts",
+   "start_line": 28,
+   "end_line": 37,
+   "message": "Every file is fetched at once with an unbounded Promise.all. For large skillsets this can trip raw.githubusercontent.com rate limits or exhaust sockets, and the first failure rejects everything with no retry. Consider a small concurrency limit."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tests/integration/cli.test.ts",
+   "start_line": 48,
+   "end_line": 51,
+   "message": "This test passes even though the command fails: `test-skillset` is rejected by parseIdentifier and the process exits with code 1, and neither the exit code nor stderr is checked. It also runs readConfig against the git root, which writes `.spmrc.yml` into the repo; that is likely how the stray `.spmrc.yml` ended up committed. Nothing tests the new install flow itself (safePath, ref handling, writing files)."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": ".spmrc.yml",
+   "start_line": 1,
+   "end_line": 4,
+   "message": "This looks like an artifact auto-created by readConfig when running `spm install` or the integration test from the repo root. It isn't mentioned in the PR and shouldn't be committed; either remove it or gitignore it."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tests/core/downloader/download-file.test.ts",
+   "start_line": 23,
+   "end_line": 25,
+   "message": "`vi.restoreAllMocks()` does not undo `vi.stubGlobal`; that needs `vi.unstubAllGlobals()` or the `unstubGlobals` config. The stubbed fetch therefore leaks past the test's cleanup. The same pattern is in download-from-github.test.ts and download-from-url.test.ts. The `mkdtempSync` temp directories created at module level are also never removed."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 134000
+ }
+}

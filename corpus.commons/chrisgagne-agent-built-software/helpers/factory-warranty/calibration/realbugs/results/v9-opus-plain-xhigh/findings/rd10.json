@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/davidortinau/SentenceStudio",
+  "pr_number": 72,
+  "base": "b488d228ceeea1c29d5d54591a4b5c8ba9790712",
+  "head": "8941b5da55823d738d340cad6a429021318d8211"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 48,
+   "end_line": 54,
+   "message": "Nothing on the CoreSync server enforces authentication. `UseAuthorization()` only acts on endpoint metadata, and `UseCoreSyncHttpServer()` is plain middleware with no `[Authorize]` metadata, so no policy is ever checked. Even with `Auth:UseEntraId=true`, a request with no token, an expired token, or a forged token gets a failed authentication result. The request then reaches CoreSync as anonymous and can still upload and download every synced table (UserProfile, VocabularyProgress, Conversation, ...). So the claim that tokens are validated is misleading: invalid tokens are ignored, not rejected. The `RequireSyncReadWrite` policy is registered but never used. Before this ships as 'Closes #46', add a gate ahead of `UseCoreSyncHttpServer()` when Entra mode is on. That could be a `MapWhen` or middleware that calls `AuthorizeAsync` with the `sync.readwrite` policy and returns 401/403, or a fallback policy plus endpoint routing. Without it, the server only logs a failed token check."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 23,
+   "end_line": 29,
+   "message": "The Entra claim lookups won't match real tokens. Microsoft.Identity.Web and JwtBearer keep `MapInboundClaims` on by default, and the inbound map renames `tid` to `http://schemas.microsoft.com/identity/claims/tenantid` and `oid` to `http://schemas.microsoft.com/identity/claims/objectidentifier`. In Entra mode, `FindFirstValue(\"tid\")` and `FindFirstValue(\"oid\")` will return null. TenantId then falls back to `tenant_id`, which Entra never issues, so it ends up null. UserId falls back to `NameIdentifier`, which is mapped from the pairwise `sub` claim, not `oid`. So the 'Entra ID claims take precedence' behaviour never happens, and per-user data such as vocabulary progress gets keyed by `sub` instead of the object ID. Either check both forms (`ClaimConstants.Tid`/`TenantId`, `Oid`/`ObjectId`, or `User.GetTenantId()`/`GetObjectId()`), or set `MapInboundClaims = false` on the JwtBearer options."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/SentenceStudio.Api/Program.cs",
+   "start_line": 30,
+   "end_line": 54,
+   "message": "The auth switch fails open. `Auth:UseEntraId` defaults to false, and in that case `DevAuthHandler` signs in every anonymous caller as `dev-user`. It does this in any environment, not just Development. `appsettings.json` is gitignored and the flag only lives in `appsettings.Development.json`/AppHost, so a deployed instance missing the setting silently serves every `.RequireAuthorization()` endpoint to anyone. That includes the paid OpenAI and ElevenLabs proxies. The same pattern is copied into `src/SentenceStudio.Web/Program.cs:33-38`. Only register `DevAuthHandler` when `IsDevelopment()` (or Testing), and throw at startup if Entra is disabled anywhere else."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/SentenceStudio.AppHost/AppHost.cs",
+   "start_line": 21,
+   "end_line": 27,
+   "message": "AppHost hardcodes `Auth__UseEntraId=false` as an environment variable on the API. Environment variables take precedence over appsettings, so the documented step of flipping `Auth:UseEntraId` to true in config has no effect when running under AppHost. An Aspire deployment would also ship the API with DevAuth turned on. Separately, the `web` (CoreSync) resource gets none of the `Auth__*`/`AzureAd__*` variables, so the API and sync server can't be switched together. Outside Development, Web would have no AzureAd section and `AddMicrosoftIdentityWebApi` would fail as soon as the flag is set. Make the flag an AppHost parameter and apply it, with the AzureAd values, to both `api` and `web`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 48,
+   "end_line": 54,
+   "message": "The sync client now sends Bearer tokens to a server it reaches over plain HTTP. The client defaults to `services__web__http__0` or `http://{host}:5240` (SentenceStudioAppBuilder.cs:56-58), and this change deletes the commented-out HTTPS/`UseHttpsRedirection` scaffolding without adding anything in its place. The token's audience is the shared API app (`api://8c05\u2026`) with `user.read` and `sync.readwrite` scopes. Anyone sniffing the network can therefore lift a token and replay it against both the API and the sync server. Use HTTPS for the sync endpoint before tokens are attached, or make the client refuse to attach tokens to non-HTTPS URIs."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/TestJwtGenerator.cs",
+   "start_line": 35,
+   "end_line": 43,
+   "message": "The test tokens carry the DevAuth-style claims (`tenant_id`, `NameIdentifier`, `ClaimTypes.Name`, `ClaimTypes.Email`) next to `tid`/`oid`, and real Entra access tokens have none of these. `API_ExtractsTenantContext` therefore passes through the fallback branches and hides the `tid`/`oid` mapping bug in `TenantContextMiddleware`. Also, `JwtBearerApiFactory` swaps in a plain `AddJwtBearer` instead of running the `Auth:UseEntraId=true` branch, so Microsoft.Identity.Web's real behaviour is never tested. One example: the default token here has no `scp`/`roles` claim, which Microsoft.Identity.Web rejects with IDW10201, yet these tests expect 200. Generate Entra-shaped tokens (`tid`, `oid`, `name`, `preferred_username`, `scp`) and exercise the actual Entra registration path."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tests/SentenceStudio.Api.Tests/DevAuthHandlerTests.cs",
+   "start_line": 59,
+   "end_line": 72,
+   "message": "`DevAuthHandler_TenantContextPopulated` and `API_ExtractsTenantContext` claim to check that `TenantContextMiddleware` extracts claims. But `/api/v1/auth/bootstrap` falls back to reading `tenant_id`, `NameIdentifier`, `Name` and `Email` straight from the `ClaimsPrincipal` (Program.cs:103-106). These tests would still pass if the middleware were removed or broken. Assert on `ITenantContext` directly, or drop the fallback from the endpoint."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 27,
+   "end_line": 38,
+   "message": "The scope policies (`RequireSyncReadWrite` here; `RequireUserRead` and the others in the API) are only registered in the Entra branch. The decision docs say endpoints can 'opt into' them later. Once any endpoint calls `RequireAuthorization(\"RequireSyncReadWrite\")`, dev mode will throw `InvalidOperationException: The AuthorizationPolicy named ... was not found`. Register the policies in both branches. In dev mode they can be no-op or authenticated-user policies."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 36,
+   "end_line": 38,
+   "message": "When there's no email claim, `Email` falls back to `preferred_username`. Microsoft documents that claim as mutable, display-only, and not guaranteed to be an email address (it can be a UPN or a phone number). Treating it as the user's email risks misdirected mail or identity confusion. Leave Email null, or use the `email` optional claim."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "tests/SentenceStudio.Api.Tests/SentenceStudio.Api.Tests.csproj",
+   "start_line": 1,
+   "end_line": 10,
+   "message": "The new Api.Tests project isn't in `src/SentenceStudio.sln`, and `.github/workflows/test.yml` only builds and tests `SentenceStudio.UnitTests`. None of the new auth integration tests run in CI, so regressions in the auth paths they cover won't be caught."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 221000
+ }
+}

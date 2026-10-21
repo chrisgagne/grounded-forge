@@ -1,0 +1,106 @@
+{
+ "id": "rd15",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.4078,
+ "codex_tokens": 94257,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd15-t1-ky4qc_bv",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "verify.sh:277 uses an unquoted heredoc, and there `\\\"` stays as a literal backslash followed by a quote. The generated probe therefore contains `$(command -v \\\"jq\\\")`. Inside that command substitution, the remote sh reads `\\\"` as an escaped literal quote, so it looks up a command named `\"jq\"` and fails. The first manifest entry, jq (runtime-binaries.json:4), has no wrapper and takes this path, so lines 294-296 call fail on every target, including the deployed container and the sandbox image.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "scripts/verify.sh",
+   "line": 279,
+   "claim": "The probe for binaries without a wrapper reports installed binaries as missing, so verification fails on healthy GCE deployments.",
+   "evidence": "The unquoted heredoc preserves the backslashes before double quotes, generating `command -v \\\"jq\\\"` for the first manifest entry. The target shell therefore searches for a name containing literal quotes. Executing that generated probe returned `missing_binary:jq` and status 1 despite `command -v jq` succeeding. Lines 295\u2013296 propagate this failure and abort verification.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "scripts/verify.sh",
+     "line": 279,
+     "claim": "The nonwrapper probe reports installed binaries as missing, causing healthy GCE deployments to fail verification.",
+     "evidence": "The unquoted heredoc preserves the backslashes before double quotes, generating `command -v \\\"jq\\\"` for the first manifest entry. The target shell therefore searches for a name containing literal quotes. Executing that generated probe returned `missing_binary:jq` and status 1 despite `command -v jq` succeeding. Lines 295\u2013296 propagate this failure and abort verification."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "verify_runtime_binaries_for_target (verify.sh:240-298) makes separate gce_ssh calls for the manifest check, for the architecture, for each binary without a wrapper, and for the test and smoke of each wrapped binary. In image mode each of those calls starts its own `docker run`. The old code made a single call. This is a performance cost, not a defect, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/verify.sh",
+   "line": 295,
+   "claim": "The refactor turns one remote probe per target into many SSH calls and container launches, which slows verification.",
+   "evidence": "The baseline ran one remote probe per target. The new function separately connects for manifest existence, architecture, each ordinary binary, and wrapper existence and execution. With the current 12 amd64 manifest entries, successful verification requires 15 SSH calls per target; image mode also launches 15 containers.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "low",
+     "file": "scripts/verify.sh",
+     "line": 295,
+     "claim": "The refactor multiplies SSH connections and sandbox container launches, adding avoidable deployment-verification overhead.",
+     "evidence": "The baseline ran one remote probe per target. The new function separately connects for manifest existence, architecture, each ordinary binary, and wrapper existence and execution. With the current 12 amd64 manifest entries, successful verification requires 15 SSH calls per target; image mode also launches 15 containers."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "verify.sh:186-206 repeats almost line for line the prefix match, the suffix rejection, the argument split and the %q escaping from build_direct_exec_smoke_command (verify.sh:83 onward). The container branch at line 183 calls that helper; the image branch does not. This is a maintainability point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "scripts/verify.sh",
+   "line": 186,
+   "claim": "The image branch repeats the smoke-command parsing and validation that build_direct_exec_smoke_command already does, so future fixes have to be made in two places.",
+   "evidence": "Lines 186\u2013205 repeat the prefix matching, suffix rejection, argument splitting, and escaping already implemented by build_direct_exec_smoke_command at lines 91\u2013112. The container branch uses that helper, while image mode maintains its own equivalent parser.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "low",
+     "file": "scripts/verify.sh",
+     "line": 186,
+     "claim": "The image branch duplicates smoke-command parsing and validation, making future fixes require changes in two places.",
+     "evidence": "Lines 186\u2013205 repeat the prefix matching, suffix rejection, argument splitting, and escaping already implemented by build_direct_exec_smoke_command at lines 91\u2013112. The container branch uses that helper, while image mode maintains its own equivalent parser."
+    }
+   ],
+   "id": "F3"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

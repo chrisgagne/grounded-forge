@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 202,
+  "base": "2159a5434ce888127b578ad8b788e550fd3412ce",
+  "head": "7e51d062b3fd69794c941b43f3aa8830a7a1729f"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 156,
+   "end_line": 156,
+   "message": "Plans produced by x-story-plan do not satisfy PRE_PLANNED detection, so the normal planning-to-implementation workflow repeats planning instead of executing tasks directly. Starting with no standalone plans, x-story-plan Phase 4 writes task breakdowns, per-task plans, a consolidated planning report and a DoR checklist; it does not write the architecture, test, implementation, security or compliance files required here. Its revised DoR checks accept consolidated report sections, but lifecycle detection still requires all seven standalone artifact types. Compliance is also required here even though lifecycle Phase 1F skips it when compliance is inactive."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 674,
+   "end_line": 674,
+   "message": "Task progress is saved only after the lifecycle finishes, preventing granular recovery from an interruption during implementation. If TASK-001 commits successfully and execution stops during TASK-002, the task loop at lines 435\u2013441 has persisted neither task status. The new checkpoint write occurs only in Phase 8. Epic resume Step 1b therefore has no newly completed task state to preserve, and the lifecycle loop contains no DONE-task check before iterating every task."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 261,
+   "end_line": 261,
+   "message": "The resume heuristic skips unfinished tasks whenever their component already exists and its existing tests pass. For a task adding a new validation rule to an existing class, the class and its current passing tests satisfy this check before the new rule is implemented. The loop immediately skips the task, before reading its plan or validating its DoD at lines 264\u2013275. No persisted DONE status, task-specific completion evidence or resume flag is required."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 136,
+   "end_line": 136,
+   "message": "The changed skills leave golden fixtures inconsistent with generated output, causing the required parity tests to fail. SkillsAssembler.copyCoreSkill copies the changed source skills, and CodexSkillsAssembler copies their generated content into .agents/skills. All 17 .agents golden fixtures inspected for lifecycle, implement and epic-implement lack their respective new sections; the diff updates only one .claude lifecycle fixture. GoldenFileTest compares every generated file against its fixture and fails on unequal content at lines 139\u2013158. java/README.md requires the full test suite before contribution."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 87,
+   "end_line": 87,
+   "message": "The advertised support for suffixed epic directories still aborts at the story-existence check. With story-0042-0001.md present only under plans/epic-0042-feature/, the new resolver selects that directory as EPIC_DIR. However, Phase 0.5 at lines 122\u2013126 checks plans/epic-XXXX/story-XXXX-YYYY.md and explicitly aborts when that exact path is absent. Phase 4 artifact output paths also remain hard-coded to the unsuffixed directory."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 156,
+   "end_line": 156,
+   "message": "Planning-mode detection has no outcome when all seven artifact types exist but at least one is stale. For that state, PRE_PLANNED is false because freshness fails, HYBRID is false because no artifact type is missing, and INLINE is false because artifacts exist. The table provides no stale-artifact branch, although subsequent execution and logging require planningMode."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 516,
+   "end_line": 516,
+   "message": "The DoR reader cannot locate the verdict in the planner's fallback format and may fail to block a NOT_READY story. When the DoR template is missing, x-story-plan writes its documented inline checklist with the verdict in the Header and Summary sections. That format has no '## Final Verdict' section. This new reader requires that section and specifies actions only for READY and NOT_READY, with no handling for a missing section or unreadable verdict."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 268,
+   "end_line": 268,
+   "message": "The executor may carry out unsafe instructions from a poisoned task plan before checking their scope or permissions. Task-aware detection accepts existing fresh plan files, then the executor is told to follow their free-text Implementation Guide step by step while holding Bash, Write and Edit tools. DoD validation occurs afterward. Neither this loop nor lifecycle's equivalent at lines 437\u2013439 introduces a pre-execution policy check between planner output and tool actions."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

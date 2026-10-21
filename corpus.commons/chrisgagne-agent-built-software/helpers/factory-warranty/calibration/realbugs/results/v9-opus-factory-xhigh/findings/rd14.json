@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 91,
+   "end_line": 91,
+   "message": "The guard decides using the branch of the checkout that sends the SendMessage (the team lead), not the target implementer's branch, so in the documented team flow it allows every shutdown without looking for review evidence. Line 82 runs `git symbolic-ref --short HEAD` in process.cwd(), and line 91 exits 0 when that branch is `main`/`master`. Implementers in team mode must use `isolation: \"worktree\"` (templates/dev-team-process.md:55), and their worktree is removed after the PR is created (templates/skills/dev-team-implement/SKILL.md:86), so the lead's checkout is not on the implementer's branch. Trigger: a lead on `main` sends `{to:\"voss-implement-773\", message:{type:\"shutdown_request\"}}`. The hook gets past the tool-name, shutdown and target checks, then hits `branch === \"main\"` at line 91 and exits 0. If the lead is on some other feature branch, every implementer is judged against that branch's sidecars. The `.reviews` lookup at line 97 also uses the lead's cwd. The tests hide this: beforeEach puts the hook's own cwd on the implementer's branch `feat/123-test`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "Review evidence is matched only by the branch name appearing in the sidecar filename, so real sidecars named `<agent>--<file-content-hash>.json` never count, and implementer shutdown stays blocked even after review has run. Line 103: `files.some((f) => f.includes(sanitizedBranch) && f.endsWith(\".json\"))`. The file content is never read. ADR-029 (docs/adr/029-stateless-commit-gates.md:48) fixes sidecar names as `.dev-team/.reviews/<agent>--<file-content-hash>.json`, and review-gate.js:140 only accepts names ending `--${contentHash}.json`. The existing merge gate matches on the sidecar's `branch` JSON field first (merge-gate.js:153-154). Trigger: `.dev-team/.reviews/szabo--a1b2c3d4e5f6.json` containing `{\"branch\":\"feat/123-test\"}` passes the merge gate, but the guard finds no `feat-123-test` in the filename and exits 2. The passing test only works because it invents the filename `knuth--feat-123-test.json` (tests/unit/hooks.test.js:2864)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "A substring filename match lets a sidecar from a different branch, or a non-sidecar file, count as review evidence. This brings back the stale-sidecar hole the merge gate was hardened against. `f.includes(sanitizedBranch)`: for branch `feat/12`, `feat-12` is a substring of `knuth--feat-123-test.json` from branch `feat/123-test`, so shutdown is allowed with no review of `feat/12`. Unlike merge-gate.js (lines 130 and 139-147), the guard does not exclude `.cleanup-manifest.json`, does not skip symlinks or non-regular files (no lstat), and does not check a sidecar's `branch` field. CHANGELOG.md:17 records that the merge gate got 'stale sidecar detection validates branch match' (#745) to fix exactly this."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 152,
+   "end_line": 152,
+   "message": "The guard allows shutdown as soon as any sidecar exists, even one with unresolved [DEFECT] findings. So it does not enforce 'remain alive until all findings have been routed and acknowledged', which its header, the README and the task skill say it does. Lines 102-112 only test that a matching filename exists, then `if (hasReviewEvidence) process.exit(0)`. Neither `findings` nor `resolved` is ever read. The header (lines 5-10) says it blocks agents 'that have open, unreviewed PRs' until 'all review findings have been routed and acknowledged'. README.md:153 says 'before review findings are routed', and templates/skills/dev-team-task/SKILL.md:80 sets the routed-and-acknowledged rule. review-gate.js:262 shows the existing pattern: it checks `finding.classification === \"[DEFECT]\" && !finding.resolved`. Trigger: a reviewer writes a sidecar whose name matches the branch, with `findings:[{classification:\"[DEFECT]\",resolved:false}]`. The guard exits 0, which is the moment findings are about to be routed to the implementer."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 69,
+   "end_line": 69,
+   "message": "`workflow.review: \"complex\"` may be treated as review always on, so on SIMPLE tasks where no review runs, implementer shutdown is blocked and can only be bypassed. src/init.ts:23 and :30 type `review` as `WorkflowToggle = boolean | \"complex\"`, but the guard only disables itself when `config.workflow.review === false` (line 69). If `\"complex\"` means review only for COMPLEX tasks, which is how the `challenge: \"complex\"` toggle reads in init.ts:84-88, a SIMPLE task leaves no sidecar and the guard reaches exit 2 at line 120. No test covers the `\"complex\"` value."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 53,
+   "end_line": 53,
+   "message": "The bypass is any `--force-shutdown` text in the message, which the guarded agent can write itself, and it leaves no durable record. A model-controlled override defeats a gate meant to constrain that model. Line 52 stringifies the whole message, including any `reason` field. Line 53 `if (/--force-shutdown/i.test(messageStr))` then exits 0 after a `console.warn` to stderr only. Nothing is written to a log, sidecar or metrics file, and no human confirmation is required. The BLOCKED message at line 118 tells the agent to 'Use --force-shutdown to bypass'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "Any plain-text message to an implementer that mentions `shutdown_request` is treated as a shutdown and can be blocked, even when it is ordinary conversation. `(typeof message === \"string\" && message.includes(\"shutdown_request\"))`. For example, `{to:\"voss-implement\", message:\"do not expect a shutdown_request until findings are in\"}` is classified as a shutdown and exits 2 if no evidence is found."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/unit/hooks.test.js",
+   "start_line": 2864,
+   "end_line": 2864,
+   "message": "The new tests cover only the case the implementation was written for: hook cwd on the implementer's branch, and a sidecar filename invented to contain the branch. They would not catch the branch-source, naming, prefix-collision or config defects above. beforeEach checks out `feat/123-test` in the hook's own cwd. The only positive-evidence test writes `knuth--feat-123-test.json`, not an ADR-029 `<agent>--<hash>.json` name. No test covers the lead on `main`/`master` (line 91 exit), a sidecar identified by its `branch` field, a prefix-colliding branch such as `feat/12`, a sidecar with unresolved [DEFECT]s, or `workflow.review: \"complex\"`."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "CHANGELOG.md",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "A new blocking hook ships with no CHANGELOG entry, and the workflow docs agents follow don't mention the guard or its `--force-shutdown` bypass. The `## [Unreleased]` section (line 8) is empty in the diff. templates/skills/dev-team-task/SKILL.md:80 and templates/dev-team-process.md still describe keeping implementers alive as a rule, without saying a hook now enforces it or how to bypass it. Only README.md:153 and src/init.ts:245-249 were updated."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

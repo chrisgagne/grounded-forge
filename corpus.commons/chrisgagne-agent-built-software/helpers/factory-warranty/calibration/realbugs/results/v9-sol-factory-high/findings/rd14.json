@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "The installed hook ignores its stdin payload and therefore allows every shutdown request. templates/settings.json:49 registers the command without arguments, while this line reads only process.argv[2]. With JSON supplied on stdin, input becomes {}, and lines 33\u201335 exit 0. Running that invocation with an implementer shutdown payload returned 0. The new tests hide this by passing JSON as an argument."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "The filename check rejects valid review sidecars and blocks shutdown after review completes. dev-team-review-gate.js names sidecars <agent>--<contentHash>.json, as documented in ADR-029. For branch feat/773, dev-team-knuth--e3b0c44298fc.json cannot satisfy includes('feat-773'), even if its JSON branch field matches. Unlike dev-team-merge-gate.js, this guard never reads that field."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "The guard checks the orchestrator\u2019s branch instead of the target implementer\u2019s branch, allowing unreviewed implementers to be shut down. The task skill assigns parallel implementers separate branches. This hook runs git symbolic-ref in process.cwd() and never resolves the target agent\u2019s worktree. If the orchestrator is on main, lines 91\u201393 allow shutdown immediately, regardless of whether the target\u2019s feature branch has any reviews."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 108,
+   "end_line": 108,
+   "message": "A matching sidecar filename permits shutdown before review findings have been routed or acknowledged. For a parsed shutdown request on feat/773, merely listing knuth--feat-773.json makes lines 108\u2013110 exit 0. The hook never reads findings or acknowledgment state, so the result is identical with outstanding findings. The task skill requires all findings to be routed and acknowledged before terminating an implementer; that condition remains enforced only by instructions."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

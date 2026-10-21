@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/FreeRTOS/FreeRTOS-Kernel",
+  "pr_number": 1379,
+  "base": "f1043c49d59944353291654c175852bd17b34f99",
+  "head": "c926adcf6e0be826e3313fc503a92b53a78f8ef8"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "tasks.c",
+   "start_line": 5234,
+   "end_line": 5234,
+   "message": "The new early return in SMP vTaskSwitchContext also refuses voluntary context switches. A task with preemption disabled that calls vTaskDelay, blocks on a queue or semaphore, calls vTaskSuspend(NULL) or calls vTaskDelete(NULL) keeps running, although the kernel has already moved it to the delayed, suspended or termination list. The new branch `if( pxCurrentTCBs[ xCoreID ]->xPreemptionDisable != pdFALSE ) { xYieldPendings[ xCoreID ] = pdTRUE; } else` is taken before taskSELECT_HIGHEST_PRIORITY_TASK (line 5293), and it cannot tell preemption apart from a voluntary block. Trigger: a task calls vTaskPreemptionDisable(NULL) and then vTaskDelay(10). vTaskDelay calls prvAddCurrentTaskToDelayedList (line 2491), which takes the task off the ready list. It then calls taskYIELD_WITHIN_API (line 2504), which goes through vTaskYieldWithinAPI and portYIELD (line 7004) into vTaskSwitchContext. The switch is now refused and vTaskDelay returns at once. vTaskDelete(NULL) has the same problem: it puts the task on xTasksWaitingTermination (line 2281) and yields (line 2320). The yield is refused, so vTaskDelete returns into the task it just deleted. A blocking queue call with portMAX_DELAY loops back and calls vTaskPlaceOnEventList again while the task's event list item is still on the event list, which may corrupt that list. In the baseline, vTaskSwitchContext had no such check, so these calls blocked correctly. task.h (lines 1425-1453) documents preemption-disable only as protection from being preempted."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tasks.c",
+   "start_line": 5234,
+   "end_line": 5234,
+   "message": "When another core suspends or deletes a task that is running with preemption disabled (or changes its core affinity, or ends a priority inheritance), the task stays in the taskTASK_SCHEDULED_TO_YIELD run state permanently. Its next taskENTER_CRITICAL or vTaskSuspendAll then spins forever in prvCheckForRunStateChange, which hangs that core and lets a suspended or deleted task keep running. prvYieldCore (lines 360-364) sets `xTaskRunState = taskTASK_SCHEDULED_TO_YIELD` and sends a single portYIELD_CORE. The callers that do this for a task on another core are vTaskSuspend (line 3239), vTaskDelete (line 2324), vTaskCoreAffinitySet (line 3046) and the priority-disinherit paths (lines 6828 and 6955). On the target core, the new branch in vTaskSwitchContext returns before prvSelectHighestPriorityTask, and that function is the only code that resets the run state (lines 1094, 1098 and 1112). prvCheckForRunStateChange (line 836) loops `while( pxThisTCB->xTaskRunState == taskTASK_SCHEDULED_TO_YIELD )`, re-enabling interrupts each time to wait for a switch that never happens. It is called from vTaskEnterCritical (line 7089) and vTaskSuspendAll (line 3928). Nothing breaks the loop: a later prvYieldCore sends no new IPI because the run state is already SCHEDULED_TO_YIELD (line 360), and vTaskPreemptionEnable does not yield because taskTASK_IS_RUNNING is false for run state -2 (line 3143). The comments at lines 2306-2312 and 3214-3220 say the task must be evicted before the critical section is exited; that requirement is no longer met."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tasks.c",
+   "start_line": 5504,
+   "end_line": 5504,
+   "message": "xTaskRemoveFromEventList, xTaskResumeFromISR and the two notify-from-ISR functions now report that no yield is needed whenever this core already had a yield pending, even if the newly readied higher-priority task can only run on this core. An ISR that relies on pxHigherPriorityTaskWoken therefore skips portYIELD_FROM_ISR, and that task waits until the next tick or critical-section exit. The new condition `if( ( xYieldPendingBefore == pdFALSE ) && ( xYieldPendings[ portGET_CORE_ID() ] != pdFALSE ) )` appears at lines 5504, 3531, 8218 and 8355. prvYieldForTask (line 932) skips every core where `xYieldPendings[ xCoreID ] != pdFALSE`, so the calling core is never reconsidered. Trigger: ISR A calls xQueueSendFromISR(q, &v, NULL) and readies a medium-priority task. Passing NULL is supported: the comment at line 5485 says the flag is set \"in case the user is not using the xHigherPriorityTaskWoken parameter\". This leaves xYieldPendings[0]=pdTRUE. ISR B then gives a semaphore that readies task H, while every other core runs a task at H's priority or higher. prvYieldForTask yields no core, the function returns pdFALSE, and H waits. The baseline returned pdTRUE here. task.h line 1324 documents the return value as \"pdTRUE if resuming the task should result in a context switch\"."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tasks.c",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The change alters SMP scheduling in four places (tick time-slicing, vTaskSwitchContext, and the return values of xTaskRemoveFromEventList, xTaskResumeFromISR and the two notify-from-ISR functions) but adds no test. Nothing exercises preemption-disable together with blocking, remote suspend/delete, or a yield that was already pending. diff.patch changes only tasks.c. The export has no test directory (a glob for test/tests folders returns nothing). The two high findings above, a self-block that does not block and a remote-suspend livelock, are exactly the cases a test of the new vTaskSwitchContext branch would hit."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tasks.c",
+   "start_line": 5239,
+   "end_line": 5239,
+   "message": "After any yield request reaches a core running a preemption-disabled task, xYieldPendings stays pdTRUE. Every critical-section exit by that task then raises a yield trap that takes both global kernel locks and is refused, which adds overhead and lock contention on a hot path for all cores. The new branch writes `xYieldPendings[ xCoreID ] = pdTRUE;` each time it refuses a switch. vTaskExitCritical copies `xYieldCurrentTask = xYieldPendings[ xCoreID ]` and calls `portYIELD()` whenever it is set (lines 7211-7223). vTaskSwitchContext takes portGET_TASK_LOCK and portGET_ISR_LOCK (lines 5225-5226) before reaching the refusal, so every taskENTER/EXIT_CRITICAL pair in that task costs a full context-save trap until preemption is re-enabled."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tasks.c",
+   "start_line": 3527,
+   "end_line": 3527,
+   "message": "The same snapshot-and-compare block is copied into four functions, with inconsistent comparisons, so any later fix to the 'did this call pend a yield' rule must be made four times. `BaseType_t xYieldPendingBefore = xYieldPendings[ portGET_CORE_ID() ]; prvYieldForTask( ... ); if( ( xYieldPendingBefore == pdFALSE ) && ...` is repeated at lines 3527-3532, 5500-5505, 8214-8219 and 8351-8356. Two copies test `!= pdFALSE` and two test `== pdTRUE`. A small helper wrapping prvYieldForTask that returns whether it newly pended a yield on the calling core would keep the four in step."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

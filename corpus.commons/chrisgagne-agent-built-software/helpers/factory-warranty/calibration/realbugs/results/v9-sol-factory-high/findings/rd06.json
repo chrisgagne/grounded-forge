@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/NightHawkATL/ntp-dashboard",
+  "pr_number": 96,
+  "base": "28cb0f12873107287c8f2ba7b7c330339d432c9c",
+  "head": "2378227172859b977f576fa1a1e3dfd4b52fa524"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "The duplicate env key makes the remediation workflow invalid, preventing automatic and manual runs. The resolver step defines env twice at lines 29 and 32; strict YAML validation rejects line 32 as a duplicate mapping key."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 94,
+   "end_line": 94,
+   "message": "The run-ID resolver contains invalid shell syntax, preventing it from reaching artifact processing. The conditional has two else branches, at lines 41 and 94, and its PY heredoc terminators retain leading spaces after YAML indentation is removed; bash -n on the extracted step exits 2 with an unexpected-end-of-file error."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "Checking the event actor skips vulnerability scanning when a maintainer pushes changes to a Dependabot PR. A maintainer push triggers pull_request synchronization with the maintainer as github.actor; the condition github.actor == 'dependabot[bot]' then skips the entire job, although the PR remains Dependabot-authored."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "Direct interpolation of run_id into shell source permits command injection once the resolver's syntax errors are repaired. The unrestricted string input is embedded directly inside double-quoted shell expressions at lines 37\u201338; a value containing $(command) becomes executable command substitution in a step holding GH_TOKEN, whose workflow permissions include issues: write."
+  },
+  {
+   "producer": "v5-factory",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 319,
+   "end_line": 319,
+   "message": "A scan with no remaining fixable vulnerabilities leaves the previous remediation issue displaying obsolete recommendations. The report sets has_recommendations to false when recommendations are empty, while the only issue-update step requires true; there is no path to clear or close an existing issue after remediation."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

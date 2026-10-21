@@ -1,0 +1,118 @@
+{
+ "id": "rd06",
+ "arm": "plain-xhigh",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "critical",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 29,
+   "end_line": 34,
+   "message": "The 'Resolve source workflow run ID' step has two `env:` keys. GitHub Actions rejects duplicate mapping keys (\"'env' is already defined\"), so the whole workflow file fails validation and never runs: not on workflow_run and not on workflow_dispatch. The stated goal is to make this workflow run automatically, and this change leaves it unable to run at all. Delete one of the two `env:` blocks."
+  },
+  {
+   "source": "claude",
+   "severity": "critical",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 41,
+   "end_line": 94,
+   "message": "The run script now has `if \u2026 elif \u2026 else <old python fallback> else <new python fallback> fi`. The old fallback was left in when the new one was added. A second `else` is a bash syntax error (`syntax error near unexpected token 'else'`). Bash parses the whole `if` compound before running any of it, so once the YAML is fixed this step still fails on every trigger, including the plain workflow_run path. Remove the stale first `else` block (lines 41-93)."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 95,
+   "end_line": 162,
+   "message": "The `python - <<'PY'` heredocs sit inside the if/else, so after YAML strips the block indentation the terminators are `  PY` with leading spaces. A `<<'PY'` heredoc only ends on a line that is exactly `PY`. As written, the heredoc runs to end of file, bash then reports an unterminated `if` and the step fails on every event. Even with the terminator fixed, the Python body keeps a 2-space indent, so `python -` raises `IndentationError: unexpected indent`. Move the terminator and body to column 0 (or write the script to a file / use `python -c`), or put the API lookup in its own step guarded by an `if:`."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 128,
+   "end_line": 133,
+   "message": "The dispatch fallback filters runs with `branch=pre-update-release`. The runs API filters on the run's head_branch. The author's own reasoning for dropping the guard is that head_branch is the default branch (`main`) for the weekly scan, which is triggered by schedule/workflow_dispatch and only checks out pre-update-release internally. This query will therefore return no runs, and both the 7-day query and the fallback query end in `SystemExit('No successful runs found\u2026')`. Filter on the default branch, or on `event=schedule`, or drop the branch filter."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 144,
+   "end_line": 152,
+   "message": "The 'prefer a run from the last 7 days' logic does nothing. Both queries ask for `per_page=1` from a list sorted newest first. If the newest successful run is inside the window, both return it. If it isn't, the fallback returns that same run. Either remove the window or make it change the result, for example by refusing or warning when the newest run is older than 7 days."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 37,
+   "end_line": 38,
+   "message": "`${{ inputs.run_id }}` is interpolated straight into the shell script, which allows script injection in a job that holds an `issues: write` token. The value also isn't checked to be numeric, so it can point at any run (or another API path) that has a `weekly-security-reports` artifact. Pass it through `env:` and check it against `^[0-9]+$`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 329,
+   "end_line": 336,
+   "message": "The tracking issue is found by title alone across all open issues, which come back newest first. Anyone who can open an issue titled 'Grype remediation suggestions' becomes the target, and the bot overwrites the body of an issue that person still controls and can edit later. Match on a dedicated label and/or `creator: 'github-actions[bot]'` instead."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 290,
+   "end_line": 319,
+   "message": "When a scan reports no fixable recommendations, `has_recommendations` is 'false' and the issue step is skipped. Any existing tracking issue then keeps showing the old, now-wrong recommendations. Update the issue with the 'no fixable updates' body, or close it, in that case."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 23,
+   "end_line": 23,
+   "message": "The `head_branch` guard was removed with nothing in its place. Every successful run of 'Weekly Grype Security Scan' now rewrites the tracking issue, including manual dispatches from feature branches where the scan workflow may have been changed. Consider restricting to `github.event.workflow_run.event == 'schedule'` or to `head_branch == github.event.repository.default_branch`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 186,
+   "end_line": 207,
+   "message": "The underfixed gate fails any PR in which a changed vulnerable package still has a fixable High/Critical, even if the PR strictly improves security. Example: a Docker base-image bump changes many OS package versions and removes several Criticals, but one changed apk package still has a High whose fix isn't in the new image yet. The PR fails, and Dependabot base-image bumps can be blocked indefinitely. Matching is also by package name only, so two artifacts sharing a name (different type/location) can trigger it. Consider requiring that the package's own High/Critical findings did not get better (compare base vs PR per package), and key on name+type."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 159,
+   "end_line": 173,
+   "message": "`recs = fixed_recommendations(pr)` is computed twice (lines 159 and 173). `fixed_high_critical_recommendations` also duplicates `fixed_recommendations` except for the severity filter. Compute once and add a severity parameter, so the two copies can't drift apart."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "`if: github.actor == 'dependabot[bot]'` skips the guard when a maintainer pushes a commit to a Dependabot branch: the actor becomes the maintainer and a skipped job counts as passing for required checks. The changed dependency set then merges without the Grype gate. Use `github.event.pull_request.user.login == 'dependabot[bot]'`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 31,
+   "end_line": 36,
+   "message": "The latest Grype release is looked up through the unauthenticated GitHub API, which is limited to 60 requests/hour per IP and shared across runner tenants. Dependabot opens several PRs at once on its weekly schedule, so this merge gate will fail on 403s from time to time. Send `GITHUB_TOKEN` as a bearer header, or pin a Grype version/digest so the gate is also reproducible."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 160,
+  "cost_usd": 0.6362576,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

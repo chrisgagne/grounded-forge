@@ -1,0 +1,462 @@
+{
+ "id": "rd01",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "gate:invisible",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 3.4947,
+ "codex_tokens": 0,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd01-t1-2cyks4m1",
+ "findings": [
+  {
+   "sources": [
+    "C1"
+   ],
+   "verdict": "confirmed",
+   "reason": "The constructor sets length = C.LengthUnset when CanSeek is false. Open then sets bytesRemaining to LengthUnset (-1) whenever dataSpec.Length is unset, and the `bytesRemaining < 0` check throws ArgumentOutOfRangeException. Read() has LengthUnset branches that this makes unreachable, and FromStream has no CanSeek check or doc. A stream from HttpClient.GetStreamAsync is a common non-seekable case, so the trigger is easy to hit.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "line": 67,
+   "claim": "On Android, a non-seekable Stream never plays: Open treats ExoPlayer's 'length unknown' value as an error and throws.",
+   "evidence": "The StreamDataSource constructor sets `length = stream.CanSeek ? stream.Length : C.LengthUnset`. Open computes `bytesRemaining = dataSpec.Length != C.LengthUnset ? dataSpec.Length : (length != C.LengthUnset ? length - dataSpec.Position : C.LengthUnset)`. A progressive load at position 0 has no DataSpec length, so for a non-seekable stream this gives C.LengthUnset (-1). The next line, `if (bytesRemaining < 0) throw new ArgumentOutOfRangeException(... \"Position {dataSpec.Position} exceeds stream length {length}.\")`, then fires. Read() has `bytesRemaining != C.LengthUnset` branches, which shows unknown length was meant to be supported. On Windows, `streamMediaSource.Stream.AsRandomAccessStream()` (MediaManager.windows.cs:343) needs a seekable stream. On Apple, FillContentInformation sets `ContentLength = stream.CanSeek ? stream.Length : 0`. `MediaSource.FromStream(Stream stream)` has no CanSeek check, and its XML doc doesn't mention seekability.",
+   "members": [
+    {
+     "id": "C1",
+     "leg": "claude",
+     "severity": "high",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+     "line": 67,
+     "claim": "On Android, a non-seekable Stream (for example a network or pipe stream passed straight to MediaSource.FromStream) never plays: Open treats ExoPlayer's 'length unknown' value as an error and throws. The other platforms also reject such streams, and the public API neither checks for this nor documents it.",
+     "evidence": "The StreamDataSource constructor sets `length = stream.CanSeek ? stream.Length : C.LengthUnset`. Open computes `bytesRemaining = dataSpec.Length != C.LengthUnset ? dataSpec.Length : (length != C.LengthUnset ? length - dataSpec.Position : C.LengthUnset)`. A progressive load at position 0 has no DataSpec length, so for a non-seekable stream this gives C.LengthUnset (-1). The next line, `if (bytesRemaining < 0) throw new ArgumentOutOfRangeException(... \"Position {dataSpec.Position} exceeds stream length {length}.\")`, then fires. Read() has `bytesRemaining != C.LengthUnset` branches, which shows unknown length was meant to be supported. On Windows, `streamMediaSource.Stream.AsRandomAccessStream()` (MediaManager.windows.cs:343) needs a seekable stream. On Apple, FillContentInformation sets `ContentLength = stream.CanSeek ? stream.Length : 0`. `MediaSource.FromStream(Stream stream)` has no CanSeek check, and its XML doc doesn't mention seekability."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "C2"
+   ],
+   "verdict": "confirmed",
+   "reason": "FillDataRequest catches every exception and only calls Debug.WriteLine, which Release builds drop. ShouldWaitForLoadingOfRequestedResource then always calls loadingRequest.FinishLoading() and never FinishLoadingWithError.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "line": 78,
+   "claim": "On iOS/macOS, a stream read failure is swallowed and the loading request is still finished successfully.",
+   "evidence": "FillDataRequest wraps the seek and read in `catch (Exception ex) { System.Diagnostics.Debug.WriteLine($\"Error reading stream data: {ex.Message}\"); }`. Debug.WriteLine is [Conditional(\"DEBUG\")], so a Release-built package drops the call. ShouldWaitForLoadingOfRequestedResource then always calls `loadingRequest.FinishLoading();` (line 35) and never `FinishLoadingWithError`. The class has no access to the MediaManager Logger.",
+   "axis_row": "L5.37",
+   "members": [
+    {
+     "id": "C2",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+     "line": 78,
+     "claim": "On iOS/macOS, when reading the stream fails (for example the app has disposed it, or an IO error), the resource loader swallows the exception and still reports the request as finished successfully. AVFoundation gets no error, MediaFailed carries no cause, and in Release builds nothing is logged at all.",
+     "evidence": "FillDataRequest wraps the seek and read in `catch (Exception ex) { System.Diagnostics.Debug.WriteLine($\"Error reading stream data: {ex.Message}\"); }`. Debug.WriteLine is [Conditional(\"DEBUG\")], so a Release-built package drops the call. ShouldWaitForLoadingOfRequestedResource then always calls `loadingRequest.FinishLoading();` (line 35) and never `FinishLoadingWithError`. The class has no access to the MediaManager Logger."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "C3"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff shows `(int)dataRequest.RequestedLength`, then `new byte[requestedLength]`, one stream.Read, a copy via `buffer[..bytesRead]`, NSData.FromArray, a single Respond and then FinishLoading. The OverflowException from a negative size goes to the swallowing catch.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "line": 66,
+   "claim": "The Apple loader allocates a buffer the size of the whole data request, the int cast overflows for requests over 2 GB, and a short Read still finishes the request.",
+   "evidence": "`var requestedLength = (int)dataRequest.RequestedLength;` then `var buffer = new byte[requestedLength]; var bytesRead = stream.Read(buffer, 0, requestedLength);` then `NSData.FromArray(buffer[..bytesRead])`. The range slice copies once and NSData.FromArray copies again. There is one `dataRequest.Respond(data)` with no chunked loop, followed by `loadingRequest.FinishLoading()`. The OverflowException from a negative size is caught by the swallowing catch.",
+   "members": [
+    {
+     "id": "C3",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+     "line": 66,
+     "claim": "The Apple loader allocates a managed buffer the size of each AVFoundation data request and copies it twice. A request for the rest of a large video can therefore allocate hundreds of MB, and for resources over 2 GB the int cast overflows and the load fails silently. If a single Read returns less than was asked, the request is still marked complete with the rest missing.",
+     "evidence": "`var requestedLength = (int)dataRequest.RequestedLength;` then `var buffer = new byte[requestedLength]; var bytesRead = stream.Read(buffer, 0, requestedLength);` then `NSData.FromArray(buffer[..bytesRead])`. The range slice copies once and NSData.FromArray copies again. There is one `dataRequest.Respond(data)` with no chunked loop, followed by `loadingRequest.FinishLoading()`. The OverflowException from a negative size is caught by the swallowing catch."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "C4"
+   ],
+   "verdict": "confirmed",
+   "reason": "GetStreamContentType returns com.apple.quicktime-movie only for a 'qt' ftyp brand and public.mpeg-4 for everything else. The shared GetMimeType sniffer is called only from MediaManager.windows.cs.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "line": 545,
+   "claim": "On iOS/macOS every stream that isn't QuickTime is declared as public.mpeg-4, so audio streams such as MP3, WAV or FLAC may fail to open.",
+   "evidence": "GetStreamContentType returns \"com.apple.quicktime-movie\" only when the ftyp brand starts with \"qt\". Every other path returns `StreamAssetResourceLoader.DefaultContentType` or the hard-coded `\"public.mpeg-4\"`, and FillContentInformation passes that value to `contentInformationRequest.ContentType`. StreamExtensions.GetMimeType (shared file, covered by StreamExtensionsTests) already detects ID3/MPEG audio, RIFF WAVE, FLAC, Ogg and WebM, but its only caller is MediaManager.windows.cs:344.",
+   "axis_row": "L6.15",
+   "members": [
+    {
+     "id": "C4",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+     "line": 545,
+     "claim": "On iOS/macOS every stream except a QuickTime ftyp is declared to AVFoundation as \"public.mpeg-4\", so audio streams such as MP3, WAV or FLAC may fail to open. The change adds and tests a fuller magic-number sniffer but uses it only on Windows.",
+     "evidence": "GetStreamContentType returns \"com.apple.quicktime-movie\" only when the ftyp brand starts with \"qt\". Every other path returns `StreamAssetResourceLoader.DefaultContentType` or the hard-coded `\"public.mpeg-4\"`, and FillContentInformation passes that value to `contentInformationRequest.ContentType`. StreamExtensions.GetMimeType (shared file, covered by StreamExtensionsTests) already detects ID3/MPEG audio, RIFF WAVE, FLAC, Ogg and WebM, but its only caller is MediaManager.windows.cs:344."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "C5"
+   ],
+   "verdict": "confirmed",
+   "reason": "When Stream is null, SetPlayerData breaks out of the StreamMediaSource case (lines 752-759) and returns the stale mediaItem field (line 765). The factory is disposed only when Source is not a StreamMediaSource (line 379), so line 395 rebuilds a ProgressiveMediaSource from the old factory and calls Prepare.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "line": 395,
+   "claim": "On Android, setting StreamMediaSource.Stream to null replays the previous stream instead of clearing playback.",
+   "evidence": "StreamMediaSource's StreamProperty propertyChanged calls OnSourceChanged, which MediaElement forwards as a Source property change. PlatformUpdateSource disposes currentStreamDataSourceFactory only when `MediaElement.Source is not StreamMediaSource` (line 379). In SetPlayerData, `case StreamMediaSource` breaks when `Stream is null` and falls through to `return mediaItem;` (line 765), and that field still holds the previous stream's builder. Line 395, `if (currentStreamDataSourceFactory is not null && MediaElement.Source is StreamMediaSource)`, then wraps the old factory in a new ProgressiveMediaSource, calls Prepare and raises MediaOpened. On iOS the same input sets PlayerItem to null.",
+   "members": [
+    {
+     "id": "C5",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+     "line": 395,
+     "claim": "On Android, setting a StreamMediaSource's Stream to null replays the previous stream instead of clearing playback. If the app has already disposed that stream, the player then reads a disposed object.",
+     "evidence": "StreamMediaSource's StreamProperty propertyChanged calls OnSourceChanged, which MediaElement forwards as a Source property change. PlatformUpdateSource disposes currentStreamDataSourceFactory only when `MediaElement.Source is not StreamMediaSource` (line 379). In SetPlayerData, `case StreamMediaSource` breaks when `Stream is null` and falls through to `return mediaItem;` (line 765), and that field still holds the previous stream's builder. Line 395, `if (currentStreamDataSourceFactory is not null && MediaElement.Source is StreamMediaSource)`, then wraps the old factory in a new ProgressiveMediaSource, calls Prepare and raises MediaOpened. On iOS the same input sets PlayerItem to null."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "C6"
+   ],
+   "verdict": "disputed",
+   "reason": "Lines 379-383 do dispose the factory before the awaited SetPlayerData, and the player is only given a new source at lines 399-413. Whether ExoPlayer calls createDataSource on the old source during that window, and so crashes, depends on runtime behaviour the code doesn't settle.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "line": 381,
+   "claim": "When switching from a stream to another source type, the StreamDataSourceFactory Java peer is disposed while the old ProgressiveMediaSource still references it.",
+   "evidence": "Lines 379-383 call `currentStreamDataSourceFactory?.Dispose()` before `await SetPlayerData(...)` (line 389). SetPlayerData awaits GetBytesFromMetadataArtworkUrl, which makes HTTP HEAD and GET requests when artwork is set. Only after that does Player.SetMediaItem or SetMediaSource (lines 409/413) replace the old source built with `new ProgressiveMediaSource.Factory(currentStreamDataSourceFactory)`. StreamDataSourceFactory has no (IntPtr, JniHandleOwnership) constructor for re-activation.",
+   "members": [
+    {
+     "id": "C6",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+     "line": 381,
+     "claim": "When an Android player switches from a stream to another source type, the StreamDataSourceFactory Java peer is disposed while the old ProgressiveMediaSource still references it. If ExoPlayer creates a period from it during the await that follows, the app may crash.",
+     "evidence": "Lines 379-383 call `currentStreamDataSourceFactory?.Dispose()` before `await SetPlayerData(...)` (line 389). SetPlayerData awaits GetBytesFromMetadataArtworkUrl, which makes HTTP HEAD and GET requests when artwork is set. Only after that does Player.SetMediaItem or SetMediaSource (lines 409/413) replace the old source built with `new ProgressiveMediaSource.Factory(currentStreamDataSourceFactory)`. StreamDataSourceFactory has no (IntPtr, JniHandleOwnership) constructor for re-activation."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "C7"
+   ],
+   "verdict": "confirmed",
+   "reason": "OnAppearing awaits httpClient.GetStreamAsync outside any try/catch, and only UpdateSourceStream catches. OnOpenVideoClicked and OnRecordVideoClicked are async void with no exception handling and no IsCaptureSupported check.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "line": 58,
+   "claim": "The sample page crashes when offline or when the picker or capture fails, because its async void handlers don't catch exceptions.",
+   "evidence": "`protected override async void OnAppearing() { base.OnAppearing(); await using var networkStream = await httpClient.GetStreamAsync(StreamingUrls.BuckBunny); await UpdateSourceStream(networkStream); }`: only UpdateSourceStream catches exceptions. OnOpenVideoClicked (`await MediaPicker.Default.PickVideosAsync(pickerOptions)`) and OnRecordVideoClicked (`await MediaPicker.Default.CaptureVideoAsync(...)`, with no IsCaptureSupported check) are async void with no exception handling.",
+   "members": [
+    {
+     "id": "C7",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+     "line": 58,
+     "claim": "The new sample page crashes the app if it is opened offline or the download fails, because the network call in the async void OnAppearing has no try/catch. The Open Video and Record Video handlers have the same problem with picker or permission failures, and with capture on devices or simulators that have no camera.",
+     "evidence": "`protected override async void OnAppearing() { base.OnAppearing(); await using var networkStream = await httpClient.GetStreamAsync(StreamingUrls.BuckBunny); await UpdateSourceStream(networkStream); }`: only UpdateSourceStream catches exceptions. OnOpenVideoClicked (`await MediaPicker.Default.PickVideosAsync(pickerOptions)`) and OnRecordVideoClicked (`await MediaPicker.Default.CaptureVideoAsync(...)`, with no IsCaptureSupported check) are async void with no exception handling."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "C8"
+   ],
+   "verdict": "confirmed",
+   "reason": "The semaphore guards only the dispose inside ReleaseSourceStream. UpdateSourceStream assigns the sourceStream field, awaits CopyToAsync and then reads the field again, so overlapping calls can act on each other's stream. The current MediaElement.Source stream is disposed before the new copy finishes.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "line": 174,
+   "claim": "The sample's stream swap isn't serialised, and the playing stream is disposed before its replacement is ready.",
+   "evidence": "sourceStreamSemaphore is held only inside ReleaseSourceStream, around the dispose. UpdateSourceStream assigns `sourceStream = new MemoryStream()`, awaits `stream.CopyToAsync(sourceStream)`, then reads the field again for `sourceStream.Position = 0` and `MediaSource.FromStream(sourceStream)`. If a second call runs in between, the first call acts on the second call's stream. ReleaseSourceStream (line 173) disposes the MemoryStream that is still MediaElement.Source before the 30 MB replacement download finishes. OnDisappearing (line 51) also disposes it without stopping the player.",
+   "members": [
+    {
+     "id": "C8",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+     "line": 174,
+     "claim": "The sample's stream swap isn't serialised. If the initial download is still running when the user picks or records a video, the two UpdateSourceStream calls can dispose each other's stream, rewind or play the wrong stream, or replace the user's video with the downloaded one. The stream that is currently playing is also disposed before its replacement is ready.",
+     "evidence": "sourceStreamSemaphore is held only inside ReleaseSourceStream, around the dispose. UpdateSourceStream assigns `sourceStream = new MemoryStream()`, awaits `stream.CopyToAsync(sourceStream)`, then reads the field again for `sourceStream.Position = 0` and `MediaSource.FromStream(sourceStream)`. If a second call runs in between, the first call acts on the second call's stream. ReleaseSourceStream (line 173) disposes the MemoryStream that is still MediaElement.Source before the 30 MB replacement download finishes. OnDisappearing (line 51) also disposes it without stopping the player."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "C9"
+   ],
+   "verdict": "confirmed",
+   "reason": "AddTransientWithShellRoute ends in AddTransient<TView>() (ServiceCollectionExtensions.shared.cs:138), and the page implements IAsyncDisposable. Microsoft DI keeps disposable transients until their scope ends. Lowered to low because this is a leak in the sample app, not in the library.",
+   "severity": "low",
+   "raw_severity": "medium",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+   "line": 11,
+   "claim": "The transient page implements IAsyncDisposable, so the DI container keeps every instance alive and DisposeAsync never runs on navigation.",
+   "evidence": "`public sealed partial class MediaElementFromStreamPage : BasePage<MediaElementFromStreamViewModel>, IAsyncDisposable` is registered with `services.AddTransientWithShellRoute<MediaElementFromStreamPage, MediaElementFromStreamViewModel>()`, which calls `.AddTransient<TView>()` (ServiceCollectionExtensions.shared.cs:136-138). Microsoft DI keeps disposable transients alive until the scope is disposed. No other sample page implements IDisposable or IAsyncDisposable. `GC.SuppressFinalize(this)` in a sealed class with no finalizer does nothing.",
+   "members": [
+    {
+     "id": "C9",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+     "line": 11,
+     "claim": "The page is registered as transient and implements IAsyncDisposable, so the DI container tracks every instance until its scope ends. Each visit may keep a page and its MediaElement alive, and DisposeAsync never runs when the user navigates away.",
+     "evidence": "`public sealed partial class MediaElementFromStreamPage : BasePage<MediaElementFromStreamViewModel>, IAsyncDisposable` is registered with `services.AddTransientWithShellRoute<MediaElementFromStreamPage, MediaElementFromStreamViewModel>()`, which calls `.AddTransient<TView>()` (ServiceCollectionExtensions.shared.cs:136-138). Microsoft DI keeps disposable transients alive until the scope is disposed. No other sample page implements IDisposable or IAsyncDisposable. `GC.SuppressFinalize(this)` in a sealed class with no finalizer does nothing."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "C10"
+   ],
+   "verdict": "confirmed",
+   "reason": "AddHttpClient<MediaElementFromStreamPage>() runs before RegisterViewsAndViewModels, which later calls AddTransient<TView>() for the same type. The last registration wins, so the page's constructor gets the default HttpClient without the retry handler.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "samples/CommunityToolkit.Maui.Sample/MauiProgram.cs",
+   "line": 126,
+   "claim": "The typed HttpClient with the resilience handler is overridden by the later transient page registration.",
+   "evidence": "`builder.Services.AddHttpClient<MediaElementFromStreamPage>().AddStandardResilienceHandler(...)` runs before RegisterViewsAndViewModels. That later calls `AddTransientWithShellRoute<MediaElementFromStreamPage, ...>`, which ends in `services.AddTransient<TView>()`. The last registration wins and builds the page with the plain HttpClient that AddHttpClient registers for the default client.",
+   "members": [
+    {
+     "id": "C10",
+     "leg": "claude",
+     "severity": "low",
+     "file": "samples/CommunityToolkit.Maui.Sample/MauiProgram.cs",
+     "line": 126,
+     "claim": "The typed HttpClient and retry handler registered for MediaElementFromStreamPage are overridden by the later transient page registration, so the page receives the default HttpClient without the resilience handler.",
+     "evidence": "`builder.Services.AddHttpClient<MediaElementFromStreamPage>().AddStandardResilienceHandler(...)` runs before RegisterViewsAndViewModels. That later calls `AddTransientWithShellRoute<MediaElementFromStreamPage, ...>`, which ends in `services.AddTransient<TView>()`. The last registration wins and builds the page with the plain HttpClient that AddHttpClient registers for the default client."
+    }
+   ],
+   "id": "F10"
+  },
+  {
+   "sources": [
+    "C11"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff replaces Task.Delay(100) with a polling loop in LoadViewAsync_CancellationTokenExpired. acceptance.md says the baseline's tests are the locked acceptance tests. The edit doesn't weaken the assertion, but it changes a judging test inside the change it judges.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/CommunityToolkit.Maui.UnitTests/Views/LazyView/LazyViewTests.cs",
+   "line": 23,
+   "claim": "The change edits a locked baseline acceptance test that has nothing to do with the story.",
+   "evidence": "The diff replaces `await Task.Delay(100, TestContext.Current.CancellationToken);` with `while (!cts.Token.IsCancellationRequested) { await Task.Delay(1, TestContext.Current.CancellationToken); }` in LoadViewAsync_CancellationTokenExpired. acceptance.md: \"The baseline's tests are the locked acceptance tests\". The baseline file MediaSourceTests.cs is also modified (a test is added).",
+   "axis_row": "L3.1",
+   "members": [
+    {
+     "id": "C11",
+     "leg": "claude",
+     "severity": "medium",
+     "file": "src/CommunityToolkit.Maui.UnitTests/Views/LazyView/LazyViewTests.cs",
+     "line": 23,
+     "claim": "The change edits a locked baseline acceptance test that has nothing to do with the story. The edit is a timing fix and doesn't weaken the assertion, but a judging test was changed inside the change it judges.",
+     "evidence": "The diff replaces `await Task.Delay(100, TestContext.Current.CancellationToken);` with `while (!cts.Token.IsCancellationRequested) { await Task.Delay(1, TestContext.Current.CancellationToken); }` in LoadViewAsync_CancellationTokenExpired. acceptance.md: \"The baseline's tests are the locked acceptance tests\". The baseline file MediaSourceTests.cs is also modified (a test is added)."
+    }
+   ],
+   "id": "F11"
+  },
+  {
+   "sources": [
+    "C12"
+   ],
+   "verdict": "confirmed",
+   "reason": "The only new MediaElement test asserts BeAssignableTo<StreamMediaSource>. Nothing tests source-change notification, the implicit operators, the converter arm or StreamDataSource Open/Read.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/CommunityToolkit.Maui.UnitTests/Views/MediaElement/MediaSourceTests.cs",
+   "line": 42,
+   "claim": "StreamMediaSource's behaviour is covered only by a type check.",
+   "evidence": "The only MediaElement test added is MediaSourceFromStreamShouldBeStreamMediaSource, which asserts `mediaSource.Should().BeAssignableTo<StreamMediaSource>()`. No test sets StreamMediaSource.Stream and checks for a source-change notification. Nothing exercises `implicit operator StreamMediaSource?(Stream?)`, ToString, or the new `StreamMediaSource => ToString()` arm of MediaSourceConverter.ConvertTo. StreamDataSource.Open and Read are untested. StreamExtensionsTests covers only the sniffer that Windows uses.",
+   "axis_row": "L3.22",
+   "members": [
+    {
+     "id": "C12",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/CommunityToolkit.Maui.UnitTests/Views/MediaElement/MediaSourceTests.cs",
+     "line": 42,
+     "claim": "StreamMediaSource's behaviour is covered only by a type check. Source-change propagation, the implicit conversions, the converter output and the Android data-source logic (where the non-seekable bug is) have no tests.",
+     "evidence": "The only MediaElement test added is MediaSourceFromStreamShouldBeStreamMediaSource, which asserts `mediaSource.Should().BeAssignableTo<StreamMediaSource>()`. No test sets StreamMediaSource.Stream and checks for a source-change notification. Nothing exercises `implicit operator StreamMediaSource?(Stream?)`, ToString, or the new `StreamMediaSource => ToString()` arm of MediaSourceConverter.ConvertTo. StreamDataSource.Open and Read are untested. StreamExtensionsTests covers only the sniffer that Windows uses."
+    }
+   ],
+   "id": "F12"
+  },
+  {
+   "sources": [
+    "C13"
+   ],
+   "verdict": "confirmed",
+   "reason": "DetectMimeType checks only header[0] == 0x47 for video/mp2t. The `(header[1] & 0xE0) == 0xE0` test also matches ADTS 0xFFF0/0xFFF1, and the test's InlineData(0xF0) expects audio/mpeg.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+   "line": 142,
+   "claim": "The MIME sniffer labels any stream whose first byte is 0x47 as MPEG-TS and treats ADTS AAC headers as MP3.",
+   "evidence": "`if (header.Length >= 1 && header[0] is 0x47) return \"video/mp2t\";` checks a single byte, although the TS sync byte repeats every 188 bytes. `if (header.Length >= 2 && header[0] is 0xFF && (header[1] & 0xE0) is 0xE0) return \"audio/mpeg\";` also matches ADTS AAC (layer bits 00, e.g. 0xFFF0/0xFFF1). StreamExtensionsTests has `[InlineData(0xF0)]` expecting \"audio/mpeg\".",
+   "members": [
+    {
+     "id": "C13",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+     "line": 142,
+     "claim": "The MIME sniffer labels any stream whose first byte is 0x47 as MPEG-TS and treats ADTS AAC headers as MP3, and a test locks in the ADTS case. Windows may therefore pass the wrong content type to the media pipeline.",
+     "evidence": "`if (header.Length >= 1 && header[0] is 0x47) return \"video/mp2t\";` checks a single byte, although the TS sync byte repeats every 188 bytes. `if (header.Length >= 2 && header[0] is 0xFF && (header[1] & 0xE0) is 0xE0) return \"audio/mpeg\";` also matches ADTS AAC (layer bits 00, e.g. 0xFFF0/0xFFF1). StreamExtensionsTests has `[InlineData(0xF0)]` expecting \"audio/mpeg\"."
+    }
+   ],
+   "id": "F13"
+  },
+  {
+   "sources": [
+    "C14"
+   ],
+   "verdict": "confirmed",
+   "reason": "FromStream returns StreamMediaSource rather than MediaSource and has no ThrowIfNull. Its XML doc says nothing about lifetime, seekability or the Tizen NotSupportedException. This is an API and documentation point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/CommunityToolkit.Maui.MediaElement/MediaSource/MediaSource.shared.cs",
+   "line": 63,
+   "claim": "FromStream is inconsistent with the other factory methods and doesn't document stream ownership, seekability or Tizen support.",
+   "evidence": "`public static StreamMediaSource FromStream(Stream stream) => new StreamMediaSource { Stream = stream };` returns StreamMediaSource, whereas FromFile, FromUri and FromResource return MediaSource. It has no ArgumentNullException.ThrowIfNull, although FromUri does and this diff adds a codestyle rule preferring it. Neither the XML docs of FromStream nor those of StreamMediaSource mention seekability, lifetime (the platform classes only have code comments: \"let the caller manage its lifetime\") or the Tizen `throw new NotSupportedException`. StreamExtensions' summary says \"on Windows platform\", but it lives in a .shared.cs file.",
+   "members": [
+    {
+     "id": "C14",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/CommunityToolkit.Maui.MediaElement/MediaSource/MediaSource.shared.cs",
+     "line": 63,
+     "claim": "FromStream is inconsistent with the other factory methods, and nothing documents the stream's ownership or requirements, so callers can't tell that they must keep the stream open and seekable, must dispose it themselves, or that Tizen throws.",
+     "evidence": "`public static StreamMediaSource FromStream(Stream stream) => new StreamMediaSource { Stream = stream };` returns StreamMediaSource, whereas FromFile, FromUri and FromResource return MediaSource. It has no ArgumentNullException.ThrowIfNull, although FromUri does and this diff adds a codestyle rule preferring it. Neither the XML docs of FromStream nor those of StreamMediaSource mention seekability, lifetime (the platform classes only have code comments: \"let the caller manage its lifetime\") or the Tizen `throw new NotSupportedException`. StreamExtensions' summary says \"on Windows platform\", but it lives in a .shared.cs file."
+    }
+   ],
+   "id": "F14"
+  },
+  {
+   "sources": [
+    "C15"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff adds an 'Argument Validation' section and removes the trailing fence. The content is harmless, but the instruction-file change is out of scope.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": ".github/instructions/codestyle.instructions.md",
+   "line": 238,
+   "claim": "The change edits the coding agent's instruction file without the story asking for it.",
+   "evidence": "The diff adds a \"## Argument Validation:\" section that prefers `ArgumentNullException.ThrowIfNull` over manual null checks, and deletes the file's trailing ``` line. The content is harmless (the fence count is now balanced), but it is an unreviewed instruction-file change.",
+   "axis_row": "L4.8",
+   "members": [
+    {
+     "id": "C15",
+     "leg": "claude",
+     "severity": "low",
+     "file": ".github/instructions/codestyle.instructions.md",
+     "line": 238,
+     "claim": "The change edits the coding agent's instruction file without the story asking for it, adding a new style rule that future agent runs will follow.",
+     "evidence": "The diff adds a \"## Argument Validation:\" section that prefers `ArgumentNullException.ThrowIfNull` over manual null checks, and deletes the file's trailing ``` line. The content is harmless (the fence count is now balanced), but it is an unreviewed instruction-file change."
+    }
+   ],
+   "id": "F15"
+  },
+  {
+   "sources": [
+    "C16"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff makes the HttpClient an instance field instead of static and changes File.Open(FileMode.Create) to File.OpenRead. It also reorders the implicit operators, expands the listener stubs and makes a whitespace-only edit to PopupsPage. None of this has tests.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "line": 32,
+   "claim": "Untested behaviour changes unrelated to stream support ride along with the feature.",
+   "evidence": "`static readonly HttpClient client = new();` becomes `readonly HttpClient client = new();`, so each MediaManager gets its own HttpClient (the baseline disposed the shared static client in instance Dispose). `File.Open(normalizedFilePath, FileMode.Create)` becomes `File.OpenRead(normalizedFilePath)` at line 617; the baseline truncated local artwork files, so this is a real fix, but it has no test. Implicit operators are moved in FileMediaSource, ResourceMediaSource and UriMediaSource. Each PlayerListener stub is expanded from one line to three. PopupsPage.xaml.cs has a whitespace-only change.",
+   "axis_row": "L6.22",
+   "members": [
+    {
+     "id": "C16",
+     "leg": "claude",
+     "severity": "low",
+     "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+     "line": 32,
+     "claim": "Untested behaviour changes unrelated to stream support ride along with the feature: Android's HttpClient lifetime and the artwork file-open mode change, alongside pure reorders and reformatting.",
+     "evidence": "`static readonly HttpClient client = new();` becomes `readonly HttpClient client = new();`, so each MediaManager gets its own HttpClient (the baseline disposed the shared static client in instance Dispose). `File.Open(normalizedFilePath, FileMode.Create)` becomes `File.OpenRead(normalizedFilePath)` at line 617; the baseline truncated local artwork files, so this is a real fix, but it has no test. Implicit operators are moved in FileMediaSource, ResourceMediaSource and UriMediaSource. Each PlayerListener stub is expanded from one line to three. PopupsPage.xaml.cs has a whitespace-only change."
+    }
+   ],
+   "id": "F16"
+  },
+  {
+   "sources": [
+    "C17"
+   ],
+   "verdict": "confirmed",
+   "reason": "The XAML has Title=\"MediaElement\" and four '-'/'+' buttons without SemanticProperties.Description, and the code-behind copies the speed, volume and slider handlers. This is maintainability and accessibility, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml",
+   "line": 12,
+   "claim": "The new sample page duplicates MediaElementPage, reuses the title 'MediaElement', and has unlabelled '-'/'+' buttons.",
+   "evidence": "MediaElementFromStreamPage.xaml.cs repeats OnSpeedMinusClicked, OnSpeedPlusClicked, OnVolumeMinusClicked, OnVolumePlusClicked, the slider drag handlers and MediaElement_PropertyChanged verbatim from MediaElementPage.xaml.cs. The XAML has `Title=\"MediaElement\"`. `<Button Text=\"-\" Clicked=\"OnSpeedMinusClicked\" />`, `<Button Text=\"+\" .../>` and the volume pair have no SemanticProperties.Description.",
+   "members": [
+    {
+     "id": "C17",
+     "leg": "claude",
+     "severity": "low",
+     "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml",
+     "line": 12,
+     "claim": "The new sample page copies MediaElementPage's controls and handlers, reuses the title \"MediaElement\", and its unlabelled \"-\"/\"+\" buttons give screen-reader users no context.",
+     "evidence": "MediaElementFromStreamPage.xaml.cs repeats OnSpeedMinusClicked, OnSpeedPlusClicked, OnVolumeMinusClicked, OnVolumePlusClicked, the slider drag handlers and MediaElement_PropertyChanged verbatim from MediaElementPage.xaml.cs. The XAML has `Title=\"MediaElement\"`. `<Button Text=\"-\" Clicked=\"OnSpeedMinusClicked\" />`, `<Button Text=\"+\" .../>` and the volume pair have no SemanticProperties.Description."
+    }
+   ],
+   "id": "F17"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast",
+   "gate:invisible"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

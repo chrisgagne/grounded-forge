@@ -240,7 +240,7 @@ def json_items(text: str) -> tuple[list, int]:
             i = nxt + 2
 
 
-def run_claude_review(repo: Path, story: str, log: Path) -> tuple[list[dict], dict]:
+def run_claude_review(repo: Path, story: str, log: Path, effort: str = "") -> tuple[list[dict], dict]:
     diff = repo.parent / "change.diff"
     diff.write_bytes(subprocess.run(["git", "diff", "--no-color", "base...HEAD"], cwd=repo, capture_output=True,
                                     check=True).stdout)
@@ -250,7 +250,7 @@ def run_claude_review(repo: Path, story: str, log: Path) -> tuple[list[dict], di
         r = subprocess.run(["claude", "-p", prompt, "--output-format", "json", "--no-session-persistence",
                             "--strict-mcp-config", "--setting-sources", "project", "--tools", "Read,Grep,Glob",
                             "--allowedTools", "Read,Grep,Glob", "--permission-mode", "dontAsk", "--add-dir",
-                            str(diff.parent)],
+                            str(diff.parent), *(["--effort", effort] if effort else [])],
                            cwd=repo, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=TIMEOUT_S)
     except subprocess.TimeoutExpired:
         log.write_text("timed out\n")
@@ -518,6 +518,8 @@ def one_external(part: str, arm: str, case: dict, out: Path) -> str:
         lg = out / "logs" / f"{case['id']}-{arm}.log"
         findings, meta = (run_brooks(repo, lg) if arm == "brooks" else
                           run_cc_review(repo, lg, arm.removeprefix("cc-review").removeprefix("-")))
+    elif arm == "plain-xhigh":  # PREREG-v9 Amendment 2: Claude Code, the plain prompt, --effort xhigh
+        findings, meta = run_claude_review(repo, story, out / "logs" / f"{case['id']}-claude.log", "xhigh")
     elif arm == "codex-review-high":  # PREREG-v9 Amendment 1
         findings, meta = run_codex_review(repo, case.get("title") or story.splitlines()[0],
                                           out / "logs" / f"{case['id']}-codex-review-high.log", "high")
@@ -584,7 +586,7 @@ def main() -> None:
                          "(v7's sample again)")
     ap.add_argument("arm", choices=["factory", "vendors", "pr-agent", "claude-again", "cc-review", "cc-review-high",
                                     "cc-review-xhigh", "brooks", "sol-plain", "sol-plain-high",
-                                    "codex-review-high"])
+                                    "codex-review-high", "plain-xhigh"])
     ap.add_argument("--only")
     ap.add_argument("--to-rb", action="store_true", help="factory arm: convert its trials to ReviewBench files only")
     args = ap.parse_args()
@@ -593,20 +595,21 @@ def main() -> None:
     if args.only:
         wanted = set(args.only.split(","))
         cases = [c for c in cases if c["id"] in wanted]
-    out = REALBUGS / "results" / ({"c": f"v6-{args.arm}", "d": f"v7-{args.arm}", "e": f"v8-{args.arm}", "f": f"v9-{args.arm}"}.get(args.part)
+    # RUN_OUT names the results folder outright (PREREG-v9 Amendment 2 runs the factory twice on one sample)
+    out = REALBUGS / "results" / (os.environ.get("RUN_OUT") or {"c": f"v6-{args.arm}", "d": f"v7-{args.arm}", "e": f"v8-{args.arm}", "f": f"v9-{args.arm}"}.get(args.part)
                                   or f"v5-{args.part}-{args.arm}")
     out.mkdir(parents=True, exist_ok=True)
     if args.arm == "factory":
         cases_file = out / "cases.json"
         cases_file.write_text(json.dumps({"cases": cases}, indent=1))
-        if args.part in ("a", "c", "d"):
+        if args.part in ("a", "c", "d", "f"):
             for c in cases:
                 ensure_commits(c, ensure_mirror(c))
         if not args.to_rb:
             subprocess.run([sys.executable, "-m", "factory.cli", "replay", "run", "--cases", str(cases_file),
                             "--repos", str(REALBUGS_REPOS if args.part == "b" else RB_REPOS), "--out", str(out),
                             "--trials", "1", "--jobs", "1", "--grounding", "distillations"], cwd=FACTORY, check=True)
-        if args.part in ("a", "c", "d"):
+        if args.part in ("a", "c", "d", "f"):
             factory_to_rb(cases, out)
         return
     run_external(args.part, args.arm, cases, out)

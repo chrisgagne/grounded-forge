@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/davidortinau/SentenceStudio",
+  "pr_number": 72,
+  "base": "b488d228ceeea1c29d5d54591a4b5c8ba9790712",
+  "head": "8941b5da55823d738d340cad6a429021318d8211"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 52,
+   "end_line": 52,
+   "message": "Enabling Entra ID still allows anonymous clients to download and modify synchronized data. With Auth:UseEntraId=true, a sync request without a token passes through UseAuthentication() and UseAuthorization() to UseCoreSyncHttpServer(); no fallback policy or explicit authorization guard requires authentication. RequireSyncReadWrite is registered but never applied. AddSyncServices configures UploadAndDownload access to UserProfile, Conversation, VocabularyProgress and other tables."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Api/Program.cs",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "The scope policies are unused, allowing read-only tokens to perform writes and invoke paid AI operations. A valid API token containing only user.read satisfies the endpoints' parameterless RequireAuthorization(). Although RequireUserWrite and RequireAiAccess are registered here, the vocabulary status write at line 298 and AI handlers at lines 156, 204 and 228 require neither policy; the AI handlers call the configured OpenAI client."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 24,
+   "end_line": 24,
+   "message": "Normal Entra tokens lose their tenant ID and use the subject claim instead of the intended object ID. The production registration leaves inbound claim mapping enabled. [JWT mapping defaults](https://raw.githubusercontent.com/dotnet/aspnetcore/v10.0.1/src/Security/Authentication/JwtBearer/src/JwtBearerOptions.cs) translate tid and oid to [URI claim types](https://raw.githubusercontent.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/8.0.1/src/Microsoft.IdentityModel.JsonWebTokens/ClaimTypeMapping.cs). InvokeAsync checks only raw tid/oid and development fallbacks, so an Entra token without tenant_id yields a null TenantId and falls back to the mapped sub for UserId. Bootstrap exposes these values, and the vocabulary endpoint uses UserId for persistence. TestJwtGenerator supplies tenant_id and NameIdentifier explicitly, hiding the mismatch."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "The new authentication test project cannot compile because both factories reference an inaccessible Program class. JwtBearerApiFactory and DevAuthApiFactory publicly inherit WebApplicationFactory<Program> from the separately referenced API assembly. The API uses top-level statements without a public partial Program declaration, and its project grants no InternalsVisibleTo access. This violates the [documented entry-point accessibility requirement](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-10.0#basic-tests-with-the-default-webapplicationfactory), preventing the new tests from running."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 29,
+   "end_line": 29,
+   "message": "The JWT tests bypass the production Entra registration, leaving its validation behavior untested. ConfigureWebHost never sets Auth:UseEntraId=true; it installs a separate AddJwtBearer scheme with test validation parameters. Consequently, the production AddMicrosoftIdentityWebApi branch and scope registrations are not exercised. GenerateToken defaults to no scopes or roles, while [Microsoft.Identity.Web 3.8.2](https://raw.githubusercontent.com/AzureAD/microsoft-identity-web/3.8.2/src/Microsoft.Identity.Web/WebApiExtensions/MicrosoftIdentityWebApiAuthenticationBuilderExtensions.cs) rejects tokens lacking both; the tests nevertheless expect these tokens to succeed."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "tests/SentenceStudio.Api.Tests/SentenceStudio.Api.Tests.csproj",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new authentication tests are omitted from CI, allowing authentication regressions to pass the existing gate. .github/workflows/test.yml restores, builds and runs only SentenceStudio.UnitTests.csproj. The diff adds SentenceStudio.Api.Tests without updating that workflow, and src/SentenceStudio.sln also omits the new project."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

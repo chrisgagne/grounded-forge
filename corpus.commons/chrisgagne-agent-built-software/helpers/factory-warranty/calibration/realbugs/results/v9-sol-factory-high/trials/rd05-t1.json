@@ -1,0 +1,287 @@
+{
+ "id": "rd05",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:locked-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.7016,
+ "codex_tokens": 99892,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd05-t1-0wtntgt7",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "databricks.py:237 calls .otherwise() on the result of F.sum(...). PySpark only allows otherwise() on a Column made by when(), so building the script raises an error. ENTROPY is the metric in _pipeline_full(), so the default test pipeline would fail if run. The tests only call ast.parse, which is why they pass.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "line": 237,
+   "claim": "ENTROPY emits F.sum(F.when(...)).otherwise(...), which Spark rejects, so the pipeline fails.",
+   "evidence": "For the ENTROPY configuration used by _pipeline_full(), _distributional_agg_expr emits F.sum(F.when(...)).otherwise(...). Spark permits otherwise() on a when expression, not on the enclosing sum; the fallback must be inside the aggregate.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/featkit/generators/pyspark/databricks.py",
+     "line": 232,
+     "claim": "Selecting ENTROPY generates an invalid Spark expression that stops pipeline execution.",
+     "evidence": "For the ENTROPY configuration used by _pipeline_full(), _distributional_agg_expr emits F.sum(F.when(...)).otherwise(...). Spark permits otherwise() on a when expression, not on the enclosing sum; the fallback must be inside the aggregate."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "databricks.py:108 builds f'(F.col(\"{cat_field.name}\") == \"{cat_val}\")' with no escaping. Column aliases are built the same way. pivoted.py:49-52 only rejects '__'. A value containing a double quote breaks the script. Values can come from the data through domain_resolver (general_plan.md:252), so a crafted value can run code when the script executes.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "line": 108,
+   "claim": "Categorical values are put into generated Python unescaped, so a value can break the script or inject code.",
+   "evidence": "Categorical values are interpolated directly into double-quoted predicates and aliases. Generating a pipeline with allowed_values containing a double quote produces a SyntaxError. A value consisting of A\" + str(print(\"injected\")) + \" produces valid Python containing executable print calls; existing validation only rejects the '__' separator.",
+   "axis_row": "L5.32",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/featkit/generators/pyspark/databricks.py",
+     "line": 103,
+     "claim": "Unescaped categorical values can break the generated Python or inject executable expressions.",
+     "evidence": "Categorical values are interpolated directly into double-quoted predicates and aliases. Generating a pipeline with allowed_values containing a double quote produces a SyntaxError. A value consisting of A\" + str(print(\"injected\")) + \" produces valid Python containing executable print calls; existing validation only rejects the '__' separator."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "databricks.py:244 emits F.first(F.col(cat), ignorenulls=True) inside a per-(id,time) groupBy with no ordering, and it never compares cat_val. The result is whichever row comes first, not the category with the largest share, and it can differ between runs.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "line": 244,
+   "claim": "MODE uses F.first over category rows, so it returns an arbitrary category, not the modal one.",
+   "evidence": "The MODE branch emits F.first(cat_col, ignorenulls=True) after grouping facts by category, without ordering or comparing category totals. For one entity-period containing category A once and B nine times with unit measurements, it can return A despite B being modal.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/featkit/generators/pyspark/databricks.py",
+     "line": 239,
+     "claim": "MODE can return a nonmodal category and change across executions.",
+     "evidence": "The MODE branch emits F.first(cat_col, ignorenulls=True) after grouping facts by category, without ordering or comparing category totals. For one entity-period containing category A once and B nine times with unit measurements, it can return A despite B being modal."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "time_field.py:12-33 says truncation is needed when source and target granularity differ (truncation_required). Grep finds no use of target_granularity or truncation_required anywhere in src. The MOB table, Layer 2A and Layer 2B all group on the raw time column, so daily facts under a monthly target stay as separate periods.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "line": 99,
+   "claim": "Target time granularity is ignored; the time column is never truncated before grouping.",
+   "evidence": "TimeField documents truncation before grouping when source and target granularities differ, but MOB, Layer 2A and Layer 2B use the original time column without truncation. Daily facts on January 1 and January 2 remain separate rows under a monthly target. Changing the target between DAILY and MONTHLY produces identical generated code.",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/featkit/generators/pyspark/databricks.py",
+     "line": 124,
+     "claim": "The generator ignores target time granularity, producing incorrect aggregation periods and temporal windows.",
+     "evidence": "TimeField documents truncation before grouping when source and target granularities differ, but MOB, Layer 2A and Layer 2B use the original time column without truncation. Daily facts on January 1 and January 2 remain separate rows under a monthly target. Changing the target between DAILY and MONTHLY produces identical generated code."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "disputed",
+   "reason": "databricks.py:79-82 takes distinct timestamps found in the facts and numbers them with row_number, so a period missing from every entity is skipped. Plan 16 itself specifies 'crossJoin + row_number()'. The code doesn't settle whether calendar gaps must be filled.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "line": 79,
+   "claim": "MOB numbers only observed periods, so a period with no data at all collapses the time axis and shifts windows and lags.",
+   "evidence": "periods contains only distinct source timestamps, and row_number assigns consecutive MOB values. With monthly facts only in January and March, those periods receive MOB 1 and 2; the two-period rowsBetween frame includes January in March, and PREV_MES returns January instead of the missing February period. FeatureStoreConfig defines window sizes in granularity units.",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/featkit/generators/pyspark/databricks.py",
+     "line": 74,
+     "claim": "Missing periods across the source compress the time axis and make calendar windows include older observations.",
+     "evidence": "periods contains only distinct source timestamps, and row_number assigns consecutive MOB values. With monthly facts only in January and March, those periods receive MOB 1 and 2; the two-period rowsBetween frame includes January in March, and PREV_MES returns January instead of the missing February period. FeatureStoreConfig defines window sizes in granularity units."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "When pipeline.layer3 is empty, feat_list is ''. Line 289's f\"{feat_list},\\n\" then emits a line holding only ',' after '\"mob\",'. Python rejects that, and build_layer3 has no guard. operators_override (config.py:38, temporal_space.py:58) lets a user empty layer3.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "line": 289,
+   "claim": "An empty layer3 produces a stray comma and a syntactically invalid script.",
+   "evidence": "Setting operators_override={Layer2OutputType.NUMERIC: []} on a numeric-only pipeline creates an empty layer3 list. build_layer3 still emits the standalone comma from '{feat_list},', so ast.parse of the complete generated script raises SyntaxError even though build_final_join skips the empty temporal layer.",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/featkit/generators/pyspark/databricks.py",
+     "line": 284,
+     "claim": "Disabling all temporal operators generates syntactically invalid Python.",
+     "evidence": "Setting operators_override={Layer2OutputType.NUMERIC: []} on a numeric-only pipeline creates an empty layer3 list. build_layer3 still emits the standalone comma from '{feat_list},', so ast.parse of the complete generated script raises SyntaxError even though build_final_join skips the empty temporal layer."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "X7"
+   ],
+   "verdict": "confirmed",
+   "reason": "pivoted.py:62 builds column names such as '..._sector_A.B' from the raw value, and only '__' is rejected. databricks.py:301 then emits F.col(\"<name>\") without backtick quoting, so Spark resolves 'A.B' as a struct field access and Layer 3 analysis fails.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "line": 301,
+   "claim": "Column names with dots are referenced through F.col without backticks, so Spark reads them as nested fields.",
+   "evidence": "allowed_values=['A.B'] is accepted and creates a literal Layer 2 column such as AVG__mto__sector_A.B. The temporal generator references it as F.col(\"AVG__mto__sector_A.B\") without backtick quoting, causing Spark to resolve a nested field rather than the generated column.",
+   "members": [
+    {
+     "id": "X7",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/featkit/generators/pyspark/databricks.py",
+     "line": 296,
+     "claim": "Categorical values containing dots create feature references that Spark interprets as nested fields.",
+     "evidence": "allowed_values=['A.B'] is accepted and creates a literal Layer 2 column such as AVG__mto__sector_A.B. The temporal generator references it as F.col(\"AVG__mto__sector_A.B\") without backtick quoting, causing Spark to resolve a nested field rather than the generated column."
+    }
+   ],
+   "id": "F7"
+  },
+  {
+   "sources": [
+    "X8"
+   ],
+   "verdict": "confirmed",
+   "reason": "pivoted.py:15 maps FECHA to TEMPORAL, and defaults.py:60 includes CREC in the TEMPORAL contract. databricks.py:338 then emits (date - lag(date)) / when(lag != 0, lag), which compares a date with 0 and divides by a date. There is no type-specific branch.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "line": 338,
+   "claim": "Default CREC on FECHA (date) measurements produces numeric arithmetic on dates that Spark can't analyze.",
+   "evidence": "FECHA measurements map to TEMPORAL output, whose default contract includes CREC. For a DateType measurement, this branch compares the previous date with integer zero and divides the date difference by the previous date, which Spark cannot analyze as numeric arithmetic. There is no date-specific conversion or guard.",
+   "members": [
+    {
+     "id": "X8",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/featkit/generators/pyspark/databricks.py",
+     "line": 333,
+     "claim": "Default temporal generation for date measurements produces an invalid numeric growth expression.",
+     "evidence": "FECHA measurements map to TEMPORAL output, whose default contract includes CREC. For a DateType measurement, this branch compares the previous date with integer zero and divides the date difference by the previous date, which Spark cannot analyze as numeric arithmetic. There is no date-specific conversion or guard."
+    }
+   ],
+   "id": "F8"
+  },
+  {
+   "sources": [
+    "X9"
+   ],
+   "verdict": "confirmed",
+   "reason": "general_plan.md:449 and :462 require a PySparkOutput holding a callable that is lazy until invoked. generate() returns PySparkOutput(code=<str>), and output.py:64-65 still says Plan 16 will replace the string. This is an API-design gap, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "src/featkit/generators/pyspark/databricks.py",
+   "line": 410,
+   "claim": "Output is a code string, not the callable taking a SparkSession that Plan 16 specifies.",
+   "evidence": "docs/general_plan.md describes a PySparkOutput containing a callable invoked with a SparkSession. generate() instead concatenates strings and returns PySparkOutput(code=full_code); its payload is not callable and requires callers to arrange script execution themselves.",
+   "breaks": "story",
+   "members": [
+    {
+     "id": "X9",
+     "leg": "codex",
+     "severity": "low",
+     "file": "src/featkit/generators/pyspark/databricks.py",
+     "line": 405,
+     "claim": "The generated output does not implement the callable interface described in Plan 16.",
+     "evidence": "docs/general_plan.md describes a PySparkOutput containing a callable invoked with a SparkSession. generate() instead concatenates strings and returns PySparkOutput(code=full_code); its payload is not callable and requires callers to arrange script execution themselves."
+    }
+   ],
+   "id": "F9"
+  },
+  {
+   "sources": [
+    "X10"
+   ],
+   "verdict": "confirmed",
+   "reason": "test_all_metrics_valid_python and the other tests use ast.parse and substring checks only. They pass despite the broken ENTROPY expression (X1) and the arbitrary MODE (X3), and nothing runs against a real or mocked SparkSession.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/test_generators/test_pyspark.py",
+   "line": 700,
+   "claim": "Tests check only syntax and keywords, never whether Spark accepts the code or computes correct values.",
+   "evidence": "test_all_metrics_valid_python checks only ast.parse, while neighboring tests assert keywords and table names. All 44 added test methods pass when invoked directly despite the invalid entropy expression and arbitrary MODE implementation; none executes those expressions or checks metric results on known input.",
+   "axis_row": "L6.27",
+   "members": [
+    {
+     "id": "X10",
+     "leg": "codex",
+     "severity": "low",
+     "file": "tests/test_generators/test_pyspark.py",
+     "line": 280,
+     "claim": "The new tests do not verify that generated Spark operations execute or calculate correct feature values.",
+     "evidence": "test_all_metrics_valid_python checks only ast.parse, while neighboring tests assert keywords and table names. All 44 added test methods pass when invoked directly despite the invalid entropy expression and arbitrary MODE implementation; none executes those expressions or checks metric results on known input."
+    }
+   ],
+   "id": "F10"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:locked-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

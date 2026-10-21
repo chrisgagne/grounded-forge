@@ -1,0 +1,118 @@
+{
+ "id": "rd09",
+ "arm": "plain-xhigh",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 242,
+   "end_line": 252,
+   "message": "`appleApiKeyId` is only a local variable (declared at line 53); there is no `--apple-api-key-id` option. In a non-interactive run, iOS API Key auth therefore always reaches 'You must provide the Apple API Key ID\u2026' and exits. That happens after the .p8 private key has already been uploaded (lines 233-240), so every CI attempt fails and leaves another orphaned key on the server. The guidance at line 212 also tells users that `--apple-api-key-file` and `--apple-issuer-id` are enough, which is wrong. Add an `appleApiKeyId` option, mention it in the error message, and check for it before uploading."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 233,
+   "end_line": 240,
+   "message": "The Apple API key file is uploaded before the key ID, issuer ID and team ID are collected and before the destination is created. If the user cancels a later prompt (cancel calls process.exit), a required value is missing in CI, or `appDestinationsService.create` fails, an uploaded private key is left with no destination using it. The Google service account key upload (lines 180-187) has the same problem when destination creation fails. Collect and validate every input first, then upload the key files right before creating the destination."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 158,
+   "end_line": 191,
+   "message": "Provisioning profiles are uploaded before the certificate is created. If certificate creation fails (wrong password, invalid file, network error), the uploaded profiles are left unlinked on the server. If `updateMany` fails, the certificate exists without its profiles and the command reports an error with no hint about this partial state. Create the certificate first, then upload the profiles linked to it. `CreateAppProvisioningProfileDto` already has a certificate ID field for this, which would also remove the extra PATCH."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/services/app-provisioning-profiles.ts",
+   "start_line": 25,
+   "end_line": 27,
+   "message": "`create` sends the form field `certificateId`, but the DTO returned by the API and `updateMany` both use `appCertificateId`. Nothing calls this path yet, so it is dead code and probably uses the wrong field name. Anyone who relies on it later may have the link silently ignored. Rename it to `appCertificateId` or remove it."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 154,
+   "end_line": 154,
+   "message": "User-supplied paths go straight to `fs.readFileSync` with no existence check. This applies to the certificate here, the provisioning profiles at line 161, and the .p8/JSON key paths in destinations/create.ts. A typo throws a raw ENOENT that the top-level handler in index.ts reports to Sentry and labels 'If you think this is a bug, please open an issue'. For the certificate it also only surfaces after every prompt has been answered. Other file-taking commands check paths with `fileExistsAtPath` and print a clear error; do the same here, ideally right after each path is entered."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 119,
+   "end_line": 139,
+   "message": "The keystore/p12 password and key password are read with `type: 'text'`, so they are echoed in plain text and can end up in screen recordings or shared terminal sessions. The Apple app-specific password prompt in destinations/create.ts:296 has the same problem. Use a masked input, or at least document passing secrets through flags or environment variables."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/commands/apps/destinations/get.ts",
+   "start_line": 74,
+   "end_line": 77,
+   "message": "`AppDestinationDto` declares that the API returns `appleAppPassword` (types/app-destination.ts:10). `destinations:get`, and `destinations:list` (list.ts:39-41), dump the whole object with console.table or JSON, so if the API does return it, the Apple app-specific password is printed to the terminal and to CI logs. Redact secret fields before printing."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/commands/apps/destinations/update.ts",
+   "start_line": 20,
+   "end_line": 32,
+   "message": "`update` takes raw `--app-apple-api-key-id` and `--app-google-service-account-key-id` IDs, while `create` takes key files and uploads them. The CLI never prints the IDs of uploaded keys and has no command to list them, so users cannot get valid values to rotate a key. Offer the same `--apple-api-key-file` and `--google-service-account-key-file` upload flow as create, and add `--apple-api-key-id` as in create."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/commands/apps/certificates/delete.ts",
+   "start_line": 36,
+   "end_line": 56,
+   "message": "In interactive mode, `--name` without `--platform` falls into the picker branch. The command asks for the platform, lists every certificate and ignores the name, so a user who typed `--name foo` still has to find it by hand. The same applies to certificates/get.ts:35-55 and to destinations/delete.ts and destinations/get.ts. Pass `name` to the `findAll` filter, or look it up directly once a platform is chosen."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 26,
+   "end_line": 29,
+   "message": "`provisioningProfile` is the first `z.array` option in the codebase. There is no test showing that zli 0.2.0 turns a single `--provisioning-profile path` into an array rather than a string, which would fail Zod validation. The option is also accepted and uploaded for android and web certificates (line 159 has no platform check). Add a test for the flag and reject or ignore it when the platform is not iOS."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/utils/prompt.ts",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "This shared helper is used by every command, and it now has a hard `limit: 50` with no pagination or search. Organizations with more than 50 apps silently cannot choose the rest. The re-fetch after creating an app (line 57) still omits the limit, so the behaviour is inconsistent. This change is also unrelated to the certificates/destinations feature."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/commands/apps/certificates/get.ts",
+   "start_line": 35,
+   "end_line": 72,
+   "message": "The roughly 35-line block that resolves an ID from name/platform or an interactive picker is copied almost verbatim into certificates/get, certificates/delete, destinations/get and destinations/delete. CLAUDE.md asks for DRY code with shared utilities. Move it into a helper, for example in utils/prompt.ts, so fixes such as the ignored `--name` only need to be made once."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 1,
+   "end_line": 338,
+   "message": "None of the ten new commands has tests, although sibling commands such as channels create/delete/get/list/update have them. The branchy create flows (iOS API key vs password auth, non-interactive validation, upload order) are where the bugs above are, and tests would have caught the missing API key ID option."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 216,
+  "cost_usd": 1.2004192,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

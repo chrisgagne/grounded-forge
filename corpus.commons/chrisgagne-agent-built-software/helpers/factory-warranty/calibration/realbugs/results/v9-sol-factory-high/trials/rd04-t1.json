@@ -1,0 +1,79 @@
+{
+ "id": "rd04",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:sast",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.1793,
+ "codex_tokens": 108922,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd04-t1-22wmeay5",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "I checked tasks.c:5233-5241. While xPreemptionDisable is set, the new branch only sets xYieldPendings and skips taskSELECT_HIGHEST_PRIORITY_TASK. It does not check whether the current task is still ready. So after vTaskPreemptionDisable(NULL) and then vTaskDelay(), the task has already been taken off the ready list and put on the delayed list, but the yield returns to the same task and it keeps running.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "tasks.c",
+   "line": 5234,
+   "claim": "The new guard in SMP vTaskSwitchContext also blocks voluntary context switches, so a task with preemption disabled keeps running after a blocking call.",
+   "evidence": "On SMP with configUSE_TASK_PREEMPTION_DISABLE=1, call vTaskPreemptionDisable(NULL) followed by vTaskDelay(10). vTaskDelay calls prvAddCurrentTaskToDelayedList(), which removes the caller from the ready list, then requests a yield. The new vTaskSwitchContext branch only sets xYieldPendings and skips task selection, so the same task resumes and vTaskDelay returns while its TCB remains on the delayed list.",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "high",
+     "file": "tasks.c",
+     "line": 5234,
+     "claim": "The new guard prevents voluntary context switches, allowing tasks with preemption disabled to continue executing after blocking calls.",
+     "evidence": "On SMP with configUSE_TASK_PREEMPTION_DISABLE=1, call vTaskPreemptionDisable(NULL) followed by vTaskDelay(10). vTaskDelay calls prvAddCurrentTaskToDelayedList(), which removes the caller from the ready list, then requests a yield. The new vTaskSwitchContext branch only sets xYieldPendings and skips task selection, so the same task resumes and vTaskDelay returns while its TCB remains on the delayed list."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The diff changes the checks at lines 8214-8219, 8351-8356, xTaskRemoveFromEventList and xTaskResumeFromISR to report a wake only if xYieldPendings was false before prvYieldForTask. prvYieldForTask (tasks.c:932) skips cores whose yield is already pending. So if an earlier ISR notify with a NULL pxHigherPriorityTaskWoken left the flag set, a later wake in the same ISR never sets *pxHigherPriorityTaskWoken. The ISR then doesn't yield, and the woken task waits for a later tick or interrupt.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "tasks.c",
+   "line": 8218,
+   "claim": "The new check that the pending-yield flag must go from false to true can drop an ISR wake flag, so a higher-priority task is delayed.",
+   "evidence": "With preemption enabled on SMP, an ISR can notify a blocked task using a NULL wake-flag pointer, setting the calling core's xYieldPendings without requesting a hardware switch. If another notification then unblocks a higher-priority task pinned to that core with a fresh wake flag, xYieldPendingBefore is already true, so the new condition leaves the flag false. prvYieldForTask skips cores with a pending yield, and vTaskExitCriticalFromISR does not issue one. The same transition check also affects xTaskResumeFromISR, xTaskRemoveFromEventList and vTaskGenericNotifyGiveFromISR.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "tasks.c",
+     "line": 8218,
+     "claim": "Requiring a false-to-true transition of the pending-yield flag can suppress an ISR wake flag and delay a higher-priority task until a later tick.",
+     "evidence": "With preemption enabled on SMP, an ISR can notify a blocked task using a NULL wake-flag pointer, setting the calling core's xYieldPendings without requesting a hardware switch. If another notification then unblocks a higher-priority task pinned to that core with a fresh wake flag, xYieldPendingBefore is already true, so the new condition leaves the flag false. prvYieldForTask skips cores with a pending yield, and vTaskExitCriticalFromISR does not issue one. The same transition check also affects xTaskResumeFromISR, xTaskRemoveFromEventList and vTaskGenericNotifyGiveFromISR."
+    }
+   ],
+   "id": "F2"
+  }
+ ],
+ "blocking": [
+  "F1"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:sast"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

@@ -1,0 +1,110 @@
+{
+ "id": "rd07",
+ "arm": "plain-xhigh",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 129,
+   "end_line": 134,
+   "message": "`prepareForValidation` no longer returns `ownerName`, but `companySchema` (src/lib/schemas.ts:153) still requires it through `cleanString('Owner name')`. So `validationSchema.safeParse(...)` always fails in `validateAllFields`. The resulting `ownerName` error is then dropped because `fieldExistsInConfig('ownerName')` is false. The result is that 'Save Changes' in the company detail sidebar does nothing at all: `onSave` is never called and no error is shown. The schema needs updating (remove ownerName/email/phone, maybe add description) to match the new Company shape."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 185,
+   "end_line": 212,
+   "message": "The Add Company form no longer has the ownerName, email and phone fields, but it still validates with `companySchema`, which requires `ownerName`. `formData.ownerName` is always undefined, so `CreationForm.handleSubmit` sets `errors.ownerName` and returns early. No field renders that error, so clicking submit silently does nothing. Before this change the submit handler at least ran."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "`titleCase(item.name)` lowercases each word and then capitalises the first letter, which changes real company names: 'KSRTC' becomes 'Ksrtc', 'ABC Travels' becomes 'Abc Travels', 'McDonald' becomes 'Mcdonald'. The changed name is shown in the table, the sidebar, the avatar and the dashboard `name` query param. It is also the starting value in the edit form, so saving would write the wrong name back to the backend. Show the backend name as-is."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 12,
+   "end_line": 12,
+   "message": "The status labels are now 'Verified' / 'Under Verification' / 'Suspended', but `DetailAvatarCard` only shows a status badge for 'verified', 'suspended', 'validating' or 'verifying'. Companies under verification (backend status 1) get no status badge in the detail avatar. Update the avatar card's mapping, or map the label here."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 60,
+   "end_line": 62,
+   "message": "Escape only works through `<svelte:window on:keydown>`, but the dialog has `tabindex=\"0\"` and `on:keydown|stopPropagation`. Once focus is inside the dialog, keydown events never reach the window, and that happens after any click on the map (focus moves to the nearest focusable ancestor) or after tabbing to the close button. From then on Escape does not close the modal. Handle Escape on the dialog itself or drop the stopPropagation."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+   "start_line": 24,
+   "end_line": 26,
+   "message": "`providerUrl`, `providerAttribution` and `providerMaxZoom` are never passed by `LocationMapModal`, and the component doesn't read the `tileProviders` store the way MapPreview does. So the location modal always loads public OSM tiles, ignoring the user's chosen or custom provider, and the XYZ/escapeHtml branch is dead code. The View's `maxZoom` is also hard-coded to 19 (line 110) instead of using `providerMaxZoom`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+   "start_line": 14,
+   "end_line": 16,
+   "message": "`CircleStyle`, `Fill` and `Stroke` are imported but never used. This will fail or warn under no-unused-vars, even though the PR says linting was applied."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 529,
+   "end_line": 540,
+   "message": "The shared detail sidebar now special-cases any field whose key is `location` and parses it with a hand-written regex. Every other entity that later adds a `location` field will get this behaviour whether it wants it or not, and the regex misses valid WKT such as `POINT Z (...)` or exponent notation. Make it opt-in from the config (e.g. a field type or renderer) and reuse the existing ol/format/WKT helpers in openlayers.utils."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 541,
+   "end_line": 550,
+   "message": "This new view-mode `field.renderer` branch changes shared behaviour. Renderer fields used to show plain text when not being edited. Now they always mount the custom (usually editable) component, including for `editable: false` fields in edit mode. It also passes `label`/`icon`/`iconColor`/`iconBg`, which typical renderers don't declare, so Svelte logs unknown-prop warnings. Nothing in this PR uses it; consider removing it or separating view and edit renderers."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 935,
+   "end_line": 937,
+   "message": "The `.location-display` selector is never used in the markup, so svelte-check reports an 'Unused CSS selector' warning."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 355,
+   "end_line": 363,
+   "message": "This page-scoped `.spinner-overlay` overrides the global theme-aware rule in app.css (`rgba(var(--border-rgb), 0.6)`, z-index 2000) with hard-coded white at z-index 9999. The loading overlay now looks different from the other listing pages and shows as a white wash in dark mode. Drop the local rule and use the global one."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 303,
+   "end_line": 305,
+   "message": "On mobile, 'No Companies found' shows while a fetch is in progress, including on first load, because the check is only `formattedCompanyData.length === 0`. The landmark page guards this with `!loading &&`."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 269,
+  "cost_usd": 1.5894486,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

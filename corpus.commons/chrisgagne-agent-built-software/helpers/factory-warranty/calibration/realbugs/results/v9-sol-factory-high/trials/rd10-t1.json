@@ -1,0 +1,191 @@
+{
+ "id": "rd10",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "gate:secrets",
+  "gate:added-tests",
+  "review"
+ ],
+ "first": "gate",
+ "cost_usd": 0.6823,
+ "codex_tokens": 136114,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd10-t1-pvbyid8f",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "Web/Program.cs:51-54 runs UseAuthentication/UseAuthorization and then UseCoreSyncHttpServer, with no fallback policy and no gating middleware. RequireSyncReadWrite is registered at line 29 but nothing applies it, so a sync request with no token reaches CoreSync. The decision doc says this was deliberate ('does not reject unauthenticated requests'), which conflicts with its stated goal that the sync channel 'needed the same protection'. Lowered from critical to high because sync was already open before this change and Entra is off by default.",
+   "severity": "high",
+   "raw_severity": "critical",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "line": 52,
+   "claim": "With Auth:UseEntraId=true, anonymous clients can still download and modify synchronized data.",
+   "evidence": "With Auth:UseEntraId=true, a sync request without a token passes through UseAuthentication() and UseAuthorization() to UseCoreSyncHttpServer(); no fallback policy or explicit authorization guard requires authentication. RequireSyncReadWrite is registered but never applied. AddSyncServices configures UploadAndDownload access to UserProfile, Conversation, VocabularyProgress and other tables.",
+   "breaks": "story",
+   "axis_row": "L2.1",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "critical",
+     "file": "src/SentenceStudio.Web/Program.cs",
+     "line": 52,
+     "claim": "Enabling Entra ID still allows anonymous clients to download and modify synchronized data.",
+     "evidence": "With Auth:UseEntraId=true, a sync request without a token passes through UseAuthentication() and UseAuthorization() to UseCoreSyncHttpServer(); no fallback policy or explicit authorization guard requires authentication. RequireSyncReadWrite is registered but never applied. AddSyncServices configures UploadAndDownload access to UserProfile, Conversation, VocabularyProgress and other tables."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "disputed",
+   "reason": "Confirmed in the code: Api/Program.cs:39-46 defines the four policies, but every endpoint (lines 108, 156, 204, 228, 298) uses a bare RequireAuthorization(). However, the decision doc says scopes are opt-in and deferred to #44+. Without the story, it isn't clear that per-endpoint scope enforcement was required here, so the severity is lowered to medium.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/SentenceStudio.Api/Program.cs",
+   "line": 39,
+   "claim": "Scope policies are registered but never applied, so a token with only user.read can write vocabulary status and call the paid AI endpoints.",
+   "evidence": "A valid API token containing only user.read satisfies the endpoints' parameterless RequireAuthorization(). Although RequireUserWrite and RequireAiAccess are registered here, the vocabulary status write at line 298 and AI handlers at lines 156, 204 and 228 require neither policy; the AI handlers call the configured OpenAI client.",
+   "axis_row": "L2.1",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/SentenceStudio.Api/Program.cs",
+     "line": 39,
+     "claim": "The scope policies are unused, allowing read-only tokens to perform writes and invoke paid AI operations.",
+     "evidence": "A valid API token containing only user.read satisfies the endpoints' parameterless RequireAuthorization(). Although RequireUserWrite and RequireAiAccess are registered here, the vocabulary status write at line 298 and AI handlers at lines 156, 204 and 228 require neither policy; the AI handlers call the configured OpenAI client."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "AddMicrosoftIdentityWebApi (Api/Program.cs:34-35) leaves MapInboundClaims at its default. That default maps tid and oid to URI claim types, but the middleware only looks up the raw 'tid' and 'oid', and tokens from Entra carry no 'tenant_id'. TestJwtGenerator adds tenant_id and NameIdentifier explicitly, which hides the problem. Lowered to medium because sub is still a stable per-user value, so the vocabulary data is keyed inconsistently but not shared across users.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "line": 24,
+   "claim": "Real Entra tokens lose tid/oid under the default inbound claim mapping, so TenantId is null and UserId falls back to the mapped sub.",
+   "evidence": "The production registration leaves inbound claim mapping enabled. [JWT mapping defaults](https://raw.githubusercontent.com/dotnet/aspnetcore/v10.0.1/src/Security/Authentication/JwtBearer/src/JwtBearerOptions.cs) translate tid and oid to [URI claim types](https://raw.githubusercontent.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/8.0.1/src/Microsoft.IdentityModel.JsonWebTokens/ClaimTypeMapping.cs). InvokeAsync checks only raw tid/oid and development fallbacks, so an Entra token without tenant_id yields a null TenantId and falls back to the mapped sub for UserId. Bootstrap exposes these values, and the vocabulary endpoint uses UserId for persistence. TestJwtGenerator supplies tenant_id and NameIdentifier explicitly, hiding the mismatch.",
+   "breaks": "story",
+   "axis_row": "L2.1",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+     "line": 24,
+     "claim": "Normal Entra tokens lose their tenant ID and use the subject claim instead of the intended object ID.",
+     "evidence": "The production registration leaves inbound claim mapping enabled. [JWT mapping defaults](https://raw.githubusercontent.com/dotnet/aspnetcore/v10.0.1/src/Security/Authentication/JwtBearer/src/JwtBearerOptions.cs) translate tid and oid to [URI claim types](https://raw.githubusercontent.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/8.0.1/src/Microsoft.IdentityModel.JsonWebTokens/ClaimTypeMapping.cs). InvokeAsync checks only raw tid/oid and development fallbacks, so an Entra token without tenant_id yields a null TenantId and falls back to the mapped sub for UserId. Bootstrap exposes these values, and the vocabulary endpoint uses UserId for persistence. TestJwtGenerator supplies tenant_id and NameIdentifier explicitly, hiding the mismatch."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "noise",
+   "reason": "SentenceStudio.Api.csproj targets net10.0 with Microsoft.NET.Sdk.Web. In ASP.NET Core 10, a source generator emits a public partial Program for apps with top-level statements, so the factories can see Program without InternalsVisibleTo.",
+   "severity": "low",
+   "raw_severity": "high",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "line": 14,
+   "claim": "The test project cannot compile because WebApplicationFactory<Program> references an internal Program class.",
+   "evidence": "JwtBearerApiFactory and DevAuthApiFactory publicly inherit WebApplicationFactory<Program> from the separately referenced API assembly. The API uses top-level statements without a public partial Program declaration, and its project grants no InternalsVisibleTo access. This violates the [documented entry-point accessibility requirement](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-10.0#basic-tests-with-the-default-webapplicationfactory), preventing the new tests from running.",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "high",
+     "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+     "line": 14,
+     "claim": "The new authentication test project cannot compile because both factories reference an inaccessible Program class.",
+     "evidence": "JwtBearerApiFactory and DevAuthApiFactory publicly inherit WebApplicationFactory<Program> from the separately referenced API assembly. The API uses top-level statements without a public partial Program declaration, and its project grants no InternalsVisibleTo access. This violates the [documented entry-point accessibility requirement](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-10.0#basic-tests-with-the-default-webapplicationfactory), preventing the new tests from running."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "JwtBearerApiFactory never sets Auth:UseEntraId=true. It adds its own AddJwtBearer scheme with test validation parameters, so the AddMicrosoftIdentityWebApi branch, its scope/role checks and its claim mapping are never tested. That is how the X3 claim mismatch gets through.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "line": 29,
+   "claim": "The JWT tests use a separate AddJwtBearer scheme and never exercise the production Entra registration.",
+   "evidence": "ConfigureWebHost never sets Auth:UseEntraId=true; it installs a separate AddJwtBearer scheme with test validation parameters. Consequently, the production AddMicrosoftIdentityWebApi branch and scope registrations are not exercised. GenerateToken defaults to no scopes or roles, while [Microsoft.Identity.Web 3.8.2](https://raw.githubusercontent.com/AzureAD/microsoft-identity-web/3.8.2/src/Microsoft.Identity.Web/WebApiExtensions/MicrosoftIdentityWebApiAuthenticationBuilderExtensions.cs) rejects tokens lacking both; the tests nevertheless expect these tokens to succeed.",
+   "breaks": "story",
+   "axis_row": "L2.1",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+     "line": 29,
+     "claim": "The JWT tests bypass the production Entra registration, leaving its validation behavior untested.",
+     "evidence": "ConfigureWebHost never sets Auth:UseEntraId=true; it installs a separate AddJwtBearer scheme with test validation parameters. Consequently, the production AddMicrosoftIdentityWebApi branch and scope registrations are not exercised. GenerateToken defaults to no scopes or roles, while [Microsoft.Identity.Web 3.8.2](https://raw.githubusercontent.com/AzureAD/microsoft-identity-web/3.8.2/src/Microsoft.Identity.Web/WebApiExtensions/MicrosoftIdentityWebApiAuthenticationBuilderExtensions.cs) rejects tokens lacking both; the tests nevertheless expect these tokens to succeed."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": ".github/workflows/test.yml restores, builds and runs only tests/SentenceStudio.UnitTests, and the diff doesn't update the workflow to include SentenceStudio.Api.Tests.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/SentenceStudio.Api.Tests/SentenceStudio.Api.Tests.csproj",
+   "line": 1,
+   "claim": "The new auth tests are not run in CI.",
+   "evidence": ".github/workflows/test.yml restores, builds and runs only SentenceStudio.UnitTests.csproj. The diff adds SentenceStudio.Api.Tests without updating that workflow, and src/SentenceStudio.sln also omits the new project.",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "low",
+     "file": "tests/SentenceStudio.Api.Tests/SentenceStudio.Api.Tests.csproj",
+     "line": 1,
+     "claim": "The new authentication tests are omitted from CI, allowing authentication regressions to pass the existing gate.",
+     "evidence": ".github/workflows/test.yml restores, builds and runs only SentenceStudio.UnitTests.csproj. The diff adds SentenceStudio.Api.Tests without updating that workflow, and src/SentenceStudio.sln also omits the new project."
+    }
+   ],
+   "id": "F6"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [],
+  "gate": [
+   "gate:secrets",
+   "gate:added-tests"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

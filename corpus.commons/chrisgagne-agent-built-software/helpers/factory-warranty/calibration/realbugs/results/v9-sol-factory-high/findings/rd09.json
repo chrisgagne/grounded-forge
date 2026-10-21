@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/capawesome-team/cli",
+  "pr_number": 126,
+  "base": "a03825128b8380f86dcf85e8d3507b3a41d9f775",
+  "head": "2d997db6e53c75213cbb13f2d3fdb636984eead4"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 53,
+   "end_line": 53,
+   "message": "Creating an iOS destination with API-key authentication always fails in non-interactive mode because the Apple API key ID cannot be supplied. The options schema omits appleApiKeyId, and the action initializes it to undefined without reading options. With --apple-api-key-file and --apple-issuer-id, it uploads the key, then exits at lines 242\u2013245 because appleApiKeyId is missing. An in-memory execution reproduced this even when appleApiKeyId was explicitly passed to the action."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/utils/prompt.ts",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "The shared app picker excludes apps beyond the first 50, preventing their selection in interactive commands. promptAppSelection now requests limit: 50 and builds its choices directly from that single response, without pagination or another lookup. With a mocked service containing 51 apps and honoring the limit, execution displayed only 50 choices."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "Interactive password entry uses visible text prompts, exposing credentials to terminal observers and recordings. Certificate password and key-password prompts use type: 'text' at lines 119 and 139; the Apple app-specific password prompt in destinations/create.ts:296 does the same. The shared prompt wrapper forwards these options to consola.prompt without masking."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 186,
+   "end_line": 186,
+   "message": "A provisioning-profile linking failure leaves a newly created certificate and uploaded profiles behind without reporting their IDs or providing recovery. The action uploads profiles, creates the certificate, then awaits updateMany before printing the certificate ID. There is no catch or cleanup. Injecting an updateMany failure reproduced profile and certificate creation followed by rejection, with no ID output. Retrying repeats creation rather than resuming the link."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new certificate and destination commands lack automated coverage for their input branches and multi-request workflows. The diff adds ten CRUD commands and three upload services without adding or changing any test files. Existing src/index.test.ts constructs an empty commands registry, so it does not exercise the new commands or their registration."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

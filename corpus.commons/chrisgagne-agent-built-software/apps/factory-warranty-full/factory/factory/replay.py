@@ -68,7 +68,10 @@ def case_config() -> dict:
             "theory_doc": None,
             "review": {**(sample.get("review") or {}),
                        **({"legs": os.environ["FACTORY_REVIEW_LEGS"].split(",")} if os.environ.get("FACTORY_REVIEW_LEGS")
-                          else {})}}
+                          else {}),
+                       **{k: os.environ[e] for k, e in (("claude_effort", "FACTORY_REVIEW_CLAUDE_EFFORT"),
+                                                        ("codex_effort", "FACTORY_REVIEW_CODEX_EFFORT"))
+                          if os.environ.get(e)}}}
 
 
 DOC = re.compile(r"(\.md|\.markdown|\.txt|\.rst)$|(^|/)docs?/|(^|/)(CHANGELOG|HISTORY|README|AUTHORS)", re.I)

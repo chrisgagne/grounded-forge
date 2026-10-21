@@ -1,0 +1,62 @@
+{
+ "id": "rd14",
+ "arm": "plain-xhigh",
+ "findings": [
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 79,
+   "end_line": 97,
+   "message": "The hook checks the wrong checkout. It runs inside the team lead's session, the one calling SendMessage, so `git symbolic-ref HEAD` and `process.cwd()/.dev-team/.reviews` both point at the lead's own checkout. The implementer's branch and worktree are never looked at. The task skill and agent-teams-guide put implementers in `isolation: \"worktree\"` on their own branches while the lead stays on main. In that normal setup line 91 always sees `main` and allows the shutdown, so the guard never blocks anything. If the lead is on a different branch (`develop`, `trunk`, or some feature branch), the guard checks that branch's sidecars instead of the implementer's and blocks for no good reason. The header comment's claim that it checks for 'open, unreviewed PRs' is also wrong: no PR or implementer branch is ever resolved. To fix this, work out the target agent's branch, for example from the task list, the assessment, or a recorded agent\u2192branch mapping, and look for sidecars in that worktree."
+  },
+  {
+   "source": "claude",
+   "severity": "high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 96,
+   "end_line": 106,
+   "message": "Review evidence is detected only by finding the sanitized branch name inside a sidecar's filename. Under ADR-029, review-gate writes sidecars as `<agent>--<contentHash>.json`, so the branch name never appears in the filename. Real review sidecars will therefore never match, and once the hook gets this far it blocks every implementer shutdown even after reviews ran. That trains users to add `--force-shutdown` by habit. merge-gate already solves this by reading the sidecar's `branch` JSON field and using the filename only as a fallback, plus lstat/symlink filtering; this hook should share that logic. The substring match is also loose: `feat-12` matches `feat-123-...`, so a sibling branch's sidecar can satisfy the check."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 100,
+   "end_line": 111,
+   "message": "Shutdown is allowed as soon as any sidecar exists. Reviewers write sidecars when they produce findings, which is before anything is routed to or acknowledged by the implementer. So the exact failure this hook targets is still allowed: the implementer gets shut down after review but before routing, possibly with unresolved `[DEFECT]` findings. The README entry ('Blocks shutdown ... before review findings are routed') and the task skill's requirement to stay alive until findings are acknowledged both say more than the hook enforces. At minimum, apply the same check as review-gate Gate 2 and block while any non-LIGHT sidecar has a `[DEFECT]` finding without `resolved: true`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 66,
+   "end_line": 75,
+   "message": "`workflow.review` is typed as `WorkflowToggle = boolean | \"complex\"` (src/init.ts), but the hook only special-cases `=== false`. With `review: \"complex\"`, SIMPLE tasks are presumably not reviewed, yet the guard treats every implementer as needing review evidence and blocks its shutdown. The hook should read the branch's assessment sidecar (`.dev-team/.assessments/<branch>.json`, ADR-043) and enforce only for COMPLEX branches when the setting is `\"complex\"`."
+  },
+  {
+   "source": "claude",
+   "severity": "low",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 44,
+   "end_line": 56,
+   "message": "For string messages, shutdown is detected with `message.includes(\"shutdown_request\")`. Any ordinary message to an implementer that mentions the word (e.g. 'don't expect a shutdown_request until review is done') is treated as a shutdown and can be blocked. Only the structured `{type: \"shutdown_request\"}` form should count. Separately, the block message says 'Use --force-shutdown' without saying where to put it in a structured message. It only works because the whole object is stringified, so it has to go in a free-text field such as `reason`."
+  },
+  {
+   "source": "claude",
+   "severity": "medium",
+   "file": "tests/unit/hooks.test.js",
+   "start_line": 2860,
+   "end_line": 2872,
+   "message": "The 'allows shutdown with review evidence' test uses a made-up sidecar name, `knuth--feat-123-test.json`. Real sidecars follow the ADR-029 `<agent>--<contentHash>.json` format, so this test passes while real usage would always block. The suite also runs with the hook's cwd set to the implementer's branch, which builds in the wrong assumption that the lead and the implementer share a checkout. Tests that would catch these problems are missing: a realistically named sidecar with a `branch` field, a lead on main shutting down an implementer on a feature branch, a string message mentioning shutdown_request without `--force-shutdown`, and `workflow.review: \"complex\"`. The `extraEnv` parameter of `runGuard` is never used."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 323,
+  "cost_usd": 1.3811936,
+  "models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

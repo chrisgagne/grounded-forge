@@ -1,0 +1,217 @@
+{
+ "id": "rd20",
+ "trial": 1,
+ "kind": "pr",
+ "error": null,
+ "blocks": [
+  "triage",
+  "gate:locked-tests",
+  "gate:deps",
+  "gate:added-tests",
+  "gate:required",
+  "review"
+ ],
+ "first": "triage",
+ "cost_usd": 0.4632,
+ "codex_tokens": 114217,
+ "work": "/var/folders/9x/1fdzcpds0976g8wg_8n8xzg40000gn/T/replay-rd20-t1-jds7kx20",
+ "findings": [
+  {
+   "sources": [
+    "X1"
+   ],
+   "verdict": "confirmed",
+   "reason": "validateSkillset (fetch-skillset.ts:12) only checks that name is a string. install.ts:121 joins it into tmpDir, so '../../home/alice' becomes /home/alice. safePath only checks against that already-escaped base, and a source of '.' gets past the '..' check in resolve-skillset.ts:33. The result is writeFile to an attacker-chosen path.",
+   "severity": "critical",
+   "raw_severity": "critical",
+   "file": "src/commands/install.ts",
+   "line": 121,
+   "claim": "A manifest name containing ../ moves the download directory outside tmpdir/spm, so remote content can overwrite user files.",
+   "evidence": "validateSkillset only checks that name is a string. With tmpdir()='/tmp', name='../../home/alice', source='.' and files=['.bashrc'], join constructs '/home/alice', safePath accepts '/home/alice/.bashrc', and writeFile overwrites it with downloaded content. An in-memory execution recorded that destination.",
+   "members": [
+    {
+     "id": "X1",
+     "leg": "codex",
+     "severity": "critical",
+     "file": "src/commands/install.ts",
+     "line": 77,
+     "claim": "An untrusted manifest name can redirect downloads to arbitrary user-writable directories and overwrite existing files.",
+     "evidence": "validateSkillset only checks that name is a string. With tmpdir()='/tmp', name='../../home/alice', source='.' and files=['.bashrc'], join constructs '/home/alice', safePath accepts '/home/alice/.bashrc', and writeFile overwrites it with downloaded content. An in-memory execution recorded that destination."
+    }
+   ],
+   "id": "F1"
+  },
+  {
+   "sources": [
+    "X4"
+   ],
+   "verdict": "confirmed",
+   "reason": "The '@' branch in resolve-skillset.ts:17-28 never rejects '..', so the path becomes '../demo-evil/payload.md'. resolve gives /tmp/spm/demo-evil/..., which still passes startsWith('/tmp/spm/demo') at install.ts:85. Lowered to medium because the write stays inside tmpdir/spm, in a sibling skillset directory.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/commands/install.ts",
+   "line": 85,
+   "claim": "The startsWith containment check lets '@org/repo/../sibling' sources write into sibling skillset directories.",
+   "evidence": "With name='demo', source='@org/repo/../demo-evil' and files=['payload.md'], resolveSkillset emits '../demo-evil/payload.md'. safePath('/tmp/spm/demo', ...) accepts '/tmp/spm/demo-evil/payload.md' because startsWith(baseDir) is true. The raw GitHub URL normalizes to the demo-evil branch, so a repository containing that branch and file can supply the payload. An in-memory execution recorded the sibling write destination.",
+   "members": [
+    {
+     "id": "X4",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/commands/install.ts",
+     "line": 44,
+     "claim": "The prefix-based containment check permits traversal into sibling skillset directories and overwriting their downloads.",
+     "evidence": "With name='demo', source='@org/repo/../demo-evil' and files=['payload.md'], resolveSkillset emits '../demo-evil/payload.md'. safePath('/tmp/spm/demo', ...) accepts '/tmp/spm/demo-evil/payload.md' because startsWith(baseDir) is true. The raw GitHub URL normalizes to the demo-evil branch, so a repository containing that branch and file can supply the payload. An in-memory execution recorded the sibling write destination."
+    }
+   ],
+   "id": "F2"
+  },
+  {
+   "sources": [
+    "X2"
+   ],
+   "verdict": "confirmed",
+   "reason": "The regex at parse-identifier.ts uses a non-capturing tree/[^/]+ segment, and the returned identifier has no ref. resolve-identifier.ts:20 then always calls fetchDefaultBranch. The new test even asserts that a 'develop' URL gives no branch, so the content installed comes from another branch.",
+   "severity": "high",
+   "raw_severity": "high",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "line": 306,
+   "claim": "GitHub tree URLs drop the branch, so install fetches the default branch instead.",
+   "evidence": "For 'https://github.com/org/repo/tree/develop/pkg', parseGitHubUrl returns only owner, repository and path. resolveIdentifier then fetches the repository's default branch. With default_branch='main', an in-memory execution requested '/org/repo/main/pkg/skillset.yml' and downloaded files from main despite the explicit develop URL.",
+   "members": [
+    {
+     "id": "X2",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/core/resolver/parse-identifier.ts",
+     "line": 8,
+     "claim": "GitHub URLs discard their requested branch, causing installation of different content or a download failure.",
+     "evidence": "For 'https://github.com/org/repo/tree/develop/pkg', parseGitHubUrl returns only owner, repository and path. resolveIdentifier then fetches the repository's default branch. With default_branch='main', an in-memory execution requested '/org/repo/main/pkg/skillset.yml' and downloaded files from main despite the explicit develop URL."
+    }
+   ],
+   "id": "F3"
+  },
+  {
+   "sources": [
+    "X3"
+   ],
+   "verdict": "confirmed",
+   "reason": "downloadEntries passes location.ref to every entry at install.ts:71, including '@other/repo' entries that resolve-skillset.ts:24-28 points at another repo, and no branch lookup is done for them. Lowered to medium because a mismatch fails loudly (404 rejects Promise.all) rather than corrupting anything.",
+   "severity": "medium",
+   "raw_severity": "high",
+   "file": "src/commands/install.ts",
+   "line": 71,
+   "claim": "Cross-repo skill entries are downloaded using the manifest repo's ref.",
+   "evidence": "downloadEntries passes location.ref to every toGitHubSource call, including entries whose owner and repository differ. If the manifest repository defaults to main and '@other/legacy/skills/example' exists only on master, the downloader requests '/other/legacy/main/skills/example/SKILL.md'; its 404 rejects Promise.all and aborts installation before writing files. No branch lookup is performed for other/legacy.",
+   "members": [
+    {
+     "id": "X3",
+     "leg": "codex",
+     "severity": "high",
+     "file": "src/commands/install.ts",
+     "line": 30,
+     "claim": "Cross-repository skills use the manifest repository's branch, causing valid dependencies on other branches to fail.",
+     "evidence": "downloadEntries passes location.ref to every toGitHubSource call, including entries whose owner and repository differ. If the manifest repository defaults to main and '@other/legacy/skills/example' exists only on master, the downloader requests '/other/legacy/main/skills/example/SKILL.md'; its 404 rejects Promise.all and aborts installation before writing files. No branch lookup is performed for other/legacy."
+    }
+   ],
+   "id": "F4"
+  },
+  {
+   "sources": [
+    "X5"
+   ],
+   "verdict": "confirmed",
+   "reason": "install.ts:75 sets path to entry.path, and line 128 builds the destination from that path alone, without owner or repository. Two cross-repo sources with the same path therefore race on writeFile in Promise.all.",
+   "severity": "medium",
+   "raw_severity": "medium",
+   "file": "src/commands/install.ts",
+   "line": 128,
+   "claim": "Files from different repos with the same repo-relative path collide on one destination.",
+   "evidence": "Two skills sourced from '@one/repo/skills/example' and '@two/repo/skills/example', each listing 'SKILL.md', both reach writeFile at '/tmp/spm/demo/skills/example/SKILL.md'. The destination uses result.path without owner or repository, and Promise.all writes both concurrently. An in-memory execution recorded both different contents targeting that same file.",
+   "members": [
+    {
+     "id": "X5",
+     "leg": "codex",
+     "severity": "medium",
+     "file": "src/commands/install.ts",
+     "line": 84,
+     "claim": "Files from different repositories with identical repository-relative paths overwrite one another during download.",
+     "evidence": "Two skills sourced from '@one/repo/skills/example' and '@two/repo/skills/example', each listing 'SKILL.md', both reach writeFile at '/tmp/spm/demo/skills/example/SKILL.md'. The destination uses result.path without owner or repository, and Promise.all writes both concurrently. An in-memory execution recorded both different contents targeting that same file."
+    }
+   ],
+   "id": "F5"
+  },
+  {
+   "sources": [
+    "X6"
+   ],
+   "verdict": "confirmed",
+   "reason": "'test-skillset' has no @ and isn't a URL, so parseIdentifier throws after info('Resolving ...') has already printed (install.ts:104-105). The test only checks stdout and ignores the exit code and stderr.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "tests/integration/cli.test.ts",
+   "line": 730,
+   "claim": "The install integration test passes even when install fails, so the download and write path is never checked.",
+   "evidence": "The test runs 'install test-skillset' and asserts only that stdout contains 'Resolving test-skillset'. That message is printed before parseIdentifier rejects the unsupported bare identifier; the catch sets exitCode=1. An in-memory execution produced the expected message with exitCode=1, zero fetches and zero writes, while the test ignores both code and stderr.",
+   "axis_row": "L6.27",
+   "members": [
+    {
+     "id": "X6",
+     "leg": "codex",
+     "severity": "low",
+     "file": "tests/integration/cli.test.ts",
+     "line": 50,
+     "claim": "The install integration test passes on an installation failure and leaves the download-and-write pipeline unverified.",
+     "evidence": "The test runs 'install test-skillset' and asserts only that stdout contains 'Resolving test-skillset'. That message is printed before parseIdentifier rejects the unsupported bare identifier; the catch sets exitCode=1. An in-memory execution produced the expected message with exitCode=1, zero fetches and zero writes, while the test ignores both code and stderr."
+    }
+   ],
+   "id": "F6"
+  },
+  {
+   "sources": [
+    "X7"
+   ],
+   "verdict": "confirmed",
+   "reason": "README.md:20 shows a bare name, which parseIdentifier now rejects. install.ts:121 writes under tmpdir()/spm, not into the project. This is a stale-documentation point, so it stays low.",
+   "severity": "low",
+   "raw_severity": "low",
+   "file": "README.md",
+   "line": 20,
+   "claim": "The README's 'spm install nextjs-fsd' example no longer works, and files land in tmpdir rather than the project.",
+   "evidence": "README recommends 'spm install nextjs-fsd' and says it installs into the project. The new install action passes that bare name directly to resolveIdentifier, whose parser accepts only @ identifiers or GitHub URLs. Successful downloads are written under tmpdir()/spm rather than into the project.",
+   "members": [
+    {
+     "id": "X7",
+     "leg": "codex",
+     "severity": "low",
+     "file": "README.md",
+     "line": 20,
+     "claim": "The documented installation example now fails, leaving users without a working usage example.",
+     "evidence": "README recommends 'spm install nextjs-fsd' and says it installs into the project. The new install action passes that bare name directly to resolveIdentifier, whose parser accepts only @ identifiers or GitHub URLs. Successful downloads are written under tmpdir()/spm rather than into the project."
+    }
+   ],
+   "id": "F7"
+  }
+ ],
+ "blocking": [
+  "F1",
+  "F2",
+  "F3",
+  "F4"
+ ],
+ "review_malfunction": false,
+ "stage_blocks": {
+  "triage": [
+   "triage"
+  ],
+  "gate": [
+   "gate:locked-tests",
+   "gate:deps",
+   "gate:added-tests",
+   "gate:required"
+  ],
+  "review": [
+   "review"
+  ]
+ }
+}

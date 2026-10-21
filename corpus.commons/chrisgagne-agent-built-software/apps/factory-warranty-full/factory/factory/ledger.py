@@ -60,6 +60,8 @@ DEFAULTS = {
     # a reviewer killed at its limit names no finding, and the change stops without the signer learning why.
     "review": {"claude_model": "opus", "codex_model": "gpt-6.1-sol", "grounding": "seeds", "timeout_minutes": 60,
                "timeout_retries": 1, "legs": ["claude", "codex"],
+               # Reasoning effort for the reviewers; None leaves each CLI's own default (Codex reports "none").
+               "claude_effort": None, "codex_effort": None,
                # Opt-in: each blocking finding gets a check the factory runs (factory/reproduce.py), shown on the sheet.
                "reproduce": False, "reproduce_setup": None},
     # acceptEdits: file edits in the worktree go through; Bash runs only sandboxed (autoAllowBashIfSandboxed);
@@ -244,6 +246,10 @@ def config_problems(cfg: dict) -> list[str]:
     if not review_legs or any(l not in ("claude", "codex", "claude-plain", "codex-review") for l in review_legs) \
             or len(set(review_legs)) != len(review_legs):
         problems.append("review.legs must name distinct legs from claude, codex, claude-plain, codex-review")
+    if cfg["review"].get("claude_effort") not in (None, "low", "medium", "high", "xhigh", "max"):
+        problems.append("review.claude_effort must be one of low, medium, high, xhigh, max (or left out)")
+    if cfg["review"].get("codex_effort") is not None and not isinstance(cfg["review"]["codex_effort"], str):
+        problems.append("review.codex_effort must be a Codex reasoning effort such as high (or left out)")
     if cfg["review"].get("grounding") == "distillations" and not cfg.get("axis_index"):
         problems.append("review.grounding: distillations needs axis_index (the axis's distillation index)")
     return problems

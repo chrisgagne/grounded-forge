@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/sw5005-sus/ceramicraft-argocd-deploy",
+  "pr_number": 89,
+  "base": "9cf42c1eecc554ca953c3685fa1b6a34eeed910c",
+  "head": "d7a4532170487a111654cf8aa742f4007334b6e2"
+ },
+ "agent": "v5-plain-xhigh",
+ "findings": [
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 35,
+   "message": "The new Deployment is missing the `envFrom: secretRef: ms-secret-vault` block. The shared Helm chart added this to every service (charts/templates/deployment.yaml:76-78). Without it, none of the Vault-backed secrets reach the pod. The mounted config (backend/ai-secure-agent-config.yaml) sets MySQL user `root` with no password, so the password and any LLM/API keys come only from that secret. The agent will start without credentials and fail to authenticate to MySQL and other dependencies. Add `envFrom: - secretRef: name: ms-secret-vault`."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "app-of-apps.yaml",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "`agent-app` tracks the feature branch `AI-20-AISecureAgent-Feature-collection`. Every other Application and the ApplicationSet track `HEAD`. Once this merges, the `agent/` manifests on main are not what Argo deploys, so later edits on main are silently ignored. If that branch lacks `agent/` or is deleted after merge (the usual practice), the app goes into ComparisonError. Because `prune: true` is set, a diverged branch can also remove resources. Point it at `HEAD` (or main)."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 41,
+   "message": "The migration drops the liveness and readiness probes that the Helm values defined (`/ai-secure-agent-ms/v1/ping`). Without a readiness probe, the Service sends traffic to the pod before the app (MLflow init, Kafka/MySQL connections) is ready. Without a liveness probe, a hung Python process is never restarted. Port the probes over."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 41,
+   "message": "The resource requests and limits from the Helm values (100m/256Mi requests, 200m/345Mi limits) are gone, so the pod is now BestEffort with unbounded memory on a shared k3s node. `MALLOC_ARENA_MAX=2` is still set, which suggests memory growth was a known problem for this workload. An unbounded agent can starve or OOM-evict the other microservices. Restore the requests and limits."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "app-of-apps.yaml",
+   "start_line": 424,
+   "end_line": 443,
+   "message": "Cutover risk: deleting helm_backend/ai-secure-agent-ms makes the `helm-app` ApplicationSet delete the generated `ai-secure-agent-ms` Application. ApplicationSet-generated apps carry the resources finalizer by default, so that deletion cascades to resources with the same names this new app creates (Deployment `ai-secure-agent-ms`, Service `ai-secure-agent-ms-svc` in `default`). Depending on ordering, both apps claim the same resources (SharedResourceWarning, tracking label flip-flopping), or the old app's cascade deletes the live Deployment and Service and causes downtime until `agent-app` re-syncs. Plan the handover explicitly, e.g. set `preserveResourcesOnDeletion` or remove the finalizer first, or sync `agent-app` after the old app is gone."
+  },
+  {
+   "producer": "v5-plain-xhigh",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "The image is now a hard-coded `repo:tag` string in a raw manifest instead of `image.tag` in helm_backend/<svc>/values.yaml. The release automation (see commits like `chore(<svc>): bump tag to ... [skip ci]`) updates the values.yaml path. Without an update, new ai-secure-agent builds will not be deployed, or the bot will recreate helm_backend/ai-secure-agent-ms/values.yaml, which makes the ApplicationSet generate a second, conflicting app again. Update the CI bump target."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 82000
+ }
+}

@@ -1,0 +1,98 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v5-factory",
+ "findings": [
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/schemas.ts",
+   "start_line": 153,
+   "end_line": 153,
+   "message": "The change removed ownerName from the Add Company form and the detail-sidebar validation payload but left companySchema requiring it, so both the Add Company form and the sidebar's Save Changes now fail validation every time, with no error shown. schemas.ts:153 still declares `ownerName: cleanString('Owner name').min(2,...)` (a required z.string()). Trigger 1: on /company, fill Name/Address/Location/Type and press Create. CreationForm.handleSubmit (CreationForm.svelte:170-179) runs `schema.safeParse(formData)`. formData only has the four fields left in companyFields (+page.svelte:185-212), so the parse fails on ownerName. errors['ownerName'] is set but no field renders it, and the function returns before `dispatch('submit')`. Trigger 2: open a company, click Edit, click Save Changes. DynamicDetailSidebar.validateAllFields (lines 121-148) parses `prepareForValidation(editable)`, which now returns only {name,address,location,type} (company-detail.config.ts:121-126). The parse fails on ownerName, `fieldExistsInConfig('ownerName')` is false so no message appears, it returns false, and handleSave never calls onSave, so the sidebar stays in edit mode. Before the change both payloads carried ownerName."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/components/DetailAvatarCard.svelte",
+   "start_line": 54,
+   "end_line": 54,
+   "message": "The company status label changed from 'Validating' to 'Under Verification', but the avatar card and company dashboard still match only 'validating', so companies under verification show no status badge in either place. constants.ts maps status 1 to 'Under Verification' and +page.svelte:89 stores that as `status`. company-detail.config.ts:12 passes it as `statusText` and line 13 puts it in the dashboard link's `status` param. DetailAvatarCard.svelte:44-59 renders a badge only for 'verified', 'suspended', or `normalizedStatus === 'validating' || 'verifying'`, so 'under verification' matches nothing. company/dashboard/+page.svelte:80 checks `companyStatus == 'Validating'` and has no branch for the new label."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 13,
+   "end_line": 13,
+   "message": "The dashboard link now carries the numeric API id, but the company sub-pages still filter dummy data by 'COMP-00x' ids, so Vehicles, Operator Account, Local Fare and similar pages show empty lists for every company. Line 13 builds `id=${encodeURIComponent(String(data.apiId ?? ''))}` (previously `data.id`, e.g. 'COMP-001'). company/dashboard/+page.svelte:53-58 forwards these params to every card. vehicles/+page.svelte:27-31 sets `companyId = ...get('companyId') ?? ...get('id')` and filters `vehicles.filter((v) => v.companyId === companyId)`. operator-account:33 and local-fare:40-41 do the same. The dummy records use `companyId: 'COMP-001'` (dummy-data.ts:335 and following), which never equals a numeric id like '1'."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Escape does not close the location map dialog once focus is inside it (for example after clicking the map or tabbing to the close button), because the dialog stops keydown events before they reach the window listener that handles Escape. The Escape handling is registered only as `<svelte:window on:keydown={handleKeydown} />` (line 50, handler at lines 31-35). The dialog element `.modal-content` has `tabindex=\"0\"` and `on:keydown|stopPropagation` (lines 60-62). Clicking inside the dialog focuses it (it is the nearest focusable ancestor), so a later Escape keydown targets `.modal-content` or its children. stopPropagation then halts bubbling and the window handler never runs."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/components/company-components/LocationMapModal.svelte",
+   "start_line": 54,
+   "end_line": 54,
+   "message": "The new dialog is not keyboard- or screen-reader-friendly: focus is never moved into it, trapped in it or returned when it closes, and the button that opens it is labelled only 'Click here to view location'. LocationMapModal has no focus() call, no focus trap and no restore-focus logic: the script (lines 1-48) only manages localOpen and updateSize. The opener in DynamicDetailSidebar.svelte:532-537 is `<button class=\"location-link\">Click here to view location</button>`, which gives no accessible name tying it to the company or the field."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 86,
+   "end_line": 86,
+   "message": "Company names are passed through titleCase, which lowercases acronyms and mixed-case brand names (e.g. 'KSRTC' becomes 'Ksrtc'). The altered name then flows into the detail sidebar's editable copy and the dashboard link. Line 86: `name: titleCase(item.name ?? '')`. helpers.ts titleCase does `s.toLowerCase().split(/\\s+/)...w[0].toUpperCase() + w.slice(1)`. The row object is passed to getCompanyDetailConfig (avatar name and dashboardLink `name=`) and to DynamicDetailSidebar `editable`. The landmark page maps `name: item.name ?? ''` without titleCase."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 252,
+   "end_line": 252,
+   "message": "The search box says users can search by ID, but the term is sent only as free-text `search` and the service's `id` parameter is never used, so searching for a displayed ID such as 'COMP-12' may return nothing. Placeholder: \"Search by company name, ID...\". fetchCompanies calls `fetchCompanyAccount({ search: searchTerm, type, status, limit, offset })` (lines 72-78). The displayed id is the synthetic `COMP-${item.id}` (line 84), and fetchCompanyAccount's `id` option (services/company.ts:19,36) has no caller."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/constants.ts",
+   "start_line": 87,
+   "end_line": 87,
+   "message": "The numeric codes for company type and status are hard-coded with no spec line or generated type backing them. If they differ from the backend, the filters and the displayed labels may be silently wrong. `COMPANY_TYPE = { OTHER: 1, PRIVATE: 2, GOVERNMENT: 3 }` and `COMPANY_STATUS = { UNDER_VERIFICATION: 1, VERIFIED: 2, SUSPENDED: 3 }`, commented 'from backend'. The generated API types (src/lib/api/types.ts) are not in the repo, no story or acceptance criteria are in the packet, and these maps drive both `status_list`/`type_list` query values and label rendering (+page.svelte:63-70, 89-90)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/components/company-components/CompanyLocationMap.svelte",
+   "start_line": 36,
+   "end_line": 36,
+   "message": "CompanyLocationMap re-implements tile-source and marker code that MapOL already has, and it ignores the user's selected tile provider, so the company map always uses OSM while the other maps follow the provider setting. escapeHtml (line 36), createSource with OSM/XYZ fallback (line 47) and the LocationIcon marker style copy MapOL.svelte (escapeHtml at 119, createSource at ~1165, LocationIcon at 37/188). The providerUrl/providerAttribution/providerMaxZoom props (lines 24-26) are never passed by LocationMapModal (line 80), while MapPreview reads the `tileProviders` store."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 541,
+   "end_line": 541,
+   "message": "The diff adds dead or speculative code to shared components: a view-mode renderer branch and a widened renderer type that no config uses, an unused CSS class, unused OpenLayers imports, and a setTimeout re-open dance whose comment does not describe what it does. No config sets `renderer` (grep finds it only in detail-config.ts and DynamicDetailSidebar), yet lines 541-550 add a view-mode `<svelte:component this={field.renderer} ...>` and detail-config.ts:7 widens DetailFieldRenderer to `Record<string, any>`. `.location-display` (line 935) is never used. CompanyLocationMap.svelte:14-16 imports CircleStyle, Fill and Stroke and never uses them. openLocationMap (lines 196-200) sets showLocationMap false and then true in a setTimeout 'to ensure state updates', but the modal sits over the sidebar, so it cannot already be open when the link is clicked."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/components/DynamicDetailSidebar.svelte",
+   "start_line": 529,
+   "end_line": 529,
+   "message": "In view mode the location row reads the original `data` prop while other rows read the edited copy, so after a successful save the location shows its old value while the other fields show the new ones. Line 529 tests `data[field.key]` and line 534 passes `data[field.key]` to openLocationMap. The default branch (line 552) uses `getFieldValue(field)`, which returns `editable[field.key]` (line 175)."
+  },
+  {
+   "producer": "v5-factory",
+   "file": "src/lib/services/company.ts",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "The change adds new logic with no tests: the API service, the WKT parsing, the enum mapping and the pagination fallback. The packet also has no acceptance criteria to check them against. The diff contains no test files. package.json has no test script. acceptance.md only says 'story.md is the spec' and 'tests.lock lists them', and neither file exists in the packet or the export. parseWKTPoint (DynamicDetailSidebar.svelte:179), fetchCompanies' empty-page recursion (+page.svelte:106-109) and the status/type maps are untested."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

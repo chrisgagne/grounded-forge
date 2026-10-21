@@ -4,10 +4,10 @@
 > way a professional developer is. I wanted to see what software factory could be built from open sources (public
 > domain, MIT, Creative Commons and the like) on what good AI-built software looks like. I directed this one, and
 > signed off its one real change from the sign-off sheet without reading the code. A naïve junior developer like me
-> can now build review tooling that beats PR-Agent (the most-starred open-source AI reviewer we found), brooks-lint and
-> the labs' own review commands at their default settings. Turn those up to higher effort and they catch up, and on
-> either model a plain "review this as a careful senior engineer" prompt does as well. What it adds is the rest: locked
-> tests, a sheet I could sign from, and a record of what was and wasn't shown.
+> can now build review tooling that beats PR-Agent (the most-starred open-source AI reviewer we found) and brooks-lint.
+> It also beats the labs' own review commands at their default settings, though turned up to higher effort they catch
+> up. On either model, a plain "review this as a careful senior engineer" prompt does as well. What it adds is the
+> rest: locked tests, a sheet I could sign from, and a record of what was and wasn't shown.
 >
 > *Chris Gagné*
 
@@ -18,9 +18,9 @@ grading and picking test cases. Every test was written down before it ran.
 
 - **Its review hasn't beaten `codex review` and Claude Code with a plain prompt, pooled.** With those two added as
   its reviewers, it came out level.
-- **It beat the other reviewers we tried at their default settings,** with one and a half to three and a half times
-  the recall of PR-Agent, brooks-lint (Claude reviewing against twelve engineering books) and `/code-review`. Turned up to higher
-  effort, both labs' review commands caught up.
+- **It beat PR-Agent, brooks-lint (Claude reviewing against twelve engineering books), and both labs' review commands
+  at their default levels,** with 1.3 to 3.5 times their recall. Turned up to higher effort, the labs' commands caught
+  up.
 - **Its brief and library don't beat a plain prompt on either model.** Its wins are over tools that hold the model
   back. Effort mattered more: `/code-review xhigh` found the most serious bugs of anything we tried.
 - **Several stops on "good" changes were real changes in behaviour** that upstream had accepted. Making each stop

@@ -153,8 +153,16 @@ the projects' test suites off). It runs on macOS only; someone with the operator
 unseen; a signature is a record, not cryptography; and the commits showing each test came first are in the factory's
 unpublished repository.
 
-AWS Labs' [AI-DLC](https://github.com/awslabs/aidlc-workflows) structures a whole build with approval gates, reviewer
-agents and an audit trail; [`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) and
+The closest prior art is AWS Labs' [AI-DLC](https://github.com/awslabs/aidlc-workflows), and it's far larger: it
+steers a whole build, from requirements to operations, in seven coding tools, and asks a person to approve the plan
+before any code is written, which the factory doesn't. On the checks that matter to whoever signs a change, though,
+the factory enforces in code what AI-DLC mostly leaves to instructions, advisory checks or the coding tool's
+permissions: tests locked before the build, scanners run in a sandbox, blind reviewers from two model families, a
+hash-chained log and a decision page in plain words
+([comparison](helpers/factory-warranty/calibration/realbugs/prior-art-aidlc-2026-10-21.md), from each one's docs and
+code; neither was run, and AI-DLC was read in part).
+
+[`codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) and
 [PAL MCP](https://github.com/BeehiveInnovations/pal-mcp-server) have other models review Claude Code's work;
 [TDD Guard](https://github.com/nizos/tdd-guard) enforces tests first; [in-toto](https://github.com/in-toto/in-toto)
 and [Sigstore](https://github.com/sigstore/cosign) keep cryptographically signed records of how software was made.

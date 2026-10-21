@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:a4bdf3ad54d512f1d7ddccf1fc6d267296df424f0c242b7029fbb9395b8d18ed -->
+<!-- derived-from-deep: sha256:4a174b85f3983a961e49237ba66764f1015ba881b5d936224d31771ae4163acc -->
 # OpenStax Principles of Management, Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-management. Lead author David S. Bright; 15 contributing authors.

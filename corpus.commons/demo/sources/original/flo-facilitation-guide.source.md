@@ -11,7 +11,7 @@ scope: open
 licence: CC BY 4.0
 ingested: 2026-05-13
 original_format: pdf
-converted_via: pymupdf4llm 0.2.9
+converted_via: 'PyMuPDF 1.28.2 text blocks in content-stream order (page.get_text("blocks", sort=False)), one block per paragraph, pages split by form feed'
 checksum_sha256: 17f53bccb71dd4358d328bc11526be262971294f2afdf11b1c47f54205830891
 ---
 
@@ -19,7 +19,7 @@ checksum_sha256: 17f53bccb71dd4358d328bc11526be262971294f2afdf11b1c47f5420583089
 
 The *FLO Facilitation Guide* is the companion handbook to BCcampus's *Facilitating Learning Online* (FLO) family of courses. Written by the FLO facilitators themselves—Sylvia Currie, Sylvia Riessner, Gina Bennett, and Beth Cougler Blom—to document the practices that emerged across multiple iterations of FLO Fundamentals, FLO Design, FLO Synchronous, and the FLO MicroCourses since 2008 (then Instructional Skills Workshop Online; renamed Facilitating Learning Online in 2015). The PDF is 189 pages and ships as one of the B.C. Open Textbook Collection volumes.
 
-Converted with `pymupdf4llm 0.2.9` in a few seconds (293 KB markdown / 7,651 lines). Page anchors are not preserved by the converter; chapter and section headers came through cleanly. Citation style on the deep reference is `(Ch N, "Section name")`.
+Citation style on the deep reference is `(Ch N, "Section name")`.
 
 **Status of the guide.** Currently at version 2.00 (April 2020) per the Versioning History page; the ingested PDF reflects this version (Pressbooks 5.27.1; rendered with Prince 12.5). The Guide draws on a multi-year practice tradition. Royal Roads University's 2008 ISWO course funded through BCcampus's Online Program Development fund seeded the lineage; FLO Fundamentals dates to 2013; FLO Design and FLO Synchronous followed; FLO MicroCourses were added later for participants who could not commit to multi-week courses.
 
@@ -27,4 +27,8 @@ Converted with `pymupdf4llm 0.2.9` in a few seconds (293 KB markdown / 7,651 lin
 
 **Role in this corpus.** Loads the active-facilitation depth that the corpus lacked. Letaw covers Tuckman/RACI/fist-of-five at *design* time, and the existing AAR and learning-review sources (TC 25-20, LFUO 2024, NHS Just Culture, Scrum Guide retrospective) carry the *what* of structured group conversation, but no source in the existing eighteen covers facilitation *craft* during a synchronous or asynchronous learning session: the move-by-move, week-by-week, day-by-day discipline of holding a learning group. FLO supplies that layer. The Guide's online-first framing also maps directly onto remote-retrospective and remote-AAR work where the facilitator's physical presence is not available as a regulating force.
 
-Converted markdown: `../converted/flo-facilitation-guide.md`. Deep reference: `../../references/flo-facilitation-guide-deep.md`. Light reference: `../../references/flo-facilitation-guide.md`. Distillations: `../../distillations/decision-making/flo-facilitation-guide-decision-making.md` and `../../distillations/stakeholder-engagement/flo-facilitation-guide-stakeholder-engagement.md`.
+Converted markdown: `../converted/flo-facilitation-guide.md`. Deep reference: `../../references/flo-facilitation-guide-deep.md`. Light reference: `../../references/flo-facilitation-guide.md`. Distillations: `../../distillations/aar/flo-facilitation-guide-aar.md`, `../../distillations/decision-making/flo-facilitation-guide-decision-making.md`, `../../distillations/retro/flo-facilitation-guide-retro.md` and `../../distillations/stakeholder-engagement/flo-facilitation-guide-stakeholder-engagement.md`.
+
+**Conversion.** Re-converted on 2026-10-16 with PyMuPDF 1.28.2: each page's text blocks in content-stream order (`page.get_text("blocks", sort=False)`), one block per paragraph, trailing spaces removed, pages separated by form feeds, nothing added or edited. Each page's folio and running header come first in its text. Checked against pdftotext of the original: 4,352 of the PDF's 4,353 text lines of 12 or more characters match line for line, and the other is present with a different line break; a page-by-page word comparison finds no word pdftotext reads that the new text lacks; every line of the earlier pymupdf4llm conversion is present. This restores what pymupdf4llm 0.2.9 dropped from several framed boxes and one table: the first line of a bullet or numbered step, "Forums or discussion groups: LMS-based forums usually offer many different settings" (PDF p. 46), "Your introductory post doesn’t need to be just text; you can be creative and adventurous" (p. 49), and the first line of step 2, the weekly overview post, in the Week 3 and Week 4 checklists (pp. 60, 62); the first three Open Forum options (p. 138: the first line of the first and third bullets and the whole one-line second bullet); and the whole Fri/Sat row of the FLO Synchronous Task List, "Write a closing post in Open Forum" with its two bullets (p. 154). Each page's footer ("100   Chapter 5: FLO Design") sits at the end of its page, before the form feed.
+
+**Deep reference coverage.** The deep reference was first read from the earlier pymupdf4llm 0.2.9 conversion. On 2026-10-16 the restored lines were read in full from this conversion and added (Passes C–E), so the deep reference covers the whole source (see its Coverage line).

@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/psychology-2e
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-17T12:13:33+13:00
 ---
 # OpenStax Psychology 2e, Decision-Making Distillation
 

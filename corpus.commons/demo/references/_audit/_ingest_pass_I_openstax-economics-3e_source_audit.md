@@ -328,3 +328,35 @@ The deep reference is fit to ship as the basis from which the light reference an
 - Treatment of cryptocurrency (Ch 27 closing case) reflects the position as of 2022; will require update if a future edition rewrites this in light of subsequent regulatory developments and market events.
 - The book covers behavioural economics (Ch 6.3) more compactly than recent textbook trends would suggest; future editions may expand this section, warranting re-ingestion.
 - Image extraction by pymupdf-based tooling captured 348 images (3 PNG, 345 JPEG); the file-format does not reliably indicate substantive vs decorative status in this book — visual classification per image is required for full IMAGE-INDEX coverage. The wrap-up image-staging file uses a curated approach with documented methodology limitations.
+
+## Scoped re-audit 2026-10-17: restored feature boxes and body text
+
+**Auditor and legs.** Same-family only: a fresh Claude agent (Opus), cold, fix-in-place. No cross-family leg was run, so this scoped audit is audited-but-unverified rather than passed. The `Pass I applied` stamp is unchanged.
+
+**Scope.** Only the deep-reference text written on 2026-10-17 for the spans the 2026-10-16 re-conversion restored (`git diff origin/main` on `corpus.commons/demo/references/openstax-economics-3e-deep.md`: lines 9, 51-52, 87-88, 103, 111-112, 127-128, 139-140, 155-156, 175-176, 185-186, 207, 305-307, 339, 359-360, 437-438, 500, 521-524, 610 before this audit's edits; for replaced lines, only the added clauses). Every in-scope paragraph was traced to its whole box in `corpus.commons/demo/sources/converted/openstax-economics-3e.md`, read in full. The 200 restored runs (6,268 words) were also checked against the deep reference to test the Coverage line's claim that every substantive restored box has a paragraph. No PDF renders were used.
+
+**Verbatim check.** `python3 scripts/check-verbatim.py` before and after: 1 apostrophe, 4 initial, 1 interrupted (baseline, no fixes needed); the one new quotation added by this audit passes.
+
+**Counts.** 42 claims audited; 42 source-anchored; 0 stripped; 0 marker-corrected; 0 quotation-corrected. Additions by the auditor: 2 paragraphs, 1 sentence, 1 Coverage-line clause; 1 wording fix.
+
+**Changes (line numbers after edits).**
+
+- Line 9 (Coverage): added "as are restored spans in the front matter and the Answer Key" to the scaffolding list. Restored runs at tape lines 159-169 (front matter) and 49842-49939 (Answer Key, Ch 32 answers) were, correctly, not added, but the Coverage line claimed every restored span was read and added.
+- Line 305 (Ch 19.2, "Computing GDP"): auditor-added sentence noting that the box's 1960 figures ($543.3 billion, deflator 19.0, real GDP $2,859.5 billion) differ from the Table 19.5 the box cites (542.4, 16.6) and from Table 19.6 (real GDP 3267.5). The drafted paragraph already reports the box as the box states it and corrects nothing from outside knowledge; the added sentence is source-internal, so a downstream reader does not take the box figure for the table value. No number computed.
+- Line 327 (Ch 21.1): auditor-added paragraph for the restored Work It Out "Calculating Labor Force Percentages" (tape 27772-27799, 149 words), which had no paragraph although it makes substantive claims. It reports the box's divisor for the unemployment rate as the box gives it (165.052 million) beside the 162.052 million of Table 21.1 and the preceding body text, which works the rate out as 4.2%. Marker [AE].
+- Line 420 (Ch 27.4): auditor-added paragraph for the restored Work It Out "Using the Money Multiplier Formula" (tape 35452-35462, 103 words): Singleton Bank, 10% reserve requirement, multiplier 10, $9 million of excess reserves, "$90 million" [V] [AE]. Had no paragraph.
+- Line 614 (integrity notes, Conversion path): "The cite by" corrected to "Cite by".
+
+**Traced clean (no change).** Line 51 (Ch 2.1, "Understanding Budget Constraints"); 87 (Ch 3.2, "Shift in Demand"); 103 (Ch 4.2, "The Effect of Growing U.S. Debt", Steps 2-4 read past the restored Step 1); 111 (Ch 5.1: 0.45 and 4.5% from the body under "Calculating Price Elasticity of Demand"; 1.47 from the box; the box's "from points A to B" wording is correctly omitted, not corrected); 127 (Ch 6.1, three Work It Out boxes: 94, 103, 18/31/13, 21/23); 139 (Ch 7.1, Eryn, $10,000); 155 (Ch 8.2: the tape places the WORK IT OUT label ambiguously for this box, and the deep ref's neutral "A feature" is right); 175 (Ch 10.1: 40 pizzas, $16, $14.50, $640, $580, $60); 185 (Ch 11.1, HHI 10,000 / 100 / 744 / 2,000 / 5,952); 207 (Ch 13.1, Table 13.2, [BT, Bureau of Labor Statistics]); 307 (Ch 19.4: PPP reasoning from the body; "almost seven times" quoted, not computed); 339 (Ch 22.1, Table 22.2, Step 4 and the amount-spent paragraph); 359 (Ch 23.4, Country A); 437 (Ch 28.5, 10.9 billion); 500 (Ch 34.1, "Effects of Trade Barriers", Steps 1-9); 521-523 (App D, "Using an Algebraic Approach..." Steps 1-10 and the "highly flexible" paragraph; "Finding Equilibrium" Steps 12-13). No computed numbers, outside facts or added framing found; box labels match the tape.
+
+**Restored runs judged scaffolding or already covered (no paragraph needed).** Ch 7.3 average-cost definition (deep ref already gives ATC = TC/Q); Ch 7.4 long-run sentence (already in Ch 7.2 text); Ch 24.2 Xurbia box, of which only the questions were restored; Ch 25.3 "The Phillips Curve for the United States", website-download steps only; Ch 33.1 Saudi Arabia oil sentence (already in Part XXXIII); running headers and box labels.
+
+**Open.**
+
+- Lines 7 and 9 say Appendices A-E are included, but the deep reference has sections and anchors for App C and App D only; App A, B and E have none. Pre-existing, outside this scope.
+- Line 207, pre-existing clause: "about 10-15% per year of schooling [BT]". The source says "the rate of return to a college education is approximately 10-15%" (Ch 13.1); "per year of schooling" is not in that passage. Outside this scope; worth a look.
+- Derived tier not re-derived or stamped. Edits that add claims the light reference or distillations might carry: line 305 (box vs table figures), line 327 (Ch 21.1 box), line 420 (Ch 27.4 box).
+
+### Orchestrator follow-up, derived tier and stamp (2026-10-17)
+
+The three additions the fix-in-place leg wrote (the Ch 19.2 note that the "Computing GDP" box's 1960 figures differ from Tables 19.5 and 19.6; the Ch 21.1 "Calculating Labor Force Percentages" paragraph with the box's 165.052 million beside the table's 162.052 million; the Ch 27.4 "Using the Money Multiplier Formula" paragraph) were traced by the orchestrator against the tape (≈25271–25306, 27754–27795, 35374–35462): every figure and the quotation match, and nothing is computed. The PARTIAL notes are gone from the light reference, the distillations and the source card, replaced by a coverage statement that names the single-family audit; the restored worked examples add no concept to the derived projections. A Pass I stamp on line 2 of the deep reference records this scoped audit. Derived tier restamped against the new deep-reference hash.

@@ -121,3 +121,86 @@ The light reference and the two distillations derive from the audited deep, so t
 - The source's "sidebar" form (short bolded callout blocks) is a distinctive feature; cite sidebars by their lead phrase rather than treating them as parts of a section's main prose.
 - The source's first-person plural voice ("we ask…", "our experience has shown…", "we strongly advise…") should be preserved in verbatim quotations and recharacterised in author-paraphrase as "the Guide" or "the authors".
 - The source's masculine pronoun usage is absent here — unlike TC 25-20, the FLO Guide uses gender-neutral pronouns consistently.
+
+## Scoped re-audit 2026-10-16: restored lines
+
+**Scope.** The source was re-converted on 2026-10-16 (PyMuPDF 1.28.2 text blocks) and Passes C–E were run for the lines the earlier pymupdf4llm 0.2.9 conversion had dropped. This audit covers only those lines and the deep-reference text written for them. Everything else in the deep reference is unchanged since the audit above and was not re-read.
+
+**Read.** Tape lines 630–670, 1270–1300, 1425–1460, 1900–1920, 2018–2035, 3115–3135, 5285–5325, 5960–5985 in full (about 280 lines), plus tape greps for the Week 2 and Week 5 checklists (1744–1756, 2088–2105) and page folios. The earlier conversion (`git show ae65b5e5:…/converted/flo-facilitation-guide.md`) was grepped to confirm what it lacked. Deep reference: the in-scope text located by `git diff origin/main` (Coverage line; "Technical skills: the least you need to know"; "Welcome post and instructor presence"; the sentence after "On weekly overview posts"; the Part VI "Additional Open Forum posts" paragraph; the first integrity-note paragraph). No page renders were needed.
+
+**Calibration.** Exemplars 01, 07 and 12 read before tracing. `check-verbatim.py`: 29 apostrophe, 7 initial, 2 interrupted, run before and after. The two `interrupted` lines (227, 415) are outside this scope and each gap is a running footer or a marked ellipsis; no fix.
+
+**Counts.** 18 claims audited; 18 source-anchored after fixes; 0 stripped; 0 marker-corrected; 0 quotation-corrected; 5 wording corrections. Every new `[V]` quotation (forums item; first Welcome tip; Week 3 overview step; the Open Forum options lead and four bullets; the two closing-post bullets) matches the tape word for word apart from apostrophe style. A stray "2" between two Open Forum bullets (tape 5316) is conversion noise.
+
+### Corrections applied in place
+
+1. **Coverage line (l. 9) and first integrity note (l. 426): what the old conversion dropped.** Both said it dropped "the opening line of several boxed bullet lists". The old conversion shows otherwise: it lacked the first line of several bullets (forums item, first Welcome tip, the first three Open Forum options), but the *whole* Week 3 and Week 4 overview step ("2. Post the week's overview post…", both lines) and the *whole* Fri/Sat "Write a closing post in Open Forum" row of the FLO Synchronous Task List. Reworded both to name all three kinds. The "about 120 words" figure checks out (128 words across the restored lines).
+2. **Welcome post paragraph: tip structure.** The video introduction and narrated slideshow were listed under "Further tips", but in the source (tape 1443–1447) they belong to the first tip, the same bullet as "fearless experimentation". Moved them into the first-tip sentence; "Further tips" now carries only the third and fourth bullets.
+3. **Weekly overview sentence: which weeks.** "Each week's 'Evening before the week begins' checklist … (the Week 4 checklist repeats the step)" implied only Weeks 3 and 4. Week 1 has no such checklist (it runs Day 1–Day 5), and Weeks 2, 3, 4 and 5 each carry step 2 with small wording differences (tape 1754, 1914, 2030, 2103). Now reads "From Week 2 on" and names Weeks 2, 4 and 5 in the citation.
+4. **Open Forum paragraph: recommendation, not description.** "Throughout, the facilitators write 'Additional Open Forum posts'" turned "we recommend that course facilitators write posts in the Open Forum throughout the course" (tape 5295) into a statement of what facilitators do. Now "The Guide recommends that facilitators write posts in the Open Forum throughout the course".
+
+### Checked and clean
+
+- "Technical skills" subsection: the framing ("ideally, you and your co-facilitator will be comfortable setting up the tools they need", tape 1278–1280), the forums quotation, and the Polls `[AP]` (tape 1287–1289) all trace. The box holds only these two items.
+- Welcome first-tip `[V]` and the "offer choices" `[AP]` trace to tape 1443–1447.
+- Closing-post `[V]` bullets trace to tape 5971–5979 (FLO Synchronous Task List, Fri/Sat row).
+- Integrity note's three re-flowed lines: tape 642 (Figure 3.1 "[Long Descripion]" label, Ch 3), 663 (Ch 3 skills paragraph), 3127 (FLO Fundamentals Self-Assessment Rubric, Ch 4, folio 79). Each adds no content.
+
+### Derived tier: claims to re-check (not edited here)
+
+- **Light reference, "Open Forum posts" paragraph.** Sits under "Cross-cutting facilitation craft" but the content is Ch 6 (FLO Synchronous) material: the additional-posts advice and the closing post that carries "the last session's recording link" come from the FLO Synchronous section and task list. Scope it to FLO Synchronous. Also "Creative Commons images" reads "Creative Commons or open-licensed images" in the source, and "links to current events" is "links to related or current events content that is relevant to course topics". If the light ref echoes the deep's "facilitators keep instructor presence", it should keep the recommendation framing (correction 4).
+- **Light reference, Welcome-post parenthesis.** Both quoted fragments match the source; clean.
+- **Source card, conversion paragraph.** "the first line of the first bullet in several framed boxes" is narrower than what was dropped (see correction 1: whole Week 3/4 overview steps and a whole task-list row also went missing; Open Forum lost the first line of three bullets, not only the first). The card's "Deep reference coverage" sentence is accurate.
+- **Distillations.** The PARTIAL notes are removed from the four flo distillations that exist (aar, decision-making, retro, stakeholder-engagement); the dispatch said five, and no fifth exists in the corpus. The compiled copies under `apps/*/distillations/` and `okf/*/` still carry the PARTIAL note until the next build. None of the four distillations was changed to carry the restored content, so corrections 2–4 affect them only if a re-derivation adds that content.
+
+### Left open
+
+- Stamp left to the driver, per dispatch. The cross-family leg runs separately.
+
+### Apply leg
+
+**Remaining edits.** The sort listed none for the deep reference: corrections 1 and 4 are confirmed and fixed, and corrections 2 and 3 are accurate but optional (the sort rates them over-flagged and keeps them). The blind audit found no defects. Re-read tape 1270–1300, 1425–1460, 1900–1920, 2018–2035, 5285–5330 and 5960–5985 against the in-scope deep text; every claim traces. `check-verbatim.py` on the deep: 29 apostrophe, 7 initial, 2 interrupted, all outside scope or typographic; no fix.
+
+**One record correction.** Correction 1 above says the old conversion lacked the *whole* Week 3 and Week 4 overview step. It kept the second line of each ("completed this week.", "etc. to be completed this week."); it lacked the first line (tape 1914, 2030). The Fri/Sat closing-post row (tape 5969–5979) was missing whole, and of the Open Forum options it lacked the first line of bullets one and three and the whole one-line second bullet (tape 5312, 5315, 5318). The deep's wording ("the first line of several bullets, the Ch 4 weekly overview step, the Ch 6 closing-post row") stands.
+
+**Derived tier.**
+
+- Light reference, "Open Forum posts": moved from "Cross-cutting facilitation craft" into the FLO Synchronous section, since it is Ch 6 material (tape 5293–5321, 5969–5979). Now carries the recommendation ("The Guide recommends…"), "Creative Commons or open-licensed images", "links to related or current events content relevant to course topics", and the task list's closing post; the cross-chapter "Beyond the weekly overview post" is dropped.
+- Light reference, Welcome-post parenthesis: clean, unchanged.
+- Source card, conversion paragraph: now names all three kinds of loss with PDF pages (46, 49, 60, 62, 138, 154; pages 60 and 62 checked with pdftotext).
+- Distillations (aar, decision-making, retro, stakeholder-engagement): read in full. None carries a claim touched by corrections 1–4; the stakeholder-engagement Welcome-post quotation joins the second to fourth tips with ellipses and still matches. No PARTIAL or provisional header remains. No `{TASK}-DISTILLATION-INDEX.md` row for this source carries a changed claim.
+- `check-verbatim.py` on the light reference: no findings.
+
+
+### Gate settlement (2026-10-16, orchestrator)
+
+The apply leg passed the gate with one open item: the source card's file list named only the decision-making and stakeholder-engagement distillations. It now lists all four (aar, decision-making, retro, stakeholder-engagement). The sort's note that compiled copies retain stale PARTIAL notices is answered by the rebuild after stamping.
+
+
+## Second leg
+
+**Auditor:** gpt-6.1-sol via the Codex CLI, read-only sandbox, for both the blind leg and the sort leg.
+
+**Order of work (anti-anchoring):** the second leg audited a frozen copy of the pre-audit deep reference (sha256 `ee70a27aa13404678736a9dc4ba79799a87252d35045627882ee131141642b41`) blind, with the full tape, the original where available and the source card. In a separate run it then read both audits and the post-audit deep reference (sha256 `e0db03bebee1c6f5d04a93b2598a4b8f017aa7dce0242cd5d1685b77cc9ec78f`), checked each finding against the source, and sorted them. Files: `_ingest_pass_I_flo-facilitation-guide_crossfamily_blind.md`, `_ingest_pass_I_flo-facilitation-guide_crossfamily_sort.md`, `_ingest_pass_I_flo-facilitation-guide_crossfamily_prompts.md`.
+
+**Sort result:** The sort counted 4 findings confirmed and fixed, 4 confirmed but incomplete outside the deep reference, 0 missed by the fixer, 0 over-flagged by the blind auditor and 3 by the fixer, and 0 disputed, with a pass for the scoped deep-reference gate and a fail for overall shipping clearance until the derived tier was brought into line.
+
+**Remaining edits applied (2026-10-16):** The sort listed no remaining edits for the deep reference, so none were applied, changed or declined; its four confirmed derived-tier findings were fixed, three in the light reference's Open Forum paragraph and one in the source card's conversion account.
+
+**Gate:** accepted by operator. Deep reference sha256 `3d47c2aa2a9e795bc270ce2d9f25d0901b56d7eea3115e53707794fc5726ca3a`, stamp included.
+
+## Scoped re-audit 2026-10-16: restored lines
+
+### Fidelity check of the derived tier
+
+The fidelity check of the derived tier for `flo-facilitation-guide`, scoped to the lines restored by the 2026-10-16 re-conversion, checked 17 claims across the light reference (6), the source card (7) and the four distillations (1 each: the PARTIAL-note removal) and fixed none: every derived claim traces to the deep reference with matching wording, and none of the distillations carries a claim about the restored lines. Against the tape, every in-scope deep-reference quotation and paraphrase traces, and the five restored items, their PDF pages and the 119-word total check out. An order-aware word comparison of the old and new conversions found two deep-reference defects, recorded and not fixed: the integrity note labels tape line 3127 as re-flowed text, but the earlier conversion lacked the whole "Reflective practice" row of the Ch 4 Weekly Participation Rubric (tape 3108–3130, PDF p. 86, 41 words), which Passes C–E have not read, so the Coverage line's full-read claim rests on a mislabel; and tape line 663 was dropped mid-sentence rather than wrapped, with no content lost. The source card's coverage sentence mirrors the deep and should be updated with it.
+
+Report: `_planning/pass-i/demo/flo-facilitation-guide/fidelity-report.md`. Defects: `_planning/pass-i/demo/flo-facilitation-guide/fidelity-deep-defects.json`.
+
+## Derived-tier fidelity check (2026-10-16)
+
+The fidelity check of the derived tier for `flo-facilitation-guide`, scoped to the lines restored by the 2026-10-16 re-conversion, checked 17 claims across the light reference (6), the source card (7) and the four distillations (1 each: the PARTIAL-note removal) and fixed none: every derived claim traces to the deep reference with matching wording, and none of the distillations carries a claim about the restored lines. Against the tape, every in-scope deep-reference quotation and paraphrase traces, and the five restored items, their PDF pages and the 119-word total check out. An order-aware word comparison of the old and new conversions found two deep-reference defects, recorded and not fixed: the integrity note labels tape line 3127 as re-flowed text, but the earlier conversion lacked the whole "Reflective practice" row of the Ch 4 Weekly Participation Rubric (tape 3108–3130, PDF p. 86, 41 words), which Passes C–E have not read, so the Coverage line's full-read claim rests on a mislabel; and tape line 663 was dropped mid-sentence rather than wrapped, with no content lost. The source card's coverage sentence mirrors the deep and should be updated with it.
+
+### Post-stamp coverage fix (2026-10-16, orchestrator)
+
+The fidelity check recorded two deep-reference defects (`fidelity-deep-defects.json`). (1) The earlier conversion had dropped the whole Reflective practice row of the Ch 4 Weekly Participation rubric (tape 3108–3130, PDF p. 86; 41 words), not just a wrapped cell: the line-by-line comparison missed it because the row's lines recur in the Ch 5 rubric. The row was read in full and added to "Self-assessment rubrics" as [V] (check-verbatim clean), and the Coverage line and integrity note now say so. (2) Tape line 663 was dropped mid-sentence by the old conversion rather than re-wrapped; the integrity note's wording is corrected (no claim changes). Derived tier restamped; no derived file carried a claim about the row.

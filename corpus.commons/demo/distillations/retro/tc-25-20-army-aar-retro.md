@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:70830aa24cd0d7b786472158af2ad0f62934e2e8bbc10200d84813a92f52612f -->
+<!-- derived-from-deep: sha256:f9f9bb80576820e76d0f46dd2ce83e7df0c5b1285060bb3a1a38f3d5ea1a164d -->
 # US Army TC 25-20, Retrospective Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. Licence: Public domain (17 USC §105 — US Government work product). Scope: open.
@@ -35,6 +35,8 @@ TC 25-20 is *moderate fit* on the retro axis: it supplies a durable subset of fa
 
 12. <!-- concept: t-p-u-assessment --> **Trained-Practiced-Untrained (T-P-U) assessment.** After each training event, leaders conduct a T-P-U assessment and develop a future-training concept (Source: Dept. of the Army, *TC 25-20*, Ch 5, "Benefits"). Scaled to retro (the distillation's own mapping; the TC names the three categories but does not define them): for each capability the last experiment targeted, is the team now able to do it to its own standard (Trained), partly able (Practiced), or not yet able (Untrained)?
 
+13. <!-- concept: aar-key-points --> **The AAR's key points and three questions.** Figure 1-1 lists the key points in all AARs, among them that AARs "Are conducted during or immediately after each event" [V], "Involve all participants in the discussion" [V], "Use open-ended questions" [V] and "Link performance to subsequent training" [V] (Source: Dept. of the Army, *TC 25-20*, Ch 1, Figure 1-1). Figure 1-2's AAR format glosses three of its items as "what was supposed to happen" [V], "what happened" [V] and "why it happened and how to improve" [V] (Source: Dept. of the Army, *TC 25-20*, Ch 1, Figure 1-2). Scaled to retro (the distillation's own mapping): the Sprint Goal and plan stand in for the commander's intent, so the retro can walk the same three questions in order.
+
 ## Questions to Ask During a Retro
 
 ### Phase 0.5: Experiment Review
@@ -51,6 +53,7 @@ TC 25-20 is *moderate fit* on the retro axis: it supplies a durable subset of fa
 |---|---|
 | Is the opening framing creating the right climate? | Have we established that this is a discovery conversation, not a grading exercise? Have we blocked rank-consciousness from suppressing contribution? |
 | Are we opening with the right question? | Is the first question open-ended — inviting narrative — or closed — inviting defence? |
+| Have we said what was supposed to happen? | Before "what happened" [V], has the team restated the Sprint Goal and plan, the retro's stand-in for the AAR format's "what was supposed to happen" [V] (Ch 1, Figure 1-2)? |
 
 ### Phase 2: Data Gathering
 

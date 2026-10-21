@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-finance
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-17T11:29:52+13:00
 ---
 # OpenStax Principles of Finance, Decision-Making Distillation
 

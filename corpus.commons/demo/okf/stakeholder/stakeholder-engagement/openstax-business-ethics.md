@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-ethics
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-17T11:48:19+13:00
 ---
 # OpenStax Business Ethics, Stakeholder-Engagement Distillation
 
@@ -170,7 +170,7 @@ A regional grocery chain (50 stores, 3,000 employees) is considering closing fiv
 
 **Sustaining.** The community engagement head sets an eighteen-month review: sales in the smaller-format stores, the reach of the food-access partnership, and employee engagement and retention, tracked against the closure-only projection. Goodwill is built slowly (Ch 1.2), so the review looks for the trend rather than a quick verdict.
 
-The scenario is operator-authored. Framework citations: Grunig-Hunt taxonomy (Ch 3.2) [BT]; ethical minimum/maximum (Ch 3.1) and moral minimum (Ch 4.1) [V]; triple bottom line (Ch 3.4) [V]; utilitarian, deontological and Rawlsian analysis (Ch 2.4-2.6, App C); tone at the top (Ch 11.3). No verbatim source blockquotes appear in this distillation.
+The scenario is operator-authored. Framework citations: Grunig-Hunt taxonomy (Ch 3.2) [BT]; ethical minimum/maximum (Ch 3.1) and moral minimum (Ch 4.1) [AP]; triple bottom line (Ch 3.4) [BT]; utilitarian, deontological and Rawlsian analysis (Ch 2.4-2.6, App C); tone at the top (Ch 11.3). No verbatim source blockquotes appear in this distillation.
 
 ## Anti-patterns This Reference Helps Avoid
 
@@ -221,7 +221,7 @@ The scenario is operator-authored. Framework citations: Grunig-Hunt taxonomy (Ch
 - Ethical relativism is explicitly rejected; the single-ethical-standard position applies across cultural contexts, which may be a contested stance in some multi-national engagement settings.
 - Licensed CC BY-NC-SA 4.0; derivative works for noncommercial purposes only.
 
-**Evidence-marker continuity.** The deep reference at `references/openstax-business-ethics-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (107 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The Grunig-Hunt taxonomy (Ch 3.2) is `[BT]` with `[V]` quotations; ethical minimum/maximum (Ch 3.1), moral minimum (Ch 4.1) and the triple bottom line (Ch 3.4) are `[V]`; tone at the top is Ch 11.3. The grocery-chain scenario in the Worked Example is operator-authored; the J&J Tylenol (Ch 3.2), Samsung washer recall (Ch 3.1) and Volkswagen (Ch 3.2) cases are author examples. Author arguments against shareholder primacy and ethical relativism are `[AR]`. Where the source cites external authors (Kant, Rawls, Donaldson-Preston, Friedman), the `[BT]` marker travels with the citation in the deep ref; this distillation names those dependencies in the Borrowed-through section above and marks quoted third-party words `[V] [BT]` inline.
+**Evidence-marker continuity.** The deep reference at `references/openstax-business-ethics-deep.md` uses `[V]`, `[AP]`, `[AR]`, `[AE]`, and `[BT]` markers inline throughout (107 `[BT]` markers). This distillation paraphrases except for quotations marked `[V]`, which match the source word for word; its other substantive claims are `[AP]`-class relative to the deep ref. The Grunig-Hunt taxonomy (Ch 3.2) is `[BT]` with `[V]` quotations; ethical minimum/maximum (Ch 3.1), moral minimum (Ch 4.1) and the triple bottom line (Ch 3.4) carry `[V]` definitions in the deep ref, and the Worked Example cites them as `[AP]` (the source's own terms) and `[BT]` (Elkington's triple bottom line); tone at the top is Ch 11.3. The grocery-chain scenario in the Worked Example is operator-authored; the J&J Tylenol (Ch 3.2), Samsung washer recall (Ch 3.1) and Volkswagen (Ch 3.2) cases are author examples. Author arguments against shareholder primacy and ethical relativism are `[AR]`. Where the source cites external authors (Kant, Rawls, Donaldson-Preston, Friedman), the `[BT]` marker travels with the citation in the deep ref; this distillation names those dependencies in the Borrowed-through section above and marks quoted third-party words `[V] [BT]` inline.
 
 ## Related concepts
 

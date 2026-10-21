@@ -12,7 +12,7 @@ sources:
     resource: https://link.springer.com/book/10.1007/978-3-031-01919-7
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-16T22:21:08+13:00
 ---
 # Barbrook-Johnson & Penn, Systems Mapping, AAR Distillation
 
@@ -40,7 +40,7 @@ Barbrook-Johnson & Penn's seven-method catalogue projects onto the AAR axis at t
 
 8.  **The horrendogram failure mode.** "System maps are sometimes referred to as 'horrendograms', and much worse (!), when they show us the complexity of a system in an unfiltered manner." [V] (Source: Ch 1, "How Can Systems Mapping Be Useful?"; Ch 4, "Causal Loop Diagrams") A CLD that captures everything and explains nothing is an AAR failure mode. The countermeasure: tune complexity to the audience's visual literacy.
 
-9.  **Participatory Systems Mapping and submap extraction.** "At the core of the approach to the analysis is the idea of creating submaps... which we can use to focus in on particular questions or issues." [V] (Source: Ch 5, "What Is Participatory Systems Mapping?") When an AAR's causal map grows large, submap techniques — one to three steps upstream or downstream from a factor of interest — extract targeted, actionable views without discarding the broader map.
+9.  **Participatory Systems Mapping and submap extraction.** "At the core of the approach to the analysis is the idea of creating submaps... which we can use to focus in on particular questions or issues." [V] (Source: Ch 5, "What Is Participatory Systems Mapping?") When an AAR's causal map grows large, submap techniques — one to three steps upstream or downstream from a factor of interest — extract targeted, actionable views without discarding the broader map. Table 5.1 pairs each starting point with the questions it answers: for an intervention or controllable factor, "What is the intervention or controllable factor affecting? Are there unexpected indirect effects?" [V]; for an important or outcome factor, "What is influencing the thing we care about? Is it vulnerable or supported?" [V]; for a factor vulnerable to change, "What might mitigate or drive change in this factor? What impact might change have?" [V]; for a central factor, "Is it a bridge or bottleneck?" [V]; and for an influential one, "Is it a lever or a vulnerability?" [V] (Source: Ch 5, Table 5.1).
 
 10.  **Process value over product.** "The opportunity to reflect and generate understanding with others is surprisingly powerful. Often more so than delivering 'answers'." [V] (Source: Ch 12, "Our Final Take-Home Messages") The CLD or Rich Picture built in an AAR is a living document; its primary value is the conversation it generates.
 
@@ -65,7 +65,7 @@ Barbrook-Johnson & Penn's seven-method catalogue projects onto the AAR axis at t
 | The group has agreed on a timeline and wants to build a shared causal model | Build a CLD together. Treat it as a hypothesis. Which variables can go up or down? Which links are positive (the variables move together) and which negative (they move in opposite directions)? What feedback loops does the structure contain? (Ch 4, "How Do You Create Causal Loop Diagrams?") |
 | The map is growing large and the group is becoming overwhelmed | Extract a submap: choose one factor and map one to two steps upstream and downstream. What drove this factor, and what did it drive? (Ch 5, "What Is Participatory Systems Mapping?") |
 | The group suspects a recurring structural pattern | Use an archetype as a seed. Which system engine fits as a hypothesis? Build the CLD from the archetype template and test each link against the incident's specifics. (Ch 4, "How Do You Create Causal Loop Diagrams?") |
-| The group wants a principled place to start focused analysis | Pick a submap starting point: which factors have the most connections, or bridge different parts of the map? Which factors do participants name as important? From there, draw the submap: steps upstream or downstream, or the paths between that factor and an outcome. (Ch 5, "What Is Participatory Systems Mapping?") |
+| The group wants a principled place to start focused analysis | Pick a submap starting point: which factors have the most connections, or bridge different parts of the map? Which factors do participants name as important? From there, draw the submap: steps upstream or downstream, or the paths between that factor and an outcome, and ask Table 5.1's question for it, such as "What is influencing the thing we care about? Is it vulnerable or supported?" [V] (Ch 5, "What Is Participatory Systems Mapping?"; Table 5.1) |
 | The causal map is contested and participants are defending their positions | The map is a boundary object. Redirect disagreement from participants to the map: *the map says X causes Y — does your experience confirm or contradict that link?* (Ch 9, "Defending the Use of a Participatory Process to Build and Use Your Map") |
 
 ### Phase 4: Action design

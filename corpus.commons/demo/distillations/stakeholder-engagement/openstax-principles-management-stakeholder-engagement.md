@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:a4bdf3ad54d512f1d7ddccf1fc6d267296df424f0c242b7029fbb9395b8d18ed -->
+<!-- derived-from-deep: sha256:4a174b85f3983a961e49237ba66764f1015ba881b5d936224d31771ae4163acc -->
 # OpenStax Principles of Management, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-management. Lead author David S. Bright; 15 contributing authors.
@@ -59,6 +59,7 @@ This distillation synthesises these threads into a working pattern: how to map s
 | Apply the eight-question framework | Who are the stakeholders? What are their stakes? What do supporters / resisters stand to gain or lose? What types of power do they have? What strategies retain support? Win over resistance? |
 | Map power bases | Which stakeholders hold reward power? Coercive? Referent? Expert? Legitimate? Whose power is most relevant to this engagement? |
 | Surface latent stakeholders | Who is affected but not yet engaged? Whose voice is missing because they lack the power to assert themselves? Triple-bottom-line thinking expands the candidate set: people, planet, profit. |
+| Map internal stakeholders | Beyond the team, which internal stakeholders (boss, boss's boss, peers, key influencers, internal customers) do we need to meet early, and perhaps regularly? Whose support do we need, and who could keep the team from succeeding? The source's own checklist for new managers, where reconciling "different constituencies’ expectations and interests" is called "probably the most difficult" challenge [V] [BT, Hill] (Ch 15.3, "Who Am I Managing?"). |
 | Reject pure shareholder framing | Is the stakeholder list being narrowed to shareholders by default? The text rejects shareholder-primacy; surface non-shareholder stakeholders explicitly. |
 
 ### Phase 2: Framing the Engagement (Before convening)
@@ -155,7 +156,7 @@ Closing: agreements include explicit milestones, communication checkpoints, envi
 
 Sustaining: post-closure, the firm sustains liaison with the local community, the host government, and former workers' associations. Trust is being built for future engagements rather than depleted in this one. The firm's stakeholder-management practices feed back into broader CSR reporting and the triple-bottom-line accounting.
 
-This worked example illustrates several key concepts in the source: the eight-question stakeholder analysis, the seven ethical principles, the rejection of pure shareholder framing, the four cultural dimensions, head-body-heart cultural intelligence, Follett's integration approach, the Plan-Do-Check-Act cycle, and the sustained-liaison principle. The scenario is operator-authored; all framework citations trace through `corpus.commons/demo/references/openstax-principles-management-deep.md`. The seven ethical principles, Hofstede, GLOBE and Follett are [BT] in the deep ref; head-body-heart cultural intelligence is [V]; the news test's "If you would feel guilty or ashamed, don't do it!" is [V]; the eight-question framework is unmarked paraphrase of Exhibit 5.8. No verbatim source blockquotes appear in this distillation.
+This worked example illustrates several key concepts in the source: the eight-question stakeholder analysis, the seven ethical principles, the rejection of pure shareholder framing, the four cultural dimensions, head-body-heart cultural intelligence, Follett's integration approach, the Plan-Do-Check-Act cycle, and the sustained-liaison principle. The scenario is operator-authored; all framework citations trace through `corpus.commons/demo/references/openstax-principles-management-deep.md`. In the deep ref the seven ethical principles, Hofstede, GLOBE and Follett are borrowed-through citations, head-body-heart cultural intelligence is borrowed through the *Harvard Business Review* article "Cultural Intelligence" (Ch 15.6), and the eight-question framework is unmarked paraphrase of Exhibit 5.8; the one verbatim line is the news test's "If you would feel guilty or ashamed, don't do it!" [V] (Ch 2.5). No verbatim source blockquotes appear in this distillation.
 
 ## Anti-patterns This Reference Helps Avoid
 

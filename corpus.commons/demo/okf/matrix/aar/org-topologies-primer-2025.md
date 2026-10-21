@@ -12,7 +12,7 @@ sources:
     resource: https://orgtopologies.com
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T18:25:33+13:00
 ---
 # Krivitsky, Larman & Flemm, Org Topologies Primer — AAR Distillation
 

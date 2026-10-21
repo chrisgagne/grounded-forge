@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:1663d6bb7bfaa7b86418f355a302c1abc4afdd019e4996d3aff40ff2692e0872 -->
+<!-- derived-from-deep: sha256:df51e6b991770aca483fcf192dd74a4677075674465b815b618b62922f80338a -->
 # OpenStax Business Ethics, AAR Distillation
 
 **Source:** OpenStax (2018). *Business Ethics*. Senior contributing authors Stephen M. Byars and Kurt Stanberry et al. Houston, TX: Rice University. Licence: CC BY-NC-SA 4.0. Scope: open-nc.

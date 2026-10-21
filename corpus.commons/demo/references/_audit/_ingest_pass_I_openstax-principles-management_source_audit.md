@@ -156,3 +156,47 @@ The substantive content of the deep ref is well-anchored to source material; the
 - Pass I outcome: **PASS** (after Fixes 1 and 5 applied)
 
 The deep ref is cleared to ship. The light ref and application files derived from this audited deep ref inherit the source-only discipline.
+
+## Scoped re-audit 2026-10-17: restored feature boxes and body text
+
+**Auditor and leg.** Same-family audit: a fresh Claude agent (Opus), cold to the 2026-10-17 writing session, fix-in-place mode. No cross-family leg was run, so this material is audited-but-unverified under the Pass I rule until a second-family auditor traces it blind.
+
+**Scope.** Only the deep-reference text written on 2026-10-17 for the spans the 2026-10-16 re-conversion restored: the 60 hunks of `git diff origin/main` on `corpus.commons/demo/references/openstax-principles-management-deep.md` (72 added or replaced lines: the Coverage line 9, the conversion-path note at line 1142, 53 feature-box paragraphs, and 17 body or table paragraphs and added clauses). For replaced lines (738, 780, 856, 886, 967) only the added clauses were audited. Everything else in the deep reference was audited earlier and was not re-audited.
+
+**What was read.**
+- Deep reference: every scoped line in full, plus the heading list (for placement), lines 1–12, 94–100 (Table 2.2 coverage), 904–918 and 1138–1154 for context.
+- Tape (`corpus.commons/demo/sources/converted/openstax-principles-management.md`): each of the 53 feature boxes in full, from title through body, discussion questions and Sources, including where a box runs across a page break past its label; the body text that introduces a box where a paragraph's framing depends on it (Ault, New Belgium, Malden Mills); the full body passage or table behind each body/table paragraph (Tables 3.2, 7.1–7.4, 7.6, 7.8, 7.9, 11.1, 17.1–17.3; PESTEL overlap note, Ch 8.3; focus of attention, Ch 13.7; expectancy theory and note 2, Ch 14.3; Gabarro, Ch 15.3; constructive responses, Ch 15.4; written communication, Ch 16.2; goal hierarchy, Ch 17.4); the Ch 6, 8 and 9 endnotes the boxes cite; and the front-matter contributor list (tape 679–690).
+- Restored-span material: the scratchpad extract's first 500 lines in full, its index of all 214 blocks, and the 257-run list (`principles-management-kept.txt`), filtered to runs of 20+ words. Every run that is box, table or body text was read in the tape ranges above. Runs that are Concept Check items, running headers, TOC lines, index lines or figure credits were identified by their opening text and not read further (outside the Coverage line by design).
+- Original PDF: one `pdftotext -layout` page (PDF p. 241) to confirm that the label above "Sustainability and Responsible Management: Can LEGO Give up Plastic?" is ETHICS IN PRACTICE. No PNG renders.
+
+**Verbatim check.** `scripts/check-verbatim.py` before and after: 27 apostrophe, 7 initial, 2 near, 2 interrupted (all in pre-existing text); unchanged. All 73 `[V]` quotations in scope match the tape.
+
+**Counts.** Scoped units: 72 lines (about 260 sentence-level claims; 284 marker instances: 73 [V], 143 [BT], 22 [AP], 20 [AR], 26 [AE]). Source-anchored after fixes: all. Stripped: 0 claims (one unsupported phrase replaced, line 144). Claim wording corrected: 5 (lines 144, 429, 596, 788, 999). Marker-corrected: 4 lines (297, 472, 596, 999). Quotation-corrected: 0. Coverage line corrected: 1 (line 9).
+
+**Changes by line.**
+- Line 9 (Coverage). The list of "restored body and table text" named Ch 8.3 (PESTEL), Ch 15.4 (constructive conflict) and Ch 17.4 (goal hierarchy), but the earlier conversion already held those passages (the run list shows only a running header restored at each); they are newly covered, not restored. Rewrote the list to name them as adjoining passages the earlier conversion held but the reference had not covered.
+- Line 144 (Table 3.2). "in older wording" is framing the table does not supply (it gives no date or attribution for its wording). Now "in its own wording".
+- Line 297 (Domino's). The sentence on the two challenges of entering global markets is the box's own analysis ("This shows one of the challenges ..."), not a vignette: [AE] → [AR].
+- Line 429 (LEGO). "bio-based plastics developed with university researchers" overstated the box, which says bio-based plastics "may be the answer" and that LEGO is working with researchers to find a solution. Now "as a possible answer, which LEGO is seeking with university researchers".
+- Line 472 (Huang). Non-standard marker "[V, citing Mccausland]" → "[V] [BT, Mccausland]" (Ch 9 note 2).
+- Line 596 (Global versus Local HR). The quotation "pollinate the business ..." was credited to global leadership and rotational programmes; the box credits it to global talent management ("One of the most important aspects of global talent management is that a company can break down silos and pollinate ..."), then names the programmes as what some companies do. Reworded to match, with [BT] on the programmes clause.
+- Line 788 (Ch 15 Hartmann). "one of the book's contributing authors (as the front matter lists her)" identified the box's subject with a front-matter name, an inference neither the box nor the front matter states. Now says what the source says: the front matter lists an Eva Hartmann, University of Richmond, among the contributing authors; and notes the profile repeats Ch 11's (the two boxes are word for word the same).
+- Line 999 (E-Hubs). The box is press-sourced (Reuters; Verger; Jaipragas), so its two content sentences take [BT], not [AP]. The closing sentence credited "hub of all hubs" to the unnamed creative thinker; it is the box's own phrase, before the thinker's quotation. Split accordingly.
+
+**Checked and left as is.**
+- Placement and labels: all 53 box paragraphs sit in the right Part and section, cite this book's section numbers (no Organizational Behavior chapter numbers found), and name the label that belongs to the box. LEGO carries ETHICS IN PRACTICE despite its "Sustainability and Responsible Management:" title (confirmed on the PDF page); NHL and New Belgium carry SUSTAINABILITY AND RESPONSIBLE MANAGEMENT; Info Overload, Diversity Training, Malden Mills and Negotiations labels confirmed by page position.
+- Coverage completeness: all 18 chapter-opening Exploring Managerial Careers features and every labelled box (53) have a paragraph; every listed table and body passage is covered; Table 2.2 rows are covered at line 96, as the line 1142 note says.
+- Line 973 "hourly employees" (Branch Messenger): the box text says "employees", but its cited source title (Takahasi 2017, "... helps hourly workers swap shifts ...") supports it.
+- Line 639 [BT, Edelman]: Edelman is named in the box text, not in its Sources list; kept, since the box itself credits the study to him.
+- Line 678 "wins them over": supported by the Outcomes passage (staff cheer and linger to say how excited they are).
+- The Ault, Arroyo, Bridget Anderson, Charbonnier, Smith, Johnson and Hartmann paragraphs are [AE]: author-written vignettes or profiles with no Sources list.
+
+**Derived tier.** No changed claim appears in the light reference (`references/openstax-principles-management.md`) or in any of the five distillations (aar, decision-making, retro, software-business, stakeholder-engagement); grep for the changed wording found nothing. The deep reference's content hash has changed, so derived-provenance stamps need refreshing when the parent re-derives. The deep reference was not stamped by this audit.
+
+**Open.**
+- Cross-family leg not run (see above).
+- The diff excluded runs under 8 words and moved text by design; this audit did not re-derive the run list.
+
+### Derived tier and stamp (2026-10-17, orchestrator)
+
+The PARTIAL notes are gone from the light reference, the five distillations and the source card, replaced by a coverage statement that names the single-family audit. As Pass G would, the stakeholder-engagement distillation's Phase 1 (Mapping) table gains one row from the "Who Am I Managing?" feature (Ch 15.3): its internal-stakeholder checklist and the Hill quotation, as audited above. The other restored features are illustrative cases that add no concept to the aar, decision-making, retro or software-business projections. A Pass I stamp on line 2 of the deep reference records this scoped audit. Derived tier restamped against the new deep-reference hash.

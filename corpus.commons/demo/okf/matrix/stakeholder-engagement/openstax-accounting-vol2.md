@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/principles-managerial-accounting
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-17T11:44:35+13:00
 ---
 # OpenStax Principles of Accounting Volume 2, Stakeholder-Engagement Distillation
 

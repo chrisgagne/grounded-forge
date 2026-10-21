@@ -12,7 +12,7 @@ sources:
     resource: https://open.oregonstate.education/setextbook/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-16T23:14:16+13:00
 ---
 # Letaw, Handbook of Software Engineering Methods, AAR Distillation
 
@@ -26,7 +26,7 @@ The Handbook projects onto the software-incident AAR as a *practitioner toolkit*
 
 1.  **RACI matrix as decision-rights audit.** The RACI matrix is "a chart for defining who is responsible (R) and accountable (A) for a task or deliverable, and who should be consulted (C) or informed (I)" [V]. The risk it addresses directly: "If your team doesn't know who needs to do what (or forgets, or can plausibly deny knowing), that can increase the probability of a negative events and outcomes" [V] — the example is "shipping a broken product to customers because nobody was assigned to quality assurance" [V] (Source: Letaw, *Handbook*, Ch 2.4.2, "Defining Roles and Responsibilities: RACI Matrix") During an AAR, building the RACI for the moment of failure shows whether anyone held the R and A cells for the step that failed.
 
-2.  **Fist of five for surfacing latent dissent before action commit.** The encoding: none (strong reject / blocks consensus) through five fingers (strong accept, willing to lead). Only a fist blocks consensus; one or two fingers are rejects whose issues need resolving now, and if anyone shows two or fewer fingers the team can stop, discuss, make changes and vote again. How much consensus is enough is the team's or its leader's call. The method "can reduce risk by (1) bringing problems to light and (2) increasing team motivation, ownership, and investment" [V] (Source: Ch 2.4.3, "Measuring and Building Consensus: Fist of Five Method") At action-design phase: run fist of five before finalising any action whose implementation will require sustained commitment.
+2.  **Fist of five for surfacing latent dissent before action commit.** The encoding: none (strong reject / blocks consensus) through five fingers (strong accept, willing to lead). Only a fist blocks consensus; one or two fingers are rejects whose issues need resolving now, and if anyone shows two or fewer fingers the team can stop, discuss, make changes and vote again. How much consensus is enough is the team's or its leader's call. The method "can reduce risk by (1) bringing problems to light and (2) increasing team motivation, ownership, and investment" [V] (Source: Ch 2.4.3, "Measuring and Building Consensus: Fist of Five Method") At action-design phase: run fist of five before finalising any action whose implementation will require sustained commitment. The book adds a caution: "Meanings of single-finger hand gestures vary around the world" [V], so a mixed or international group should agree what each count means before voting (Ch 2.4.3; the voting advice is this distillation's application).
 
 3.  **Eleven named code smells as design-debt vocabulary.** Code smells are "indications that the code needs to be reorganized — a sign your software is undergoing code decay" [V] (Source: Ch 8, opening) Three families: comments (Obsolete Comment, Commented-Out Code, Redundant Comment, Long Comment); functions (Long Function, Function with Many Jobs, Function with Many Parameters); code in general (Duplicate Code, Long Lines, Inconsistent Conventions, Vague Naming). Each carries a prescription.
 

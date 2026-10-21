@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:3d07d6833228341ac38dd7657f0f05521f9b308f4737baf1453f05891be89266 -->
+<!-- derived-from-deep: sha256:f9efb2005d651301ac8efe6bfbf495a9cf6b3f8f0a252e2feb2945f14b64a05f -->
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 1: Financial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-financial-accounting. Senior contributing authors Mitchell Franklin (lead), Patty Graybeal, Dixon Cooper; 28 contributing authors.

@@ -1,4 +1,4 @@
-<!-- derived-from-deep: sha256:f6bbaf14e15dd89d2baffc03bc982d16fc8d54f90413be6dbbe0b2c805528afc -->
+<!-- derived-from-deep: sha256:3100bec10b79404aeb94e9e1d93d4f5c108c6cb4630a643b1a8c15907f6e0b44 -->
 # Open Practice Library, Decision-Making Distillation
 
 **Source:** Open Practice Library (Red Hat Open Innovation Labs community, 2016–present). 266 community-curated practice pages at `openpracticelibrary.com`. Licence: **CC BY 4.0** for content. Cloned commit `8bfa450e75dfba1e2a3c68ac0e514e587f6f116e` (2026-05-13). See `open-practice-library-deep.md` for the full deep reference.

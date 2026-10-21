@@ -4,11 +4,13 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 
 ## Phase 0: Scoping (which tool, what time-budget, what attendance)
 
+- Ask whether the convener's own decisions are in scope → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Select the right learning tool for the event → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Choose informal AAR for small in-team learning → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Choose formal AAR for high-stakes cross-functional incident → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Convene without administrative-action contamination → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Hold the default-to-system posture before the conversation begins → [nhs-just-culture-guide](nhs-just-culture-guide.md)
+- Check the plan and the run against the TC's checklists → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Budget time honestly for the depth required → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Set the climate and spirit as operational concern → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Identify the fratricide-equivalent topics → [tc-25-20-army-aar](tc-25-20-army-aar.md)
@@ -23,6 +25,8 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 
 ## Phase 1: Timeline and local-rationality reconstruction
 
+- Run interviews with how and what, never why → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
+- Use the six AAR-type dialogue questions → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Choose the discussion-organisation technique for this event → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Decompose pre-event beliefs, perceptions, expectations, paradigms → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Build the timeline through the Five Hows → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
@@ -47,6 +51,7 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 
 ## Phase 2: Contributory-factor analysis
 
+- Check the team for the five watch-outs → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Refuse the "root cause" framing → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Refuse counterfactual reasoning → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Apply contributory-factors-not-the-cause framing → [tc-25-20-army-aar](tc-25-20-army-aar.md)
@@ -122,6 +127,7 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 
 ## Phase 5: Learning-loop closure
 
+- Debrief the convener and acknowledge harms → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Close with What/So What/Now What sequenced debrief → [liberating-structures-handbook](liberating-structures-handbook.md)
 - Apply TC 25-20 closing-comments rule → [tc-25-20-army-aar](tc-25-20-army-aar.md)
 - Lock in the next-action commitment before the review ends → [tc-25-20-army-aar](tc-25-20-army-aar.md)

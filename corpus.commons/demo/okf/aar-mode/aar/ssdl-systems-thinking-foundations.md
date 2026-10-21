@@ -12,7 +12,7 @@ sources:
     resource: https://openscholarship.wustl.edu/ssdl/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-15T20:30:10+13:00
 ---
 # SSDL Systems Thinking Foundations, AAR Distillation
 

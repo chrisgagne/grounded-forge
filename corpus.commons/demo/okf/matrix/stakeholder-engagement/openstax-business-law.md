@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/business-law-i-essentials
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-17T12:02:57+13:00
 ---
 # OpenStax Business Law I Essentials, Stakeholder-Engagement Distillation
 
@@ -52,7 +52,7 @@ This distillation consolidates these threads into a working pattern: how to map 
 
 13.  **Labour-union architecture.** Trade unions lobby employers about working conditions; the NLRA gives rights to organise and bargain. Three union security agreement types: closed shop, union shop, agency shop. Three election types: consent, contest, decertification. Strikes require 60-day cooling-off; four illegal strike types and four picketing-conduct restrictions. The text frames the union-employer relationship as a regulated stakeholder relationship with specific legitimate-pressure mechanisms. (Source: Ch 9.2)
 
-14.  **Consumer-stakeholder protection.** The FTC Act "prohibits 'unfair or deceptive acts or practices in or affecting commerce'" [V] (Source: Ch 12.1), and **deceptive practices** are those where "the seller misrepresents or misleads the consumer, and the misleading practice is substantial" [V] (Ch 12.1). The mandate covers six categories: product guarantees and false endorsements, unfair advertising (bait and switch), taking advantage of customers (vulnerable populations), misrepresenting a product, giving misleading price information, failing to disclose pertinent information. Plaintiffs "do not have to prove intent. Showing that the practice itself was unfair or deceptive is sufficient" [V] (Ch 12.1).
+14.  **Consumer-stakeholder protection.** The FTC Act prohibits "unfair or deceptive acts or practices in or affecting commerce" [V] (Source: Ch 12.1), and **deceptive practices** are those where "the seller misrepresents or misleads the consumer, and the misleading practice is substantial" [V] (Ch 12.1). The mandate covers six categories: product guarantees and false endorsements, unfair advertising (bait and switch), taking advantage of customers (vulnerable populations), misrepresenting a product, giving misleading price information, failing to disclose pertinent information. Plaintiffs "do not have to prove intent. Showing that the practice itself was unfair or deceptive is sufficient" [V] (Ch 12.1).
 
 15.  **Investor-stakeholder protection.** Securities regulation requires disclosure (Form 10-K, 10-Q, 8-K, proxy statements), prohibits insider trading on material nonpublic information, and requires Schedule 13D filing for beneficial owners of more than 5% and statements of ownership for corporate insiders owning more than 10%. (Source: Ch 14.1)
 

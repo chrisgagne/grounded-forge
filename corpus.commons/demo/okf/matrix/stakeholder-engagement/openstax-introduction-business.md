@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/introduction-business
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-10-17T10:49:18+13:00
 ---
 # OpenStax Introduction to Business, Stakeholder-Engagement Distillation
 

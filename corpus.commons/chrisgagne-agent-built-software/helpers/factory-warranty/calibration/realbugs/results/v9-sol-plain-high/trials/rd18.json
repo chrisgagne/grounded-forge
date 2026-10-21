@@ -1,0 +1,36 @@
+{
+ "id": "rd18",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 4,
+   "message": "The new topic manifest is never deployed: no workflow references this file, and build-and-deploy.yml excludes nais/topics/*. Unlike the existing topic manifests, these three topics therefore will not be provisioned on merge, leaving the new producers and streams unable to process submissions. Add a deployment workflow using reusable-topic-workflow.yml."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+   "start_line": 11,
+   "end_line": 12,
+   "message": "Bean validation does not evaluate return-value constraints on an ordinary method during validate(); harOppgittInntekt is not a JavaBean getter. Consequently, oppgittInntekt: {} passes the required-income check and supplies null to the reporting flow. OppgittInntektForPeriode repeats the same ineffective constraint. Put @field:NotNull on the income fields or use a constrained Boolean property getter."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 100,
+   "end_line": 103,
+   "message": "registrer commits the submission to Kafka before markerOppgaveSomL\u00f8st runs. If task completion fails after its retries, the endpoint returns an error although the report is already being processed, and nothing in the Kafka pipeline retries task completion. The task remains unresolved; a client retry is initially rejected by the duplicate cache and can later publish the report again. Persist task-completion work durably and make retries idempotent."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 224,
+  "reasoning_effort": "high",
+  "tokens": 138765
+ }
+}

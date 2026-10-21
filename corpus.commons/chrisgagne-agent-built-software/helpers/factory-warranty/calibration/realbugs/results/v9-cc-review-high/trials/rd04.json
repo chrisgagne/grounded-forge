@@ -1,0 +1,79 @@
+{
+ "id": "rd04",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "tasks.c",
+   "start_line": 5234,
+   "end_line": 5234,
+   "message": "The new vTaskSwitchContext() guard refuses every context switch while the current task has xPreemptionDisable set, including voluntary switches where that task has just blocked, suspended itself, or deleted itself and is no longer in a ready list. A task calls vTaskPreemptionDisable(NULL), then xQueueReceive(q, &x, portMAX_DELAY) on an empty queue. vTaskPlaceOnEventList moves it to the delayed/event lists and taskYIELD_WITHIN_API() runs, but vTaskSwitchContext only sets xYieldPendings and returns. The task keeps running, loops in xQueueReceive, and calls vTaskPlaceOnEventList again with its xEventListItem already in xTasksWaitingToReceive, which corrupts the list. vTaskDelay returns at once, and vTaskDelete(NULL)/vTaskSuspend(NULL) leave a deleted or suspended task running."
+  },
+  {
+   "source": "cc-review",
+   "file": "tasks.c",
+   "start_line": 5239,
+   "end_line": 5239,
+   "message": "When a switch is refused, pxCurrentTCBs[xCoreID]->xTaskRunState stays taskTASK_SCHEDULED_TO_YIELD (set by prvYieldCore from another core). prvCheckForRunStateChange() then spins forever, because the yield it waits for is always refused. Core 1 runs task T with preemption disabled. Core 0 calls vTaskSuspend(T), vTaskDelete(T), vTaskCoreAffinitySet(T, mask without core 1), or a priority-disinherit path. Each calls prvYieldCore(1) without checking xPreemptionDisable, so it sets T->xTaskRunState = taskTASK_SCHEDULED_TO_YIELD and sends an IPI. Core 1's vTaskSwitchContext refuses. The next time T calls taskENTER_CRITICAL() or vTaskSuspendAll(), prvCheckForRunStateChange loops on `while (xTaskRunState == taskTASK_SCHEDULED_TO_YIELD)`: it enables interrupts, the yield is refused again, and it loops forever. Core 1 hangs, and a deleted task is never reaped (idle waits for taskTASK_NOT_RUNNING)."
+  },
+  {
+   "source": "cc-review",
+   "file": "tasks.c",
+   "start_line": 5504,
+   "end_line": 5504,
+   "message": "The new `xYieldPendingBefore == pdFALSE` condition makes these APIs return pdFALSE whenever a yield was already pending on the calling core, even if a higher-priority task now needs that core. Callers that use only this call's return value lose the yield. An ISR runs `xSemaphoreGiveFromISR(s, NULL);` (sets xYieldPendings[core]) and then `xYieldRequired = xTaskResumeFromISR(hHighPrio); portYIELD_FROM_ISR(xYieldRequired);`. xTaskResumeFromISR now returns pdFALSE because the flag was already set, so the ISR exits without switching. The high-priority task waits until the next tick or critical-section exit. Before this change it returned pdTRUE. The same applies to xTaskRemoveFromEventList (queue/semaphore FromISR wrappers) and to the notify FromISR functions when callers pass separate xHigherPriorityTaskWoken variables."
+  },
+  {
+   "source": "cc-review",
+   "file": "tasks.c",
+   "start_line": 3146,
+   "end_line": 3146,
+   "message": "After a refused switch, the task's run state stays taskTASK_SCHEDULED_TO_YIELD. When vTaskPreemptionEnable() is called from another core, prvYieldCore() sees that state and skips portYIELD_CORE, so the deferred yield the comment promises does not happen at enable time. Core 1's task T has preemption disabled, and a remote yield request is refused (state = SCHEDULED_TO_YIELD, xYieldPendings[1] = pdTRUE). Core 0 calls vTaskPreemptionEnable(T). prvYieldCore(1) does nothing because `xTaskRunState != taskTASK_SCHEDULED_TO_YIELD` is false. T keeps running past its preemption-enable point until the next tick or until T itself exits a critical section, which delays higher-priority work."
+  },
+  {
+   "source": "cc-review",
+   "file": "tasks.c",
+   "start_line": 5239,
+   "end_line": 5239,
+   "message": "Setting xYieldPendings[xCoreID] = pdTRUE on every refused switch makes the flag sticky while preemption is disabled. Every taskEXIT_CRITICAL() by that task then calls portYIELD() into vTaskSwitchContext, which refuses and sets the flag again. A preemption-disabled task that does many short critical sections (queue ops, list manipulation) takes a full yield trap with a context save/restore and both kernel locks on every critical exit, for nothing. This adds large latency and lock contention on the SMP task/ISR locks for the whole preemption-disabled region."
+  },
+  {
+   "source": "cc-review",
+   "file": "tasks.c",
+   "start_line": 5500,
+   "end_line": 5500,
+   "message": "Inferring 'did prvYieldForTask yield this core' by comparing xYieldPendings before and after is copy-pasted into four functions. It patches the symptom of using a shared, possibly stale global as a return channel. There are four near-identical blocks (xTaskResumeFromISR, xTaskRemoveFromEventList, xTaskGenericNotifyFromISR, vTaskGenericNotifyGiveFromISR), and any new caller has to remember the same idiom. The deeper fix is to have prvYieldForTask() return BaseType_t, pdTRUE when it called prvYieldCore() on the calling core. Callers then use that result directly, which also fixes the false negative when the flag was already set."
+  },
+  {
+   "source": "cc-review",
+   "file": "tasks.c",
+   "start_line": 5233,
+   "end_line": 5233,
+   "message": "The 'safety net' sits in vTaskSwitchContext, a shared path used by both preemptive and voluntary switches. Preemption-disable should only block involuntary switches, so the guard is at the wrong depth. Because vTaskSwitchContext cannot tell a voluntary block from a preemption, the guard breaks blocking APIs (see the related findings). The general fix is to keep the current task in prvSelectHighestPriorityTask only while it is still runnable (its xStateListItem is in pxReadyTasksLists and it is not being deleted or suspended). The alternative is to rely on the existing xPreemptionDisable checks at every prvYieldCore call site (vTaskSuspend, vTaskDelete, vTaskCoreAffinitySet, disinherit), some of which are still missing."
+  },
+  {
+   "source": "cc-review",
+   "file": "tasks.c",
+   "start_line": 4896,
+   "end_line": 4896,
+   "message": "The commit changes scheduling behaviour in five places, but no test covers time-slicing with a preemption-disabled task, FromISR wake reporting, or blocking/suspending while preemption is disabled. The regressions listed above (a refused voluntary block, a hang in prvCheckForRunStateChange, a lost yield from xTaskResumeFromISR) would get through CI. A unit/SMP test that disables preemption, then blocks on a queue, and also resumes a task from an ISR with a pre-set pending flag would catch them."
+  },
+  {
+   "source": "cc-review",
+   "file": "tasks.c",
+   "start_line": 5505,
+   "end_line": 5505,
+   "message": "Each new block calls portGET_CORE_ID() twice, and prvYieldForTask calls it again internally. On ports where it reads a system register or MMIO, this is repeated work inside the critical section. There are three core-ID reads per wake in hot ISR/queue paths, in four functions. Caching `const BaseType_t xCoreID = portGET_CORE_ID();` once, or better, using a return value from prvYieldForTask, removes the redundant reads and the duplicated pattern."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 210,
+  "cost_usd": 0.906581,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

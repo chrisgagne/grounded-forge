@@ -1,0 +1,36 @@
+{
+ "id": "rd06",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 34,
+   "message": "The resolver step declares `env` twice. GitHub Actions rejects duplicate mapping keys, making this workflow invalid and preventing both automatic and manual runs. Remove the duplicate block."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 93,
+   "end_line": 95,
+   "message": "The resolver contains two `else` clauses for the same `if`, and both heredoc terminators retain indentation after YAML removes the block indentation. `bash -n` fails on this script, so every invocation fails before resolving a run ID, including automatic runs and explicit IDs. Remove the obsolete fallback and align heredoc terminators at shell column zero."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 129,
+   "end_line": 132,
+   "message": "Filtering workflow runs by `pre-update-release` excludes the scheduled scans this fallback should find. The weekly workflow runs on the default branch and only checks out `pre-update-release` internally; that checkout does not change the run's branch metadata. Both fallback queries therefore return no scheduled runs, causing manual dispatch without a run ID to fail or select an older manually dispatched scan. Query the branch owning the scheduled workflow instead."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 40,
+  "reasoning_effort": "none",
+  "tokens": 33044
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "id": "rd18",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 6,
+   "message": "The new topic manifest has no deployment workflow. Existing topics each have a dedicated workflow invoking reusable-topic-workflow.yml, while build-and-deploy.yml excludes nais/topics/* and does not apply these manifests. Add the equivalent workflow; otherwise normal deployment leaves all three topics and their ACLs unprovisioned, preventing the new streams from processing reports."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 100,
+   "end_line": 103,
+   "message": "Task completion runs synchronously after the report has already been published to Kafka. If markerOppgaveSomL\u00f8st exhausts its retries or times out, the request fails while the report continues through journaling and notification, leaving the task unresolved. An immediate retry is blocked by the duplicate cache; a later retry publishes the report again. Make task completion durably retryable and ensure retries do not republish an already accepted report."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 89,
+   "end_line": 90,
+   "message": "The duplicate cache key contains only the person and benefit, so submissions for two different income-reporting tasks collide. A participant reporting multiple outstanding periods within the cache window receives a duplicate-submission error for the second legitimate report. Include oppgaveReferanse in the key so duplicate detection distinguishes separate tasks."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 42,
+  "reasoning_effort": "none",
+  "tokens": 40656
+ }
+}

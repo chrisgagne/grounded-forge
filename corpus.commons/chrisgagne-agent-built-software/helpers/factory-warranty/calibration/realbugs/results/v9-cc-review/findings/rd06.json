@@ -1,0 +1,63 @@
+{
+ "pr": {
+  "repo": "https://github.com/NightHawkATL/ntp-dashboard",
+  "pr_number": 96,
+  "base": "28cb0f12873107287c8f2ba7b7c330339d432c9c",
+  "head": "2378227172859b977f576fa1a1e3dfd4b52fa524"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "The 'Resolve source workflow run ID' step defines `env:` twice; GitHub Actions rejects duplicate mapping keys, so the whole workflow file fails to load. On any workflow_run completion or manual dispatch, GitHub reports an invalid workflow file ('env' is already defined) and no job runs, so no remediation issue is ever created."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 94,
+   "end_line": 94,
+   "message": "The run script has two `else` branches (the old fallback and the new same-week one), which is a bash syntax error. Bash parses the whole `if` before running any of it, so every path fails. Even the workflow_run path (`elif`) never runs. Bash fails with `syntax error near unexpected token else`, the step fails, and the run ID is never set."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 42,
+   "end_line": 42,
+   "message": "Inside the `if` branches, the heredoc body and the `PY` terminator are indented 2 spaces past the block's base indentation. YAML keeps those spaces, so `<<'PY'` never finds a terminator at column 0, and the Python code starts with an unexpected indent. Even with the duplicate `else` fixed, manual dispatch without run_id either swallows the rest of the script into the heredoc or fails with a Python IndentationError, so the fallback lookup never works."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 322,
+   "end_line": 322,
+   "message": "The issue step only runs when has_recommendations == 'true'. If a later scan has no fixable packages, the existing open issue is never updated or closed and keeps listing outdated recommendations. Week 1 creates an issue listing openssl -> 3.x. Week 2 is clean, so the step is skipped and the issue still tells maintainers to upgrade packages that are already fixed."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 208,
+   "end_line": 208,
+   "message": "urllib follows the 302 from archive_download_url to blob storage and forwards the `Authorization: Bearer` header. Signed blob URLs commonly reject requests that also carry an Authorization header. The artifact download gets 400/403 AuthenticationFailed from the storage host after the redirect, and the step fails before building the report."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "`${{ inputs.run_id }}` is pasted straight into the bash script, so a crafted dispatch input can run arbitrary shell commands in a job holding an issues:write token. A dispatcher passes run_id `1\"; curl ... $GH_TOKEN; echo \"` and the command runs with the token in the environment. It should go through an env var and be checked as numeric."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 23,
+   "end_line": 23,
+   "message": "The workflow_run trigger accepts successful weekly-scan runs from any branch, but the fallback logic and the issue text assume pre-update-release. A successful scan run on a feature branch or PR overwrites the tracking issue with that branch's results."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 47000
+ }
+}

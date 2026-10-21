@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/sw5005-sus/ceramicraft-argocd-deploy",
+  "pr_number": 89,
+  "base": "9cf42c1eecc554ca953c3685fa1b6a34eeed910c",
+  "head": "d7a4532170487a111654cf8aa742f4007334b6e2"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The new Deployment drops the chart's `envFrom: secretRef: ms-secret-vault`, so none of the Vault-synced secrets (e.g. MySQL password, LLM/API keys) reach the container. ai-secure-agent-config.yaml configures MySQL as user `root` with no password and Kafka/LLM settings that rely on env secrets; once synced, the pod starts without those env vars and fails to authenticate to MySQL or other services, then crashes or errors at runtime."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "app-of-apps.yaml",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "`agent-app` sets `targetRevision: AI-20-AISecureAgent-Feature-collection`, a feature branch, while every other in-repo app tracks HEAD. After this merges to main, Argo CD still reads the `agent/` manifests from the feature branch, so changes to `agent/` on main are never deployed. If the feature branch is deleted after merge, the app goes into ComparisonError and can't sync."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "helm_backend/ai-secure-agent-ms/values.yaml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Deleting this directory makes the helm-app ApplicationSet delete the `ai-secure-agent-ms` Application, which cascade-prunes Deployment `ai-secure-agent-ms` and Service `ai-secure-agent-ms-svc`. The new `agent-app` creates resources with the same names in the same namespace. During rollout both Applications claim the same resources (SharedResourceWarning). Depending on ordering, the old app's cascading delete removes the Deployment/Service the new app just adopted. That causes an outage until selfHeal recreates them, and the two apps can flap if both exist at once."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "The migration drops the liveness/readiness probes on `/ai-secure-agent-ms/v1/ping` and the CPU/memory requests and limits (256Mi/345Mi) the chart used to apply. The Service routes traffic to the pod before the app is ready, and a hung process is never restarted. With no memory limit, a leak in the Python/MLflow process (the reason MALLOC_ARENA_MAX=2 is set) can grow without bound and get other pods on the node OOM-evicted."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 47000
+ }
+}

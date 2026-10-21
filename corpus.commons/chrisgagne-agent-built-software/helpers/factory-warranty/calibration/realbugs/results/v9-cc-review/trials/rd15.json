@@ -1,0 +1,30 @@
+{
+ "id": "rd15",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 270,
+   "end_line": 270,
+   "message": "In the unquoted heredoc, `\\\"` is not an escape sequence, so the generated probe contains `command -v \\\"jq\\\"`. Inside `$(...)` the remote sh treats those as literal quote characters and looks up a binary named `\"jq\"`, quotes included. For every non-wrapper entry (jq, rg, ffmpeg, uv, gh, ...), the probe runs `binary_path=\"$(command -v \\\"jq\\\" || true)\"`. That resolves to empty, so the probe prints `missing_binary:jq` and exits 1. Check 3 then always fails with 'Failed to validate runtime binary jq', even on a correctly built image. The sandbox-image check fails the same way."
+  },
+  {
+   "source": "cc-review",
+   "file": "scripts/verify.sh",
+   "start_line": 250,
+   "end_line": 250,
+   "message": "The list of binaries to verify now comes from the local repo copy `scripts/docker/runtime-binaries.json`. The in-image manifest is only checked for existence, so verification no longer reflects what the deployed container or sandbox image was actually built with. verify.sh is run from a checkout whose manifest differs from DEPLOYED_REF, or the sandbox image was built from an older ref. Binaries added in the checkout make a correct deployment fail. Binaries the image actually ships under its own manifest are never checked, so a regression in them passes silently."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 51,
+  "cost_usd": 0.28087039999999996,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

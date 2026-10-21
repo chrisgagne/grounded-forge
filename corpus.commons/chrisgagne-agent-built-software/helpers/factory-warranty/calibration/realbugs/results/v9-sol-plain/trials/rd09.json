@@ -1,0 +1,36 @@
+{
+ "id": "rd09",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 242,
+   "end_line": 245,
+   "message": "API key authentication always fails in non-interactive mode: appleApiKeyId starts undefined, and the command defines no option to supply it. Even with all advertised authentication flags, execution uploads the private key and then exits here. Add an appleApiKeyId option and read it before validating or uploading."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 114,
+   "end_line": 122,
+   "message": "The truthiness checks reject an explicitly empty password, preventing upload of valid iOS PKCS#12 certificates exported with an empty password. Passing --password '' still exits in non-interactive mode, and submitting an empty interactive answer also exits. Distinguish an omitted password from an empty one and preserve the empty value in the multipart request."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "Certificate passwords are collected with a text prompt, exposing them on screen and in terminal recordings. The Android key-password prompt in this file and the app-specific password prompt in destinations/create.ts have the same issue. Use masked password prompts for these secrets."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 36,
+  "reasoning_effort": "none",
+  "tokens": 36723
+ }
+}

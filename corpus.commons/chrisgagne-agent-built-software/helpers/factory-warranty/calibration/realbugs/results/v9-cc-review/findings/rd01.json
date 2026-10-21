@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/CommunityToolkit/Maui",
+  "pr_number": 3181,
+  "base": "c7cb65bc98e429401e4f792f6b7aa21f94e81933",
+  "head": "1e8d2e2f880cfe1d9bcbdfbc6078cb6b72fd35ce"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+   "start_line": 51,
+   "end_line": 51,
+   "message": "FillDataRequest casts RequestedLength to int and allocates one buffer for the whole range. Any exception is swallowed, and FinishLoading() still reports success. AVFoundation often sets RequestsAllDataToEndOfResource and asks for the full remaining length. For a 1.5 GB stream that means a 1.5 GB managed array; above 2 GB the cast goes negative and `new byte[]` throws. The exception is caught, FinishLoading() is called with no data, and playback stalls or fails silently instead of getting FinishLoadingWithError. Data should be served in chunks, and errors should go through FinishLoadingWithError."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.windows.cs",
+   "start_line": 343,
+   "end_line": 343,
+   "message": "Stream.AsRandomAccessStream() throws NotSupportedException when the stream is not seekable, and nothing guards or catches it. A user sets `Source = MediaSource.FromStream(httpResponseStream)` (or any network/pipe stream with CanSeek == false). PlatformUpdateSource throws NotSupportedException, so the app crashes or the element is left stuck in the Opening state."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+   "start_line": 765,
+   "end_line": 765,
+   "message": "When the StreamMediaSource's Stream is null, SetPlayerData falls through and returns the stale `mediaItem` field. currentStreamDataSourceFactory is not cleared because the source is still a StreamMediaSource, so the old stream is set up again. A user plays a stream, then sets `streamMediaSource.Stream = null` (or swaps in a new StreamMediaSource with a null Stream). The old MediaItem and old factory are reused, and the previous stream starts playing again instead of the player being cleared."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+   "start_line": 54,
+   "end_line": 54,
+   "message": "For a non-seekable stream, Open(position 0) does not reset anything and reports success. ExoPlayer then reads from wherever the stream was left, not from the start. A non-seekable stream plays to the end, then the user replays it (SeekTo(0), or RepeatMode on), or ExoPlayer retries a load after an error. Open is called again at position 0, the check passes, and Read hits EOF right away or returns mid-file bytes. Playback ends immediately or the extractor fails."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+   "start_line": 507,
+   "end_line": 507,
+   "message": "GetStreamContentType only recognizes ftyp/qt. Every other format (MP3, WAV, FLAC, etc.) gets the public.mpeg-4 UTI, even though the PR adds a full sniffer (StreamExtensions.GetMimeType) that only Windows uses. An MP3 or WAV stream on iOS/macOS reports ContentType 'public.mpeg-4' to AVFoundation, which tries to parse it as MP4 and fails, so the item errors out. The same stream plays fine on Windows."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+   "start_line": 142,
+   "end_line": 142,
+   "message": "The MPEG-TS check only tests header[0] == 0x47 ('G'), so any stream starting with that byte is labeled video/mp2t. A stream whose first byte happens to be 0x47 (for example data beginning with 'G') is passed to WinMediaSource.CreateFromStream as video/mp2t. Media Foundation picks the wrong source and fails. The check should also confirm the 0x47 sync byte repeats at offset 188."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 119000
+ }
+}

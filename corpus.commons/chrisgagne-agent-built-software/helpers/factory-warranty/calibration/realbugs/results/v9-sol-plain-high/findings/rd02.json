@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/ComposioHQ/agent-orchestrator",
+  "pr_number": 1277,
+  "base": "ba77929c9345a0dc897d53115504d0ae32745ce5",
+  "head": "76652c7ccefa3a371be74e8648c5204adc7f09a5"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The default root calculation still assumes the script lives in the repository's top-level scripts directory. After this move, direct execution without AO_REPO_ROOT resolves REPO_ROOT to packages/cli/src/assets (or dist/assets), so update commands use nonexistent package paths. ao-doctor.sh retains the same assumption and reports false installation failures. Update both fallbacks for the relocated layout, or retain working wrappers at the original paths."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 104000
+ }
+}

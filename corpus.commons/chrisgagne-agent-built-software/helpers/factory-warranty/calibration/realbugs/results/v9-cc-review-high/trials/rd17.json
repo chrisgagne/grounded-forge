@@ -1,0 +1,79 @@
+{
+ "id": "rd17",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "postCreateCommand installs `.[dev]`, but pyproject.toml (hatchling backend, which ignores setup.py) has no `[project.optional-dependencies] dev`, so pytest, ruff, black and mypy never get installed. The container builds and uv prints a warning that the package has no extra named `dev`, then installs only the runtime deps. `pytest`/`mypy` are missing in the venv, so README step 2's claim that it 'installs all Python dependencies' is wrong. Fix: add a `dev` optional-dependencies table to pyproject.toml that mirrors requirements-dev.in, or install `-r requirements-dev.in`."
+  },
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "workspaceFolder is hardcoded to `/workspaces/ProxmoxMCP-Plus` without a matching `workspaceMount`, but the default mount target is `/workspaces/<local folder basename>`. Say a user clones into `proxmox-mcp`, a fork with a different name, or `ProxmoxMCP-Plus-main` from a zip. The repo gets mounted at `/workspaces/proxmox-mcp`, VS Code opens an empty or missing `/workspaces/ProxmoxMCP-Plus`, postCreateCommand runs where there's no pyproject.toml and fails, and the interpreter path points nowhere. Use `/workspaces/${localWorkspaceFolderBasename}` in both workspaceFolder and python.defaultInterpreterPath, or add an explicit workspaceMount."
+  },
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "python.defaultInterpreterPath hardcodes `/workspaces/ProxmoxMCP-Plus/.venv/bin/python`, so it breaks whenever the mount path differs from the repo name. With any other clone directory name, Pylance and the Python extension can't find the interpreter. Imports show as unresolved and tests can't be discovered even after the venv exists. Use `${containerWorkspaceFolder}/.venv/bin/python`."
+  },
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "`uv venv` runs inside the bind-mounted workspace, so it replaces any `.venv` the developer already built on the host (macOS/Windows) with a Linux venv. The reverse happens too: the container's venv breaks host tooling. A developer who followed the README's local install steps (`uv venv` at README.md:99) opens the repo in the container. postCreateCommand recreates `.venv` with Linux binaries, and their host `source .venv/bin/activate` / Claude Desktop config at `.venv/bin/python` stops working. Depending on the uv version, `uv venv` may also prompt or fail on an existing venv when the container is rebuilt. Point the venv outside the workspace with `UV_PROJECT_ENVIRONMENT`/`VIRTUAL_ENV`, e.g. `/home/vscode/.venv`, or use a named volume for `.venv`."
+  },
+  {
+   "source": "cc-review",
+   "file": "README.md",
+   "start_line": 71,
+   "end_line": 71,
+   "message": "The README says the OpenAPI proxy 'is reachable at http://localhost:8811', but the dev container never starts the proxy. Only the port is forwarded. A user follows steps 1\u20134, opens http://localhost:8811 and gets connection refused, because there's no postStartCommand. They have to know to run `./start_openapi.sh` themselves. Reword the step to tell them to run the proxy first, or add a postStartCommand."
+  },
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "`pip install --no-cache-dir uv` installs an unpinned uv, so `uv venv` / `uv pip` behavior can drift between rebuilds. A later uv release changes how `uv venv` handles an existing directory (newer releases have already moved toward requiring `--clear`). Rebuilding the container then fails or prompts in postCreateCommand with no change to the repo. Pin a uv version, or use the official `ghcr.io/astral-sh/uv` image via `COPY --from`."
+  },
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 5,
+   "end_line": 5,
+   "message": "The build context is set to `..`, the whole repo, but the dev container Dockerfile has no COPY/ADD, and the repo has no .dockerignore. Every image build sends the full repo to the Docker daemon for nothing: `.git`, any local `.venv`, test artifacts, and `proxmox-config/config.json` with its secrets. That slows builds and can leak credentials into the build cache. Set `context` to `.` or drop it."
+  },
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The Dockerfile rebuilds by hand what `mcr.microsoft.com/devcontainers/python:3.11` already gives you: a non-root `vscode` user with UID/GID handling, git, curl and build tools. That's about 20 lines of user/apt setup to maintain, and the hand-made user has no sudo, so a developer can't `apt-get install` anything inside the container. Using the devcontainers base image (plus the uv feature) would cut the custom Dockerfile down to almost nothing."
+  },
+  {
+   "source": "cc-review",
+   "file": ".devcontainer/Dockerfile",
+   "start_line": 22,
+   "end_line": 22,
+   "message": "`WORKDIR /home/$USERNAME` is dead config: devcontainer.json's workspaceFolder decides where VS Code and postCreateCommand run. It has no effect, and it suggests the home directory is where the work happens. Remove it."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 58,
+  "cost_usd": 0.289959,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

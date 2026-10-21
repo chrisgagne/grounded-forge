@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v5-sol-plain",
+ "findings": [
+  {
+   "producer": "v5-sol-plain",
+   "file": "ui/user/src/lib/components/admin/McpServerGitSync.svelte",
+   "start_line": 160,
+   "end_line": 173,
+   "message": "Editing a private source URL silently deletes its stored token. The UI moves the '*' marker to the new URL, but the backend only preserves existingCred.Env[newURL]; the token remains keyed by oldURL and is subsequently dropped. Changing a branch or adding a .git suffix therefore breaks authentication unless the administrator re-enters the PAT. Implement an explicit credential transfer or require a replacement token."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 124,
+   "end_line": 128,
+   "message": "Scheme-less URLs are normalized only in SourceURLs, leaving SourceURLCredentials keyed by the original input. For example, submitting 'gitlab.com/org/private.git' with a PAT changes the active URL to 'https://gitlab.com/org/private.git', so the credential loop rejects the original key as inactive. The request succeeds but discards the PAT and private-repository sync fails. Normalize credential keys alongside their source URLs."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 86000
+ }
+}

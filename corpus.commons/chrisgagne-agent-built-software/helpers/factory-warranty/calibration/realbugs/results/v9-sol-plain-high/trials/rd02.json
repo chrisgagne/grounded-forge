@@ -1,0 +1,20 @@
+{
+ "id": "rd02",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "low",
+   "file": "packages/cli/src/assets/scripts/ao-update.sh",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "The default root calculation still assumes the script lives in the repository's top-level scripts directory. After this move, direct execution without AO_REPO_ROOT resolves REPO_ROOT to packages/cli/src/assets (or dist/assets), so update commands use nonexistent package paths. ao-doctor.sh retains the same assumption and reports false installation failures. Update both fallbacks for the relocated layout, or retain working wrappers at the original paths."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 104,
+  "reasoning_effort": "high",
+  "tokens": 54794
+ }
+}

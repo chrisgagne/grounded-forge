@@ -1,0 +1,20 @@
+{
+ "id": "rd09",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 53,
+   "end_line": 53,
+   "message": "Accept the Apple API key ID as a create option. When creating an iOS destination with API-key authentication in CI, this command always exits with \u201cYou must provide the Apple API Key ID\u201d after uploading the key file. `appleApiKeyId` is initialized to `undefined`, but is neither declared in the options schema nor read from `options`, so callers cannot supply it. Add the option and initialize this variable from it so non-interactive creation can succeed."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 89,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

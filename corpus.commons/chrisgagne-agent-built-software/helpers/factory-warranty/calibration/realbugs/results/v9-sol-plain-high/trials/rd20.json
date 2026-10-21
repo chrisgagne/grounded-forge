@@ -1,0 +1,60 @@
+{
+ "id": "rd20",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "The remote manifest's name is used as a directory path without validation. A name containing ../ segments can move tmpDir outside the temporary staging area, after which safePath treats that escaped directory as trusted. A malicious skillset can therefore overwrite arbitrary writable files. Validate the name and enforce containment beneath the fixed staging root."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/commands/install.ts",
+   "start_line": 41,
+   "end_line": 44,
+   "message": "The containment check accepts sibling directories whose names share the base directory's prefix. For example, with baseDir /tmp/spm/demo, the manifest entry sets/demo/../../../demo-other/SKILL.md resolves to /tmp/spm/demo-other/SKILL.md and passes this check. Manifest file paths can therefore overwrite files outside their skillset directory. Check containment using path components rather than a string prefix."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 8,
+   "message": "The parser discards the branch supplied in the GitHub URL. resolveIdentifier subsequently selects the repository's default branch, so a URL containing /tree/develop/ downloads from main when main is the default. This can install different content or fail when the skillset exists only on develop. Preserve the URL's ref through resolution and downloading."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/commands/install.ts",
+   "start_line": 29,
+   "end_line": 30,
+   "message": "Every entry receives the manifest repository's ref, including cross-repository sources. A manifest on main referencing a repository whose default branch is master will request that repository's nonexistent main branch and abort the download. Resolve the appropriate ref for each distinct source repository."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/commands/install.ts",
+   "start_line": 84,
+   "end_line": 86,
+   "message": "Destination paths omit repository identity and the manifest's skill key. Two supported sources such as @org/one/skills/test and @org/two/skills/test both write skills/test/SKILL.md to the same destination. The concurrent writes overwrite or corrupt one another while installation reports success. Give distinct skills separate destinations or reject collisions before writing."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 8,
+   "message": "The regex includes query strings and fragments in the skillset path. For example, a GitHub directory URL ending in /skill#readme becomes skill#readme/skillset.yml, so the appended manifest filename is part of the fragment and is never requested. Parse the URL structurally and extract the directory from pathname before appending skillset.yml."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 187,
+  "reasoning_effort": "high",
+  "tokens": 45364
+ }
+}

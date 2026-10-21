@@ -1,0 +1,52 @@
+{
+ "id": "rd16",
+ "arm": "codex-review-high",
+ "findings": [
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 35,
+   "end_line": 37,
+   "message": "Sanitize Markdown HTML before inserting it into the editor. When a user pastes untrusted Markdown containing raw HTML and switches to rich text, `marked.parse` preserves event attributes and this assignment inserts them into the live DOM. An `<img src=x onerror=...>` can execute script in the application's origin and access the authentication tokens in localStorage. The server-side sanitizer runs only during sending, which is too late; sanitize the HTML before insertion."
+  },
+  {
+   "source": "codex",
+   "priority": 1,
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 74,
+   "end_line": 74,
+   "message": "Select STARTTLS for SMTP submission on port 587. For the mailbox defaults of port 587 with TLS enabled, this selects MailKit's Boolean overload, where `true` means SSL-on-connect rather than STARTTLS. Ordinary submission servers expect a plaintext greeting followed by STARTTLS, so sending fails during the handshake. Select explicit socket options appropriate to the connection mode, retaining SSL-on-connect for implicit-TLS servers."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 26,
+   "end_line": 27,
+   "message": "Validate the send request before using its fields. The application does not register Minimal API validation or a validation filter, so the annotations on `SendMailRequest` are not enforced. An authenticated request containing `\"to\": null` reaches this dereference and returns 500, while empty subjects, unsupported content types, and oversized bodies bypass the declared restrictions and reach the sender. Validate the request before accessing its fields or sending mail."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 30,
+   "end_line": 32,
+   "message": "Export semantic HTML instead of Quill's internal markup. Quill 2 represents bullet lists internally as `<ol>` elements with `data-list=\"bullet\"` attributes and relies on its stylesheet to display bullets. Returning this markup makes bullet lists appear numbered in outgoing emails, and Turndown likewise converts them into ordered Markdown when switching modes. Export semantic HTML rather than the editor's internal DOM so both consumers preserve list semantics."
+  },
+  {
+   "source": "codex",
+   "priority": 2,
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 104,
+   "end_line": 106,
+   "message": "Handle unsupported special folders before trying the fallback. On IMAP servers without SPECIAL-USE or XLIST support, MailKit's `GetFolder(SpecialFolder.Sent)` throws `NotSupportedException` rather than returning null. The fallback therefore never executes, even when a regular Sent folder exists, and the outer catch silently skips saving the sent copy. Check server capabilities or handle this exception before enumerating folders."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 246,
+  "outage": false,
+  "reasoning_effort": "high"
+ }
+}

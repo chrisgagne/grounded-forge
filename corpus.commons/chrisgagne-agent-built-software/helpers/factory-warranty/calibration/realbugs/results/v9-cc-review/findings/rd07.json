@@ -1,0 +1,28 @@
+{
+ "pr": {
+  "repo": "https://github.com/Nixbug/entebus-web-executive",
+  "pr_number": 120,
+  "base": "a204e1b2c070fda02e100de55c0bc34c4659f538",
+  "head": "630b29d5edbd4c8db61a14f6e33f8b70d57b3d5f"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/lib/configs/company-detail.config.ts",
+   "start_line": 750,
+   "end_line": 750,
+   "message": "prepareForValidation no longer sends ownerName, but companySchema (src/lib/schemas.ts:153) still has ownerName as a required cleanString field, so every edit save fails validation. The user opens a company, clicks Edit, changes the name and saves. safeParse returns 'Owner name is required' for ownerName. No field in the config maps to ownerName, so the error appears nowhere and the save is silently blocked every time."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/routes/company/+page.svelte",
+   "start_line": 190,
+   "end_line": 190,
+   "message": "The ownerName input was removed from companyFields, but ModalForm still validates against companySchema, which requires ownerName, so the create form can never pass validation. The user fills in Name, Address, Location and Type and clicks submit. CreationForm.handleSubmit runs schema.safeParse(formData), gets an ownerName error, sets errors.ownerName (no input renders it) and returns. Nothing visible happens and the form never submits."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 71000
+ }
+}

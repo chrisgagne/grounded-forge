@@ -1,0 +1,86 @@
+{
+ "id": "rd12",
+ "arm": "cc-review-high",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "The staleness check can never reuse a plan. Phase 4.5 rewrites the story file after Phase 4.1 has written the tasks file, so the story file is always the newer one. Run /x-story-plan story-0028-0002, then run it again without touching the story. mtime(story) > mtime(tasks) because Section 8.1 was written last, so the run is treated as stale and all 5 subagents relaunch every time. RULE-002 idempotency never takes effect."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 200,
+   "end_line": 200,
+   "message": "The TPP ordering lists collection before conditional, in the tpp_level enum, the \u00a73.3 ordering and the planning guide. The QA prompt (lines 279-284) and x-test-plan put conditional at Level 4 and collection at Level 5. QA tags a compound-boolean test as `conditional` (Level 4) and a map/filter test as `collection` (Level 5). Consolidation sorts nil\u2192constant\u2192scalar\u2192collection\u2192conditional, so the Level 5 task is scheduled before the Level 4 one, breaking strict TPP order. DoR check #2 (UT-N follow TPP ordering) then contradicts the generated task order."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 741,
+   "end_line": 741,
+   "message": "`total_checks` is computed from `mandatory_passed` when it should use the fixed 10 mandatory checks, so the summary denominator shrinks as checks fail. 8 of 10 mandatory checks pass and no conditionals apply. total_checks = 8 + 0 = 8 and total_passed = 8, so the DoR file says 'Passed: 8/8' while the verdict is NOT_READY. Readers see a perfect score next to a failing verdict."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 437,
+   "end_line": 437,
+   "message": "MERGE (Rule 1) fires on any tasks from different agents that share a component and layer. It runs before PAIR, so it folds QA RED tests, TL VERIFY gates and ARCH GREEN implementation into a single task. QA-001 (RED, UserValidator, domain), ARCH-003 (GREEN, UserValidator, domain) and TL-002 (VERIFY, UserValidator, domain) all match Rule 1 and become one merged task with no single tdd_phase. The RED/GREEN separation is lost, and Rule 3 then adds a synthetic RED for a test that already existed. Merging should also require the same tdd_phase/type."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 715,
+   "end_line": 715,
+   "message": "DoR checks 1, 3 and 9 need architecture, security and implementation plan files to exist, but this skill never writes those files. On the reuse path there is no agent output to fall back on either. The staleness check decides to reuse and jumps straight to Phase 5 with no subagents. architecture-story-*.md, security-story-*.md and plan-story-*.md do not exist because only tasks/task-plan/planning-report/dor files are written. Checks 1, 3 and 9 fail and the verdict is always NOT_READY, even for a story that was READY on the previous run."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new core skill is picked up automatically by SkillsAssembler.selectCoreSkills(), but golden files and smoke/expected-artifacts.json were not updated. It is also missing from SkillGroupRegistry.SKILL_GROUPS and has no github-copilot counterpart. Golden-file and AssemblerRegressionSmokeTest comparisons now see an extra .claude/skills/x-story-plan (and .agents/skills/x-story-plan) directory that the expected outputs don't have, so the tests fail. Copilot users get no x-story-plan skill, unlike sibling story skills such as x-story-map.md."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 89,
+   "end_line": 89,
+   "message": "The staleness check (0.3) runs before the story-exists check (0.4). Comparing mtimes against a missing story file can lead to reuse and skipping straight to Phase 5. The story file was renamed or deleted but tasks-story-*.md is still there. The mtime comparison against a non-existent file is undefined or false, the orchestrator reuses the old plan and runs DoR against a missing story, and the 'Story file not found' abort is never reached."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 486,
+   "end_line": 486,
+   "message": "The final ordering puts every RED task first, then every GREEN task. That conflicts with the implicit 'domain before application' dependencies and with per-cycle Red-Green-Refactor. An application-layer RED test is ordered ahead of the domain GREEN tasks, but \u00a73.4 says application tasks depend on domain tasks. The phase ordering and the DAG disagree, so TASK-NNN numbering doesn't match execution order, and all tests are written before any implementation instead of one cycle per scenario."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 730,
+   "end_line": 730,
+   "message": "Conditional checks 11 and 12 look for a compliance assessment in the Security agent's output and contract-test scenarios in the QA agent's output, but neither prompt asks for them. In a project with compliance != none or contract_tests == true, the Security prompt only says to read the compliance KP and the QA prompt never mentions contract tests. The outputs usually lack these sections, so checks 11 and 12 fail and the story is NOT_READY because of prompt gaps, not story gaps."
+  },
+  {
+   "source": "cc-review",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/references/planning-guide.md",
+   "start_line": 68,
+   "end_line": 68,
+   "message": "The consolidation rules, DoR checks and ordering are copied between SKILL.md and planning-guide.md, and the two copies already disagree. The guide's Rule 2 adds 'verification task depends on augmented task' and its Rule 5 says PO amendments go into Phase 4.5. SKILL.md says PO amendments are applied to the story's AC section, and 4.5 only touches Section 8. Two sources of truth will keep drifting. SKILL.md should reference the guide instead of restating it."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 177,
+  "cost_usd": 0.9157736,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "high",
+  "fallback_file": 0
+ }
+}

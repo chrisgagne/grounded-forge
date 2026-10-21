@@ -1,0 +1,56 @@
+{
+ "pr": {
+  "repo": "https://github.com/Waferguard/waferguard-ml",
+  "pr_number": 17,
+  "base": "56411efab470a71e9ef342bc1e10fab767751de5",
+  "head": "62d4f66fbeaef3dd84578b7cd547f37d43086a26"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 257,
+   "end_line": 257,
+   "message": "Replace calls to missing financial-library APIs. The new library defines neither `load_artifacts` nor `run_inference`. The first missing call is caught and incorrectly treated as absent artifacts; this inference call then raises `AttributeError` even when the dataset and models are available. Implement loading and inference outside the decoupled financial library, or call an existing implementation, so the notebook can generate reports."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 169,
+   "end_line": 173,
+   "message": "Resolve the checkout root before importing the package. On another developer's machine, the hard-coded checkout path points to nonexistent dataset and model locations. Additionally, when the kernel starts in `wafer_images`, the preceding package import fails before the `sys.path` adjustment can run. Discover the actual repository root and add it to the import path before importing `financial_impact`."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 291,
+   "end_line": 293,
+   "message": "Reconstruct binary labels from the saved pattern mapping. For artifacts produced by `wafer_images/model.ipynb`, `id_to_binary` is not saved; the exporter saves `pattern_to_id` instead. Consequently, this defaults to an empty mapping, and `decode_labels` converts every prediction to `00000000`, producing a falsely defect-free, zero-loss report once artifact loading and inference work. Reverse the saved `pattern_to_id` mapping when `id_to_binary` is absent."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "financial_impact/financial.py",
+   "start_line": 235,
+   "end_line": 240,
+   "message": "Apply the supplied financial parameter mapping. When callers provide `financial_params`, their values are silently ignored because `get_params` always reads the global `FINANCIAL_PARAMS`. Custom repair costs, yield assumptions, and priorities therefore have no effect on the resulting report. Pass the selected mapping through both direct lookups and multi-defect aggregation."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "financial_impact/financial.py",
+   "start_line": 291,
+   "end_line": 291,
+   "message": "Weight batch confidence by each pattern's wafer count. For batches with unequal pattern counts, averaging the per-pattern averages gives each pattern equal weight rather than each wafer. For example, 99 wafers at 0.99 confidence and one at 0.50 produce a reported batch confidence of 0.745 instead of 0.9851. Weight the pattern averages by `count` when building the summary."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "financial_impact/financial.py",
+   "start_line": 273,
+   "end_line": 273,
+   "message": "Handle an empty batch before sorting financial rows. Passing an empty batch, including the result of `build_batch_df([], ...)`, leaves `rows` empty, so the constructed DataFrame has no `priority_score` column and this sort raises `KeyError`. The subsequent empty-frame summary guards are never reached. Preserve the output schema for empty results or return an empty report and zero-valued summary before sorting."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 85000
+ }
+}

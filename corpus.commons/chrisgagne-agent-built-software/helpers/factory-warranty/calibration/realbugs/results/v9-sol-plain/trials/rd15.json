@@ -1,0 +1,20 @@
+{
+ "id": "rd15",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "The unquoted heredoc preserves the backslashes before these double quotes, generating `command -v \\\"jq\\\"` for the first manifest entry. The container shell therefore searches for a command whose name includes literal quote characters, rather than `jq`. Every verification run fails with `missing_binary:jq` before reaching Gemini, even on a healthy deployment; sandbox verification is affected too. Remove the backslashes around the binary's double quotes in the heredoc."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 20,
+  "reasoning_effort": "none",
+  "tokens": 19671
+ }
+}

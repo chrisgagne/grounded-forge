@@ -1,0 +1,20 @@
+{
+ "id": "rd15",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "The unquoted heredoc preserves \\\" as literal backslash-quote characters, so the generated probe runs `command -v \\\"jq\\\"`, looking for a binary whose name includes quotes. This returns nothing even when jq is installed, causing every GCE verification to fail with `missing_binary:jq` before reaching gemini. Remove the backslashes around `${binary}` while retaining the escaped command substitution."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 51,
+  "reasoning_effort": "high",
+  "tokens": 36653
+ }
+}

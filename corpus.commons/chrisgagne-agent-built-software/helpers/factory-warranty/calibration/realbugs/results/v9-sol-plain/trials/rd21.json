@@ -1,0 +1,44 @@
+{
+ "id": "rd21",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 27,
+   "message": "The replacement Deployment drops the Helm template's envFrom reference to ms-secret-vault. The mounted configuration contains no database password, so the agent loses its injected credentials and cannot authenticate to its dependencies. Preserve the secret injection when moving the workload."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "app-of-apps.yaml",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "The new Application tracks a feature branch while the other repository Applications track HEAD. After merging, changes to agent/ on the default branch will never reach this workload, and deleting the feature branch will break manifest generation. Track the deployment branch consistently."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 21,
+   "end_line": 25,
+   "message": "The migration removes both health probes previously configured at /ai-secure-agent-ms/v1/ping. Kubernetes will now send traffic as soon as the container starts and will not restart it if the HTTP server hangs while the process remains alive. Restore readiness and liveness checks."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 21,
+   "message": "The replacement container omits the previous CPU and memory requests and limits. This removes the scheduler's capacity reservation and the agent's resource bounds, allowing it to consume node resources beyond its former 200m CPU and 345Mi memory limits. Preserve the resource configuration during the move."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 47,
+  "reasoning_effort": "none",
+  "tokens": 31976
+ }
+}

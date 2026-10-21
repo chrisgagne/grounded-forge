@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "The guard finds the branch from the hook process's cwd, which is the orchestrator/lead session. It never looks at the branch of the implementer being shut down. The lead runs on `main` (or a detached HEAD) while `implementer-1` works on `feat/x` in a worktree. The lead sends a shutdown_request to implementer-1. `symbolic-ref` returns `main` (or fails on detached HEAD), so the hook exits 0 and the shutdown goes through with no review. In the normal multi-agent worktree setup the guard never blocks anything. When the lead is on some unrelated feature branch, it instead blocks or allows based on that branch's sidecars."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 97,
+   "end_line": 97,
+   "message": "Review evidence is looked up in `process.cwd()/.dev-team/.reviews`, the lead's checkout. Sidecars for a worktree-isolated implementer's branch may be written to a different directory. Reviewers write sidecars inside the implementer's worktree (`.claude/worktrees/.../.dev-team/.reviews`). The lead's directory has none, so the guard blocks even after the review is complete and pushes users toward routinely using --force-shutdown."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 101,
+   "end_line": 101,
+   "message": "The branch match uses an unanchored `f.includes(sanitizedBranch)`, so a sidecar from a different branch whose name contains this one counts as evidence. Branch `feat-1` has no review, but `.reviews/` holds `knuth-feat-12.json` from branch `feat-12`. `includes('feat-1')` is true, so the implementer for `feat-1` is shut down before review. The same applies to `fix` versus `fix-login` and similar names."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 101,
+   "end_line": 101,
+   "message": "Shutdown is allowed once any .json sidecar exists for the branch. That doesn't show the review findings were routed and acknowledged, which is the condition the hook says it enforces. A single reviewer writes its sidecar with open DEFECT findings while other reviewers are still running. The lead immediately shuts the implementer down and the guard allows it, so nobody is left to address the findings. This is the premature-shutdown case from #795."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 49000
+ }
+}

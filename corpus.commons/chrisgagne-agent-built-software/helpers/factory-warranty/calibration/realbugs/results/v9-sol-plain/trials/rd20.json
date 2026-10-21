@@ -1,0 +1,52 @@
+{
+ "id": "rd20",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/commands/install.ts",
+   "start_line": 77,
+   "end_line": 77,
+   "message": "The remote manifest's name is only validated as a string, so a name containing '../' can move tmpDir outside the temporary directory. safePath then trusts that escaped directory, allowing downloaded content to overwrite arbitrary writable files. Validate the name as a single directory component and enforce containment under the temporary root."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/commands/install.ts",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "A string prefix does not establish directory containment: with baseDir '/tmp/spm/demo', '../demo-other/file.md' passes this check. Manifest file paths can contain traversal segments, so downloads can escape into sibling directories and overwrite their files. Check containment using path.relative or a prefix that includes the directory separator."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/core/resolver/parse-identifier.ts",
+   "start_line": 5,
+   "end_line": 8,
+   "message": "The parser discards the branch from GitHub URLs. resolveIdentifier subsequently selects the repository's default branch, so installing a URL containing '/tree/develop/' downloads the default-branch version instead, or fails if the manifest exists only on develop. Preserve the URL ref and use it throughout resolution and downloading."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/commands/install.ts",
+   "start_line": 29,
+   "end_line": 30,
+   "message": "Every entry uses the manifest repository's ref, including cross-repository sources. If the manifest repository defaults to 'main' and a referenced repository defaults to 'master', valid files fail to download; if both refs exist, the wrong version may be downloaded. Resolve the appropriate ref for each referenced repository."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/commands/install.ts",
+   "start_line": 84,
+   "end_line": 86,
+   "message": "Destination paths omit the source repository and skill identity. Two skills referencing different repositories with the same path, such as 'skills/git/SKILL.md', therefore write concurrently to the same file. Installation reports success while losing one skill's content. Give distinct sources distinct destinations or detect and reject collisions before writing."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 38,
+  "reasoning_effort": "none",
+  "tokens": 21313
+ }
+}

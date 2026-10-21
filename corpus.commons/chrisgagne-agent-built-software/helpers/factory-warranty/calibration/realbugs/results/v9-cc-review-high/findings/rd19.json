@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v5-cc-review-high",
+ "findings": [
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 176,
+   "end_line": 176,
+   "message": "The \"*\" (keep) case only looks up existingCred.Env[u] under the new URL key, but the UI's rename flow moves \"*\" from oldUrl to the new URL, so the stored token is never carried over despite the comment claiming it is. Admin edits source https://github.com/org/private to https://github.com/org/private/dev. The UI sends sourceURLCredentials{\"\u2026/dev\":\"*\"}. existingCred.Env has no \"\u2026/dev\" key, so newTokens is empty and the credential is deleted. The next sync fails with an auth error and the PAT is gone."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 126,
+   "end_line": 126,
+   "message": "Scheme-less SourceURLs get rewritten to https://\u2026, but the keys in SourceURLCredentials are left as typed, so they never match activeURLs and the submitted token is thrown away. User adds source \"gitlab.com/org/repo\" with a PAT. SourceURLs becomes \"https://gitlab.com/org/repo\" while the credential key stays \"gitlab.com/org/repo\". That key is skipped as inactive, the token is never stored, and the request still returns success."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 59,
+   "end_line": 59,
+   "message": "isGitRepoURL now treats every gitlab.com URL as a git repo, so raw-file URLs on gitlab.com that used to be fetched over HTTP now go through parseGitURL and fail. An existing source https://gitlab.com/org/repo/-/raw/main/catalog.yaml used to work as a raw file. Now parseGitURL reads the branch as \"-/raw/main/catalog.yaml\". validateBranchName rejects it because it starts with \"-\", so every sync of that source fails."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 44,
+   "end_line": 44,
+   "message": "The old code sent GITHUB_AUTH_TOKEN for every github.com catalog clone and API size check. It is now only used when the URL exactly equals the hard-coded default catalog URL, and existing configs are not migrated. After upgrade, a deployment that relied on GITHUB_AUTH_TOKEN for a private GitHub catalog (or for rate limiting) starts failing clones with auth or 403/rate-limit errors until an admin adds a per-URL token. URL variants of the default catalog (trailing slash, /main branch suffix, .git) also lose the fallback."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 195,
+   "end_line": 195,
+   "message": "The catalog spec is saved before the credential is created or deleted, so a credential-store failure leaves new URLs saved without their tokens, and a sync can run between the two writes without the token. CreateCredential fails because the credential store is briefly unavailable. The API returns 500, but catalog.Spec.SourceURLs already holds the new private URL. Its token is never stored, the next sync records an auth error, and the user may assume the save didn't happen."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/controller/handlers/mcpcatalog/git_fs.go",
+   "start_line": 281,
+   "end_line": 281,
+   "message": "sizeLimitedFS wraps both the .git storage and the worktree, so pack bytes and checked-out file bytes add up against one 100 MB budget. That is far stricter than the API pre-check, which only looks at packed repo size. A repo with a 55 MB pack and about 60 MB checkout passes the GitHub API size check (55 MB < 100 MB). The clone then fails with \"repository is too large\" once the combined writes pass 100 MB, so a valid catalog can never sync."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+   "start_line": 118,
+   "end_line": 118,
+   "message": "revealCatalogCredential fetches the same catalog-wide credential on every iteration of the source URL loop. Any non-not-found error is only logged, not added to SyncErrors as its doc comment says. A catalog with N sources does N identical credential-store reveals per sync. If the store errors, every private source fails with a misleading auth/clone error in SyncErrors and the real cause only appears in server logs. Revealing once before the loop and recording the error per URL fixes both."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "List and Get now decrypt the full secret token map for every catalog just to output \"*\" markers, and any credential-store error fails the whole List or Get request. A transient credential-store error makes GET /mcp-catalogs return 500, so the catalog UI breaks even for users who never touch tokens. Each List also does one secret reveal per catalog; ListCredentials (no reveal) or tolerating errors would avoid both problems."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 185,
+   "end_line": 185,
+   "message": "The \"*\" switch case and the separate \"preserve unmentioned URLs\" loop do the same thing (copy existingCred.Env[u]). Two code paths now encode the keep-existing rule, and the comment on the \"*\" path (\"transferred from a renamed one\") already disagrees with what the code does. A single loop over manifest.SourceURLs that only overrides on \"\" or a new value would be simpler and keep that rule in one place."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 302,
+   "end_line": 302,
+   "message": "readGitCatalog parses the URL again and rebuilds repoPath by trimming prefixes off cloneURL, even though parseGitURL already computed repoPath. readGitCatalog's doc comment also got merged into parseGitURL's comment block at line 212. The trimming logic duplicates parseGitURL's job and can drift from it, e.g. if cloneURL formatting changes. Returning repoPath from parseGitURL removes the second url.Parse and the string surgery. The misplaced comment leaves readGitCatalog undocumented and parseGitURL's doc contradictory."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 136000
+ }
+}

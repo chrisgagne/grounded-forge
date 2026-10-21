@@ -1,0 +1,52 @@
+{
+ "id": "rd10",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/SentenceStudio.Web/Program.cs",
+   "start_line": 51,
+   "end_line": 54,
+   "message": "Arrr, Captain, Entra mode still permits unauthenticated synchronization. Authentication failures do not terminate requests, and authorization has neither endpoint metadata nor a fallback policy here, so missing, expired, or forged tokens reach CoreSync and can download or modify synchronized data. Enforce authentication and sync.readwrite before this middleware when UseEntraId is enabled; keep anonymous fallback confined to development. See Microsoft's fallback-policy guidance: https://learn.microsoft.com/en-us/aspnet/core/security/authorization/policies."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/SentenceStudio.Api/appsettings.Development.json",
+   "start_line": 15,
+   "end_line": 15,
+   "message": "The API registration specified in #42 uses version 2 access tokens, whose audience is the bare client GUID. Explicitly configuring api://<clientId> overrides Microsoft.Identity.Web's version-aware audience selection and rejects legitimate tokens. The same setting appears in Web configuration and AppHost. Remove the explicit Audience or configure the correct audience consistently. The library documents this distinction in its validator: https://github.com/AzureAD/microsoft-identity-web/blob/3.8.2/src/Microsoft.Identity.Web/Resource/RegisterValidAudience.cs."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 23,
+   "end_line": 29,
+   "message": "JWT inbound claim mapping remains enabled, which translates tid and oid into their Microsoft schema URI claim types. These lookups therefore miss real Entra claims: TenantId becomes null and UserId falls back to sub rather than the intended object ID, affecting bootstrap identity and vocabulary progress ownership. Use GetTenantId()/GetObjectId() or explicitly configure unmapped claims. The test tokens conceal this by supplying additional development claims. Microsoft's helpers support both claim representations: https://github.com/AzureAD/microsoft-identity-web/blob/3.8.2/src/Microsoft.Identity.Web.TokenCache/ClaimsPrincipalExtensions.cs."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/SentenceStudio.AppHost/AppHost.cs",
+   "start_line": 21,
+   "end_line": 21,
+   "message": "AppHost unconditionally injects Auth__UseEntraId=false. Environment configuration overrides appsettings, so enabling Entra authentication in API configuration still leaves Aspire-launched instances using DevAuthHandler and accepting anonymous requests. Pass a configurable value or restrict this override to an explicit development configuration."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "Both new factories reference the API's implicit Program class, but that class is internal and the API exposes neither a public partial declaration nor InternalsVisibleTo for this test assembly. The new test project therefore cannot compile. Expose the entry point before relying on these tests. Microsoft documents this prerequisite here: https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests#basic-tests-with-the-default-webapplicationfactory."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 171,
+  "reasoning_effort": "high",
+  "tokens": 93336
+ }
+}

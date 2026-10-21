@@ -1,0 +1,52 @@
+{
+ "id": "rd16",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 26,
+   "end_line": 36,
+   "message": "Validate the complete request before accessing its fields. Minimal API validation is not registered, so SendMailRequest's annotations are ineffective: null To or null recipient elements cause HTTP 500, while empty subjects, oversized bodies, and invalid content types reach the sending service. Add explicit validation or register the validation infrastructure and reject malformed requests with HTTP 400."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 35,
+   "end_line": 37,
+   "message": "Switching from Markdown to rich text inserts marked's unsanitized output directly into the live DOM. Markdown permits raw HTML, so pasted content containing an iframe with executable srcdoc can run scripts in the application origin and access authentication tokens. Sanitize before DOM insertion and import the result through Quill's content API; server-side sanitization during sending happens too late."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 74,
+   "end_line": 74,
+   "message": "The mailbox form defaults to SMTP port 587 with TLS enabled, but this boolean overload interprets true as implicit TLS. Standard port 587 servers require STARTTLS after the SMTP greeting, so the default configuration fails its handshake and cannot send. Select the appropriate SecureSocketOptions for STARTTLS versus implicit TLS. See [MailKit's overload documentation](https://mimekit.net/docs/html/M_MailKit_MailService_ConnectAsync_3.htm)."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 104,
+   "end_line": 106,
+   "message": "The Sent-folder fallback never runs on servers without SPECIAL-USE or XLIST: GetFolder(SpecialFolder.Sent) throws NotSupportedException rather than returning null. The outer catch then silently skips saving the sent message, even when a normal Sent folder exists. Check capabilities or catch this exception before performing the name-based lookup. See [MailKit's documented exception](https://mimekit.net/docs/html/M_MailKit_Net_Imap_ImapClient_GetFolder_1.htm)."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 30,
+   "end_line": 32,
+   "message": "Exporting root.innerHTML sends Quill's internal editor markup rather than portable email HTML. Quill 2 represents bullet lists as OL elements with data-list attributes and relies on its stylesheet for their appearance; recipients therefore see numbered lists, and switching to Markdown also converts bullets incorrectly. Export semantic HTML and convert stylesheet-dependent formatting to email-compatible markup. The internal representation is visible in [Quill's list implementation](https://raw.githubusercontent.com/slab/quill/v2.0.3/packages/quill/src/formats/list.ts)."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 63,
+  "reasoning_effort": "none",
+  "tokens": 40943
+ }
+}

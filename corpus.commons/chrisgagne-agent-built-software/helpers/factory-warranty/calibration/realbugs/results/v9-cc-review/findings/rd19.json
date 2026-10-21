@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 179,
+   "end_line": 179,
+   "message": "The \"*\" (keep) branch only looks up existingCred.Env[u] using the new URL. The UI renames the credential key from oldUrl to newUrl with value \"*\" to request a transfer, but the backend never looks up the old URL's token, so the token is silently dropped. An admin edits the source https://gitlab.com/org/repo (token stored) to https://gitlab.com/org/repo/dev and leaves the token field empty. The UI sends {\".../repo/dev\": \"*\"}. existingCred.Env has no \".../repo/dev\" key, and the old URL is no longer active, so newTokens is empty and the credential is deleted. The next sync of the private repo fails with an auth error."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 126,
+   "end_line": 126,
+   "message": "Update rewrites scheme-less SourceURLs to https://..., but the SourceURLCredentials keys are not normalized. activeURLs then no longer contains the client's key, so the newly entered token is skipped by `if !active { continue }`. In the dialog an admin enters \"github.com/acme/private-catalog\" with a PAT. SourceURLs becomes [\"https://github.com/acme/private-catalog\"] while the credential key stays \"github.com/acme/private-catalog\". The token is discarded without any error, and the sync fails because the repo is private."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 59,
+   "end_line": 59,
+   "message": "isGitRepoURL now treats every gitlab.com URL as a git repo. Raw-file catalog URLs that used to be fetched over HTTP are now sent to parseGitURL, which takes the trailing path as a branch name. An existing source https://gitlab.com/org/repo/-/raw/main/catalog.yaml now produces the branch \"-/raw/main/catalog.yaml\". validateBranchName rejects it because of the leading \"-\", so a catalog that used to sync now fails every time."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "pkg/controller/handlers/mcpcatalog/git_fs.go",
+   "start_line": 53,
+   "end_line": 53,
+   "message": "sizeLimitedFS is shared by the .git storer (chrooted) and the worktree, so the 100 MB budget is charged for both the packfile and the checked-out files. A repository whose real size is well under 100 MB can still fail. A repo with a 55 MB packfile that expands to 50 MB of checked-out files writes about 105 MB in total. The clone aborts with \"repository is too large (limit: 100 MB)\", even though GitHub reports the repo size as 55 MB, which is under the limit."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "resolveToken only falls back to GITHUB_AUTH_TOKEN when the URL exactly matches the hard-coded default catalog URL. Existing private GitHub catalogs that relied on the env token, and any catalog URL with a branch suffix or a custom default path, now clone and call the API without authentication. A deployment configured GITHUB_AUTH_TOKEN to sync https://github.com/acme/private-catalog. After upgrading, the size check gets a 404 or rate-limit 403 from the unauthenticated GitHub API and the sync fails, with no migration path other than re-entering a per-URL token."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 67000
+ }
+}

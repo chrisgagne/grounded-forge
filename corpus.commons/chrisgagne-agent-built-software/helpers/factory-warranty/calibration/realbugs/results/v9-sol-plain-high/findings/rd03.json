@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/EdV4H/usketch",
+  "pr_number": 534,
+  "base": "ff729b7dce02efaf7d1054780536289f86e8a5e7",
+  "head": "719aa8340584e714552d132a9ec6971582673a8b"
+ },
+ "agent": "v5-sol-plain-high",
+ "findings": [
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 34,
+   "message": "This transform only changes the deprecated ShapeLayer, which the web app does not render. The app registers createDomRendererPlugin(), whose separate ShapeWrapper in packages/dom-renderer/src/dom-shape-layer.tsx still ignores rotation. Consequently, text, images, sticky notes, and other DOM shapes remain visually unrotated while their new hit tests use rotated coordinates. Apply rotation to the active DOM renderer."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "plugins/usketch-plugin-shape-basic/src/plugin.tsx",
+   "start_line": 46,
+   "end_line": 53,
+   "message": "These hit tests now rotate coordinates, but the enabled GPU renderer still claims rectangles, ellipses, and lines and draws them without rotation. Its SDF shader ignores primitive.rotation, and line primitives contain unrotated vertices. On WebGPU clients, visible portions therefore become unclickable and invisible portions become selectable. Implement GPU rotation or route rotated shapes through a rotation-capable DOM renderer."
+  },
+  {
+   "producer": "v5-sol-plain-high",
+   "file": "plugins/usketch-plugin-shape-text/src/plugin.tsx",
+   "start_line": 270,
+   "end_line": 270,
+   "message": "Only the registered hit test is wrapped; the double-click handler at line 249 still calls the raw hitTest. The sticky plugin has the same discrepancy at line 448. For a 200\u00d740 shape rotated 90 degrees, point (100,100) passes the registered selection test but fails editing detection, so double-clicking the rotated area cannot enter edit mode. Reuse the rotation-aware hit test in both editing handlers."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 101000
+ }
+}

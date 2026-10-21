@@ -1,0 +1,121 @@
+{
+ "id": "rd03",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "The rotate() transform goes into canvas-engine's ShapeLayer, but the app never renders it. apps/web renders shapes through createDomRendererPlugin \u2192 DomShapeLayer (packages/dom-renderer/src/dom-shape-layer.tsx), which has no rotation, so rotated shapes still draw unrotated while hit tests and the spatial index now treat them as rotated. Set rotation=45 on a 200\u00d720 rectangle (the debug HUD can edit it). It still draws as a flat horizontal bar. withRotation(aabbHitTest) un-rotates the click point, so clicks on the visible ends of the bar miss, and clicks on empty canvas along the 45\u00b0 diagonal select it. The only rotation render change is in a component that isn't mounted, which is also why nothing caught it."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 125,
+   "end_line": 125,
+   "message": "trackUpdate now persists partitionMeta right away when it's null. webSocketMessage can run without loadFromStorage (after hibernation, see the board-room finding), and in that case the stored partition_meta gets overwritten with a new {partitions:[currentQuarter]}. A board has partition_meta listing shapes:2026-Q2 and shapes:2026-Q3. The DO hibernates, then a client sends an update. The rebuilt partition manager has partitionMeta=null, so trackUpdate builds {partitions:['shapes:2026-Q4']} and `void savePartitionMeta()` writes it. The Q2/Q3 entries are gone, and loadFromStorage never loads those partitions again, so MSG_PARTITION_REQUEST for them returns nothing. Before this diff, trackUpdate never persisted meta."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/board-room.ts",
+   "start_line": 118,
+   "end_line": 118,
+   "message": "webSocketMessage never awaits yjsSync.loadUpdates() or partitions.loadFromStorage(). With the Hibernation API (ctx.acceptWebSocket), a woken DO gets webSocketMessage without fetch, so its buffers start empty. The diff makes loads safe to call concurrently but leaves this path unloaded. The DO is evicted while sockets stay open. The next MSG_YJS_UPDATE goes through applyClientUpdate (doc is null, returns true) and pushUpdate into an empty `updates` array. Five seconds later scheduleSave writes `yjs_updates` with only the post-wake updates, which wipes the board's persisted history. A client joining afterwards gets an empty MSG_SYNC_STEP1 reply."
+  },
+  {
+   "source": "cc-review",
+   "file": "plugins/usketch-plugin-shape-sticky/src/plugin.tsx",
+   "start_line": 448,
+   "end_line": 448,
+   "message": "Only the registered hitTest is wrapped with withRotation. The double-click-to-edit detection in sticky (line 448) and text (plugins/usketch-plugin-shape-text/src/plugin.tsx:249) still calls the raw module-level hitTest, which ignores rotation. Take a sticky rotated 45\u00b0. The select tool hits it in the rotated region, but the canvas:pointerdown handler tests the unrotated AABB. Double-clicking the rotated corners selects the sticky but never starts editing. Double-clicking empty space inside the unrotated AABB sends POINTER_DOWN for that sticky and can start editing a shape the user didn't click."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/gpu-renderer/src/shaders/rect.ts",
+   "start_line": 15,
+   "end_line": 15,
+   "message": "Rectangle, rounded-rect and ellipse shapes claimed by the GPU renderer draw unrotated: rect-pipeline writes rotation into params.w but the shader never reads it. GpuShapeLayer's hover check also uses a raw AABB. Their hit tests now un-rotate the point (withRotation), so on the GPU path visuals and hover disagree with selection. With WebGPU available, a rectangle with rotation=30 draws axis-aligned. Hover highlights follow the unrotated box, but clicks select according to the rotated box, so hover, the visual and selection all disagree."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "start_line": 107,
+   "end_line": 107,
+   "message": "Rotation support is bolted onto each plugin's hitTest registration, while the store indexes rotated AABBs for every shape type. Freedraw, frame, island, group, connector, counter, board-portal, community-chat and community-region aren't wrapped, and getBounds (used by marquee, selection overlay and resize) stays unrotated. A rotated freedraw or frame shape gets a rotated AABB in the spatial index (board-store shapeToBounds) but an unrotated hit test and marquee bounds, so behaviour differs by shape type. Every new plugin has to remember withRotation. Applying the un-rotation once in the caller (findShapeAtPoint/findShapesInRect) or in ShapeRegistry.register would cover every type and remove the per-plugin special cases."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 100,
+   "end_line": 100,
+   "message": "applyClientUpdate only validates when `doc` exists. doc is created only by AI, thumbnail or snapshot requests and is destroyed when the last socket closes. In the usual case it returns true without checking, so the new reject path doesn't stop corrupt updates from being buffered, persisted and broadcast. A room with only WebSocket traffic has no doc, and a malformed MSG_YJS_UPDATE is pushed, saved to `yjs_updates`, and relayed to peers. The same payload is rejected only if a thumbnail request happened to build the doc first, so validation depends on unrelated request history."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/board-room.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "When applyClientUpdate returns false, the handler just breaks. The sender isn't told and keeps the change locally. Y.applyUpdate can also throw after integrating structs (for example, a malformed delete set), leaving the server doc with content that never reaches the update buffer. An update throws while its delete set is read after its structs were integrated. The server Y.Doc now holds the insert, but `updates` and the peers don't. Snapshots and thumbnails show the content, a rebuild after destroyDoc loses it, and the sender's later dependent updates stay pending on every other replica."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "saveScheduled is now cleared in `finally`, after `await storage.put`, not before the slice. Updates pushed while the put is in flight call scheduleSave, see saveScheduled===true and are never scheduled. partition-manager.ts:56 has the same pattern. The timer slices `updates` and awaits put. Meanwhile the last edit of a session arrives, and its scheduleSave returns early. finally then clears the flag, but no timer is pending, so the edit stays unpersisted until another update arrives (possibly never before eviction). Input gates may narrow this window. A failed put also isn't retried."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "Pre-existing, in a rewritten line. Only the last 500 incremental Yjs updates are persisted (and pushUpdate also caps the buffer), with no compaction via encodeStateAsUpdate or mergeUpdates. Once a board passes 500 updates, its early content is thrown away permanently. A board gets 600 edits. Shapes created by updates 1\u2013100 are dropped from `yjs_updates`. After all clients leave and someone reloads, those shapes are missing, and later updates that reference them can't integrate."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 146,
+   "end_line": 146,
+   "message": "JSON.parse output is assigned to partitionMeta without checking its shape. Valid JSON without a `partitions` array makes the for-of throw outside the try, so loadPromise rejects on every fetch and the board can't be reached. The '\u7834\u640d\u30c7\u30fc\u30bf\u306f\u7121\u8996' (\"ignore corrupt data\") guarantee doesn't hold. partition_meta is stored as \"{}\". `for (const name of partitionMeta.partitions)` throws a TypeError. loadPromise is reset and rethrows, so every fetch() to the room fails, and webSocketMessage\u2192trackUpdate also throws on `partitionMeta.partitions.includes`."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/shared/src/__tests__/rotation.test.ts",
+   "start_line": 205,
+   "end_line": 205,
+   "message": "The only non-zero withRotation case rotates a 100\u00d7100 square by 90\u00b0, which maps the square onto itself, so the test passes even if withRotation ignores rotation or rotates the wrong way. If withRotation returned hitTestFn(data, point) unconditionally, or used +angle instead of -angle, every withRotation test would still pass. A 45\u00b0 square or a non-square rectangle with an asymmetric probe point would catch it."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/shared/src/utils/rotation.ts",
+   "start_line": 54,
+   "end_line": 54,
+   "message": "getRotatedAABB builds 4 corner objects, 4 rotated objects and a center, and calls Math.cos/Math.sin 4 times through rotatePoint. It runs in shapeToBounds on every addShape/updateShape, a hot path during drag and resize. Dragging a multi-selection of rotated shapes at 60 Hz allocates about 9 objects and makes 8 trig calls per shape per frame. The closed form w'=|w\u00b7cos|+|h\u00b7sin|, h'=|w\u00b7sin|+|h\u00b7cos| around the unchanged center needs one sin/cos pair and no temporary objects."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 155,
+   "end_line": 155,
+   "message": "loadFromStorage awaits one storage.get per partition in a loop. DurableObjectStorage.get accepts an array of keys and returns a Map in one round trip. fetch() also awaits loadUpdates and loadFromStorage one after the other even though they're independent. A board with 8 quarterly partitions makes 9 serial storage round trips before the first request (WebSocket upgrade included) is served. One storage.get(keys[]) plus Promise.all over the two loaders would cut cold-start latency."
+  },
+  {
+   "source": "cc-review",
+   "file": "packages/store/src/board-store.ts",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "shapeToBounds checks rotation===0 before calling getRotatedAABB, which already returns early on 0. deltaToLocal re-implements rotatePoint(delta, origin, -rad). The deg\u2192rad conversion is written inline three times, and ShapeLayer repeats the same transform/transformOrigin block in both branches. There are several copies of the same rotation math and guards to keep in sync. `return getRotatedAABB(bounds, safeRotation(shape.rotation))`, `deltaToLocal = (d, deg) => unrotatePoint(d, {x:0,y:0}, toRad(deg))`, and a shared rotation-style helper would replace them."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 391,
+  "cost_usd": 1.7253320000000003,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

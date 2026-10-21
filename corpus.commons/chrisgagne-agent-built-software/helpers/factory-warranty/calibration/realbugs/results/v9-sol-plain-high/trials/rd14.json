@@ -1,0 +1,44 @@
+{
+ "id": "rd14",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "Claude Code supplies hook input on stdin ([reference](https://code.claude.com/docs/en/hooks#hook-input-and-output)), but this reads only argv[2]. The installed command supplies no argument, so input becomes {}, the tool-name check exits 0, and every shutdown bypasses the guard. The tests hide this by passing JSON as an argument. Read stdin and test the installed invocation."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 82,
+   "end_line": 93,
+   "message": "This checks the sender's checkout rather than the recipient's implementation branch. In the supported worktree workflow, the team lead can remain on main while implementers work on feature branches; every shutdown then passes this early return without review evidence. On another feature branch, it checks unrelated evidence instead. Resolve the recipient's worktree, branch, and review directory."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 102,
+   "end_line": 103,
+   "message": "Filename substring matching does not recognize the repository's review-sidecar contract: ADR-029 and the commit gate use <agent>--<content-hash>.json. Valid reviews therefore remain blocked, even when their JSON branch field matches. Conversely, a filename for feat/123-test-extra satisfies feat/123-test regardless of its contents. Read and validate sidecars against the target branch/content instead of trusting filename substrings."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 108,
+   "end_line": 110,
+   "message": "The first matching sidecar immediately permits shutdown, even when it contains unresolved DEFECT findings or other required reviewers are still running. Reviewers write evidence before findings are routed and acknowledged, so this still allows the premature termination prohibited by the task skill. Require evidence of review completion and finding acknowledgment before allowing shutdown."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 160,
+  "reasoning_effort": "high",
+  "tokens": 77984
+ }
+}

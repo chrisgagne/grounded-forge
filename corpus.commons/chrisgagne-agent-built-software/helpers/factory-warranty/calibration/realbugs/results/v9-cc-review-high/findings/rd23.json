@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/NIAEFEUP/enei",
+  "pr_number": 194,
+  "base": "a74461de5337f3618effdcdb6f115dccd2f94a15",
+  "head": "0442935c8fe466a2f1115b76240c9ad9df2be1e5"
+ },
+ "agent": "v5-cc-review-high",
+ "findings": [
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 105,
+   "end_line": 105,
+   "message": "`isRegistered` is async but isn't awaited, so `!promise` is always false and the 'not registered' guard never fires. A staff member scans the QR code of a participant who never registered for the event. The check passes because a Promise is truthy, and the participant is checked in."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "`User.findBy` can return null when a ParticipantProfile has no linked user, but the code then uses `user!.id` in isCheckedIn and checkin. A scanned slug matches an orphaned participant profile. `user` is null and `user.id` throws a TypeError, giving a 500 instead of a flash error."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/inertia/components/events/event_check_in_dialog.tsx",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "The component returns early when `!isOpen` and only then calls `useTuyau` and `useForm`, which breaks React's Rules of Hooks. When `isOpen` goes from false to true, the component renders more hooks than on the previous render. React throws 'Rendered more hooks than during the previous render' and the dialog crashes."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/inertia/components/credentials/scanner.tsx",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "With `allowMultiple` and `scanDelay={0}`, the scanner calls onScan on every frame, so each QR code sends many concurrent check-in POSTs. Several requests pass `isCheckedIn` concurrently and then call attach. The unique(event_id,user_id) constraint fails, causing 500s and error toasts. Later requests show 'Participante j\u00e1 checked-in' even though the check-in succeeded."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/app/controllers/events_controller.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "Rejections such as 'not found', 'not registered' and 'already checked in' flash errors and redirect back, but with Inertia the client may show the success toast and close the dialog when errors aren't exposed under the expected key. `session.flashErrors({message})` relies on Inertia sharing `errors.message`. If errors aren't shared as props, `onSuccess` runs and staff see 'Check-in successful!' for a failed check-in."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/inertia/pages/events/show/page.tsx",
+   "start_line": 312,
+   "end_line": 312,
+   "message": "The staff QR button is rendered inside the `!isRegistered` block, so staff who are registered for the event never see the scanner trigger. A staff account that is also registered for the event opens the event page. The register block is hidden, so the QR icon is hidden too and they can't check anyone in."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/app/models/user.ts",
+   "start_line": 103,
+   "end_line": 103,
+   "message": "Moving the `isStaff` check first makes any user with a staff profile report role 'staff', even if they also have a participant or promoter profile. A participant who becomes staff now has role 'staff'. Role-gated UI such as the promoter-only page.tsx and participant flows changes for them, and UserPolicy grants staff permissions based on role alone."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/database/seeders/mock_staff_profile_seeder.ts",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "New seeders run in every environment. One turns user id 1 into staff (and fails if that user doesn't exist). 8_staff_seeder inserts Department id 99 and a fixed email, so it fails on re-run. Running `node ace db:seed` against a production-like DB promotes user 1 to staff. Running it on a fresh DB makes `findOrFail(1)` throw. A second seed run violates the unique constraints on department id and email."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/app/services/event_service.ts",
+   "start_line": 37,
+   "end_line": 37,
+   "message": "`checkin` calls `event.save()` after attaching a pivot row even though the event model wasn't modified, which adds a pointless query. The `load('staffProfile')` added to `show` is also unused now that isStaff uses staffProfileId. Every check-in and every event page view runs an extra DB round-trip that has no effect."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "apps/website/start/routes.ts",
+   "start_line": 201,
+   "end_line": 201,
+   "message": "The check-in route uses `/:slug` under `/events` (where `:id` means the event) and takes the event from an unvalidated body field `eventID`. It also uses ParticipantProfile slug as a stopgap (FIXME) instead of a validator and a `/:id/check-in/:slug` shape. `/events/:slug/check-in` can be confused with `/:id` routes. A missing or garbage `eventID` raises a 404 from findOrFail that the dialog shows as a generic error. The unvalidated input bypasses the codebase's VineJS validation pattern."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 70000
+ }
+}

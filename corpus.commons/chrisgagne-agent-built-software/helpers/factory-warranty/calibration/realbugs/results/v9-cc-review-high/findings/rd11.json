@@ -1,0 +1,77 @@
+{
+ "pr": {
+  "repo": "https://github.com/dotnet/android",
+  "pr_number": 11084,
+  "base": "e67a3fd36ca5e24b0007a170ea77037e4437f9d3",
+  "head": "ac02d09a29b6492b0e1a01b48f5fcb3efa561a6c"
+ },
+ "agent": "v5-cc-review-high",
+ "findings": [
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+   "start_line": 270,
+   "end_line": 270,
+   "message": "NativeAOT.targets is imported (via Microsoft.Android.Sdk.targets) before Xamarin.Android.Common.targets/Resource.Designer.targets, so _AndroidRunNativeCompile's new dependency chain runs _CollectPreTrimmingAssemblies before _AddResourceDesignerToPublishFiles has added the designer dll to ResolvedFileToPublish; nothing in _CollectPreTrimmingAssemblies depends on it explicitly. NativeAOT Release build with a legacy AndroidX/XForms library: the designer lives in $(_OuterIntermediateOutputPath), which is not among the resolver search dirs. FixLegacyResourceDesignerStep.LoadDesigner fails to resolve it and logs only a debug message ('Not using _Microsoft.Android.Resource.Designer'), so no library gets rewritten. ILC then compiles the libraries with their stale compile-time resource IDs, which gives wrong resources or a crash at runtime, and the build reports no error. Fix: add _AddResourceDesignerToPublishFiles to DependsOnTargets of _CollectPreTrimmingAssemblies."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.NativeAOT.targets",
+   "start_line": 270,
+   "end_line": 270,
+   "message": "_AndroidRunNativeCompile now DependsOnTargets=\"_PreTrimmingFixLegacyDesignerUpdateItems\", but that target is defined only in TypeMap.LlvmIr.targets, which Xamarin.Android.Common.targets imports only when _AndroidTypeMapImplementation != 'trimmable'. NativeAOT app with _AndroidTypeMapImplementation=trimmable (a supported setup: TypeMap.Trimmable.NativeAOT.targets exists). LlvmIr.targets is not imported, so MSBuild fails with MSB4057 'The target \"_PreTrimmingFixLegacyDesignerUpdateItems\" does not exist in the project' and every NativeAOT trimmable build breaks."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 278,
+   "end_line": 278,
+   "message": "_PreTrimmingFixLegacyDesignerUpdateItems swaps in any .dll that has a file of the same name in prelink/, not just the assemblies this run produced, and nothing ever deletes old prelink outputs. Build 1: library Foo 1.0 has a legacy designer, so prelink/Foo.dll gets written. The user then upgrades to Foo 2.0, which already uses the designer assembly (or no longer has a Resource class). The task reruns, ProcessAssemblyDesigner returns false, and prelink/Foo.dll is not overwritten. Because Exists() still matches, ResolvedFileToPublish is pointed at the old Foo 1.0 binary and the app ships the outdated library, which can fail with MissingMethodException or similar. Fix: clear OutputDirectory at the start of the task, and swap only items listed in a persisted list of ModifiedAssemblies."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 262,
+   "end_line": 262,
+   "message": "Prelink files are added to FileWrites only when _PreTrimmingFixLegacyDesigner actually executes (task Output items are not inferred for skipped targets), and the target's Outputs is only a stamp that does not track the prelink files. On an incremental build where the target is up to date, FileWrites does not contain prelink/*.dll, so IncrementalClean (or any partial clean) can delete them while the stamp survives. On the next build the target is still skipped because the stamp is newer than the inputs. UpdateItems then finds no prelink files and hands the unrewritten legacy libraries to ILLink, so the libraries keep stale resource IDs at runtime. The same happens if a user deletes obj/.../prelink by hand."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Tasks/PreTrimmingFixLegacyDesigner.cs",
+   "start_line": 75,
+   "end_line": 75,
+   "message": "All assemblies share one resolver. GetFixupKey skips an ldsfld whenever the referenced field still resolves, so library B's references to library A's Resource fields are rewritten only if A was processed (and cleared) before B. The order comes from ResolvedFileToPublish order. Library B reads A.Resource.Layout.foo and is processed before A. The field still resolves, so B keeps its ldsfld. A is then rewritten and ClearDesignerClass(completely:true) removes the field from prelink/A.dll. ILLink and the runtime then see B pointing at a field that no longer exists, causing MissingFieldException or a trimming warning. Now that the rewrite runs before ILLink, this shows up as a trimming failure instead of being hidden by preservation."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 276,
+   "end_line": 276,
+   "message": "_PreTrimmingSwappableItem matches every ResolvedFileToPublish .dll by %(Filename) alone, with no PostprocessAssembly/RelativePath filter, so unrelated items that share a name with a prelink output are replaced too. Satellite or culture-specific items, or a duplicate-named dll published under a different RelativePath (for example Foo.dll in a subfolder), are replaced by prelink/Foo.dll. Metadata is copied from the original item, so the wrong binary is published at that path. Restricting the swap to %(PostprocessAssembly)=='true' items, or to the task's ModifiedAssemblies output, avoids this."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 250,
+   "end_line": 250,
+   "message": "Inputs=\"@(_PreTrimmingAssembly)\" includes the main app assembly (and the designer), which change on almost every edit, even though the task always skips the main assembly. Any code change therefore makes the task reload and rewrite every legacy library with Cecil. Every incremental Release build after a one-line app code change re-reads all PostprocessAssembly dlls (with symbols) and rewrites every legacy library and its pdb, which adds seconds to the inner loop for apps with many AndroidX/XForms libraries. Excluding $(TargetName) from Inputs, or using per-assembly Inputs/Outputs with prelink outputs, would avoid this."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/MSBuild/Xamarin/Android/Xamarin.Android.Resource.Designer.targets",
+   "start_line": 230,
+   "end_line": 230,
+   "message": "The PR removes the designer TrimmerRootDescriptor and moves the rewrite before ILLink, but the only test changes are apkdesc size baselines. Nothing checks that legacy library resource accesses are rewritten and still resolve after trimming, or that incremental builds keep the prelink swap. The NativeAOT ordering problem, stale prelink copies, and IncrementalClean deletion described above all produce correctly sized APKs with wrong or missing resource IDs, so the size baselines pass while the app is broken. A build test should inspect a linked legacy library's IL for designer property calls, including a second, incremental build."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/Xamarin.Android.Build.Tasks/Microsoft.Android.Sdk/targets/Microsoft.Android.Sdk.TypeMap.LlvmIr.targets",
+   "start_line": 237,
+   "end_line": 237,
+   "message": "_CollectPreTrimmingAssemblies copies the _PostTrimmingAssembly filter verbatim, and the same PublishTrimmed/AndroidUseDesignerAssembly condition is repeated on three targets that all hook AfterTargets=ComputeResolvedFilesToPublishList, even though the latter two are already reached through DependsOnTargets. Changes to the filter or the condition (for example adding RunILLink, or the trimmable-typemap guard needed above) have to be made in several places, and the redundant AfterTargets hooks make execution order harder to reason about, which is how the NativeAOT ordering bug got in. Keep AfterTargets only on _PreTrimmingFixLegacyDesignerUpdateItems and put the condition in a single property."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 210000
+ }
+}

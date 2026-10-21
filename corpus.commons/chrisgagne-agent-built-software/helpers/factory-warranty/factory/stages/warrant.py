@@ -20,11 +20,26 @@ from factory import legs
 from factory.text import inert
 from factory.ledger import READY_ORDER, WORK_STAGES, canonical, num, sha256_bytes, sha256_file
 from factory.stages import brief, settings_file
-from factory.stages.review import BLOCKING, LOWER_BAR, bar
+from factory.stages.review import BLOCKING, DEFAULT_LEGS, LOWER_BAR, bar
 from factory.stages.triage import RESIDUAL
 
 CITE = re.compile(r"\[(e\d{3,})\]")
 
+
+
+# Which company's model each review leg runs on, for the decision page.
+LEG_MAKER = {"claude": "Anthropic", "claude-plain": "Anthropic", "codex": "OpenAI", "codex-review": "OpenAI"}
+COUNT_WORD = {1: "One", 2: "Two", 3: "Three", 4: "Four"}
+
+
+def reviewers(change) -> str:
+    """The configured reviewers in plain words, e.g. "Two independent AI reviewers (from Anthropic and OpenAI)"."""
+    names = list(change.config["review"].get("legs") or DEFAULT_LEGS)
+    makers = sorted({LEG_MAKER.get(n, n) for n in names})
+    count = COUNT_WORD.get(len(names), str(len(names)))
+    noun = "reviewer" if len(names) == 1 else "reviewers"
+    who = f"from {makers[0]}" if len(makers) == 1 else "from " + ", ".join(makers[:-1]) + f" and {makers[-1]}"
+    return f"{count} independent AI {noun} ({who})"
 
 def filter_cited(text: str, known: set[str]) -> tuple[list[str], list[str]]:
     """Keep lines that cite at least one ledger event and only events that exist; drop the rest."""
@@ -161,7 +176,7 @@ def decision_page(change, classes, gate, tests, findings, accepts, not_ready, op
     if unconfigured:
         out.append(f"- Not checked, because the project has no such command: {', '.join(unconfigured)}.")
     serious = [f for f in findings if f.get("raw_severity", f["severity"]) in ("critical", "high")]
-    out.append(f"- Two independent AI reviewers (one from Anthropic, one from OpenAI) read the change; "
+    out.append(f"- {reviewers(change)} read the change; "
                + ("neither rated anything serious." if not serious else
                   f"a reviewer rated {len(serious)} point(s) serious: {', '.join(f['id'] for f in serious)}."))
     held = [f for f in findings if f["id"] in open_items]

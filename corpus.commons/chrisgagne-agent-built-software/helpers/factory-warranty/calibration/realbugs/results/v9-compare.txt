@@ -1,0 +1,147 @@
+{
+ "arms": {
+  "sol-factory": {
+   "grounded_precision": 0.8681159420289856,
+   "grounded_recall": 0.19840507159555018,
+   "high_found": 20,
+   "pull_requests": 23,
+   "findings_per_pr": 2.96
+  },
+  "sol-own": {
+   "grounded_precision": 0.8492063492063492,
+   "grounded_recall": 0.14694703182415844,
+   "high_found": 22,
+   "pull_requests": 23,
+   "findings_per_pr": 2.17
+  },
+  "opus-factory": {
+   "grounded_precision": 0.871583850931677,
+   "grounded_recall": 0.4508529124674284,
+   "high_found": 28,
+   "pull_requests": 23,
+   "findings_per_pr": 10.39
+  },
+  "opus-plain": {
+   "grounded_precision": 0.8716528640441684,
+   "grounded_recall": 0.49567015027665706,
+   "high_found": 30,
+   "pull_requests": 23,
+   "findings_per_pr": 10.0
+  },
+  "sol-plain": {
+   "grounded_precision": 0.8541125541125542,
+   "grounded_recall": 0.22092039128950883,
+   "high_found": 26,
+   "pull_requests": 23,
+   "findings_per_pr": 3.78,
+   "cost_usd": 0,
+   "codex_tokens": 810303,
+   "failed": 0,
+   "reasoning_effort": {
+    "none": 23
+   }
+  },
+  "sol-plain-high": {
+   "grounded_precision": 0.8597826086956522,
+   "grounded_recall": 0.28353219714800654,
+   "high_found": 30,
+   "pull_requests": 23,
+   "findings_per_pr": 5.39,
+   "cost_usd": 0,
+   "codex_tokens": 1939136,
+   "failed": 0,
+   "reasoning_effort": {
+    "high": 23
+   }
+  },
+  "cc-review": {
+   "grounded_precision": 0.8469696969696969,
+   "grounded_recall": 0.26595269202547084,
+   "high_found": 25,
+   "pull_requests": 23,
+   "findings_per_pr": 4.3,
+   "cost_usd": 8.78,
+   "codex_tokens": 0,
+   "failed": 0,
+   "level": {
+    "None": 0,
+    "low": 10,
+    "medium": 10
+   }
+  },
+  "cc-review-high": {
+   "grounded_precision": 0.8782263630089717,
+   "grounded_recall": 0.46190999130283783,
+   "high_found": 28,
+   "pull_requests": 23,
+   "findings_per_pr": 9.78,
+   "cost_usd": 15.36,
+   "codex_tokens": 0,
+   "failed": 0,
+   "level": {
+    "high": 23
+   }
+  },
+  "cc-review-xhigh": {
+   "grounded_precision": 0.8269323671497585,
+   "grounded_recall": 0.5592201962152713,
+   "high_found": 34,
+   "pull_requests": 23,
+   "findings_per_pr": 14.43,
+   "cost_usd": 38.1,
+   "codex_tokens": 0,
+   "failed": 0,
+   "level": {
+    "xhigh": 23
+   }
+  },
+  "codex-review-high": {
+   "grounded_precision": 0.8982426303854875,
+   "grounded_recall": 0.2214862397282057,
+   "high_found": 27,
+   "pull_requests": 23,
+   "findings_per_pr": 3.48,
+   "cost_usd": 0,
+   "codex_tokens": 0,
+   "failed": 0,
+   "reasoning_effort": {
+    "high": 23
+   }
+  }
+ }
+}
+
+Primary: sol-factory against sol-plain: about the same on these pull requests
+
+Primary: opus-plain against cc-review: opus-plain did better
+
+Primary: opus-plain against cc-review-high: about the same on these pull requests
+
+Primary: opus-plain against cc-review-xhigh: about the same on these pull requests
+
+Primary: codex-review-high against sol-own: codex-review-high did better
+
+Primary: codex-review-high against sol-plain-high: about the same on these pull requests
+
+Primary: codex-review-high against sol-factory: about the same on these pull requests
+
+  sol-factory did better than sol-own
+  opus-factory did better than sol-factory
+  opus-factory did better than sol-own
+  opus-factory did better than sol-plain
+  opus-factory did better than sol-plain-high
+  opus-factory did better than cc-review
+  opus-plain did better than sol-factory
+  opus-plain did better than sol-own
+  opus-plain did better than sol-plain
+  opus-plain did better than sol-plain-high
+  opus-plain did better than cc-review
+  sol-plain did better than sol-own
+  sol-plain-high did better than sol-own
+  sol-plain-high did better than sol-plain
+  cc-review-high did better than sol-factory
+  cc-review-high did better than sol-own
+  cc-review-high did better than sol-plain
+  cc-review-high did better than sol-plain-high
+  cc-review-high did better than cc-review
+  codex-review-high did better than sol-own

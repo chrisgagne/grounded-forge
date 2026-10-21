@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/davidortinau/SentenceStudio",
+  "pr_number": 72,
+  "base": "b488d228ceeea1c29d5d54591a4b5c8ba9790712",
+  "head": "8941b5da55823d738d340cad6a429021318d8211"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "tests/SentenceStudio.Api.Tests/Infrastructure/JwtBearerApiFactory.cs",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "Expose the API entry point to the test assembly. Both new factories reference `Program`, but the API's top-level entry point is internal and has neither a public partial declaration nor `InternalsVisibleTo`. The new test project therefore fails to compile. Expose the entry point or use a public API assembly marker as the factory's type parameter."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/SentenceStudio.Api/appsettings.Development.json",
+   "start_line": 15,
+   "end_line": 15,
+   "message": "Allow the audience emitted by Entra v2 access tokens. When Entra authentication is enabled, v2 access tokens use the API's client GUID as `aud`, not `api://<client GUID>`. Explicitly configuring this URI overrides Microsoft.Identity.Web's version-aware audience handling, so valid v2 tokens receive 401 responses. Remove the explicit audience to use the library defaults, or configure the correct audience; update the duplicate Web and AppHost settings too."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "src/SentenceStudio.Api/Auth/TenantContextMiddleware.cs",
+   "start_line": 24,
+   "end_line": 29,
+   "message": "Read the mapped Entra tenant and object-ID claims. With the registered Bearer handler's default `MapInboundClaims=true`, `tid` and `oid` become URI-named claims. These lookups consequently return no tenant and fall back to the token's `sub` for the user ID, rather than its object ID. Bootstrap returns incorrect identity information, and vocabulary updates use the wrong user key. Use Microsoft.Identity.Web's `GetTenantId()`/`GetObjectId()` helpers before the dev fallbacks, or explicitly disable mapping and handle raw claims consistently. The test tokens' extra dev claims currently mask this failure."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 172000
+ }
+}

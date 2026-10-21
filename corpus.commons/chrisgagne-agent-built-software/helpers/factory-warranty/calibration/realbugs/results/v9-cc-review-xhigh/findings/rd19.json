@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/obot-platform/obot",
+  "pr_number": 6351,
+  "base": "0c683c4c64ebde81021cd229224b2e2b4f3de2c2",
+  "head": "343e5688641d1d989d8535e0276a08a1adc9ede8"
+ },
+ "agent": "v5-cc-review-xhigh",
+ "findings": [
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 178,
+   "end_line": 178,
+   "message": "The \"*\" (keep) branch only looks up existingCred.Env under the new URL, so the UI's rename remap (`{newUrl: '*'}` with oldUrl deleted) never transfers the old URL's token, even though the comment says it handles \"transferred from a renamed one\". An admin has https://github.com/org/private with a token and edits it to https://github.com/org/private/dev while leaving the token field empty. The UI sends `{\".../dev\": \"*\"}`. existingCred.Env[\".../dev\"] doesn't exist, so newTokens is empty. The credential gets deleted and the next sync fails auth. The UI comment says an empty field leaves the credential unchanged. The fix needs an explicit old\u2192new mapping (or index-based keys) in the API."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 170,
+   "end_line": 170,
+   "message": "Update rewrites scheme-less entries in manifest.SourceURLs to https:// but leaves the keys of manifest.SourceURLCredentials as they were, so credentials sent for a scheme-less URL fail the activeURLs check and are silently thrown away. An admin adds `github.com/org/private` with token ghp_x. SourceURLs becomes [\"https://github.com/org/private\"] but the credential key is still \"github.com/org/private\". It isn't in activeURLs, so it is skipped and no credential is stored. The request still returns 200 and the private repo fails to sync with no hint why."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 43,
+   "end_line": 43,
+   "message": "resolveToken compares against the hard-coded defaultCatalogURL constant instead of the configured OBOT_SERVER_DEFAULT_MCPCATALOG_PATH (h.defaultCatalogPath), so a deployment whose default catalog is a different private GitHub repo no longer gets GITHUB_AUTH_TOKEN. An operator sets OBOT_SERVER_DEFAULT_MCPCATALOG_PATH=https://github.com/acme/private-catalog plus GITHUB_AUTH_TOKEN. Before this change, sync used the token. Now resolveToken returns \"\", the GitHub API size check returns 404 and the clone fails auth, so the default catalog stops syncing after upgrade. Meanwhile the hard-coded obot-platform URL never needs the token for the size check (that check returns early for org obot-platform)."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 59,
+   "end_line": 59,
+   "message": "isGitRepoURL now classifies every gitlab.com URL as a git repo, so GitLab raw-file catalog URLs that used to be fetched over plain HTTP are now sent to parseGitURL/clone and fail. An existing source `https://gitlab.com/org/repo/-/raw/main/catalog.yaml` gets parsed as repo org/repo.git with branch `-/raw/main/catalog.yaml`. validateBranchName rejects the leading '-', so sync fails with \"invalid branch name\". Before this change, isGitHubURL returned false and http.Get read the YAML. API-style URLs such as /api/v4/projects/.../raw break the same way."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/git_fs.go",
+   "start_line": 52,
+   "end_line": 52,
+   "message": "sizeLimitedFS shares one byte counter between the .git store (packfile, idx, index) and the uncompressed worktree checkout, so the real limit is well under the documented 100 MB and doesn't match the API pre-check that measures repo size. A repo GitHub reports as 40 MB passes checkGitHubRepoSize. But a 40 MB pack plus a 70 MB uncompressed checkout writes about 110 MB to the shared counter, so the clone aborts with \"repository is too large (limit: 100 MB)\" even though the repo is under the limit. Only the .git storage should count, or the limit should be documented as total disk."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "Non-default GitHub sources no longer use GITHUB_AUTH_TOKEN at all. Existing deployments that relied on it for private repos or to avoid rate limits (as chart/values.yaml documents) break on upgrade, and nothing migrates them. An existing catalog source https://github.com/acme/internal-mcps worked through the server-wide PAT. After upgrade, checkGitHubRepoSize calls the API without auth, gets 404 and records a sync error. Public repos now make unauthenticated API calls (60/hr per IP, often a shared NAT IP), so syncs can fail with 403. Sync errors also skip pruning, so stale entries are left behind."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "revealCatalogCredential only logs non-NotFound errors and returns \"\", so sync carries on without auth and SyncErrors shows a misleading auth or 404 failure. The doc comment claims these errors are \"visible in the sync status\", but they are not. The credential store has a brief outage or decryption error during sync. Each private source is fetched without its token and SyncErrors[url] says \"authentication required\" or \"GitHub API returned status 404\". The admin goes looking at the token or repo instead of the credential store. Returning the error and recording it in SyncErrors would show the real cause."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 197,
+   "end_line": 197,
+   "message": "Update saves catalog.Spec.SourceURLs before it writes or deletes the credential, so a failed CreateCredential or DeleteCredential returns an error to the client after the URL changes have already been committed. An admin adds a private URL with a token and CreateCredential fails. The API returns 500, but the URL is already in the spec. The UI shows an error and keeps the dialog open, and retrying with Add hits \"duplicate URL found\". The catalog now syncs that URL without a token. Writing the credential first (or rolling back) avoids this."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 62,
+   "end_line": 62,
+   "message": "List and Get now call RevealCredential for every catalog and fail the whole request on any non-NotFound error, even though they only need it for a presence marker. If the credential store is slow, down, or can't decrypt one entry, GET /api/mcp-catalogs returns 500 and the admin MCP Servers page can't load any catalog. Before this change those endpoints didn't touch credentials. Non-default catalogs can never have this credential (Update is default-only) but are still looked up on every List."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 271,
+   "end_line": 271,
+   "message": "When no branch is given, parseGitURL defaults to refs/heads/main instead of the remote HEAD. Now that self-hosted and GitLab repos are supported, repos whose default branch is master or something else fail to clone. https://git.example.com/org/catalog.git has default branch `master`. The clone asks for refs/heads/main and fails with \"reference not found\". Leaving ReferenceName empty when no branch is given (with SingleBranch) would follow the remote HEAD."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 226,
+   "end_line": 226,
+   "message": "isGitRepoURL accepts `https://host/repo.git`, but parseGitURL requires at least two path segments, so root-level self-hosted repos are routed to the git path and then always rejected. https://git.example.com/catalog.git (common with cgit/gitweb/Gitea-style hosting) gets \"invalid git URL format, expected <host>/org/repo\" even though the URL ends in .git as the docs require. Before this change it would at least have been tried as a raw file."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/mcpcatalog.go",
+   "start_line": 118,
+   "end_line": 118,
+   "message": "Sync calls revealCatalogCredential inside the per-URL loop, and each call reveals the same single credential that holds every token. A catalog with N source URLs does N identical credential-store reveals (each a decrypt and round trip) every hourly sync and every forced refresh. Revealing once before the loop and indexing Env[sourceURL] does the same job."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 87,
+   "end_line": 87,
+   "message": "checkGitHubRepoSize calls resolveToken again on a token that readGitCatalog has already resolved. The fallback can never fire, because the only matching URL (obot-platform/mcp-catalog) returns early on the org check, and the doc comment (\"Falls back to the GITHUB_AUTH_TOKEN env var if no per-URL token is provided\") is wrong. The token logic is spread across two places and the comment misleads readers about when the env token is used. Use the passed-in token directly and fix the comment."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/controller/handlers/mcpcatalog/github.go",
+   "start_line": 302,
+   "end_line": 302,
+   "message": "readGitCatalog parses the URL itself, calls parseGitURL (which parses it again), then rebuilds repoPath by trimming the https://host/ prefix and .git suffix off cloneURL. Also, readGitCatalog's doc comment ended up on parseGitURL (line 212). The string round-trip is fragile and duplicates parseGitURL's work. parseGitURL could return host and repoPath directly. The misplaced comment leaves parseGitURL's doc starting with \"readGitCatalog clones\u2026\" and readGitCatalog with no doc."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "pkg/api/handlers/mcpcatalogs.go",
+   "start_line": 168,
+   "end_line": 168,
+   "message": "The new credential-merge logic in Update (keep/clear/new/rename/normalization) and resolveToken have no tests. The rename-drops-token and scheme-less-key bugs above would each be caught by a simple table test of the merge. Without tests, later changes to this sentinel-based protocol can silently delete stored tokens."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 355000
+ }
+}

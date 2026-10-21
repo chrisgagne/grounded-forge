@@ -1,0 +1,58 @@
+{
+ "id": "rd22",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 794,
+   "end_line": 794,
+   "message": "decodeSecretKey base64-decodes any value whose length is a multiple of 4 and contains only base64 characters, which corrupts ordinary plain-text credentials. The operator generates 16-char admin passwords from letters+digits+'!@#$%^&*'. About 14% of these, (62/70)^16, are all alphanumeric. Those decode as valid base64 into binary garbage, so the password grant fails with 401. The same happens to any username or password like 'user' or 'abcd1234'."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 766,
+   "end_line": 766,
+   "message": "resolveURL picks status.endpoints.admin/public, which the operator always sets to http://<name>-keycloak.<ns>.svc.cluster.local:8080. That address only resolves inside the cluster, but this CLI runs outside it. A user runs `import-users --keycloak my-kc -n ns --realm r` from a workstation, as the docs show. The token request goes to *.svc.cluster.local and fails DNS resolution. The spec.hostname fallback is never reached, and that field doesn't exist on the CR anyway (the real fields are spec.ingress.host and spec.tls.hostname)."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/k8s/types.go",
+   "start_line": 243,
+   "end_line": 243,
+   "message": "KeycloakSpec.Hostname maps to `spec.hostname`, but the Keycloak CRD has no such field (hostnames live at spec.ingress.host and spec.tls.hostname). The hostname fallback in resolveURL is dead code. A CR with ingress.host=keycloak.example.com but no status endpoints yields an empty URL. The tool errors with 'spec.hostname is not set', telling the user to set a field that doesn't exist."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 357,
+   "end_line": 357,
+   "message": "When importBatch returns an error (HTTP 409/403/5xx, network error, token refresh failure), ImportUsers returns a nil result. The caller's 'print partial result' path prints nothing, and the counts from earlier successful batches are lost. With --mode fail and 3 batches, batch 3 gets a 409. Batches 1-2 were already committed, but the summary is skipped (result==nil), so the operator can't tell how many users were imported."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 472,
+   "end_line": 472,
+   "message": "Keycloak's PartialImportResults JSON has added/skipped/overwritten/results with actions ADDED/SKIPPED/OVERWRITTEN. It has no 'errors' field and no ERROR/FAILED action, so the Errors check is dead and overwritten users are never counted. With --mode overwrite on existing users, Keycloak returns overwritten=N. The summary reports Added: 0, Skipped: 0, which looks like nothing was imported."
+  },
+  {
+   "source": "cc-review",
+   "file": "tools/migration-toolkit/internal/k8s/types.go",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "The operator accepts the legacy `admin_access` alias for spec.admin (AliasChoices), but the Go struct only reads `admin`. A CR using spec.admin_access.existingSecret=my-secret makes the tool fall back to '<name>-admin-credentials'. That secret doesn't exist, or holds different credentials, so the secret read fails or authentication fails."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 82,
+  "cost_usd": 0.4643944,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "medium",
+  "fallback_file": 0
+ }
+}

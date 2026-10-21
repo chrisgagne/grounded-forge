@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/capawesome-team/cli",
+  "pr_number": 126,
+  "base": "a03825128b8380f86dcf85e8d3507b3a41d9f775",
+  "head": "2d997db6e53c75213cbb13f2d3fdb636984eead4"
+ },
+ "agent": "v5-cc-review-high",
+ "findings": [
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 242,
+   "end_line": 242,
+   "message": "`appleApiKeyId` is a local `let` that starts as undefined and has no matching CLI option, so non-interactive iOS API-key creation always fails at the 'You must provide the Apple API Key ID' check. CI runs `apps:destinations:create --platform ios --apple-api-key-file key.p8 --apple-issuer-id X --apple-team-id T`. The .p8 file is uploaded, then `!appleApiKeyId` is true, isInteractive() is false, and the process exits 1. API-key auth can't be scripted at all. (`update.ts` does expose `--apple-api-key-id`.)"
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 233,
+   "end_line": 233,
+   "message": "The Apple API key and Google service account key files are uploaded before the remaining fields are prompted and validated, and before the destination is created, so any later exit leaves orphaned key records on the server. An interactive user uploads the .p8, then cancels at the Key ID, Issuer ID or Team ID prompt (prompt calls process.exit(0)), or destination create returns 400. The uploaded key stays on the server unlinked. Each retry adds another one. The Android path at line 180 does the same."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 158,
+   "end_line": 158,
+   "message": "Provisioning profiles are uploaded before the certificate exists, then linked with a second PATCH. If certificate creation fails (wrong password, bad file), the uploaded profiles are left orphaned. `CreateAppProvisioningProfileDto.certificateId` already supports creating them after the certificate. `--password wrong --provisioning-profile a.mobileprovision`: the profile upload succeeds, then `appCertificatesService.create` throws on the bad password. The profile is left with no certificate. A cheaper fix: create the certificate first, then call `create({ ..., certificateId })` for each profile and drop `updateMany`."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/utils/prompt.ts",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "`promptAppSelection` now hard-codes `limit: 50` and has no paging or search, so for every command, apps beyond the first 50 in an org can't be selected interactively. An org with 60 apps runs any interactive command (builds, channels, deployments, etc.). Only 50 apps appear in the select list, so the other 10 can only be reached with an explicit --app-id. This shared helper is used by about 30 commands, not just the new ones."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/commands/apps/certificates/update.ts",
+   "start_line": 290,
+   "end_line": 290,
+   "message": "The update commands send a PATCH and print success even when no updatable field was passed. They also ask for a raw ID via a text prompt instead of offering the select list that get/delete use. `apps:certificates:update --app-id A --certificate-id C` with no other flags sends a body with only the IDs and prints 'Certificate updated successfully.' even though nothing changed. Interactive users have to know and type the UUID. The same applies to destinations/update.ts:602."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/commands/apps/certificates/get.ts",
+   "start_line": 146,
+   "end_line": 146,
+   "message": "If `--name` is given without `--platform` in interactive mode, the name is silently dropped: the user is asked for a platform and then gets an unfiltered list. `apps:certificates:delete --name prod-cert` in a terminal skips the `name && platform` branch, asks for platform, then lists every certificate for that platform. The user may pick and delete a different certificate than the one they named. The same applies to certificates/delete.ts, destinations/get.ts and destinations/delete.ts."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "Certificate passwords, key passwords and Apple app-specific passwords are prompted with `type: 'text'`, so the secret is shown on screen as it is typed. A user enters the keystore password at 'Enter the certificate password:'. It is echoed in plain text and stays in terminal scrollback and screen recordings. The same happens at create.ts:139 and destinations/create.ts:296."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/commands/apps/certificates/delete.ts",
+   "start_line": 55,
+   "end_line": 55,
+   "message": "The ~35-line platform-select/name-lookup/select-resource block is copied almost verbatim into certificates/get, certificates/delete, destinations/get and destinations/delete. This breaks the repo CLAUDE.md rule \"**DRY Code**: Avoid code duplication by using services and utility functions.\" Four copies of the same resolution logic need to be fixed together (for example, the ignored --name bug above). A shared helper such as `promptCertificateSelection(appId, {name, platform})`, next to `promptAppSelection` in utils/prompt.ts, would remove about 140 duplicated lines. Rule source: CLAUDE.md (repo root)."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "None of the ten new commands has a test, while sibling commands (for example apps/channels/*.test.ts) each have one. Bugs like the unreachable non-interactive `appleApiKeyId` path would have been caught by a simple non-interactive test like the ones in channels/create.test.ts. Regressions in these multi-step create flows will go unnoticed."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/services/app-google-service-account-keys.ts",
+   "start_line": 964,
+   "end_line": 964,
+   "message": "Four new service methods repeat the same FormData + `getHeaders()` + Bearer-token upload code (apple-api-keys, google-service-account-keys, provisioning-profiles, certificates). Any change to how uploads work (auth header, content length, progress) has to be made in four places. A small `uploadFile(url, buffer, fileName, fields)` helper, or using the existing per-service pattern once, would cover all four."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 105000
+ }
+}

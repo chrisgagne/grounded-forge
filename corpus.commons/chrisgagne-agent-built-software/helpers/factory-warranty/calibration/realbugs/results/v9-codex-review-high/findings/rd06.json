@@ -1,0 +1,42 @@
+{
+ "pr": {
+  "repo": "https://github.com/NightHawkATL/ntp-dashboard",
+  "pr_number": 96,
+  "base": "28cb0f12873107287c8f2ba7b7c330339d432c9c",
+  "head": "2378227172859b977f576fa1a1e3dfd4b52fa524"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 32,
+   "end_line": 34,
+   "message": "Remove the duplicate step-level env mapping. This step declares `env` twice. GitHub Actions rejects duplicate mapping keys during workflow validation, so neither automatic nor manual remediation runs can start. Keep a single environment mapping."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 91,
+   "end_line": 93,
+   "message": "Dedent both Python heredoc bodies and terminators. After YAML removes the run block's indentation, both closing `PY` markers still have two leading spaces. Bash requires these heredoc terminators at column one, so it consumes the remaining script as heredoc content and fails with `unexpected end of file`. Dedent both Python bodies and their terminators relative to the shell block."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 94,
+   "end_line": 95,
+   "message": "Consolidate the two fallback else branches. The same `if` already has an `else` at line 41, making this second `else` invalid Bash. Even after correcting the heredoc indentation, `bash -n` fails here, preventing every invocation from resolving a source run. Retain only one fallback implementation."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": ".github/workflows/grype-remediation-suggestions.yml",
+   "start_line": 74,
+   "end_line": 77,
+   "message": "Query scheduled runs using their workflow branch. For manual dispatch without a run ID, this filter excludes the normal weekly scans: scheduled workflows run on the default branch (`main`), while `weekly-security-grype.yml` merely checks out `pre-update-release` inside the job. That checkout does not change the run's API branch metadata. Remove or correct the branch filter in both fallback implementations so they can find the scheduled scan."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 100000
+ }
+}

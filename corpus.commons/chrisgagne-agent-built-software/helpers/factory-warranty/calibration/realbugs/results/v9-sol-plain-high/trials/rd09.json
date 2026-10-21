@@ -1,0 +1,28 @@
+{
+ "id": "rd09",
+ "arm": "sol-plain-high",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "high",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 53,
+   "end_line": 53,
+   "message": "appleApiKeyId is initialized without reading options, and the options schema provides no flag for it. Consequently, every non-interactive iOS API-key creation uploads the .p8 file and then exits with 'You must provide the Apple API Key ID', never creating the destination. Add an appleApiKeyId option and read it before uploading."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "The certificate password and Android key password prompts use type 'text', exposing signing credentials on screen and in terminal recordings. The App-specific password prompt in destinations/create.ts has the same issue. Use masked password prompts for these secrets."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 244,
+  "reasoning_effort": "high",
+  "tokens": 98615
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/capawesome-team/cli",
+  "pr_number": 126,
+  "base": "a03825128b8380f86dcf85e8d3507b3a41d9f775",
+  "head": "2d997db6e53c75213cbb13f2d3fdb636984eead4"
+ },
+ "agent": "v5-sol-plain",
+ "findings": [
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/commands/apps/destinations/create.ts",
+   "start_line": 242,
+   "end_line": 245,
+   "message": "API key authentication always fails in non-interactive mode: appleApiKeyId starts undefined, and the command defines no option to supply it. Even with all advertised authentication flags, execution uploads the private key and then exits here. Add an appleApiKeyId option and read it before validating or uploading."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 114,
+   "end_line": 122,
+   "message": "The truthiness checks reject an explicitly empty password, preventing upload of valid iOS PKCS#12 certificates exported with an empty password. Passing --password '' still exits in non-interactive mode, and submitting an empty interactive answer also exits. Distinguish an omitted password from an empty one and preserve the empty value in the multipart request."
+  },
+  {
+   "producer": "v5-sol-plain",
+   "file": "src/commands/apps/certificates/create.ts",
+   "start_line": 119,
+   "end_line": 119,
+   "message": "Certificate passwords are collected with a text prompt, exposing them on screen and in terminal recordings. The Android key-password prompt in this file and the app-specific password prompt in destinations/create.ts have the same issue. Use masked password prompts for these secrets."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 36000
+ }
+}

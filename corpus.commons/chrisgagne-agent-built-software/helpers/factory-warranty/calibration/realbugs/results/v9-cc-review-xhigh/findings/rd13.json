@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/edercnj/ia-dev-environment",
+  "pr_number": 202,
+  "base": "2159a5434ce888127b578ad8b788e550fd3412ce",
+  "head": "7e51d062b3fd69794c941b43f3aa8830a7a1729f"
+ },
+ "agent": "v5-cc-review-xhigh",
+ "findings": [
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/test/resources/golden/java-quarkus/.claude/skills/x-dev-lifecycle/SKILL.md",
+   "start_line": 136,
+   "end_line": 136,
+   "message": "Only java-quarkus/.claude x-dev-lifecycle golden was updated; every other profile's x-dev-lifecycle golden, the java-quarkus .agents/.codex copies, and all x-dev-epic-implement / x-dev-implement goldens still match the old source. `git diff --no-index` shows golden/java-spring/.claude/.../x-dev-lifecycle is 51 lines behind source, java-quarkus .agents/.codex lifecycle copies are 51 lines behind, and java-quarkus x-dev-epic-implement (88 lines) and x-dev-implement (63 lines) are behind. GoldenFileTest/PlatformGoldenFileTest fail across all 17 profiles."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 156,
+   "end_line": 156,
+   "message": "PRE_PLANNED requires 7 standalone artifacts (architecture/tests/plan/security/compliance-story) that x-story-plan never writes. x-story-plan only emits tasks, task-plan-*, planning-report and dor files, and this same PR moves its DoR checks to planning-report sections. After /x-epic-plan or /x-story-plan, only tasks-story and task-plan-* exist, so the mode is always HYBRID. All of Phase 1 is regenerated and task-by-task Phase 2 never runs. compliance-story only exists when compliance is enabled, so non-compliance projects can never reach PRE_PLANNED. events-story (1D) is also not considered, so event-driven stories would silently skip schema design if PRE_PLANNED did trigger."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 523,
+   "end_line": 523,
+   "message": "The DoR pre-check only appears in a duplicated pseudo-loop inside 1.1b. The real Core Loop (1.3 step 6) and the default parallel dispatch (1.4a step 2, which marks every executable story IN_PROGRESS and launches them all) are unchanged. In default parallel mode the orchestrator follows 1.4a: it marks all stories IN_PROGRESS and dispatches them in one message without reading dor-story-*.md. A story with verdict NOT_READY is still implemented and a PR is opened."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 289,
+   "end_line": 289,
+   "message": "Nothing writes per-task status during execution, and nothing passes it back to a subagent, so task-level resume is a no-op. Only lifecycle Phase 8 writes tasks.*.status, and only DONE, at the very end. It runs inside an `isolation: worktree` subagent, so it edits the worktree's copy (or a missing file), not the orchestrator's execution-state.json. Section 1.6 / SubagentResult carry no tasks field. The 1.4 prompt does not pass task state, and PRE_PLANNED Phase 2 iterates every task without consulting it. An interrupted story re-executes all tasks despite the 'skips DONE tasks automatically' claim."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 123,
+   "end_line": 123,
+   "message": "Step 0.5 and Phases 1.4/4.x/5 still hardcode `plans/epic-XXXX/...`, so suffix-variant epic dirs resolved in 0.2 are defeated. Story lives in plans/epic-0028-foo/. 0.5 runs `test -f plans/epic-0028/story-0028-0002.md`, gets NOT_FOUND and aborts. Even if it continued, Phase 4 writes tasks/task-plan/report/dor to plans/epic-0028/plans/ (not created; mkdir targeted <EPIC_DIR>/plans). The 0.4 staleness check looks in <EPIC_DIR>/plans and never finds them, so every run regenerates."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 517,
+   "end_line": 517,
+   "message": "The pre-check reads the verdict only from a `## Final Verdict` section. x-story-plan's inline DoR format (used when the template is missing) has no such section; the verdict sits in the Header table and `## Summary` as `Verdict: **READY**`. No branch handles a missing or unparseable verdict, and `{failed_checks}` has no defined source. Project without _TEMPLATE-DOR-CHECKLIST.md: the DoR file exists but has no Final Verdict section, so neither READY nor NOT_READY matches and behavior is undefined (the story is likely dispatched or stalled arbitrarily). With the template, `{{VERDICT_DETAIL}}` is free text, so `== READY` exact matching is brittle. x-epic-plan already stores `dorVerdict` in the same execution-state.json and could be read instead."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 519,
+   "end_line": 519,
+   "message": "A NOT_READY story is marked BLOCKED without `blockedBy`, and its dependents are not block-propagated. The user fixes the story, re-runs /x-story-plan (now READY) and runs `--resume`. Resume Step 2 sees `blockedBy` undefined and keeps the story BLOCKED, so it is never re-dispatched. Its dependents remain PENDING (not terminal), so the 'all stories terminal' progress report and final status never fire."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 670,
+   "end_line": 670,
+   "message": "The new per-task status update is appended after Phase 8 step 10 (`git checkout develop && git pull`), so the story-file Section 8.1 edits happen on develop, outside the story branch/PR. In PRE_PLANNED mode the story file is modified in the develop working tree after the PR was created. The change is never committed to the PR, leaves develop dirty, or collides with the next story's `git checkout -b`. Step 3c already updates Section 8 on the story branch, so this also duplicates work."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-epic-implement/SKILL.md",
+   "start_line": 284,
+   "end_line": 284,
+   "message": "Step 1b preserves DONE tasks unconditionally, even for stories Step 1 reclassified FAILED\u2192PENDING. Those retries get a new PR from develop while the old PR is closed. BLOCKED tasks whose dependency is SKIPPED also stay BLOCKED forever. Story FAILED after TASK-001..003 were committed. On --resume it is retried on a fresh branch/worktree, but TASK-001..003 stay DONE and are skipped, so the new PR lacks their code. Separately, a task depending on a SKIPPED task never satisfies 'all deps DONE' and is never executed."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 157,
+   "end_line": 157,
+   "message": "The mode table has no row for 'all artifacts exist but some are stale'. HYBRID regenerates only missing artifacts and 'reuses existing fresh ones', contradicting Phase 0's rule to regenerate stale plans. The story file is edited after x-story-plan ran. All 7 artifacts exist but mtime(story) > mtime(artifacts), so the PRE_PLANNED condition fails, HYBRID ('some but not all') doesn't apply, and INLINE ('none exist') doesn't apply. The mode is undefined, and the agent may proceed with stale task plans."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-lifecycle/SKILL.md",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "The task-by-task flow 'replaces the standard implementation flow' but omits the per-cycle compile check, the acceptance-test-first outer loop, and the 2.3 coverage gate (line \u226595%, branch \u226590%). In PRE_PLANNED mode tasks are committed without `{{COMPILE_COMMAND}}` between them, and the only end check is 'acceptance tests pass'. A story with 60% coverage or an intermediate non-compiling commit passes Phase 2, while the same story in INLINE mode would fail."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-story-plan/SKILL.md",
+   "start_line": 296,
+   "end_line": 296,
+   "message": "x-story-plan now defines TPP Level 4 = collection and Level 5 = conditional. x-test-plan (Level 4 Complex Conditions, Level 5 Iterations) and knowledge/core/03-testing-philosophy.md use the opposite numbering. A tests-story-*.md from x-test-plan labels iteration tests Level 5. x-story-plan's QA agent labels them Level 4, and DoR check #2 ('UT-N follow TPP level ordering 1 through 6') and consolidation sorting compare inconsistent level numbers. Conditionals and iterations get ordered differently depending on which skill produced the plan."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 253,
+   "end_line": 253,
+   "message": "Tasks are ordered as 'no-deps before has-deps, then TDD phase, then TPP level', which is a sort key, not a dependency-respecting topological order. TASK-003 (RED, depends on TASK-002) and TASK-002 (GREEN, depends on TASK-001) are both in the 'has deps' bucket, and the TDD-phase sort puts RED before GREEN. TASK-003 runs before its dependency TASK-002, implementing against code that doesn't exist yet."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 257,
+   "end_line": 257,
+   "message": "The Resume Check (step 1) needs 'the file/class from Implementation Guide', but the task plan holding that guide is only read in step 2. The 'file exists + tests pass \u21d2 DONE' heuristic is also wrong for common task shapes. A GREEN task that modifies an existing class: the file exists and the old tests pass, so the task is skipped as DONE without implementing anything. A RED task (failing test by design) never passes the check, so it is re-executed on every resume and adds duplicate tests."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "java/src/main/resources/targets/claude/skills/core/x-dev-implement/SKILL.md",
+   "start_line": 278,
+   "end_line": 278,
+   "message": "Each task is committed before `{{COMPILE_COMMAND}}` runs, and every commit is tagged `[TDD:GREEN]` regardless of the task's RED/REFACTOR/VERIFY phase. A task leaves the build broken: the commit lands first and the compile check fails afterwards, leaving a non-compiling commit in history. RED test-only tasks are recorded as `feat ... [TDD:GREEN]`, which corrupts the lifecycle DoD check 'commits show test-first pattern' and TPP progression in git log."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 279000
+ }
+}

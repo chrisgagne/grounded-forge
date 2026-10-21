@@ -1,0 +1,51 @@
+{
+ "id": "rd08",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 274,
+   "end_line": 274,
+   "message": "The notebook calls `wg_fin.run_inference(...)` and `wg_fin.load_artifacts(...)`, but `financial_impact/financial.py` defines neither, and nothing else in the repo does either. On a fresh run, `load_artifacts` raises AttributeError, which the try/except swallows. The fallback branch then calls `wg_fin.run_inference`, which raises AttributeError and is re-raised, so the pipeline cell always crashes and no reports are produced. The committed output came from a module version that isn't in this PR."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 227,
+   "end_line": 227,
+   "message": "`compute_financials` accepts a `financial_params` override but never uses it: `get_params` always reads the module-level `FINANCIAL_PARAMS`. A caller (e.g. the Streamlit app) passes custom repair/yield parameters to model a different fab. They are silently ignored and the report is computed with the defaults, so the dollar figures are wrong."
+  },
+  {
+   "source": "cc-review",
+   "file": "wafer_images/waferguard_financial_impact.ipynb",
+   "start_line": 178,
+   "end_line": 178,
+   "message": "`repo_root` is hardcoded to `/Users/<author>/...`, and `from financial_impact import financial` runs before that path is added to `sys.path`. Any other developer, or a kernel started in `wafer_images/`, gets ModuleNotFoundError on the import. Even if the import works, the dataset and model paths point at another user's home directory, so they fail with FileNotFoundError."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 272,
+   "end_line": 272,
+   "message": "When `df_batch` is empty, `rows` is empty and `pd.DataFrame([]).sort_values(\"priority_score\")` raises KeyError before the later `if not df_financial.empty` guards are reached. An empty upload or batch (zero wafers) goes through `build_batch_df` (which returns an empty DataFrame) and then `compute_financials`. It crashes with KeyError: 'priority_score' instead of returning the zero summary the guards were written to produce."
+  },
+  {
+   "source": "cc-review",
+   "file": "financial_impact/financial.py",
+   "start_line": 156,
+   "end_line": 156,
+   "message": "`decode_labels` maps any class ID missing from `id_to_binary` to \"00000000\" (Normal). If the mapping is empty or misaligned (e.g. the artifacts branch uses `artifacts.get(\"id_to_binary\", {})`), every defective wafer is counted as Normal. The report then shows a 0% defect rate and $0 loss instead of raising an error."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 46,
+  "cost_usd": 0.33217019999999997,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "low",
+  "fallback_file": 0
+ }
+}

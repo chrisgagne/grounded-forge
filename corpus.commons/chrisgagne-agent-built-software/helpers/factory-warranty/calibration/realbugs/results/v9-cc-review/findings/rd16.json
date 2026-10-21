@@ -1,0 +1,49 @@
+{
+ "pr": {
+  "repo": "https://github.com/mamu7211/feirb-mailclient",
+  "pr_number": 215,
+  "base": "76d9db59beaf6a0942c84522b9d33058f721ee86",
+  "head": "d15c6ca689e20a95a1c5468d0e87f71f8b5e7496"
+ },
+ "agent": "v5-cc-review",
+ "findings": [
+  {
+   "producer": "v5-cc-review",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 61,
+   "end_line": 61,
+   "message": "getHtml returns Quill 2's internal `root.innerHTML` rather than `getSemanticHTML()`, so the email gets Quill's editor-only markup. With Quill 2.0.3, a user makes a bullet list. Quill stores it as `<ol><li data-list=\"bullet\">`, and HtmlSanitizer strips `data-*` attributes, so recipients get a numbered list. Code blocks (`div.ql-code-block`) and class-based indent/alignment (`ql-indent-1`) are also lost. Turndown has the same problem when switching to Markdown."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/Feirb.Api/Services/MailSendingService.cs",
+   "start_line": 104,
+   "end_line": 104,
+   "message": "`client.GetFolder(SpecialFolder.Sent)` throws NotSupportedException on servers without SPECIAL-USE/XLIST, so the `?? GetFoldersAsync(...)` fallback never runs. The IMAP server lacks SPECIAL-USE but has a plain \"Sent\" folder. GetFolder throws, the outer catch logs a warning, and the sent message is never saved, even though the fallback was written for exactly this case."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 26,
+   "end_line": 26,
+   "message": "Minimal APIs don't check the DataAnnotations on SendMailRequest (Program.cs has no AddValidation), so null `To`, `Subject` or `Body` reach the code without being checked. POST `{\"mailboxId\":\"...\",\"subject\":\"x\",\"body\":\"y\",\"contentType\":\"plain\"}` without `to`: `request.To.Length` throws NullReferenceException \u2192 500. A null `subject` makes `message.Subject = null` throw ArgumentNullException inside the service \u2192 500 instead of 400. ContentType/StringLength limits are also not enforced."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/Feirb.Api/Endpoints/ComposeEndpoints.cs",
+   "start_line": 47,
+   "end_line": 47,
+   "message": "Only InvalidOperationException is caught and it is always mapped to 'MailboxNotFound'. SMTP/auth/decrypt failures are not handled, and MailKit's ServiceNotConnected/ServiceNotAuthenticated exceptions (subclasses of InvalidOperationException) get mislabeled. Wrong SMTP password \u2192 AuthenticationException \u2192 unhandled 500. Recipient rejected \u2192 SmtpCommandException \u2192 500. Keys rotated \u2192 CryptographicException from Unprotect \u2192 500. A MailKit connection-state InvalidOperationException \u2192 404 'Mailbox not found' for a mailbox that exists."
+  },
+  {
+   "producer": "v5-cc-review",
+   "file": "src/Feirb.Web/wwwroot/js/quill-interop.js",
+   "start_line": 66,
+   "end_line": 66,
+   "message": "setHtml writes `root.innerHTML` directly instead of going through Quill (`clipboard.convert`/`setContents` or `dangerouslyPasteHTML`), so marked's `<ul>`/`<pre>` output doesn't go through Quill's blot normalization. Switch from Markdown with a bullet list or fenced code block back to Rich Text. The raw `<ul>`/`<pre><code>` is put in the editor without Quill's model, so it gets mangled or reverted on the next edit, and getText/isEmpty can disagree with what is shown."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 61000
+ }
+}

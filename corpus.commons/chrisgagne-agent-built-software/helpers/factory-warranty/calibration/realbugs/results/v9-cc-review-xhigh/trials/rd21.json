@@ -1,0 +1,100 @@
+{
+ "id": "rd21",
+ "arm": "cc-review-xhigh",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 25,
+   "end_line": 25,
+   "message": "The hand-written Deployment omits `envFrom: secretRef: ms-secret-vault`, which the shared chart template always injected, so the agent no longer gets any Vault-sourced secrets. backend/ai-secure-agent-config.yaml sets mysql user `root` with no password, and the other services' configs note that credentials come from ms-secret-vault. With this manifest the pod starts without the DB password, LLM/API keys, or other Vault secrets, so MySQL/Redis/LLM calls fail on auth or the app crashes at startup."
+  },
+  {
+   "source": "cc-review",
+   "file": "app-of-apps.yaml",
+   "start_line": 433,
+   "end_line": 433,
+   "message": "agent-app uses `targetRevision: AI-20-AISecureAgent-Feature-collection` while every other Application tracks HEAD, so production deploys of the agent follow a feature branch. Once this merges to main, edits to agent/ on main (tag bumps, env fixes) never deploy. When the feature branch is deleted after merge, agent-app goes to ComparisonError/Unknown and stops reconciling. The ConfigMap it mounts is still served from HEAD by backend-app, so config and Deployment come from different revisions."
+  },
+  {
+   "source": "cc-review",
+   "file": "app-of-apps.yaml",
+   "start_line": 427,
+   "end_line": 427,
+   "message": "agent-app renders the same Deployment `ai-secure-agent-ms` and Service `ai-secure-agent-ms-svc` that the helm-app ApplicationSet still generates from `revision: HEAD` until this lands on main, and both have automated selfHeal. If app-of-apps.yaml is applied from this branch (which the feature-branch targetRevision implies), helm-app (main) and agent-app (feature branch) keep overwriting each other's pod template: endless rollouts plus a SharedResourceWarning. After merge, the ApplicationSet deletes the generated `ai-secure-agent-ms` Application. Its default resources finalizer cascade-deletes the same-named Deployment/Service, which races with agent-app and causes an outage until the next re-sync."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 33,
+   "end_line": 33,
+   "message": "MLFLOW_TRACKING_URI targets `mlflow-tracking-svc.mlflow.svc.cluster.local:5000`, but the only MLflow Service in the repo is `mlflow` in namespace mlflow on port 80 (targetPort 5000). With ENABLE_MLFLOW_TRACING=true, every trace export does a DNS lookup for mlflow-tracking-svc, gets NXDOMAIN, and fails. Traces are lost, and depending on the client the app either logs errors and adds latency per request or fails at startup. The value should be http://mlflow.mlflow.svc.cluster.local (port 80)."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 20,
+   "end_line": 20,
+   "message": "The agent repo's CI bumps image.tag in helm_backend/ai-secure-agent-ms/values.yaml (see cffc861), but this change deletes that file and hardcodes the tag in a raw manifest the CI does not touch. On the next agent build, the CI either fails, or recreates helm_backend/ai-secure-agent-ms/values.yaml holding only image.tag. The ApplicationSet then regenerates an `ai-secure-agent-ms` app from chart defaults (user-ms configmap and probe path, linkerd enabled, grpc port) that collides with agent-app. Either way the image at line 20 never updates."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "The old liveness and readiness probes on `/ai-secure-agent-ms/v1/ping` were not carried over to the new Deployment. The Service sends traffic to the pod as soon as the container starts, before config/Kafka/MySQL init finishes, so early requests fail. A hung or deadlocked process is never restarted, and rolling updates mark a broken new pod Available right away and kill the old healthy one."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 19,
+   "end_line": 19,
+   "message": "The previous resource settings (requests 100m/256Mi, limits 200m/345Mi, tuned in de07dae alongside MALLOC_ARENA_MAX=2) are gone, so the pod runs BestEffort and unbounded. On the small k3s node the agent becomes the first pod evicted under memory pressure. A memory leak or large LLM payload can grow without limit and OOM neighbors or the node instead of just restarting this container. The scheduler also ignores its real footprint."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 36,
+   "end_line": 36,
+   "message": "The chart mounted a hostPath /tmp/logs/ai-secure-agent-ms at /app/logs, with a fix-perm initContainer that chmods it; the new manifest has neither. If the app writes to /app/logs, as the shared convention expects, logs now land on the ephemeral container filesystem and are lost on every restart, or writes fail when the directory is missing or not writable for a non-root user. Anything reading /tmp/logs/* on the host loses this service's logs."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Instead of keeping the service on the shared charts/ templates (and making grpc/log pieces optional there), the diff copies the Deployment/Service by hand into a separate Application, re-implementing what charts/templates/deployment.yaml and service.yaml already provide. The fork already silently dropped secrets, probes, resources, the log volume and anti-affinity, which is the drift the shared chart exists to prevent. Each future chart fix (e.g. probe defaults) now has to be repeated by hand here. Adding `if` guards for grpcPort and applogs in the chart, and overriding targetRevision on the existing helm app for preview, would meet the same goal without the fork."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 57,
+   "end_line": 57,
+   "message": "The Service and container no longer expose the `grpc` port 5001 that the chart previously published for ai-secure-agent-ms-svc. Any client calling ai-secure-agent-ms-svc:5001 (the convention every other backend uses) now gets connection refused. No in-repo caller was found, so this only matters if another repo or service dials the gRPC port."
+  },
+  {
+   "source": "cc-review",
+   "file": "agent/ai-secure-agent.yaml",
+   "start_line": 14,
+   "end_line": 14,
+   "message": "The previous values explicitly set `linkerd.io/inject: disabled` (added in de07dae); the new pod template has no annotation, so whether the pod is meshed now depends on the namespace. The default namespace has no annotation today, so nothing changes yet. If someone enables namespace-level injection (the usual linkerd setup), this pod silently gets a proxy sidecar, bringing back whatever issue the explicit opt-out was added to avoid."
+  },
+  {
+   "source": "cc-review",
+   "file": "app-of-apps.yaml",
+   "start_line": 443,
+   "end_line": 443,
+   "message": "The diff turns app-of-apps.yaml from a file ending in a newline into one without (agent/ai-secure-agent.yaml also lacks one). Appending the next Application with `cat >>`/`echo >>`, a common habit for this multi-doc file, produces `- CreateNamespace=true---`. That is valid YAML but a different string, so the separator is lost and the next Application merges into or breaks this document."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 470,
+  "cost_usd": 0.7899862000000001,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": "xhigh",
+  "fallback_file": 0
+ }
+}

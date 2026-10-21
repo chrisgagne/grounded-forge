@@ -1,0 +1,28 @@
+{
+ "id": "rd17",
+ "arm": "sol-plain",
+ "findings": [
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 7,
+   "end_line": 7,
+   "message": "The workspace path is hard-coded without a matching workspaceMount. VS Code's default mount uses the local checkout's directory name, so cloning into any directory other than ProxmoxMCP-Plus leaves this path missing and prevents postCreateCommand from installing the project. Use the default workspace location or configure a matching mount, and make the interpreter path relative to the workspace."
+  },
+  {
+   "source": "sol-plain",
+   "severity": "medium",
+   "file": ".devcontainer/devcontainer.json",
+   "start_line": 8,
+   "end_line": 8,
+   "message": "The project does not define a dev extra in pyproject.toml, so installing '.[dev]' does not install pytest, pytest-asyncio, mypy, or the other development dependencies listed in requirements-dev.in. The resulting container cannot run the documented test workflow. Install requirements-dev.in explicitly or define the dev extra."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 29,
+  "reasoning_effort": "none",
+  "tokens": 9165
+ }
+}

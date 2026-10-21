@@ -6,7 +6,7 @@
 set -e
 ARM=$1; HERE=${0:A:h}; REPOS=${HERE:h:h:h:h}
 RB=${RB_ROOT:-$REPOS/ReviewBench}; ENVF=${ANTHROPIC_ENV:-$REPOS/grounded-forge/_evals/anthropic.env}
-case $ARM in v6-*|v7-*|v8-*) RUN=$HERE/../results/$ARM ;; *) RUN=$HERE/../results/v5-a-$ARM ;; esac
+case $ARM in v6-*|v7-*|v8-*|v9-*) RUN=$HERE/../results/$ARM ;; *) RUN=$HERE/../results/v5-a-$ARM ;; esac
 export ANTHROPIC_API_KEY="$(sed -n 's/^[[:space:]]*\(export[[:space:]]*\)\{0,1\}ANTHROPIC_API_KEY[[:space:]]*=[[:space:]]*//p' "$ENVF" | head -1 | tr -d "\"'")"
 export REVIEW_BENCH_JUDGE_TIMEOUT_MS=${REVIEW_BENCH_JUDGE_TIMEOUT_MS:-1800000}
 mkdir -p "$RUN/scoring"

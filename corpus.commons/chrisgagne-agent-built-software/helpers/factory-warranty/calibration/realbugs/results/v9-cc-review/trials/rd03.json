@@ -1,0 +1,30 @@
+{
+ "id": "rd03",
+ "arm": "cc-review",
+ "findings": [
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 67,
+   "end_line": 67,
+   "message": "`saveScheduled` is now reset in `finally` after `storage.put` finishes, not before the snapshot is taken, so updates pushed while the put is in flight call `scheduleSave()`, hit the guard, and are dropped. The timer fires and snapshots `updates`, then awaits `storage.put`. During that await a client sends an update: `pushUpdate` adds it and `scheduleSave()` returns early because `saveScheduled` is still true. The put then resolves and the flag clears without scheduling another save. If no more edits come in before the Durable Object is evicted, that last update never reaches storage and is lost on reload. The old code cleared the flag before taking the snapshot, so this did not happen."
+  },
+  {
+   "source": "cc-review",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 56,
+   "end_line": 56,
+   "message": "The new per-partition debounce has the same gap: `saveScheduled` for a partition is cleared only after `storage.put` resolves, so updates tracked during the write are never saved. `trackUpdate` runs while the 5s timer's `storage.put` for `yjs_updates:<partition>` is pending. The payload goes into `partitionUpdates`, but `schedulePartitionSave` returns early. Once the put finishes, nothing schedules another save, so the stored partition is missing the trailing updates until some later edit lands in that same partition."
+  }
+ ],
+ "meta": {
+  "exit": 0,
+  "seconds": 36,
+  "cost_usd": 0.24574079999999998,
+  "models": [
+   "claude-opus-5-5"
+  ],
+  "level": null,
+  "fallback_file": 0
+ }
+}

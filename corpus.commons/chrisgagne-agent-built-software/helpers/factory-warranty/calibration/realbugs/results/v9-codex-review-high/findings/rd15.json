@@ -1,0 +1,21 @@
+{
+ "pr": {
+  "repo": "https://github.com/hughdidit/DAISy-Agency",
+  "pr_number": 309,
+  "base": "130fc084dcec4731e67de96162d1abccae44f7ce",
+  "head": "ac6e2196f5c307fd09fa6ad8a64ba9ada14ab385"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "scripts/verify.sh",
+   "start_line": 279,
+   "end_line": 279,
+   "message": "Remove literal backslashes from the generated binary lookup. In this unquoted heredoc, `\\\"` survives into the generated probe, producing `command -v \\\"jq\\\"` rather than `command -v \"jq\"`. The remote shell therefore searches for a binary whose name includes literal double quotes. Since `jq` is the first manifest entry, every GCE verification fails with `missing_binary:jq`, even for healthy deployments. Emit ordinary double quotes around the binary name instead."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 45000
+ }
+}

@@ -1,0 +1,84 @@
+{
+ "pr": {
+  "repo": "https://github.com/navikt/k9-brukerdialog-prosessering",
+  "pr_number": 480,
+  "base": "f396016e3e4517af046049e08b2433f9149423b0",
+  "head": "f828e2d8d4c5ace8c7aa70389e52c7e61761c14d"
+ },
+ "agent": "v5-cc-review-high",
+ "findings": [
+  {
+   "producer": "v5-cc-review-high",
+   "file": "nais/topics/aktivitetspenger-inntektsrapportering-topics.yml",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "The new topics file has no matching `.github/workflows/deploy-aktivitetspenger-inntektsrapportering-topics.yml`, but every other topics file has one (e.g. deploy-aktivitetspenger-soknad-topics.yml, deploy-ungdomsytelse-inntektsrapportering-topics.yml). After merge, nothing applies the Topic resources in dev/prod. The three new streams, and the producer for `dusseldorf.aktivitetspenger-inntektsrapportering-mottatt`, point at topics that don't exist. Health indicators go DOWN and every submission fails, or is lost, once it reaches Kafka."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntekt.kt",
+   "start_line": 11,
+   "end_line": 11,
+   "message": "`@AssertTrue` sits on `fun harOppgittInntekt()`. Hibernate Validator only evaluates getter-style methods (get/is/has), so this constraint never runs and a null `arbeidstakerOgFrilansInntekt` passes validation. The same applies to `OppgittInntektForPeriode.harOppgittInntekt`. A POST with `{\"oppgaveReferanse\":\"<uuid>\",\"oppgittInntekt\":{}}` returns 202 instead of 400. A k9 s\u00f8knad with null inntekt is published, and the oppgave is marked solved with `RapportertInntektDto(..., null)`. No test covers this rule."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/AktivitetspengerInntektsrapporteringInnsending.kt",
+   "start_line": 55,
+   "end_line": 55,
+   "message": "The k9 format for an income report is a plain `Aktivitetspenger` ytelse with `medS\u00f8knadsperiode(inntektsperiode)` and no s\u00f8knadstype marker. The ungdomsytelse counterpart sets `UngS\u00f8knadstype.RAPPORTERING_S\u00d8KNAD`. ung-sak reads `aktivitetspenger-inntektsrapportering-cleanup` (ACL in the topics file). It gets a payload that looks like a new aktivitetspenger application whose s\u00f8knadsperiode is the reported month. Downstream it can be handled as a new s\u00f8knad or startdato rather than an income report."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/main/kotlin/no/nav/brukerdialog/integrasjon/dokarkiv/dto/YtelseType.kt",
+   "start_line": 192,
+   "end_line": 192,
+   "message": "`AKTIVITETSPENGER_INNTEKTRAPPORTERING` uses a placeholder brevkode `FIXME_AVP_INNTEKT_BREVKODE`, and that value is sent to dokarkiv on journalf\u00f8ring. Journalposts are created with an invalid brevkode. Either dokarkiv rejects them, so the journalf\u00f8ring stream retries and then fails, or they are archived with the wrong document classification in production."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "`markerOppgaveSomL\u00f8st` is called only after `forsikreIkkeDuplikatInnsending` has recorded the key and `innsendingService.registrer` has published to Kafka. ung-brukerdialog-api times out or returns 5xx while marking the oppgave. The user gets an error, but the report is already on Kafka and will be journalf\u00f8rt. When they retry, they get a duplicate-innsending rejection, and the oppgave stays UL\u00d8ST."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerService.kt",
+   "start_line": 90,
+   "end_line": 90,
+   "message": "The duplicate-check cache key is `personIdent_ytelse`, with no oppgaveReferanse, so all of a user's income reports share one key. A user with two open RAPPORTER_INNTEKT oppgaver (e.g. two months) submits both within the cache TTL. The second, legitimate report is rejected as a duplicate."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/AktivitetspengerInntektsrapporteringInnsending.kt",
+   "start_line": 72,
+   "end_line": 72,
+   "message": "The income report is validated with `AktivitetspengerS\u00f8knadValidator`, the validator for the full application. The report only sets s\u00f8knadsperiode and inntekter, with no forutg\u00e5endeBosteder. If the validator enforces application-only fields (bosteder or other s\u00f8knad requirements), every income report fails k9-format validation during `innsendingService.registrer` and returns 400. I couldn't check this: the k9-format 12.10.0 jar isn't cached locally."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/test/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/AktivitetspengerControllerTest.kt",
+   "start_line": 18,
+   "end_line": 18,
+   "message": "The new controller test imports `no.nav.brukerdialog.ytelse.ungdomsytelse.utils.InntektrapporteringUtils` instead of the new `ytelse.aktivitetspenger.utils.InntektrapporteringUtils`. It also stubs an unused `barnService.hentBarn()`. The test sends an ungdomsytelse request object to the aktivitetspenger endpoint. If the aktivitetspenger request type drifts (new required field, different validation), this test keeps passing while real clients break."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/api/domene/inntektsrapportering/OppgittInntektForPeriode.kt",
+   "start_line": 10,
+   "end_line": 10,
+   "message": "`OppgittInntekt`, `OppgittInntektForPeriode`, `UngPeriode`, the PdfData class, the .hbs template and `hentInntektsrapporteringPeriode` are near-verbatim copies of the ungdomsytelse inntektsrapportering versions. There are now two copies of the same domain/PDF/validation logic. The inert `@AssertTrue` above already exists in both, and fixes must be made twice. Move the shared types to a common package (e.g. `fellesdomene`) and reuse them from both ytelser."
+  },
+  {
+   "producer": "v5-cc-review-high",
+   "file": "src/main/kotlin/no/nav/brukerdialog/ytelse/aktivitetspenger/kafka/inntektsrapportering/AktivitetspengerInntektsrapporteringTopologyConfiguration.kt",
+   "start_line": 83,
+   "end_line": 83,
+   "message": "The cleanup topic bean is named `aktivitetpengerInntektsrapporteringCleanupTopic` (missing 's'), while both consumers inject a parameter named `aktivitetspengerInntektsrapporteringCleanupTopic`. Wiring works only through generic-type matching. If another bean with a compatible `Topic<...>` type is added, Spring falls back to matching by name, finds no bean named `aktivitetspengerInntektsrapporteringCleanupTopic`, and startup fails with NoUniqueBeanDefinitionException."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 167000
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "pr": {
+  "repo": "https://github.com/fredericboyer/dev-team",
+  "pr_number": 797,
+  "base": "5708e07e9626ec3621b8eed703bb6fb08e457c0a",
+  "head": "3bc9ea25d3896d759a6395a585aaf1400ea05c28"
+ },
+ "agent": "v5-codex-review-high",
+ "findings": [
+  {
+   "producer": "v5-codex-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 24,
+   "end_line": 26,
+   "message": "Read the hook payload from stdin. Claude Code supplies command-hook input on stdin, but the configured command passes no arguments. Consequently, `process.argv[2]` is absent, `input` becomes `{}`, and every invocation exits before checking shutdown requests. Read stdin and add a test using the configured invocation; the current tests pass JSON as an argument and miss this failure."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 82,
+   "end_line": 85,
+   "message": "Resolve the recipient's branch instead of the sender's. When the team lead runs on `main` and an implementer works in an isolated worktree, this command resolves the lead's branch, so the subsequent `main` exemption permits shutdown without checking the implementer's reviews. On another feature branch, it checks unrelated evidence instead. Resolve the target agent's worktree and branch before checking evidence; separate implementation branches are explicitly required by [CLAUDE.md:23\u201324](CLAUDE.md#L23-L24)."
+  },
+  {
+   "producer": "v5-codex-review-high",
+   "file": "templates/hooks/dev-team-implementer-guard.js",
+   "start_line": 102,
+   "end_line": 103,
+   "message": "Match review metadata rather than requiring branch filenames. Existing review sidecars use `<agent>--<file-content-hash>.json`, as specified in ADR-029 and consumed by `dev-team-review-gate.js`. A valid hash-named sidecar is therefore rejected here even when its JSON `branch` matches, preventing shutdown after review. Conversely, a filename containing a longer, unrelated branch name can satisfy this substring check. Parse sidecars and validate their branch metadata, consistent with the merge gate."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 119000
+ }
+}

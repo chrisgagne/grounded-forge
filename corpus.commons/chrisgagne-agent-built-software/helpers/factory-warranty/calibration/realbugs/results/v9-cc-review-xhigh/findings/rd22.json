@@ -1,0 +1,119 @@
+{
+ "pr": {
+  "repo": "https://github.com/vriesdemichael/keycloak-operator",
+  "pr_number": 696,
+  "base": "bd0524bce599ccc367a4481f9b792305a8b074a1",
+  "head": "4db0ddeaea75e5d1d1a312473465153ed8f60661"
+ },
+ "agent": "v5-cc-review-xhigh",
+ "findings": [
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 149,
+   "end_line": 149,
+   "message": "Cluster mode picks a URL from status.endpoints, but the operator always writes in-cluster service DNS there (http://{name}-keycloak.{ns}.svc.cluster.local:8080, keycloak_reconciler.py:464-467). A workstation outside the cluster cannot resolve that host. Running the headline docs example (`--keycloak my-keycloak --namespace keycloak-system --realm my-realm` with no --server-url) from a laptop: the token POST to http://my-keycloak-keycloak.keycloak-system.svc.cluster.local:8080 fails with a DNS 'no such host' error. The comment's 'admin > public > internal because we run outside the cluster' reasoning does not hold, since all three are cluster-internal URLs. Cluster mode only works with --server-url or from inside the cluster."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 177,
+   "end_line": 177,
+   "message": "The double-base64 heuristic decodes any secret value whose length is a multiple of 4 and that uses only base64 characters. That corrupts real credentials, including about 14% of operator-generated passwords. The operator makes 16-char passwords from letters, digits and !@#$%^&* (utils/kubernetes.py:1428-1429). When none of the special characters appear ((62/70)^16 \u2248 14%), isBase64 returns true and DecodeString succeeds, so the tool sends 12 garbage bytes as the password and gets 401. Usernames like 'user', 'root' or 'test' in an existingSecret are corrupted the same way. The operator decodes secret data exactly once (keycloak_reconciler.py:1315-1320), so the toolkit must not decode again."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 197,
+   "end_line": 197,
+   "message": "Keycloak's PartialImportResults JSON has no `errors` field (it has added/skipped/overwritten/results/errorMessage), and result actions are only ADDED/SKIPPED/OVERWRITTEN. Errors is therefore always 0 and the 'hard fail on errors > 0' path can never fire. Any batch Keycloak accepts is treated as clean. The ERROR/FAILED action filter and the `batchResult.Errors > 0` branch (line 90) are dead code. Real failures arrive only as non-200 statuses with errorMessage. The design in ADR-093 and the docs ('Any batch response with errors > 0 causes an immediate hard failure') describes behaviour that does not exist."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 194,
+   "end_line": 194,
+   "message": "The response struct never parses `overwritten`, and ImportResult and the summary have no Overwritten count. In --mode overwrite, every replaced user disappears from the totals. Re-running with --mode overwrite against a realm where all 5,000 users exist prints 'Added: 0, Skipped: 0, Errors: 0' for 5,000 total users. That looks like nothing happened, when every user was actually overwritten."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 82,
+   "end_line": 82,
+   "message": "When importBatch, a token refresh or authentication fails, the function returns a nil result, which throws away the Added/Skipped totals from batches that already finished. The caller's 'print partial result so user can see progress' code then prints nothing. Batch 7 of 10 returns HTTP 500. The user gets 'batch 7/10 failed: ...' and no summary, even though batches 1-6 committed 3,000 users. Because the errors>0 path never fires, this nil-result path is the only failure path in practice, so the partial-progress handling in import_users.go:161-163 never runs."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 174,
+   "end_line": 174,
+   "message": "Every HTTP call uses http.DefaultClient (no timeout) with a context.Background() context that has no deadline and no signal handling (import_users.go:88), so a stalled server or load balancer hangs the import forever. An ingress that accepts the connection but never responds to a 500-user partialImport POST, or a half-open TCP connection, blocks the process with no timeout. Nothing reports which batch was in flight."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 78,
+   "end_line": 78,
+   "message": "The admin password is only accepted as a --password command-line flag, so it shows up in `ps`/`/proc/<pid>/cmdline` and in shell history. No environment variable or stdin option exists. In the documented CI example `--password \"$KEYCLOAK_ADMIN_PASSWORD\"`, the shell expands the value into argv, so any other user or process on the host can read the master-realm admin password from the process table while the import runs."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 159,
+   "end_line": 159,
+   "message": "The fallback URL is built from `spec.hostname` and `spec.tls.enabled`, but the Keycloak CRD has no spec.hostname. The externally reachable host is spec.ingress.host (with ingress.tlsEnabled), and spec.tls.enabled is pod-level TLS, not ingress TLS. KeycloakSpec.Hostname is always empty, so this branch is dead and the 'spec.hostname is not set' error points users at a field that does not exist. The ingress host, which is what an off-cluster tool needs, is never consulted."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 187,
+   "end_line": 187,
+   "message": "The 409 error message always says '(mode=FAIL)', but Keycloak also returns 409 in SKIP/OVERWRITE mode, for example when an imported user's email clashes with an existing user that has a different username (ModelDuplicateException). A user runs with the default --mode skip and gets 'HTTP 409 Conflict (mode=FAIL)'. They conclude the mode flag was ignored, when the real cause is a duplicate email."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/kubeclient.go",
+   "start_line": 72,
+   "end_line": 72,
+   "message": "Readiness is a strict `phase == \"Ready\"` check, which rejects Degraded (and transient Reconciling) instances where Keycloak is still serving. The operator itself treats Degraded as operational (drift_detection_service.py:320). A Keycloak instance in Degraded because an unrelated realm failed to reconcile blocks the import with 'is not Ready', even though the admin API works. This is also true when --server-url is supplied explicitly."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "docs/how-to/migration-toolkit.md",
+   "start_line": 259,
+   "end_line": 259,
+   "message": "The docs and ADR-093 say Partial Import is non-atomic per batch. In fact Keycloak's PartialImportManager marks the transaction rollback-only on any error, so each request is all-or-nothing. Operators size --batch-size and plan recovery based on wrong semantics. They expect a failed batch to have partly committed, when actually the whole batch rolled back, and the ADR's rejected-alternative rationale rests on this claim."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer_test.go",
+   "start_line": 1,
+   "end_line": 1,
+   "message": "Only `chunk` and the loader are tested. importBatch, authenticate, resolveURL, decodeSecretKey/isBase64 and the token-refresh logic have no tests, though httptest makes them cheap to cover. A single httptest case with a real Keycloak PartialImportResults body would have caught the missing `errors`/`overwritten` fields. A table test of decodeSecretKey with an alphanumeric 16-char password would have caught the base64 corruption."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/importer.go",
+   "start_line": 55,
+   "end_line": 55,
+   "message": "The library package writes progress and dry-run output straight to stdout with fmt.Printf, while the command writes through cmd.Printf, which cobra sends to stderr by default. The output is split across two streams and can't be redirected or captured in tests. `keycloak-migrate import-users ... --dry-run > plan.txt` puts the dry-run plan in the file while 'Loading...' and the summary go to the terminal. Tests cannot capture importer output via cmd.SetOut."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/cmd/import_users.go",
+   "start_line": 201,
+   "end_line": 201,
+   "message": "currentKubeNamespace builds its own kubeconfig loader that duplicates the one in ResolveFromCluster. Its `ns == \"\"` \u2192 \"default\" fallback is also redundant, because clientcmd's Namespace() already returns \"default\". Kubeconfig is loaded and parsed twice per run, and the two loaders can drift (for example if one later honours --context/--kubeconfig flags and the other doesn't). Simpler form: have ResolveFromCluster accept an empty namespace and resolve it from the same ClientConfig."
+  },
+  {
+   "producer": "v5-cc-review-xhigh",
+   "file": "tools/migration-toolkit/internal/userimport/loader.go",
+   "start_line": 46,
+   "end_line": 46,
+   "message": "users.json is parsed twice: once into json.RawMessage just to check the first byte is '[', then again into []map[string]any. Unmarshalling into the slice already rejects objects and scalars with a type error. For a 50k-user export with credential hashes (tens to hundreds of MB), the extra scan and copy doubles parse time and peak memory for no added validation. Simpler form: a single json.Unmarshal into []map[string]any, wrapping the UnmarshalTypeError with the 'must contain a JSON array' message."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 320000
+ }
+}

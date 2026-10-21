@@ -16,10 +16,11 @@ Say this to the person at the start, in a sentence or two:
 - This is a review: it reads the change. It doesn't run the project's tests, lock acceptance tests before the build,
   run the scanners in a sandbox, or keep a tamper-evident log. Those are the factory's other stages, and they need
   the harness (`factory/README.md`).
-- In the factory's tests on ReviewBench, OpenAI's `codex review` and Claude Code with a plain review prompt, run
-  together, found as much as anything the factory built. With OpenAI's model alone, this brief found more than
-  `codex review` (a plain prompt there is still to be tested); with Claude alone, a plain prompt did as well or better. A second review from the other model
-  family is worth more than a second pass from this one. (The results:
+- In the factory's tests on ReviewBench, this brief found no more than a plain "review this as a careful senior
+  engineer" prompt, on Claude or on OpenAI's model; it beat the labs' own review commands only at their default
+  settings, and OpenAI's `codex review` and Claude Code with a plain prompt, run together, found as much as anything
+  the factory built. What this workflow adds is the sign-off sheet, not more findings. A second review from the other
+  model family is worth more than a second pass from this one. (The results:
   https://github.com/chrisgagne/grounded-forge/tree/main/corpus.commons/chrisgagne-agent-built-software/helpers/factory-warranty/calibration/realbugs/results)
 
 ## 1. Gather the change

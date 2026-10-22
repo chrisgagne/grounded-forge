@@ -2,7 +2,9 @@
 
 **TL;DR.** Over 17 tests (19–22 October 2026), a private grounded-forge corpus was run blind against Google's Gemini Notebook over the same sources. It was then taken apart, layer by layer, to see what each part of the design contributes.
 
-- **Retrieval was a tie on simple questions.** On lookups, traps and wide syntheses, Gemini Notebook did as well.
+- **Retrieval wasn't grounded-forge's edge.**
+  - On a lookup and a trap question, the two tied.
+  - On the one wide synthesis, Gemini was wider: about 20 sources, including the strongest voice grounded-forge missed. grounded-forge was deeper, with every answer-key item and more insight. Quote accuracy was close.
 - **grounded-forge pulled ahead where the work needs more than retrieval:**
   - applying sources to a case;
   - keeping safety cautions;
@@ -49,7 +51,7 @@ How the Claude arms ran and were scored:
 | 2 | After-action review of a near-miss, with an HR question | grounded-forge 13 of 14 expected ideas. Gemini 10 asked plainly; 7 with the rules paragraph, and all 7 of those citations pointed at the wrong book. |
 | 3 | Named lookup | Tie. |
 | 4 | Question with a trap (the sources don't support it) | Both passed. |
-| 5 | Wide synthesis with quotations | Gemini wider (40 quotations, 1 misquote); grounded-forge deeper (34 of 34 exact, one wrong "not in source" call). |
+| 5 | Wide synthesis with quotations (where the sources disagree on root cause) | Gemini wider: about 20 sources, including the library's strongest pro-root-cause voice, which grounded-forge missed; 39 of 40 quotations exact. grounded-forge deeper: every answer-key item, including two Gemini missed, and more insight beyond listing; 34 of 34 exact, one wrong "not in source" call. |
 | 6 | Organisational case | Tie on content; grounded-forge stated its condition and gaps. |
 | 7 | Reading a job posting through a lens | Both good; grounded-forge deeper. |
 | 8 | Safety question on a coaching course | Both grounded. Gemini left out the course's contraindication for clients with a history of psychosis. |
@@ -68,7 +70,7 @@ A harness run of Q14 with a 14-turn cap went the other way (principles 68 agains
 
 ## What the evidence says about the layers
 
-1. **Retrieval isn't where grounded-forge wins.** Gemini Notebook retrieves well over a few hundred sources, and on lookups and wide syntheses it matched or out-quoted the matrix.
+1. **Retrieval isn't where grounded-forge wins.** Gemini Notebook retrieves well over a few hundred sources. It tied on the lookup, and on the wide synthesis it found more sources than grounded-forge did. Its failures came from applying sources to a case and from reasoning past them, not from finding them.
 2. **The harness is a real advantage.** grounded-forge runs where it can read every relevant file, spawn readers and check its own quotes. That's how it won the exhaustive question (Q9): ten parallel readers covered the whole course. A chat product can't do this from inside its retrieval budget. grounded-forge also kept the safety cautions Gemini dropped (Q8, Q15), but these tests don't show why.
 3. **The distillations added little to answer quality on these tests.**
    - On AAR work, where the literature is in the model's training, references plus the app's instructions matched or beat the app with distillations (Q10M).

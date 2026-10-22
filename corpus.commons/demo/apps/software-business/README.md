@@ -157,7 +157,7 @@ The comparative method evaluation is a separate surface: a blind LLM-judge proto
 
 4. *Where the corpus is canonical and the filenames route it, these rounds showed no answer-quality gain for the matrix; naive corpus access suffices there.* The matrix's remaining case on that surface is audit traceability and session amortisation; its necessary case is the corpora the training prior cannot route.
 
-5. *Against Gemini Notebook, the edge is the harness and the method, not retrieval or distillations* ([the round](docs/evals/rounds/2026-10-22-gemini-notebook-private-corpus/)). Over a private corpus (287 of its 330 sources in the notebook), Gemini Notebook matched grounded-forge on lookups and wide syntheses. grounded-forge pulled ahead on four kinds of work:
+5. *Against Gemini Notebook, the edge is the harness and the method, not retrieval or distillations* ([the round](docs/evals/rounds/2026-10-22-gemini-notebook-private-corpus/)). Over a private corpus (287 of its 330 sources in the notebook), Gemini Notebook tied on a lookup and was wider on a broad synthesis, while grounded-forge was deeper. grounded-forge pulled ahead on four kinds of work:
    - applying sources to a case;
    - keeping safety cautions;
    - finding *every* instance (22 of 23 items to 15, with Gemini calling its list complete);

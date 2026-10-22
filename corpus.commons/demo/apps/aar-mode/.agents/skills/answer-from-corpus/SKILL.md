@@ -201,6 +201,17 @@ Write in the form the user asked for (essay, list, table, etc.). **Match the cit
 - **Technical or operator-facing deliverables** (code, config, runbook, internal note where the operator wants to inspect the trace): cite by relative file path inline.
 - When in doubt, default to the prose-cite style.
 
+### Check the quotes before the answer goes out
+
+Every quotation attributed to an author must be the author's own words. The usual slip is a summary layer's wording in quote marks: a distillation's list item, or a light reference's paraphrase, quoted as if the author wrote it. Before sending any answer that quotes a named author or work:
+
+1. Run the checker on the answer from the corpus root (project mode) or the app folder (app mode), passing the user's own material with `--input` so quotes from it pass:
+   `python3 .claude/skills/answer-from-corpus/check_quotes.py ANSWER.md --input CASE.txt` (or pipe the answer in with `-`).
+2. Fix every `LAYER` and `MISSING` line. Either paraphrase it with attribution, or quote the passage's exact words: from the converted source in project mode, or from a `[V]` or blockquoted line of the distillation in an app. Run the check again until nothing is left to fix.
+3. Record the result in the trace footer: `quotes checked: N, fixed: M`.
+
+Without a shell (an MCP deployment, or a sandbox with no Bash), check each attributed quote by searching for it instead: Grep `sources/converted/` in project mode, or the distillations' `[V]` lines and blockquotes in an app. Paraphrase any quote you can't find word for word.
+
 ### No-coverage and partial coverage
 
 **Full no-coverage.** If the corpus does not cover the question (the indexes have no relevant entries, the candidate references or distillations don't apply) say so plainly. Do not fall back to training to fabricate a confident answer. *"The corpus does not cover this; here's why, and here's what's adjacent that might help"* is a valid response. *Adjacent* covers two distinct moves: (a) **adjacent corpus material**: sources already in the corpus that touch the topic obliquely, with the obliqueness named; (b) **external-ingestion candidates**: named authors or works the operator could ingest to extend the corpus. The second is licensed only as ingestion candidates, not citable claims — phrase as *"Beck's Extreme Programming Explained would be a candidate ingestion"*, not as *"Beck argues that..."*.

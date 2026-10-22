@@ -1,6 +1,6 @@
 # Gemini Notebook against a private grounded-forge corpus, and what the matrix's layers are worth
 
-**TL;DR.** Over 17 tests (19–22 October 2026), a private grounded-forge corpus was run blind against Google's Gemini Notebook over the same sources. It was then taken apart, layer by layer, to see what each part of the design contributes.
+**TL;DR.** Over 18 tests (19–22 October 2026), a private grounded-forge corpus was run blind against Google's Gemini Notebook over the same sources. It was then taken apart, layer by layer, to see what each part of the design contributes.
 
 - **Retrieval wasn't grounded-forge's edge.**
   - On a lookup and a trap question, the two tied.
@@ -12,7 +12,7 @@
   - running a live review.
 
   On an exhaustive question it found 22 of 23 items to Gemini's 15, and Gemini called its own list complete. In a live review with a participant who answers only what's asked, Gemini asked no questions at all.
-- **Within grounded-forge, the distillations didn't earn their keep.** Three things did the work: the audited references, a page of written principles, and a facilitation procedure for live sessions. That led to two fixes: a quote check that now ships with `answer-from-corpus`, and an open question about the project's tagline.
+- **Within grounded-forge, the distillations didn't earn their keep.** Swapping them for plain light references under the same app made no measurable difference, one-shot or live, on Opus or on Sonnet. What did the work was the audited references and the pieces built by hand for the task: a page of written principles, a facilitation procedure for live sessions, and, for the coaching review, a competency framework worth about 28 points. That led to two fixes: a quote check that now ships with `answer-from-corpus`, and an open question about the project's tagline.
 
 Single runs or pairs, one judge family, and a private corpus: read this as a direction, not a decimal.
 
@@ -37,11 +37,12 @@ Nothing from the private corpus is published here: no source text, no distillati
   - references plus the app's instructions without distillations (M);
   - references plus only the app's principles block (P);
   - P plus an action cap, and P plus an "ask before you write" rule;
-  - the app's 1,862-line facilitation procedure swapped for a one-try procedure written by Gemini or by a fresh Claude.
+  - the app's 1,862-line facilitation procedure swapped for a one-try procedure written by Gemini or by a fresh Claude;
+  - each per-source distillation replaced by that source's light reference, a quarter to a third shorter, with the task indexes, facilitator and skills unchanged (L, Q19).
 
 How the Claude arms ran and were scored:
 - **Q1–Q9:** fresh Claude Code sessions in project mode, kept blind to the keys and to Gemini's answers. They were scored by the Claude session running the round, against answer keys written before either side ran. Chris read Q7.
-- **From Q10:** isolated `claude -p` runs (Opus 5.5 at effort high), with project and local settings only, an empty MCP configuration and no web. Blind Opus judges scored them against rubrics written before any arm ran.
+- **From Q10:** isolated `claude -p` runs (Opus 5.5 at effort high), with project and local settings only, an empty MCP configuration and no web. Blind Opus judges scored them against rubrics written before any arm ran. Q19 also ran each arm on Sonnet 5.5, at the same effort.
 
 ## Results
 
@@ -65,6 +66,7 @@ How the Claude arms ran and were scored:
 | 14b | Same, participant answers only what is asked | Procedure 27 facts, AAR 84; principles only 2 facts, 28; Gemini 0 facts in three runs, 26–30. |
 | 15 | Review a real coaching session (pseudonymised) against a competency framework | Distillations 83.2; project mode 82.0; the full review skill's earlier report 83.5; Gemini 51, with the scope-of-practice moment missed in half its readings. |
 | 17 | 14b with principles plus "ask before you write" | 6–9 facts, AAR 43–44: it asked early, then stopped. |
+| 19 | Distillations (D) against light references (L), on Opus and on Sonnet: Q15's review without the framework, and a live review in the capped harness below | Review: Opus D 55.3, L 55.0; Sonnet D 43.5, L 48.0 (Q15 with the framework: 83.2). Live: on each model the two pairs split one each way; means Opus D 69.5, L 74.5; Sonnet 68.5 each. |
 
 A harness run of Q14 with a 14-turn cap went the other way (principles 68 against procedure 62), because the procedure spent its turns on the timeline and never reached actions. Its pacing was in minutes, which a chat assistant can't see. Two changes fixed it: an exchange budget (be into analysis by halfway and into actions by three-quarters), and the history and measures questions no arm had asked. With them, the procedure finished inside the cap. It reached both facts and was preferred over principles in both blind readings (71 against 66.5, one run). Its actions were still the weaker of the two.
 
@@ -74,13 +76,15 @@ A harness run of Q14 with a 14-turn cap went the other way (principles 68 agains
 2. **The harness is a real advantage.** grounded-forge runs where it can read every relevant file, spawn readers and check its own quotes. That's how it won the exhaustive question (Q9): ten parallel readers covered the whole course. A chat product can't do this from inside its retrieval budget. grounded-forge also kept the safety cautions Gemini dropped (Q8, Q15), but these tests don't show why.
 3. **The distillations added little to answer quality on these tests.**
    - On AAR work, where the literature is in the model's training, references plus the app's instructions matched or beat the app with distillations (Q10M).
-   - On the coaching course, which isn't in training, distillations and references tied (Q15). But every arm was given an annotated competency framework that already carries the course's techniques, so that test couldn't isolate the layer.
-   - **No live test included the distillations.** Every live arm (Q14, Q14b, Q17, Q18) used the references and the procedure without them, so for live work the layer is untested.
+   - On the coaching course, which isn't in training, distillations and references tied (Q15). But every arm was given an annotated competency framework that already carries the course's techniques. Q19 withheld it: both Opus arms dropped about 28 points, and distillations and light references still tied.
+   - Live, Q19 swapped the distillations for light references under the same facilitator, and on each model the pairs split one each way. A live session read only one to six library files. The facilitator and the task index carried the method, and which questions the facilitator asked decided every pair.
+   - The weaker model didn't need them more. On Sonnet, light references tied live and scored slightly higher on the review (48.0 against 43.5, inside the spread between one arm's two runs).
    - Distillations cost about a third of ingestion spend in the logs since September 2026. The independent audits are the largest part; producing the references is the smallest.
 4. **What did the work:**
    - **Audited references:** every strong arm stood on them.
    - **A page of written principles:** these supplied the leverage-point and one-experiment moves (Q11–Q12).
-   - **A real procedure for live work:** the procedure is what makes the assistant ask, topic by topic, before it writes (Q14, Q14b, Q17). One-shot, a short procedure with an action cap is enough.
+   - **A real procedure for live work:** the procedure is what makes the assistant ask, topic by topic, before it writes (Q14, Q14b, Q17). With it, Sonnet ran live reviews nearly as well as Opus (68.5 against 69.5–74.5, Q19). One-shot, a short procedure with an action cap is enough.
+   - **A framework for reviewing against a standard:** withholding the competency framework cost about 28 points, and without it all eight reviews made up their own headings (Q19).
 5. **Quote fidelity was the one systematic fault, in every Claude configuration.**
    - The app quoted a distillation's list item as the author's words in all three runs.
    - Project mode quoted a light reference's paraphrase as the author's words.
@@ -102,7 +106,7 @@ Gemini Notebook and an agent harness (Claude Code, Codex) are different kinds of
 - **The harnesses do things Gemini Notebook doesn't:**
   - Choosing the model and the reasoning effort ([Claude Code](https://code.claude.com/docs/en/model-config), [Codex](https://learn.chatgpt.com/docs/models)). Gemini Notebook documents neither ([chat help](https://support.google.com/gemininotebook/answer/16179559)).
   - Reading a whole library from local files. A notebook is capped (300 sources on Pro), and each notebook is independent: "Gemini Notebook can't access information across multiple notebooks at the same time" ([help](https://support.google.com/gemininotebook/answer/16206563)).
-  - Shell, file edits, MCP connectors, subagents, browser and computer control, and reusable skills and project instructions.
+  - Shell, file edits, MCP connectors, subagents, browser and computer control, reusable skills, and project instruction files. Gemini Notebook's nearest is a chat style or role set under Configure Chat ([chat help](https://support.google.com/gemininotebook/answer/16179559)).
   - Scripted runs (`claude -p`, `codex exec`, SDKs). Gemini Notebook's Enterprise API (v1alpha, updated 9 October 2026) creates, shares and deletes notebooks, sources and audio overviews, but has no call to ask a notebook a question ([API reference](https://docs.cloud.google.com/gemini/enterprise/docs/reference/rpc/google.cloud.notebooklm.v1alpha)).
 - **Gemini Notebook is gaining agency.**
   - Since 16 July 2026 each notebook has "a secure cloud computer" that writes and runs code, available on Ultra and rolling out to Pro ([Google](https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/)).
@@ -133,7 +137,7 @@ The trust problem is unflagged confidence: specific claims presented as establis
 ## Caveats
 
 - **The judges are Claude, and so is every arm but Gemini.** Gemini's answers were judged by Claude against rubrics Claude wrote before the runs. Mechanical checks (facts counted from tags, timestamps and quotes matched against text) carry the cross-family claims where they exist.
-- **The tests were few:** mostly one or two runs per arm, one corpus and one domain pair.
+- **The tests were few:** mostly one or two runs per arm, one corpus and one domain pair. In Q19, two runs of the same live arm differed by about 10 points, twice the gap between the arms' means: a null result at small n, not proof that the two are equivalent.
 - **Gemini wasn't given every chance:**
   - Asked plainly, it used its library less than it could have.
   - Its saved notes become ticked sources, and its Studio files survive "Delete chat history" and are read in later chats. A saved note reached Q4 and a Studio file reached one of the Q14 runs. From then on, notes were unticked and Studio files deleted between runs, and the affected runs are marked.

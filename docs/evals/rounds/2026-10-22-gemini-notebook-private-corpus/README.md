@@ -52,7 +52,7 @@ How the Claude arms ran and were scored:
 | 3 | Named lookup | Tie. |
 | 4 | Question with a trap (the sources don't support it) | Both passed. |
 | 5 | Wide synthesis with quotations (where the sources disagree on root cause) | Gemini wider: about 20 sources, including the library's strongest pro-root-cause voice, which grounded-forge missed; 39 of 40 quotations exact. grounded-forge deeper: every answer-key item, including two Gemini missed, and more insight beyond listing; 34 of 34 exact, one wrong "not in source" call. |
-| 6 | Organisational case | Tie on content; grounded-forge stated its condition and gaps. |
+| 6 | Organisational case | Tie on content: Gemini stronger on flow mechanics, grounded-forge on why the agreement failed. With the rules paragraph Gemini also stated a condition and its gaps; asked plainly, it gave neither. |
 | 7 | Reading a job posting through a lens | Both good; grounded-forge deeper. |
 | 8 | Safety question on a coaching course | Both grounded. Gemini left out the course's contraindication for clients with a history of psychosis. |
 | 9 | Find *every* referral and contraindication in that course | grounded-forge 22 of 23 key items with the right sessions, and an honest "about 95%". Gemini 15 (plus 3 partial), several sessions wrong, an invented level, and the psychosis caution missed again, while calling its list "comprehensive, re-verified". |
@@ -63,7 +63,7 @@ How the Claude arms ran and were scored:
 | 13 | 12 plus "three to five actions" | 86.5: tighter actions, thinner analysis. |
 | 14 | Live review: a simulated manager holds 32 hidden facts | Procedure 21 facts, AAR 73; principles only 11 facts, 54; Gemini 40, and it asked only when the participant nudged it. |
 | 14b | Same, participant answers only what is asked | Procedure 27 facts, AAR 84; principles only 2 facts, 28; Gemini 0 facts in three runs, 26–30. |
-| 15 | Review a real coaching session (pseudonymised) against a competency framework | Distillations 83; project mode 82; the full review skill's earlier report 84; Gemini 51, with the scope-of-practice moment missed in half its readings. |
+| 15 | Review a real coaching session (pseudonymised) against a competency framework | Distillations 83.2; project mode 82.0; the full review skill's earlier report 83.5; Gemini 51, with the scope-of-practice moment missed in half its readings. |
 | 17 | 14b with principles plus "ask before you write" | 6–9 facts, AAR 43–44: it asked early, then stopped. |
 
 A harness run of Q14 with a 14-turn cap went the other way (principles 68 against procedure 62), because the procedure spent its turns on the timeline and never reached actions. Its pacing was in minutes, which a chat assistant can't see. Two changes fixed it: an exchange budget (be into analysis by halfway and into actions by three-quarters), and the history and measures questions no arm had asked. With them, the procedure finished inside the cap. It reached both facts and was preferred over principles in both blind readings (71 against 66.5, one run). Its actions were still the weaker of the two.

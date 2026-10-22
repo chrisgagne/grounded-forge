@@ -1,6 +1,6 @@
 # Gemini Notebook against a private grounded-forge corpus, and what the matrix's layers are worth
 
-**TL;DR.** Over 17 questions (19–22 October 2026), a private grounded-forge corpus was run blind against Google's Gemini Notebook over the same sources. It was then taken apart, layer by layer, to see what each part of the design contributes.
+**TL;DR.** Over 17 tests (19–22 October 2026), a private grounded-forge corpus was run blind against Google's Gemini Notebook over the same sources. It was then taken apart, layer by layer, to see what each part of the design contributes.
 
 - **Retrieval was a tie on simple questions.** On lookups, traps and wide syntheses, Gemini Notebook did as well.
 - **grounded-forge pulled ahead where the work needs more than retrieval:**
@@ -16,13 +16,19 @@ Single runs or pairs, one judge family, and a private corpus: read this as a dir
 
 ## Why a private corpus
 
-The protocol at [`../../gemini-notebook-arm.md`](../../gemini-notebook-arm.md) plans this comparison over the public demo corpus and is still unrun. This round used the author's private working corpus instead: about 330 audited sources (books, papers, standards and a licensed coaching course) with light and deep references, five task axes of distillations, and lenses. The corpus owner uploaded the original files (PDFs and EPUBs as he had them, not the converted Markdown) to a Gemini Notebook Pro notebook, which took 287 of them. A few uploads failed with a bare "error, try again" that gave no reason.
+The protocol at [`../../gemini-notebook-arm.md`](../../gemini-notebook-arm.md) plans this comparison over the public demo corpus and is still unrun. This round used the author's private working corpus instead: about 330 audited sources (books, papers, standards and a licensed coaching course) with light and deep references, five task axes of distillations, and lenses. 293 files went to a Gemini Notebook Pro notebook: the originals as they were (PDF, EPUB) where they existed, and Markdown where they didn't. 289 imported, and 287 corpus sources were in play for the questions.
+
+Four PDFs failed with a bare "error, try again":
+- two scanned books with no text layer, which Gemini therefore couldn't read at all, so questions touching them favoured grounded-forge for a reason that belongs to the product;
+- two with a text layer, for no stated reason.
+
+Seven Markdown files first failed on the corpus's own provenance-comment format and went in once it was fixed.
 
 Nothing from the private corpus is published here: no source text, no distillation and no answer. Results are given as counts, scores and kinds of failure. The question files, answers, run logs and judge readings stay in the private corpus.
 
 ## Arms
 
-- **G, Gemini Notebook:** the notebook as a user would use it, with default settings and the chat cleared before each question. Most questions were asked twice, once with a paragraph of rules (quote exactly, mark gaps) and once as the bare question a user would type, because the rules turned out to lead Gemini.
+- **G, Gemini Notebook:** the notebook as a user would use it, with default settings and the chat cleared before each question. Q1–Q6 carried a paragraph of rules (quote exactly, mark gaps). The rules turned out to lead Gemini, so Q1, Q2 and Q6 were rerun with the bare question a user would type, and from Q7 on Gemini got the bare question only.
 - **Project mode:** a fresh Claude session over the corpus's references, using `answer-from-corpus`.
 - **App mode:** the compiled AAR app (distillations, task index, AAR skills).
 - **Ablations:**
@@ -31,13 +37,15 @@ Nothing from the private corpus is published here: no source text, no distillati
   - P plus an action cap, and P plus an "ask before you write" rule;
   - the app's 1,862-line facilitation procedure swapped for a one-try procedure written by Gemini or by a fresh Claude.
 
-The Claude arms ran isolated with `claude -p` (Opus 5.5 at effort high), with project and local settings only, an empty MCP configuration, and no web. Blind judges (Opus) scored against rubrics written before any arm ran.
+How the Claude arms ran and were scored:
+- **Q1–Q9:** fresh Claude Code sessions in project mode, kept blind to the keys and to Gemini's answers. They were scored by the Claude session running the round, against answer keys written before either side ran. Chris read Q7.
+- **From Q10:** isolated `claude -p` runs (Opus 5.5 at effort high), with project and local settings only, an empty MCP configuration and no web. Blind Opus judges scored them against rubrics written before any arm ran.
 
 ## Results
 
 | # | Task | Result |
 |---|---|---|
-| 1 | Advice for a named person, from a lens | Same choice. Gemini quoted its sources exactly but misapplied several passages; grounded-forge marked its gaps and inferences. |
+| 1 | Advice for a named person, from a lens | Same choice. Gemini's answer was more concrete to act on; it quoted its sources exactly, but five claims cited passages that don't carry them. grounded-forge marked its gaps and inferences. |
 | 2 | After-action review of a near-miss, with an HR question | grounded-forge 13 of 14 expected ideas. Gemini 10 asked plainly; 7 with the rules paragraph, and all 7 of those citations pointed at the wrong book. |
 | 3 | Named lookup | Tie. |
 | 4 | Question with a trap (the sources don't support it) | Both passed. |
@@ -61,11 +69,12 @@ A harness run of Q14 with a 14-turn cap went the other way (principles 68 agains
 ## What the evidence says about the layers
 
 1. **Retrieval isn't where grounded-forge wins.** Gemini Notebook retrieves well over a few hundred sources, and on lookups and wide syntheses it matched or out-quoted the matrix.
-2. **The harness is a real advantage.** grounded-forge runs where it can read every relevant file, spawn readers and check its own quotes. That's why it won the exhaustive question (Q9) and kept the cautions (Q8, Q15). A chat product can't do this from inside its retrieval budget.
+2. **The harness is a real advantage.** grounded-forge runs where it can read every relevant file, spawn readers and check its own quotes. That's how it won the exhaustive question (Q9): ten parallel readers covered the whole course. A chat product can't do this from inside its retrieval budget. grounded-forge also kept the safety cautions Gemini dropped (Q8, Q15), but these tests don't show why.
 3. **The distillations added little to answer quality on these tests.**
    - On AAR work, where the literature is in the model's training, references plus the app's instructions matched or beat the app with distillations (Q10M).
    - On the coaching course, which isn't in training, distillations and references tied (Q15). But every arm was given an annotated competency framework that already carries the course's techniques, so that test couldn't isolate the layer.
-   - Distillations cost about a third of ingestion spend. The independent audits are the largest part; producing the references is the smallest.
+   - **No live test included the distillations.** Every live arm (Q14, Q14b, Q17, Q18) used the references and the procedure without them, so for live work the layer is untested.
+   - Distillations cost about a third of ingestion spend in the logs since September 2026. The independent audits are the largest part; producing the references is the smallest.
 4. **What did the work:**
    - **Audited references:** every strong arm stood on them.
    - **A page of written principles:** these supplied the leverage-point and one-experiment moves (Q11–Q12).
@@ -74,16 +83,17 @@ A harness run of Q14 with a 14-turn cap went the other way (principles 68 agains
    - The app quoted a distillation's list item as the author's words in all three runs.
    - Project mode quoted a light reference's paraphrase as the author's words.
 
-   The skill already forbade both, and neither was caught. `answer-from-corpus` now runs [`check_quotes.py`](../../../../.claude/skills/answer-from-corpus/check_quotes.py) before an answer goes out. It flags any author quotation that matches only a summary layer or nothing at all, and it caught every such case found by hand in this round.
+   The skill already forbade both, and neither was caught. `answer-from-corpus` now runs [`check_quotes.py`](../../../../.claude/skills/answer-from-corpus/check_quotes.py) before an answer goes out. It flags any author quotation that matches only a summary layer or nothing at all. Run on the Q10 answers, it caught every such case found there by hand.
 6. **Gemini Notebook is an answer engine.** Given an incident and asked to run the review, it wrote a confident document from the first message, with invented specifics, and never asked a question.
 
 ## Caveats
 
-- **The judges are Claude, and so are three of the four arms.** Gemini's answers were judged by a Claude judge against rubrics Claude wrote before the runs. Mechanical checks (facts counted from tags, timestamps and quotes matched against text) carry the cross-family claims where they exist.
+- **The judges are Claude, and so is every arm but Gemini.** Gemini's answers were judged by Claude against rubrics Claude wrote before the runs. Mechanical checks (facts counted from tags, timestamps and quotes matched against text) carry the cross-family claims where they exist.
 - **The tests were few:** mostly one or two runs per arm, one corpus and one domain pair.
 - **Gemini wasn't given every chance:**
   - Asked plainly, it used its library less than it could have.
-  - Its Studio files survive "Delete chat history" and are read in later chats, which contaminated one of the Q14 runs; the affected runs are marked.
+  - Its saved notes become ticked sources, and its Studio files survive "Delete chat history" and are read in later chats. A saved note reached Q4 and a Studio file reached one of the Q14 runs. From then on, notes were unticked and Studio files deleted between runs, and the affected runs are marked.
+  - "Copy notebook" re-ingests every source; a copy of this notebook failed with 163 of 296 sources in.
   - Its citations are chunk numbers that mean nothing outside the notebook.
 - **Q14's first Gemini runs were coached** by a participant that nudged it 20 times in one run. Q14b's gated participant supersedes them.
 - **Confidentiality.** The coaching test used a real client session, pseudonymised before any arm saw it. Its transcript, reviews and judge readings are kept out of version control.

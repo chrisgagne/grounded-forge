@@ -1,5 +1,7 @@
 # The Gemini Notebook arm (N)
 
+*Status: this protocol, over the public demo corpus, is still unrun. A round over a private corpus ran on 19–22 October 2026; its results are at [`rounds/2026-10-22-gemini-notebook-private-corpus/`](rounds/2026-10-22-gemini-notebook-private-corpus/).*
+
 Google's Gemini Notebook (NotebookLM until its rename on 16 July 2026) is the market's default source-grounded tool: upload sources, ask, and get an answer whose claims carry passage-level citations. None of the arms in [`methodology.md`](methodology.md) is a grounded product of this kind, and its citations offer per-claim auditability, the property the matrix claims as its edge. Method N loads Gemini Notebook with the demo corpus's converted sources and puts the same prompts to it as to the matrix (D) and to Claude with the sources (C).
 
 **Question.** Over the same sources, does the matrix produce more faithful source-grounded claims, fewer hard errors, or better coverage of the distinctions that matter than Gemini Notebook does? And if it does, is the edge confined to material where the corpus disagrees with the canonical view?

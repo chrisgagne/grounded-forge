@@ -88,6 +88,48 @@ A harness run of Q14 with a 14-turn cap went the other way (principles 68 agains
    The skill already forbade both, and neither was caught. `answer-from-corpus` now runs [`check_quotes.py`](../../../../.claude/skills/answer-from-corpus/check_quotes.py) before an answer goes out. It flags any author quotation that matches only a summary layer or nothing at all. Run on the Q10 answers, it caught every such case found there by hand.
 6. **Gemini Notebook is an answer engine.** Given an incident and asked to run the review, it wrote a confident document from the first message, with invented specifics, and never asked a question.
 
+## What each product can do (checked 22 October 2026)
+
+Gemini Notebook and an agent harness (Claude Code, Codex) are different kinds of product. From the vendors' documentation:
+
+- **Gemini Notebook does things the harnesses don't:**
+  - Studio outputs: audio and video overviews, slide decks, mind maps, reports, data tables and quizzes;
+  - click-through citations to the exact passage;
+  - Drive sources that stay in sync;
+  - sharing with named users, or as a public notebook ([sharing](https://support.google.com/gemininotebook/answer/16206563));
+  - research that brings web sources in;
+  - use from the Gemini app; nothing to install.
+- **The harnesses do things Gemini Notebook doesn't:**
+  - Choosing the model and the reasoning effort ([Claude Code](https://code.claude.com/docs/en/model-config), [Codex](https://learn.chatgpt.com/docs/models)). Gemini Notebook documents neither ([chat help](https://support.google.com/gemininotebook/answer/16179559)).
+  - Reading a whole library from local files. A notebook is capped (300 sources on Pro), and each notebook is independent: "Gemini Notebook can't access information across multiple notebooks at the same time" ([help](https://support.google.com/gemininotebook/answer/16206563)).
+  - Shell, file edits, MCP connectors, subagents, browser and computer control, and reusable skills and project instructions.
+  - Scripted runs (`claude -p`, `codex exec`, SDKs). Gemini Notebook's Enterprise API (v1alpha, updated 9 October 2026) creates, shares and deletes notebooks, sources and audio overviews, but has no call to ask a notebook a question ([API reference](https://docs.cloud.google.com/gemini/enterprise/docs/reference/rpc/google.cloud.notebooklm.v1alpha)).
+- **Gemini Notebook is gaining agency.**
+  - Since 16 July 2026 each notebook has "a secure cloud computer" that writes and runs code, available on Ultra and rolling out to Pro ([Google](https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/)).
+  - Its chat can search the web, run code and create files, features Google labels "experimental and in early development" ([chat help](https://support.google.com/gemininotebook/answer/16179559)).
+
+  Calling it "chat-only" is already out of date.
+
+That's the frame for this round. On retrieval the two are comparable. grounded-forge's clearest wins (Q9, Q14b, the quote check) come from things only an agent can do: read everything, run a procedure, and check its own output.
+
+## Trust: what each side did with what it didn't know
+
+Both sides invented specifics when filling gaps. What separated them was whether they said so.
+
+- **Gemini's inventions:**
+  - a rollback version and a paging tool the case never named (Q10, Q14b);
+  - an outcome nobody reported ("error rate drops to zero", Q10) and assumptions credited to the manager that he never voiced;
+  - a course level that doesn't exist (Q9);
+  - in the coaching review (Q15), a rating tier and a "fourth depth" the framework doesn't have, and about 15 evidence errors per review against 6–7 for the Claude arms.
+- **The Claude arms invented too.** In Q10 the blind judges flagged invented case detail as often in the references-only arm as in Gemini's (4 of 6 readings each), including runs counted as employers and an assumption about the rollback stated as fact.
+- **grounded-forge marked its inferences and gaps:**
+  - "the mapping is mine" at each bridge and six named gaps (Q1);
+  - a condition its advice rests on, stated without being asked (Q6), where Gemini, asked plainly, gave neither a condition nor gaps;
+  - "about 95% complete" on the exhaustive question (Q9).
+- **Gemini didn't.** It marked an inference once in Q1 and named no gaps. It called a list that held 15 of 23 items in full "comprehensive, re-verified" (Q9). Live, it wrote a finished document before it knew the facts and never asked a question (Q14b).
+
+The trust problem is unflagged confidence: specific claims presented as established, in exactly the places a reader can't check. A tool that's wrong but says "this is my inference" can be used with care; one that's wrong and sounds certain can't be, for anything that matters.
+
 ## Caveats
 
 - **The judges are Claude, and so is every arm but Gemini.** Gemini's answers were judged by Claude against rubrics Claude wrote before the runs. Mechanical checks (facts counted from tags, timestamps and quotes matched against text) carry the cross-family claims where they exist.

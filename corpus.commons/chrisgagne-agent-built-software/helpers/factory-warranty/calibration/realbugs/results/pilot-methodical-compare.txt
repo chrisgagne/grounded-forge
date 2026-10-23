@@ -1,0 +1,12 @@
+3 pull requests, both judged on the Claude Code CLI
+
+arm                               P       R   aug P   aug R  cands  matched TP  novel TP  high TP
+Methodical 0.11.0             80.6%   51.2%   79.5%   82.6%    116          20        72        4
+Claude Code, plain prompt     94.4%   55.3%   89.7%   61.4%     28          19         6        2
+
+gap (Methodical - plain): precision -13.8, recall -4.2
+
+per pull request (precision / recall / candidates / novel TP)
+  CommunityToolkit_Maui_3181-1e8d2e2f          Meth  78.6/ 75.0  54c 31n   plain  83.3/ 87.5  14c  2n
+  ComposioHQ_agent-orchestrator_1277-76652c7c  Meth  80.0/ 40.0  29c 18n   plain 100.0/ 40.0   6c  1n
+  EdV4H_usketch_534-719aa834                   Meth  83.3/ 38.5  33c 23n   plain 100.0/ 38.5   8c  3n

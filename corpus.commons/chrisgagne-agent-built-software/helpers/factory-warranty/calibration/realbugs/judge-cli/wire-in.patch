@@ -1,0 +1,281 @@
+diff --git a/scripts/classifier/classify.ts b/scripts/classifier/classify.ts
+index ec9a561..b9c0e9c 100644
+--- a/scripts/classifier/classify.ts
++++ b/scripts/classifier/classify.ts
+@@ -31,6 +31,7 @@ import {
+   CLASSIFIER_SYSTEM_PROMPT,
+ } from "./prompts.js";
+ import { renderJudgeSystemPrompt } from "../eval/prompt-format.js";
++import { claudeCliJudge, createClaudeCliSession } from "../eval/claude-cli-session.js";
+ 
+ // ---------------------------------------------------------------------------
+ // Configuration
+@@ -52,6 +53,9 @@ export interface ClassifierConfig {
+ /** The judge may look but not touch: file reading and searching only, no shell. */
+ const CLASSIFIER_TOOLS = ["read", "grep", "find", "ls"];
+ 
++/** The same licence in Claude Code's tool names, for the CLI-backed session. */
++const CLASSIFIER_CLI_TOOLS = ["Read", "Grep", "Glob"];
++
+ // ---------------------------------------------------------------------------
+ // PR Session — one session per PR+SHA, classifies multiple findings
+ // ---------------------------------------------------------------------------
+@@ -91,52 +95,25 @@ export interface PRSessionResult {
+  * to build context and avoid redundant exploration.
+  */
+ export async function classifyPR(opts: PRSessionOptions): Promise<PRSessionResult> {
+-  const authStorage = AuthStorage.create();
+-  if (opts.config.apiKey) {
+-    authStorage.setRuntimeApiKey(opts.config.provider, opts.config.apiKey);
+-  }
+-  const modelRegistry = ModelRegistry.create(authStorage);
+-
+-  const model = resolveModel(modelRegistry, opts.config);
+-  if (!model) {
+-    const available = modelRegistry.getAvailable();
+-    const hint = available.length > 0
+-      ? `Available: ${available.slice(0, 5).map(m => `${m.provider}/${m.id}`).join(", ")}...`
+-      : "No models with configured auth found. Set your provider's API key environment variable.";
+-    throw new Error(`No suitable model found.\n${hint}`);
+-  }
+-
+-  // Determine working directory — if a repo checkout is available, use it
++  const cliMode = claudeCliJudge();
+   const cwd = opts.config?.repoDir ?? process.cwd();
+-  const agentDir = getAgentDir();
+-
+-  const loader = new DefaultResourceLoader({
+-    cwd,
+-    agentDir,
+-    systemPrompt: renderJudgeSystemPrompt(CLASSIFIER_SYSTEM_PROMPT),
+-  });
+-  await loader.reload();
+-
+-  // Persist sessions to disk so we can review tool calls, prompt exchanges, etc.
+-  // Each PR gets its own session file, browsable via `pi --resume` or `pi --export`.
+-  const sessionDir = opts.config?.sessionDir ?? "classifier-output/sessions";
+-  const resolvedSessionDir = resolve(sessionDir);
+-  mkdirSync(resolvedSessionDir, { recursive: true });
+-
+-  const { session } = await createAgentSession({
+-    cwd,
+-    model,
+-    thinkingLevel: "medium",
+-    authStorage,
+-    modelRegistry,
+-    resourceLoader: loader,
+-    sessionManager: SessionManager.create(cwd, resolvedSessionDir),
+-    settingsManager: SettingsManager.inMemory({
+-      compaction: { enabled: true },
+-      retry: { enabled: true, maxRetries: 3 },
+-    }),
+-    tools: CLASSIFIER_TOOLS,
+-  });
++  let session: any;
++  // Per-token rates, used only when a turn does not report its own cost.
++  let modelCost = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
++  if (cliMode) {
++    session = (await createClaudeCliSession({
++      cwd,
++      systemPrompt: renderJudgeSystemPrompt(CLASSIFIER_SYSTEM_PROMPT),
++      model: opts.config.modelId,
++      effort: "medium",
++      tools: CLASSIFIER_CLI_TOOLS,
++      label: opts.nwo,
++    })).session;
++  } else {
++    const made = await createSdkClassifierSession(opts, cwd);
++    session = made.session;
++    modelCost = made.modelCost;
++  }
+   const abortSession = () => {
+     void session.abort();
+   };
+@@ -153,19 +130,6 @@ export async function classifyPR(opts: PRSessionOptions): Promise<PRSessionResul
+   const toolCalls: Record<string, number> = {};
+   const sessionStart = Date.now();
+ 
+-  // Resolve per-token rates: use the model's own rates, or look up the same
+-  // model name under a provider that has pricing (e.g. anthropic, bedrock)
+-  let modelCost = model.cost;
+-  if (modelCost.input === 0 && modelCost.output === 0) {
+-    const allModels = modelRegistry.getAll();
+-    const ref = allModels.find(
+-      (m) => m.id.includes(model.id) && m.cost.input > 0
+-    ) ?? allModels.find(
+-      (m) => m.name === model.name && m.cost.input > 0
+-    );
+-    if (ref) modelCost = ref.cost;
+-  }
+-
+   session.subscribe((event: any) => {
+     if (event.type === "tool_execution_start") {
+       const name = String(event.toolName ?? "unknown");
+@@ -410,3 +374,69 @@ export function parseClassifierResponse(
+       parsed.context_required as ClassificationResult["context_required"],
+   };
+ }
++
++
++/** The classifier's SDK-backed session: the Anthropic API path, and the default. */
++async function createSdkClassifierSession(
++  opts: PRSessionOptions,
++  cwd: string,
++): Promise<{ session: any; modelCost: { input: number; output: number; cacheRead: number; cacheWrite: number } }> {
++  const authStorage = AuthStorage.create();
++  if (opts.config.apiKey) {
++    authStorage.setRuntimeApiKey(opts.config.provider, opts.config.apiKey);
++  }
++  const modelRegistry = ModelRegistry.create(authStorage);
++
++  const model = resolveModel(modelRegistry, opts.config);
++  if (!model) {
++    const available = modelRegistry.getAvailable();
++    const hint = available.length > 0
++      ? `Available: ${available.slice(0, 5).map(m => `${m.provider}/${m.id}`).join(", ")}...`
++      : "No models with configured auth found. Set your provider's API key environment variable.";
++    throw new Error(`No suitable model found.\n${hint}`);
++  }
++
++  const agentDir = getAgentDir();
++
++  const loader = new DefaultResourceLoader({
++    cwd,
++    agentDir,
++    systemPrompt: renderJudgeSystemPrompt(CLASSIFIER_SYSTEM_PROMPT),
++  });
++  await loader.reload();
++
++  // Persist sessions to disk so we can review tool calls, prompt exchanges, etc.
++  // Each PR gets its own session file, browsable via `pi --resume` or `pi --export`.
++  const sessionDir = opts.config?.sessionDir ?? "classifier-output/sessions";
++  const resolvedSessionDir = resolve(sessionDir);
++  mkdirSync(resolvedSessionDir, { recursive: true });
++
++  const { session } = await createAgentSession({
++    cwd,
++    model,
++    thinkingLevel: "medium",
++    authStorage,
++    modelRegistry,
++    resourceLoader: loader,
++    sessionManager: SessionManager.create(cwd, resolvedSessionDir),
++    settingsManager: SettingsManager.inMemory({
++      compaction: { enabled: true },
++      retry: { enabled: true, maxRetries: 3 },
++    }),
++    tools: CLASSIFIER_TOOLS,
++  });
++  // Resolve per-token rates: use the model's own rates, or look up the same
++  // model name under a provider that has pricing (e.g. anthropic, bedrock)
++  let modelCost = model.cost;
++  if (modelCost.input === 0 && modelCost.output === 0) {
++    const allModels = modelRegistry.getAll();
++    const ref = allModels.find(
++      (m) => m.id.includes(model.id) && m.cost.input > 0
++    ) ?? allModels.find(
++      (m) => m.name === model.name && m.cost.input > 0
++    );
++    if (ref) modelCost = ref.cost;
++  }
++
++  return { session, modelCost };
++}
+diff --git a/scripts/eval/matcher.ts b/scripts/eval/matcher.ts
+index 5874fdd..844bd2e 100644
+--- a/scripts/eval/matcher.ts
++++ b/scripts/eval/matcher.ts
+@@ -27,6 +27,7 @@ import {
+   renderMatcherFinding,
+   renderJudgeSystemPrompt,
+ } from "./prompt-format.js";
++import { claudeCliJudge, createClaudeCliSession } from "./claude-cli-session.js";
+ 
+ const CHUNK_SIZE = 10;
+ 
+@@ -272,36 +273,16 @@ export async function matchFindings(
+   });
+ 
+   // Create a single session for all matching
+-  const authStorage = AuthStorage.create();
+-  const modelRegistry = ModelRegistry.create(authStorage);
+-  const model = resolveModel(modelRegistry, config.provider, config.modelId);
+-
+-  if (!model) {
+-    throw new Error(`Requested matcher model is unavailable: ${config.provider}/${config.modelId}`);
+-  }
+-
+-  const agentDir = getAgentDir();
+-  const loader = new DefaultResourceLoader({
+-    cwd: process.cwd(),
+-    agentDir,
+-    systemPrompt: renderJudgeSystemPrompt(MATCHER_SYSTEM_PROMPT),
+-  });
+-  await loader.reload();
+-
+-  const { session } = await createAgentSession({
+-    cwd: process.cwd(),
+-    model,
+-    thinkingLevel: "low",
+-    authStorage,
+-    modelRegistry,
+-    resourceLoader: loader,
+-    sessionManager: SessionManager.inMemory(),
+-    settingsManager: SettingsManager.inMemory({
+-      compaction: { enabled: true },
+-      retry: { enabled: true, maxRetries: 2 },
+-    }),
+-    noTools: "all",
+-  });
++  const session = claudeCliJudge()
++    ? (await createClaudeCliSession({
++        cwd: process.cwd(),
++        systemPrompt: renderJudgeSystemPrompt(MATCHER_SYSTEM_PROMPT),
++        model: config.modelId,
++        effort: "low",
++        tools: [],
++        label: "matcher",
++      })).session
++    : await createSdkMatcherSession(config);
+ 
+   const stats: MatcherStats = { llm_calls: 0, input_tokens: 0, output_tokens: 0 };
+   const abortSession = () => {
+@@ -378,3 +359,38 @@ export async function matchFindings(
+ 
+   return { correspondences: allCorrespondences, stats };
+ }
++
++/** The matcher's SDK-backed session: the Anthropic API path, and the default. */
++async function createSdkMatcherSession(config: MatcherConfig): Promise<any> {
++  const authStorage = AuthStorage.create();
++  const modelRegistry = ModelRegistry.create(authStorage);
++  const model = resolveModel(modelRegistry, config.provider, config.modelId);
++
++  if (!model) {
++    throw new Error(`Requested matcher model is unavailable: ${config.provider}/${config.modelId}`);
++  }
++
++  const agentDir = getAgentDir();
++  const loader = new DefaultResourceLoader({
++    cwd: process.cwd(),
++    agentDir,
++    systemPrompt: renderJudgeSystemPrompt(MATCHER_SYSTEM_PROMPT),
++  });
++  await loader.reload();
++
++  const { session } = await createAgentSession({
++    cwd: process.cwd(),
++    model,
++    thinkingLevel: "low",
++    authStorage,
++    modelRegistry,
++    resourceLoader: loader,
++    sessionManager: SessionManager.inMemory(),
++    settingsManager: SettingsManager.inMemory({
++      compaction: { enabled: true },
++      retry: { enabled: true, maxRetries: 2 },
++    }),
++    noTools: "all",
++  });
++  return session;
++}

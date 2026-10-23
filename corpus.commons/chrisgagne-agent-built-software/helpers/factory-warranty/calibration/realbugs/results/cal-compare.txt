@@ -1,0 +1,15 @@
+5 pull requests: CommunityToolkit_Maui_3181-1e8d2e2f, ComposioHQ_agent-orchestrator_1277-76652c7c, EdV4H_usketch_534-719aa834, FreeRTOS_FreeRTOS-Kernel_1379-c926adcf, Mirkiux_featkit_17-de0187b0
+
+judge                   precision   recall  cands  matched TP  high TP
+Anthropic API               96.1%    58.7%     45          30        4
+Claude Code CLI             87.8%    58.7%     45          29        4
+
+gap (CLI - API): precision -8.3 points, recall +0.0 points
+pre-registered rule: outside 5 points on both
+
+per pull request (precision / recall)
+  CommunityToolkit_Maui_3181-1e8d2e2f          API  91.7/ 87.5   CLI  83.3/ 87.5
+  ComposioHQ_agent-orchestrator_1277-76652c7c  API 100.0/ 40.0   CLI 100.0/ 40.0
+  EdV4H_usketch_534-719aa834                   API 100.0/ 38.5   CLI 100.0/ 38.5
+  FreeRTOS_FreeRTOS-Kernel_1379-c926adcf       API 100.0/ 66.7   CLI  66.7/ 66.7
+  Mirkiux_featkit_17-de0187b0                  API  88.9/ 61.1   CLI  88.9/ 61.1

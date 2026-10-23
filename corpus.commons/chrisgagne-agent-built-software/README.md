@@ -121,6 +121,11 @@ brooks-lint's findings named no file and went on each change's first file; at be
 samples; an answer key mostly raised by AI reviewers, and a Claude judge; PR-Agent in its diff-only local mode; v8
 reused v6's pull requests and v9 reused v7's.
 
+Every number above was scored through the Anthropic API. The same judge driven through the Claude Code CLI instead,
+re-scoring five of these pull requests, agreed on 42 of 45 findings but came out 8.3 points lower on precision, so a
+new arm has to be judged the same way as the arm it is set beside
+([cal](helpers/factory-warranty/calibration/realbugs/results/cal-RESULTS.md)).
+
 ## Showing, not arguing
 
 In one test, every stop on a good change came from a reviewer naming an input that would now break, and it didn't. A

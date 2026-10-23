@@ -1,0 +1,70 @@
+{
+ "pr": {
+  "repo": "https://github.com/EdV4H/usketch",
+  "pr_number": 534,
+  "base": "ff729b7dce02efaf7d1054780536289f86e8a5e7",
+  "head": "719aa8340584e714552d132a9ec6971582673a8b"
+ },
+ "agent": "v7-opus-own",
+ "findings": [
+  {
+   "producer": "v7-opus-own",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 56,
+   "end_line": 67,
+   "message": "`saveScheduled` is now reset in `finally`, after the storage put finishes. Before this change it was reset at the start of the timer callback. Any `scheduleSave()` call that arrives while the put is running now returns early, so updates received during the write are never scheduled for saving. If no later update comes in and the Durable Object is evicted, those updates are lost. Reset the flag before taking the snapshot, or reschedule in `finally` when the buffer changed during the write."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "apps/server/src/rooms/partition-manager.ts",
+   "start_line": 43,
+   "end_line": 60,
+   "message": "The new per-partition debounce has the same lost-update window. `saveScheduled` stays true until the put finishes, so `trackUpdate` calls during the write skip scheduling. Those updates sit unsaved until another update reaches the same partition. Clear the flag before reading `partitionUpdates`, or reschedule in `finally` when new updates arrived during the write."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "apps/server/src/rooms/yjs-sync.ts",
+   "start_line": 99,
+   "end_line": 110,
+   "message": "`applyClientUpdate` returns true when `doc` is null. The doc is only created lazily (by thumbnail/snapshot requests), so most of the time no validation happens and corrupt updates are still pushed, tracked, broadcast and saved. The new `if (!applied) break` guard in board-room.ts therefore only works some of the time. This server change is also missing from the PR description, which covers only rotation."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "plugins/usketch-plugin-shape-text/src/plugin.tsx",
+   "start_line": 249,
+   "end_line": 249,
+   "message": "Double-click edit detection calls the raw, non-rotation-aware `hitTest` directly instead of the wrapped one. On a rotated text shape, the click that the select tool counts as a hit (via `withRotation`) can miss here, and clicks outside the visible shape can start editing. Use the same `withRotation(hitTest)` here."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "plugins/usketch-plugin-shape-sticky/src/plugin.tsx",
+   "start_line": 448,
+   "end_line": 448,
+   "message": "Same problem as in the text plugin: the sticky double-click/edit path uses the unwrapped `hitTest`, so editing a rotated sticky ignores its rotation and disagrees with selection hit-testing."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+   "start_line": 33,
+   "end_line": 34,
+   "message": "`ShapeWrapper` now visually rotates every shape type, but only the basic, image, text, wireframe and sticky `hitTest`s were wrapped. Freedraw, counter, board-portal, connector, frame, group, island, community-chat and community-region still hit-test against unrotated bounds. A rotated shape of those types draws in one place but is clickable in another. Either wrap them too or only apply the CSS rotation to types that support it."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "plugins/usketch-plugin-tool-select/src/plugin.tsx",
+   "start_line": 98,
+   "end_line": 101,
+   "message": "Marquee selection (and the selection overlay/resize handles) use `def.getBounds(data)`, which still ignores rotation. The spatial index now uses the rotated AABB, so the two disagree: marquee in contain mode may wrongly include or exclude rotated shapes, and the overlay is drawn at the unrotated box. A rotation-aware `getBounds` (or `getRotatedAABB` here) is needed for consistency."
+  },
+  {
+   "producer": "v7-opus-own",
+   "file": "apps/server/src/rooms/thumbnail-handler.ts",
+   "start_line": 176,
+   "end_line": 194,
+   "message": "Thumbnail generation drops `rotation` when it copies shape data, so server thumbnails show rotated shapes unrotated and no longer match the canvas."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 0
+ }
+}

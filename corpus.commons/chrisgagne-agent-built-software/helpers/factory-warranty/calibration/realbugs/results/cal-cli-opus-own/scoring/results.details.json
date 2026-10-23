@@ -1,0 +1,905 @@
+[
+  {
+    "pr_key": "CommunityToolkit_Maui_3181-1e8d2e2f",
+    "candidate_findings": [
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+        "start_line": 63,
+        "end_line": 71,
+        "message": "Non-seekable streams always fail on Android. If the stream can't seek, `length` is `C.LengthUnset` (-1). With an unset `dataSpec.Length`, `bytesRemaining` then becomes `C.LengthUnset`, and the `bytesRemaining < 0` check throws ArgumentOutOfRangeException. The code that handles `LengthUnset` in `Read` can never run. The check should exclude `C.LengthUnset`. A past-the-end position should also surface as an IOException/DataSourceException instead of a .NET exception crossing JNI.",
+        "status": "matched_tp",
+        "matched_golden_index": 22,
+        "covered_golden_indices": [
+          22
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamDataSourceFactory.android.cs",
+        "start_line": 19,
+        "end_line": 22,
+        "message": "Every `StreamDataSource` the factory creates shares one .NET `Stream`, along with its single Position. ExoPlayer may create several data sources and call Open/Read on loader threads, for example when seeking or retrying while an earlier load is still running. Each Open seeks the shared stream, so concurrent or overlapping reads corrupt each other's position and return wrong bytes. Access needs to be serialized (a lock around seek+read), or reads should use per-source offsets.",
+        "status": "matched_tp",
+        "matched_golden_index": 5,
+        "covered_golden_indices": [
+          5
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.android.cs",
+        "start_line": 378,
+        "end_line": 383,
+        "message": "`currentStreamDataSourceFactory` (a Java.Lang.Object) is disposed before the new source is handed to the player. The old ProgressiveMediaSource may still be loading on ExoPlayer's loader thread with that factory or its data sources. Disposing the managed peer while Java still holds references can cause crashes or ObjectDisposedException in callbacks. CreateMediaItemFromStream (lines ~783-787) has the same problem. The old factory should be released only after SetMediaSource/SetMediaItem has replaced it.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+        "start_line": 46,
+        "end_line": 79,
+        "message": "FillDataRequest has three problems. (1) It casts `RequestedLength` to int and allocates a buffer that big. AVFoundation often asks for the whole resource (or sets RequestsAllDataToEndOfResource), so this can allocate the entire media size at once or overflow for files over 2 GB. (2) It calls `Stream.Read` only once and ignores short reads, but `ShouldWaitForLoadingOfRequestedResource` still calls `FinishLoading()`. A stream that returns fewer bytes than requested (FileStream, network or decrypting streams) gives AVPlayer truncated data. (3) Exceptions are caught and only logged, then `FinishLoading()` reports success instead of `FinishLoadingWithError`, so the failure never reaches MediaFailed. Data should be served in chunks in a loop, honoring RequestsAllDataToEndOfResource, and errors should be reported.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2,
+          23,
+          30,
+          31
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Primitives/StreamAssetResourceLoader.macios.cs",
+        "start_line": 39,
+        "end_line": 44,
+        "message": "For non-seekable streams, ContentLength is set to 0. AVFoundation treats that as an empty resource, so playback fails, and nothing reports this to the caller. Either reject or document non-seekable streams on Apple platforms, or buffer them.",
+        "status": "matched_tp",
+        "matched_golden_index": 29,
+        "covered_golden_indices": [
+          29
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.macios.cs",
+        "start_line": 507,
+        "end_line": 546,
+        "message": "GetStreamContentType only returns `public.mpeg-4` or QuickTime, so audio streams (MP3, M4A, WAV, etc.) get the wrong UTI. That contradicts the 'works with both audio and video' claim. It also duplicates the new shared `StreamExtensions.GetMimeType` sniffer instead of reusing it (mapped to UTIs). It doesn't catch IO/NotSupported exceptions, which then escape PlatformUpdateSource. And the `Length: > 12` check plus the duplicated `\"public.mpeg-4\"` literal at the end should be cleaned up.",
+        "status": "matched_tp",
+        "matched_golden_index": 4,
+        "covered_golden_indices": [
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.windows.cs",
+        "start_line": 339,
+        "end_line": 346,
+        "message": "`AsRandomAccessStream()` throws NotSupportedException for non-seekable streams. Nothing catches it here, so a valid StreamMediaSource crashes the app instead of raising MediaFailed. This branch also sets `Player.Source` while every other branch uses `Player.MediaPlayer.Set*Source`. The created IRandomAccessStream / MediaSource is never disposed when the source changes.",
+        "status": "matched_fp",
+        "matched_golden_index": 7,
+        "covered_golden_indices": [
+          7
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Views/MediaManager.tizen.cs",
+        "start_line": 189,
+        "end_line": 195,
+        "message": "Throwing NotSupportedException from PlatformUpdateSource fires inside the Source property-changed pipeline, so on Tizen setting a StreamMediaSource crashes the app. The usual pattern is to log and raise MediaFailed / set the Failed state. If the Stream is null, the branch silently does nothing.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+        "start_line": 129,
+        "end_line": 143,
+        "message": "The sniffing heuristics are too loose. Any stream whose first byte is 0x47 (e.g. 'G', as in GIF) is labelled `video/mp2t`. The 0xFFEx/0xFFFx sync check also matches AAC ADTS (0xFFF1/0xFFF9), which gets reported as `audio/mpeg`. A wrong MIME type passed to `CreateFromStream` can make Windows playback fail. TS detection should check for 0x47 at 188-byte intervals, and ADTS should be excluded (layer bits == 00).",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Extensions/StreamExtensions.shared.cs",
+        "start_line": 3,
+        "end_line": 6,
+        "message": "The XML doc says these are extensions 'on Windows platform', but the file is `.shared.cs` and compiled for every target. Meanwhile macios has its own duplicate sniffer.",
+        "status": "matched_tp",
+        "matched_golden_index": 26,
+        "covered_golden_indices": [
+          26
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "documentation",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "documentation"
+      },
+      {
+        "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+        "start_line": 55,
+        "end_line": 61,
+        "message": "OnAppearing is `async void`, and `httpClient.GetStreamAsync` runs outside any try/catch. With no network, or on an HTTP error, the exception is unhandled and crashes the sample app. The 30 MB download into a MemoryStream also repeats on every appearance, including after returning from the media picker, which replaces the video the user just picked or recorded.",
+        "status": "matched_fp",
+        "matched_golden_index": 15,
+        "covered_golden_indices": [
+          15
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+        "start_line": 44,
+        "end_line": 52,
+        "message": "OnDisappearing disposes the MemoryStream while MediaElement.Source still points at it and the native player may still be reading it on a background thread. That causes ObjectDisposedException on the loader/resource-loader thread. Opening the MediaPicker also triggers OnDisappearing, which kills the current stream. The sample should clear `MediaElement.Source` (and stop playback) before disposing the stream, since this is exactly the lifetime pattern users will copy.",
+        "status": "matched_tp",
+        "matched_golden_index": 9,
+        "covered_golden_indices": [
+          9
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "samples/CommunityToolkit.Maui.Sample/Pages/Views/MediaElement/MediaElementFromStreamPage.xaml.cs",
+        "start_line": 170,
+        "end_line": 186,
+        "message": "UpdateSourceStream assigns `sourceStream` outside the semaphore, while ReleaseSourceStream checks `sourceStream is null` before acquiring it. Concurrent calls (the OnAppearing download racing a picker result) can leak or double-dispose streams. Also, in ReleaseSourceStream (~line 261), `WaitAsync` sits inside the try, so if it throws, `finally` releases a semaphore that was never acquired.",
+        "status": "matched_tp",
+        "matched_golden_index": 6,
+        "covered_golden_indices": [
+          6,
+          25
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/CommunityToolkit.Maui.MediaElement/Converters/MediaSourceConverter.shared.cs",
+        "start_line": 57,
+        "end_line": 57,
+        "message": "ConvertTo for StreamMediaSource returns a string like 'Stream: MemoryStream'. Converting that back yields a bogus Uri/File source, so the converter no longer round-trips. A Stream can't be represented as a string, so this case should return string.Empty, as the base MediaSource case does, or not be convertible at all.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "ComposioHQ_agent-orchestrator_1277-76652c7c",
+    "candidate_findings": [
+      {
+        "file": "packages/cli/src/commands/update.ts",
+        "start_line": 81,
+        "end_line": 87,
+        "message": "If the install method is \"git\" but `dist/assets/scripts/ao-update.sh` is missing, this code quietly switches to a global `npm install -g @aoagents/ao@latest`. That can happen when the CLI was built with plain `tsc` or `tsc --watch`, because those skip the `cp -r src/assets dist/` step. The npm install then overwrites the `npm link` launcher with a published package and leaves the checkout itself unchanged. The method is also hardcoded to \"npm-global\", so pnpm and bun users get the wrong command. A source checkout with a missing script is a build problem, so it should fail with a clear error (for example, \"run pnpm build\") instead of changing how AO is installed.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/cli/src/lib/update-check.ts",
+        "start_line": 92,
+        "end_line": 94,
+        "message": "The ao-specific marker (`scripts/ao-update.sh`) was removed from the check, so any non-node_modules path whose fourth parent directory has a `.git` is now classified as a \"git\" source install, even when it isn't an AO checkout. `ao update` would then run the source-update flow (git pull, pnpm build) against the wrong repo, or fall into the npm fallback above. Check for an AO-specific marker instead, such as `packages/cli/src/assets/scripts/ao-update.sh` or the `packages/ao` directory.",
+        "status": "matched_tp",
+        "matched_golden_index": 11,
+        "covered_golden_indices": [
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/cli/src/assets/scripts/ao-update.sh",
+        "start_line": 43,
+        "end_line": 43,
+        "message": "The default `REPO_ROOT` is still `$(dirname BASH_SOURCE)/..`. That was correct when the script lived at `scripts/`, but after the move it resolves to `packages/cli/src/assets` (or `dist/assets`). Anyone who runs the script directly without `AO_REPO_ROOT` set will get a wrong root, and its git, pnpm and npm link steps will fail or act on the wrong directory. It needs to go up 4 levels, or the fallback should be removed and `AO_REPO_ROOT` required.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+        "start_line": 31,
+        "end_line": 38,
+        "message": "After the move, the default `REPO_ROOT` (`dirname/..`) points to `assets/` rather than the repo or package root. Layout detection then reports `source-checkout`, and when the script runs without `AO_REPO_ROOT` every repo check is made against the wrong directory, which produces false failures.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/cli/__tests__/lib/script-runner.test.ts",
+        "start_line": 102,
+        "end_line": 106,
+        "message": "The regex escape is wrong. `/[.*+?^${}()|[\\\\]\\\\\\\\]/g` is a character class followed by literal backslashes, so it almost never matches and the path is effectively inserted unescaped. The test passes only because `.` happens to match itself. A checkout path containing characters such as `+`, `(` or `[` would make the test fail or throw. Use the standard `/[.*+?^${}()|[\\]\\\\]/g`.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "testing",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "testing"
+      },
+      {
+        "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+        "start_line": 326,
+        "end_line": 326,
+        "message": "The package-install path does not use `$REPO_ROOT/packages`, but the fix hint for a source checkout (`bash scripts/setup.sh`) is still tied to a root-level `scripts/` directory. Now that the AO scripts have moved out of root `scripts/`, check that `setup.sh` still exists there, or the hint will point users to a missing file.",
+        "status": "novel_fp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "fp",
+        "classifier_severity": "low",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "fp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "EdV4H_usketch_534-719aa834",
+    "candidate_findings": [
+      {
+        "file": "apps/server/src/rooms/yjs-sync.ts",
+        "start_line": 56,
+        "end_line": 67,
+        "message": "`saveScheduled` is now reset in `finally`, after the storage put finishes. Before this change it was reset at the start of the timer callback. Any `scheduleSave()` call that arrives while the put is running now returns early, so updates received during the write are never scheduled for saving. If no later update comes in and the Durable Object is evicted, those updates are lost. Reset the flag before taking the snapshot, or reschedule in `finally` when the buffer changed during the write.",
+        "status": "matched_tp",
+        "matched_golden_index": 12,
+        "covered_golden_indices": [
+          12
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "apps/server/src/rooms/partition-manager.ts",
+        "start_line": 43,
+        "end_line": 60,
+        "message": "The new per-partition debounce has the same lost-update window. `saveScheduled` stays true until the put finishes, so `trackUpdate` calls during the write skip scheduling. Those updates sit unsaved until another update reaches the same partition. Clear the flag before reading `partitionUpdates`, or reschedule in `finally` when new updates arrived during the write.",
+        "status": "matched_tp",
+        "matched_golden_index": 13,
+        "covered_golden_indices": [
+          13
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "reliability"
+      },
+      {
+        "file": "apps/server/src/rooms/yjs-sync.ts",
+        "start_line": 99,
+        "end_line": 110,
+        "message": "`applyClientUpdate` returns true when `doc` is null. The doc is only created lazily (by thumbnail/snapshot requests), so most of the time no validation happens and corrupt updates are still pushed, tracked, broadcast and saved. The new `if (!applied) break` guard in board-room.ts therefore only works some of the time. This server change is also missing from the PR description, which covers only rotation.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "plugins/usketch-plugin-shape-text/src/plugin.tsx",
+        "start_line": 249,
+        "end_line": 249,
+        "message": "Double-click edit detection calls the raw, non-rotation-aware `hitTest` directly instead of the wrapped one. On a rotated text shape, the click that the select tool counts as a hit (via `withRotation`) can miss here, and clicks outside the visible shape can start editing. Use the same `withRotation(hitTest)` here.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "plugins/usketch-plugin-shape-sticky/src/plugin.tsx",
+        "start_line": 448,
+        "end_line": 448,
+        "message": "Same problem as in the text plugin: the sticky double-click/edit path uses the unwrapped `hitTest`, so editing a rotated sticky ignores its rotation and disagrees with selection hit-testing.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "packages/canvas-engine/src/components/shape-layer.tsx",
+        "start_line": 33,
+        "end_line": 34,
+        "message": "`ShapeWrapper` now visually rotates every shape type, but only the basic, image, text, wireframe and sticky `hitTest`s were wrapped. Freedraw, counter, board-portal, connector, frame, group, island, community-chat and community-region still hit-test against unrotated bounds. A rotated shape of those types draws in one place but is clickable in another. Either wrap them too or only apply the CSS rotation to types that support it.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "plugins/usketch-plugin-tool-select/src/plugin.tsx",
+        "start_line": 98,
+        "end_line": 101,
+        "message": "Marquee selection (and the selection overlay/resize handles) use `def.getBounds(data)`, which still ignores rotation. The spatial index now uses the rotated AABB, so the two disagree: marquee in contain mode may wrongly include or exclude rotated shapes, and the overlay is drawn at the unrotated box. A rotation-aware `getBounds` (or `getRotatedAABB` here) is needed for consistency.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "apps/server/src/rooms/thumbnail-handler.ts",
+        "start_line": 176,
+        "end_line": 194,
+        "message": "Thumbnail generation drops `rotation` when it copies shape data, so server thumbnails show rotated shapes unrotated and no longer match the canvas.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "FreeRTOS_FreeRTOS-Kernel_1379-c926adcf",
+    "candidate_findings": [
+      {
+        "file": "tasks.c",
+        "start_line": 5233,
+        "end_line": 5242,
+        "message": "The 'safety net' in the SMP vTaskSwitchContext() blocks every context switch while the current task has xPreemptionDisable set, including switches the task asks for itself. vTaskPreemptionDisable() is only meant to stop preemption. A task with preemption disabled can still block (vTaskDelay, a blocking queue/semaphore/notify wait), call taskYIELD(), suspend itself, or delete itself. In each of those cases the task has already been taken off the ready list, but vTaskSwitchContext() now only sets xYieldPendings and returns, so the task keeps running. A blocked task that keeps running ignores its timeout and ends up using a stale wait result, and a suspended or deleted task keeps executing on its own TCB/stack. This is not like the uxSchedulerSuspended case it copies: blocking APIs already refuse to run while the scheduler is suspended, but nothing stops a preemption-disabled task from blocking. prvSelectHighestPriorityTask() already keeps a running, ready, preemption-disabled task in place, so this check is unnecessary and should be removed, or limited to switches that are not voluntary.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tasks.c",
+        "start_line": 3527,
+        "end_line": 3535,
+        "message": "Reporting a yield only on a pdFALSE->pdTRUE change of xYieldPendings throws away valid yield requests. If xYieldPendings[core] is already pdTRUE for a valid reason, such as a time-slice or yield deferred inside a critical section, or an earlier FromISR call whose caller passed NULL or ignored the result, then resuming a higher-priority task for this core no longer sets xYieldRequired. The ISR then skips portYIELD_FROM_ISR and the switch waits until the next tick or kernel call. That is a latency regression and changes the documented return contract. This hunk only treats the symptom; the actual bug is the stale flag that the tick-path change fixes.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2,
+          11
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tasks.c",
+        "start_line": 5500,
+        "end_line": 5508,
+        "message": "Same before/after check in xTaskRemoveFromEventList(). This function is also called from task context in queue, event-group and stream-buffer code. If a yield was already pending on this core, it now returns pdFALSE even when the unblocked task should preempt the caller. The queueYIELD_IF_USING_PREEMPTION or *pxHigherPriorityTaskWoken path is then skipped and the higher-priority task does not get the CPU right away.",
+        "status": "matched_fp",
+        "matched_golden_index": 12,
+        "covered_golden_indices": [
+          2,
+          12
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "tasks.c",
+        "start_line": 8214,
+        "end_line": 8227,
+        "message": "In xTaskGenericNotifyFromISR, the check means *pxHigherPriorityTaskWoken is not set when xYieldPendings was already pdTRUE, for example from an earlier notify in the same ISR whose caller passed NULL. In that case the ISR never calls portYIELD_FROM_ISR, even though the notified task has higher priority than the task running on this core. vTaskGenericNotifyGiveFromISR at lines 8351-8364 has the same problem.",
+        "status": "novel_tp",
+        "covered_golden_indices": [
+          2
+        ],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "tasks.c",
+        "start_line": 3525,
+        "end_line": 3537,
+        "message": "The PR says the change only affects configUSE_TASK_PREEMPTION_DISABLE == 1 builds, but the pdFALSE->pdTRUE yield checks in xTaskResumeFromISR, xTaskRemoveFromEventList and both notify-from-ISR functions are compiled into every SMP build with preemption enabled. That changes yield-reporting behaviour for all SMP users, including those who never use vTaskPreemptionDisable. The existing SMP unit tests also check that these functions return a yield request, and the test plan does not cover this.",
+        "status": "novel_tp",
+        "covered_golden_indices": [
+          2
+        ],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      }
+    ]
+  },
+  {
+    "pr_key": "Mirkiux_featkit_17-de0187b0",
+    "candidate_findings": [
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 234,
+        "end_line": 238,
+        "message": "The ENTROPY expression calls `.otherwise(...)` on the result of `F.sum(...)`. PySpark only allows `.otherwise()` on a Column built by `F.when()`, so `F.sum(F.when(...)).otherwise(...)` raises at runtime. Any pipeline with an ENTROPY metric fails when the script runs, even though `ast.parse` accepts it. The `.otherwise(F.lit(0.0))` belongs inside the `F.sum(...)`, or should be dropped.",
+        "status": "matched_tp",
+        "matched_golden_index": 0,
+        "covered_golden_indices": [
+          0
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 243,
+        "end_line": 244,
+        "message": "MODE is generated as `F.first(category, ignorenulls=True)`, which returns an arbitrary category from each group, not the dominant one. It should return the category with the largest `<agg>_cat_val`, for example `F.max_by(cat, cat_val)` or `F.max(F.struct(cat_val, cat))[cat]`. As written the feature is non-deterministic and semantically wrong.",
+        "status": "matched_fp",
+        "matched_golden_index": 23,
+        "covered_golden_indices": [
+          23,
+          28
+        ],
+        "golden_tp_fp": "fp",
+        "golden_severity": "high",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "fp",
+        "result_severity": "high",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 356,
+        "end_line": 357,
+        "message": "RATIO is generated as a plain windowed sum, which gives the same value as SUM_U. No ratio is computed. These features would be silently mislabeled duplicates.",
+        "status": "matched_tp",
+        "matched_golden_index": 12,
+        "covered_golden_indices": [
+          12
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 320,
+        "end_line": 327,
+        "message": "PROM_P generates the same expression as PROM_U, and SUM_P the same as SUM_U. The enum and the output contracts treat them as different operators, so the `_P` variants come out as redundant copies of the `_U` features under different names instead of their intended semantics.",
+        "status": "matched_tp",
+        "matched_golden_index": 8,
+        "covered_golden_indices": [
+          8
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 339,
+        "end_line": 348,
+        "message": "XM generates the same expression as FREQ: a count of non-null values in the window. If XM means something different, every XM feature is a duplicate of FREQ. The operator's semantics need confirming and implementing.",
+        "status": "matched_tp",
+        "matched_golden_index": 2,
+        "covered_golden_indices": [
+          2
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 336,
+        "end_line": 338,
+        "message": "CREC ignores `window_size`. It always compares against `lag(1)`, so CREC features with different windows (for example 3 and 6) come out identical. CREC is also allowed on TEMPORAL (FECHA) columns by TemporalOutputContract, and subtracting and dividing date columns fails at runtime.",
+        "status": "matched_tp",
+        "matched_golden_index": 3,
+        "covered_golden_indices": [
+          3
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 354,
+        "end_line": 355,
+        "message": "MEDIA_ABS is generated as a windowed approximate median (`percentile_approx(..., 0.5)`). The operator name ('media' means mean) and its pairing with RATIO under `composed_windows` suggest a composed metric such as mean absolute deviation, not a median. This needs confirming against the spec, and the median is approximate in any case.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "correctness",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 107,
+        "end_line": 111,
+        "message": "Categorical values are interpolated into the generated code as `\"{cat_val}\"` without escaping. A value containing a double quote or backslash produces broken or injectable Python, and numeric categories are compared as strings. Use `{cat_val!r}` or `F.lit(...)` with proper quoting, as the code already does for table names.",
+        "status": "matched_tp",
+        "matched_golden_index": 27,
+        "covered_golden_indices": [
+          27
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "medium",
+        "golden_category": "correctness",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "medium",
+        "result_category": "correctness"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 313,
+        "end_line": 319,
+        "message": "`frame_w` is only assigned when `w is not None`. Windowed operators currently always have a `window_size`, but any future operator or override that reaches a `frame_w` branch without one raises `UnboundLocalError` instead of a clear error. Also, the `col_ref` conditional on lines 300-304 produces the same expression on both branches, so it is dead logic.",
+        "status": "matched_tp",
+        "matched_golden_index": 1,
+        "covered_golden_indices": [
+          1,
+          4
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 401,
+        "end_line": 415,
+        "message": "`generate()` narrows its return type from `FeatureStoreOutput` to `object`, which breaks the base-class contract for type checkers. It also relies on `assert` for runtime type checks, and asserts are removed under `python -O`. It would be cleaner to override `_combine_code` and prepend the header there, or keep the `FeatureStoreOutput` return annotation.",
+        "status": "matched_tp",
+        "matched_golden_index": 5,
+        "covered_golden_indices": [
+          5,
+          24,
+          30
+        ],
+        "golden_tp_fp": "tp",
+        "golden_severity": "low",
+        "golden_category": "reliability",
+        "matched_to_ground_truth": true,
+        "llm_judged_match": true,
+        "match_method": "llm",
+        "matched_truth_label": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "src/featkit/generators/pyspark/databricks.py",
+        "start_line": 25,
+        "end_line": 29,
+        "message": "The header imports `SparkSession` but never creates `spark`, while the rest of the script uses `spark` throughout. Outside a Databricks notebook the script fails with a NameError. Either add `spark = SparkSession.builder.getOrCreate()` or drop the unused import.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "low",
+        "classifier_category": "reliability",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "low",
+        "result_category": "reliability"
+      },
+      {
+        "file": "tests/test_generators/test_pyspark.py",
+        "start_line": 556,
+        "end_line": 560,
+        "message": "The tests only check `ast.parse` and substring presence, so runtime-invalid PySpark (the ENTROPY `.otherwise` bug) and wrong semantics (MODE, RATIO, duplicate operators) pass. Asserting the expression generated for each operator and metric, or running against a local SparkSession, would catch these.",
+        "status": "novel_tp",
+        "covered_golden_indices": [],
+        "classifier_tp_fp": "tp",
+        "classifier_severity": "medium",
+        "classifier_category": "testing",
+        "matched_to_ground_truth": false,
+        "llm_judged_match": false,
+        "match_method": "none",
+        "llm_classification": "tp",
+        "result_severity": "medium",
+        "result_category": "testing"
+      }
+    ]
+  }
+]

@@ -1,0 +1,217 @@
+{
+ "pr": {
+  "repo": "https://github.com/ComposioHQ/agent-orchestrator",
+  "pr_number": 1277,
+  "base": "ba77929c9345a0dc897d53115504d0ae32745ce5",
+  "head": "76652c7ccefa3a371be74e8648c5204adc7f09a5"
+ },
+ "agent": "v5-methodical",
+ "findings": [
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "The hasRepoScript fallback in handleGitUpdate cannot fire for global installs: classifyInstallPath returns npm-global/pnpm-global for any /node_modules/ path, so those never reach it. It only fires for source checkouts, where it offers `npm install -g @aoagents/ao@latest`. That leaves the checkout un-updated and installs a second global copy that may shadow the npm-linked ao. A rebuild hint is the correct action."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/__tests__/commands/update.test.ts",
+   "start_line": 190,
+   "end_line": 190,
+   "message": "The 'script unavailable' fallback test mocks detectInstallMethod as 'git', so it locks in the source-checkout \u2192 npm install -g behaviour rather than testing the global-install scenario from #1252."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "The default REPO_ROOT ($(dirname BASH_SOURCE)/..) now resolves to .../assets after the move. Run directly without AO_REPO_ROOT, the root is wrong and layout detection can never pick package-install (same in ao-update.sh line 43)."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 277,
+   "end_line": 277,
+   "message": "The 'bundled doctor script is available' check is self-referential and always passes in practice."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/__tests__/lib/script-runner.test.ts",
+   "start_line": 39,
+   "end_line": 39,
+   "message": "The regex-escape pattern /[.*+?^${}()|[\\]\\\\]/g is malformed and escapes nothing. The test passes only because an unescaped '.' acts as a wildcard."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "The fallback only runs when the install is classified 'git', never for the global npm/pnpm installs of #1252. Where it does fire, it offers npm install -g and reports 'Update complete', replacing the earlier clear 'Script not found' error with a misleading action that never updates the checkout."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/__tests__/commands/update.test.ts",
+   "start_line": 190,
+   "end_line": 190,
+   "message": "The test forces detectInstallMethod=git with hasRepoScript=false. It locks in the questionable fallback and never exercises a real global-install path, though its name suggests #1252 coverage."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 90,
+   "end_line": 90,
+   "message": "Dropping the scripts/ao-update.sh guard means any non-node_modules location with .git four levels up counts as 'git' (e.g. vendored inside another repo). The 'unknown' test was deleted with no replacement guard."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 42,
+   "end_line": 42,
+   "message": "The fix relies on CLI_DIST_ROOT resolving to dist/ in a packaged install, but no test checks it. hasRepoScript is mocked in every caller test."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 68,
+   "end_line": 68,
+   "message": "Script cwd silently changed from the repo root to process.cwd(). ao-doctor.sh walks up from $PWD to find config, so git installs now find config from the user's directory."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "The REPO_ROOT fallback resolves to src/assets after the move (same in ao-update.sh line 43). Direct invocation without AO_REPO_ROOT uses the wrong root, and the update script's smoke-test paths fail."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/__tests__/scripts/doctor-script.test.ts",
+   "start_line": 212,
+   "end_line": 212,
+   "message": "The packaged-install test sets AO_SCRIPT_LAYOUT explicitly, so the script's own layout detection goes untested. The fake dist/index.js makes the runtime sanity check pass regardless."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 277,
+   "end_line": 277,
+   "message": "The 'bundled doctor script is available' check is self-referential and can only pass in normal use."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/__tests__/lib/script-runner.test.ts",
+   "start_line": 102,
+   "end_line": 102,
+   "message": "The escape regex closes its character class early and never escapes anything. A checkout path containing +, ( or [ would break the test; use /[.*+?^${}()|[\\]\\\\]/g correctly as /[.*+?^${}()|[\\]\\\\]/g \u2192 /[.*+?^${}()|[\\]\\\\]/ fixed to /[.*+?^${}()|[\\]\\\\]/g with the class written [.*+?^${}()|[\\]\\\\]."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "When detection says git but ao-update.sh is missing, this branch hard-codes the npm-global command and can install a global copy that shadows the npm link launcher. It is nearly unreachable; a rebuild hint would be more accurate."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 93,
+   "end_line": 93,
+   "message": "Install detection returns 'git' whenever .git exists four levels up, with no second signal. Checking for packages/cli/package.json under that root would restore one."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "The REPO_ROOT fallback was not updated after the move and resolves to .../assets (same in ao-update.sh line 43). Direct runs fall into the source-checkout branch and fail its checks."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 56,
+   "end_line": 56,
+   "message": "hasRepoScript now checks bundled assets, not repo scripts. hasBundledScript would fit."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 68,
+   "end_line": 68,
+   "message": "The scripts' cwd changed from the repo root to the caller's cwd. ao-update.sh cd's itself, but the doctor now searches for config from the user's cwd, an undocumented behaviour change."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 27,
+   "end_line": 27,
+   "message": "AO_SCRIPT_LAYOUT is passed from TS while ao-doctor.sh also re-derives the layout by sniffing files: two detection mechanisms for one fact. resolveScriptLayout's override branch exists only for the env var."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 12,
+   "end_line": 12,
+   "message": "resolveScriptLayoutFromPath and resolveDefaultRepoRootFromPath are exported only for tests and are '/node_modules/' substring heuristics."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 49,
+   "end_line": 49,
+   "message": "The error message repeats the scripts directory inside 'Expected at' and in the parenthetical. Dropping the parenthetical also removes the test's regex escaping."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 81,
+   "end_line": 81,
+   "message": "The fallback adds an optional fallbackMethod parameter that hard-codes 'npm-global', ignoring what detection found. It is near-dead code, since checkouts always have the script and package installs classify as npm."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 261,
+   "end_line": 261,
+   "message": "The package-install branch checks dist/index.js in both check_install_layout and check_runtime_sanity, reporting the same failure twice. Checking for its own scripts in dist/assets is self-referential."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 92,
+   "end_line": 92,
+   "message": "Dropping the scripts/ao-update.sh existence check is an acceptable simplification."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/commands/update.ts",
+   "start_line": 80,
+   "end_line": 80,
+   "message": "The fallback always uses getUpdateCommand('npm-global'), so pnpm/yarn users are told the wrong command. The 'package-manager update flow' message is generic."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/update-check.ts",
+   "start_line": 92,
+   "end_line": 92,
+   "message": "classifyInstallPath no longer requires scripts/ao-update.sh, so any .git at the guessed root counts as a git install, removing a guard against false positives."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/assets/scripts/ao-doctor.sh",
+   "start_line": 31,
+   "end_line": 31,
+   "message": "The default REPO_ROOT is wrong now that the script sits in assets/scripts. It is only reached on manual runs without AO_REPO_ROOT."
+  },
+  {
+   "producer": "v5-methodical",
+   "file": "packages/cli/src/lib/script-runner.ts",
+   "start_line": 22,
+   "end_line": 22,
+   "message": "Layout detection by '/node_modules/' substring treats tarball or linked installs outside node_modules as source checkouts, and the runner's value always overrides doctor's own guess."
+  }
+ ],
+ "usage": {
+  "time_in_ms": 176000
+ }
+}

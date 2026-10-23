@@ -21,4 +21,8 @@ tests-leg calls and one build-leg call that went outside the check; each leg car
 **Not signed.** Signing is the accountable person's step, at a terminal, in the clone that holds the change's ledger.
 If the pack is signed, `change.patch` applies to this repo with `git am`.
 
+The pack's Demonstrated list shows `[e035] gate:sast` as "exit none (timed out)". That line is the gate's evaluation
+of the scan before it (`[e034]`, exit 0), which ran no command of its own: nothing timed out. The renderer now labels
+such lines as evaluations. The pack is left as assembled.
+
 Commit ids cited here (factory commits, not grounded-forge's) are from the factory's history before it was published.

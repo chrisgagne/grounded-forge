@@ -287,7 +287,12 @@ def assemble(change) -> tuple[str, list[str]]:
     for e in tests + gate:
         if "cmd" in e and not e.get("check", "").startswith(("leg:", "ratchet:")):
             note = " (expected: red before the build)" if e.get("check") == "new-tests" else ""
-            out.append(f"- [{e['id']}] {e['stage']}:{e['check']} `{e['cmd']}` exit {e.get('exit', 'none (timed out)')}{note}, "
+            if e.get("after_event"):
+                out.append(f"- [{e['id']}] {e['stage']}:{e['check']} evaluates the output of {e['after_event']}; "
+                           f"it ran no command of its own, log `{(e.get('evidence') or ['-'])[0]}`")
+                continue
+            exit_text = e["exit"] if e.get("exit") is not None else "none (timed out)"
+            out.append(f"- [{e['id']}] {e['stage']}:{e['check']} `{e['cmd']}` exit {exit_text}{note}, "
                        f"output sha256 `{(e.get('output_sha256') or '')[:16]}`, log `{(e.get('evidence') or ['-'])[0]}`")
     lock = next((e for e in reversed(gate) if e.get("check") == "locked-tests"), None)
     if lock:

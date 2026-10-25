@@ -26,7 +26,9 @@ a `[V]` on a paraphrase anywhere else still reports no-quote. A quotation
 followed only by its citation is checked, while a quoted remark a sentence
 before a cited claim still is not. Pandoc's Markdown in the source reads as
 its text, while a changed word still fails and a command-line option's `--`
-stays two hyphens.
+stays two hyphens. A quote's " / " matches a line break in the source (plain,
+Pandoc's backslash, a blockquote's, or one a dash closes up) or the source's
+own slash, while one over running text still fails.
 
 The resolution cases build a small corpus in a temporary directory: a file
 finds its converted source by name, by its source card's link, or by the
@@ -137,6 +139,26 @@ Is that the whole story? Ask it twice before you answer.
 A small trial shows the team where the plan is weak.[3](notes.htm#n3) It can also go badly.[^6^](#foot_6){#ref_6} The review of [2019](https://example.com/archive#2019) stands.
 
 The editor put it plainly: \[W\]e have changed the layout so often that readers must now relearn it each spring.
+"""
+
+# Verse and one-sentence paragraphs, which a quote sets on one line with " / ":
+# a plain line break, Pandoc's backslash hard break, a blockquote's ">" lines, a
+# dash that closes up the break, and a slash the source itself sets.
+SOURCE += r"""
+Short sentences carry the weight.
+
+Each one stands alone.
+
+We shall not cease\
+from exploring the edge.
+
+> First line of the verse
+> and the second follows it.
+
+The reader—curious, open—
+Will follow you anywhere.
+
+The Principle of Letting Be / Letting Unfold runs through it.
 """
 
 
@@ -464,6 +486,27 @@ CASES = [
     ("a hyphen after a prefix the source never sets alone → interrupted",
      '"The teams co-operate across the programme" [V] (Ch 3).',
      "interrupted"),
+    ("' / ' over the source's paragraph break is exact",
+     '"Short sentences carry the weight. / Each one stands alone." [V] (Ch 8).',
+     None),
+    ("pandoc's backslash hard break reads as a line break",
+     '"We shall not cease from exploring the edge" [V] (Ch 8).',
+     None),
+    ("' / ' over pandoc's backslash hard break is exact",
+     '"We shall not cease / from exploring the edge" [V] (Ch 8).',
+     None),
+    ("' / ' over a blockquote's line break is exact",
+     '"First line of the verse / and the second follows it" [V] (Ch 8).',
+     None),
+    ("' / ' after a dash that closes up the line break is exact",
+     '"The reader—curious, open— / Will follow you anywhere" [V] (Ch 8).',
+     None),
+    ("a slash the source sets matches as written",
+     '"The Principle of Letting Be / Letting Unfold runs through it" [V] (Ch 8).',
+     None),
+    ("' / ' where the source runs on within a line → near",
+     '"Is that the whole story? / Ask it twice before you answer" [V] (Ch 7).',
+     "near"),
 ]
 
 # Multi-line cases: (label, [(line, expected kind or None)]). Blank lines are

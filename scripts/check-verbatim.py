@@ -39,8 +39,9 @@ that finds it:
             Markdown read as its text (`[text]{.italic}` spans, `[]{#…}`
             anchors, endnote links with their attribute blocks, a note
             number linked to its note and glued to a word dropped, backslash
-            escapes, `---` and `--` as em and en dash, but not a command-line
-            option's `--`), ligatures
+            escapes, a backslash hard line break read as a line break, `---`
+            and `--` as em and en dash, but not a command-line option's
+            `--`), ligatures
             expanded (ﬂ → fl), zero-width characters and `<br>` dropped, a
             hyphen at a line end read as the quote spells the word (rejoined
             for a word split across the line, kept for a true compound, each
@@ -53,7 +54,10 @@ that finds it:
             convention, not the author, and are ignored. An ellipsis (`...`,
             `…`) is an elision: each piece must appear, in order, within a few
             thousand characters. A bracketed insertion (`[the manager]`)
-            stands for a short run of source text; `[sic]` is dropped.
+            stands for a short run of source text; `[sic]` is dropped. A ` / `
+            in a quote (verse, or one-sentence paragraphs quoted on one line)
+            matches a line or paragraph break in the source, or a slash the
+            source sets, and nothing else.
             Nothing is reported.
   joined    As exact, and a hyphen the quote sets between two words may match
             nothing in the source, where both words, two letters or more, stand
@@ -270,6 +274,8 @@ BASE_STEPS = [
     # letter) or an HTML comment's "<!--" and "-->".
     (re.compile(r"(?<!-)---(?!-)"), "—"),
     (re.compile(r"(?<=[^\s(\[{\"'“‘`<!\-])--(?![->])|(?<![-<!])--(?![-A-Za-z>])"), "–"),
+    # Pandoc's hard line break: a backslash ending a line, as verse is set.
+    (re.compile(r"\\(?=\n)"), ""),
     # A backslash escape ("don\'t", "\$5", "\[sic\]") → the character. After
     # the dashes, so an escaped "\-\-" stays two hyphens.
     (ESCAPE_RE, 1),
@@ -858,6 +864,13 @@ def _literal(lit: str, level: str, any_initial: bool) -> str:
         if c == JOINED_MARK:
             out.append(f"[-{mark}]?")
             continue
+        if c == LINE_BREAK_MARK:
+            # A group, so locate can check the source breaks there. A dash
+            # closes up the space ("open-minded—\nWill"); verse set in a
+            # blockquote opens each line with ">". A slash the source itself
+            # sets ("Letting Be / Letting Unfold") still matches as written.
+            out.append("((?: ?>)* ?| ?/ ?)")
+            continue
         if c in hyphens and prev.isalpha() and nxt.isalpha():
             out.append(f"[{re.escape(c)}{mark}]")
             continue
@@ -876,6 +889,11 @@ COMPOUND_HYPHEN_RE = re.compile(r"(?<=[^\W\d_])-(?=[^\W\d_])")
 # A quote's hyphen that may read as nothing in the source (see the joined
 # level). A private-use character no quotation holds.
 JOINED_MARK = "\ue001"
+# A " / " in a quote marks a line break: verse, or one-sentence paragraphs
+# quoted on one line. It matches the space whitespace collapses to in the
+# source, and only where the source's own whitespace there breaks a line.
+QUOTE_LINE_BREAK_RE = re.compile(r"\s+/\s+")
+LINE_BREAK_MARK = "\ue002"
 
 
 def mark_joined(piece: str, words: set[str]) -> str:
@@ -906,8 +924,23 @@ def _pieces(quote: str) -> list[str]:
     # A quote copied from Pandoc's Markdown can keep its escapes ("\[W\]e");
     # unescaped first, its brackets read as the bracket rules say.
     quote = SIC_RE.sub("", ESCAPE_RE.sub(r"\1", quote)).rstrip(",.;: ")
+    quote = QUOTE_LINE_BREAK_RE.sub(LINE_BREAK_MARK, quote)
     pieces = [p for p in ELLIPSIS_RE.split(quote) if p.strip()]
-    return [p for p in pieces if len(p.split()) >= MIN_PIECE_WORDS] or pieces
+    return [p for p in pieces if len(p.replace(LINE_BREAK_MARK, " ").split()) >= MIN_PIECE_WORDS] or pieces
+
+
+def _breaks(m: re.Match, src: Source, idx: list[int]) -> bool:
+    """Each line-break mark in the match sits where the source's own
+    whitespace breaks a line."""
+    for g in range(1, m.re.groups + 1):
+        a, b = m.start(g), m.end(g)
+        if a <= 0 or "/" in m.group(g):
+            continue
+        # The source between the characters either side of the mark.
+        end = idx[b] if b < len(idx) else len(src.raw)
+        if "\n" not in src.raw[idx[a - 1] + 1 : end]:
+            return False
+    return True
 
 
 def locate(quote: str, src: Source, level: str) -> tuple[int, int, list[int]] | None:
@@ -934,12 +967,13 @@ def locate(quote: str, src: Source, level: str) -> tuple[int, int, list[int]] | 
         text, idx = src.form(norm_level, "mark", furniture)
         first, _, lead, tail = pats[0]
         for m in first.finditer(text):
-            if not src.number_intact(idx, m.start(), m.end(), lead, tail):
+            if not src.number_intact(idx, m.start(), m.end(), lead, tail) or not _breaks(m, src, idx):
                 continue
             end, ok = m.end(), True
             for p, reach, p_lead, p_tail in pats[1:]:
                 nxt = next((n for n in p.finditer(text, end, end + ELISION_WINDOW + reach)
-                            if src.number_intact(idx, n.start(), n.end(), p_lead, p_tail)), None)
+                            if src.number_intact(idx, n.start(), n.end(), p_lead, p_tail)
+                            and _breaks(n, src, idx)), None)
                 if not nxt:
                     ok = False
                     break

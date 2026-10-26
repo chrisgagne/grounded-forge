@@ -24,7 +24,7 @@ Rough Opus 4.7 cost: a few hundred thousand tokens per source for 300–700 imag
 npm run remove-corpus:openstax
 ```
 
-That strips the OpenStax demo corpus (references, distillations, image entries, source files) in one command. Then run [`ingesting-resources`](../../.claude/skills/ingesting-resources/SKILL.md) on your own books, papers, or reports. The full forking walkthrough is at [`build-your-library.md`](build-your-library.md).
+That removes every OpenStax source from the demo corpus in one command, one [`removing-resources`](../../.claude/skills/removing-resources/SKILL.md) run per source: originals retired to `sources/removed/`, references, distillations and image entries deleted, each source taken off the concept index and the distillation indexes. Surviving sources' distillations that cited an OpenStax book are listed in `_planning/removals/demo/`; rewrite them with the skill's rewrite step before you build. Then run [`ingesting-resources`](../../.claude/skills/ingesting-resources/SKILL.md) on your own books, papers, or reports. The full forking walkthrough is at [`build-your-library.md`](build-your-library.md).
 
 ## See also
 

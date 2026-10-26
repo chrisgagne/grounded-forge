@@ -114,9 +114,10 @@ Produces `corpus.commons/my-corpus/distros/my-task-1-v{version}-{scope}.tar.gz` 
 
 ## Step 7: Add task axes or sources later
 
-The architecture is additive:
+The architecture is additive, and each addition can be undone:
 
 - **New source**: run the 9-pass protocol once via the `ingesting-resources` skill. The new row populates across all existing columns.
+- **Superseded source**: run the `removing-resources` skill. The row leaves every column, and other distillations that drew on it are rewritten without it.
 - **New task axis**: run `creating-applications`. It scopes the axis (via `creating-tasks`), scaffolds the distillation directory and index, creates the build profile, and orchestrates per-distillation projection.
 
 For why the architecture is shaped this way, see [`../architecture/projection-time.md`](../architecture/projection-time.md) and [`../architecture/matrix-pattern.md`](../architecture/matrix-pattern.md).

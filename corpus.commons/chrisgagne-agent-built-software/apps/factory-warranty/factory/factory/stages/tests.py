@@ -125,7 +125,7 @@ def run(change, recheck: bool = False) -> bool:
         return change.finish("tests", [f"the tests leg changed or removed existing tests: {', '.join(weakened)}"],
                              [f"Discard its changes (`git -C {change.worktree} checkout -- . && git -C {change.worktree} "
                               "clean -fd`) and re-run `factory tests`; it may add tests, not edit existing ones."])
-    change.commit_all(f"factory: acceptance tests for {change.id}")
+    change.commit_all(f"factory: acceptance tests for {change.id}", "tests")
     files = change.test_files()
     unproven = [f"{cr['id']} ({why})" for cr in criteria for why in [unproven_reason(change, cr["check"], files)] if why]
     if unproven:

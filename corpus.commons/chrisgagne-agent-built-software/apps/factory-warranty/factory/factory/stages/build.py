@@ -67,7 +67,7 @@ def run(change) -> bool:
                   artefacts=change.hashes("builder-summary.md"))
     if not res["ok"]:
         return change.finish("build", [f"the build leg failed: {res.get('error')}"], ["Re-run `factory build`."])
-    change.commit_all(f"factory: build {change.id}")
+    change.commit_all(f"factory: build {change.id}", "build")
     changed = change.changed_files(before)
     if not changed:
         return change.finish("build", ["the build produced no changes"], ["Re-run `factory build`."])

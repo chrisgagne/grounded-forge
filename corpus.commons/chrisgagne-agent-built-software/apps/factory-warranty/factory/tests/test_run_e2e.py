@@ -60,6 +60,12 @@ def test_run_blocks_on_a_confirmed_finding_then_signs_after_acceptance(tmp_path,
     assert (change.dir / "tests.lock").read_text().count("test/bye.test.sh") == 1
     red = [e for e in change.ledger.events() if e.get("check") == "new-tests"][-1]
     assert red["status"] == "fail"  # the new test was red before the build
+    for stage in ("tests", "build"):  # each commit names the leg that wrote it, by its ledger event
+        leg = [e for e in change.ledger.events() if e.get("check") == f"leg:{stage}"][-1]
+        subject = "factory: build" if stage == "build" else "factory: acceptance tests"
+        body = change.git("log", "-1", "--format=%B", f"--grep={subject}")
+        assert f"Factory-Change: {change_id}" in body
+        assert f"Factory-Leg: {stage} ({leg['id']})" in body and "Factory-Model: fake" in body
 
     assert cli.main(["accept", "--repo", str(app), "--change", change_id, "--item", "F1",
                      "--reason", "names come from our own CLI; tracked as ticket 7", "--by", "Chris"]) == 0

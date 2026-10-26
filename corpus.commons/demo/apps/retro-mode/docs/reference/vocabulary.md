@@ -116,6 +116,7 @@ Ingestion stops at reference. Distillation is a separate step.
 | Skill | Owns | Passes |
 |---|---|---|
 | `ingesting-resources` | source → reference; also drives the mechanical-index pipeline at Pass H | A, B, C, D, E, F, plus H (preprocessor + refs pass + cross-link + topic pass + index build) and I against the reference |
+| `removing-resources` | the inverse: source → nothing; retires the original, deletes its references and distillations, takes it off every index, rewrites other files that drew on it | n/a; reverses A–I |
 | `creating-tasks` | task-axis spec (Jobs-to-be-Done scoping) | n/a; a design dialogue, not a pass |
 | `creating-applications` | task spec + corpus subset → compiled application | orchestrates G across the named source set |
 | `creating-distillations` | reference × task [× lens] → distillation | G, plus H and I against the distillation |

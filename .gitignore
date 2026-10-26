@@ -34,13 +34,18 @@ corpus.commons/*/distros/*.tar.gz
 corpus.commons/*/distros/*.zip
 
 # Defensive: any binary source (PDF, EPUB) inside a commons corpus's
-# original/ folder is gitignored by default. Operators who have explicit
+# original/ folder, or retired to removed/{slug}/ by the removing-resources
+# skill, is gitignored by default. Operators who have explicit
 # rights to redistribute a binary can `git add -f` it. The sidecar
 # {slug}.source.md stays tracked either way and is the canonical pointer.
 corpus.commons/*/sources/original/*.pdf
 corpus.commons/*/sources/original/*.epub
 corpus.commons/*/sources/original/*.mobi
 corpus.commons/*/sources/original/*.azw3
+corpus.commons/*/sources/removed/*/*.pdf
+corpus.commons/*/sources/removed/*/*.epub
+corpus.commons/*/sources/removed/*/*.mobi
+corpus.commons/*/sources/removed/*/*.azw3
 
 # Extracted source images: too large for the repo, regenerable via
 # scripts/extract-images.py. IMAGE-INDEX.yaml IS tracked; the image

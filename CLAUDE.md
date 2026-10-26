@@ -84,7 +84,7 @@ A corpus is self-contained: source-cards, converted markdown, references, distil
 
 Two locations, one rule: **substrate skills are corpus-agnostic; corpus-bound skills cite a specific corpus's references or task axes.**
 
-- `.claude/skills/` (repo root): substrate skills, ship with the forge: `creating-*`, `ingesting-*`, `finding-resources`, `matching-references`, `answer-from-corpus`, `advise-from-corpus`, `audit-attribution`. Discovered automatically by Claude Code from any working directory in the repo.
+- `.claude/skills/` (repo root): substrate skills, ship with the forge: `creating-*`, `ingesting-*`, `removing-resources`, `finding-resources`, `matching-references`, `answer-from-corpus`, `advise-from-corpus`, `audit-attribution`. Discovered automatically by Claude Code from any working directory in the repo.
 - `{corpus-root}/.claude/skills/`: corpus-bound skills, travel with the corpus. Discovered automatically by Claude Code when you work *inside* that corpus directory, or from anywhere when invoked with `--add-dir {corpus-root}/`.
 
 When authoring corpus-bound skills, either work from inside the corpus or launch Claude Code with `--add-dir {corpus-root}/` so the corpus skills load alongside substrate. The build resolver checks the corpus first, then substrate; collisions warn and prefer the corpus version. Compiled apps flatten everything into the app's `.claude/skills/`, so runtime sees one directory.
@@ -126,7 +126,7 @@ Full statement and rationale: [`docs/architecture/source-integrity.md`](docs/arc
 
 Every reference in this library is produced by the 9-pass ingestion protocol documented in [`docs/architecture/ingestion-protocol.md`](docs/architecture/ingestion-protocol.md). Passes A–E build the deep reference (context, structural read, deep read with citations, blockquote extraction, synthesis); Pass F derives the light reference; Pass G projects per task axis; Pass H cross-references; Pass I runs the source-only audit.
 
-Invoked via the `ingesting-resources` skill at [`.claude/skills/ingesting-resources/SKILL.md`](.claude/skills/ingesting-resources/SKILL.md).
+Invoked via the `ingesting-resources` skill at [`.claude/skills/ingesting-resources/SKILL.md`](.claude/skills/ingesting-resources/SKILL.md). The inverse, removing a source as if it had never been ingested, is the `removing-resources` skill at [`.claude/skills/removing-resources/SKILL.md`](.claude/skills/removing-resources/SKILL.md).
 
 Pass I (source-only audit) is calibrated against a fixture corpus at [`tests/audit-fixtures/`](tests/audit-fixtures/). Three exemplars are read at the start of every audit; the full twelve-fixture set is a regression check when adopting a new model. See [`tests/audit-fixtures/README.md`](tests/audit-fixtures/README.md).
 

@@ -6,7 +6,7 @@
 import fs from "node:fs";
 import mcp from "./.wrangler/test/mcp.mjs";
 
-const PART_BYTES = 60000; // as in src/corpus.js
+const PART_BYTES = 20000; // as in src/corpus.js
 const { files, connector } = JSON.parse(fs.readFileSync(new URL("./src/bundle.json", import.meta.url), "utf8"));
 const want = connector.selftest; // this connector's expected slugs, sections and words
 const lenses = "lens-index.json" in files;

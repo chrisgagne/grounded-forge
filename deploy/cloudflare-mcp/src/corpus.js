@@ -2,7 +2,10 @@
 // distillations, the task and concept indexes, the lens index and the workflows.
 import bundle from "./bundle.json";
 
-const PART_BYTES = 60000; // workflow files longer than this are served in parts
+// Workflow files longer than this are served in parts. Clients cap tool output: Claude Code saves a
+// reply of about 60 KB to disk and shows the model a 2 KB preview, so a client without file access
+// would lose the rest. 20 KB parts stay well inside every client seen so far.
+const PART_BYTES = 20000;
 
 export class ToolInputError extends Error {}
 

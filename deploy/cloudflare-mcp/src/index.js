@@ -10,11 +10,15 @@ import { connector } from "./corpus.js";
 const NAME = connector.title;
 
 // claude.ai's callbacks are fixed; ChatGPT's carry a per-connector callback id; Claude Code's
-// is a localhost port it picks at login.
+// is a localhost port it picks at login. Cursor registers three and signs in with whichever its
+// version uses: localhost (desktop, current), cursor.com (cloud agents) or its private-use
+// cursor:// scheme (older desktop builds).
 const REDIRECT_URIS = [
   "https://claude.ai/api/mcp/auth_callback",
   "https://claude.com/api/mcp/auth_callback",
   "https://chatgpt.com/connector_platform_oauth_redirect",
+  "https://www.cursor.com/agents/mcp/oauth/callback",
+  "cursor://anysphere.cursor-mcp/oauth/callback",
 ];
 const REDIRECT_PATTERNS = [
   /^https:\/\/chatgpt\.com\/connector\/oauth\/[A-Za-z0-9_-]+$/,
@@ -26,7 +30,36 @@ const REMEMBER_DAYS = 30;
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-const PRIVACY = connector.pages.privacy;
+const PRIVACY = `${connector.pages.privacy}\n<p><a href="/privacy">Privacy policy</a></p>`;
+
+// A connector's contact is a URL (an issue tracker) or an email address.
+const CONTACT = connector.contact.startsWith("https://")
+  ? `open an issue at <a href="${esc(connector.contact)}">${esc(connector.contact.replace(/^https:\/\//, ""))}</a>`
+  : `email <a href="mailto:${esc(connector.contact)}">${esc(connector.contact)}</a>`;
+
+// The full policy behind /privacy. Every connector runs on this code, so the data handling is the
+// same for all of them; only the name, the contact and what users bring (pages.privacy) differ.
+const policy = (origin) => `<h1>${esc(NAME)}: privacy policy</h1>
+<p>${esc(NAME)} is a read-only library served as an MCP connector at <code>${esc(origin)}/mcp</code>, run by Chris Gagné. This page says what it collects, where that goes and how long it's kept.</p>
+<h2>What it collects</h2>
+<ul>
+<li><strong>Your GitHub username and numeric id</strong>, when you sign in. GitHub is asked for no permissions, so ${esc(NAME)} sees no email address, no repositories and nothing private, and it keeps no GitHub token.</li>
+<li><strong>Sign-in records:</strong> the AI client you connected (Claude, ChatGPT, Cursor or another) and the tokens it holds, stored hashed. A cookie on this site remembers your consent for ${REMEMBER_DAYS} days.</li>
+<li><strong>One log line per tool call:</strong> your GitHub username, the tool, and the library file or section it read, or how many matches a search found.</li>
+</ul>
+<h2>What it doesn't collect</h2>
+<p>Your conversation stays with your AI client, under that client's own terms. A tool call carries only short arguments, such as a file name or a few search words. The server uses them to answer and logs none of them, so what you type never reaches the logs.</p>
+<h2>Who else handles it</h2>
+<p>Cloudflare hosts the server, its logs and the sign-in records. GitHub handles sign-in. Nothing is sold or shared with anyone else, and there are no analytics, ads or tracking cookies.</p>
+<h2>How long it's kept</h2>
+<p>Logs: up to seven days, Cloudflare's retention. Access tokens expire after an hour and refresh tokens after a year. The consent cookie lasts ${REMEMBER_DAYS} days.</p>
+<h2>Your choices</h2>
+<p>Remove the connector in your AI client to stop using it, and revoke ${esc(NAME)} under GitHub → Settings → Applications → Authorized OAuth Apps. To have your sign-in records deleted now, or with any question, ${CONTACT}.</p>
+<p class="mute"><small><a href="/">${esc(NAME)}</a></small></p>`;
+
+// Cursor's one-click install link: the server's config, base64-encoded, in a cursor:// deep link.
+const cursorInstall = (origin) => `cursor://anysphere.cursor-deeplink/mcp/install?name=${connector.id}&config=${
+  encodeURIComponent(btoa(JSON.stringify({ url: `${origin}/mcp` })))}`;
 
 const page = (title, body, status = 200, headers = new Headers()) => {
   headers.set("Content-Type", "text/html; charset=utf-8");
@@ -40,7 +73,8 @@ const page = (title, body, status = 200, headers = new Headers()) => {
 @media (prefers-color-scheme:dark){:root{--bg:#161615;--fg:#ecebe6;--mute:#a3a29c;--line:#383733;--accent:#79b4dd}}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,sans-serif}
 main{max-width:34rem;margin:0 auto;padding:3rem 1rem}
-h1{font-size:1.4rem;margin:0 0 1rem}p,li{color:var(--fg)}small,.mute{color:var(--mute)}
+h1{font-size:1.4rem;margin:0 0 1rem}h2{font-size:1.1rem;margin:1.75rem 0 .5rem}p,li{color:var(--fg)}small,.mute{color:var(--mute)}
+a{color:var(--accent)}
 code{font-size:.9em;background:var(--line);padding:.1em .35em;border-radius:4px;word-break:break-all}
 .row{display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap}
 button{font:inherit;padding:.6rem 1.1rem;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
@@ -72,7 +106,12 @@ const handler = {
     const origin = url.origin;
 
     if (url.pathname === "/" && request.method === "GET") {
-      return page(NAME, connector.pages.landing.replaceAll("{{origin}}", esc(origin)).replace("{{privacy}}", PRIVACY));
+      return page(NAME, connector.pages.landing.replaceAll("{{origin}}", esc(origin))
+        .replaceAll("{{cursor}}", esc(cursorInstall(origin))).replace("{{privacy}}", PRIVACY));
+    }
+
+    if (url.pathname === "/privacy" && request.method === "GET") {
+      return page(`${NAME}: privacy policy`, policy(origin));
     }
 
     if (url.pathname === "/authorize" && request.method === "GET") {
@@ -84,7 +123,7 @@ const handler = {
       }
       if (!redirectAllowed(authReq.redirectUri)) {
         console.log(JSON.stringify({ action: "authorize", outcome: "bad-redirect", redirect: authReq.redirectUri }));
-        return page("Can't connect", `<h1>Can't connect</h1><p>${esc(NAME)} accepts connections from Claude, Claude Code and ChatGPT. This client's return address isn't one of theirs.</p>`, 400);
+        return page("Can't connect", `<h1>Can't connect</h1><p>${esc(NAME)} accepts connections from Claude, Claude Code, ChatGPT and Cursor. This client's return address isn't one of theirs.</p>`, 400);
       }
       if (await env.OAUTH_PROVIDER.isConsentRemembered(request, authReq, { secret: env.COOKIE_SECRET })) {
         return toGitHub(env, origin, authReq, new Headers());
@@ -198,6 +237,9 @@ export default {
       accessTokenTTL: 3600,
       refreshTokenTTL: 365 * 86400,
       clientIdMetadataDocumentEnabled: true,
+      // Lets older Cursor builds sign in with cursor://; redirectAllowed still admits only the
+      // exact URIs above.
+      allowPrivateUseRedirectUris: true,
       resourceMetadata: { resource: `${env.PUBLIC_URL}/mcp`, scopes_supported: ["corpus.read"], resource_name: NAME },
     });
     return provider.fetch(request, env, ctx);

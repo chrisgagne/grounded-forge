@@ -1,12 +1,14 @@
 // Factory Review: the factory-warranty app's review stage and library as a connector, at
 // review.groundedforge.com. Same Worker as AAR Maker; these are its words and the app it packs.
-// {{workflows}} becomes the list of workflow names, {{origin}} the Worker's origin (escaped).
+// {{workflows}} becomes the list of workflow names, {{origin}} the Worker's origin (escaped),
+// {{cursor}} Cursor's install link.
 const REPO = "https://github.com/chrisgagne/grounded-forge/tree/main/corpus.commons/chrisgagne-agent-built-software";
 
 export default {
   id: "factory-review",
   title: "Factory Review",
   version: "0.1.0",
+  contact: "https://github.com/chrisgagne/grounded-forge/issues", // support and privacy requests; shown on /privacy
   app: "../../corpus.commons/chrisgagne-agent-built-software/apps/factory-warranty",
   task: "warranting-agent-built-software",
 
@@ -93,6 +95,7 @@ Factory Review is a hosted connector run by Approach Perfect, Limited (the Suppl
 <p><strong>Claude</strong> (web, desktop or mobile): Settings → Connectors → Add custom connector, paste the URL, then sign in with GitHub. Open the connector and set Read-only tools to <em>Always allow</em>, or Claude will ask before every library read.</p>
 <p><strong>Claude Code:</strong> <code>claude mcp add --transport http factory-review {{origin}}/mcp</code>, then <code>/mcp</code> to sign in.</p>
 <p><strong>ChatGPT:</strong> Settings → Plugins, add a server (Streamable HTTP, the URL above, no token), then sign in with GitHub. Start your first message with “Use Factory Review to…”: ChatGPT won't use it unless asked.</p>
+<p><strong>Cursor:</strong> <a href="{{cursor}}">Add to Cursor</a>, or add <code>"factory-review": { "url": "{{origin}}/mcp" }</code> under <code>mcpServers</code> in <code>~/.cursor/mcp.json</code>, then sign in with GitHub when Cursor asks.</p>
 <p><strong>First run:</strong> “Use Factory Review to review this change before I sign it off.” Bring the diff or pull request and what it was meant to do.</p>
 {{privacy}}
 <p class="mute"><small>Built by Chris Gagné, with Claude and Codex. The library's licence terms are served with it: ask the assistant for Factory Review's licence.</small></p>`,

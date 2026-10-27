@@ -1,10 +1,11 @@
 // AAR Maker: the words the connector shows, and the app it packs. bundle.mjs writes this into
 // src/bundle.json; src/mcp.js and src/index.js read it from there. {{workflows}} becomes the list
-// of workflow names, {{origin}} the Worker's origin (escaped).
+// of workflow names, {{origin}} the Worker's origin (escaped), {{cursor}} Cursor's install link.
 export default {
   id: "aar-maker",
   title: "AAR Maker",
   version: "0.2.0",
+  contact: "https://github.com/chrisgagne/grounded-forge/issues", // support and privacy requests; shown on /privacy
   app: "../../corpus.commons/demo/apps/aar-mode",
   task: "aar",
 
@@ -86,6 +87,7 @@ AAR Maker is a hosted connector run by Approach Perfect, Limited (the Supplier n
 <p><strong>Claude</strong> (web, desktop or mobile): Settings → Connectors → Add custom connector, paste the URL, then sign in with GitHub. Open the connector and set Read-only tools to <em>Always allow</em>, or Claude will ask before every library read.</p>
 <p><strong>Claude Code:</strong> <code>claude mcp add --transport http aar-maker {{origin}}/mcp</code>, then <code>/mcp</code> to sign in.</p>
 <p><strong>ChatGPT:</strong> Settings → Plugins, add a server (Streamable HTTP, the URL above, no token), then sign in with GitHub. Start your first message with “Use AAR Maker to…”: ChatGPT won't use it unless asked.</p>
+<p><strong>Cursor:</strong> <a href="{{cursor}}">Add to Cursor</a>, or add <code>"aar-maker": { "url": "{{origin}}/mcp" }</code> under <code>mcpServers</code> in <code>~/.cursor/mcp.json</code>, then sign in with GitHub when Cursor asks.</p>
 <p><strong>First run:</strong> “Help me run an after-action review of [the incident or project].” Bring the timeline and who was involved.</p>
 {{privacy}}
 <p class="mute"><small>Built by Chris Gagné. The library's licence terms are served with it: ask the assistant for AAR Maker's licence.</small></p>`,

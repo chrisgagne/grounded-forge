@@ -57,6 +57,10 @@ references carry the substantive support.
   `reference-index.json`, `lens-index.json`, `task-index.json`). Never hand-edit them;
   they regenerate from staging artefacts and deep-ref frontmatter via the build scripts.
 - Match the style of the file you are editing. UK English spelling in docs.
+- Prose Chris writes or publishes from this repo (docs, READMEs, eval write-ups, release
+  notes) follows his `voice` skill, the same ruleset his other repos use; on his machines it's
+  installed at `~/.claude/skills/voice`. Where it isn't available, follow the prose notes in
+  `CONTRIBUTING.md`.
 - Prefer small, reviewable commits. Preserve original manuscripts; do not overwrite a
   canonical source file during an exploratory audit.
 

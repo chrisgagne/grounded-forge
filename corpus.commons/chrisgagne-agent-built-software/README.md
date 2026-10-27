@@ -43,6 +43,21 @@ grading and picking test cases. Every test was written down before it ran.
 Every step lands on a tamper-evident log; [DESIGN.md](helpers/factory-warranty/DESIGN.md) says what it can and can't
 guarantee.
 
+## How it differs from other software factories
+
+Most tools called software factories run the work: a ticket goes in, agents plan, build, test and review it, and a
+merged pull request comes out. They're built for throughput, and the human checks the result on staging or in a
+review. This one is built for the person who signs, and it doesn't try to build faster:
+
+- **What the sheet calls shown, the factory ran.** Each command is listed with its exit code and an output hash. The
+  builder's own account sits apart, under "Asserted, not evidence".
+- **Its checks run things rather than look for a file.** A rollback has to name a command, and the gate runs it.
+- **Every commit names who wrote it.** Trailers give the change and the leg, model and log entry behind the work, so
+  a line traced back from production leads to the evidence.
+
+None of this makes the review smarter. The point is that the person who signs can see what was shown and what was
+only claimed.
+
 ## How its review compares
 
 Four tests on [ReviewBench](https://github.com/review-bench/ReviewBench), GitHub's open benchmark of real pull

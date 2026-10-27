@@ -432,11 +432,19 @@ class Change:
             out.append(e[3:])
         return out
 
-    def commit_all(self, message: str) -> bool:
+    def commit_all(self, message: str, stage: str | None = None) -> bool:
+        """Commit everything as `factory`. With `stage`, trailers name the change and the leg that wrote the work
+        (its ledger event, model and family), so a commit traced from production leads back to the ledger."""
         if not self.dirty_files():
             return False
+        legs_run = [e for e in self.last_run(stage) if e.get("check", "").startswith("leg:")] if stage else []
+        trailers = [f"Factory-Change: {self.id}"]
+        if legs_run:
+            leg = legs_run[-1]
+            trailers += [f"Factory-Leg: {leg['leg']} ({leg['id']})", f"Factory-Model: {leg.get('model') or 'unknown'}",
+                         f"Factory-Family: {leg.get('family') or 'unknown'}"]
         self.git("add", "-A")
-        self.git("commit", "-q", "--no-verify", "-m", message)
+        self.git("commit", "-q", "--no-verify", "-m", message, "-m", "\n".join(trailers))
         return True
 
     def test_files(self) -> list[str]:

@@ -45,7 +45,7 @@ const policy = (origin) => `<h1>${esc(NAME)}: privacy policy</h1>
 <ul>
 <li><strong>Your GitHub username and numeric id</strong>, when you sign in. GitHub is asked for no permissions, so ${esc(NAME)} sees no email address, no repositories and nothing private, and it keeps no GitHub token.</li>
 <li><strong>Sign-in records:</strong> the AI client you connected (Claude, ChatGPT, Cursor or another) and the tokens it holds, stored hashed. A cookie on this site remembers your consent for ${REMEMBER_DAYS} days.</li>
-<li><strong>One log line per tool call:</strong> your GitHub username, the tool, and the library file or section it read, or how many matches a search found.</li>
+<li><strong>A log line when you sign in, connect and call a tool:</strong> your GitHub username, the AI client (at sign-in), and for a tool call the tool and the library file or section it read, or how many matches a search found. Nothing else about a request is logged.</li>
 </ul>
 <h2>What it doesn't collect</h2>
 <p>Your conversation stays with your AI client, under that client's own terms. A tool call carries only short arguments, such as a file name or a few search words. The server uses them to answer and logs none of them, so what you type never reaches the logs.</p>

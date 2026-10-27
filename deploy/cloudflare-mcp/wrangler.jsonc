@@ -14,8 +14,9 @@
   "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "REPLACE_WITH_OAUTH_KV_ID" }],
   // Per GitHub login: 120 MCP calls a minute is far above a real review's pace.
   "ratelimits": [{ "name": "LIMITER", "namespace_id": "1001", "simple": { "limit": 120, "period": 60 } }],
-  // Workers Logs: the per-call log lines (login, tool, library file; never query text).
-  "observability": { "enabled": true },
+  // Workers Logs: only the Worker's own log lines (login, tool, library file; never query text).
+  // Invocation logs are off: they record each request's URL and metadata, which /privacy rules out.
+  "observability": { "enabled": true, "logs": { "invocation_logs": false } },
   "vars": {
     "PUBLIC_URL": "https://aar.groundedforge.com",
     // Your GitHub OAuth app's client ID (public; the client secret is a Worker secret).

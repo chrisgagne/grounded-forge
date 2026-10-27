@@ -13,7 +13,7 @@
   // Its own OAuth namespace: `npx wrangler kv namespace create OAUTH_KV_REVIEW` prints the id.
   "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "REPLACE_WITH_OAUTH_KV_ID" }],
   "ratelimits": [{ "name": "LIMITER", "namespace_id": "1002", "simple": { "limit": 120, "period": 60 } }],
-  "observability": { "enabled": true },
+  "observability": { "enabled": true, "logs": { "invocation_logs": false } },
   "vars": {
     "PUBLIC_URL": "https://review.groundedforge.com",
     // Its own GitHub OAuth app (callback https://review.groundedforge.com/callback).

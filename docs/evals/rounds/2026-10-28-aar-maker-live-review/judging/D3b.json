@@ -1,0 +1,125 @@
+{
+ "E": {
+  "E1": {
+   "v": "full",
+   "q": "an agreed protocol existed, was workable and was in routine use, and he did not depart from it."
+  },
+  "E2": {
+   "v": "full",
+   "q": "Chain A: Prevention. How the change reached production unseen \u2026 Chain B: Detection \u2026 Chain C: Recovery. Why rollback took 41 minutes"
+  },
+  "E3": {
+   "v": "full",
+   "q": "The channel gets ~220 alerts a week, mostly auto-resolving. The pool alert has been Slack-only since it was created."
+  },
+  "E4": {
+   "v": "full",
+   "q": "Three checks all missed it: auto-merge on green CI, load tests only on major bumps, and a staging pool override of 50."
+  },
+  "E5": {
+   "v": "full",
+   "q": "The February auto-merge was a single deliberate loosening, not gradual drift."
+  },
+  "E6": {
+   "v": "full",
+   "q": "The fix was deferred for the Q3 launch (February), then assigned with no single owner (June, INC-2104)."
+  },
+  "E7": {
+   "v": "full",
+   "q": "The incidents-per-team dashboard discourages declaring early, and the 5-minute acknowledge target rewards acknowledging, not diagnosing."
+  },
+  "E8": {
+   "v": "full",
+   "q": "28 minutes waiting for DBA approval. One-click rollback has been off since March."
+  },
+  "E9": {
+   "v": "partial",
+   "q": "Not doing: \u2026 Retraining the on-call (he followed the rule)."
+  },
+  "E10": {
+   "v": "full",
+   "q": "the cause was found at 18:01, one minute after the 18:00 bank cut-off \u2026 B interacted with A and lost the cut-off."
+  },
+  "E11": {
+   "v": "full",
+   "q": "Finance ops: recovered 22 of 37 payroll runs that evening, which cut the number of employees paid late."
+  },
+  "E12": {
+   "v": "partial",
+   "q": "Both outcomes say action singling out the individual is unlikely to be appropriate."
+  },
+  "E13": {
+   "v": "partial",
+   "q": "Not doing: Adding alerts to #payments-alerts (adds noise)."
+  },
+  "E14": {
+   "v": "full",
+   "q": "Highest-leverage point (provisional): detection \u2026 Open question that could overturn it: if the DBA was unavailable from before about 16:30, recovery binds jointly"
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "clear",
+   "q": ""
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "Owner: TBD (one person)"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "Year 2026 attached to the incident date and to the Feb/Mar/Jun events (inferred, and flagged 'to be confirmed'; minor)",
+  "Library team's motive 'Small services were over-provisioned' (the notes give only the changelog wording 'safer defaults for small services')",
+  "Derived analytic figures not in the notes: 'six teams were involved', the waiting-to-working ratio '5.6 to 1 (about 129 of 152 minutes)' and 'about 85% of the outage time sitting at team boundaries' (computed from the timeline; the boundary attribution is interpretive)",
+  "16:31 page described as the '14th flap that week' (the notes say only that it flapped 14 times that week; minor)"
+ ],
+ "D": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "yes",
+  "partial",
+  "partial",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 4,
+  "owned": 0
+ },
+ "score": 74,
+ "weakness": "It never responds to the VP's demand to name a responsible person and gives no customer write-up guidance; it leaves every action without an owner role and omits the cut to on-call shadowing as a system condition.",
+ "_cost": 0.220485
+}

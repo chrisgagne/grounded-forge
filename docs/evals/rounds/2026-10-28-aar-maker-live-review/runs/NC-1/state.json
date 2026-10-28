@@ -1,0 +1,803 @@
+{
+ "arm": "NC",
+ "rep": "1",
+ "session": "ae552de1-b07c-48bb-9c5c-c14c8f197400",
+ "turns": [
+  {
+   "role": "facilitator",
+   "text": "I can help you run it, but I'd push back on one part first: **don't let the AAR produce a name for your VP.** Your own timeline points to gaps in the system, not one person's mistake. Below are how I'd handle the VP, what the timeline shows, and a plan for running the session.\n\n**Check the date first:** 29 September was four weeks ago. Yesterday (27 Oct) was also a Tuesday. If you meant yesterday, fix the date before anything goes out. If it really was a month ago, pull logs, Slack history and alert history now, before retention deletes them.\n\n---\n\n## 1. The VP and the \"individual to hold accountable\" ask\n\nTwo people have already been named: the on-call engineer and the dev who merged the upgrade. Here's what the timeline says about each:\n\n- **The dev and the changelog.** An internal library went up one minor version (3.4 \u2192 3.5) and broke connection pooling in production within 9 minutes. That means:\n  - the library shipped a breaking change as a minor version\n  - review didn't flag it\n  - no canary or staged rollout caught it\n  - staging didn't reproduce it\n\n  Reading the changelog is a weak safety net. We don't yet know whether the changelog even made the risk obvious.\n- **The on-call and the silence.** This is the biggest lost time window (16:33 \u2192 17:48, about 75 minutes), so don't gloss over it. But consider what they actually had:\n  - They were paged for a symptom (latency), not the cause.\n  - The alert that named the cause (`db-pool-saturation`) was set to \"warning\" and only posted to Slack.\n  - Nothing in their view linked the problem to a deploy 26 minutes earlier.\n  - The tooling let them silence a payments alert for 2 hours without a second look.\n\n  If that latency alert is usually noise, silencing it was a reasonable call. The next on-call would do the same thing.\n\nHere's a script for the VP:\n\n> \"Accountability here means named owners with dates for each fix, and I'll own the overall remediation. If we pin this on the on-call or the dev, the same gaps are still there for whoever's next. People also stop telling us the truth in reviews, which slows down detecting the next incident. If the review shows someone knowingly bypassed a clear policy, their manager handles that separately, outside the AAR.\"\n\nThat gives the VP named accountability without making the AAR a trial.\n\n## 2. What the timeline shows\n\n| Metric | Value |\n|---|---|\n| Deploy \u2192 first failure | 9 min |\n| First failure \u2192 first signal (Slack warning, no page) | 8 min |\n| First failure \u2192 first page | 17 min |\n| First failure \u2192 Sev1 | **1 h 41 min** |\n| Sev1 \u2192 cause found | 6 min |\n| Cause found \u2192 rollback done | 45 min (4 min decision, **28 min waiting on DBA**, 13 min execution) |\n| Total customer impact | 3 h 06 min, **bank cut-off missed** |\n\nWhat stands out:\n\n1. **The diagnostic signal didn't page.** The pool-saturation alert named the exact cause at 16:22 and went to a channel nobody was watching.\n2. **The page was for a symptom, with no deploy context.** Once the right person looked at logs, diagnosis took 6 minutes. The information was there; it just didn't reach anyone who could act.\n3. **The silence was too easy.** A 2-hour silence on a payments alert would have expired at 18:31, after the cut-off. Was 2 h a default option?\n4. **Customer impact was detected by customers.** Support escalated 38 minutes after the first tickets, and only after 41 had piled up.\n5. **There was no awareness of the deadline.** Nobody seems to have known the 18:00 cut-off was approaching. And a deploy went out at 16:05 on a payroll day, two hours before cut-off.\n6. **Rollback depended on one approval.** Why does an app rollback need a DBA? Was there a migration? Those 28 minutes alone came close to the margin.\n7. **There was no automatic safety net.** No canary or automatic rollback on error rate, for a change that failed within 9 minutes.\n\n## 3. Questions to answer before the meeting\n\n- **Library:** What exactly changed in platform-commons 3.5 (pool size, timeout, connection reuse)? Did the changelog call it out clearly? Was the bump hand-written or automated (Renovate/Dependabot)? Who reviewed it? Do other services already run 3.5?\n- **Alerts:** How many times did the latency alert fire in the last 30\u201390 days, and how many of those were real? Who set pool-saturation to \"warning\"? Does either alert link to a runbook or dashboard with deploy markers?\n- **On-call:** What did they look at in those 2 minutes? Were they already handling something else? Did they know about the 16:05 deploy? What silence durations does the tool offer?\n- **Support:** What's the escalation threshold? Did anyone notice the ticket pattern at 17:10?\n- **Rollback:** Why was a DBA needed? Who else can approve?\n- **Customers:** How many payrolls missed the cut-off? What's the customer remediation and comms plan, and who owns it?\n\nInterview the on-call and the dev **one-on-one before the group session**, and tell them up front it's blameless. You'll get far better detail that way.\n\n## 4. Running the session (60\u201375 min)\n\n1. **Ground rules (5 min).** This is about how our system let this happen, not who's at fault. Say it explicitly, especially if the VP attends.\n2. **Walk the timeline (20 min).** At each step ask \"what did you know, what did you expect, what did you do,\" not \"why didn't you\u2026\"\n3. **Find where time was lost (20 min).** Focus on the three big gaps: 16:14\u219216:31, 16:33\u219217:48 and 18:05\u219218:33.\n4. **Agree actions (15 min).** Each needs one owner, a date and a check that it worked.\n5. **Customer impact and follow-up (5 min).**\n\n## 5. Likely actions (confirm in the session)\n\n| Action | Gap it closes |\n|---|---|\n| Page on pool saturation for payments-api; tune or remove the noisy latency alert | 1, 3 |\n| Add deploy markers and \"recent deploys\" to alerts and dashboards | 2 |\n| Cap silences on payments alerts (e.g. 30 min) or require a reason / second ack | 3 |\n| Enforce semantic versioning for platform-commons; flag behaviour changes in the bump PR; check pool config | 7 |\n| Canary rollout plus automatic rollback on error rate for payments-api | 7 |\n| Deploy freeze or extra checks in the window before bank cut-off; put cut-off times in the incident runbook | 5 |\n| Pre-approved rollback path without a DBA, or a backup approver | 6 |\n| Support escalation trigger (e.g. N tickets for the same symptom in M minutes \u2192 #incidents) | 4 |\n| Alert on failed payroll submissions so customers aren't the detector | 4 |\n\nOnce you have answers to the section 3 questions, I can draft the full AAR document or the note to your VP.",
+   "t": 1793153495.346008,
+   "wall_s": 54,
+   "cost": 0.17910399999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Honestly, I think he just wasn't paying attention; he's fairly new. When the page came in he was also working an urgent data-export request for an enterprise customer that account management had flagged. On the library, the bump wasn't hand-written: it was an automated PR from our internal dependency bot, auto-merged when CI went green, so nobody merged it by hand. And the date's right, it was 29 September.",
+   "json": {
+    "reply": "Honestly, I think he just wasn't paying attention; he's fairly new. When the page came in he was also working an urgent data-export request for an enterprise customer that account management had flagged. On the library, the bump wasn't hand-written: it was an automated PR from our internal dependency bot, auto-merged when CI went green, so nobody merged it by hand. And the date's right, it was 29 September.",
+    "released": [
+     "H19",
+     "H8"
+    ],
+    "beat": "B2",
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": true,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153520.810125
+  },
+  {
+   "role": "facilitator",
+   "text": "These details make the case for blaming either person weaker, not stronger.\n\n## The library: nobody merged it\n\nThere's no \"dev who merged it and didn't read the changelog.\" A bot opened the PR and auto-merge shipped it when CI went green. So the questions are about the system:\n\n- **Who set the auto-merge policy, and for what?** Does it cover minor bumps of internal libraries that touch database connections, or only patch versions?\n- **What did CI test?** It passed a change that exhausted the connection pool within 9 minutes in production, so CI almost certainly doesn't test pool behaviour under realistic load.\n- **Did the bot's PR include the changelog?** Did platform-commons mark the pool change as breaking?\n- **Did the auto-merged change go straight to production with no canary?**\n\nCorrect this with your VP before Friday. The story they're working from has a person in it who doesn't exist. That's also a good AAR lesson in itself: the first version of an incident story is often wrong.\n\n## The on-call: overloaded, not careless\n\n\"Wasn't paying attention\" doesn't match what you just told me. He was paying attention to something else: an enterprise request that account management had labelled urgent. A latency page arrived, and he made a quick call between two \"urgent\" things. He picked the one with a person waiting on it and silenced the alert. That's a triage decision made without information he needed:\n\n- that the payroll cut-off was 90 minutes away\n- that a deploy had gone out 26 minutes earlier\n- that a cause-level alert was sitting in Slack\n\nQuestions for the session:\n\n- **Should on-call take requests from account management at all?** Was there a secondary or a manager he could hand one of them to?\n- **What onboarding did he get as a new on-call?** Shadowing? Did anyone tell him what payroll days and bank cut-offs mean for payments alerts?\n- **Was 2 hours a preset he could just click?**\n\nBeing new is a reason the system needed to catch this, not a reason to blame him. Be honest in the AAR that the silence cost about 75 minutes. Then explain why it happened, which is the useful part.\n\n## The date: 29 September means the AAR is four weeks late\n\n- **The risk may still be live.** Check now:\n  - Is the bot still auto-merging platform-commons bumps?\n  - Is anything on 3.5 heading back to production?\n  - Is pool saturation still a warning that only posts to Slack?\n  - Can a payments alert still be silenced for 2 hours?\n  \n  If any of these is true, put in a quick fix before Friday (pin the version, exclude the library from auto-merge, make the pool alert page) and say so in the AAR.\n- **People's memories have faded.** Build the timeline from records, not recollection: pager and silence logs, Slack history, the bot PR and CI run, deploy logs, support tickets. Export them now in case retention deletes them.\n- **Ask what happened afterwards.** What happened to the affected customers, and has anyone already changed anything?\n\n## Updated actions to add\n\n| Action | Owner type |\n|---|---|\n| Auto-merge only patch bumps, or exclude libraries that affect database connections / require canary for them | Platform / dev-tooling |\n| CI or staging test that exercises connection pool limits | payments-api team |\n| On-call doesn't take account management requests, or has a clear handoff/secondary | Eng manager |\n| New on-call onboarding: shadowing, payments-critical windows, silence norms | Eng manager |\n| Show recent deploys and upcoming cut-offs in the page itself | Observability |\n\n## Note to your VP (draft)\n\n> Quick correction on INC-2291 before Friday. The library upgrade wasn't merged by a person: our dependency bot opened the PR and auto-merge shipped it on green CI, so there's no individual who skipped the changelog. The on-call was new, was handling an urgent enterprise request from account management when the page arrived, and silenced what looked like a lower-priority latency alert. The alert that named the actual cause wasn't set to page.\n>\n> Accountability will be named owners with dates for: auto-merge policy, connection-pool testing, alert routing, on-call load and onboarding, and pre-cut-off deploy controls. I own the overall remediation. I'm also checking today that the conditions that caused this aren't still in place, since the incident was four weeks ago.\n\nOnce you've pulled the logs, send me the auto-merge configuration and the platform-commons 3.5 changelog. I can then draft the full AAR document with the timeline built from those records.",
+   "t": 1793153593.884439,
+   "wall_s": 73,
+   "cost": 0.2673114,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Can we just add more alerts on the DB pool metrics and call it done? On auto-merge: since February, minor and patch bumps of internal libraries auto-merge to cut review load, because the bot opens about 60 PRs a week. In the 3.5 changelog, the change that matters is that the default DB connection pool dropped from 50 to 20 (\"safer defaults for small services\"), and it's on line 40 of 52. Load tests only run on major version bumps.",
+   "json": {
+    "reply": "Can we just add more alerts on the DB pool metrics and call it done? On auto-merge: since February, minor and patch bumps of internal libraries auto-merge to cut review load, because the bot opens about 60 PRs a week. In the 3.5 changelog, the change that matters is that the default DB connection pool dropped from 50 to 20 (\"safer defaults for small services\"), and it's on line 40 of 52. Load tests only run on major version bumps.",
+    "released": [
+     "H9",
+     "H5",
+     "H6",
+     "H12"
+    ],
+    "beat": "B3",
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": true,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153691.1337721
+  },
+  {
+   "role": "facilitator",
+   "text": "No. Pool alerts are worth adding, but they don't stop this from happening again, and what you just told me shows why.\n\n## Why more alerts aren't enough\n\n- **The pool alert already existed.** `db-pool-saturation` fired at 16:22, 8 minutes in. Making it page would have saved time, so do it. But best case, the page reaches an on-call who's busy with something else and has no deploy context, and the outage still happens. Alerts make outages shorter; they don't prevent them.\n- **The next one won't be the pool.** The real cause is that a change to a default setting shipped as a minor version. The next default change might be a timeout, retry count or cache size. That will show up as a different metric that you aren't alerting on.\n\n## What the new facts show\n\nEvery safeguard depended on the version number, and the version number was wrong:\n\n- Auto-merge trusts minor bumps.\n- Load tests only run on major bumps.\n- The platform-commons team called a pool change from 50 to 20 a \"safer default\", so they shipped it as a minor version.\n\nNobody reviewing 60 bot PRs a week reads line 40 of 52 in a changelog. The February policy was a reasonable trade-off, and it's not the thing to undo. The fix is to stop letting the version number be the only gate.\n\n## Urgent: check the risk isn't still live\n\n- **Is payments-api pinned at 3.4?** The rollback restored 3.4, but unless something stops it, the bot will reopen a 3.5 or later PR and auto-merge it on green CI. Same outage.\n- **Does payments-api set its pool size explicitly?** If not, set it today, and do the same for any other service relying on that default. Other services that auto-merged 3.5 may be quietly running on 20 connections.\n\n## A minimal action set\n\nIf you want to keep scope small, these four do most of the work:\n\n| # | Action | Why | Effort |\n|---|---|---|---|\n| 1 | Set pool size and other critical database settings explicitly in payments-api and other tier-1 services | A library default can't change payments behaviour without anyone noticing | Hours |\n| 2 | platform-commons treats changes to defaults as breaking: major bump, or a \"behaviour-change\" label that blocks auto-merge | Fixes the version number everything relies on | Small (policy + bot rule) |\n| 3 | Canary plus automatic rollback on error rate for payments-api deploys | Catches whatever 1 and 2 miss; this change failed in 9 minutes | Medium |\n| 4 | Page on pool saturation for payments-api, and include recent deploys in the page | Faster detection and diagnosis | Small |\n\nAuto-merge stays as it is for everything except flagged behaviour changes, so review load barely moves.\n\nOn-call load and onboarding (account management requests landing on on-call, a new on-call with no context on the cut-off) is a separate track. Don't drop it. The longest delay (16:33 \u2192 17:48) happened there, and none of the four items above address it.\n\n## For the AAR and your VP\n\nI wouldn't call this \"a dev didn't read the changelog.\" I'd describe it like this: \"A default change shipped as a minor version, and our auto-merge and load-test policies both trust minor versions.\" That's specific, fixable, and doesn't need a scapegoat.",
+   "t": 1793153722.372244,
+   "wall_s": 31,
+   "cost": 0.3323116,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "I'd have to check whether payments-api is pinned at 3.4 now. It doesn't set its pool size explicitly; it never has, so it just took the library default. And my VP is going to push back on that. What do I tell him?",
+   "json": {
+    "reply": "I'd have to check whether payments-api is pinned at 3.4 now. It doesn't set its pool size explicitly; it never has, so it just took the library default. And my VP is going to push back on that. What do I tell him?",
+    "released": [
+     "H7"
+    ],
+    "beat": "B4",
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": true,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153739.3951821
+  },
+  {
+   "role": "facilitator",
+   "text": "Before you talk to your VP, check the pin and fix the pool size. Then you walk in with \"the exposure is closed\" instead of \"I'd have to check.\" That will do more for you than any argument about blame.\n\n## Do this first (today)\n\n1. **Check whether payments-api is pinned at 3.4.** If it isn't, pin it, or exclude platform-commons from auto-merge for payments-api, until the pool size is set.\n2. **Set the pool size explicitly in payments-api.** Agree the number with the DBA, based on peak connection use and the database's connection limit. 50 is the value that worked before, not necessarily the right one.\n3. **Check other services.** Any service that auto-merged 3.5 and relies on the default is now running on 20 connections. A quick search for services on 3.5 without an explicit pool setting will tell you.\n\n## Opening line\n\nStart with risk and fixes, not with blameless culture:\n\n> \"Root cause: a library changed a default setting in a minor version. Our auto-merge and load-test policies both trust minor versions, so it went to production unreviewed and untested. payments-api had never set its own pool size, so it took the new default. Detection was slow because the alert that named the cause didn't page, and the on-call was new and handling an urgent request from account management. Here's what's already fixed, and the owners and dates for the rest. I own the overall remediation.\"\n\n## Likely pushback and what to say\n\n| He says | You say |\n|---|---|\n| \"Someone has to be accountable.\" | \"Agreed. I'm accountable for the remediation, and each fix has a named owner and a date. Accountability means owning the fix, not absorbing the blame.\" |\n| \"The on-call silenced a payments alert. That's on him.\" | \"He was new, paged for a symptom with no deploy context, while working a request account management had marked urgent. The alert naming the cause didn't page. Put any new on-call in that position and they'd likely do the same. If he needs coaching, his manager handles that privately. Changing who's on call doesn't change the setup.\" |\n| \"Then who approved auto-merge?\" | \"It was a deliberate decision in February to handle 60 bot PRs a week, and it was reasonable. The gap is that it trusts version numbers, and the library team labelled a breaking change as minor. We're fixing that rule, not reversing the policy.\" |\n| \"Customers missed payroll. They need to see consequences.\" | \"Customers want to know it won't happen again and that we're making it right. A credible fix plan and remediation does that. A name doesn't.\" |\n| \"Isn't blameless just no consequences?\" | \"No. Recklessness or knowingly breaking a policy has consequences, and nobody did either here. Blaming people for reasonable decisions has a cost: next time, people hide what happened and we find problems more slowly.\" |\n| \"It's been four weeks. Why is this still open?\" | Have the answer ready: what you've closed this week (pin, pool size, other services checked) and the dates for the rest. |\n\n## If he still insists on a name\n\nGive him owners, not culprits:\n\n- **You:** overall remediation\n- **payments-api lead:** explicit configuration and canary\n- **platform-commons owner:** treating changes to defaults as breaking\n- **On-call manager:** request routing and onboarding\n\nThat's four named people, each accountable for something that reduces risk.\n\nOnce you know whether it's pinned, I can turn this into a one-page brief for the meeting.",
+   "t": 1793153765.978708,
+   "wall_s": 27,
+   "cost": 0.3917944,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": true,
+     "says_no_individual": true,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153772.6740239
+  },
+  {
+   "role": "facilitator",
+   "text": "Here's the order I'd go in before Friday:\n\n1. **Today:** check the 3.4 pin, set the pool size explicitly with the DBA, and look for other services running 3.5 on the default.\n2. **Before the meeting:** export the pager and silence logs, Slack history, the bot PR and CI run, and the support tickets. Build the timeline from those, not from memory.\n3. **One-on-ones:** talk to the on-call first, in a blameless setting.\n4. **VP conversation:** start with what's already fixed, then the owners and dates for the rest.\n5. **AAR session:** run it the way we planned, with the four core fixes plus the on-call track.\n\nWhen you've checked the pin, tell me what you found and I'll draft the one-page brief or the full AAR document.",
+   "t": 1793153780.431233,
+   "wall_s": 8,
+   "cost": 0.41698019999999997,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay. I'll have to check the pin and get back to you; I don't know yet.",
+   "json": {
+    "reply": "Okay. I'll have to check the pin and get back to you; I don't know yet.",
+    "released": [],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153797.5019689
+  },
+  {
+   "role": "facilitator",
+   "text": "Sounds good. Check two places, because they can differ:\n\n- **What's running in production:** the platform-commons version in the deployed build of payments-api, not just what's on main.\n- **What's coming next:** the dependency manifest on main, and whether the bot has an open or recently merged PR for platform-commons 3.5 or later.\n\nIf either shows 3.5 or later and the pool size still isn't set, fix that before anything else. Send me what you find and I'll write the brief from there.",
+   "t": 1793153803.506685,
+   "wall_s": 6,
+   "cost": 0.42830979999999996,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Got it, I'll check both the deployed build and main, plus any open bot PRs, and get back to you.",
+   "json": {
+    "reply": "Got it, I'll check both the deployed build and main, plus any open bot PRs, and get back to you.",
+    "released": [],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153821.1741388
+  },
+  {
+   "role": "facilitator",
+   "text": "Sounds good. When you get back to me, include whatever you have so far from the logs, the auto-merge configuration and your one-on-ones. I'll fold it into the brief.",
+   "t": 1793153828.5437849,
+   "wall_s": 7,
+   "cost": 0.43600959999999994,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Will do. I'll send it all together once I've checked the pin.",
+   "json": {
+    "reply": "Will do. I'll send it all together once I've checked the pin.",
+    "released": [],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153845.112301
+  },
+  {
+   "role": "facilitator",
+   "text": "Sounds good, I'll wait for it.",
+   "t": 1793153850.641032,
+   "wall_s": 6,
+   "cost": 0.44179279999999993,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153860.427169
+  },
+  {
+   "role": "facilitator",
+   "text": "Talk soon.",
+   "t": 1793153863.9756029,
+   "wall_s": 4,
+   "cost": 0.44700019999999996,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153868.558895
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793153876.837019,
+   "wall_s": 8,
+   "cost": 0.45253899999999997,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153881.909007
+  },
+  {
+   "role": "facilitator",
+   "text": "I'm here when you have the pin results. Nothing else is needed from you until then.",
+   "t": 1793153891.207102,
+   "wall_s": 9,
+   "cost": 0.45859079999999997,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153896.931808
+  },
+  {
+   "role": "facilitator",
+   "text": "Okay.",
+   "t": 1793153900.596267,
+   "wall_s": 4,
+   "cost": 0.46404779999999995,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153906.718818
+  },
+  {
+   "role": "facilitator",
+   "text": "No need to reply. Just send the results when you have them.",
+   "t": 1793153912.799336,
+   "wall_s": 6,
+   "cost": 0.47004139999999994,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153919.220383
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793153926.217077,
+   "wall_s": 7,
+   "cost": 0.4752681999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153932.213077
+  },
+  {
+   "role": "facilitator",
+   "text": "I'll be here.",
+   "t": 1793153936.234992,
+   "wall_s": 4,
+   "cost": 0.4805683999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153940.461168
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793153944.300458,
+   "wall_s": 4,
+   "cost": 0.4855709999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153956.559625
+  },
+  {
+   "role": "facilitator",
+   "text": "If you meant to send something else, it didn't come through. Otherwise, I'll wait for the pin results.",
+   "t": 1793153964.737934,
+   "wall_s": 8,
+   "cost": 0.49224099999999993,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153968.243038
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793153971.445585,
+   "wall_s": 3,
+   "cost": 0.49779739999999995,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153980.6675022
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793153987.240215,
+   "wall_s": 7,
+   "cost": 0.5026307999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153992.090065
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793153995.1989582,
+   "wall_s": 3,
+   "cost": 0.5074665999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153998.8144572
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154007.54305,
+   "wall_s": 9,
+   "cost": 0.5123047999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793154013.2094321
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154130.866653,
+   "wall_s": 118,
+   "cost": 0.5170517999999998,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793154135.204675
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154139.6020532,
+   "wall_s": 4,
+   "cost": 0.5218947999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793154143.9719748
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154148.594625,
+   "wall_s": 5,
+   "cost": 0.5267401999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793154156.0487192
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154161.81996,
+   "wall_s": 6,
+   "cost": 0.5315879999999998,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793154169.3422809
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154175.5533178,
+   "wall_s": 6,
+   "cost": 0.5364381999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793154181.492413
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154188.0900521,
+   "wall_s": 7,
+   "cost": 0.5412907999999998,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793154192.660775
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154198.379791,
+   "wall_s": 6,
+   "cost": 0.5461457999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793154204.045768
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154208.241955,
+   "wall_s": 4,
+   "cost": 0.5516831999999999,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793154211.83534
+  },
+  {
+   "role": "facilitator",
+   "text": "\ud83d\udc4d",
+   "t": 1793154221.52481,
+   "wall_s": 10,
+   "cost": 0.556815,
+   "tools": []
+  },
+  {
+   "role": "participant",
+   "text": "I'm out of time. Please write up the AAR with what we have.",
+   "json": {
+    "reply": "I'm out of time. Please write up the AAR with what we have.",
+    "released": [],
+    "beat": null,
+    "done": false,
+    "cap": true
+   },
+   "t": 1793154221.5257542
+  },
+  {
+   "role": "facilitator",
+   "text": "I've written the AAR draft to `run folder/INC-2291-AAR.md`.\n\n**What's settled:** the timeline, the root cause (a default pool-size change shipped as a minor version, and both auto-merge and load testing trust minor versions), the contributing factors and 17 action items. It's blameless, with an accountability section listing who owns each fix, ready for your VP.\n\n**What's marked [TBD], because you haven't confirmed it:**\n- **Whether payments-api is pinned at 3.4.** This is at the top under \"Current exposure\" and is the first action item. payments-api still doesn't set its pool size, so if it isn't pinned, the bot could re-merge 3.5 and cause the same outage.\n- Customer impact numbers and remediation.\n- Alert history, the silence presets, why rollback needed a DBA, the support escalation threshold and what onboarding the on-call had.\n- Owner names and most due dates. I filled in roles and proposed dates only for the immediate items.\n\nBefore Friday, I'd at least check the pin and fill in the owners. If you can only do one thing, check the pin.",
+   "t": 1793154482.665278,
+   "wall_s": 261,
+   "cost": 0.676508,
+   "tools": [
+    {
+     "tool": "Write",
+     "input": {
+      "file_path": "run folder/INC-2291-AAR.md",
+      "content": "# INC-2291 After-Action Review: Payroll submission outage\n\n| | |\n|---|---|\n| **Incident** | INC-2291 |\n| **Severity** | Sev1 |\n| **Date of incident** | Tuesday 29 September 2026 |\n| **Duration of customer impact** | 3 h 06 min (16:14 to 19:20 UTC) |\n| **Status** | DRAFT. Items marked **[TBD]** are unverified |\n| **Review format** | Blameless |\n\n---\n\n## 1. Summary\n\nAt 16:05 UTC, payments-api v4.18 was deployed. It included an automated, auto-merged upgrade of the internal library platform-commons from 3.4 to 3.5. In 3.5, the default database connection pool size dropped from 50 to 20 (\"safer defaults for small services\"). payments-api had never set its pool size explicitly, so it picked up the new default. Under normal payroll-day load, the pool was exhausted within 9 minutes and payroll submissions began failing.\n\nThe alert that named the cause was set to \"warning\" and only posted to Slack. The page that did fire was for a symptom (p99 latency) and was silenced for 2 hours. Customers reported the problem before we found it ourselves, and the outage was declared Sev1 at 17:55. The 18:00 bank cut-off was missed. The cause was found at 18:01, the rollback completed at 18:46 and queued submissions drained by 19:20.\n\n**Root cause:** a change to a default setting shipped as a minor version. Our auto-merge policy and our load-test policy both trust minor versions, so the change reached production without review or load testing.\n\n## 2. Impact\n\n- Payroll submissions failed from 16:14 to 18:46 UTC. The queue drained by 19:20.\n- **The 18:00 UTC bank cut-off was missed.** Affected customers' payrolls were not processed that day.\n- 41 support tickets by 17:48.\n- **[TBD]** Number of customers and payrolls affected, financial impact, customer remediation and communications (owner and status).\n\n## 3. Timeline (UTC, Tuesday 29 September)\n\n| Time | Event | Notes |\n|---|---|---|\n| 16:05 | payments-api v4.18 deployed, including platform-commons 3.4 \u2192 3.5 | Bump opened by the dependency bot and auto-merged on green CI. No load test (load tests run only on major bumps). No canary. |\n| 16:14 | First failed submissions (\"connection pool exhausted\") | 9 min after deploy. |\n| 16:22 | `db-pool-saturation` (warning) posts to #payments-alerts | Names the cause. **Does not page.** |\n| 16:31 | On-call paged: \"payments p99 latency high\" | Symptom-level alert. No deploy context in the page. |\n| 16:33 | On-call acks and silences for 2 h | On-call was handling an urgent enterprise data-export request flagged by account management. The silence would have expired at 18:31, after the cut-off. |\n| 17:10 | First support tickets | |\n| 17:48 | Support lead escalates in #incidents (41 tickets plus customer list) | Customers, not our monitoring, triggered escalation. |\n| 17:55 | Sev1 declared | 1 h 41 min after first failure. |\n| 18:00 | **Bank cut-off passes** | |\n| 18:01 | Payments engineer finds pool exhaustion in logs | 6 min after Sev1. |\n| 18:05 | Decision to roll back | |\n| 18:33 | DBA approves rollback | 28 min waiting for approval. **[TBD]** why DBA approval was required. |\n| 18:46 | Rollback complete | |\n| 19:20 | Queued submissions drained | |\n\n### Key intervals\n\n| Interval | Duration |\n|---|---|\n| Deploy \u2192 first failure | 9 min |\n| First failure \u2192 first signal (Slack, no page) | 8 min |\n| First failure \u2192 first page | 17 min |\n| Page silenced \u2192 escalation via support | 75 min |\n| First failure \u2192 Sev1 | 1 h 41 min |\n| Sev1 \u2192 cause found | 6 min |\n| Cause found \u2192 rollback complete | 45 min (incl. 28 min awaiting DBA) |\n| First failure \u2192 recovery | 3 h 06 min |\n\n## 4. Contributing factors\n\n### 4.1 The change reached production unreviewed and untested\n- Since February 2026, minor and patch bumps of internal libraries auto-merge on green CI. This was a deliberate decision to handle about 60 bot PRs per week, and it remains a reasonable trade-off.\n- platform-commons 3.5 changed a runtime default (pool size 50 \u2192 20) in a **minor** version. The change was on line 40 of a 52-line changelog. Nothing in the release flagged it as a behaviour change.\n- Load tests run only on major version bumps, so this change was never load-tested.\n- CI does not exercise connection pool behaviour under realistic load.\n- payments-api relied on the library default for pool size instead of setting it explicitly.\n- No canary or automatic rollback, although the failure appeared within 9 minutes.\n\n**Every safeguard depended on the version number, and the version number understated the risk.**\n\n### 4.2 Detection was slow\n- The cause-level alert (`db-pool-saturation`) was set to \"warning\" and routed to Slack only. **[TBD]** when and why it was set that way.\n- The page was symptom-level (latency) with no deploy context, although a deploy had gone out 26 minutes earlier.\n- **[TBD]** Firing and actionable history of the p99 latency alert over the last 30\u201390 days (i.e. was it known to be noisy?).\n- No alert on failed payroll submissions, so customers were the effective detector.\n\n### 4.3 The page was triaged against competing work\n- The on-call engineer was relatively new to the rotation. At the time of the page, they were working an urgent enterprise data-export request flagged by account management.\n- With a latency alert, no deploy context and no visibility of the cause alert, they silenced it for 2 hours. Given the information available, this was a reasonable call. It cost about 75 minutes of detection time.\n- Account-management requests can land on the on-call, and there's no defined handoff or secondary for that.\n- **[TBD]** Whether 2 h is a preset silence option, and whether payments alerts have any silence limits.\n- **[TBD]** What onboarding and shadowing the on-call received, and whether it covered payroll days and bank cut-off times.\n\n### 4.4 Nobody was aware of the cut-off deadline\n- Nobody involved appears to have had the 18:00 bank cut-off in view. The deploy went out at 16:05 on a payroll day, two hours before cut-off.\n- No deploy freeze or extra checks apply near the cut-off.\n\n### 4.5 Escalation and recovery were slower than needed\n- 38 minutes between the first support tickets and escalation. **[TBD]** What triggers support to escalate.\n- Rollback waited 28 minutes for DBA approval, with no pre-approved path or backup approver.\n\n## 5. What went well\n- The support lead's escalation included a customer list, which made the impact immediately clear.\n- Once an engineer looked at the logs, diagnosis took 6 minutes. The information was available.\n- The rollback worked and the queued submissions drained without manual intervention. **[TBD]** Confirm there was no data loss or duplicate submissions.\n\n## 6. Current exposure (as of 28 October 2026)\n\n- **[TBD, URGENT]** Is payments-api pinned at platform-commons 3.4? Check the **deployed build**, **main**, and **open or recent bot PRs**. If it isn't pinned, the bot could re-merge 3.5 or later and cause the same outage.\n- payments-api **still does not set its pool size explicitly.**\n- **[TBD]** Other services that auto-merged platform-commons 3.5 and are running on the default of 20 connections.\n- **[TBD]** Whether `db-pool-saturation` still only posts to Slack, and whether 2 h silences on payments alerts are still possible.\n\n## 7. Action items\n\nOwners are listed by role; fill in names. Dates are proposed.\n\n### Immediate (this week)\n| # | Action | Owner | Due | Status |\n|---|---|---|---|---|\n| 0a | Confirm platform-commons version in deployed build, main, and open bot PRs. Pin payments-api to 3.4 or exclude it from auto-merge until 0b is done | payments-api lead | 29 Oct | Open |\n| 0b | Set pool size explicitly in payments-api (value agreed with the DBA, based on peak usage and the database's connection limit) | payments-api lead + DBA | 30 Oct | Open |\n| 0c | Find other services on platform-commons \u2265 3.5 relying on the default pool size, and notify their owners | Platform team | 30 Oct | Open |\n\n### Prevent\n| # | Action | Owner | Due | Status |\n|---|---|---|---|---|\n| 1 | Changes to defaults in platform-commons are treated as breaking (major bump), or carry a \"behaviour-change\" label that blocks auto-merge | platform-commons owner | [TBD] | Open |\n| 2 | Tier-1 services (payments) set critical database and client settings explicitly instead of inheriting library defaults | payments-api lead | [TBD] | Open |\n| 3 | Canary plus automatic rollback on error rate for payments-api deploys | payments-api lead | [TBD] | Open |\n| 4 | CI or staging check that exercises connection pool limits for payments-api | payments-api lead | [TBD] | Open |\n| 5 | Deploy freeze or extra checks for payments in the window before bank cut-off | Eng manager, payments | [TBD] | Open |\n\n### Detect\n| # | Action | Owner | Due | Status |\n|---|---|---|---|---|\n| 6 | Page on `db-pool-saturation` for payments-api | Observability | [TBD] | Open |\n| 7 | Include recent deploys in pages and on payments dashboards | Observability | [TBD] | Open |\n| 8 | Alert on failed payroll submission rate | payments-api lead | [TBD] | Open |\n| 9 | Review the p99 latency alert's noise and either tune or remove it | Observability + payments | [TBD] | Open |\n\n### Respond\n| # | Action | Owner | Due | Status |\n|---|---|---|---|---|\n| 10 | Cap silences on payments alerts (e.g. 30 min) or require a reason / second ack | On-call manager | [TBD] | Open |\n| 11 | Account-management requests do not go to the on-call, or a defined handoff or secondary is available | On-call manager | [TBD] | Open |\n| 12 | On-call onboarding: shadowing, payroll days and cut-off times, silence norms | On-call manager | [TBD] | Open |\n| 13 | Put bank cut-off times in the payments incident runbook and declaration criteria | Eng manager, payments | [TBD] | Open |\n| 14 | Support escalation trigger (e.g. N tickets for the same symptom in M min \u2192 #incidents) | Support lead | [TBD] | Open |\n| 15 | Pre-approved rollback path for payments-api, or a backup approver for the DBA step | DBA lead | [TBD] | Open |\n\n### Customers\n| # | Action | Owner | Due | Status |\n|---|---|---|---|---|\n| 16 | Confirm affected customers, remediation and communications status | [TBD] | [TBD] | [TBD] |\n\n## 8. Accountability\n\nThis review is blameless. No individual action caused the incident. The decisions made (the February auto-merge policy, the library's \"safer default\", the on-call's triage) were each reasonable given the information available at the time. Together they combined with gaps in our safeguards.\n\nAccountability means owning the fixes:\n\n- **Overall remediation:** [author / engineering manager]\n- **Prevent:** payments-api lead, platform-commons owner\n- **Detect:** observability owner\n- **Respond:** on-call manager, support lead, DBA lead\n\nProgress on Section 7 will be reviewed at [TBD cadence] until all items are closed.\n\n## 9. Open questions to close before finalising\n1. Pin status of payments-api (deployed build, main, bot PRs).\n2. Customer impact numbers and remediation status.\n3. Firing history of the p99 latency alert; why `db-pool-saturation` was set to warning.\n4. Whether 2 h is a preset silence option.\n5. Why rollback required DBA approval.\n6. Support escalation threshold.\n7. On-call onboarding received.\n8. Confirmation of no data loss or duplicate submissions after the queue drained.\n"
+     }
+    }
+   ]
+  }
+ ],
+ "facilitator_cost": 14.645836999999995,
+ "participant_cost": 0.6866757999999994,
+ "started": 1793153441.405548,
+ "summary": {
+  "participant_replies": 30,
+  "released": [
+   "H5",
+   "H6",
+   "H7",
+   "H8",
+   "H9",
+   "H12",
+   "H19"
+  ],
+  "n_released": 7,
+  "n_why": 7,
+  "beats": [
+   "B2",
+   "B3",
+   "B4"
+  ],
+  "ended": "cap",
+  "wall_s": 1041,
+  "cost": 15.33
+ }
+}

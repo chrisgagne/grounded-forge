@@ -1,0 +1,129 @@
+{
+ "E": {
+  "E1": {
+   "v": "partial",
+   "q": "silencing noisy alerts is a predictable response to alert fatigue."
+  },
+  "E2": {
+   "v": "full",
+   "q": "four primary systemic vulnerabilities that combined to create the outage and delay recovery"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "Given the exact same noisy Slack alerts, lack of automated breaking-change detection in CI/CD, and p99 latency page fatigue"
+  },
+  "E4": {
+   "v": "absent",
+   "q": "Why did staging or automated integration tests fail to catch pool exhaustion under load?"
+  },
+  "E5": {
+   "v": "absent",
+   "q": "The Action: Merged payments-api v4.18, bumping internal library platform-commons from version 3.4 to 3.5"
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": "Rapid Acknowledgment: The on-call engineer responded to the initial page within 2 minutes."
+  },
+  "E8": {
+   "v": "partial",
+   "q": "execution was delayed for 28 minutes awaiting formal approval from a Database Administrator (18:33)"
+  },
+  "E9": {
+   "v": "absent",
+   "q": ""
+  },
+  "E10": {
+   "v": "partial",
+   "q": "This procedural bottleneck directly caused the incident to span across the 18:00 UTC bank cut-off"
+  },
+  "E11": {
+   "v": "partial",
+   "q": "the payments engineer identified the root cause in application logs within 6 minutes (17:55 to 18:01)."
+  },
+  "E12": {
+   "v": "full",
+   "q": "Holding these individuals personally culpable would obscure the true root causes"
+  },
+  "E13": {
+   "v": "full",
+   "q": "Flooding on-call engineers with additional alerts increases cognitive load and makes alert silencing more likely."
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear"
+  },
+  "R2": {
+   "v": "clear"
+  },
+  "R3": {
+   "v": "clear"
+  },
+  "R4": {
+   "v": "clear"
+  },
+  "R5": {
+   "v": "clear"
+  },
+  "R6": {
+   "v": "triggered",
+   "q": "Rollback of payments-api to v4.17 completed."
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "Owner: Platform Engineering / Core Payments Team / Engineering Leadership (7 actions)"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "triggered",
+   "q": "This procedural bottleneck directly caused the incident to span across the 18:00 UTC bank cut-off"
+  }
+ },
+ "invented_details": [
+  "Rollback target version 'v4.17' is not in the notes.",
+  "An 'Incident Commander assembled' who made the 'formal decision to roll back' is not in the notes; no IC role is mentioned.",
+  "The developer 'merged' the bump; the notes say it was an auto-merged bot PR and nobody merged it by hand.",
+  "p99 latency 'frequently fires during transient network blips or routine batch processing'; the notes say it flapped around deploys.",
+  "The on-call silenced 'to investigate or await transient recovery' and was 'forced to diagnose an abstract symptom'; this motive is invented, and the runbook instruction is omitted.",
+  "At 18:01 the 'root cause [was] correlated to platform-commons 3.5 connection pool settings'; the notes only say pool exhaustion was found in logs.",
+  "The DBA approval delay 'directly caused the incident to span across the 18:00 cut-off'; this contradicts the timeline, where the cut-off passed before the 18:05 rollback decision.",
+  "Support was 'forced... to manually accumulate 41 tickets before raising a Sev1 alert' because there were no automated triggers; this cause is invented, and support did not declare the Sev1.",
+  "'Rollback request submitted for database and application review' and 'database connections normalize' are embellished timeline entries.",
+  "'Punitive culture driving hidden errors and alert workarounds' at Larchwood is an unsupported characterisation.",
+  "The '15%/85%' figure for front-line control of the work environment is an unsourced number presented as an argument.",
+  "PagerDuty/Opsgenie tooling is assumed and not in the notes.",
+  "Claims to have published an AAR report and slide deck to a 'Studio panel'."
+ ],
+ "D": [
+  "partial",
+  "partial",
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "yes",
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "no"
+ ],
+ "actions": {
+  "count": 7,
+  "owned": 1
+ },
+ "score": 30,
+ "weakness": "It replaces the case's specific findings with generic HPI/Army framework material and gets key facts wrong: it omits impact, staging drift, the auto-merge policy, the runbook, metrics, onboarding and history, treats the support escalation as a failure, and wrongly blames the DBA delay for missing the cut-off.",
+ "_cost": 0.256173
+}

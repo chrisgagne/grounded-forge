@@ -1,0 +1,505 @@
+{
+ "arm": "NX",
+ "rep": "1",
+ "session": "01a18046-3cd1-78d1-ad58-9847d7799569",
+ "turns": [
+  {
+   "role": "facilitator",
+   "text": "**Run INC-2291 as a review of how the outage developed and how the response worked. The timeline does not establish that either individual caused the outcome or warrants discipline.** Their actions deserve examination alongside deployment safeguards, alert routing, escalation and rollback authority.\n\nFor Friday, give your VP a named remediation lead, verified findings, remaining uncertainties and owners for corrective actions. Assess any conduct concerns separately, using evidence about expectations, available information and working conditions.\n\nHere is a working facilitation pack.\n\n**Before the meeting**\n\nInvite the on-call, merging engineer, payments engineer, platform-commons maintainer, DBA, support lead and incident commander. Use a facilitator who was not directly involved and a separate note-taker. Interview key participants individually first, particularly given the pressure to identify someone.\n\nCollect:\n\n- Deployment diff, effective pool configuration, platform-commons changelog and relevant test results.\n- Database metrics, application logs and submission success/queue metrics.\n- Alert payloads, routing rules, silence scope and incident communications.\n- Procedures in force that day for upgrades, escalation and emergency rollback.\n- Reconciled payment outcomes: delayed or failed submissions, affected customers, missed bank processing and any duplicates.\n\nTreat the unread changelog as a reported fact to verify. Establish what it actually said and whether it explained the failure mechanism.\n\n**Working timeline \u2014 Tuesday 29 September, UTC**\n\nThese entries come from your account; attach supporting evidence during preparation.\n\n| Time | Event |\n|---|---|\n| 16:05 | payments-api v4.18 deployed, including platform-commons 3.4 \u2192 3.5 |\n| 16:14 | First failed submissions: \u201cconnection pool exhausted\u201d |\n| 16:22 | Pool saturation warning posts to Slack; no page |\n| 16:31 | Latency page fires; acknowledged within two minutes, then silenced for two hours |\n| 17:10 | First support tickets |\n| 17:48 | Support escalates with 41 tickets and a customer list |\n| 17:55 | Sev1 declared |\n| 18:00 | Bank cut-off passes |\n| 18:01 | Payments engineer finds pool exhaustion in logs |\n| 18:05 | Rollback decision |\n| 18:33 | DBA approval |\n| 18:46 | Rollback complete |\n| 19:20 | Queued submissions drained |\n\nThree intervals deserve attention:\n\n- First failed submission \u2192 Sev1: **101 minutes**.\n- Rollback decision \u2192 completion: **41 minutes**, including 28 minutes before DBA approval.\n- First failed submission \u2192 queue drained: **3 hours 6 minutes**. This is an observed incident interval; it does not prove every submission failed throughout.\n\nForty-one tickets do not establish 41 affected customers. Queue drain also does not establish that payroll reached recipients on time.\n\n**Run a 60-minute AAR**\n\nOpen with:\n\n> The purpose is to understand what happened, what people understood at the time, and what needs to change. Describe observations and decisions specifically. Distinguish evidence, recollection and hypotheses. Everyone can correct the record.\n\nDo not promise immunity or confidentiality you cannot guarantee. Explain honestly how notes and findings will be used.\n\n1. **Minutes 0\u201310: What was supposed to happen?**  \n   Establish the intended payroll outcome and bank deadline, then the expected deployment checks, paging, escalation and rollback process. Record actual standards separately from practices people wish had existed.\n\n2. **Minutes 10\u201325: What happened?**  \n   Walk through the timeline. At each decision ask: \u201cWhat could you see then? What did you think was happening? What options did you consider? What did you expect next?\u201d Preserve disagreements as open questions pending evidence.\n\n3. **Minutes 25\u201345: Why did events unfold this way?**  \n   Use the questions below. Resist settling on a single cause before the technical mechanism and response conditions are understood.\n\n4. **Minutes 45\u201355: What should be sustained or changed?**  \n   Capture strengths as well as gaps: prompt page acknowledgement and support\u2019s escalation with concrete customer evidence are observable positives. Ask what enabled those actions.\n\n5. **Minutes 55\u201360: Read back commitments.**  \n   Confirm findings, uncertainties, named action owners, dates and verification criteria. Let participants correct the account before publication.\n\n**Questions that matter for this incident**\n\n| Area | Ask |\n|---|---|\n| Upgrade and failure mechanism | What changed in 3.5? Can the exhaustion be reproduced under representative load and configuration? What made the upgrade appear ready to deploy? |\n| Changelog | What relevant information existed, where was it presented, and how were consumers expected to act on it? What checks could catch the problem independently of reading it? |\n| Alerting | Why was pool saturation a Slack warning? Who was expected to see it, and what response was expected? |\n| On-call decision | What did the latency page and dashboards show? What made a two-hour silence seem appropriate? What investigation, monitoring or handoff continued afterward? Verify exactly what the silence suppressed. |\n| Escalation and deadline | How did engineering receive support\u2019s evidence? Who could see the approaching bank cut-off, and how did that affect incident severity and decisions? |\n| Rollback | What happened between 18:05 and 18:33, then between approval and completion? What risks were being assessed, and what emergency authority existed? |\n\nThe upgrade is a **suspected trigger**. Pool exhaustion is an **observed failure mode**. The causal mechanism remains to be demonstrated. Likewise, the silence may have affected response, but its consequences need evidence.\n\n**Proposed actions to refine in the meeting**\n\nAssign an actual person to each role before closing.\n\n| Proposed owner | Deliverable | Evidence of completion |\n|---|---|---|\n| Payments and library leads | Reproduce the failure; validate the fix and add a regression check | Representative workload demonstrates the mechanism and successful correction |\n| SRE lead | Review paging, silence handling and escalation for submission failures | An injected failure reaches a responder and exercises escalation |\n| Payments manager and DBA lead | Establish a safe emergency rollback path | A drill measures decision-to-recovery time against an agreed target |\n| Support and incident-management leads | Connect customer impact and bank deadlines to escalation | A tabletop demonstrates timely handoff and decision ownership |\n| Payments operations lead | Reconcile every affected submission | Recorded bank/customer outcomes, including delays and duplicate checks |\n\nFor individual accountability, examine each action separately: Was the expectation clear, workable and routinely followed? Did the person understand the risk? Would a similarly experienced colleague likely have acted the same way? What pressures or missing support mattered? A serious outcome alone cannot answer those questions.\n\nThis approach follows the Army AAR\u2019s comparison of intended and actual performance and the NHS guide\u2019s cautions about singling out individuals: [AAR guidance](run folder/tc-25-20-army-aar.pdf), [just-culture assessment](run folder/nhs-just-culture-guide.pdf).",
+   "t": 1793153588.9055302,
+   "wall_s": 141,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 147044,
+    "cached_input_tokens": 113280,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 3665,
+    "reasoning_output_tokens": 763
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "command_execution",
+     "input": "/bin/zsh -lc \"pwd && rg --files -g 'AGENTS.md' -g '*AAR*' -g '*aar*' -g '*incident*' -g '*SKILL*' -g 'README*' .\""
+    },
+    {
+     "tool": "command_execution",
+     "input": "/bin/zsh -lc 'ls -la'"
+    },
+    {
+     "tool": "command_execution",
+     "input": "/bin/zsh -lc \"python -c 'from pathlib import Path; import importlib.util; paths=[\\\"/AGENTS.md\\\",\\\"../../../../AGENTS.md\\\",\\\"../../../AGENTS.md\\\",\\\"../../AGENTS.md\\\",\\\"../AGENTS.md\\\"]; [(print(p+\\\"\\\\n\\\"+Path(p).read_text())) for p in paths if Path(p).exists()]; print({m:importlib.util.find_spec(m) is not None for m in [\\\"pymupdf\\\",\\\"pypdf\\\"]})'\""
+    },
+    {
+     "tool": "command_execution",
+     "input": "/bin/zsh -lc \"python3 -c 'from pathlib import Path; import importlib.util; paths=[\\\"/AGENTS.md\\\",\\\"../../../../AGENTS.md\\\",\\\"../../../AGENTS.md\\\",\\\"../../AGENTS.md\\\",\\\"../AGENTS.md\\\"]; [(print(p+\\\"\\\\n\\\"+Path(p).read_text())) for p in paths if Path(p).exists()]; print({m:importlib.util.find_spec(m) is not None for m in [\\\"pymupdf\\\",\\\"pypdf\\\"]})'\""
+    },
+    {
+     "tool": "command_execution",
+     "input": "/bin/zsh -lc \"python3 -c 'import pymupdf; specs=[(\\\"tc-25-20-army-aar.pdf\\\",[\\\"what was supposed\\\",\\\"why it happened\\\",\\\"not a critique\\\",\\\"participat\\\"]),(\\\"lfuo-learning-review-guide-2024.pdf\\\",[\\\"blame\\\",\\\"accountab\\\",\\\"interview\\\"]),(\\\"nhs-just-culture-guide.pdf\\\",[\\\"deliberate\\\",\\\"reckless\\\",\\\"substitution\\\",\\\"training\\\"])]; [(print(\\\"\\\\nFILE \\\"+name+\\\" PAGE \\\"+str(i+1)+\\\"\\\\n\\\"+page.get_text()[:8500])) for name,terms in specs for doc in [pymupdf.open(name)] for i,page in enumerate(doc) if any(term in page.get_text().lower() for term in terms) and i<12]'\""
+    },
+    {
+     "tool": "command_execution",
+     "input": "/bin/zsh -lc \"python3 -c 'from pypdf import PdfReader; specs=[(\\\"tc-25-20-army-aar.pdf\\\",[\\\"what was supposed\\\",\\\"why it happened\\\",\\\"not a critique\\\",\\\"participat\\\"]),(\\\"lfuo-learning-review-guide-2024.pdf\\\",[\\\"blame\\\",\\\"accountab\\\",\\\"interview\\\"]),(\\\"nhs-just-culture-guide.pdf\\\",[\\\"deliberate\\\",\\\"reckless\\\",\\\"substitution\\\",\\\"training\\\"])]; [(print(\\\"\\\\nFILE \\\"+name+\\\" PAGE \\\"+str(i+1)+\\\"\\\\n\\\"+t[:7000])) for name,terms in specs for doc in [PdfReader(name)] for i,page in enumerate(doc.pages) if i<12 for t in [page.extract_text() or \\\"\\\"] if any(term in t.lower() for term in terms)]'\""
+    },
+    {
+     "tool": "command_execution",
+     "input": "/bin/zsh -lc \"python3 -c 'from pypdf import PdfReader; specs=[(\\\"tc-25-20-army-aar.pdf\\\",[\\\"open-ended\\\",\\\"ground rules\\\",\\\"does not\\\",\\\"dominat\\\"]),(\\\"lfuo-learning-review-guide-2024.pdf\\\",[\\\"interviews\\\",\\\"readback\\\"])]; [(print(\\\"\\\\nFILE \\\"+name+\\\" PAGE \\\"+str(i+1)+\\\"\\\\n\\\"+t[:6500])) for name,terms in specs for doc in [PdfReader(name)] for i,page in enumerate(doc.pages) for t in [page.extract_text() or \\\"\\\"] if ((name.startswith(\\\"tc-\\\") and i>12) or (name.startswith(\\\"lfuo\\\") and i in [36,37,38,39,40,54,55])) and any(term in t.lower() for term in terms)]'\""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "Can we just add more alerts on the DB pool metrics and call it done?",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Can we just add more alerts on the DB pool metrics and call it done?",
+    "beat": "B3"
+   },
+   "t": 1793153593.682058
+  },
+  {
+   "role": "facilitator",
+   "text": "More pool alerts could help, but they would leave most of INC-2291\u2019s failure path intact. A pool warning already fired at 16:22; it posted to Slack without paging. Another alert only helps if it produces a timely response.\n\nKeep the follow-up small, but cover three things:\n\n- **Detection and response:** Make sustained submission failures page someone, with clear escalation and a defined follow-up when silenced. Test the route.\n- **Prevention:** Verify what changed in platform-commons 3.5 and add a regression check that catches the failure.\n- **Recovery:** Understand the 41 minutes from rollback decision to completion, then exercise a safe emergency rollback path.\n\nClose those actions when there is evidence they work. \u201cMore alerts configured\u201d is a deliverable; \u201ca repeat failure is caught and recovered within an agreed time\u201d is the outcome.",
+   "t": 1793153609.954377,
+   "wall_s": 16,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 177459,
+    "cached_input_tokens": 127232,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 3845,
+    "reasoning_output_tokens": 763
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "Okay.",
+   "json": {
+    "released": [],
+    "done": false,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": false
+    },
+    "reply": "Okay.",
+    "beat": null
+   },
+   "t": 1793153614.927965
+  },
+  {
+   "role": "facilitator",
+   "text": "Let\u2019s start with what was supposed to happen. Before INC-2291, what was the agreed response to failed payroll submissions\u2014who should be paged, when should they escalate, and who could authorize rollback?\n\nIf there was no explicit agreement, describe the usual practice.",
+   "t": 1793153666.981463,
+   "wall_s": 52,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 208062,
+    "cached_input_tokens": 157440,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 4124,
+    "reasoning_output_tokens": 981
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "Nothing written specifically for failed submissions that I know of. The pool-saturation alert was set up two years ago as a warning, so it posts to #payments-alerts rather than paging anyone. Rollback has been manual since March, when we disabled one-click after a rollback corrupted a migration, and a manual rollback needs DBA approval. On escalation, honestly, teams tend to hold off declaring until they're sure, because a leadership dashboard counts incidents per team.",
+   "json": {
+    "reply": "Nothing written specifically for failed submissions that I know of. The pool-saturation alert was set up two years ago as a warning, so it posts to #payments-alerts rather than paging anyone. Rollback has been manual since March, when we disabled one-click after a rollback corrupted a migration, and a manual rollback needs DBA approval. On escalation, honestly, teams tend to hold off declaring until they're sure, because a leadership dashboard counts incidents per team.",
+    "released": [
+     "H13",
+     "H20",
+     "H21",
+     "H26"
+    ],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153687.909819
+  },
+  {
+   "role": "facilitator",
+   "text": "That changes the AAR materially. The response was shaped by earlier decisions and incentives, alongside the actions taken that day.\n\nRecord these as **reported conditions to verify**:\n\n- **Detection:** Pool saturation still used a two-year-old warning route, with no known procedure for failed submissions.\n- **Recovery:** Manual rollback and DBA approval were safeguards introduced after migration corruption. Investigate how to make rollback safe and timely; simply restoring one-click could reintroduce that risk.\n- **Escalation:** Counting incidents per team appears to discourage early declaration. Examine the dashboard and leadership\u2019s use of it, then test whether that pressure influenced decisions during INC-2291.\n\nThese findings bring alert ownership, release safety and leadership incentives into scope. They also mean we cannot assess someone against an incident-response standard invented afterward.\n\nFor Friday, the VP should receive these conditions and corrective commitments, with leadership owning the review of incident-count incentives. Declaring an incident earlier should not become a penalty for the team raising it.\n\nNext, reconstruct the on-call\u2019s decision without assuming their reasoning: **What do we know about what they saw at 16:31, what they believed the customer impact was, and what investigation or monitoring continued after they silenced the latency alert?**",
+   "t": 1793153720.444064,
+   "wall_s": 33,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 239041,
+    "cached_input_tokens": 187904,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 4688,
+    "reasoning_output_tokens": 1287
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "Honestly, I think he just wasn't paying attention; he's fairly new. What he saw at 16:31 was the p99 latency page, which had flapped 14 times that week, always around deploys, and the runbook says to silence known flapping alerts for the 2-hour deploy window, which he did. After that he was also working an urgent data-export request for an enterprise customer that account management had flagged; I don't know what he believed the customer impact was beyond that.",
+   "json": {
+    "reply": "Honestly, I think he just wasn't paying attention; he's fairly new. What he saw at 16:31 was the p99 latency page, which had flapped 14 times that week, always around deploys, and the runbook says to silence known flapping alerts for the 2-hour deploy window, which he did. After that he was also working an urgent data-export request for an enterprise customer that account management had flagged; I don't know what he believed the customer impact was beyond that.",
+    "released": [
+     "H15",
+     "H16",
+     "H19"
+    ],
+    "beat": "B2",
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153737.83879
+  },
+  {
+   "role": "facilitator",
+   "text": "I\u2019d leave \u201cwasn\u2019t paying attention\u201d out of the findings. We have a more specific account: a relatively new responder received an alert that had flapped 14 times that week, followed the runbook\u2019s two-hour silence instruction, and then worked another request marked urgent. His understanding of payroll impact remains unknown.\n\nThat makes three things worth examining:\n\n- **Repeated flapping:** What had previous pages taught responders to expect, and who owned fixing the noise?\n- **Runbook guidance:** How did responders distinguish a harmless deploy-related flap from an actual outage?\n- **Competing priorities:** Who decided the export was urgent, and what coverage or prioritization support did the on-call have?\n\nA provisional finding could be:\n\n> The on-call silenced the latency alert in accordance with the documented instruction for known deploy-related flapping. Whether this occurrence met those conditions, and what monitoring was expected afterward, remain unresolved.\n\nHis relative inexperience makes onboarding and available support relevant; it does not establish carelessness.\n\n**What checks, if any, did the runbook require before classifying a page as known flapping\u2014such as checking submission success, queue growth or pool saturation?**",
+   "t": 1793153773.64801,
+   "wall_s": 36,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 270691,
+    "cached_input_tokens": 219264,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 5350,
+    "reasoning_output_tokens": 1705
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "The line he followed just says \"silence known flapping alerts for the deploy window (2 h)\". I don't know of any required checks beyond that, but I'd have to check the full runbook to be sure.",
+   "json": {
+    "reply": "The line he followed just says \"silence known flapping alerts for the deploy window (2 h)\". I don't know of any required checks beyond that, but I'd have to check the full runbook to be sure.",
+    "released": [
+     "H16"
+    ],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153785.451882
+  },
+  {
+   "role": "facilitator",
+   "text": "Keep that uncertainty explicit. The quoted instruction supports his explanation, but we still need the full runbook and how \u201cknown flapping\u201d was defined.\n\nTighten the provisional finding to:\n\n> The on-call silenced the latency alert after repeated deploy-associated flapping, citing the runbook instruction to silence known flapping alerts for two hours. No required validation or follow-up checks have yet been identified. Review of the runbook version effective during INC-2291 is pending.\n\nAssign the runbook owner to retrieve that version and check for prerequisites, monitoring requirements and escalation guidance. Assess his actions against the instructions available that day.\n\nA candidate improvement is to define how responders verify a known flap, when they recheck or hand off, and how submission-failure detection stays effective during a latency-alert silence. Validate that proposal against the incident evidence.\n\n**Now let\u2019s examine the other initial allegation: what did the platform-commons 3.5 changelog actually say, and what evidence connects the upgrade to pool exhaustion?**",
+   "t": 1793153838.528785,
+   "wall_s": 53,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 303054,
+    "cached_input_tokens": 251392,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 5933,
+    "reasoning_output_tokens": 2077
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "3.5 lowered the default DB connection pool from 50 to 20, billed as \"safer defaults for small services\", and that note is line 40 of a 52-line changelog. payments-api never set its pool size explicitly, so it picked up the new default of 20.",
+   "json": {
+    "reply": "3.5 lowered the default DB connection pool from 50 to 20, billed as \"safer defaults for small services\", and that note is line 40 of a 52-line changelog. payments-api never set its pool size explicitly, so it picked up the new default of 20.",
+    "released": [
+     "H5",
+     "H6",
+     "H7"
+    ],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153851.619016
+  },
+  {
+   "role": "facilitator",
+   "text": "That gives us a concrete configuration-change path:\n\n**Library upgrade \u2192 inherited pool limit falls from 50 to 20 \u2192 pool exhaustion observed after deployment.**\n\nThe upgrade changed payments-api\u2019s effective production configuration even though nobody edited its pool settings. Metrics or reproduction should confirm that the smaller pool explains the failures under the workload that day.\n\nRecord this provisional finding:\n\n> platform-commons 3.5 reduced the default connection pool from 50 to 20. payments-api inherited that change because it had no explicit setting. The changelog disclosed the change at line 40 of 52. Validation of the resulting capacity against payroll demand remains to be established.\n\nThe changelog\u2019s availability matters when examining the developer\u2019s decision. We also need to examine how a shared-library default change reaches consumers and what release checks catch its effects.\n\nCandidate corrective actions are to make payments-api\u2019s pool configuration explicit, validate it against workload and total database capacity, and test dependency upgrades under representative load. Don\u2019t assume restoring 50 is sufficient without that validation.\n\n**What validation did v4.18 pass before deployment\u2014particularly load tests, staging checks or a canary that could reveal failed submissions or pool exhaustion?**",
+   "t": 1793153893.557249,
+   "wall_s": 42,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 336067,
+    "cached_input_tokens": 282112,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 6504,
+    "reasoning_output_tokens": 2404
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "Load tests only run on major version bumps, so a minor bump like 3.4 to 3.5 didn't get one. Staging wouldn't have shown it either: staging sets the pool size to 50 explicitly, which we added back in 2024 during a staging performance problem. I don't know whether there was any canary step for v4.18; I'd have to check.",
+   "json": {
+    "reply": "Load tests only run on major version bumps, so a minor bump like 3.4 to 3.5 didn't get one. Staging wouldn't have shown it either: staging sets the pool size to 50 explicitly, which we added back in 2024 during a staging performance problem. I don't know whether there was any canary step for v4.18; I'd have to check.",
+    "released": [
+     "H11",
+     "H12"
+    ],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793153906.856571
+  },
+  {
+   "role": "facilitator",
+   "text": "That identifies two concrete gaps in the release safeguards:\n\n- **Load-test policy used version number as a risk proxy.** This minor release changed production capacity but did not trigger a load test.\n- **Staging masked the production change.** Its explicit setting retained 50 connections while production inherited 20. A previous staging fix created a difference relevant to this incident.\n\nRecord the provisional finding as:\n\n> The pool-default change reached production without a required load test. Staging retained the previous pool size through an explicit override, so it did not exercise production\u2019s new configuration. Whether a canary provided additional validation remains unverified.\n\nAssign the release owner to retrieve v4.18\u2019s deployment records, including any canary traffic, duration, success criteria and results. Keep that question open.\n\nCorrective actions should address both gaps: require capacity validation when dependencies change consequential defaults, and detect relevant configuration differences between staging and production. Making payments-api\u2019s pool size explicit addresses this instance; those safeguards address recurrence through another setting or library.\n\nThis also changes how we assess the developer\u2019s action: the unread changelog remains relevant, alongside a testing policy that excluded the change and a staging configuration that concealed its effect.\n\n**Next, the recovery delay: what happened between the rollback decision at 18:05 and DBA approval at 18:33?** Establish when approval was requested, what information or safety checks were needed, and whether anyone was waiting for an available approver.",
+   "t": 1793153956.5550752,
+   "wall_s": 50,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 369737,
+    "cached_input_tokens": 314880,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 7185,
+    "reasoning_output_tokens": 2786
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "The DBA on shift was in a vendor meeting until 18:30, so yes, we were effectively waiting for an available approver. We only have two DBAs covering nine product teams. I don't know exactly when the approval request went in or what checks the DBA ran before approving; I'd have to check.",
+   "json": {
+    "reply": "The DBA on shift was in a vendor meeting until 18:30, so yes, we were effectively waiting for an available approver. We only have two DBAs covering nine product teams. I don't know exactly when the approval request went in or what checks the DBA ran before approving; I'd have to check.",
+    "released": [
+     "H21",
+     "H22"
+    ],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793154046.768478
+  },
+  {
+   "role": "facilitator",
+   "text": "That makes **access to rollback approval** a concrete recovery issue. Approval at 18:33 followed the DBA\u2019s meeting ending at 18:30. We cannot attribute the entire 28-minute interval to waiting until we establish when approval was requested.\n\nRecord:\n\n> Emergency rollback required DBA approval. The on-shift DBA was unavailable until approximately 18:30; approval followed at 18:33. The request time, approval checks and available backup arrangements remain unverified. Two DBAs support nine product teams.\n\nAssign follow-up to the database and engineering managers:\n\n- Recover the request timestamp, approval checks and steps between approval and rollback completion.\n- Establish what backup or escalation path existed.\n- Design and exercise emergency coverage, including delegated approval for defined, validated rollback scenarios where appropriate.\n\nThe staffing ratio warrants examining concurrent demand and coverage. It does not, by itself, establish the staffing level needed. Preserve the migration-safety safeguard while addressing the dependency on an available approver.\n\nThe emerging account now includes production configuration changes, validation gaps, noisy alerts, ambiguous silence guidance, escalation incentives and constrained recovery authority. That is substantial evidence for a broader explanation than either initial allegation alone.\n\n**Next, establish the business impact: what do we know about how many payroll submissions were delayed or failed, which missed bank processing, and whether the 19:20 queue drain meant successful bank acceptance?**",
+   "t": 1793154121.9206789,
+   "wall_s": 75,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 404157,
+    "cached_input_tokens": 349056,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 7831,
+    "reasoning_output_tokens": 3148
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "1,180 employer accounts saw failures, and 37 payroll runs missed the 18:00 cut-off. Finance ops paid the bank's fee for its late-processing window and got 22 of those 37 through that evening. The other 15 runs, about 3,800 employees, were paid a day late, so no, the 19:20 drain didn't mean everything was accepted on time.",
+   "json": {
+    "reply": "1,180 employer accounts saw failures, and 37 payroll runs missed the 18:00 cut-off. Finance ops paid the bank's fee for its late-processing window and got 22 of those 37 through that evening. The other 15 runs, about 3,800 employees, were paid a day late, so no, the 19:20 drain didn't mean everything was accepted on time.",
+    "released": [
+     "H1",
+     "H2",
+     "H3",
+     "H4"
+    ],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793154133.1889348
+  },
+  {
+   "role": "facilitator",
+   "text": "Then **19:20 was queue recovery, not completion of payroll recovery**. The AAR should lead with the people and employers affected.\n\nThere is enough information now for this consolidated draft, subject to participant review and the evidence checks below.\n\n**INC-2291 affected 1,180 employer accounts. Thirty-seven payroll runs missed the 18:00 bank cut-off.** Finance operations secured late processing for 22 runs that evening and paid the bank\u2019s fee. The remaining 15 runs, covering approximately 3,800 employees, were paid one day late. The fee amount and other financial consequences remain to be established.\n\nThe incident began after payments-api v4.18 deployed at 16:05 UTC on Tuesday 29 September. Failed submissions appeared at 16:14. A pool-saturation warning posted to Slack at 16:22 without paging. The 16:31 latency page was acknowledged promptly and silenced for two hours. Support escalated at 17:48; Sev1 was declared at 17:55, five minutes before cut-off. Rollback was decided at 18:05, approved at 18:33 and completed at 18:46. Queued submissions drained by 19:20, while affected payroll recovery continued into the following day.\n\nThe working explanation has six connected parts:\n\n1. **The dependency upgrade changed production capacity.** platform-commons 3.5 lowered the default pool from 50 to 20. Production inherited that setting. This is a strong candidate explanation for the observed exhaustion; metrics or reproduction should confirm the mechanism.\n\n2. **Known validation safeguards missed that configuration change.** Load tests were required only for major upgrades. Staging explicitly retained 50 connections, masking production\u2019s new setting. Canary use remains unknown.\n\n3. **Alerting and response guidance provided weak discrimination.** The pool warning did not page. The latency alert had flapped 14 times that week, and the quoted runbook instructed responders to silence known flapping alerts for the two-hour deploy window. The full runbook and the responder\u2019s classification of this occurrence still need review.\n\n4. **Work competed for the on-call\u2019s attention.** After silencing the page, the responder worked an enterprise export request marked urgent. Their understanding of payroll impact and the prioritization arrangements are unknown.\n\n5. **Leadership measures reportedly discouraged early escalation.** Teams described waiting for certainty because a dashboard counted incidents per team. Establish how that pressure affected decisions during INC-2291 and review leadership\u2019s use of the measure.\n\n6. **Recovery depended on scarce approval availability.** Manual rollback required DBA approval following an earlier migration-corruption incident. The on-shift DBA was unavailable until approximately 18:30. The approval-request time, safety checks and backup arrangements remain unverified.\n\nPreserve the useful responses too: prompt acknowledgement of the page, support\u2019s escalation with customer evidence, and finance operations\u2019 recovery of 22 payroll runs through late processing.\n\nFor corrective work, assign actual names against these proposed owners:\n\n| Proposed owner | Commitment | Completion evidence |\n|---|---|---|\n| Payments service owner | Confirm the failure mechanism; set and validate explicit pool configuration against workload and database capacity | Representative load demonstrates successful submissions with the intended configuration |\n| Platform and release leads | Trigger validation for consequential dependency changes; identify relevant staging/production differences | The incident\u2019s configuration change is detected before production in a replay |\n| SRE/on-call lead | Repair flapping, define silence checks and follow-up, and ensure submission failures reach a responder | An exercise demonstrates detection and escalation within agreed response targets |\n| Database and engineering managers | Provide migration-safe emergency rollback coverage and backup authority | A drill demonstrates safe recovery without waiting for one specific approver |\n| Engineering leadership | Change dashboard use and escalation expectations so early declaration is supported | Explicit policy, revised reporting and review of subsequent escalation decisions |\n| Finance operations lead | Reconcile all affected runs, fees and customer outcomes | Every affected run has a confirmed final outcome and recorded remediation |\n\n**For Friday, name one senior service owner accountable for delivering this plan.** Each action should also have its own named owner, date and acceptance criterion. Friday can be the deadline for those commitments and the provisional findings; completion dates should reflect the work required.\n\nThe current evidence does not justify selecting either the on-call or merging engineer for discipline. Obtain both accounts, verify the expectations in force, and assess any specific conduct concern separately. In particular, the quoted runbook supports the on-call\u2019s explanation, while the upgrade passed through a validation policy that excluded load testing and a staging configuration that masked its effect.\n\nBefore publishing, read this account back to participants, attach evidence, and retain unresolved questions explicitly. Keep remediation open until the agreed checks demonstrate that the changes work.",
+   "t": 1793154208.690242,
+   "wall_s": 76,
+   "cost": 0,
+   "usage": {
+    "input_tokens": 439311,
+    "cached_input_tokens": 382464,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 9618,
+    "reasoning_output_tokens": 3959
+   },
+   "tools": [
+    {
+     "tool": "error",
+     "input": ""
+    },
+    {
+     "tool": "error",
+     "input": ""
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "Thanks, that's what I needed.",
+   "json": {
+    "released": [],
+    "done": true,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": true,
+     "says_no_individual": false,
+     "delivers_aar": true
+    },
+    "reply": "Thanks, that's what I needed.",
+    "beat": null
+   },
+   "t": 1793154218.126357
+  }
+ ],
+ "facilitator_cost": 0,
+ "participant_cost": 0.6148634000000001,
+ "started": 1793153448.0559099,
+ "summary": {
+  "participant_replies": 10,
+  "released": [
+   "H1",
+   "H2",
+   "H3",
+   "H4",
+   "H5",
+   "H6",
+   "H7",
+   "H11",
+   "H12",
+   "H13",
+   "H15",
+   "H16",
+   "H19",
+   "H20",
+   "H21",
+   "H22",
+   "H26"
+  ],
+  "n_released": 17,
+  "n_why": 13,
+  "beats": [
+   "B2",
+   "B3"
+  ],
+  "ended": "done",
+  "wall_s": 770,
+  "cost": 0.61
+ }
+}

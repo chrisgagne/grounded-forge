@@ -1,0 +1,124 @@
+{
+ "E": {
+  "E1": {
+   "v": "full",
+   "q": "His action matched the runbook and a pattern of 14 previous flaps. \u201cHe wasn\u2019t paying attention\u201d isn\u2019t supported by the evidence we have."
+  },
+  "E2": {
+   "v": "partial",
+   "q": "Working causal account: technical trigger / recognition and response amid alert noise / recovery required manual DBA approval \u2014 but the first chain covers only the trigger, not how the change reached production (auto-merge, staging)."
+  },
+  "E3": {
+   "v": "partial",
+   "q": "Recognition and response occurred amid recurring deploy-related alert noise. \u2014 no ~220/week volume, unwatched channel, or two-year-old severity/routing never revisited."
+  },
+  "E4": {
+   "v": "absent",
+   "q": ""
+  },
+  "E5": {
+   "v": "absent",
+   "q": ""
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": ""
+  },
+  "E8": {
+   "v": "full",
+   "q": "Manual rollback required DBA approval because automated rollback had previously corrupted a migration... Two DBAs support nine product teams."
+  },
+  "E9": {
+   "v": "partial",
+   "q": "His being new makes onboarding and available support relevant; it doesn\u2019t establish carelessness. \u2014 shadowing cut from four weeks to one not named; no system fix proposed."
+  },
+  "E10": {
+   "v": "partial",
+   "q": "That matters because the Sev1 declaration left only five minutes before cut-off. \u2014 timing noted, but harm not framed as set by defence delays against cut-off."
+  },
+  "E11": {
+   "v": "partial",
+   "q": "support supplied an actionable escalation, rollback cleared exhaustion, and Finance Ops recovered same-evening processing for 22 runs. \u2014 fast diagnosis not named."
+  },
+  "E12": {
+   "v": "partial",
+   "q": "it does not establish individual culpability. If evidence raises a conduct concern, we\u2019ll address that through a separate, fair review. \u2014 leaves culpability open rather than declining it."
+  },
+  "E13": {
+   "v": "partial",
+   "q": "Add a pool alert if it closes a demonstrated detection gap, but it wouldn\u2019t be enough to close this AAR. \u2014 never says more alerts add to noise."
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "triggered",
+   "q": "Add a pool alert if it closes a demonstrated detection gap... More alerts may be one corrective action."
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "clear",
+   "q": ""
+  },
+  "R7": {
+   "v": "clear",
+   "q": ""
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "On-call 'then resumed' the data-export request after silencing (notes only say he was working on it at the time) \u2014 minor sequencing inference",
+  "Pool exhaustion 'cleared following rollback' \u2014 inference, not stated in notes",
+  "Refers to a 'deploying developer' and treats the 'unread changelog' as relevant fact, though notes say the bump auto-merged and nobody merged it by hand \u2014 mischaracterisation rather than invented data"
+ ],
+ "D": [
+  "partial",
+  "partial",
+  "partial",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "partial",
+  "no",
+  "partial",
+  "yes",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 6,
+  "owned": 5
+ },
+ "score": 40,
+ "weakness": "It ignores most of the established systemic conditions (auto-merge policy, staging/production config drift, alert volume and routing, the undone June action and deprioritised clean-up, MTTA and incident-count incentives, the shortened onboarding), keeps re-labelling known facts as unknowns, chooses no leverage point, and leaves individual culpability open instead of declining it and guiding the customer write-up.",
+ "_cost": 0.169513
+}

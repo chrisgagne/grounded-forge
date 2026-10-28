@@ -1,0 +1,132 @@
+{
+ "E": {
+  "E1": {
+   "v": "partial",
+   "q": "No conclusion about the on-call's decision should be drawn until it is in. \u2014 notes the cause alert went only to Slack, but omits the runbook instruction and the 14 flaps, and defers judgement"
+  },
+  "E2": {
+   "v": "full",
+   "q": "CF4 (change reached production), CF1/CF2/CF5 (late detection), CF6: The rollback needed approval that took 28 minutes"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "Fix or retire \"p99 latency high\" if it often fires without needing action \u2014 220 alerts a week, unwatched channel and the two-year-old severity are never stated"
+  },
+  "E4": {
+   "v": "absent",
+   "q": "CI and staging don't generate production-level DB concurrency \u2014 wrong mechanism; omits that staging explicitly sets the pool to 50"
+  },
+  "E5": {
+   "v": "absent",
+   "q": "the developer merging the library upgrade \u2014 treats it as a manual merge; the auto-merge policy is never mentioned"
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": ""
+  },
+  "E8": {
+   "v": "partial",
+   "q": "the rollback waited 28 minutes for DBA sign-off \u2014 omits disabled one-click rollback and two DBAs serving nine teams"
+  },
+  "E9": {
+   "v": "absent",
+   "q": ""
+  },
+  "E10": {
+   "v": "full",
+   "q": "there were about 1 hour 45 minutes between the first failure and the cut-off... every safeguard... was missing, routed to the wrong place, or easy to bypass"
+  },
+  "E11": {
+   "v": "partial",
+   "q": "The support lead's escalation was concrete: it gave a ticket count and a customer list. \u2014 omits finance ops recovering 22 runs"
+  },
+  "E12": {
+   "v": "partial",
+   "q": "Accountability for this incident sits in these items. \u2014 yet leaves manager follow-up open and never declines the VP's naming request"
+  },
+  "E13": {
+   "v": "partial",
+   "q": "Review all payments alerts that are `warning`-only: either make them page or delete them \u2014 never addresses 'more alerts' adding noise"
+  },
+  "E14": {
+   "v": "absent",
+   "q": "Items 0\u20133 must be done before the incident is closed. \u2014 a priority set, not a reasoned leverage point"
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "triggered",
+   "q": "CI and staging don't generate production-level DB concurrency, so the smaller pool never ran out in testing."
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "13 actions (0\u201312) with Owner and Due columns all blank"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "triggered",
+   "q": "Had it paged, on-call would have had the diagnosis 8 minutes after failures began, with more than 1.5 hours left before the cut-off."
+  }
+ },
+ "invented_details": [
+  "Staging/CI missed it because they don't generate production-level DB concurrency. The notes say staging explicitly sets the pool to 50.",
+  "The developer manually merged the library upgrade. The notes say it was an auto-merged bot PR.",
+  "The tooling allowed a 2-hour silence with no reason, no handoff and no check against the cut-off.",
+  "There was no canary, no automatic rollback on error rate, and no deploy marker on the alerts.",
+  "No deploy freeze or extra check before the cut-off.",
+  "Nothing in alerting, the deploy process or severity assessment knew about the 18:00 deadline.",
+  "The exposure check is 'in progress' / 'under way' and both outstanding inputs 'have been requested'.",
+  "The incident was 'a month ago'. The notes describe it as 'last Tuesday'.",
+  "PagerDuty named as the alerting tool (draft).",
+  "Speculation that v4.18 included a schema migration requiring DBA review (draft, actions 11).",
+  "The failure was attributed to 'afternoon payroll load'."
+ ],
+ "D": [
+  "yes",
+  "partial",
+  "partial",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "partial",
+  "no",
+  "no",
+  "partial",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 13,
+  "owned": 0
+ },
+ "score": 28,
+ "weakness": "It ignores or contradicts much of the established evidence (runbook-directed silencing, the 220-alert noise, the auto-merge policy, staging's explicit pool config, the June action, the metrics, the shortened onboarding), defers judgement on the on-call while leaving discipline open, and lists 13 unowned actions without choosing a leverage point.",
+ "_cost": 0.183333
+}

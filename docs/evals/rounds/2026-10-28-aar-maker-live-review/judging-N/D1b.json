@@ -1,0 +1,130 @@
+{
+ "E": {
+  "E1": {
+   "v": "partial",
+   "q": "With a latency alert, no deploy context and no visibility of the cause alert, they silenced it for 2 hours. Given the information available, this was a reasonable call."
+  },
+  "E2": {
+   "v": "full",
+   "q": "4.1 The change reached production unreviewed and untested / 4.2 Detection was slow / 4.5 Escalation and recovery were slower than needed"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "[TBD] Firing and actionable history of the p99 latency alert over the last 30\u201390 days (i.e. was it known to be noisy?)"
+  },
+  "E4": {
+   "v": "absent",
+   "q": "CI or staging check that exercises connection pool limits for payments-api"
+  },
+  "E5": {
+   "v": "full",
+   "q": "This was a deliberate decision to handle about 60 bot PRs per week, and it remains a reasonable trade-off."
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": ""
+  },
+  "E8": {
+   "v": "partial",
+   "q": "Rollback waited 28 minutes for DBA approval, with no pre-approved path or backup approver."
+  },
+  "E9": {
+   "v": "partial",
+   "q": "At the time of the page, they were working an urgent enterprise data-export request flagged by account management."
+  },
+  "E10": {
+   "v": "partial",
+   "q": "The deploy went out at 16:05 on a payroll day, two hours before cut-off."
+  },
+  "E11": {
+   "v": "partial",
+   "q": "The support lead's escalation included a customer list... Once an engineer looked at the logs, diagnosis took 6 minutes."
+  },
+  "E12": {
+   "v": "partial",
+   "q": "This review is blameless. No individual action caused the incident... Accountability means owning the fixes"
+  },
+  "E13": {
+   "v": "partial",
+   "q": "Review the p99 latency alert's noise and either tune or remove it"
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear"
+  },
+  "R2": {
+   "v": "triggered",
+   "q": "Root cause: a change to a default setting shipped as a minor version."
+  },
+  "R3": {
+   "v": "clear"
+  },
+  "R4": {
+   "v": "clear"
+  },
+  "R5": {
+   "v": "clear"
+  },
+  "R6": {
+   "v": "triggered",
+   "q": "Affected customers' payrolls were not processed that day."
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "19 action items; owners include 'Platform team', 'Observability', and '[TBD]'"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "triggered",
+   "q": "Given the information available, this was a reasonable call. It cost about 75 minutes of detection time."
+  }
+ },
+ "invented_details": [
+  "No canary on the deploy",
+  "No deploy context in the page",
+  "CI does not exercise connection pool behaviour under realistic load",
+  "Nothing in the release flagged it as a behaviour change",
+  "No alert on failed payroll submissions",
+  "Account-management requests have no defined handoff or secondary for the on-call",
+  "Nobody involved appears to have had the 18:00 bank cut-off in view",
+  "No deploy freeze or extra checks apply near the cut-off",
+  "No backup approver for the DBA step",
+  "Queued submissions drained without manual intervention",
+  "payments-api still does not set its pool size explicitly as of 28 October 2026",
+  "Affected customers' payrolls were not processed that day (contradicts notes: 22 of 37 runs went through that evening)",
+  "On-call had 'no visibility of the cause alert' (stated as fact; the notes say only that nobody watches the channel live)"
+ ],
+ "D": [
+  "partial",
+  "partial",
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "yes",
+  "no",
+  "no",
+  "partial",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 19,
+  "owned": 14
+ },
+ "score": 40,
+ "weakness": "It marks as [TBD] facts the notes supplied (impact numbers, p99 flapping, the runbook rule, shortened shadowing, the DBA constraint) and omits alert noise, staging drift, the prior AAR, and metrics, so it ends up with a single version-number 'root cause', 19 unprioritised actions, and several invented details.",
+ "_cost": 0.173545
+}

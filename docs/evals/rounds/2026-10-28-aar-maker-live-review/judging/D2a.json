@@ -1,0 +1,135 @@
+{
+ "E": {
+  "E1": {
+   "v": "partial",
+   "q": "silencing a generic latency spike to investigate background noise is a standard coping strategy under alert fatigue"
+  },
+  "E2": {
+   "v": "full",
+   "q": "Dependency Upgrade (16:05 UTC)... Alert Severity & Routing (16:22 UTC)... Rollback Approval Delay (18:05\u201318:33 UTC)"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "Severe alert fatigue driven by noisy symptom-level alerts"
+  },
+  "E4": {
+   "v": "absent",
+   "q": ""
+  },
+  "E5": {
+   "v": "absent",
+   "q": "Active Error: Dev merged platform-commons 3.4 \u2192 3.5 without reading the changelog."
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": ""
+  },
+  "E8": {
+   "v": "partial",
+   "q": "Requiring synchronous DBA approval during a Sev1 created an unnecessary 28-minute operational bottleneck."
+  },
+  "E9": {
+   "v": "absent",
+   "q": ""
+  },
+  "E10": {
+   "v": "partial",
+   "q": "High-consequence financial deadline breached due to prolonged detection and diagnosis delays."
+  },
+  "E11": {
+   "v": "absent",
+   "q": ""
+  },
+  "E12": {
+   "v": "full",
+   "q": "Singling out individual personnel would mask latent engineering defects and increase organizational vulnerability."
+  },
+  "E13": {
+   "v": "full",
+   "q": "multiplying alerts without restructuring the underlying alerting topology generates an unintended side effect: cognitive overload and alert fatigue"
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "triggered",
+   "q": "Active Error: Dev merged platform-commons 3.4 \u2192 3.5 without reading the changelog."
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "triggered",
+   "q": "Decision made by Incident Commander to roll back payments-api to v4.17."
+  },
+  "R7": {
+   "v": "clear",
+   "q": ""
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "The developer manually merged the bump (notes: the dependency bot auto-merged it and nobody merged it by hand)",
+  "The developer was under 'typical sprint pressures'",
+  "The year 2026 attached to the incident date",
+  "Rollback target version v4.17",
+  "An Incident Commander made the 18:05 rollback decision",
+  "Sev1 'declared by engineering leadership'",
+  "Absence of a runbook linking latency to connection pools (notes: the runbook told him to silence flapping alerts)",
+  "The on-call silenced the page 'to investigate background noise'",
+  "Lack of centralized dashboard visibility caused slow diagnosis",
+  "'Application reconnects with valid pool parameters' and rollback 'confirming rollback safety'",
+  "A 32-minute DBA approval delay (notes: 18:05 to 18:33 is 28 minutes; the document also says 28)",
+  "PagerDuty as the paging tool",
+  "Existing standards of 'sub-15-minute MTTR' and 'zero downtime' library upgrades",
+  "A claim that the facilitator 'created and published' the report"
+ ],
+ "D": [
+  "partial",
+  "partial",
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "yes",
+  "no",
+  "partial",
+  "no",
+  "no",
+  "no"
+ ],
+ "actions": {
+  "count": 5,
+  "owned": 5
+ },
+ "score": 30,
+ "weakness": "It is a generic just-culture and hierarchy-of-controls template that misses most Larchwood specifics (auto-merge policy, staging/production config drift, 220 alerts a week, the unfinished June action, MTTA and incident-count incentives, shortened onboarding, the disabled one-click rollback, impact numbers, what went well, customer write-up guidance), and it repeats the false claim that the developer merged the change.",
+ "_cost": 0.208625
+}

@@ -1,0 +1,131 @@
+{
+ "E": {
+  "E1": {
+   "v": "partial",
+   "q": "Whether silencing this alert was normal practice or unusual has not yet been established (see section 7)."
+  },
+  "E2": {
+   "v": "full",
+   "q": "CF4: A capacity cut shipped as a minor version... CF1: The alert that named the cause paged no one... CF6: The rollback needed approval that took 28 minutes"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "Review all payments alerts that are `warning`-only: either make them page or delete them"
+  },
+  "E4": {
+   "v": "absent",
+   "q": "CI and staging don't generate production-level DB concurrency, so the smaller pool never ran out in testing."
+  },
+  "E5": {
+   "v": "absent",
+   "q": "Two individual decisions have been raised: the on-call silencing the latency page, and the developer merging the library upgrade."
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": ""
+  },
+  "E8": {
+   "v": "partial",
+   "q": "Pre-approve rollback at deploy time: the DBA reviews migrations before the deploy, not during the incident"
+  },
+  "E9": {
+   "v": "absent",
+   "q": ""
+  },
+  "E10": {
+   "v": "full",
+   "q": "there were about 1 hour 45 minutes between the first failure and the cut-off. In that window, every safeguard that could have caught the problem was missing"
+  },
+  "E11": {
+   "v": "partial",
+   "q": "The support lead's escalation was concrete: it gave a ticket count and a customer list."
+  },
+  "E12": {
+   "v": "partial",
+   "q": "No single person's action explains the outcome."
+  },
+  "E13": {
+   "v": "absent",
+   "q": ""
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "triggered",
+   "q": "CI and staging don't generate production-level DB concurrency, so the smaller pool never ran out in testing."
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "Each needs a named owner and a due date. (13 actions, Owner column blank)"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "triggered",
+   "q": "Had it paged, on-call would have had the diagnosis 8 minutes after failures began, with more than 1.5 hours left before the cut-off."
+  }
+ },
+ "invented_details": [
+  "Staging lacks production-level DB concurrency as the reason testing missed it (notes: staging explicitly sets pool to 50)",
+  "A developer merged the library upgrade (notes: auto-merged by the dependency bot)",
+  "No canary, no automatic rollback on error rate, no deploy marker on alerts, stated as fact",
+  "Silencing tooling allowed a 2-hour silence with no reason, no handoff and no check against the cut-off",
+  "Services exposure check is 'in progress'/'under way' and both inputs 'have been requested'",
+  "Review date 28 October 2026 and 'the incident was a month ago' (notes: 'last Tuesday')",
+  "Year 2026 attached to the incident date",
+  "The on-call's manager will follow up directly outside the review (invented conditional outcome)",
+  "'Under afternoon payroll load' as the trigger",
+  "Alerting, deploy process and severity assessment all ignored the 18:00 deadline, stated as an established finding"
+ ],
+ "D": [
+  "yes",
+  "partial",
+  "partial",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "partial",
+  "no",
+  "no",
+  "partial",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 13,
+  "owned": 0
+ },
+ "score": 28,
+ "weakness": "It ignores much of what the review established (runbook-directed silencing of a flapping page, 220 alerts a week, the auto-merge bot, staging pinned at 50, the June action and the deprioritised clean-up, the MTTA and incident-count incentives, the DBA scarcity, the cut shadowing). It replaces these with TBCs and contradictory guesses, leaves conditional individual follow-up open for the on-call, and lists 13 unowned actions with no chosen leverage point.",
+ "_cost": 0.182173
+}

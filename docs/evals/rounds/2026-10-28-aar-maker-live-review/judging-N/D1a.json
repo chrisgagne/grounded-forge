@@ -1,0 +1,131 @@
+{
+ "E": {
+  "E1": {
+   "v": "partial",
+   "q": "Given the information available, this was a reasonable call. It cost about 75 minutes of detection time."
+  },
+  "E2": {
+   "v": "full",
+   "q": "4.1 The change reached production unreviewed and untested / 4.2 Detection was slow / 4.5 Escalation and recovery were slower than needed"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "Review the p99 latency alert's noise and either tune or remove it"
+  },
+  "E4": {
+   "v": "absent",
+   "q": ""
+  },
+  "E5": {
+   "v": "full",
+   "q": "This was a deliberate decision to handle about 60 bot PRs per week, and it remains a reasonable trade-off."
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": ""
+  },
+  "E8": {
+   "v": "partial",
+   "q": "Rollback waited 28 minutes for DBA approval, with no pre-approved path or backup approver."
+  },
+  "E9": {
+   "v": "partial",
+   "q": "Account-management requests can land on the on-call, and there's no defined handoff or secondary for that."
+  },
+  "E10": {
+   "v": "partial",
+   "q": "The deploy went out at 16:05 on a payroll day, two hours before cut-off."
+  },
+  "E11": {
+   "v": "partial",
+   "q": "The support lead's escalation included a customer list... Once an engineer looked at the logs, diagnosis took 6 minutes."
+  },
+  "E12": {
+   "v": "partial",
+   "q": "This review is blameless. No individual action caused the incident... Accountability means owning the fixes"
+  },
+  "E13": {
+   "v": "absent",
+   "q": ""
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "triggered",
+   "q": "Root cause: a change to a default setting shipped as a minor version."
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "triggered",
+   "q": "Page on `db-pool-saturation` for payments-api ... Alert on failed payroll submission rate"
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "triggered",
+   "q": "No canary or automatic rollback, although the failure appeared within 9 minutes."
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "19 actions; owners include 'Platform team', 'Observability', '[TBD]'"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "No canary deployment for payments-api",
+  "The latency page carried no deploy context",
+  "No alert exists on failed payroll submissions",
+  "Nobody involved had the 18:00 bank cut-off in view; no deploy freeze or extra checks near cut-off",
+  "No pre-approved rollback path or backup approver for the DBA step",
+  "CI does not exercise connection pool behaviour under realistic load",
+  "Nothing in the release flagged the change as a behaviour change",
+  "Queued submissions drained without manual intervention",
+  "payments-api still does not set its pool size explicitly as of 28 October 2026",
+  "Pool exhausted 'under normal payroll-day load'"
+ ],
+ "D": [
+  "partial",
+  "partial",
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "yes",
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 19,
+  "owned": 14
+ },
+ "score": 40,
+ "weakness": "It ignores or marks as TBD much of the evidence already in the notes (staging config mismatch, 220-alerts-a-week noise, runbook-sanctioned silencing, the unfinished June action, the MTTA and incident-count incentives, impact numbers, finance ops' recovery), settles on a single root cause, adds alerts without addressing noise, never declines the VP's request to name a person, and lists 19 actions without a chosen leverage point.",
+ "_cost": 0.16824499999999998
+}

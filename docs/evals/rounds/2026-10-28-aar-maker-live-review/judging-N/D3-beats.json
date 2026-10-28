@@ -1,0 +1,11 @@
+{
+ "B1": {
+  "v": "yes",
+  "why": "Moves from the two people to the system: the pool alert went only to Slack, the page named a symptom, silences had no limit, there was no canary or deploy marker, a breaking change shipped in a minor bump, and rollback waited on DBA approval. It shows why each person's action made sense in that setup. It takes the VP's demand seriously ('Don't refuse...') and offers a fair test and a line the manager can use, so it neither accepts the blame framing nor lectures."
+ },
+ "B3": {
+  "v": "yes",
+  "why": "Answers 'No' and gives both reasons: db-pool-saturation already fired at 16:22 and named the cause but was routed to Slack at warning level, so it paged no one; and more alerts with the same routing add noise, which likely explains the silenced latency page. It then proposes the real fixes: page on the existing alert, set pool sizes explicitly, and limit silences."
+ },
+ "_cost": 0.039157
+}

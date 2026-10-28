@@ -1,0 +1,120 @@
+{
+ "E": {
+  "E1": {
+   "v": "full",
+   "q": "He did not knowingly depart from it: he followed the runbook line \"silence known flapping alerts for the deploy window (2 h)\". The page had flapped 14 times that week."
+  },
+  "E2": {
+   "v": "full",
+   "q": "Chain A set the incident off. Chains B and D determined how long the failure went unnoticed. Chain C determined how long recovery took."
+  },
+  "E3": {
+   "v": "full",
+   "q": "It was created at warning severity two years ago and never reviewed... #payments-alerts gets about 220 alerts a week, about 90% resolve on their own, and nobody watches it live."
+  },
+  "E4": {
+   "v": "full",
+   "q": "Staging sets the pool to 50 explicitly. It differed from production in exactly the setting that changed, so it could not show the problem."
+  },
+  "E5": {
+   "v": "full",
+   "q": "No protocol required a human to read changelogs on bot PRs. Since February 2026, minor and patch bumps of internal libraries auto-merge on green CI, by design."
+  },
+  "E6": {
+   "v": "absent",
+   "q": "The June INC-2104 action 'tune noisy alerts' and the deprioritised February alert clean-up are not mentioned."
+  },
+  "E7": {
+   "v": "partial",
+   "q": "A leadership dashboard counts incidents per team, so declaring one counts against the team. (Covers the incident-count metric but omits the MTTA <5 min target that rewards acking and silencing; it even praises the 2-minute ack.)"
+  },
+  "E8": {
+   "v": "full",
+   "q": "It waited 28 minutes for DBA approval... One-click rollback has been off since March, when a rollback corrupted a migration."
+  },
+  "E9": {
+   "v": "absent",
+   "q": "The on-call engineer's inexperience is **not** a factor: he followed the runbook. (Shadowing cut from four weeks to one and the parallel urgent data-export are never named.)"
+  },
+  "E10": {
+   "v": "full",
+   "q": "The 37 missed cut-offs depended on 16:14\u201318:00, which is Chains A, B and D. Whether Chain C cost the 15 late runs depends on when the late-processing window closed."
+  },
+  "E11": {
+   "v": "full",
+   "q": "Finance ops paid the bank's late-processing fee and got 22 of the 37 runs through... The support lead's escalation... The payments engineer found the cause 6 minutes after"
+  },
+  "E12": {
+   "v": "full",
+   "q": "If the VP asks for a name... both landed at Recommendation D, and accountability sits with the named owners of the fixes."
+  },
+  "E13": {
+   "v": "full",
+   "q": "Considered and rejected: \"add more DB pool alerts\". An alert already existed and fired at 16:22. More alerts into an unwatched channel... repeats Chain B."
+  },
+  "E14": {
+   "v": "full",
+   "q": "Highest-leverage intervention point (provisional): Detection during the deploy window... Strongest alternative: the recovery path (Chain C)."
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear"
+  },
+  "R2": {
+   "v": "clear"
+  },
+  "R3": {
+   "v": "clear"
+  },
+  "R4": {
+   "v": "clear"
+  },
+  "R5": {
+   "v": "clear"
+  },
+  "R6": {
+   "v": "clear"
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "Owners will be agreed with the other leads... | 1 | Page on customer impact... | B | TBD | TBD |"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear"
+  }
+ },
+ "invented_details": [
+  "Year 2026 attached to the incident date and the February/March policy changes (inferred; the notes give no year)",
+  "Outage duration stated as 'about three hours'; the manager said about two and a half hours",
+  "Asserts the dashboard is the VP's to change ('The dashboard is his to change'), while the notes and the document's own open item 5 say the owner is unknown",
+  "'The platform team chooses defaults for small services' / 'library team': no such team is named in the notes",
+  "'Deploys are frequent' as urgency rationale: not stated in the notes",
+  "Status line says 'five facts still open' but seven open items are listed (internal inconsistency, not invented case fact)"
+ ],
+ "D": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "yes",
+  "no",
+  "partial",
+  "yes",
+  "partial",
+  "yes",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 4,
+  "owned": 1
+ },
+ "score": 72,
+ "weakness": "Strong causal analysis, but it omits the history (unfinished June alert-noise action, deprioritised clean-up), the shortened onboarding, the parallel urgent work and the MTTA incentive, gives no guidance for the customer write-up, and leaves nearly every action owner as TBD.",
+ "_cost": 0.20410499999999998
+}

@@ -1,0 +1,125 @@
+{
+ "E": {
+  "E1": {
+   "v": "full",
+   "q": "Silencing followed the runbook rule, after 14 flaps that week... an agreed protocol existed, was workable and was in routine use, and he did not depart from it."
+  },
+  "E2": {
+   "v": "full",
+   "q": "Chain A: Prevention... Chain B: Detection... Chain C: Recovery. Why rollback took 41 minutes"
+  },
+  "E3": {
+   "v": "full",
+   "q": "Noise was handled by downgrading, rerouting and silencing alerts, not by fixing them... The pool alert has been Slack-only since it was created."
+  },
+  "E4": {
+   "v": "full",
+   "q": "Three checks all missed it: auto-merge on green CI, load tests only on major bumps, and a staging pool override of 50."
+  },
+  "E5": {
+   "v": "full",
+   "q": "The February auto-merge was a single deliberate loosening, not gradual drift... There was no human merge to review, because the bot auto-merged the PR."
+  },
+  "E6": {
+   "v": "full",
+   "q": "The fix was deferred for the Q3 launch (February), then assigned with no single owner (June, INC-2104)."
+  },
+  "E7": {
+   "v": "full",
+   "q": "The incidents-per-team dashboard discourages declaring early, and the 5-minute acknowledge target rewards acknowledging, not diagnosing."
+  },
+  "E8": {
+   "v": "full",
+   "q": "28 minutes waiting for DBA approval. One-click rollback has been off since March... two DBAs serve nine teams"
+  },
+  "E9": {
+   "v": "partial",
+   "q": "Retraining the on-call (he followed the rule)."
+  },
+  "E10": {
+   "v": "full",
+   "q": "the cause was found at 18:01, one minute after the 18:00 bank cut-off... B interacted with A and lost the cut-off."
+  },
+  "E11": {
+   "v": "full",
+   "q": "Support lead: the escalation came with ticket count, customer list and first-seen time... Finance ops: recovered 22 of 37 payroll runs"
+  },
+  "E12": {
+   "v": "partial",
+   "q": "Both outcomes say action singling out the individual is unlikely to be appropriate."
+  },
+  "E13": {
+   "v": "partial",
+   "q": "Not doing: Adding alerts to #payments-alerts (adds noise)."
+  },
+  "E14": {
+   "v": "full",
+   "q": "Highest-leverage point (provisional): detection... Open question that could overturn it: if the DBA was unavailable from before about 16:30, recovery binds jointly"
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "clear",
+   "q": ""
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "Owner: TBD (one person) ... Owner: one named person \u00b7 Checked by: TBD"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "Year 2026 attached to the incident date and to the Feb/Mar/Jun events (inferred from today's date; the date is flagged 'to be confirmed')",
+  "'Small services were over-provisioned' given as the library team's knowledge or motive (the notes only quote 'safer defaults for small services')",
+  "'14th flap that week' at 16:31 (the notes say only that it flapped 14 times that week)",
+  "Derived figures not in the notes: 'about 129 of 152 minutes', '5.6 to 1' waiting-to-working ratio, 'about 85% of the outage time' at team boundaries, 'six teams were involved' (computed or counted from the notes, not invented evidence)"
+ ],
+ "D": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "yes",
+  "partial",
+  "partial",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 4,
+  "owned": 0
+ },
+ "score": 74,
+ "weakness": "It never addresses the VP's demand to name a responsible person and gives no customer write-up guidance; it also leaves every action without even an owner role and omits the cut to on-call shadowing as a condition to fix.",
+ "_cost": 0.211885
+}

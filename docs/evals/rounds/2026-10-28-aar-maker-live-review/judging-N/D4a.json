@@ -1,0 +1,122 @@
+{
+ "E": {
+  "E1": {
+   "v": "partial",
+   "q": "The on-call silenced the latency alert in accordance with the documented instruction for known deploy-related flapping. Whether this occurrence met those conditions... remain unresolved."
+  },
+  "E2": {
+   "v": "full",
+   "q": "Keep the follow-up small, but cover three things: Detection and response... Prevention... Recovery"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "Repeated flapping: What had previous pages taught responders to expect, and who owned fixing the noise?"
+  },
+  "E4": {
+   "v": "full",
+   "q": "Staging masked the production change. Its explicit setting retained 50 connections while production inherited 20."
+  },
+  "E5": {
+   "v": "absent",
+   "q": "The changelog's availability matters when examining the developer's decision."
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "partial",
+   "q": "Leadership measures reportedly discouraged early escalation... because a dashboard counted incidents per team."
+  },
+  "E8": {
+   "v": "full",
+   "q": "Recovery depended on scarce approval availability. Manual rollback required DBA approval following an earlier migration-corruption incident."
+  },
+  "E9": {
+   "v": "partial",
+   "q": "His relative inexperience makes onboarding and available support relevant; it does not establish carelessness."
+  },
+  "E10": {
+   "v": "partial",
+   "q": "Sev1 was declared at 17:55, five minutes before cut-off."
+  },
+  "E11": {
+   "v": "partial",
+   "q": "Preserve the useful responses too: prompt acknowledgement of the page, support's escalation with customer evidence, and finance operations' recovery of 22 payroll runs"
+  },
+  "E12": {
+   "v": "partial",
+   "q": "The current evidence does not justify selecting either the on-call or merging engineer for discipline... assess any specific conduct concern separately."
+  },
+  "E13": {
+   "v": "partial",
+   "q": "More pool alerts could help, but they would leave most of INC-2291's failure path intact. A pool warning already fired at 16:22"
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "triggered",
+   "q": "The current evidence does not justify selecting either the on-call or merging engineer for discipline."
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "Engineering leadership | Change dashboard use and escalation expectations"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "Describes the developer as the 'merging engineer' who made a 'decision' on the upgrade; the notes say the bump auto-merged via the dependency bot and nobody merged it by hand"
+ ],
+ "D": [
+  "partial",
+  "yes",
+  "yes",
+  "partial",
+  "partial",
+  "partial",
+  "no",
+  "partial",
+  "no",
+  "partial",
+  "partial",
+  "partial",
+  "yes"
+ ],
+ "actions": {
+  "count": 6,
+  "owned": 5
+ },
+ "score": 52,
+ "weakness": "It misses the auto-merge policy, the forgotten June action and deprioritised clean-up, alert volume and the MTTA target, and still treats the developer as a decision-maker; it is also hedged into a facilitation transcript rather than a final AAR that commits to no individual action and a chosen leverage point.",
+ "_cost": 0.19620900000000002
+}

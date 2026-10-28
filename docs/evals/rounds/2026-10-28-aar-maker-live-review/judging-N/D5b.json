@@ -1,0 +1,123 @@
+{
+ "E": {
+  "E1": {
+   "v": "full",
+   "q": "His action matched the runbook and a pattern of 14 previous flaps. \u201cHe wasn't paying attention\u201d isn't supported by the evidence we have."
+  },
+  "E2": {
+   "v": "partial",
+   "q": "The review identifies a library-default change, recurring alert noise, documented suppression guidance, competing urgent work, and constrained rollback approval as contributing conditions. \u2014 detection and recovery chains present; the change chain is only the technical mechanism, not why it reached production"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "Recognition and response occurred amid recurring deploy-related alert noise. The latency alert had flapped 14 times that week \u2014 no 220/week volume, unwatched channel, or stale two-year-old severity/routing"
+  },
+  "E4": {
+   "v": "absent",
+   "q": ""
+  },
+  "E5": {
+   "v": "absent",
+   "q": ""
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": ""
+  },
+  "E8": {
+   "v": "full",
+   "q": "Manual rollback required DBA approval because automated rollback had previously corrupted a migration... Two DBAs support nine product teams."
+  },
+  "E9": {
+   "v": "partial",
+   "q": "His being new makes onboarding and available support relevant; it doesn't establish carelessness. \u2014 shadowing cut from four weeks to one not named; no system fix proposed"
+  },
+  "E10": {
+   "v": "partial",
+   "q": "That matters because the Sev1 declaration left only five minutes before cut-off. \u2014 deadline timing noted but harm not framed as set by defence delays against the cut-off"
+  },
+  "E11": {
+   "v": "partial",
+   "q": "What worked deserves equal visibility: the on-call acknowledged promptly, support supplied an actionable escalation, rollback cleared exhaustion, and Finance Ops recovered same-evening processing for 22 runs. \u2014 the 6-minute diagnosis is not named"
+  },
+  "E12": {
+   "v": "partial",
+   "q": "If evidence raises a conduct concern, we'll address that through a separate, fair review. \u2014 owners assigned, but culpability left open and naming in the customer write-up not explicitly declined"
+  },
+  "E13": {
+   "v": "partial",
+   "q": "Pool saturation already generated a warning at 16:22, and a latency page reached the on-call at 16:31. \u2014 never says more alerts add noise; still allows them as a corrective action"
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "clear",
+   "q": ""
+  },
+  "R7": {
+   "v": "clear",
+   "q": ""
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "Says the on-call 'then resumed' the data-export request after silencing; the notes say only that he was working on it at the time (minor sequencing inference)",
+  "Calls the developer the 'deploying developer'; the notes say the bump auto-merged via the bot and he only owns the bot config (mischaracterisation, not a new fact)"
+ ],
+ "D": [
+  "partial",
+  "partial",
+  "partial",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "partial",
+  "no",
+  "partial",
+  "partial",
+  "partial",
+  "yes"
+ ],
+ "actions": {
+  "count": 6,
+  "owned": 6
+ },
+ "score": 38,
+ "weakness": "It stays at the surface of the timeline and keeps individual culpability open, missing the systemic causes the notes supply (auto-merge policy, staging/production config drift, alert volume and routing, MTTA and incident-count incentives, the unfinished June action, cut shadowing) and never choosing a leverage point.",
+ "_cost": 0.16097299999999998
+}

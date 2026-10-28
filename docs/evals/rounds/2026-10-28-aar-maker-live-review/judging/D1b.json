@@ -1,0 +1,135 @@
+{
+ "E": {
+  "E1": {
+   "v": "partial",
+   "q": "If `p99 latency` alerts page frequently without direct, actionable diagnostic context (while critical DB pool warnings sit in a crowded Slack channel), silencing noisy alerts is a predictable response to alert fatigue."
+  },
+  "E2": {
+   "v": "full",
+   "q": "A deep analysis reveals four primary systemic vulnerabilities that combined to create the outage and delay recovery: CI/CD & Dependency Governance... Observability & Alerting... Emergency Approval Bottlenecks"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "The telemetry system suffered from severe signal-to-noise misalignment... routed to an unmonitored Slack channel (#payments-alerts), creating zero urgency. (No ~220/week volume; no unrevisited two-year-old severity/routing.)"
+  },
+  "E4": {
+   "v": "absent",
+   "q": "Only asks: Why did staging or automated integration tests fail to catch pool exhaustion under load? The staging/production config difference is never identified."
+  },
+  "E5": {
+   "v": "absent",
+   "q": "Contradicts the notes: The Action: Merged payments-api v4.18, bumping internal library platform-commons from version 3.4 to 3.5, without catching a breaking database connection pool configuration change"
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": "Instead praises the measured behaviour: Rapid Acknowledgment: The on-call engineer responded to the initial page within 2 minutes."
+  },
+  "E8": {
+   "v": "partial",
+   "q": "execution was delayed for 28 minutes awaiting formal approval from a Database Administrator (18:33). (Disabled one-click rollback and DBA capacity are not mentioned.)"
+  },
+  "E9": {
+   "v": "absent",
+   "q": ""
+  },
+  "E10": {
+   "v": "partial",
+   "q": "This procedural bottleneck directly caused the incident to span across the 18:00 UTC bank cut-off. (Factually wrong: the cut-off passed before the 18:05 rollback decision.)"
+  },
+  "E11": {
+   "v": "partial",
+   "q": "the payments engineer identified the root cause in application logs within 6 minutes (17:55 to 18:01). (Omits the support escalation, which it criticises, and finance ops' recovery of 22 runs.)"
+  },
+  "E12": {
+   "v": "full",
+   "q": "Forward-Looking Accountability: Asks 'Who owns fixing the system, and how do we hold engineering leaders accountable for delivering the safeguards?'"
+  },
+  "E13": {
+   "v": "partial",
+   "q": "Simply adding more alerts without improving signal quality or automated response leads directly to alert fatigue. (Never proposes an overall reduction or ownership of alerts.)"
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "triggered",
+   "q": "Rollback of payments-api to v4.17 completed... Incident Commander makes formal decision to roll back."
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "Seven CAP actions with team-level owners such as 'Platform Engineering', 'Core Payments Team', 'Customer Support / SRE', 'Engineering Leadership'"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "The developer manually merged the bump / 'the developer who bumped the library' (notes: auto-merged by the dependency bot; nobody merged it by hand)",
+  "Rollback target version v4.17",
+  "An Incident Commander was assembled and made the rollback decision; 'cross-functional investigation initiated'",
+  "p99 latency alert 'frequently fires during transient network blips or routine batch processing' (notes: it flapped around deploys)",
+  "On-call's motive: silencing 'to investigate or await transient recovery'; 'forced to diagnose an abstract symptom without contextual diagnostic data'",
+  "Support had 41 tickets at 17:10 ('38 minutes between Support receiving 41 tickets (17:10)'); in the notes the first tickets arrived at 17:10 and there were 41 by 17:48",
+  "Support was 'forced... to manually accumulate 41 tickets' because no automated escalation trigger existed",
+  "The DBA approval delay 'directly caused the incident to span across the 18:00 UTC bank cut-off' (the cut-off passed before the rollback decision)",
+  "CI/CD 'lacked... integration load tests' entirely (notes: load tests run on major bumps)",
+  "At 18:01 the root cause was 'correlated to platform-commons 3.5 connection pool settings' (notes say only that pool exhaustion was found in logs)",
+  "After rollback, 'connection pool saturation clears; database connections normalize'",
+  "Use of PagerDuty/Opsgenie",
+  "Developer under 'routine delivery pressures'",
+  "Claims to have published an AAR report and slide deck to a 'Studio panel'"
+ ],
+ "D": [
+  "partial",
+  "partial",
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "partial",
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "no"
+ ],
+ "actions": {
+  "count": 7,
+  "owned": 1
+ },
+ "score": 24,
+ "weakness": "It is built on the manager's opening framing and the bare timeline and ignores most of the review's findings (auto-merge policy, runbook-directed silencing, staging config mismatch, MTTA and incident-count incentives, the unfinished June action, the disabled rollback, shortened onboarding); it also wrongly says the developer merged the change, omits the impact figures and invents details such as an Incident Commander and v4.17.",
+ "_cost": 0.12112939999999998
+}

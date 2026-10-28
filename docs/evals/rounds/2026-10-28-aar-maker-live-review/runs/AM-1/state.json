@@ -1,0 +1,446 @@
+{
+ "arm": "AM",
+ "rep": "1",
+ "session": "7ed4c62d-daf4-48a5-808c-43c3ad09f987",
+ "turns": [
+  {
+   "role": "facilitator",
+   "text": "I can help you run this. I can't help you choose a person by Friday, though, and that's the first thing to sort out with your VP. Doing so would cut against the sources this review is built on, and your own timeline already pushes back on how the VP has framed it.\n\n## The Friday request\n\n**Run accountability separately from the review.** The Columbia Accident Investigation Board set up its inquiry to \"identify and correct threats to the safe operation of the Space Shuttle\" [V] rather than to assign blame. It took privileged statements so people would admit mistakes, and it left personal accountability to a separate process (caib-report-vol1, Appendix A). The Board says people are still responsible and accountable, but also that problems \"cannot be solved simply by retirements, resignations, or transferring personnel\" [V] (Ch 8). If the on-call engineer and the dev believe this review ends with one of them being named, they'll say less. You'll lose exactly the information you need to stop this happening again.\n\n**Where the review does deal with individuals, it uses a structured test, one action at a time.** The NHS Just Culture Guide starts from \"Action singling out an individual is rarely appropriate \u2014 most patient safety issues have deeper causes and require wider action\" [V]. It runs each action through five tests in order: deliberate harm, health, foresight, substitution, and mitigating circumstances. Silencing the alert and merging without reading the changelog would each go through separately. The guide says it isn't a substitute for investigating, so it can only run once the facts are in, and it gets rerun if new facts turn up.\n\n**Your timeline already raises questions the tree will ask:**\n- **The silenced alert.** The alert that described the actual problem, `db-pool-saturation` at 16:22, was a warning that went to Slack and never paged anyone. What the on-call engineer silenced at 16:31 was a *latency* page. The foresight test asks whether there was an agreed protocol for handling that page, whether it was workable and in routine use, and whether they knowingly departed from it. We'll also need to know what that page told them, and how often latency pages turned out to be noise.\n- **The changelog.** Was reading changelogs for internal library bumps an agreed, workable practice that people actually followed? The substitution test asks whether other engineers on the team would have merged the same way.\n\nI'm not giving you the answers here. They're open questions, and the answers decide where the tree lands.\n\n**What you can give the VP by Friday:**\n1. Where each of the two actions landed on the NHS tree, with the reasons.\n2. A named owner, a date and a reviewer for each fix. That's accountability looking forward, which is something the VP can track.\n\nIf it helps, a line for the VP: *\"Accountability is on a separate track from the learning review, so people will tell us what actually happened. By Friday you'll have the just-culture assessment for each action and named owners for each fix.\"*\n\n## Setup (Phase 0)\n\n- **What's connected.** I don't have access to your tracker, Slack, code host or paging tool, so we'll work in paste mode. Your timeline is a good start. Before you paste anything else, **remove customer data (including the 41-ticket customer list) and any credentials.**\n- **Things I'll ask about in Phase 1, not conclusions:** It took 101 minutes from the first failure (16:14) to the Sev1 declaration (17:55), and the problem reached you through support tickets, not monitoring. The rollback waited 28 minutes for DBA approval (18:05\u219218:33), and the bank cut-off passed in that window.\n\n## Before we look at the records, I need these from you\n\n1. **The date.** Today is Wednesday 28 October. Was this Tuesday 29 September (four weeks ago) or yesterday, 27 October? The answer affects how fresh people's memories are.\n2. **Your own account.** In a few sentences, what would you tell a coworker about INC-2291?\n3. **Who saw it differently?** Think of the on-call engineer, the dev, the support lead and the DBA. Tell me their view in your words, or paste it.\n4. **Interviews.** Can you talk to the on-call engineer and the dev before they see the assembled timeline? The DOE handbook (vol. 2) recommends debriefing people before the investigator knows too much, so hindsight doesn't shape what they say.\n5. **The VP.** Will they accept running accountability separately and putting a no-punishment commitment in writing for this review? If not, tell me now, because it changes how we run the rest.\n\nOnce I have these, we'll go to Phase 1: building the timeline backwards from the 19:20 drain, with evidence for each entry and what each person knew at each point.",
+   "t": 1793145297.682322,
+   "wall_s": 81,
+   "cost": 0.6415718,
+   "tools": [
+    {
+     "tool": "mcp__aar-maker__get_workflow",
+     "input": {
+      "name": "guide"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__get_workflow",
+     "input": {
+      "name": "aar-new"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__get_workflow",
+     "input": {
+      "name": "aar-new",
+      "file": "tool-1-new-aar-facilitator.md"
+     }
+    },
+    {
+     "tool": "Read",
+     "input": {
+      "file_path": "claude-code-projects/AM-1/7ed4c62d-daf4-48a5-808c-43c3ad09f987/tool-results/toolu_01GNiZ7L7dH9dvXw136soDTy.json"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__get_workflow",
+     "input": {
+      "name": "aar-new",
+      "file": "tool-1-new-aar-facilitator.md",
+      "part": 2
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__route",
+     "input": {
+      "section": "Phase 0"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__route",
+     "input": {
+      "section": "Phase 3"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "nhs-just-culture-guide"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "caib-report-vol1",
+      "section": "Phase 0"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "doe-hpi-handbook-vol2",
+      "section": "Concept 4"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "caib-report-vol1",
+      "section": "Key Concepts"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "doe-hpi-handbook-vol2",
+      "section": "Phase 0"
+     }
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "Honestly, I think he just wasn't paying attention; he's fairly new. The date's 29 September, per the timeline. Short version: a library bump took out submissions, 1,180 employer accounts saw failures, and 37 payroll runs missed the 18:00 cut-off. The on-call is mortified and has asked his manager whether he'll be taken off the rota, and the dev is annoyed his name is on the PR. I've already talked to the on-call, the DBA, the support lead and the payments engineer. I haven't pushed back on the VP yet, though I'm uneasy about what he's asking for.",
+   "json": {
+    "reply": "Honestly, I think he just wasn't paying attention; he's fairly new. The date's 29 September, per the timeline. Short version: a library bump took out submissions, 1,180 employer accounts saw failures, and 37 payroll runs missed the 18:00 cut-off. The on-call is mortified and has asked his manager whether he'll be taken off the rota, and the dev is annoyed his name is on the PR. I've already talked to the on-call, the DBA, the support lead and the payments engineer. I haven't pushed back on the VP yet, though I'm uneasy about what he's asking for.",
+    "released": [
+     "H1",
+     "H2",
+     "H31",
+     "H32",
+     "H30"
+    ],
+    "beat": "B2",
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793145331.1504798
+  },
+  {
+   "role": "facilitator",
+   "text": "Thanks. That impact is serious: 1,180 employer accounts saw failures and 37 payroll runs missed the 18:00 cut-off. I've recorded your short version as the first account.\n\n## \"He wasn't paying attention; he's fairly new\"\n\nDo you mean the on-call engineer or the dev? I'm assuming the on-call engineer, but please confirm. Either way, I'd keep this as your hypothesis for now rather than a finding, for two reasons:\n\n- **Being new is a condition of the work, not just a trait of the person.** The DOE handbook (vol. 1, Ch 2) lists unfamiliarity as an error precursor, alongside time pressure, workload and confusing displays. The NHS tree's substitution test asks whether he missed training when it was given and whether supervision fell short. A yes to either points to wider action, not action aimed at him alone. So \"fairly new\" tends to move the question toward the system, not away from it.\n- **Bias.** The library notes that the fundamental attribution error pushes observers toward blaming the individual rather than the situation (openstax-organizational-behavior). It's a bias that affects all of us looking back, you and me included.\n\nA better question for Phase 1 is: **what was he paying attention to?** He acknowledged the page within two minutes, so he was engaged. The silence for two hours is the decision we need to understand from the inside.\n\n## Two things that shouldn't wait for the review to finish\n\n**1. The on-call rota question.** If he's taken off the rota before the review is done, everyone will read it as the verdict. The DOE handbook (vol. 2) makes a just culture a prerequisite for people reporting errors, and fear that an account will count against you is one of the barriers it names. My recommendation is to ask his manager to hold any rota change until the review has run each action through the NHS tree, and to tell him that now. Whether to do this is your call and his manager's.\n\n**2. The VP, before Friday.** Your unease is well founded, and the sources back it. A conversation will probably work better than an email, but here's a short version you can adapt:\n\n> We're running INC-2291 as a learning review. Accountability is on a separate track, so people tell us what actually happened. That's how the Columbia Accident Investigation Board ran theirs. By Friday you'll have: the timeline; where each individual action lands on the NHS Just Culture decision tree, with reasons; and named owners and dates for the fixes. I'm not ready to name one person as accountable. What we've already found, including a pool-saturation alert that never paged anyone and customers finding the outage before monitoring did, suggests no single person could have prevented this.\n\nWant me to tighten that, or prepare you for the questions he's likely to ask?\n\n## The dev\n\nYou haven't talked to him yet. Get his account before he sees the assembled timeline or hears \"didn't read the changelog\" (DOE vol. 2: debrief before you know too much). Since he's unhappy about his name on the PR, the AAR document will use roles, not names.\n\nAsk him open questions, such as \"Walk me through how the 3.5 bump got into v4.18\" rather than \"Why didn't you read the changelog?\" (tc-25-20-army-aar). Things to find out:\n- Did he choose the bump, or did it come in some other way (a dependency bot, another change, a platform-team request)?\n- Does the 3.5 changelog actually say anything about connection pooling? Where does \"didn't read the changelog\" come from: him, the PR, or someone else?\n- Who reviewed the PR, and what does the team normally do for minor version bumps of internal libraries?\n\n## Phase 1: the timeline and each person's view\n\nYou've already done four interviews, so please paste or summarise each person's account, with customer data and names removed. I'll work backwards through the decision points. These are the questions I'll be asking each account:\n\n| Time | Decision point | What I need to know |\n|---|---|---|\n| 18:05\u219218:33 | Waiting for DBA approval of the rollback | Why does a rollback need DBA approval? Did 3.5 include a schema or pool-config change? Did anyone know the 18:00 cut-off had already passed or was about to? |\n| 17:10\u219217:48 | Support goes from first tickets to escalation | What prompts support to escalate? What did the first tickets look like? |\n| 16:31 | On-call acknowledges the latency page and silences it for 2h | What did the page say? What did he check? What did he expect was happening? Was there a runbook? How often had this page fired without a real problem behind it? Could he see #payments-alerts? |\n| 16:22 | `db-pool-saturation` posts to Slack as a warning, with no page | Who sets its severity? Who watches that channel? How often does it fire? |\n| 16:05 | Deploy | What checks run on a library bump? Did a canary or staged rollout run? |\n\nFor each one, the DOE handbook (vol. 1, via Dekker) asks: **what was the person trying to accomplish, what were they paying attention to, and what did they know at that moment?** Please also include any evidence references you have, such as the alert ID, PR link, Slack message times and ticket IDs, so each timeline row can be backed by something.",
+   "t": 1793145405.484007,
+   "wall_s": 74,
+   "cost": 0.806149,
+   "tools": [
+    {
+     "tool": "mcp__aar-maker__route",
+     "input": {
+      "section": "Phase 1"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "doe-hpi-handbook-vol1",
+      "section": "Phase 1"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__find_concepts",
+     "input": {
+      "query": "fundamental attribution error"
+     }
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "My VP is going to push back on that. What do I tell him? And yes, I meant the on-call. On the dev: he didn't choose the bump; it was an automated PR from the internal dependency bot that auto-merged when CI was green, and his name is only on it because he owns the repo's bot config. On the 16:31 page: the on-call told me the p99 latency page had flapped 14 times that week, always around deploys, and the runbook says to silence known flapping alerts for the 2-hour deploy window, so that's what he did.",
+   "json": {
+    "reply": "My VP is going to push back on that. What do I tell him? And yes, I meant the on-call. On the dev: he didn't choose the bump; it was an automated PR from the internal dependency bot that auto-merged when CI was green, and his name is only on it because he owns the repo's bot config. On the 16:31 page: the on-call told me the p99 latency page had flapped 14 times that week, always around deploys, and the runbook says to silence known flapping alerts for the 2-hour deploy window, so that's what he did.",
+    "released": [
+     "H8",
+     "H10",
+     "H15",
+     "H16"
+    ],
+    "beat": "B4",
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": true,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793145437.112604
+  },
+  {
+   "role": "facilitator",
+   "text": "These facts change the case completely, and they're the best answer to your VP. The NHS guide expects to be rerun as new facts come in, so here are both actions walked through the tree again on what we now know.\n\n## The tree, rerun with the new facts\n\n**On-call: silenced the p99 latency page for 2 hours at 16:31**\n- **Q1 Deliberate harm:** Nothing suggests it.\n- **Q2 Health:** Nothing known. Please confirm you have no concerns here, but don't go looking.\n- **Q3 Foresight:** There was an agreed protocol: the runbook says to silence known flapping alerts for the 2-hour deploy window. It was workable and in routine use, since the page had flapped 14 times that week. He didn't knowingly depart from it. **He followed it.**\n- **Result: Recommendation D.** In the guide's words: \"Action singling out the individual is unlikely to be appropriate\u2026 These actions may include, but not be limited to, the individual.\" [V] The substitution test agrees: any on-call engineer following that runbook would have silenced the page.\n\n**Dev: \"didn't read the changelog\"**\n- No human merged anything. The dependency bot auto-merged when CI was green, and the organisation's process was designed that way. Q3's first question is whether there was an agreed protocol for a human to read changelogs on bot PRs. On what you've told me, there wasn't. Nobody was supposed to read it.\n- **Result: Recommendation D.** His name is on the PR only because he owns the bot's config, not because he made a decision about this bump.\n\n**What could change these results:** The tree is rerun whenever new facts arrive, so two things need checking:\n- The exact runbook wording. For example, does it say to check #payments-alerts before silencing a page?\n- Whether any policy required the repo owner to review auto-merged bumps of internal libraries.\n\nIf either turns up a step he knowingly skipped, we rerun that action through the tree.\n\n## What to tell the VP\n\n**Lead with the facts.** The facts are what change minds here:\n\n> The on-call engineer followed the runbook, which tells on-call to silence that page during deploys because it flapped 14 times last week. The library bump was merged by an automated bot, by design, with no human review. Run through the NHS Just Culture decision tree, neither action lands on an individual. If we remove the on-call engineer, the next person on call follows the same runbook and silences the same page.\n\n**Likely pushback, and how to answer it:**\n\n| He says | You say |\n|---|---|\n| \"Someone has to be accountable.\" | \"Agreed. Owners for the runbook, the alert routing, the auto-merge policy and the rollback approval path will be named, with dates, by Friday.\" The Forest Service guide defines just culture as accountability that looks forward, not culpability (lfuo-learning-review-guide-2024). |\n| \"So nobody faces consequences?\" | \"The tree has a path to action against an individual. These facts don't lead there. If new facts show someone knowingly broke a workable rule, the answer changes.\" The Columbia Board said context \"does not mean that individuals are not responsible and accountable\", but that problems \"cannot be solved simply by retirements, resignations, or transferring personnel\" [V] (caib-report-vol1). |\n| \"He silenced the alert. That's on him.\" | \"He silenced the page the runbook told him to silence. If we punish someone for following the runbook, every on-call engineer learns that following the runbook is unsafe.\" |\n| \"This sounds soft.\" | \"It's what lets us find the real causes. The on-call engineer volunteered the flapping history, and that's what explains the incident. People stop volunteering things like that once someone is punished.\" MCDP 1 puts it this way: \"a subordinate's willingness to admit mistakes depends on the commander's willingness to tolerate them\" [V]. |\n\n**Ask him what the name is for.** With 37 payroll runs missed, he may be under pressure himself, perhaps from customers, contract terms or someone above him. If you find out what he actually needs to report, you can usually meet that need with the timeline, the impact figures and the dated fixes.\n\n**The on-call engineer's rota question can be settled now.** With his action at Recommendation D, I'd tell his manager there are no grounds for taking him off the rota. It's still your decision and his manager's.\n\n## What Phase 1 has turned up so far\n\nOne pattern stands out. Treat it as a hypothesis for Phase 2, not a finding yet:\n\n- The runbook silences alerts during the 2-hour deploy window. That's exactly when problems caused by a deploy would show up.\n- The page flapped because deploys made it noisy, so a real problem caused by a deploy looked the same as the usual noise.\n- The alert that could tell the two apart (`db-pool-saturation`) was set as a warning and went only to Slack.\n- Library bumps can reach production with no human looking at them.\n\nThe Columbia report describes something similar: a deviation that recurs without harm gets reclassified as normal, and the board calls this normalisation of deviance (caib-report-vol1). We'll test that in Phase 2.\n\n**Still needed to finish the timeline:**\n1. **What the support lead, DBA and payments engineer told you.** In particular: why does a rollback need DBA approval? And did anyone know the 18:00 cut-off was close?\n2. **The runbook entry**, word for word if you can. Also when the silence rule was added and why.\n3. **`db-pool-saturation`.** Who set it to warning-only, and who watches #payments-alerts?\n4. **The deploy at 16:05.** Did the auto-merge trigger it automatically, or did someone ship v4.18?\n5. **The dev's own account**, now that we know his part. Ask him how the bot config came to auto-merge internal library bumps.",
+   "t": 1793145492.578354,
+   "wall_s": 55,
+   "cost": 0.9916216,
+   "tools": [
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "lfuo-learning-review-guide-2024",
+      "section": "Key Concepts"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "mcdp1-warfighting",
+      "section": "Key Concepts"
+     }
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "The runbook line is just \"silence known flapping alerts for the deploy window (2 h)\"; I don't know when or why it was added. db-pool-saturation was created as a warning two years ago and never changed. #payments-alerts gets about 220 alerts a week, about 90% auto-resolve, and nobody watches it live. The rollback needed DBA approval because one-click rollback has been off since March, after a rollback corrupted a migration; two DBAs cover nine product teams, and the one on shift was in a vendor meeting until 18:30. The support lead's escalation was crisp (ticket count, customer list, first-seen time), and the payments engineer found the cause six minutes after the Sev1. I don't know whether anyone was tracking the cut-off or whether the merge triggered the deploy automatically. Since February, minor and patch bumps of internal libraries auto-merge to cut review load; the bot opens about 60 PRs a week.",
+   "json": {
+    "reply": "The runbook line is just \"silence known flapping alerts for the deploy window (2 h)\"; I don't know when or why it was added. db-pool-saturation was created as a warning two years ago and never changed. #payments-alerts gets about 220 alerts a week, about 90% auto-resolve, and nobody watches it live. The rollback needed DBA approval because one-click rollback has been off since March, after a rollback corrupted a migration; two DBAs cover nine product teams, and the one on shift was in a vendor meeting until 18:30. The support lead's escalation was crisp (ticket count, customer list, first-seen time), and the payments engineer found the cause six minutes after the Sev1. I don't know whether anyone was tracking the cut-off or whether the merge triggered the deploy automatically. Since February, minor and patch bumps of internal libraries auto-merge to cut review load; the bot opens about 60 PRs a week.",
+    "released": [
+     "H16",
+     "H13",
+     "H14",
+     "H20",
+     "H21",
+     "H22",
+     "H27",
+     "H28",
+     "H9"
+    ],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": true,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793145527.663185
+  },
+  {
+   "role": "facilitator",
+   "text": "The runbook wording settles the tree. It says \"silence known flapping alerts for the deploy window (2 h)\" and nothing else. It has no condition such as \"check #payments-alerts first\", so the on-call engineer applied it as written. The February auto-merge policy confirms that no human was supposed to review the bump. **Both actions stay at Recommendation D: singling out an individual is unlikely to be appropriate.** You can tell the VP that on Friday, and it changes only if new facts appear.\n\n## Timeline (Phase 1)\n\n| When (UTC) | Event | Evidence |\n|---|---|---|\n| About 2 years ago | `db-pool-saturation` created at warning severity; never changed | Practitioner. *Link needed* |\n| Unknown date | Runbook line added: \"silence known flapping alerts for the deploy window (2 h)\" | Runbook. *Date and reason unknown* |\n| Feb 2026 | Minor and patch bumps of internal libraries auto-merge on green CI, to reduce review load (about 60 bot PRs a week) | Practitioner. *Link needed* |\n| Mar 2026 | One-click rollback turned off after a rollback corrupted a migration; rollbacks now need DBA approval | Practitioner. *Link needed* |\n| Week of 29 Sep | p99 latency page flaps 14 times, always around deploys | On-call interview |\n| 29 Sep 16:05 | payments-api v4.18 deployed, including platform-commons 3.4 \u2192 3.5 | *Whether the merge triggered the deploy automatically: unknown* |\n| 16:14 | First failed submissions (\"connection pool exhausted\") | Logs. *Link needed* |\n| 16:22 | `db-pool-saturation` (warning) posts to #payments-alerts. No page. The channel gets about 220 alerts a week, about 90% auto-resolve, and nobody watches it live | Practitioner |\n| 16:31 | On-call paged for p99 latency; acknowledges within 2 minutes; silences it for 2 hours as the runbook says | On-call interview |\n| 17:10 | First support tickets | Support lead interview |\n| 17:48 | Support lead escalates in #incidents with ticket count, customer list and first-seen time | Support lead interview |\n| 17:55 | Sev1 declared | *Link needed* |\n| 18:00 | Bank cut-off passes; 37 payroll runs miss it | *Whether anyone was tracking the cut-off: unknown* |\n| 18:01 | Payments engineer finds pool exhaustion in the logs, 6 minutes after Sev1 | Payments engineer interview |\n| 18:05 | Decision to roll back | |\n| 18:05\u201318:30 | The DBA on shift (one of two DBAs covering nine teams) is in a vendor meeting | DBA interview |\n| 18:33 | DBA approves | |\n| 18:46 | Rollback complete | |\n| 19:20 | Queued submissions drained. 1,180 employer accounts saw failures | |\n\nEvery row still needs a link. \"Practitioner\" means you told me; the AAR's data-quality notes will record that until each row has a link.\n\n**One thing to note before the analysis.** The cut-off passed at 18:00, before the cause was found at 18:01 and before the rollback decision at 18:05. The 28-minute wait for the DBA made the outage longer, but it doesn't explain the 37 missed payroll runs. Those depended on what happened between 16:14 and 18:00. Please check whether any runs had later cut-offs that the delay did affect.\n\n## What kind of problem this is (Phase 2)\n\nUsing Snowden's Cynefin framework, I'd split it:\n- **The technical failure is Complicated.** platform-commons 3.5 exhausted the connection pool. Expert analysis can find the mechanism and reproduce it.\n- **The 101 minutes from first failure to Sev1 is Complex.** It came from several conditions combining: an alert that never paged, a channel nobody watches, a runbook rule, and a page that was usually noise. No single factor explains it.\n\nDoes that match how it feels to you?\n\n## Draft factor chains, for you to test (Phase 4)\n\n**Chain A: how the change reached production with no one looking at it.** A minor bump auto-merged on green CI, and CI evidently doesn't exercise connection-pool behaviour. Policy since February treats minor and patch bumps of internal libraries as safe to ship unreviewed, to save reviewing about 60 PRs a week. *Open: did the 3.5 changelog mention pooling? Does the platform-commons team know their minor releases ship to payments with no human review?*\n\n**Chain B: why monitoring didn't tell anyone, while customers did.**\n- The alert that described the actual problem has been warning-only since it was created. That's an **original omission, not drift**: it was never stronger.\n- The #payments-alerts channel is roughly 90% noise and nobody watches it. A real alert there is effectively invisible.\n- The p99 page flapped around deploys, so the runbook silences it during the deploy window. That window is exactly when problems caused by a deploy show up.\n- That last point does pass the drift test. A recurring deviation, a flapping page, was accepted with a reason and then written into the runbook. The Columbia report calls this normalisation of deviance, a term it borrows from Diane Vaughan [BT]. The DOE handbook calls it the bald-tire attitude: \"A belief that past performance is justification for not changing (improving) existing practices or conditions\" [V].\n\n**Chain C: why recovery was slow once the decision was made.** One-click rollback was turned off in March for a good reason, so rollback became a handoff to a shared resource: two DBAs for nine teams. When the DBA on shift was in a meeting, nobody else could approve. The organisation set up that bottleneck; the DBA didn't create it.\n\n**How the chains relate.** Chain A set the incident off. Chains B and C decided how bad it got. The DOE handbook says \"it is the number of controls and the weaknesses of those controls that dictate the severity of the event\" [V] (doe-hpi-handbook-vol1).\n\n**A hypothesis to test, not a conclusion.** Auto-merge, the rollback lock and the silence rule were each a sensible fix for a real local problem: review load, migration corruption and alert noise. Each moved risk somewhere else. The Org Topologies primer warns: \"If each element (e.g. policies, structures) is optimized in isolation, the performance of the whole system may actually decline\" [V]. In SSDL's terms that looks like **Fixes that Fail**, three times over. Hold this loosely, though: the alert severity doesn't fit the pattern, and I don't want one neat story to swallow the evidence.\n\n## What went well\n\nThese are worth including in Friday's update:\n- The support lead's escalation turned 41 tickets into something a team could act on.\n- The payments engineer found the cause within 6 minutes of the Sev1.\n- The on-call engineer acknowledged the page within 2 minutes, so paging itself worked.\n\n## Questions for Phase 4\n\n1. Do these three chains match what you've heard? Is anything missing?\n2. **The trade-offs.** When auto-merge (February) and the rollback lock (March) were decided, did anyone weigh the risk being taken on, or was each decided within one team?\n3. **The cut-off.** Does anyone in the incident process own awareness of the 18:00 bank cut-off? Would your severity definitions have declared a Sev1 earlier if cut-off risk were part of them?\n4. **Exceptions.** Has a library bump ever been caught before production? Does any team you know keep alerts clean enough that people watch them? Those cases are where action design should start.\n5. **Deploy trigger.** Did the auto-merge deploy v4.18 automatically? Your release tooling or the dev can answer that.",
+   "t": 1793145600.275329,
+   "wall_s": 73,
+   "cost": 1.2872606,
+   "tools": [
+    {
+     "tool": "mcp__aar-maker__route",
+     "input": {
+      "section": "Phase 2"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "ssdl-systems-thinking-foundations",
+      "section": "Key Concepts"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "doe-hpi-handbook-vol1",
+      "section": "Key Concepts"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "org-topologies-primer-2025",
+      "section": "Key Concepts"
+     }
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "The Complicated/Complex split sounds about right to me. On the changelog: 3.5 lowered the default DB pool from 50 to 20 (\"safer defaults for small services\"), but that's line 40 of a 52-line changelog, and payments-api never set its pool size, so it took the default; staging sets it to 50 explicitly, so staging couldn't show the change. On declaring: a leadership dashboard counts incidents per team, so teams wait until they're sure, and nobody declared on the 16:22 warning. I don't know about runs with later cut-offs, how the February and March decisions were weighed, who owns cut-off awareness, whether any team keeps clean alerts, or whether the merge triggered the deploy; I'd have to check.",
+   "json": {
+    "reply": "The Complicated/Complex split sounds about right to me. On the changelog: 3.5 lowered the default DB pool from 50 to 20 (\"safer defaults for small services\"), but that's line 40 of a 52-line changelog, and payments-api never set its pool size, so it took the default; staging sets it to 50 explicitly, so staging couldn't show the change. On declaring: a leadership dashboard counts incidents per team, so teams wait until they're sure, and nobody declared on the 16:22 warning. I don't know about runs with later cut-offs, how the February and March decisions were weighed, who owns cut-off awareness, whether any team keeps clean alerts, or whether the merge triggered the deploy; I'd have to check.",
+    "released": [
+     "H5",
+     "H6",
+     "H7",
+     "H11",
+     "H26"
+    ],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": false,
+     "says_no_individual": true,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793145636.6500149
+  },
+  {
+   "role": "facilitator",
+   "text": "These details make the picture clearer: a default changed on one side of a team boundary, and staging was configured so it couldn't reveal the change. The declaration dashboard adds a fourth chain, and that one is going to matter in the conversation with your VP.\n\n## The chains, deepened (Phase 4)\n\n**Chain A: how the change reached production unnoticed**\n1. Why did submissions fail? The connection pool ran out because payments-api picked up 3.5's new default of 20 connections instead of 50.\n2. Why did it pick up the default? payments-api never set a pool size, so it depended on the library's default without anyone saying so. The DOE handbook calls this a latent condition: a weakness that sits unnoticed until something exposes it.\n3. Why didn't testing catch it? Staging sets the pool to 50 explicitly. Staging differed from production in exactly the setting that changed, so it could never have shown the problem.\n4. Why did no person look at the change? Since February, minor bumps auto-merge on green CI to reduce review load. The change was on line 40 of 52 in the changelog, described as \"safer defaults for small services\".\n5. Why can a default that changes behaviour arrive in a high-volume service with no review? The platform team chooses defaults for small services. Consumers treat a minor bump as safe. No one owns the question \"what does this default change do to each consumer?\", so it falls between the library team and the services that use it.\n\n**Chain B: why monitoring didn't raise the alarm.** This is unchanged from before. The pool alert has been warning-only since it was created, #payments-alerts is mostly noise and unwatched, and the runbook silences the latency page during the deploy window.\n\n**Chain C: why recovery was slow.** Also unchanged: one-click rollback has been off since March, and two DBAs cover nine teams.\n\n**Chain D (new): why nobody declared earlier**\n1. Why was Sev1 declared 93 minutes after the warning? Nobody declared on the 16:22 warning, and support waited 38 minutes after the first tickets before escalating.\n2. Why do people wait? Teams wait until they're sure.\n3. Why wait until sure? A leadership dashboard counts incidents per team, so each declaration counts against the team.\n4. *Still to find out: when the dashboard was introduced, who looks at it, and what follows when a team's count is high.*\n\nThis chain has a name in the library. Jones (jones-evidence-based-sweng) asks whether a metric has become a target and collapsed under that pressure. That fits here: an incident count meant to *measure* reliability has started to *delay* incident declaration. The DOE handbook's blame cycle runs the same way: blame reduces communication, and the latent weaknesses stay in place.\n\n**Raise this carefully with the VP.** The dashboard and the request to name one person push in the same direction. Both teach people that declaring an incident or admitting a mistake costs them something. You know your VP; how and whether to raise it is your call. It is a finding, though, and the AAR should record it.\n\n## Mapping to the five points (Phase 5)\n\n| Point | Implicated? | Chains | Evidence |\n|---|---|---|---|\n| What we optimise for | Yes | A, C | Review load (February auto-merge), migration safety (March rollback lock), defaults chosen for small services |\n| Who owns what | Yes | A, C | Nobody owns the effect of a library default on its consumers; a shared DBA approves all rollbacks; ownership of cut-off awareness is unknown |\n| How work moves | Yes | A, B | Auto-merge path; staging config differs from production; the runbook silence rule; alert routing |\n| What gets measured and rewarded | Yes | D | Incident count per team on a leadership dashboard |\n| Who we hire, grow and staff | Yes | C | Two DBAs for nine teams. The on-call engineer being new is *not* a factor here, because he followed the runbook |\n\nThese points come from Jay Galbraith's Star Model, put into plain words. This workflow uses it as scaffolding; the library doesn't hold it.\n\n**Drift or omission?** The alert severity is an omission: it was never stronger. The silence rule fits drift, but confirming that needs the date the rule was added. Staging's explicit pool size of 50 depends on whether it was ever aligned with production. The dashboard depends on when it was introduced.\n\n**Handoffs.** There are two boundaries: platform-commons to payments (the default change) and payments to the DBAs (the rollback). For the rollback, the wait-to-work ratio is about 28 minutes waiting to 13 minutes working, roughly 2:1.\n\n**Quality check** (this workflow's own scorer, not a library method): four chains, depths 5/4/3/3, all five points covered, no person-blame. That rates **Good**. To reach Excellent, Chains C and D need to go deeper: why only two DBAs, and what the dashboard is used for.\n\n## Side effects of past fixes (Phase 7)\n\nThe **Fixes that Fail** hypothesis is stronger now. February's auto-merge, March's rollback lock and the runbook silence rule each solved a real problem and moved risk somewhere else. The silence rule is also **Shifting the Burden**: silencing the page relieved the pressure, so nobody fixed why it flaps. SSDL's caution applies, though: archetypes are hypotheses to test, not labels. The dashboard is a different mechanism (a metric that has become a target), so it isn't evidence for the same story.\n\n## The highest-leverage intervention point (Phase 8)\n\nThis step uses Goldratt's Theory of Constraints, which the library doesn't hold.\n\n**Provisional choice: detection during the deploy window. It's a policy constraint.** The 37 runs missed the cut-off because of what happened between 16:14 and 18:00. During those 106 minutes the system couldn't tell a failure caused by the deploy from the usual deploy noise, and the window when deploy failures appear is exactly the window the runbook silences. With 60 bot PRs a week, Chain A will fire again in some other form. Detection is what decides whether that turns into a missed cut-off.\n\n**The strongest alternative: the recovery path (Chain C).** Suppose the failure had paged at 16:20. Rollback still needs a DBA, and the DBA on shift was in a meeting until 18:30. **If that meeting started before about 16:30, faster detection alone wouldn't have saved the cut-off**, and recovery would be the binding constraint. Another question bears on this: could the pool size have been set back to 50 by a config change, without a rollback or a DBA?\n\n**What would prove the choice wrong:** a meeting start time before 16:30, with no other way to approve the rollback.\n\n## Before I draft actions\n\nThe open items, ordered by how much they could change the analysis:\n\n| # | Question | Who can answer | Why it matters |\n|---|---|---|---|\n| 1 | When did the DBA's vendor meeting start? Could anyone else approve? | DBA | Decides between detection and recovery as the constraint |\n| 2 | Could a config change have fixed it without a rollback? | Payments engineer | Same reason |\n| 3 | Did the merge trigger the deploy automatically? | Release tooling or the dev | Tells us whether any human touched the change at any point |\n| 4 | Did any runs have later cut-offs that the 18:05\u201318:46 delay affected? | Payroll ops | Sets how much harm Chain C caused |\n| 5 | Did anyone see the 16:22 warning? When did the dashboard start, and who uses it? | Payments team, the VP's office | Deepens Chain D |\n| 6 | How were the February and March decisions weighed, and by whom? | Whoever made them | Who owns the trade-off actions |\n\nItems 1 and 2 matter most. Once they're answered, I'll draft two or three actions, each with one owner, a reviewer, a date and an urgency rating. Where I can, I'll prefer controls built into the system over reminders, as the DOE handbook advises. Then I'll compile the AAR document for Friday. If you can't get those answers before Friday, I can draft the actions now with the constraint marked provisional.",
+   "t": 1793145722.506151,
+   "wall_s": 86,
+   "cost": 1.531501,
+   "tools": [
+    {
+     "tool": "mcp__aar-maker__find_concepts",
+     "input": {
+      "query": "Goodhart"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "doe-hpi-handbook-vol1",
+      "section": "Phase 2"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "jones-evidence-based-sweng",
+      "section": "Phase 2"
+     }
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "Can we just add more alerts on the DB pool metrics and call it done? On your list, I don't know when the DBA's vendor meeting started, whether anyone else could have approved the rollback, whether a config change would have fixed it, whether the merge triggered the deploy, or when the dashboard started; I'd have to check. What I do know is that finance ops paid the bank's fee for its late-processing window and got 22 of the 37 runs through that evening. The other 15 runs, about 3,800 employees, were paid a day late.",
+   "json": {
+    "reply": "Can we just add more alerts on the DB pool metrics and call it done? On your list, I don't know when the DBA's vendor meeting started, whether anyone else could have approved the rollback, whether a config change would have fixed it, whether the merge triggered the deploy, or when the dashboard started; I'd have to check. What I do know is that finance ops paid the bank's fee for its late-processing window and got 22 of the 37 runs through that evening. The other 15 runs, about 3,800 employees, were paid a day late.",
+    "released": [
+     "H3",
+     "H4"
+    ],
+    "beat": "B3",
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": false,
+     "says_no_individual": false,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793145756.804662
+  },
+  {
+   "role": "facilitator",
+   "text": "## Can we just add more DB pool alerts?\n\nNo. More alerts would repeat what went wrong on Tuesday. There's a narrower version of the idea that's worth doing, though.\n\n**Why not:**\n- **An alert already existed, and it fired.** `db-pool-saturation` posted at 16:22, eight minutes after the first failure. It went to a channel that receives about 220 alerts a week, 90% of which resolve on their own, and nobody watches it. Adding pool alerts to that channel adds noise to something people have already learned to ignore.\n- **Paging on them wouldn't have worked either.** The runbook tells on-call to silence known flapping alerts for two hours during deploys. Any new pool alert that flapped around deploys would get the same treatment.\n- **It repeats the pattern.** Auto-merge, the rollback lock and the silence rule were each a quick, sensible fix that moved the risk somewhere else. SSDL asks whether an action targets the event or the feedback loop behind it. More alerts target the event. The Forest Service guide also warns that recommendations, once implemented, often \"add complexity to the workplace, which has the paradoxical effect of increasing risk\" [V].\n- **It does nothing about the other three chains.** With about 60 bot PRs a week, another default change will ship unreviewed. Rollbacks will still wait on a DBA. And people will still hesitate to declare an incident because of the dashboard.\n\n**The version worth doing:** fewer alerts, but better ones. Have one alert page on what customers actually experience, failed payroll submissions, and make sure the deploy-window silence can never cover it. That's Action 1 below.\n\n## Impact and what went well\n\n- **Impact:** 37 runs missed the 18:00 cut-off. 22 got through that evening in the bank's late-processing window, at a fee. The other 15 runs, about 3,800 employees, were paid a day late. This goes at the top of the AAR's executive summary.\n- **What went well:** Finance ops recovered 22 of the 37 runs. That's the clearest example of the organisation adapting under pressure. I'd like to know what made it possible: who knew the late window existed, and who had the authority to pay the fee?\n\n**This raises a question that could change the constraint:** when did the late-processing window close, and why didn't the other 15 runs make it? If the window closed before the queue finished draining at 19:20, the 41-minute rollback (Chain C) is what cost those 3,800 people their pay on time. That would make the recovery path as important as detection.\n\n## Draft actions (Phase 9, provisional)\n\nThere are three actions plus one decision for leadership. Owners are blank because choosing them is your call. I'll come back to the dev and the bot config below.\n\n| # | Action | Chain | Owner | Checked by | Done when | Urgency |\n|---|---|---|---|---|---|---|\n| 1 | **Page on customer impact, and narrow the silence rule.** Add one page on the payroll submission failure rate, exempt from any deploy-window silence. Rewrite the runbook line so only alerts named on a flapping list, each with an owner and an expiry date, can be silenced. Fix the p99 latency flap or retire that page. Either make `db-pool-saturation` a paging alert or delete it. | B (the constraint) | TBD | TBD | In a game day, a failure injected during a deploy window pages within 5 minutes and can't be silenced | **High.** Deploys happen often, and the next failure caused by a deploy would be silenced the same way. |\n| 2 | **Stop default changes from auto-merging.** Releases of internal libraries that change a default get flagged (or bumped to a major version), and the bot doesn't auto-merge flagged releases. As an immediate step, set payments-api's pool size explicitly, and add a CI check that fails when staging and production differ on critical settings such as pool size. | A | TBD (platform-commons and whoever owns the auto-merge policy) | TBD | A test release that changes a default opens a PR that waits for a human, and the CI check fails on a deliberate mismatch | **High.** About 60 bot PRs a week, and nothing currently stops a change to a default. |\n| 3 | **Remove the single-DBA wait from rollback.** *Depends on two answers: did v4.18 include a migration, and could anyone else have approved?* If releases without migrations don't need DBA approval, bring back one-click rollback for those releases. Otherwise, name a backup approver. | C | TBD | TBD | A rollback of a release without migrations completes in under 15 minutes with no DBA involved | **Medium, provisional.** It becomes High if the late window closed before 19:20. |\n| L | **Decision for leadership: the incident-count dashboard.** Change what it rewards, for example by tracking time to declare instead of the number of incidents per team, or by removing the per-team ranking. | D | Whoever owns the dashboard decides | You | Decision recorded, with a date | **High.** It slows declaration for every team, not just payments. |\n\n**Why these three.** The DOE handbook says that where prevention is imperative, \"physical, engineered controls are more appropriate\" [V]. It also asks whether at least one action strengthens a control rather than relying on people being more careful. Actions 1\u20133 each change the system itself: what pages, what auto-merges, and who must approve a rollback. None of them asks anyone to be more careful.\n\n**Checking the actions against the constraint.** Action 1 targets detection directly. Action 2 cuts how often the trigger happens. Action 3 becomes equal to Action 1 if the 15 late runs trace back to the rollback delay. The dashboard decision affects declaration in every incident.\n\n**Checking for side effects.** Action 1 could become alert noise in its turn. That's why it adds only one page and requires flapping alerts to be fixed or retired, not silenced. Action 2 could reintroduce review load, but only for releases that change a default, which should be a small share of the 60 a week.\n\n**On the dev:** he owns the bot config, which makes him the obvious person to implement the bot side of Action 2. Ask him. Don't assign it to him in a way that reads as a penalty.\n\n## For Friday\n\nWithout a connected tracker, I can't create tickets. I'll give you the actions as markdown to file yourself. Next I can put together the full AAR document (`aar-inc-2291-2026-09-29`) with the timeline, chains, tree results, actions and data-quality notes.\n\nTo finish it, I need:\n1. **Owners and reviewers** for Actions 1\u20133, and the name of whoever owns the dashboard.\n2. **The late-processing window's closing time**, and why the 15 runs missed it.\n3. If you can get them before Friday: whether v4.18 included a migration, and when the DBA's vendor meeting started.\n\nIf item 3 isn't available in time, I'll mark Action 3 and the constraint as provisional in the document.",
+   "t": 1793145835.2360132,
+   "wall_s": 78,
+   "cost": 1.7584522,
+   "tools": [
+    {
+     "tool": "mcp__aar-maker__route",
+     "input": {
+      "section": "Phase 4"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "doe-hpi-handbook-vol1",
+      "section": "Phase 4"
+     }
+    },
+    {
+     "tool": "mcp__aar-maker__read_distillation",
+     "input": {
+      "source": "ssdl-systems-thinking-foundations",
+      "section": "Phase 4"
+     }
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "I'd have to work out owners and reviewers with the other leads, and I don't know who owns the dashboard. I'd have to check. I also don't know when the late-processing window closed or why those 15 runs missed it. Same for whether v4.18 had a migration and when the DBA's meeting started.",
+   "json": {
+    "reply": "I'd have to work out owners and reviewers with the other leads, and I don't know who owns the dashboard. I'd have to check. I also don't know when the late-processing window closed or why those 15 runs missed it. Same for whether v4.18 had a migration and when the DBA's meeting started.",
+    "released": [],
+    "beat": null,
+    "done": false,
+    "gate": {
+     "asks_facts": true,
+     "proposes_actions": true,
+     "says_no_individual": true,
+     "delivers_aar": false
+    }
+   },
+   "t": 1793145862.340289
+  },
+  {
+   "role": "facilitator",
+   "text": "Those can all stay open. The AAR can go to your VP on Friday as a draft. Every unknown is marked, and next to it is who can answer it. The workflow doesn't treat an AAR as closed until each action has an owner. So for Friday, ask for a **date by which owners will be agreed**, not the owners themselves.\n\n---\n\n# aar-inc-2291-2026-09-29\n\n# After-Action Review: INC-2291, payroll submissions failed after a library upgrade\n\n**Incident:** INC-2291 \u00b7 **Date of incident:** Tuesday 29 September 2026 \u00b7 **Severity:** Sev1\n**Status:** DRAFT. Analysis complete; action owners and five facts still open (see Open Items)\n**Author / Facilitator:** [you]\n\n---\n\n## Executive summary\n\nAt 16:05 UTC a routine deploy of payments-api v4.18 included an automated bump of platform-commons from 3.4 to 3.5. Version 3.5 lowered the default database connection pool from 50 to 20. payments-api never set its pool size, so it picked up the new default and ran out of connections. Customers' payroll submissions failed for about three hours.\n\nThe pool alert fired, but it went to a channel nobody watches. The page that did reach on-call was silenced, as the runbook says to do during the deploy window. Support tickets were what surfaced the problem, and Sev1 was declared at 17:55. 37 payroll runs missed the 18:00 bank cut-off. Finance ops got 22 of them through the bank's late-processing window, at a fee. The other 15 runs, about 3,800 employees, were paid a day late. 1,180 employer accounts saw failures.\n\n**Key learning:** No single person caused this, and no single fix will prevent it. Four reasonable local decisions interacted: auto-merging minor library bumps, silencing flapping pages during deploys, requiring DBA approval for rollbacks, and counting incidents per team. Each solved its own problem and moved risk somewhere else.\n\n---\n\n## Just culture outcome\n\nEach action was walked separately through the NHS Just Culture Guide's decision tree (nhs-just-culture-guide). The guide starts from the position that \"Action singling out an individual is rarely appropriate \u2014 most patient safety issues have deeper causes and require wider action\" [V].\n\n| Action | Where the tree stopped | Outcome |\n|---|---|---|\n| On-call silenced the p99 latency page for 2 h (16:31) | **Q3 Foresight.** A protocol existed and was workable and in routine use. He did not knowingly depart from it: he followed the runbook line \"silence known flapping alerts for the deploy window (2 h)\". The page had flapped 14 times that week. The substitution test points the same way: any on-call engineer following the runbook would have done the same. | **Recommendation D.** Singling out the individual is unlikely to be appropriate. The wider actions are below. |\n| Library bump merged without the changelog being read | **Q3 Foresight.** No protocol required a human to read changelogs on bot PRs. Since February 2026, minor and patch bumps of internal libraries auto-merge on green CI, by design. The repo owner's name is on the PR only because he owns the bot config. | **Recommendation D.** |\n\n- **How the behaviour is classified:** Following procedure (on-call), and an automated process working as designed (merge). Neither is an error or a violation by an individual. In the DOE handbook's terms, the weaknesses are latent conditions in the organisation (doe-hpi-handbook-vol1).\n- **Accountability that looks forward:** It's carried by the named owners of the actions below. The Forest Service guide treats just culture as accountability that looks forward, not culpability (lfuo-learning-review-guide-2024).\n- **Rerunning the tree:** The guide expects the tree to be revisited as facts emerge. If new facts show someone knowingly departed from a workable protocol, that action is walked through the tree again.\n\n---\n\n## Timeline (UTC)\n\n| When | Event | Evidence |\n|---|---|---|\n| About 2 years ago | `db-pool-saturation` created at warning severity, never changed | Practitioner. *Link needed* |\n| Unknown | Runbook line added: \"silence known flapping alerts for the deploy window (2 h)\" | Runbook. *Date and reason unknown* |\n| Feb 2026 | Minor and patch bumps of internal libraries set to auto-merge on green CI, to reduce review load (about 60 bot PRs a week) | Practitioner. *Link needed* |\n| Mar 2026 | One-click rollback disabled after a rollback corrupted a migration. Rollbacks now need DBA approval | Practitioner. *Link needed* |\n| Unknown | Staging sets the DB pool size to 50 explicitly. Production relies on the library default | Practitioner |\n| Unknown | Leadership dashboard begins counting incidents per team | Practitioner. *Start date and owner unknown* |\n| Week of 29 Sep | p99 latency page flaps 14 times, always around deploys | On-call interview |\n| 16:05 | payments-api v4.18 deployed with platform-commons 3.5 (default pool 50 \u2192 20; changelog line 40 of 52, \"safer defaults for small services\") | *Whether the merge triggered the deploy automatically: unknown* |\n| 16:14 | First failed submissions: \"connection pool exhausted\" | Logs. *Link needed* |\n| 16:22 | `db-pool-saturation` (warning) posts to #payments-alerts. No page. The channel gets about 220 alerts a week, about 90% auto-resolve, and it isn't watched live | Practitioner |\n| 16:31 | On-call paged: \"payments p99 latency high\". Acknowledged in 2 minutes and silenced for 2 hours per the runbook | On-call interview |\n| 17:10 | First support tickets | Support lead interview |\n| 17:48 | Support lead escalates in #incidents: 41 tickets, customer list, first-seen time | Support lead interview |\n| 17:55 | Sev1 declared | *Link needed* |\n| 18:00 | Bank cut-off passes; 37 payroll runs miss it | *Whether anyone was tracking the cut-off: unknown* |\n| 18:01 | Payments engineer finds pool exhaustion in the logs | Payments engineer interview |\n| 18:05 | Decision to roll back | |\n| 18:05\u201318:30 | DBA on shift (one of two DBAs covering nine teams) in a vendor meeting | DBA interview. *Meeting start unknown* |\n| 18:33 | DBA approves the rollback | |\n| 18:46 | Rollback complete | |\n| 19:20 | Queued submissions drained | |\n| Evening | Finance ops pays the bank's late-processing fee; 22 of 37 runs processed. 15 runs (about 3,800 employees) paid a day late | Practitioner. *Late-window close time unknown* |\n\n---\n\n## Problem assessment\n\nClassified using Cynefin (Snowden). The incident is a **split domain**:\n- **The pool exhaustion is Complicated.** The mechanism (a default change, an implicit dependency on that default, and staging configured differently from production) can be found and reproduced with expertise.\n- **The 101 minutes from first failure to Sev1 is Complex.** It came from an unwatched alert channel, a runbook silence rule, a page that was usually noise, and a reluctance to declare, all interacting.\n\n---\n\n## Contributing factor analysis\n\n### Chain A: the change reached production without anyone noticing\n1. Why did submissions fail? Pool exhaustion. payments-api picked up 3.5's new default of 20 connections, down from 50.\n2. Why did it take the default? payments-api never set a pool size, so it depended on the library default without that being explicit anywhere.\n3. Why didn't testing catch it? Staging sets the pool to 50 explicitly. It differed from production in exactly the setting that changed, so it could not show the problem.\n4. Why did no human look at it? Since February, minor bumps auto-merge on green CI to cut review load. The change was line 40 of a 52-line changelog, framed as \"safer defaults for small services\".\n5. Why can a change to default behaviour reach a high-volume service unreviewed? The platform team chooses defaults for small services, and consumers treat minor bumps as safe. Nobody owns the effect of a default change on each consumer. It falls at the boundary between the library team and the teams that use the library.\n\n### Chain B: monitoring did not alert anyone in time\n1. Why did customers find the problem before monitoring did? The pool alert fired at 16:22 but didn't page anyone. The page that did go out was silenced.\n2. Why didn't the pool alert page? It was created at warning severity two years ago and never reviewed. This is an **original omission, not drift**.\n3. Why did nobody see it in Slack? #payments-alerts gets about 220 alerts a week, about 90% resolve on their own, and nobody watches it live.\n4. Why was the page silenced? It flapped around deploys, and the runbook says to silence known flapping alerts for the deploy window. That is exactly when failures caused by a deploy appear.\n5. Why was a flapping page silenced instead of fixed? The deviation was accepted with a rationale and then written into the runbook. This is **drift**, though its timing still needs dating. The Columbia report calls the pattern normalisation of deviance, a term it borrows from Diane Vaughan [BT] (caib-report-vol1). The DOE handbook calls it the bald-tire attitude: \"A belief that past performance is justification for not changing (improving) existing practices or conditions\" [V].\n\n### Chain C: recovery was slow once the cause was known\n1. Why did the rollback take 41 minutes after the decision? It waited 28 minutes for DBA approval.\n2. Why did it need a DBA? One-click rollback has been off since March, when a rollback corrupted a migration.\n3. Why the wait? The DBA on shift was in a vendor meeting until 18:30. Two DBAs cover nine product teams, and there is no backup approver (*to be confirmed*).\n4. *Open: did v4.18 include a migration? Could a config change have restored the pool size without a rollback?*\n\n### Chain D: nobody declared an incident early\n1. Why was Sev1 declared 93 minutes after the warning? Nobody declared on the 16:22 warning, and support escalated 38 minutes after the first tickets.\n2. Why wait? Teams wait until they're sure.\n3. Why wait until sure? A leadership dashboard counts incidents per team, so declaring one counts against the team.\n4. *Open: when the dashboard started, who uses it, and what follows from a high count.*\n\nThe pattern fits the question Jones raises (jones-evidence-based-sweng): has a metric that became a target stopped being a reliable signal? Here, the incident count meant to measure reliability is delaying declaration. The DOE handbook describes the same direction in its blame cycle: blame reduces communication, and the latent weaknesses persist.\n\n### How the chains relate\nChain A set the incident off. Chains B and D determined how long the failure went unnoticed. Chain C determined how long recovery took. \"It is the number of controls and the weaknesses of those controls that dictate the severity of the event\" [V] (doe-hpi-handbook-vol1). The 37 missed cut-offs depended on 16:14\u201318:00, which is Chains A, B and D. Whether Chain C cost the 15 late runs depends on when the late-processing window closed.\n\n### Mapping to the five points\n*(Jay Galbraith's Star Model, in plain words.)*\n\n| Point | Implicated? | Chains | Evidence |\n|---|---|---|---|\n| What we optimise for | Yes | A, C | Lower review load (Feb), migration safety (Mar), defaults chosen for small services |\n| Who owns what | Yes | A, C | No owner for how library defaults affect consumers; one shared DBA approval gate; ownership of cut-off awareness unknown |\n| How work moves | Yes | A, B | Auto-merge path; staging/production config divergence; runbook silence rule; alert routing |\n| What gets measured and rewarded | Yes | D | Incident count per team on a leadership dashboard |\n| Who we hire, grow and staff | Yes | C | Two DBAs for nine teams. The on-call engineer's inexperience is **not** a factor: he followed the runbook |\n\n### Highest-leverage intervention point (provisional)\n**Detection during the deploy window.** This is a policy constraint: the runbook silence rule, together with an alert that only warns. With about 60 bot PRs a week, Chain A will recur in other forms. Detection decides whether a recurrence becomes a missed cut-off.\n\n**Strongest alternative: the recovery path (Chain C).** If the DBA's meeting began before about 16:30, faster detection alone would not have saved the cut-off. **What would prove the detection choice wrong:** a meeting start before 16:30 with no other approver, or a late-processing window that closed before 19:20.\n\n*(Theory of Constraints, Goldratt.)*\n\n### Quality assessment\nThis uses the workflow's own scorer, not a library method. Four chains, depths 5/4/4/3. Five of five points covered. No person-blame. Rating: **Good.** To reach Excellent, deepen Chains C and D once the open items are answered.\n\n---\n\n## Additional analysis\n\n- **Drift:** Yes, for the silence rule (to be dated). The alert severity is an original omission. The staging divergence and the dashboard are undetermined.\n- **Handoffs:** Two boundaries: platform-commons \u2192 payments (the default change crossed it unseen), and payments \u2192 DBA (rollback wait to work time about 28:13, roughly 2:1).\n- **System archetypes** (ssdl-systems-thinking-foundations; hypotheses, not labels):\n  - **Fixes that Fail:** February auto-merge, March rollback lock, the silence rule.\n  - **Shifting the Burden:** silencing the flapping page instead of fixing it.\n  - **Not the same pattern:** the alert severity (an omission) and the dashboard (a metric become a target).\n\n---\n\n## What went well\n\n- **Finance ops** paid the bank's late-processing fee and got 22 of the 37 runs through that evening, about 60% of the missed runs. *To capture: who knew the window existed, and who had the authority to pay.*\n- **The support lead's escalation** (ticket count, customer list, first-seen time) gave the incident team something they could act on straight away. Sev1 followed within 7 minutes.\n- **The payments engineer** found the cause 6 minutes after the Sev1 was declared.\n- **Paging worked:** on-call acknowledged within 2 minutes.\n- **The on-call engineer disclosed the flapping history and the runbook practice openly.** Chain B rests on that disclosure.\n\n---\n\n## Action items\n\nOwners will be agreed with the other leads. **Owner agreement due: [date to set Friday].** No tracker is connected, so these are for manual entry. \"Ticket: TBD\" until filed.\n\n| # | Action | Chain | Owner | Checked by | Done when | Urgency | Ticket |\n|---|---|---|---|---|---|---|---|\n| 1 | **Page on customer impact; narrow the silence rule.** One page on payroll submission failure rate, exempt from any deploy-window silence. Rewrite the runbook so only alerts on a named flapping list, each with an owner and an expiry, may be silenced. Fix or retire the p99 flap. Make `db-pool-saturation` a paging alert or delete it. | B | TBD | TBD | Game day: a failure injected during a deploy window pages within 5 min and can't be silenced | **High.** Deploys are frequent; the next failure caused by a deploy would be silenced the same way | TBD |\n| 2 | **Stop default changes from auto-merging.** Library releases that change a default are flagged or bumped to a major version, and the bot doesn't auto-merge them. Immediately: set payments-api's pool size explicitly; add a CI check that fails when staging and production differ on critical settings. | A | TBD (platform-commons and the auto-merge policy owner) | TBD | A test default-changing release opens a PR that waits for a human; the CI check fails on a deliberate mismatch | **High.** About 60 bot PRs a week; nothing stops a default change | TBD |\n| 3 | **Remove the single-DBA wait from rollback.** If releases without migrations don't need DBA approval, restore one-click rollback for them. Otherwise name a backup approver. | C | TBD | TBD | A rollback of a release without migrations completes in under 15 min with no DBA | **Medium, provisional.** High if the late window closed before 19:20 | TBD |\n| L | **Leadership decision: incident-count dashboard.** Change what it rewards, e.g. track time to declare rather than count per team, or remove the per-team ranking. | D | Dashboard owner (TBD) decides | AAR facilitator | Decision recorded with a date | **High.** It slows declaration for every team | TBD |\n\n**Constraint test.** Action 1 targets the constraint directly. Action 2 reduces how often the trigger occurs. Action 3 rises to equal Action 1 if the 15 late runs trace to the rollback delay. L affects declaration in every incident.\n\n**Control check.** Each action changes the system: what pages, what auto-merges, who approves rollback. None relies on people being more careful. The DOE handbook: \"If it is imperative to prevent error, then physical, engineered controls are more appropriate\" [V].\n\n**Side effects.** Action 1 could become alert noise in turn, so it adds one page and requires flapping alerts to be fixed or retired, not silenced. Action 2 adds review only for releases that change a default.\n\n**Considered and rejected: \"add more DB pool alerts\".** An alert already existed and fired at 16:22. More alerts into an unwatched channel, or onto a page that gets silenced, repeats Chain B.\n\n---\n\n## Open items\n\n| # | Question | Who can answer | Affects |\n|---|---|---|---|\n| 1 | When did the late-processing window close, and why did 15 runs miss it? | Finance ops | Constraint; Action 3 urgency |\n| 2 | When did the DBA's vendor meeting start? Could anyone else approve? | DBA / DBA lead | Constraint; Action 3 |\n| 3 | Did v4.18 include a migration? Could a config change have fixed it without a rollback? | Payments engineer | Action 3 design |\n| 4 | Did the merge trigger the deploy automatically? | Release tooling / bot config owner | Chain A |\n| 5 | Who owns the dashboard, when did it start, and what follows from a high count? | VP's office | Chain D; Action L owner |\n| 6 | When and why was the runbook silence line added? Was staging's explicit pool size ever aligned with production? | Payments team | Drift assessment |\n| 7 | Was anyone tracking the 18:00 cut-off? Who owns cut-off awareness in incidents? | Incident commander / payroll ops | Possible further action |\n\n---\n\n## Learning-loop closure\n\n- **The person who verifies each action is not its owner** (doe-hpi-handbook-vol1).\n- **Report the outcomes face to face** to the on-call engineer, the dev, the support lead, the DBA, the payments engineer and finance ops. They should see that what they disclosed changed something (doe-hpi-handbook-vol2).\n- **Revise the runbook as part of Action 1, not later.** TC 25-20 holds that a procedure the AAR found wanting must be revised and the change put into use in the next cycle.\n- **Plan for vigilance fading.** The Columbia board expects post-incident energy to dissipate (caib-report-vol1). Set a check at 30 and 90 days on whether Actions 1\u20133 are still in force, and use INC-2291 in on-call onboarding.\n- **Rerun the just-culture tree** if any open item produces new facts about an individual action.\n\n---\n\n## Methodology note\n\n- **Backward timeline** (doe-hpi-handbook-vol1, Anatomy of an Event): worked from the 19:20 drain back to the February/March policy changes and the two-year-old alert.\n- **Inside view** (Dekker via doe-hpi-handbook-vol1 [BT]): reconstructed why silencing the page was correct under the runbook.\n- **Cynefin** (Snowden): split the incident into a Complicated technical cause and a Complex detection gap.\n- **NHS Just Culture Guide:** walked the silenced page and the merge separately. Both stopped at Q3, Recommendation D.\n- **Normalisation of deviance** (caib-report-vol1, borrowing Vaughan [BT]): read the silence rule as an accepted deviation written into procedure.\n- **Five points** (after Galbraith's Star Model): all five implicated, none at the individual level.\n- **Metric as target** (jones-evidence-based-sweng): named the incident-count dashboard as a reason declaration was delayed.\n- **Local optimisation** (org-topologies-primer-2025): auto-merge, the rollback lock and the silence rule were each sensible in isolation; \"the performance of the whole system may actually decline\" [V].\n- **System archetypes** (ssdl-systems-thinking-foundations): tested Fixes that Fail and Shifting the Burden against the fixes from February, March and the runbook.\n- **Theory of Constraints** (Goldratt): chose detection during the deploy window as the provisional constraint, with recovery as the alternative and a test that could falsify the choice.\n\n---\n\n## Data-quality notes\n\n- **No connected tools.** No issue tracker, chat tool, code host or alerting tool was connected. The timeline is reconstructed from the practitioner's account and four interviews (on-call, DBA, support lead, payments engineer). There are no message-level links yet; every row needs one before the AAR is closed.\n- **The dev's own account hasn't been recorded directly.** The bot facts come via the practitioner.\n- **No meeting transcript.** This is a reconstruction from chat and accounts only.\n- **Redaction.** The support lead's customer list is referenced but not reproduced. No credentials were shared.\n- **Impact figures** (1,180 accounts, 37/22/15 runs, about 3,800 employees) are as reported by the practitioner; source records to be linked.\n\n---\n\n*Quoted passages are from openly licensed sources: NHS Just Culture Guide (OGL v3.0), US DOE HPI Handbook and Columbia Accident Investigation Board Report (US public domain), US Forest Service LFUO guide. The Org Topologies primer quotation is under a NonCommercial licence. That's worth checking if this document will be republished outside your organisation.*\n\n---\n\n## For Friday\n\n1. **Before Friday:** meet the other leads to agree owners for Actions 1\u20133, or at least a date by which owners will be named. Ask the VP's office who owns the dashboard. That one question also answers open item 5.\n2. **When you present:** lead with the just-culture table and the action table, then the impact. If the VP asks for a name, the answer is in the tree results: two actions walked through the tree, both landed at Recommendation D, and accountability sits with the named owners of the fixes.\n3. **Raise Chain D with the VP privately rather than in the room.** The dashboard is his to change, and he'll find it easier to own a finding he hears first in a one-to-one.\n\nWhen the open items come back, send them over. I'll rerun the affected parts (the constraint, Action 3's urgency, and the just-culture tree if needed) and update the draft.",
+   "t": 1793145977.163326,
+   "wall_s": 115,
+   "cost": 2.031094,
+   "tools": [
+    {
+     "tool": "mcp__aar-maker__route",
+     "input": {
+      "section": "Phase 5"
+     }
+    }
+   ]
+  },
+  {
+   "role": "participant",
+   "text": "Thanks, that's what I needed.",
+   "json": {
+    "released": [],
+    "done": true,
+    "gate": {
+     "asks_facts": false,
+     "proposes_actions": true,
+     "says_no_individual": true,
+     "delivers_aar": true
+    },
+    "reply": "Thanks, that's what I needed.",
+    "beat": null
+   },
+   "t": 1793145985.136457
+  }
+ ],
+ "facilitator_cost": 9.0476502,
+ "participant_cost": 0.951381,
+ "started": 1793145216.495827,
+ "summary": {
+  "participant_replies": 7,
+  "released": [
+   "H1",
+   "H2",
+   "H3",
+   "H4",
+   "H5",
+   "H6",
+   "H7",
+   "H8",
+   "H9",
+   "H10",
+   "H11",
+   "H13",
+   "H14",
+   "H15",
+   "H16",
+   "H20",
+   "H21",
+   "H22",
+   "H26",
+   "H27",
+   "H28",
+   "H30",
+   "H31",
+   "H32"
+  ],
+  "n_released": 24,
+  "n_why": 15,
+  "beats": [
+   "B2",
+   "B3",
+   "B4"
+  ],
+  "ended": "done",
+  "wall_s": 769,
+  "cost": 10.0
+ }
+}

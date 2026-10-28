@@ -1,0 +1,145 @@
+{
+ "E": {
+  "E1": {
+   "v": "partial",
+   "q": "the root-cause alert (db-pool-saturation) was relegated to an unpaged Slack warning channel, silencing a generic latency spike ... is a standard coping strategy under alert fatigue"
+  },
+  "E2": {
+   "v": "full",
+   "q": "a complete, high-leverage remedy addresses ... three layers: Upstream Prevention ... Alerting Architecture ... Emergency Governance"
+  },
+  "E3": {
+   "v": "partial",
+   "q": "Severe alert fatigue driven by noisy symptom-level alerts"
+  },
+  "E4": {
+   "v": "absent",
+   "q": ""
+  },
+  "E5": {
+   "v": "absent",
+   "q": "Dev merged `platform-commons 3.4 \u2192 3.5` without reading the changelog."
+  },
+  "E6": {
+   "v": "absent",
+   "q": ""
+  },
+  "E7": {
+   "v": "absent",
+   "q": ""
+  },
+  "E8": {
+   "v": "partial",
+   "q": "Requiring synchronous DBA approval during a Sev1 created an unnecessary 28-minute operational bottleneck."
+  },
+  "E9": {
+   "v": "absent",
+   "q": ""
+  },
+  "E10": {
+   "v": "partial",
+   "q": "High-consequence financial deadline breached due to prolonged detection and diagnosis delays."
+  },
+  "E11": {
+   "v": "absent",
+   "q": ""
+  },
+  "E12": {
+   "v": "full",
+   "q": "Singling out individual personnel would mask latent engineering defects ... True accountability is achieved by holding engineering leadership accountable for executing five concrete corrective actions"
+  },
+  "E13": {
+   "v": "full",
+   "q": "multiplying alerts without restructuring the underlying alerting topology generates an unintended side effect: cognitive overload and alert fatigue"
+  },
+  "E14": {
+   "v": "absent",
+   "q": ""
+  }
+ },
+ "E_notes": {
+  "E1": "Does not mention that the runbook instructed the 2h silence. It also claims there was an 'absence of runbook linking latency to connection pools' and still labels the silence an 'Active Error'.",
+  "E3": "220 alerts a week, the roughly 90% auto-resolve rate, nobody watching the channel live, and the severity and routing never being revisited after two years are all missing.",
+  "E5": "The document says the developer merged the bump by hand. The auto-merge policy is never identified, only a generic 'dependency updates are frequently automated'.",
+  "E8": "The disabled one-click rollback and the DBA capacity (two DBAs for nine teams, the on-shift DBA in a meeting) are missing.",
+  "E10": "It never ties the harm to the timing against the cut-off with figures, and impact numbers are absent."
+ },
+ "R": {
+  "R1": {
+   "v": "triggered",
+   "q": "Active Error: Dev merged `platform-commons 3.4 \u2192 3.5` without reading the changelog."
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "triggered",
+   "q": "Decision made by Incident Commander to roll back payments-api to v4.17."
+  },
+  "R7": {
+   "v": "clear",
+   "q": ""
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "Developer manually merged the bump without reading the changelog (notes say the dependency bot auto-merged it; nobody merged by hand)",
+  "Rollback target version 'v4.17'",
+  "An 'Incident Commander' made the rollback decision",
+  "Sev1 'declared by engineering leadership'",
+  "'32-minute' DBA approval delay (18:05\u201318:33 is 28 minutes; document uses both)",
+  "'3.25-hour' / '3 hours 15 minutes' disruption presented as outage duration (notes: about two and a half hours of failures)",
+  "'Absence of runbook linking latency to connection pools' (notes say the runbook instructed silencing flapping alerts)",
+  "'Lack of centralized dashboard visibility for resource saturation' as cause of diagnosis time",
+  "'High mean-time-to-diagnose' framing (diagnosis took 6 minutes after declaration per notes)",
+  "PagerDuty as the paging tool",
+  "Expected standard of 'sub-15-minute MTTR for critical payment pipelines' (notes give an MTTA <5 min goal)",
+  "Developer acting 'under typical sprint pressures'",
+  "On-call silenced the page 'to investigate background noise'",
+  "Rollback completion 'confirming rollback safety' and 'application reconnects with valid pool parameters'",
+  "'Unmonitored alert silences' and no auto-escalation on silences as existing conditions",
+  "Year 2026 attached to the date (inferred, not in notes)",
+  "Claim to have 'created and published' the report"
+ ],
+ "D": [
+  "partial",
+  "partial",
+  "no",
+  "partial",
+  "partial",
+  "no",
+  "no",
+  "yes",
+  "no",
+  "partial",
+  "no",
+  "no",
+  "no"
+ ],
+ "actions": {
+  "count": 5,
+  "owned": 5
+ },
+ "score": 33,
+ "weakness": "Generic just-culture framework padding replaces Larchwood-specific analysis: it misses the auto-merge policy (and wrongly blames a manual merge), the staging config gap, the June action and deprioritised clean-up, the MTTA and incident-count incentives, onboarding cuts, impact figures and what went well, and it invents several case details.",
+ "_cost": 0.230745
+}

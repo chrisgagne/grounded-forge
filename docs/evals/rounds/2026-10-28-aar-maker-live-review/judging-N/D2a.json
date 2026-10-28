@@ -1,0 +1,127 @@
+{
+ "E": {
+  "E1": {
+   "v": "full",
+   "q": "He did not knowingly depart from it: he followed the runbook line... any on-call engineer following the runbook would have done the same."
+  },
+  "E2": {
+   "v": "full",
+   "q": "Chain A: the change reached production... Chain B: monitoring did not alert anyone in time... Chain C: recovery was slow once the cause was known"
+  },
+  "E3": {
+   "v": "full",
+   "q": "It was created at warning severity two years ago and never reviewed... #payments-alerts gets about 220 alerts a week, about 90% resolve on their own"
+  },
+  "E4": {
+   "v": "full",
+   "q": "Staging sets the pool to 50 explicitly. It differed from production in exactly the setting that changed, so it could not show the problem."
+  },
+  "E5": {
+   "v": "full",
+   "q": "an automated process working as designed (merge)... minor bumps auto-merge on green CI to cut review load"
+  },
+  "E6": {
+   "v": "absent",
+   "q": "The June AAR action (INC-2104, 'tune noisy alerts', not done) and the February clean-up deprioritised for the Q3 launch are never mentioned."
+  },
+  "E7": {
+   "v": "partial",
+   "q": "A leadership dashboard counts incidents per team, so declaring one counts against the team. Missing: the MTTA <5 min target rewarding ack-and-silence, which the document even praises ('Paging worked')."
+  },
+  "E8": {
+   "v": "full",
+   "q": "It waited 28 minutes for DBA approval... One-click rollback has been off since March... Two DBAs cover nine product teams"
+  },
+  "E9": {
+   "v": "absent",
+   "q": "The on-call engineer's inexperience is not a factor: he followed the runbook. Shadowing cut from four weeks to one and the parallel data-export work are not mentioned."
+  },
+  "E10": {
+   "v": "full",
+   "q": "It is the number of controls and the weaknesses of those controls that dictate the severity... The 37 missed cut-offs depended on 16:14\u201318:00"
+  },
+  "E11": {
+   "v": "full",
+   "q": "Finance ops... got 22 of the 37 runs through... The support lead's escalation... The payments engineer found the cause 6 minutes after the Sev1"
+  },
+  "E12": {
+   "v": "full",
+   "q": "If the VP asks for a name... both landed at Recommendation D, and accountability sits with the named owners of the fixes."
+  },
+  "E13": {
+   "v": "full",
+   "q": "Considered and rejected: 'add more DB pool alerts'. An alert already existed and fired at 16:22. More alerts into an unwatched channel... repeats Chain B."
+  },
+  "E14": {
+   "v": "full",
+   "q": "Detection during the deploy window... Strongest alternative: the recovery path (Chain C)... What would prove the detection choice wrong"
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "clear",
+   "q": ""
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "Owner: TBD | TBD (platform-commons and the auto-merge policy owner) | TBD | Dashboard owner (TBD)"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "Claims the dashboard belongs to the VP ('The dashboard is his to change'), which the notes don't say and which contradicts the document's own open item 5; also assigns a pronoun to the VP that the notes never give",
+  "Says the on-call engineer 'disclosed the flapping history and the runbook practice openly'; this characterisation isn't in the notes",
+  "'there is no backup approver' (hedged as to be confirmed; not in notes)",
+  "Attributes default-setting to 'the platform team' (a team the notes don't name)",
+  "Year 2026 attached to the incident date and the February policy (inferred, minor)",
+  "Outage given as 'about three hours' where the notes say about two and a half (minor discrepancy)"
+ ],
+ "D": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "yes",
+  "no",
+  "partial",
+  "yes",
+  "partial",
+  "partial",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 4,
+  "owned": 1
+ },
+ "score": 74,
+ "weakness": "Analytically strong, but it leaves out the June AAR action and the deprioritised alert clean-up, the shortened on-call shadowing and parallel urgent work, and the MTTA target; it gives no guidance for the customer write-up; and every action owner is still TBD.",
+ "_cost": 0.205905
+}

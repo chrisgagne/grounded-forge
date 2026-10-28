@@ -1,0 +1,127 @@
+{
+ "E": {
+  "E1": {
+   "v": "full",
+   "q": "He did not knowingly depart from it: he followed the runbook line \"silence known flapping alerts for the deploy window (2 h)\". The page had flapped 14 times that week."
+  },
+  "E2": {
+   "v": "full",
+   "q": "Chain A set the incident off. Chains B and D determined how long the failure went unnoticed. Chain C determined how long recovery took."
+  },
+  "E3": {
+   "v": "full",
+   "q": "It was created at warning severity two years ago and never reviewed... #payments-alerts gets about 220 alerts a week, about 90% resolve on their own"
+  },
+  "E4": {
+   "v": "full",
+   "q": "Staging sets the pool to 50 explicitly. It differed from production in exactly the setting that changed, so it could not show the problem."
+  },
+  "E5": {
+   "v": "full",
+   "q": "Since February, minor bumps auto-merge on green CI to cut review load... an automated process working as designed (merge)"
+  },
+  "E6": {
+   "v": "absent",
+   "q": "Neither the June INC-2104 action nor the deprioritised February alert clean-up is mentioned."
+  },
+  "E7": {
+   "v": "partial",
+   "q": "A leadership dashboard counts incidents per team, so declaring one counts against the team. (The MTTA <5 min target that rewards acking/silencing is missing.)"
+  },
+  "E8": {
+   "v": "full",
+   "q": "It waited 28 minutes for DBA approval... One-click rollback has been off since March, when a rollback corrupted a migration."
+  },
+  "E9": {
+   "v": "absent",
+   "q": "The on-call engineer's inexperience is **not** a factor: he followed the runbook (the shadowing cut and the parallel data-export work are not mentioned)"
+  },
+  "E10": {
+   "v": "full",
+   "q": "The 37 missed cut-offs depended on 16:14\u201318:00, which is Chains A, B and D. Whether Chain C cost the 15 late runs depends on when the late-processing window closed."
+  },
+  "E11": {
+   "v": "full",
+   "q": "The support lead's escalation (ticket count, customer list, first-seen time) gave the incident team something they could act on straight away."
+  },
+  "E12": {
+   "v": "full",
+   "q": "If the VP asks for a name... both landed at Recommendation D, and accountability sits with the named owners of the fixes."
+  },
+  "E13": {
+   "v": "full",
+   "q": "More alerts into an unwatched channel, or onto a page that gets silenced, repeats Chain B."
+  },
+  "E14": {
+   "v": "full",
+   "q": "Detection during the deploy window... Strongest alternative: the recovery path (Chain C)... What would prove the detection choice wrong"
+  }
+ },
+ "R": {
+  "R1": {
+   "v": "clear",
+   "q": ""
+  },
+  "R2": {
+   "v": "clear",
+   "q": ""
+  },
+  "R3": {
+   "v": "clear",
+   "q": ""
+  },
+  "R4": {
+   "v": "clear",
+   "q": ""
+  },
+  "R5": {
+   "v": "clear",
+   "q": ""
+  },
+  "R6": {
+   "v": "clear",
+   "q": ""
+  },
+  "R7": {
+   "v": "triggered",
+   "q": "Owners will be agreed with the other leads... | 1 | ... | B | TBD | TBD |"
+  },
+  "R8": {
+   "v": "not_assessed"
+  },
+  "R9": {
+   "v": "clear",
+   "q": ""
+  }
+ },
+ "invented_details": [
+  "Year 2026 attached to the incident date and to the February/March policy changes (inferred; the notes give no year)",
+  "'The dashboard is his to change': asserts that the VP owns the dashboard, which the notes do not say and which contradicts the document's own open item 5; it also assumes the VP's pronouns",
+  "'there is no backup approver' (hedged as to be confirmed; not in the notes)",
+  "'The on-call engineer disclosed the flapping history and the runbook practice openly' (an inference about how the facts were obtained)",
+  "'The platform team chooses defaults' (platform-commons ownership is inferred)",
+  "'failed for about three hours' (the manager said about two and a half hours; defensible as 16:14 to 19:20 drain)"
+ ],
+ "D": [
+  "yes",
+  "yes",
+  "yes",
+  "yes",
+  "partial",
+  "yes",
+  "no",
+  "partial",
+  "yes",
+  "partial",
+  "yes",
+  "no",
+  "yes"
+ ],
+ "actions": {
+  "count": 4,
+  "owned": 1
+ },
+ "score": 72,
+ "weakness": "It leaves out the history (the undone June AAR action and the clean-up deprioritised for launch), the shortened on-call onboarding and parallel urgent work, and the MTTA target; it also leaves every action owner TBD and gives no guidance for the customer write-up.",
+ "_cost": 0.215105
+}

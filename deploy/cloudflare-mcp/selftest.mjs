@@ -50,6 +50,19 @@ check("guide, with the disclaimer and licence beside it", !c.error && c.body.len
   && ["DISCLAIMER.md", "LICENSE-CONTENT.md", ...(connector.notice ? ["NOTICE.md"] : [])]
     .every((f) => (c.head.other_files ?? []).includes(f)), `${c.body.length} chars`);
 
+if (connector.prompts) {
+  [, r] = await post({ jsonrpc: "2.0", id: nextId++, method: "prompts/list" });
+  const listed = (r.result?.prompts ?? []).map((p) => p.name);
+  check("prompts/list", JSON.stringify(listed) === JSON.stringify(connector.prompts.map((p) => p.name)), listed.join(","));
+  for (const p of connector.prompts) {
+    [, r] = await post({ jsonrpc: "2.0", id: nextId++, method: "prompts/get", params: { name: p.name } });
+    const text = r.result?.messages?.[0]?.content?.text ?? "";
+    check(`prompt ${p.name} fills every placeholder`, text.length > 0 && !text.includes("{{"), text.slice(0, 60));
+  }
+  [, r] = await post({ jsonrpc: "2.0", id: nextId++, method: "prompts/get", params: { name: connector.prompts[0].name, arguments: { [connector.prompts[0].arguments[0].name]: "the Q3 launch" } } });
+  check("prompt takes its argument", (r.result?.messages?.[0]?.content?.text ?? "").includes("the Q3 launch"));
+}
+
 if (connector.start) {
   const front = await call(connector.start.name, {});
   check("front door returns the guide", !front.error && front.body === c.body, connector.start.name);

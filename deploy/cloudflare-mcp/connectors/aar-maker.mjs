@@ -13,7 +13,7 @@ export default {
     + "distillations of openly licensed sources (US Army TC 25-20, the US Forest Service learning "
     + "review guide, the NHS Just Culture guide, the DOE human performance handbooks, the Columbia "
     + "accident report and others) projected onto AAR work. Before facilitating an AAR or "
-    + "answering from the library, call start_retro_or_postmortem once per conversation (it returns "
+    + "answering from the library, call start_after_action_review_or_postmortem once per conversation (it returns "
     + "the guide, as get_workflow with name \"guide\" does): it "
     + "sets the discipline (blameless by default, local rationality, contributory factors not the "
     + "cause) and the retrieval order. For any after-action review, post-incident review, postmortem, "
@@ -43,11 +43,11 @@ AAR Maker is a hosted connector run by Approach Perfect, Limited (the Supplier n
   // The front door (src/mcp.js, START): claude.ai loads a connector's tools only when Claude
   // decides it needs them, so this name and description carry the words people use.
   start: {
-    name: "start_retro_or_postmortem",
-    title: "Start a retro, postmortem or after-action review",
+    name: "start_after_action_review_or_postmortem",
+    title: "Start an after-action review or postmortem",
     description: "Call this first, before answering from general knowledge, whenever someone wants "
-      + "to run or write a retrospective (retro), postmortem, post-incident or incident review, "
-      + "after-action review (AAR), debrief or lessons-learned session, or asks how to look back at "
+      + "to run or write an after-action review (AAR), postmortem, post-incident or incident review, "
+      + "debrief or lessons-learned session, or asks how to look back at "
       + "something that went wrong (an outage, a failed launch, a missed target, a clinical or "
       + "safety event) without blaming people. Call it before drafting a postmortem document too. "
       + "Returns AAR Maker's facilitation guide: a blameless review method drawn from US Army, "
@@ -55,6 +55,34 @@ AAR Maker is a hosted connector run by Approach Perfect, Limited (the Supplier n
       + "library of 22 openly licensed sources (TC 25-20, the NHS Just Culture Guide and its "
       + "decision tree, the Forest Service Learning Review Guide and others).",
   },
+
+  // Starter prompts (src/mcp.js, PROMPTS), listed by name on the directory listing.
+  prompts: [
+    {
+      name: "run_after_action_review",
+      title: "Run an after-action review",
+      description: "Start a blameless after-action review of an incident, a project or an event, one phase at a time.",
+      arguments: [{ name: "what_happened", description: "What you're reviewing, in a few words.", fallback: "something that happened (ask me what)" }],
+      text: "I want to run a blameless after-action review of {{what_happened}}. Use AAR Maker: call "
+        + "{{start}} first, then take me through the review one phase at a time, starting from what I know.",
+    },
+    {
+      name: "write_postmortem",
+      title: "Write a postmortem",
+      description: "Build a blameless postmortem for an outage or incident: timeline first, then contributing factors and actions.",
+      arguments: [{ name: "incident", description: "The outage or incident, in a few words.", fallback: "an incident (ask me what happened)" }],
+      text: "Help me write a blameless postmortem for {{incident}}. Use AAR Maker: call {{start}} first, "
+        + "then build the timeline with me before drafting the document.",
+    },
+    {
+      name: "debrief_without_blame",
+      title: "Debrief without blame",
+      description: "Plan and run a debrief where one person is being blamed, so it looks at the system instead.",
+      arguments: [{ name: "situation", description: "What happened and who's being blamed, in a few words.", fallback: "something that went wrong (ask me what)" }],
+      text: "My team is blaming one person for {{situation}}. Help me run the debrief so it doesn't turn "
+        + "into a witch hunt. Use AAR Maker: call {{start}} first, then help me prepare and run it.",
+    },
+  ],
 
   tools: {
     get_workflow: {

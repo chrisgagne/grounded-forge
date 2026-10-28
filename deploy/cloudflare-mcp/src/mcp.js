@@ -99,6 +99,16 @@ const TOOLS = [
 ].filter((t) => t.name !== "get_lenses" || corpus.hasLenses())
   .map((t) => ({ ...t, annotations: { ...t.annotations, title: t.title } }));
 
+// A connector's starter prompts (its profile's `prompts`): what a person picks from the client's
+// menu to begin, so the start doesn't wait on Claude deciding to load the connector.
+// {{argument}} becomes what the person typed, or that argument's fallback; {{start}} the
+// front door's name.
+const PROMPTS = C.prompts ?? [];
+const promptText = (p, args) => p.text
+  .replace(/\{\{start\}\}/g, C.start?.name ?? "get_workflow")
+  .replace(/\{\{(\w+)\}\}/g, (_, k) => String(args[k] ?? "").trim()
+    || (p.arguments ?? []).find((a) => a.name === k)?.fallback || "");
+
 class UnknownTool extends Error {}
 
 const json = (status, body, headers = {}) => new Response(JSON.stringify(body), {
@@ -201,7 +211,7 @@ export default {
         log(login, "mcp:initialize", "ok");
         return result({
           protocolVersion: PROTOCOL_VERSIONS.includes(requested) ? requested : PROTOCOL_VERSIONS[0],
-          capabilities: { tools: { listChanged: false } },
+          capabilities: { tools: { listChanged: false }, ...(PROMPTS.length ? { prompts: { listChanged: false } } : {}) },
           serverInfo: {
             name: C.id, title: C.title, version: C.version,
             icons: [{ src: `${env.PUBLIC_URL}/icon-512.png`, mimeType: "image/png", sizes: ["512x512"] }],
@@ -213,6 +223,17 @@ export default {
         return result({});
       case "tools/list":
         return result({ tools: TOOLS });
+      case "prompts/list":
+        return result({ prompts: PROMPTS.map(({ name, title, description, arguments: a = [] }) => ({
+          name, title, description, arguments: a.map(({ name, description }) => ({ name, description, required: false })),
+        })) });
+      case "prompts/get": {
+        const p = PROMPTS.find((x) => x.name === String(params.name ?? ""));
+        if (!p) return error(-32602, `unknown prompt: ${params.name}`);
+        const args = params.arguments && typeof params.arguments === "object" ? params.arguments : {};
+        log(login, `prompt:${p.name}`, "ok");
+        return result({ description: p.description, messages: [{ role: "user", content: { type: "text", text: promptText(p, args) } }] });
+      }
       case "tools/call": {
         const name = String(params.name ?? "");
         const args = params.arguments && typeof params.arguments === "object" ? params.arguments : {};

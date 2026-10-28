@@ -18,7 +18,7 @@ export default {
     + "playbook, UK government assurance guidance, METR's productivity trial, SWE-bench and others) "
     + "projected onto eight stages of a change's life, from specifying it to releasing it. To review a "
     + "change or help someone decide whether to sign it off, call get_workflow with name "
-    + "\"review-change\" and follow it. Before answering from the library, call get_workflow with name "
+    + "\"review-change\" and follow it; read every part of a long file. Before answering from the library, call get_workflow with name "
     + "\"guide\" once per conversation: it sets the discipline (demonstrated, not asserted; never sign "
     + "for the person) and the retrieval order. The guide and workflows were written for a folder "
     + "install; where they name a file, use the matching tool: task-index.json, its "
@@ -55,13 +55,11 @@ Factory Review is a hosted connector run by Approach Perfect, Limited (the Suppl
   tools: {
     get_workflow: {
       title: "Get a workflow or the guide",
-      description: "Use this first when someone asks to review a change, pull request or diff, or asks "
-        + "whether they can sign a change off: get_workflow(\"review-change\") is the factory's review "
-        + "stage and its sign-off sheet. Call get_workflow(\"guide\") once at the start of any "
-        + "conversation that uses this library: it sets the discipline, the retrieval order, the "
-        + "licensing terms, and how file paths in the workflows map to these tools. Workflows: "
-        + "{{workflows}}. With no file, returns the workflow's SKILL.md and lists its other files. Long "
-        + "files come in parts: read every part. Follow the workflow.",
+      description: "Factory Review's guide and workflows. \"review-change\" is the factory's review "
+        + "stage for a change, pull request or diff, with its sign-off sheet. The guide (name \"guide\") "
+        + "sets out the discipline, the retrieval order, the licensing terms, and how file paths in the "
+        + "workflows map to these tools. Workflows: {{workflows}}. With no file, returns the workflow's "
+        + "SKILL.md and lists its other files. Long files come in parts.",
     },
     route: {
       title: "Route a change's stage",

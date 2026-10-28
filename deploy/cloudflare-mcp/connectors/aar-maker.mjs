@@ -15,7 +15,9 @@ export default {
     + "accident report and others) projected onto AAR work. Before facilitating an AAR or "
     + "answering from the library, call get_workflow with name \"guide\" once per conversation: it "
     + "sets the discipline (blameless by default, local rationality, contributory factors not the "
-    + "cause) and the retrieval order. The guide and workflows were written for a folder install; "
+    + "cause) and the retrieval order. For any after-action review, post-incident review, postmortem, "
+    + "retrospective or lessons-learned conversation, call it before asking the user anything. Read every "
+    + "part of a long file, and read the task index (route) before choosing distillations. The guide and workflows were written for a folder install; "
     + "where they name a file, use the matching tool: task-index.json or AAR-DISTILLATION-INDEX.md → "
     + "route, {slug}-aar.md → read_distillation, concept-index.json → list_topics and find_concepts, "
     + "slug-table.json → list_sources, lens-index.json → get_lenses, a skill or agent file → "
@@ -40,24 +42,20 @@ AAR Maker is a hosted connector run by Approach Perfect, Limited (the Supplier n
   tools: {
     get_workflow: {
       title: "Get a workflow or the guide",
-      description: "Use this first for any after-action review, post-incident review, postmortem, "
-        + "retrospective or lessons-learned conversation, before asking the user anything. "
-        + "AAR Maker's facilitation and retrieval workflows. Call get_workflow(\"guide\") once at "
-        + "the start of any conversation that uses this library: it sets the AAR discipline, the "
-        + "retrieval order, the licensing terms, and how file paths in the workflows map to these "
-        + "tools. Workflows: {{workflows}}. "
-        + "With no file, returns the workflow's SKILL.md and lists its other "
-        + "files. Long files come in parts: read every part. Follow the workflow.",
+      description: "AAR Maker's guide and its facilitation and retrieval workflows for after-action "
+        + "reviews, post-incident reviews, postmortems, retrospectives and lessons-learned conversations. "
+        + "The guide (name \"guide\") sets out the AAR discipline, the retrieval order, the licensing "
+        + "terms, and how file paths in the workflows map to these tools. Workflows: {{workflows}}. "
+        + "With no file, returns the workflow's SKILL.md and lists its other files. Long files come "
+        + "in parts.",
     },
     route: {
       title: "Route an AAR situation",
-      description: "Use when running an after-action review, post-incident review, postmortem or "
-        + "retrospective, to choose which sources fit each phase. "
-        + "The AAR task index: the situation router. With no section, lists its sections "
+      description: "The AAR task index: the situation router that matches each phase of an "
+        + "after-action review, post-incident review, postmortem or retrospective to the sources that fit. With no section, lists its sections "
         + "(Phases 0-5: scoping, timeline and local rationality, contributory factors, just-culture "
         + "sorting, action design, learning-loop closure). With a section, returns its rows (need → "
-        + "source id, and when it applies) and the sources those rows point to. Read before choosing "
-        + "distillations.",
+        + "source id, and when it applies) and the sources those rows point to.",
       section: "Section name or a unique part of one, e.g. \"Phase 4\" or \"Anti-Patterns\".",
     },
     read_distillation: {
@@ -72,8 +70,8 @@ AAR Maker is a hosted connector run by Approach Perfect, Limited (the Supplier n
     list_sources: { query: "Optional words to match, e.g. \"army\"." },
     get_lenses: {
       description: "Lenses that reweight what's salient for a named reader (builder, a PM bounded by a BA role, "
-        + "agentic builder, a named consultant-coach): purpose, when to reach for each, and its "
-        + "salience block. Apply a lens from its salience block; the full specs aren't served.",
+        + "agentic builder, a named consultant-coach): purpose, when each fits, and its "
+        + "salience block. The full specs aren't served.",
     },
   },
 

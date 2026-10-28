@@ -50,8 +50,7 @@ const TOOLS = [
     title: "List the library's topics",
     description: "The topics block of the concept index: every subject and cross-school debate the "
       + "library covers, one compact row each (id, name, synonyms, boundary note, kind, broader topic, "
-      + "concept and source counts, debate sides). Read it once per conversation, then pick the topics "
-      + "each part of the question needs and fetch their concepts with find_concepts.",
+      + "concept and source counts, debate sides).",
     inputSchema: { type: "object", properties: {} },
     annotations: RO,
   },
@@ -86,7 +85,8 @@ const TOOLS = [
     inputSchema: { type: "object", properties: {} },
     annotations: RO,
   },
-].filter((t) => t.name !== "get_lenses" || corpus.hasLenses());
+].filter((t) => t.name !== "get_lenses" || corpus.hasLenses())
+  .map((t) => ({ ...t, annotations: { ...t.annotations, title: t.title } }));
 
 class UnknownTool extends Error {}
 

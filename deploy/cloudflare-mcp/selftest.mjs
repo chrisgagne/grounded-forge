@@ -40,7 +40,8 @@ check("instructions carry the licence terms", (r.result?.instructions ?? "").inc
 [, r] = await post({ jsonrpc: "2.0", id: 2, method: "tools/list" });
 const names = (r.result?.tools ?? []).map((t) => t.name);
 check("tools/list", JSON.stringify([...names].sort()) === JSON.stringify(
-  ["find_concepts", ...(lenses ? ["get_lenses"] : []), "get_workflow", "list_sources", "list_topics", "read_distillation", "route"]),
+  ["find_concepts", ...(lenses ? ["get_lenses"] : []), "get_workflow", "list_sources", "list_topics", "read_distillation", "route",
+    ...(connector.start ? [connector.start.name] : [])].sort()),
   names.join(","));
 check("no unfilled placeholder in a tool description", !JSON.stringify(r.result?.tools ?? []).includes("{{"));
 
@@ -48,6 +49,11 @@ let c = await call("get_workflow", { name: "guide" });
 check("guide, with the disclaimer and licence beside it", !c.error && c.body.length > 1000
   && ["DISCLAIMER.md", "LICENSE-CONTENT.md", ...(connector.notice ? ["NOTICE.md"] : [])]
     .every((f) => (c.head.other_files ?? []).includes(f)), `${c.body.length} chars`);
+
+if (connector.start) {
+  const front = await call(connector.start.name, {});
+  check("front door returns the guide", !front.error && front.body === c.body, connector.start.name);
+}
 
 // The longest workflow file: in parts if it's over PART_BYTES, whole otherwise.
 const [longest] = Object.keys(files).filter((k) => /^workflows\/[^/]+\/[^/]+\.md$/.test(k))

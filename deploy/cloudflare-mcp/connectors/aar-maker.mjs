@@ -13,7 +13,8 @@ export default {
     + "distillations of openly licensed sources (US Army TC 25-20, the US Forest Service learning "
     + "review guide, the NHS Just Culture guide, the DOE human performance handbooks, the Columbia "
     + "accident report and others) projected onto AAR work. Before facilitating an AAR or "
-    + "answering from the library, call get_workflow with name \"guide\" once per conversation: it "
+    + "answering from the library, call start_retro_or_postmortem once per conversation (it returns "
+    + "the guide, as get_workflow with name \"guide\" does): it "
     + "sets the discipline (blameless by default, local rationality, contributory factors not the "
     + "cause) and the retrieval order. For any after-action review, post-incident review, postmortem, "
     + "retrospective or lessons-learned conversation, call it before asking the user anything. Read every "
@@ -38,6 +39,22 @@ AAR Maker is a hosted connector run by Approach Perfect, Limited (the Supplier n
 - **No service promise.** It's free, it may change or stop at any time, and access can be withdrawn.
 - **Terms.** DISCLAIMER.md applies to everything served here, including clause 6 on the risks of using large language models: don't put confidential, personal or legally privileged incident material into a session without your own security review. Each source keeps its own licence, and non-commercial terms apply to open-nc material (LICENSE-CONTENT.md).
 `,
+
+  // The front door (src/mcp.js, START): claude.ai loads a connector's tools only when Claude
+  // decides it needs them, so this name and description carry the words people use.
+  start: {
+    name: "start_retro_or_postmortem",
+    title: "Start a retro, postmortem or after-action review",
+    description: "Call this first, before answering from general knowledge, whenever someone wants "
+      + "to run or write a retrospective (retro), postmortem, post-incident or incident review, "
+      + "after-action review (AAR), debrief or lessons-learned session, or asks how to look back at "
+      + "something that went wrong (an outage, a failed launch, a missed target, a clinical or "
+      + "safety event) without blaming people. Call it before drafting a postmortem document too. "
+      + "Returns AAR Maker's facilitation guide: a blameless review method drawn from US Army, "
+      + "US Forest Service and NHS guidance, the first questions to ask, and how to cite its "
+      + "library of 22 openly licensed sources (TC 25-20, the NHS Just Culture Guide and its "
+      + "decision tree, the Forest Service Learning Review Guide and others).",
+  },
 
   tools: {
     get_workflow: {

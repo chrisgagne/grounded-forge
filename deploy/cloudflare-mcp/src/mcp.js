@@ -13,7 +13,18 @@ const INSTRUCTIONS = C.instructions;
 
 const RO = { readOnlyHint: true, destructiveHint: false, openWorldHint: false };
 
+// A connector's front door (its profile's `start`): a tool named for what people ask for, so a
+// client that loads tools only on demand finds it. It returns the guide.
+const START = C.start ? [{
+  name: C.start.name,
+  title: C.start.title,
+  description: C.start.description,
+  inputSchema: { type: "object", properties: {} },
+  annotations: RO,
+}] : [];
+
 const TOOLS = [
+  ...START,
   {
     name: "get_workflow",
     title: T.get_workflow.title,
@@ -105,6 +116,10 @@ const toolText = (data, body = null, isError = false) => {
 // Returns [result, log note]. Log notes name library files and sections, never free-text queries.
 const callTool = (name, args) => {
   const str = (k) => String(args[k] ?? "").trim();
+  if (C.start && name === C.start.name) {
+    const [head, body] = corpus.workflow("guide", "", 1);
+    return [toolText(head, body), `${head.workflow}/${head.file}#${head.part}`];
+  }
   switch (name) {
     case "get_workflow": {
       const [head, body] = corpus.workflow(str("name"), str("file"), parseInt(args.part ?? 1, 10));

@@ -20,6 +20,7 @@ For a local connector over stdio, use [`scripts/mcp/corpus-server.mjs`](../../sc
 | `src/mcp.js` | The MCP endpoint: tools, server instructions, the per-call log line. |
 | `src/corpus.js` | Reads the packed library: distillations, indexes, workflows. |
 | `bundle.mjs` | Packs a compiled app and a connector's words into `src/bundle.json` (a build artefact, gitignored). |
+| `aar-maker/` | The live AAR Maker's guide and its three facilitation workflows (`aar-new`, `aar-deep`, `aar-actions`). |
 | `connectors/` | One file per connector: its name, tool descriptions, pages, the app it packs and its self-test values. `aar-maker.mjs` is the default. |
 | `selftest.mjs` | Calls every tool in-process against the built bundle (`npm test`). |
 | `wrangler.jsonc` | Worker config: domain, bindings, vars. |
@@ -34,7 +35,15 @@ node bundle.mjs --workflow DIR     # also serve a workflow folder (its SKILL.md 
 node bundle.mjs --drop NAME        # leave one of the app's workflows out; repeatable
 ```
 
-The live AAR Maker deploys from this folder with its own guide and three facilitation workflows that aren't published here, added with `--guide` and `--workflow`. A deploy from this folder as it stands serves the app's `aar-facilitator` workflow and its `CLAUDE.md` as the guide.
+The live AAR Maker deploys from this folder with its own guide and three facilitation workflows, published in [`aar-maker/`](aar-maker/) and packed with:
+
+```bash
+node bundle.mjs --guide aar-maker/guide.md \
+  --workflow aar-maker/workflows/aar-new --workflow aar-maker/workflows/aar-deep --workflow aar-maker/workflows/aar-actions \
+  --drop aar-facilitator
+```
+
+A plain `node bundle.mjs` serves the app's `aar-facilitator` workflow and its `CLAUDE.md` as the guide instead.
 
 `src/corpus.js` reads distillations named `{slug}-{task}.md`, for the connector's task, and a schema 3 concept index (a topics block, then concept rows). The words the connector shows (its name, the tool descriptions, the landing and consent pages) come from its file in `connectors/`.
 
@@ -96,4 +105,4 @@ In Claude, open the connector and set its read-only tools to *Always allow*, or 
 
 ## Licence
 
-The Worker code is MIT, like the rest of the substrate. The library it serves carries its sources' licences: each distillation's Source line names its source's licence, and non-commercial terms apply to open-nc material. See [`LICENSE-CONTENT`](../../LICENSE-CONTENT) and the app's [`DISCLAIMER.md`](../../corpus.commons/demo/apps/aar-mode/DISCLAIMER.md).
+The Worker code is MIT, like the rest of the substrate, and so are the guide and workflows in `aar-maker/`, which are skill specifications. The library it serves carries its sources' licences: each distillation's Source line names its source's licence, and non-commercial terms apply to open-nc material. See [`LICENSE-CONTENT`](../../LICENSE-CONTENT) and the app's [`DISCLAIMER.md`](../../corpus.commons/demo/apps/aar-mode/DISCLAIMER.md).

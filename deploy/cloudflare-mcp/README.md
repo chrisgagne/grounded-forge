@@ -26,7 +26,8 @@ For a local connector over stdio, use [`scripts/mcp/corpus-server.mjs`](../../sc
 | `connectors/` | One file per connector: its name, tool descriptions, pages, the app it packs and its self-test values. `aar-maker.mjs` is the default. |
 | `selftest.mjs` | Calls every tool in-process against the built bundle (`npm test`). |
 | `wrangler.jsonc` | Worker config: domain, bindings, vars. |
-| `public/` | Icons. |
+| `public/` | Icons (Factory Review's; `wrangler.review.jsonc`). |
+| `public-aar-maker/` | AAR Maker's icons (`wrangler.jsonc`). |
 
 By default `bundle.mjs` packs [`corpus.commons/demo/apps/aar-mode`](../../corpus.commons/demo/apps/aar-mode/): its 22 distillations, task, concept and lens indexes, its skills and its `aar-facilitator` runtime agent (each served as a workflow), and the app's `CLAUDE.md` as the guide (`get_workflow("guide")`) with its `DISCLAIMER.md` and `LICENSE-CONTENT` beside it. The app's files were written for a folder install, so the server instructions map the files they name to tools. Lens specs, docs and the full slug table stay behind. Flags change what it packs:
 

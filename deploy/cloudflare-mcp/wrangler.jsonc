@@ -7,8 +7,8 @@
   // Your own domain: here, in PUBLIC_URL, and in the GitHub OAuth app's callback URL.
   "routes": [{ "pattern": "aar.groundedforge.com", "custom_domain": true }],
   "workers_dev": false,
-  // The icon files; any path not in public/ goes to the Worker.
-  "assets": { "directory": "./public" },
+  // AAR Maker's icon files; any path not in public-aar-maker/ goes to the Worker.
+  "assets": { "directory": "./public-aar-maker" },
   // OAuth clients, grants and tokens (hashed), managed by workers-oauth-provider. Put the id
   // `npx wrangler kv namespace create OAUTH_KV` prints here.
   "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "REPLACE_WITH_OAUTH_KV_ID" }],

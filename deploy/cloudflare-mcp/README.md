@@ -106,7 +106,7 @@ Either opens the consent page; sign in with GitHub. Then start a chat and ask fo
 
 In Claude, open the connector and set its read-only tools to *Always allow*, or Claude asks before every library read. In Claude Code: `claude mcp add --transport http aar-maker https://aar.groundedforge.com/mcp`, then `/mcp` to sign in.
 
-[`plugins/aar-maker/`](../../plugins/aar-maker/) is AAR Maker as a Claude plugin: the same server plus a skill that tells Claude to call the front door when someone asks for an after-action review, postmortem or debrief. A skill's description is in Claude's context from the start, where a connector's tools may load only on demand.
+[chrisgagne/aar-maker](https://github.com/chrisgagne/aar-maker) is AAR Maker as a Claude plugin, in its own repository because the directory's validator downloads the whole repository: the same server plus a skill that tells Claude to call the front door when someone asks for an after-action review, postmortem or debrief. A skill's description is in Claude's context from the start, where a connector's tools may load only on demand.
 
 ## Licence
 

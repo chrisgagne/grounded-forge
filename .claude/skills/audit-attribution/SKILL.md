@@ -31,6 +31,8 @@ A 30-citation essay can still under-attribute. Citation breadth is not citation 
 - Fact-checking individual claims against the corpus: that's `answer-from-corpus` with an audit framing, not this skill.
 - First-draft generation: this is a late-stage check, not a generation tool.
 
+**Run it from the corpus, never from a compiled app.** The audit reads light and deep references at citation grade, and apps ship distillations only. Open a session at `{corpus-root}` (the repo-root substrate skills load from any directory in the repo) and run the skill there.
+
 ## Procedure
 
 ### Step 1: Read the essay and identify load-bearing contributions
@@ -62,13 +64,9 @@ The slug-table or the topics block may exceed the Read tool's single-call token 
 
 Grep fetches rows; it never stands in for reading the map. If you notice yourself grepping the topics block for keywords instead of reading it, return to the read: picking topics from the whole list is what finds the neighbours a keyword misses.
 
-`{corpus-root}` is the active corpus directory: `corpus.commons/{corpus}/` for a commons corpus, `corpus.local/{corpus}/` for a local corpus. When the skill runs inside a deployed application (`apps/{profile}/`), the indexes live at bare paths (`./slug-table.json`, `./concept-index.json`) and no reference-index ships.
+`{corpus-root}` is the active corpus directory: `corpus.commons/{corpus}/` for a commons corpus, `corpus.local/{corpus}/` for a local corpus. The concept index is the only router here, as in `answer-from-corpus` project mode; the task-axis indexes under `distillations/` are app routers and play no part in the audit.
 
-#### Step 2b: Inside an app, read the relevant task-axis indexes
-
-In the corpus, skip this step: the concept index is the router there, as in `answer-from-corpus` project mode. Inside a compiled app, read whichever task-axis indexes are relevant to the essay's territory, `./distillations/{task}/task-index.json` for each applicable task domain, whole, and add their line ranges to the declaration.
-
-#### Step 2c: Query Chroma via `matching-references`
+#### Step 2b: Query Chroma via `matching-references`
 
 With `n_results: 50` and queries derived from the essay's load-bearing claims and named coinages. The skill returns metadata (filenames + author + similarity scores), not document bodies. Chroma catches semantic neighbours the index summaries don't surface by literal keyword. Apply the relevance floor (0.5 cosine similarity).
 
@@ -212,7 +210,7 @@ CITATIONS PRESENT BUT NOT AT RISK:
 
 ## Related skills
 
-- `matching-references`: framework-discovery routing via Chroma. Called from Step 2c.
+- `matching-references`: framework-discovery routing via Chroma. Called from the Chroma step of closest-neighbour retrieval.
 
 ## Failure modes to avoid
 

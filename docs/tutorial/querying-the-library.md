@@ -151,6 +151,13 @@ The third query skill is `audit-attribution`. It's heavier than the other two: a
 
 The skill is calibrated for **synthesis writing**: blog posts, board papers, book chapters where the author is integrating multiple traditions and the build/contribute boundary may have blurred. Citation count is not the metric; the metric is whether a reader who knows the source bodies can tell what's being built on versus contributed.
 
+This one runs from the corpus, not the app. The audit reads the deep references at citation grade, and apps ship distillations only. Leave the app session and open one at the demo corpus root:
+
+```bash
+cd corpus.commons/demo
+claude .
+```
+
 Save a short draft to a file. If you don't have one, paste this example into `~/draft.md`:
 
 ```markdown

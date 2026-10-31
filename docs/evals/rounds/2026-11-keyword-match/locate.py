@@ -21,17 +21,20 @@ HERE = Path(__file__).resolve().parent
 CONVERTED = HERE.parents[3] / "corpus.commons/demo/sources/converted"
 
 
-def norm_with_map(raw):
-    """Return the normalised text and, per normalised char, its 1-based source line."""
+def norm_with_map(raw, join=True):
+    """Return the normalised text and, per normalised char, its 1-based source line.
+
+    join=True joins a hyphen at a line break ("fric-\\ntion" -> "friction");
+    join=False reads it as a space ("paper-\\nbased" -> "paper based"). find() tries both."""
     out, lines = [], []
     line = 1
     i, n = 0, len(raw)
     prev_space = True
     while i < n:
         c = raw[i]
-        if c == "-" and re.match(r"-[ \t]*\n[ \t]*", raw[i:i + 8]):  # hyphen at a line break: join
-            m = re.match(r"-[ \t]*\n[ \t]*", raw[i:])
-            line += 1
+        if join and c == "-" and re.match(r"-[ \t]*\n", raw[i:i + 8]):  # hyphen at a line break (blank lines too): join
+            m = re.match(r"-[ \t]*\n[ \t\n]*", raw[i:])
+            line += m.group().count("\n")
             i += m.end()
             continue
         if c == "\n":
@@ -56,10 +59,10 @@ def norm(text):
 _CACHE = {}
 
 
-def source(slug):
-    if slug not in _CACHE:
-        _CACHE[slug] = norm_with_map((CONVERTED / f"{slug}.md").read_text())
-    return _CACHE[slug]
+def source(slug, join=True):
+    if (slug, join) not in _CACHE:
+        _CACHE[(slug, join)] = norm_with_map((CONVERTED / f"{slug}.md").read_text(), join)
+    return _CACHE[(slug, join)]
 
 
 def slugs():
@@ -71,15 +74,18 @@ def find(text, slug=None):
     if not q:
         return []
     hits = []
-    for s in [slug] if slug else slugs():
-        body, lines = source(s)
-        start = 0
-        while True:
-            k = body.find(q, start)
-            if k < 0:
-                break
-            hits.append((s, lines[k]))
-            start = k + 1
+    for join in (True, False):
+        for s in [slug] if slug else slugs():
+            body, lines = source(s, join)
+            start = 0
+            while True:
+                k = body.find(q, start)
+                if k < 0:
+                    break
+                hits.append((s, lines[k]))
+                start = k + 1
+        if hits:
+            break
     return hits
 
 

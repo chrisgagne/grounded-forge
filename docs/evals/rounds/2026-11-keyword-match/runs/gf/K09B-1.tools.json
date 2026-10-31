@@ -1,0 +1,135 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "We hired temps to clear a backlog of customer complaints; the temps gave sloppy answers, which caused even more complaints. What pattern is this?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "lens*"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t023|\"t024|\"t025",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail|archetype|shifting the burden|backfire|unintended consequence",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00n\"|\"001\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "archetype|fixes that fail|shifting the burden|unintended",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/references",
+   "glob": "ssdl-*",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail|shifting the burden|fix that fail",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/references",
+   "output_mode": "files_with_matches"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/references/ssdl-systems-thinking-foundations-deep.md",
+   "offset": 100,
+   "limit": 185
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail|shifting the burden",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/references/barbrook-johnson-systems-mapping-deep.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "generates unintended consequences that actually make the original problem worse|impede our ability to invest time and energy to the fundamental solution|The system will react to the accumulation, not only the input|we seek to change the structure of the system by adding or removing feedback loops",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/sources/converted",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "original problem worse|fundamental solution|react to the accumulation|removing feedback",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/sources/converted",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/sources/converted/ssdl-systems-thinking-foundations.md",
+   "offset": 1166,
+   "limit": 102
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-1/sources/converted/ssdl-systems-thinking-foundations.md",
+   "offset": 910,
+   "limit": 6
+  }
+ }
+]

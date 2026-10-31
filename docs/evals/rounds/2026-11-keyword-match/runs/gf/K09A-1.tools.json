@@ -1,0 +1,68 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is the \"fixes that fail\" system archetype?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-1/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-1/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "archetype|fixes|unintended consequence|shifting the burden",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-1",
+   "-i": true,
+   "output_mode": "files_with_matches"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes.that|system archetype|systems archetype",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-1",
+   "-i": true,
+   "output_mode": "content",
+   "glob": "!**/IMAGE-INDEX.yaml"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-1/references/ssdl-systems-thinking-foundations-deep.md",
+   "offset": 110,
+   "limit": 180
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-1/sources/converted/ssdl-systems-thinking-foundations.md",
+   "offset": 1100,
+   "limit": 110
+  }
+ }
+]

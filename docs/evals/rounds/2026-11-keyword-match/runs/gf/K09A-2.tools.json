@@ -1,0 +1,127 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is the \"fixes that fail\" system archetype?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes|archetype|unintended consequence|quick fix",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail|fixes-that-fail|fixes which fail",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2",
+   "-i": true,
+   "output_mode": "count"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00n\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/references/ssdl-systems-thinking-foundations.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/references/ssdl-systems-thinking-foundations-deep.md",
+   "-i": true,
+   "output_mode": "content",
+   "-C": 6
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/references/barbrook-johnson-systems-mapping-deep.md",
+   "-i": true,
+   "output_mode": "content",
+   "-C": 4
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/references/ssdl-systems-thinking-foundations-deep.md",
+   "offset": 224,
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail|short-term fix|exclusionary",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/sources/converted/ssdl-systems-thinking-foundations.md",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/sources/converted/ssdl-systems-thinking-foundations.md",
+   "offset": 1160,
+   "limit": 40
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/sources/converted/ssdl-systems-thinking-foundations.md",
+   "offset": 630,
+   "limit": 40
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "visual descriptions of generic|erase the uniqueness|easier and faster",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09A-2/sources/converted/ssdl-systems-thinking-foundations.md",
+   "output_mode": "content",
+   "-A": 2
+  }
+ }
+]

@@ -1,0 +1,175 @@
+{
+ "id": "K01B-2",
+ "question": "Our pipeline throws the same warning on every deploy. Years ago it scared us; now nobody blinks, since nothing ever broke. How does a team drift into treating a red flag as fine?",
+ "captured_at": "2026-10-31T02:07:47.815Z",
+ "sources_ticked": "35",
+ "text": "Teams drift into treating a persistent red flag as acceptable through a well-documented socio-technical process known as the normalization of deviance[1]. When an anomaly or warning occurs repeatedly without causing an immediate catastrophe, the team's perception of risk shifts, gradually converting a warning signal into routine background noise[2][3].\nThis drift typically unfolds through several distinct mechanisms:\n1. Reclassifying Anomalies as \"In-Family\"\nWhen a build or deploy warning first appears, it is recognized as a deviation from expected design standards[4]. However, if the deployment succeeds without incident, the team begins to reinterpret the signal[4]. Rather than treating the warning as a sign of underlying danger, the anomaly is categorized as \"in-family\" (within the experience base) or an \"accepted risk\"[2][5]. Over time, the absence of failure is misconstrued as proof of safety[4][6].\n2. The \"Bald Tire\" Effect and Habituation\nRepeated success in the presence of a warning fosters a \"bald tire\" mentality—the flawed belief that because an action has not caused harm in the past, it will not cause harm in the future[3]. Frequent, non-lethal warnings function like false positives or nuisance alarms[7][8]. As familiarity with the warning grows, the team's attention wanes, leading to inaccurate risk perception and complete desensitization to the hazard[3][9].\n3. Expanding the \"Elastic Waistband\" of Acceptable Deviations\nAs a warning becomes routine, the team's baseline for acceptable behavior expands like an \"elastic waistband\"[4]. Once the initial deviation is tolerated, the newly expanded risk boundary becomes the new normal[1][4]. Subsequent team members inherit this context and assume that the red flag is simply a standard property of the system rather than a flaw waiting to be fixed[3][4].\n4. Incremental Decisions and Production Pressure\nOrganizational drift toward failure occurs in tiny, incremental steps rather than all at once[10][11]. When trade-offs between thoroughness and delivery speed arise, bypassing a familiar warning appears entirely rational for any single deployment[11][12][13]. Evaluated individually, each decision to ignore the warning seems harmless; cumulatively, however, these small choices erode safety margins until an unexpected combination of conditions causes a failure[10][12][14].\n💡 Would you like to explore practical strategies for resetting your team's operational baseline—such as conducting a technical debt audit or applying high-reliability organization practices to amplify weak signals?",
+ "occurrences": [
+  {
+   "n": 1,
+   "context": "Teams drift into treating a persistent red flag as acceptable through a well-documented socio-technical process known as the normalization of deviance"
+  },
+  {
+   "n": 2,
+   "context": "echnical process known as the normalization of deviance1. When an anomaly or warning occurs repeatedly without causing an immediate catastrophe, the team's perception of risk shifts, gradually converting a warning signal into routine background noise"
+  },
+  {
+   "n": 3,
+   "context": "chnical process known as the normalization of deviance1. When an anomaly or warning occurs repeatedly without causing an immediate catastrophe, the team's perception of risk shifts, gradually converting a warning signal into routine background noise2"
+  },
+  {
+   "n": 4,
+   "context": "When a build or deploy warning first appears, it is recognized as a deviation from expected design standards"
+  },
+  {
+   "n": 4,
+   "context": "When a build or deploy warning first appears, it is recognized as a deviation from expected design standards4. However, if the deployment succeeds without incident, the team begins to reinterpret the signal"
+  },
+  {
+   "n": 2,
+   "context": "er, if the deployment succeeds without incident, the team begins to reinterpret the signal4. Rather than treating the warning as a sign of underlying danger, the anomaly is categorized as \"in-family\" (within the experience base) or an \"accepted risk\""
+  },
+  {
+   "n": 5,
+   "context": "r, if the deployment succeeds without incident, the team begins to reinterpret the signal4. Rather than treating the warning as a sign of underlying danger, the anomaly is categorized as \"in-family\" (within the experience base) or an \"accepted risk\"2"
+  },
+  {
+   "n": 4,
+   "context": "terpret the signal4. Rather than treating the warning as a sign of underlying danger, the anomaly is categorized as \"in-family\" (within the experience base) or an \"accepted risk\"25. Over time, the absence of failure is misconstrued as proof of safety"
+  },
+  {
+   "n": 6,
+   "context": "erpret the signal4. Rather than treating the warning as a sign of underlying danger, the anomaly is categorized as \"in-family\" (within the experience base) or an \"accepted risk\"25. Over time, the absence of failure is misconstrued as proof of safety4"
+  },
+  {
+   "n": 3,
+   "context": "Repeated success in the presence of a warning fosters a \"bald tire\" mentality—the flawed belief that because an action has not caused harm in the past, it will not cause harm in the future"
+  },
+  {
+   "n": 7,
+   "context": " the presence of a warning fosters a \"bald tire\" mentality—the flawed belief that because an action has not caused harm in the past, it will not cause harm in the future3. Frequent, non-lethal warnings function like false positives or nuisance alarms"
+  },
+  {
+   "n": 8,
+   "context": "the presence of a warning fosters a \"bald tire\" mentality—the flawed belief that because an action has not caused harm in the past, it will not cause harm in the future3. Frequent, non-lethal warnings function like false positives or nuisance alarms7"
+  },
+  {
+   "n": 3,
+   "context": "harm in the future3. Frequent, non-lethal warnings function like false positives or nuisance alarms78. As familiarity with the warning grows, the team's attention wanes, leading to inaccurate risk perception and complete desensitization to the hazard"
+  },
+  {
+   "n": 9,
+   "context": "arm in the future3. Frequent, non-lethal warnings function like false positives or nuisance alarms78. As familiarity with the warning grows, the team's attention wanes, leading to inaccurate risk perception and complete desensitization to the hazard3"
+  },
+  {
+   "n": 4,
+   "context": "As a warning becomes routine, the team's baseline for acceptable behavior expands like an \"elastic waistband\""
+  },
+  {
+   "n": 1,
+   "context": "As a warning becomes routine, the team's baseline for acceptable behavior expands like an \"elastic waistband\"4. Once the initial deviation is tolerated, the newly expanded risk boundary becomes the new normal"
+  },
+  {
+   "n": 4,
+   "context": "As a warning becomes routine, the team's baseline for acceptable behavior expands like an \"elastic waistband\"4. Once the initial deviation is tolerated, the newly expanded risk boundary becomes the new normal1"
+  },
+  {
+   "n": 3,
+   "context": "he initial deviation is tolerated, the newly expanded risk boundary becomes the new normal14. Subsequent team members inherit this context and assume that the red flag is simply a standard property of the system rather than a flaw waiting to be fixed"
+  },
+  {
+   "n": 4,
+   "context": "e initial deviation is tolerated, the newly expanded risk boundary becomes the new normal14. Subsequent team members inherit this context and assume that the red flag is simply a standard property of the system rather than a flaw waiting to be fixed3"
+  },
+  {
+   "n": 10,
+   "context": "Organizational drift toward failure occurs in tiny, incremental steps rather than all at once"
+  },
+  {
+   "n": 11,
+   "context": "Organizational drift toward failure occurs in tiny, incremental steps rather than all at once10"
+  },
+  {
+   "n": 11,
+   "context": "Organizational drift toward failure occurs in tiny, incremental steps rather than all at once1011. When trade-offs between thoroughness and delivery speed arise, bypassing a familiar warning appears entirely rational for any single deployment"
+  },
+  {
+   "n": 12,
+   "context": ""
+  },
+  {
+   "n": 13,
+   "context": "12"
+  },
+  {
+   "n": 10,
+   "context": "nal for any single deployment11unfold_less1213. Evaluated individually, each decision to ignore the warning seems harmless; cumulatively, however, these small choices erode safety margins until an unexpected combination of conditions causes a failure"
+  },
+  {
+   "n": 12,
+   "context": ""
+  },
+  {
+   "n": 14,
+   "context": "12"
+  }
+ ],
+ "legend": {
+  "1": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "While NASA properly designated key debris events as In-Flight Anomalies in the past, more recent events indicate that NASA engineers and management did not appreciate the scope, or lack of scope, of the Hazard Reports involving foam shedding.40 Ultimately, NASA's hazard analyses, which were based on reducing or eliminating foam-shed-ding, were not succeeding. Shuttle Program management made no adjustments to the analyses to recognize this fact. The acceptance of events that are not supposed to happen has been described by sociologist Diane Vaughan as the \"normalization of deviance.\"\" The history of foam-problem decisions shows how NASA first began and then continued flying with foam losses, so that flying with these deviations from design specifications was viewed as normal and acceptable. Dr. Richard Feynman, a member of the Presiden-tial Commission on the Space Shuttle Challenger Accident, discusses this phenomena in the context of the Challenger accident. The parallels are striking:"
+  },
+  "2": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "were followed by all-clear signals — in other words, NASA managers and engineers were receiving mixed signals.' Some signals defined as weak at the time were, in retrospect, warnings of danger. Foam debris damaged tile was assumed (erroneously) not to pose a danger to the wing. If a primary O-ring failed, the secondary was assumed (erroneously) to provide a backup. Finally, because foam debris strikes were occurring frequently, like O-ring erosion in the years before Challenger, foam anomalies became routine signals — a normal part of Shuttle operations, not signals of danger. Other anomalies gave signals that were strong, like wiring malfunctions or the cracked balls in Ball Strut Tie Rod As-semblies, which had a clear relationship to a \"loss of mission.\" On those occasions, NASA stood down from launch, sometimes for months, while the problems were corrected. In contrast, foam debris and eroding 0-rings were defined as nagging issues of seemingly little consequence. Their significance became clear only in retrospect, after lives had been lost."
+  },
+  "3": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Department of Energy Human Performance Handbook Chapter 2 Reducing Error\nalways faced a protected enemy and devastating machine gun fire. Millions of men killed and wounded, yet the Generals persisted. The cycle continued—over the top, early success, then overwhelming losses and retreat.\"19\n• Invulnerability. A sense of immunity to error, failure, or injury. Most people do not believe they will err in the next few moments: “That can’t happen to me.” Error is always a surprise when it happens. This is an outcome of the human limitation to accurately estimate risk. The failure to secure enough lifeboats for all passengers and to train the seamen how to launch them and load them ultimately resulted in the biggest maritime loss of civilian lives in history on the Titanic. Invulnerability was so ingrained in the minds of the ship owners about the ship being unsinkable that to supply the vessel with life boats for all passengers was foolhardy and would somehow leave the impression that the ship could sink. Hence, only half enough life boats were brought on board for the maiden voyage. When disaster struck, seaman struggled to launch the available craft. In the panic and confusion, numerous boats floated away from the mother ship only partially loaded.\n• Pollyanna – All is well. People tend to presume that all is normal and perfect in their immediate surroundings20 Humans seek order in their environment, not disorder. They tend to fill in gaps in perception and to see wholes instead of portions.21 Consequently, people unconsciously believe that everything will go as planned. This is particularly true when people perform routine activities, unconsciously thinking nothing will go wrong. This belief is characterized with quotes such as “What can go wrong?” or “It's routine.” This attitude promotes an inaccurate perception of risk and can lead individuals to ignore unusual situations or hazards, potentially causing them to react either too late or not at all.22\n• Bald Tire. A belief that past performance is justification for not changing (improving) existing practices or conditions: “I've got 60,000 miles on this set of tires and haven't had a flat yet.” A history of success can promote complacency and overconfidence. Evidence of this attitude is characterized with quotes such as, “We haven't had any problems in the past,” or “We've always done it this way.” Managers can be tempted to ignore recommendations for improvement if results have been good. What happened with the Columbia space shuttle is a good example. Over the course of 22 years, on every flight, some foam covering the outer skin of the external fuel tank fell away during launch and struck the shuttle. Foam strikes were normalized to the point where they were simply viewed as a “maintenance” issue—a concern that did not threaten a mission’s success. In 2003, even after it became clear from the launch videos that foam had struck the Orbiter in a manner never before seen, Space Shuttle Program managers were not unduly alarmed. They could not imagine why anyone would want a photo of something that could be fixed after landing. Learned attitudes about foam strikes diminished management’s wariness of their danger.23"
+  },
+  "4": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "The initial Shuttle design predicted neither foam debris problems nor poor sealing action of the Solid Rocket Boost-er joints. To experience either on a mission was a violation of design specifications. These anomalies were signals of potential danger, not something to be tolerated, but in both cases after the first incident the engineering analysis concluded that the design could tolerate the damage. These engineers decided to implement a temporary fix and/or accept the risk, and fly. For both O-rings and foam, that first decision was a turning point. It established a precedent for accepting, rather than eliminating, these technical deviations. As a result of this new classification, subsequent incidents of O-ring erosion or foam debris strikes were not defined as signals of danger, but as evidence that the design was now acting as predicted. Engineers and managers incorporated worsening anomalies into the engineering experience base, which functioned as an elastic waistband, expanding to hold larger deviations from the original design. Anomalies that did not lead to catastrophic failure were treated as a source of valid engineering data that justified further flights. These anomalies were translated into a safety margin that was extremely influential, allowing engineers and managers to add incrementally to the amount and seriousness of damage that was acceptable. Both O-ring erosion and foam debris events were repeatedly \"addressed\" in NASA's Flight Readiness Reviews but never fully resolved. In both cases, the engineering analysis was incomplete and inadequate. Engineers understood what was happening, but they never understood why. NASA continued to implement a series of small corrective actions, living with the problems until it was too late.'"
+  },
+  "5": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "It was a small and logical next step for the discovery of foam debris damage to the tiles to be viewed by NASA as part of an already existing maintenance problem, an assessment based on experience, not on a thorough hazard analysis. Foam debris anomalies came to be categorized by the reassuring term \"in-family,\" a formal classification indicating that new occurrences of an anomaly were within the engineering experience base. \"In-family\" was a strange term indeed for a violation of system requirements. Although \"in-family\" was a designation introduced post-Challenger to separate prob-lems by seriousness so that \"out-of-family\" problems got more attention, by definition the problems that were shifted into the lesser \"in-family\" category got less attention. The Board's investigation uncovered no paper trail showing escalating concern about the foam problem like the one that Solid Rocket Booster engineers left prior to Challenger.' So ingrained was the agency's belief that foam debris was not a threat to flight safety that in press briefings after the Columbia accident, the Space Shuttle Program Manager still discounted the foam as a probable cause, saying that Shuttle managers were \"comfortable\" with their previous risk assessments."
+  },
+  "6": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "From the beginning, the Board witnessed a consistent lack of concern about the debris strike on Columbia. NASA man-agers told the Board \"there was no safety-of-flight issue\" and \"we couldn't have done anything about it anyway.\" The investigation uncovered a troubling pattern in which Shuttle Program management made erroneous assumptions about the robustness of a system based on prior success rather than\nThe Shuttle Program's complex structure erected barriers to effective communication and its safety culture no longer asks enough hard questions about risk. (Safety culture refers to an organization's characteristics and attitudes — promoted by its leaders and internalized by its members — that serve to make safety the top priority.) In this context, the Board believes the mistakes that were made on STS-107 are not isolated failures, but are indicative of systemic flaws that existed prior to the accident. Had the Shuttle Program observed the principles discussed in the previous two sections, the threat that foam posed to the Orbiter, particularly after the STS-112 and STS-107 foam strikes, might have been more fully appreciated by Shuttle Program management."
+  },
+  "7": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Department of Energy Human Performance Handbook Chapter 2 Reducing Error\nWork Environment Human Nature\n• Distractions / Interruptions\n• Changes / Departure from routine\n• Confusing displays / Controls\n• Work-arounds / OSSβ instrumentation\n• Hidden system response\n• Unexpected equipment conditions\n• Lack of alternative indication\n• Personality conflicts\n• Back shift or recent shift change\n• Excessive group cohesiveness / peer pressure\n• Production overemphasis\n• Adverse physical climate (habitability)\n• No accounting of performance.\n• Conflicting conventions; stereotypes\n• Poor equipment layout; poor access\n• Fear of consequences of error\n• Mistrust among work groups\n• Meaningless rules\n• Nuisance alarms\n• Unavailable parts or tools\n• Acceptability of “cookbooking” practices\n• “Rule book” culture\n• Equipment sensitivity (inadvertent actions)\n• Lack of clear strategic vision or goals\n• Stress (limits attention)\n• Habit patterns\n• Assumptions (inaccurate mental"
+  },
+  "8": {
+   "source": "jones-evidence-based-sweng.pdf",
+   "chunk": "that a developer will stop using the tool concerned if they are encountered too often. Higher false-positive rates\n5 10 15 20 25 30\n0.0\n0.2\n0.4\n0.6\n0.8\n1.0\nNumber of warnings\n0.2\n0.3\n0.4\n0.5\n0.2 0.3\n0.4\n0.5\n3 false positives 4 false positives\nFigure 9.1: Probability that three (red) or four (blue) consecutive false positive warnings occur in some total number of warnings (false positive rate appears on the line). Github–Local\n20 40 60 80 100 120\n20\n50\n100\n200\n500\n1000\n2000\n5000\n10000\nJokes rated"
+  },
+  "9": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": " Intending to shut down lines A and B, the operator also pressed the “shut-off’“ control buttons for lines C and D.\nDepartment of Energy Human Performance Handbook Chapter 2 Reducing Error\nUnder ideal conditions, the chance for error is less than 1 in 10,000, according to a study in the nuclear power industry.66 People most often possess an accurate understanding of the task and have correct intentions. Roughly 90 percent of a person's daily activities are spent in the skill-based performance mode.67 However, only 25 percent of all errors are attributable to skill-based errors in the nuclear power industry.68 Potentially, a person can be so focused on a skill-based task that important information in the work place is not detected.69 Another concern for skill-based tasks is that people are familiar with the task. The greater the familiarity, the less likely perceived risk will match actual risk. People become comfortable with risk and eventually grow insensitive to hazards.70 Several tools in the HPI Handbook volume 2 are designed to help anticipate, prevent or catch skill-based errors ( task preview, job-site review, questioning attitude, stop when unsure, self-checking, pre-job briefing, place-keeping, peer check and concurrent verification)*6."
+  },
+  "10": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "Strategies must increase the clarity, strength, and presence of signals that challenge assumptions about risk. Twice in NASA history, the agency embarked on a slippery slope that resulted in catastrophe. Each decision, taken by itself, seemed correct, routine, and indeed, insignificant and unremarkable. Yet in retrospect, the cumulative effect was stunning. In both pre-accident periods, events unfolded over a long time and in small increments rather than in sudden and dramatic occurrences. NASA's challenge is to design systems that maximize the clarity of signals, amplify weak signals so they can be tracked, and account for missing signals. For both accidents there were moments when management definitions of risk might have been reversed were it not for the many missing signals — an absence of trend analysis, imagery data not obtained, concerns not voiced, information overlooked or dropped from briefings. A safety team must have equal and independent representation so that managers are not again lulled into complacency by shifting definitions of risk. It is obvious but worth acknowledging that people who are marginal and powerless in organizations may have useful information or opinions that they don't express. Even when these people are encouraged to speak, they find it intimidating to contradict a leader's strategy or a group consensus. Extra effort must be made to contribute all relevant information to discussions of risk. These strategies are important for all safety aspects, but especially necessary for ill-structured problems like O-rings and foam debris. Because ill-structured problems are less visible and therefore invite the normalization of deviance, they may be the most risky of all."
+  },
+  "11": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": " Change is Omnipresent – as leaders exploit new capabilities, the result is change.\nRecognizing these factors, researchers have identified the process that “a drift toward failure” precedes major events as planned controls erode in the face of production pressures and change. This failure arises from systematic and predictable organizational factors at work, not simply\nDepartment of Energy Human Performance Handbook Chapter 5 Human Performance Evolution\nerratic behaviors by individuals. As described above, HRO’s create safety by anticipating and planning for unexpected events and future surprises. HROs do not take past success as a reason for confidence. Instead, they continue to invest in anticipating the changing potential for failure because of the deeply held understanding that their knowledge base is fragile in the face of the hazards inherent in their work and in the changes always present in their environment. SAFETY then becomes a value that requires continuing reinforcement and investment.24"
+  },
+  "12": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "foam shedding and potential damage to the Orbiter before Columbia. Furthermore, NASA performed no tests on what would happen if a wing leading edge were struck by bipod foam, even though foam had repeatedly separated from the External Tank.\nDuring the Challenger investigation, Rogers Commis-sion member Dr. Richard Feynman famously compared launching Shuttles with known problems to playing Russian roulette.\" But that characterization is only possible in hindsight. It is not how NASA personnel perceived the risks as they were being assessed, one launch at a time. Playing Rus-sian roulette implies that the pistol-holder realizes that death mi-ht be imminent and still takes the risk. For both foam debris and O-ring erosion, fixes were in the works at the time of the accidents, but there was no rush to complete them because neither problem was defined as a show-stopper. Each time an incident occurred, the Flight Readiness process declared it safe to continue flying. Taken one at a time, each decision seemed correct. The agency allocated attention and resources to these two problems accordingly. The consequences of living with both of these anomalies were, in its view, minor. Not all engineers agreed in the months immedi-ately preceding Challenger, but the dominant view at NASA — the managerial view — was, as one manager put it, \"we were just eroding rubber O-rings,\" which was a low-cost problem.\" The financial consequences of foam debris also were relatively low: replacing tiles extended the turnaround time between launches. In both cases, NASA was comfortable with its analyses. Prior to each accident, the agency saw no greater consequences on the horizon."
+  },
+  "13": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "agencies.\n2 Hollnagel, Erik. The ETTO Principle Efficiency-Thoroughness Trade-Off: Why Things\nThat Go Right Sometimes Go Wrong. Farnham, England: Ashgate, 2009.\n“In a just culture, management can balance the tension between needing to\nknow what is going on, and needing to correct what is\ngoing on.”\nSidney Dekker\n21\nThe Elkhorn 2 Escaped Prescribed Fire FLA in 2008 was one of the first attempts to use the FLA process to\nfulfill the requirement for Escaped Prescribed Fire Reviews. The FLA"
+  },
+  "14": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "The Board believes normal accident theory has a key role in human spaceflight as well. Complex organizations need specific mechanisms to maintain their commitment to safety and assist their understanding of how complex interactions can make organizations accident-prone. Organizations cannot put blind faith into redundant warning systems because they inherently create more complexity, and this complexity in turn often produces unintended system interactions that can lead to failure. The Human Space Flight Program must realize that additional protective layers are not always the best choice. The Program must also remain sensitive to the fact that despite its best intentions, managers, engineers, safety professionals, and other employees, can, when confronted with extraordinary demands, act in counterproductive ways."
+  }
+ }
+}

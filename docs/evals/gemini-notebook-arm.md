@@ -1,6 +1,6 @@
 # The Gemini Notebook arm (N)
 
-*Status: this protocol, over the public demo corpus, is still unrun. A round over a private corpus ran on 19–22 October 2026; its results are at [`rounds/2026-10-22-gemini-notebook-private-corpus/`](rounds/2026-10-22-gemini-notebook-private-corpus/).*
+*Status: this protocol, over the public demo corpus, is still unrun. A round over a private corpus ran on 19–22 October 2026; its results are at [`rounds/2026-10-22-gemini-notebook-private-corpus/`](rounds/2026-10-22-gemini-notebook-private-corpus/). A narrower round over the demo corpus ran on 31 October 2026: whether Gemini Notebook needs a question to share the sources' words to find a passage. It found the target passage as reliably in a user's words as in the author's; the results are at [`rounds/2026-11-keyword-match/`](rounds/2026-11-keyword-match/).*
 
 Google's Gemini Notebook (NotebookLM until its rename on 16 July 2026) is the market's default source-grounded tool: upload sources, ask, and get an answer whose claims carry passage-level citations. None of the arms in [`methodology.md`](methodology.md) is a grounded product of this kind, and its citations offer per-claim auditability, the property the matrix claims as its edge. Method N loads Gemini Notebook with the demo corpus's converted sources and puts the same prompts to it as to the matrix (D) and to Claude with the sources (C).
 

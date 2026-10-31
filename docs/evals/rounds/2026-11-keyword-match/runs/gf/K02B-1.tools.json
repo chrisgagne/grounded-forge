@@ -1,0 +1,68 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Our office relocation looked straightforward on paper, yet each step turned into a slog: a late truck, a missing key, rain, a nervous crew. Is there a name for that drag that turns plain jobs hard?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "schema_version|topic_lines",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02B-1/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02B-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "friction",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02B-1/concept-index.json",
+   "output_mode": "content",
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "[Ff]riction",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02B-1/references/mcdp1-warfighting-deep.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "[Ff]riction",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02B-1/sources/converted/mcdp1-warfighting.md",
+   "output_mode": "content",
+   "-C": 3,
+   "head_limit": 80
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02B-1/sources/converted/mcdp1-warfighting.md",
+   "offset": 270,
+   "limit": 36
+  }
+ }
+]

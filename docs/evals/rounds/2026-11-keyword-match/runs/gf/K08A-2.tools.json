@@ -1,0 +1,135 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What does equity theory say about how our outcomes and inputs, compared with other people's, affect motivation?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "equity theory|schema_version|topic_lines",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/concept-index.json",
+   "output_mode": "content",
+   "-i": true,
+   "head_limit": 40
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t039|\"00h\"|inequity|social comparison",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/concept-index.json",
+   "output_mode": "content",
+   "-i": true,
+   "head_limit": 60
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "00h",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00j\"|\"00l\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equity|inequit",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/references",
+   "output_mode": "count"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equity theory|inequit|referent|Adams|over-?reward|under-?reward",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/references",
+   "output_mode": "content",
+   "glob": "openstax-{organizational-behavior,principles-management,introduction-business}*"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/references/openstax-organizational-behavior-deep.md",
+   "offset": 280,
+   "limit": 20
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/references/openstax-principles-management-deep.md",
+   "offset": 770,
+   "limit": 14
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/references/openstax-introduction-business-deep.md",
+   "offset": 490,
+   "limit": 6
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equity theory|overreward|underreward|referent other|outcome-input|overrate|seniority may be",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/sources/converted",
+   "output_mode": "files_with_matches"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equity theory|overreward|underreward|referent other|overrate|seniority may be",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/sources/converted/openstax-organizational-behavior.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/sources/converted/openstax-organizational-behavior.md",
+   "offset": 10324,
+   "limit": 185
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/sources/converted/openstax-organizational-behavior.md",
+   "offset": 10968,
+   "limit": 24
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "take steps to reduce concerns about inequity|perceptions of fair treatment",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-2/sources/converted/openstax-introduction-business.md",
+   "output_mode": "content",
+   "-B": 2,
+   "-A": 2
+  }
+ },
+ {
+  "tool": "Write",
+  "input": {
+   "file_path": "/tmp/equity-answer.md",
+   "content": "The OpenStax *Organizational Behavior* text states the core idea directly: \"Equity theory states that motivation is affected by the outcomes we receive for our inputs compared to the outcomes and inputs of other people.\"\n\nInputs include time, effort, performance level, education level, skill levels, and bypassed opportunities. Outcomes include pay, working conditions, job status, feelings of achievement, and friendship opportunities. \"It is this comparison of the two ratios that has the strongest effect on our equity perceptions.\"\n\nUnderreward inequity is when \"others unfairly make more than we do\", and then \"we will likely be dissatisfied, angered, and motivated to change the situation (or escape the situation)\". The text adds that \"employees engage in effective behaviors when they perceive equity and ineffective behaviors when they perceive inequity.\"\n\nThe book also says \"Equity theory continues to receive strong research support\", and that \"layoffs based on seniority may be perceived as more fair than layoffs based on supervisors\u2019 opinions.\"\n"
+  }
+ }
+]

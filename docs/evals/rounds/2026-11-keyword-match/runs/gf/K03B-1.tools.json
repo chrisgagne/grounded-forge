@@ -1,0 +1,158 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Writing up last month's crane incident, my reviewers keep saying \"had Sam checked the brake, we'd be fine.\" Is that a helpful way to frame the write-up?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "references/*"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t002|\"t003|\"t004|\"t083|\"t078|\"t076",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "hindsight|counterfactual|outcome bias|should have",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/concept-index.json",
+   "output_mode": "content",
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "[Cc]ounterfactual|should have|could have|hindsight",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "[Hh]indsight|[Bb]lame cycle|why it made sense|made sense to",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "[Hh]indsight|blame|system|individual",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/references/nhs-just-culture-guide.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "offset": 3038,
+   "limit": 22
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "offset": 4774,
+   "limit": 50
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 7555,
+   "limit": 35
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 9860,
+   "limit": 30
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "rarely appropriate|tendency to treat wider",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/sources/converted/nhs-just-culture-guide.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 7546,
+   "limit": 10
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "single (barrier|defense|point)|no single|defense-in-depth",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 1,
+   "head_limit": 30
+  }
+ }
+]

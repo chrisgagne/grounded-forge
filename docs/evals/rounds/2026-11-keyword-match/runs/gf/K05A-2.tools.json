@@ -1,0 +1,63 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is the scope of work mandate on the vertical axis of the Org Topologies map?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "org-topolog",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-2/references/slug-table.json",
+   "output_mode": "content",
+   "-i": true
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "references/*topolog*",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-2"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-2/references/org-topologies-primer-2025.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)vertical|scope of work|mandate",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-2/references/org-topologies-primer-2025-deep.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-2/references/org-topologies-primer-2025-deep.md",
+   "offset": 39,
+   "limit": 12
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "bigger is its field of play|switching costs to work on something different",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-2/sources/converted",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-2/sources/converted/org-topologies-primer-2025.md",
+   "offset": 500,
+   "limit": 30
+  }
+ }
+]

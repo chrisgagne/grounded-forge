@@ -1,0 +1,117 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What does equity theory say about how our outcomes and inputs, compared with other people's, affect motivation?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "equity theory|inequity",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/concept-index.json",
+   "output_mode": "content",
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00h\"|\"t039",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1",
+   "glob": "{concept-index.json,references/slug-table.json}",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "equity theory",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/references",
+   "-i": true,
+   "output_mode": "count"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "equity theory|inequity|referent",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/references",
+   "-i": true,
+   "output_mode": "content",
+   "-C": 3,
+   "glob": "*-deep.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/references/openstax-organizational-behavior-deep.md",
+   "offset": 280,
+   "limit": 22
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "~/.claude/projects/-Users-Shared-aar-ab-runs-keyword-match-K08A-1/c03c73aa-cae2-4c34-bc19-3319f00aaf0f/tool-results/toolu_01Co23X8r6jKW6Jk32XJKAfv.txt"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/references/openstax-principles-management-deep.md",
+   "offset": 775,
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/references/openstax-introduction-business-deep.md",
+   "offset": 493,
+   "limit": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "## Equity Theory|Basic Equity Model|Reducing Underreward|Overreward|Organizational Justice|referent other",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/sources/converted/openstax-organizational-behavior.md",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/sources/converted/openstax-organizational-behavior.md",
+   "offset": 10340,
+   "limit": 180
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/sources/converted/openstax-organizational-behavior.md",
+   "offset": 10970,
+   "limit": 15
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "reduce concerns about inequity",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08A-1/sources/converted",
+   "output_mode": "content",
+   "-B": 2
+  }
+ }
+]

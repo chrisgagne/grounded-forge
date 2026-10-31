@@ -1,0 +1,76 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is the paper plant, and how can flaws in it lead to error in the physical plant?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "paper plant",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06A-1",
+   "-i": true,
+   "output_mode": "content",
+   "glob": "*.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00s\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06A-1/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "paper plant",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06A-1/references",
+   "-i": true,
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K06A-1/references/doe-hpi-handbook-vol1-deep.md",
+   "offset": 40,
+   "limit": 40
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "paper plant",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06A-1/references/doe-hpi-handbook-vol2-deep.md",
+   "-i": true,
+   "output_mode": "content",
+   "-o": true,
+   "-C": 0
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": ".{0,600}paper plant.{0,600}",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06A-1/references/doe-hpi-handbook-vol2-deep.md",
+   "-i": true,
+   "output_mode": "content",
+   "-o": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "paper plant|touch the paper|configuration of the physical plant",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06A-1/sources/converted",
+   "-i": true,
+   "output_mode": "content",
+   "-C": 3
+  }
+ }
+]

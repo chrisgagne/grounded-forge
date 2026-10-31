@@ -1,0 +1,54 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What does the diathesis-stress model say about how a psychological disorder develops?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "diathesis",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07A-1",
+   "-i": true,
+   "glob": "*.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07A-1"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "diathesis",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07A-1/references",
+   "-i": true,
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "diathesis",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07A-1/sources/converted",
+   "-i": true,
+   "output_mode": "content",
+   "-C": 4
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07A-1/references/openstax-psychology-2e-deep.md",
+   "offset": 436,
+   "limit": 7
+  }
+ }
+]

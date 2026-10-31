@@ -1,0 +1,70 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What are the two axes of the Agreement/Uncertainty Matrix?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "agreement.{0,5}uncertainty|stacey",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10A-2/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "references/slug-table.json",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10A-2"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"006\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10A-2/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Agreement.{0,5}Uncertainty|certainty|agreement",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10A-2/references",
+   "glob": "liberating-structures-handbook*.md",
+   "-i": true,
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Agreement/Uncertainty|Stacey",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10A-2/sources/converted",
+   "-i": true,
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10A-2/sources/converted/liberating-structures-handbook.md",
+   "offset": 1620,
+   "limit": 60
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10A-2/sources/converted/open-practice-library.md",
+   "offset": 14943,
+   "limit": 45
+  }
+ }
+]

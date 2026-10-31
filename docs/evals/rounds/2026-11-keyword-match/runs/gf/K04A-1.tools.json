@@ -1,0 +1,57 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is the Definition of Done, and what happens to a Product Backlog item that doesn't meet it?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "definition of done",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04A-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00m\"|scrum",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04A-1/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Definition of Done|Done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04A-1/references/scrum-guide-2020-deep.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Definition of Done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04A-1/sources/converted/scrum-guide-2020.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04A-1/sources/converted/scrum-guide-2020.md",
+   "offset": 605,
+   "limit": 28
+  }
+ }
+]

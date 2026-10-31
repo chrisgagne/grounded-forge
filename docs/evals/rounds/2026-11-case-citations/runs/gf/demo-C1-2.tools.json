@@ -1,0 +1,278 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "CTO at a 140-person logistics SaaS. Three product lines, ~60 engineers in nine squads. Every sprint overflows: plan ~40 points, ship 25, carry the rest. Marketing wants a feature a week and says quality is engineering's problem; engineering says churn comes from bugs. Head of engineering set a \"stretch\" target of 40% more throughput by Q1 tied to squad leads' bonus. Most developers sit on 2-3 squads at once (CEO rule: nobody idle). A bad release took the customer portal down 4 hours; postmortem named the developer, now on a performance plan. CEO wants to buy AI coding tools to \"do both\". Need a two-page memo for the CEO: what's actually going on, what to change first and why first, and where the source thinking disagrees with itself."
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "schema_version|topic_lines",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/concept-index.json",
+   "offset": 1,
+   "limit": 92
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "^\\[\"(?!t)[^\"]*\",.*\"(t002|t003|t005|t011|t013|t015|t016|t023|t039|t047|t051|t052|t053|t083|t084|t008|t078|t082)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 0
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"(t002|t003|t005|t011|t013|t015|t016|t023|t039|t047|t051|t052|t053|t083|t084|t008|t078|t082)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 0,
+   "offset": 0
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/org-topologies-primer-2025.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/open-kanban.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/nhs-just-culture-guide.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/caib-report-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/ssdl-systems-thinking-foundations.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/jones-evidence-based-sweng.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/lfuo-learning-review-guide-2024.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/doe-hpi-handbook-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/scrum-guide-2020.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "stretch goal|stretch target|difficult goals|goal-setting theory",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted",
+   "output_mode": "content",
+   "-i": true,
+   "head_limit": 30
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/lenses/builder.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "100% utili|optimized in isolation|more output|spin up another|monitoring will become|Concentrate|focus of OT-driven",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/org-topologies-primer-2025.md",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/openstax-principles-management.md",
+   "offset": 25278,
+   "limit": 55
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Goodhart|keeping staff busy|keep staff busy|willing to continue using software|rarity of measurement",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/jones-evidence-based-sweng.md",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/jones-evidence-based-sweng.md",
+   "offset": 41868,
+   "limit": 12
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "operating too close to too many margins|cannot be solved simply by retirements|Leaders create culture|We can't make that date|reversal of the usual requirement",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/caib-report-vol1.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "surest way to kill|not accountability-free|goal conflicts of which management|Recommendations, when implemented|add complexity",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "rarely appropriate|treat wider patient safety issues as individual",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/nhs-just-culture-guide.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "prerequisite for a reporting culture|effect or symptom of deeper trouble|perfectly tuned|blame cycle",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Only what has already happened|quality does not decrease",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/scrum-guide-2020.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "multitask|Muri|sustainable pace|exhausted|Reduce the Batch",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/open-kanban.md",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "is of the past|vanishing as|easier and faster than creating|impede our ability",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "leadership is a defense|production and prevention|FLAs must avoid causal",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/org-topologies-primer-2025.md",
+   "offset": 1424,
+   "limit": 66
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "what could have prevented|who caused",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "time pressure|multitask|distraction",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-2/references/doe-hpi-handbook-vol1-deep.md",
+   "output_mode": "content",
+   "-i": true,
+   "head_limit": 10
+  }
+ }
+]

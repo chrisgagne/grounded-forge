@@ -1,0 +1,1176 @@
+{
+ "id": "gemini-demo-C1-2-chat",
+ "citations": [
+  {
+   "n": "1",
+   "claim": "We are running our software organization on flawed operational assumptions that systematically generate bottleneck queues, incentivize quality compromises, and create severe single-point failures",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "2",
+   "claim": "We are running our software organization on flawed operational assumptions that systematically generate bottleneck queues, incentivize quality compromises, and create severe single-point failures",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "3",
+   "claim": "We are running our software organization on flawed operational assumptions that systematically generate bottleneck queues, incentivize quality compromises, and create severe single-point failures",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "3",
+   "claim": "Our rule that \"nobody is idle,\" which splits developers across two or three squads simultaneously, is the primary driver of our delivery collapse",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "4",
+   "claim": "Our rule that \"nobody is idle,\" which splits developers across two or three squads simultaneously, is the primary driver of our delivery collapse",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "3",
+   "claim": "In organizational design terminology, we are operating in a Resource Topology—a model that attempts to maximize local labor utilization (\"keeping people 100% busy\") rather than value flow",
+   "cited": "org-topologies-primer-2025",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "5",
+   "claim": "In organizational design terminology, we are operating in a Resource Topology—a model that attempts to maximize local labor utilization (\"keeping people 100% busy\") rather than value flow",
+   "cited": "org-topologies-primer-2025",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "6",
+   "claim": "Queuing Theory (Little’s Law) dictates that as resource utilization approaches 100%, queue times and lead times increase exponentially (Cycle Time=WIP/Throughput)",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "4",
+   "claim": "By forcing engineers onto multiple squads, we inflate Work-In-Progress (WIP) and generate massive context-switching overhead",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "7",
+   "claim": "By forcing engineers onto multiple squads, we inflate Work-In-Progress (WIP) and generate massive context-switching overhead",
+   "cited": "open-kanban",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "8",
+   "claim": "Furthermore, software development communication overhead grows non-linearly with team interdependencies (D peak thresholds)",
+   "cited": "jones-evidence-based-sweng",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "4",
+   "claim": "Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "7",
+   "claim": "Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls",
+   "cited": "open-kanban",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "8",
+   "claim": "Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls",
+   "cited": "jones-evidence-based-sweng",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "3",
+   "claim": "A system with 100% busy people inevitably yields 0% flow efficiency",
+   "cited": "org-topologies-primer-2025",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "9",
+   "claim": "A system with 100% busy people inevitably yields 0% flow efficiency",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "10",
+   "claim": "Tying squad leads' bonuses to an arbitrary \"stretch\" target of 40% more throughput by Q1 triggers Goodhart’s Law: \"When a measure becomes a target, it ceases to be a good measure\"",
+   "cited": "open-practice-library",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": "no"
+  },
+  {
+   "n": "11",
+   "claim": "Tying squad leads' bonuses to an arbitrary \"stretch\" target of 40% more throughput by Q1 triggers Goodhart’s Law: \"When a measure becomes a target, it ceases to be a good measure\"",
+   "cited": "jones-evidence-based-sweng",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": "no"
+  },
+  {
+   "n": "12",
+   "claim": "Expecting a clogged system to deliver 40% more throughput forces engineers into an Efficiency-Thoroughness Trade-Off (ETTO)",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "12",
+   "claim": "When output volume is tied to financial compensation, teams systematically sacrifice thoroughness—skipping automated testing, truncating code reviews, and taking architectural shortcuts",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "13",
+   "claim": "When output volume is tied to financial compensation, teams systematically sacrifice thoroughness—skipping automated testing, truncating code reviews, and taking architectural shortcuts",
+   "cited": "openstax-organizational-behavior",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "14",
+   "claim": "When output volume is tied to financial compensation, teams systematically sacrifice thoroughness—skipping automated testing, truncating code reviews, and taking architectural shortcuts",
+   "cited": "openstax-principles-management",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "15",
+   "claim": "The result is a surge in technical debt and production defects",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "13",
+   "claim": "Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets",
+   "cited": "openstax-organizational-behavior",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "14",
+   "claim": "Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets",
+   "cited": "openstax-principles-management",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "15",
+   "claim": "Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets",
+   "cited": "open-practice-library",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "16",
+   "claim": "Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "17",
+   "claim": "Placing the developer who merged the bad release on a Performance Improvement Plan (PIP) is a critical organizational mistake",
+   "cited": "caib-report-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "18",
+   "claim": "Placing the developer who merged the bad release on a Performance Improvement Plan (PIP) is a critical organizational mistake",
+   "cited": "doe-hpi-handbook-vol2",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "1",
+   "claim": "Human Performance Improvement (HPI) and Just Culture research demonstrate that human error is a symptom of underlying system weakness, not the root cause",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "2",
+   "claim": "Human Performance Improvement (HPI) and Just Culture research demonstrate that human error is a symptom of underlying system weakness, not the root cause",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "19",
+   "claim": "Human Performance Improvement (HPI) and Just Culture research demonstrate that human error is a symptom of underlying system weakness, not the root cause",
+   "cited": "doe-hpi-handbook-vol2",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "2",
+   "claim": "Blaming the individual (\"the sharp end\") creates a false illusion that the problem is solved while leaving the latent organizational pathogens—unclear rollback procedures, missing automated integratio",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "17",
+   "claim": "Blaming the individual (\"the sharp end\") creates a false illusion that the problem is solved while leaving the latent organizational pathogens—unclear rollback procedures, missing automated integratio",
+   "cited": "caib-report-vol1",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "20",
+   "claim": "Blaming the individual (\"the sharp end\") creates a false illusion that the problem is solved while leaving the latent organizational pathogens—unclear rollback procedures, missing automated integratio",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "18",
+   "claim": "Disciplining staff for honest operational errors initiates a destructive Blame Cycle",
+   "cited": "doe-hpi-handbook-vol2",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "21",
+   "claim": "Disciplining staff for honest operational errors initiates a destructive Blame Cycle",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "21",
+   "claim": "It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "22",
+   "claim": "It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "23",
+   "claim": "It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "24",
+   "claim": "It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "25",
+   "claim": "It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "26",
+   "claim": "Investing in AI coding tools as a standalone solution to \"do both\" (increase throughput and maintain quality) represents the classic system archetype Fixes that Fail",
+   "cited": "ssdl-systems-thinking-foundations",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "27",
+   "claim": "Investing in AI coding tools as a standalone solution to \"do both\" (increase throughput and maintain quality) represents the classic system archetype Fixes that Fail",
+   "cited": "ssdl-systems-thinking-foundations",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "28",
+   "claim": "AI tools accelerate localized code generation (\"doing\" tasks)",
+   "cited": "org-topologies-primer-2025",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "3",
+   "claim": "However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster",
+   "cited": "org-topologies-primer-2025",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "15",
+   "claim": "However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster",
+   "cited": "open-practice-library",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "29",
+   "claim": "However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "3",
+   "claim": "AI cannot solve a structural queueing and alignment problem",
+   "cited": "org-topologies-primer-2025",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "30",
+   "claim": "AI cannot solve a structural queueing and alignment problem",
+   "cited": "org-topologies-primer-2025",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "31",
+   "claim": "To restore operational stability, we must apply the Theory of Constraints (TOC): \"Any improvements made anywhere besides the bottleneck are an illusion\"",
+   "cited": "open-practice-library",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": "yes"
+  },
+  {
+   "n": "32",
+   "claim": "To restore operational stability, we must apply the Theory of Constraints (TOC): \"Any improvements made anywhere besides the bottleneck are an illusion\"",
+   "cited": "open-practice-library",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": "yes"
+  },
+  {
+   "n": "33",
+   "claim": "To restore operational stability, we must apply the Theory of Constraints (TOC): \"Any improvements made anywhere besides the bottleneck are an illusion\"",
+   "cited": "openstax-accounting-vol2",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": "no"
+  },
+  {
+   "n": "4",
+   "claim": "Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "7",
+   "claim": "Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs",
+   "cited": "open-kanban",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "34",
+   "claim": "Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "35",
+   "claim": "Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "4",
+   "claim": "Why First?: Multi-squad context-switching is our single greatest system bottleneck",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "7",
+   "claim": "Why First?: Multi-squad context-switching is our single greatest system bottleneck",
+   "cited": "open-kanban",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "31",
+   "claim": "Until we stop task-switching and clear the clogged pipeline, no amount of target-setting, process changes, or AI tools will increase output",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "32",
+   "claim": "Until we stop task-switching and clear the clogged pipeline, no amount of target-setting, process changes, or AI tools will increase output",
+   "cited": "open-practice-library",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "4",
+   "claim": "Single-squad dedication instantly reduces WIP, lowers context-switching costs, and restores predictable flow",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "6",
+   "claim": "Single-squad dedication instantly reduces WIP, lowers context-switching costs, and restores predictable flow",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "36",
+   "claim": "Single-squad dedication instantly reduces WIP, lowers context-switching costs, and restores predictable flow",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "9",
+   "claim": "Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "10",
+   "claim": "Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "37",
+   "claim": "Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "38",
+   "claim": "Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "39",
+   "claim": "Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "10",
+   "claim": "Why Second: Once WIP is capped, we must remove the perverse financial incentives driving Goodhart's Law gaming, point-inflation, and quality cutting",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "11",
+   "claim": "Why Second: Once WIP is capped, we must remove the perverse financial incentives driving Goodhart's Law gaming, point-inflation, and quality cutting",
+   "cited": "jones-evidence-based-sweng",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "16",
+   "claim": "Why Second: Once WIP is capped, we must remove the perverse financial incentives driving Goodhart's Law gaming, point-inflation, and quality cutting",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "40",
+   "claim": "Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postm",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": "no"
+  },
+  {
+   "n": "41",
+   "claim": "Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postm",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": "no"
+  },
+  {
+   "n": "42",
+   "claim": "Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postm",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": "no"
+  },
+  {
+   "n": "43",
+   "claim": "Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postm",
+   "cited": "doe-hpi-handbook-vol2",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": "no"
+  },
+  {
+   "n": "44",
+   "claim": "Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postm",
+   "cited": "doe-hpi-handbook-vol2",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": "no"
+  },
+  {
+   "n": "1",
+   "claim": "Shift investment toward automated deployment guardrails and pre-release verification testing",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "45",
+   "claim": "Shift investment toward automated deployment guardrails and pre-release verification testing",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "46",
+   "claim": "Shift investment toward automated deployment guardrails and pre-release verification testing",
+   "cited": "open-practice-library",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "25",
+   "claim": "Why Third: Unclogging the workflow requires transparent reporting",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "47",
+   "claim": "Why Third: Unclogging the workflow requires transparent reporting",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "22",
+   "claim": "Rebuilding psychological safety ensures engineers report system flaws and production risks early without fear of retribution",
+   "cited": "open-practice-library",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "23",
+   "claim": "Rebuilding psychological safety ensures engineers report system flaws and production risks early without fear of retribution",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "25",
+   "claim": "Rebuilding psychological safety ensures engineers report system flaws and production risks early without fear of retribution",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "29",
+   "claim": "Action: Shift our AI investment from general code generation to automating our specific delivery constraints—such as automated regression test suite generation, pull-request verification, and deployme",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "30",
+   "claim": "Action: Shift our AI investment from general code generation to automating our specific delivery constraints—such as automated regression test suite generation, pull-request verification, and deployme",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "30",
+   "claim": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units",
+   "cited": "org-topologies-primer-2025",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "35",
+   "claim": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "48",
+   "claim": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "49",
+   "claim": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "50",
+   "claim": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "51",
+   "claim": "Goal-Setting Theory argues that difficult, specific \"stretch\" goals drive higher motivation and effort",
+   "cited": "openstax-organizational-behavior",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "52",
+   "claim": "Goal-Setting Theory argues that difficult, specific \"stretch\" goals drive higher motivation and effort",
+   "cited": "openstax-principles-management",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "53",
+   "claim": "Goal-Setting Theory argues that difficult, specific \"stretch\" goals drive higher motivation and effort",
+   "cited": "openstax-introduction-business",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "54",
+   "claim": "Deming and TQM counter that numerical stretch targets narrow vision, induce fear, invite cheating, and destroy process quality",
+   "cited": "openstax-principles-management",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "55",
+   "claim": "Deming and TQM counter that numerical stretch targets narrow vision, induce fear, invite cheating, and destroy process quality",
+   "cited": "openstax-introduction-business",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "56",
+   "claim": "Deming and TQM counter that numerical stretch targets narrow vision, induce fear, invite cheating, and destroy process quality",
+   "cited": "openstax-principles-management",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "10",
+   "claim": "Stretch goals work for simple, independent tasks; in complex software engineering, aggressive numerical targets induce systemic gaming under Goodhart's Law",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "14",
+   "claim": "Stretch goals work for simple, independent tasks; in complex software engineering, aggressive numerical targets induce systemic gaming under Goodhart's Law",
+   "cited": "openstax-principles-management",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "54",
+   "claim": "Stretch goals work for simple, independent tasks; in complex software engineering, aggressive numerical targets induce systemic gaming under Goodhart's Law",
+   "cited": "openstax-principles-management",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "54",
+   "claim": "We must adopt Deming's focus on continuous process improvement over arbitrary velocity quotas",
+   "cited": "openstax-principles-management",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "55",
+   "claim": "We must adopt Deming's focus on continuous process improvement over arbitrary velocity quotas",
+   "cited": "openstax-introduction-business",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "3",
+   "claim": "Classical Management prioritizes 100% labor utilization (\"nobody is idle\") to maximize resource cost-efficiency",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "57",
+   "claim": "Classical Management prioritizes 100% labor utilization (\"nobody is idle\") to maximize resource cost-efficiency",
+   "cited": "openstax-introduction-business",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "58",
+   "claim": "Classical Management prioritizes 100% labor utilization (\"nobody is idle\") to maximize resource cost-efficiency",
+   "cited": "openstax-introduction-business",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "3",
+   "claim": "Lean and Queuing Theory prove that 100% capacity utilization causes infinite queue delays, destroyed flow, and higher overall costs",
+   "cited": "org-topologies-primer-2025",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "6",
+   "claim": "Lean and Queuing Theory prove that 100% capacity utilization causes infinite queue delays, destroyed flow, and higher overall costs",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "9",
+   "claim": "Lean and Queuing Theory prove that 100% capacity utilization causes infinite queue delays, destroyed flow, and higher overall costs",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "39",
+   "claim": "Lean and Queuing Theory prove that 100% capacity utilization causes infinite queue delays, destroyed flow, and higher overall costs",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "9",
+   "claim": "In software delivery, optimizing for human utilization destroys value flow",
+   "cited": "open-practice-library",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "39",
+   "claim": "In software delivery, optimizing for human utilization destroys value flow",
+   "cited": "open-practice-library",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "4",
+   "claim": "We must intentionalize capacity slack so work items can move rapidly without waiting in queues",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "6",
+   "claim": "We must intentionalize capacity slack so work items can move rapidly without waiting in queues",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "39",
+   "claim": "We must intentionalize capacity slack so work items can move rapidly without waiting in queues",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "24",
+   "claim": "Pure \"blameless\" models posit that human errors are 100% system-induced and individual discipline is always counterproductive",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "59",
+   "claim": "Pure \"blameless\" models posit that human errors are 100% system-induced and individual discipline is always counterproductive",
+   "cited": "open-practice-library",
+   "support": "none",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "60",
+   "claim": "Pure \"blameless\" models posit that human errors are 100% system-induced and individual discipline is always counterproductive",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "61",
+   "claim": "Pure \"blameless\" models posit that human errors are 100% system-induced and individual discipline is always counterproductive",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "62",
+   "claim": "Pure \"blameless\" models posit that human errors are 100% system-induced and individual discipline is always counterproductive",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "18",
+   "claim": "Just Culture frameworks (Reason, DOE HPI) distinguish between honest human error and reckless, intentional violations",
+   "cited": "doe-hpi-handbook-vol2",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "40",
+   "claim": "Just Culture frameworks (Reason, DOE HPI) distinguish between honest human error and reckless, intentional violations",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "63",
+   "claim": "Just Culture frameworks (Reason, DOE HPI) distinguish between honest human error and reckless, intentional violations",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "64",
+   "claim": "Just Culture frameworks (Reason, DOE HPI) distinguish between honest human error and reckless, intentional violations",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "18",
+   "claim": "We must reject individual scapegoating for honest errors while maintaining clear accountability for adherence to workable, agreed-upon engineering safety standards",
+   "cited": "doe-hpi-handbook-vol2",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "40",
+   "claim": "We must reject individual scapegoating for honest errors while maintaining clear accountability for adherence to workable, agreed-upon engineering safety standards",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "63",
+   "claim": "We must reject individual scapegoating for honest errors while maintaining clear accountability for adherence to workable, agreed-upon engineering safety standards",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "65",
+   "claim": "We must reject individual scapegoating for honest errors while maintaining clear accountability for adherence to workable, agreed-upon engineering safety standards",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "28",
+   "claim": "Conventional executive views see AI as an individual labor-saving tool (writing syntax faster)",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "3",
+   "claim": "Org Topologies demonstrates that localized speedups in \"doing\" tasks without expanding team scope or removing dependencies merely compound downstream bottlenecks",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "29",
+   "claim": "Org Topologies demonstrates that localized speedups in \"doing\" tasks without expanding team scope or removing dependencies merely compound downstream bottlenecks",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "66",
+   "claim": "Org Topologies demonstrates that localized speedups in \"doing\" tasks without expanding team scope or removing dependencies merely compound downstream bottlenecks",
+   "cited": "org-topologies-primer-2025",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "29",
+   "claim": "AI investment must focus on expanding team capabilities to eliminate dependencies, not padding task-level coding speed",
+   "cited": "org-topologies-primer-2025",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "30",
+   "claim": "AI investment must focus on expanding team capabilities to eliminate dependencies, not padding task-level coding speed",
+   "cited": "org-topologies-primer-2025",
+   "support": "supports",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "4",
+   "claim": "By ending multi-squad matrixing, capping Work-in-Progress, replacing velocity quotas with flow/quality metrics, and establishing a Just Culture, we can stabilize our customer portal, reduce bug-driven",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "6",
+   "claim": "By ending multi-squad matrixing, capping Work-in-Progress, replacing velocity quotas with flow/quality metrics, and establishing a Just Culture, we can stabilize our customer portal, reduce bug-driven",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "25",
+   "claim": "By ending multi-squad matrixing, capping Work-in-Progress, replacing velocity quotas with flow/quality metrics, and establishing a Just Culture, we can stabilize our customer portal, reduce bug-driven",
+   "cited": "lfuo-learning-review-guide-2024",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "34",
+   "claim": "By ending multi-squad matrixing, capping Work-in-Progress, replacing velocity quotas with flow/quality metrics, and establishing a Just Culture, we can stabilize our customer portal, reduce bug-driven",
+   "cited": "open-practice-library",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  },
+  {
+   "n": "40",
+   "claim": "By ending multi-squad matrixing, capping Work-in-Progress, replacing velocity quotas with flow/quality metrics, and establishing a Just Culture, we can stabilize our customer portal, reduce bug-driven",
+   "cited": "doe-hpi-handbook-vol1",
+   "support": "partial",
+   "wrong_book": "no",
+   "quote_exact": ""
+  }
+ ],
+ "ideas": [
+  {
+   "idea": "Developers on two or three squads at once pay a switching cost; the fewer things in progress, the faster each finishes",
+   "present": "yes",
+   "credited_ok": "yes"
+  },
+  {
+   "idea": "'Nobody idle' optimises utilisation, not flow; pull work from a limited queue instead of pushing to keep people busy",
+   "present": "yes",
+   "credited_ok": "yes"
+  },
+  {
+   "idea": "Overflowing sprints: plan to a forecast the team owns, not a target set from above; the Sprint Goal and commitment belong to the Developers",
+   "present": "no",
+   "credited_ok": "no"
+  },
+  {
+   "idea": "Difficult goals raise effort, but only with commitment and ability; a target with a bonus attached invites gaming the measure",
+   "present": "yes",
+   "credited_ok": "yes"
+  },
+  {
+   "idea": "Output isn't outcome: more features shipped doesn't mean the problem customers care about gets solved; feature bloat",
+   "present": "yes",
+   "credited_ok": "no"
+  },
+  {
+   "idea": "A shared Definition of Done is the quality bar; work that doesn't meet it isn't released, which is where the marketing-engineering argument gets settled",
+   "present": "no",
+   "credited_ok": "no"
+  },
+  {
+   "idea": "Naming and punishing the developer who merged the release: a just-culture test asks whether a peer would have done the same, and treats the system that let it through as the finding",
+   "present": "yes",
+   "credited_ok": "yes"
+  },
+  {
+   "idea": "Blame drives reporting underground; the next near-miss won't be surfaced",
+   "present": "yes",
+   "credited_ok": "yes"
+  },
+  {
+   "idea": "Buying tools to 'do both' is a fix that fails or shifts the burden: it eases the symptom and leaves the overload in place",
+   "present": "yes",
+   "credited_ok": "yes"
+  },
+  {
+   "idea": "The first change is one constraint, not a programme: cut work in progress (or stop the stretch target), then look again",
+   "present": "yes",
+   "credited_ok": "yes"
+  },
+  {
+   "idea": "A disagreement among the sources: goal theory says difficult goals improve performance; the flow and respect-for-people sources say overload and unsustainable pace destroy it",
+   "present": "yes",
+   "credited_ok": "yes"
+  }
+ ],
+ "sources_cited": 13,
+ "note": "Heavy marker stacking (up to 5 per sentence) with mostly partial support: chunks carry one piece of a compound claim, and the case-specific inferences, AI-tool claims and outcome promises aren't in them. Little's Law chunk cited for a utilisation-to-infinity claim it doesn't make; 'pure blameless models' strawman cites LFUO, which says blame-free isn't accountability-free. Goodhart quote reworded ('to be' for 'to become'), Substitution Test quote invented. Misreads the case: says Marketing blames bugs for churn. No Scrum; disagreement is goal theory vs Deming."
+}

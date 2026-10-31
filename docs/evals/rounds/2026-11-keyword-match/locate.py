@@ -18,7 +18,8 @@ import argparse, bisect, json, re, sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-CONVERTED = HERE.parents[3] / "corpus.commons/demo/sources/converted"
+import os
+CONVERTED = Path(os.environ.get("GF_CONVERTED", HERE.parents[3] / "corpus.commons/demo/sources/converted"))  # another corpus: set GF_CONVERTED
 
 
 def norm_with_map(raw, join=True):

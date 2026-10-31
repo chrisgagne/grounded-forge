@@ -20,7 +20,9 @@ KM = HERE.parent / "2026-11-keyword-match"
 sys.path.insert(0, str(KM))
 from locate_citations import SLUG as SSDL, locate_chunk  # noqa: E402
 
-MANIFEST = Path(os.environ.get("GF_MANIFEST", HERE.parents[5] / "corpus.local/aarbuddy/projects/gemini-notebook-arm/upload-manifest.csv"))
+GF = HERE.parents[3]
+MAIN = GF.parents[2] if (GF.parents[2] / "corpus.local/aarbuddy").exists() else GF
+MANIFEST = Path(os.environ.get("GF_MANIFEST", MAIN / "corpus.local/aarbuddy/projects/gemini-notebook-arm/upload-manifest.csv"))
 
 
 def slug_map(corpus):

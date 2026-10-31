@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Build one scorer packet per answer.
 
-    python3 build_packets.py RUNS_DIR CAPTURES_DIR OUT_DIR
+    python3 build_packets.py RUNS_DIR CAPTURES_DIR OUT_DIR [ID_PREFIX ...]
+
+With prefixes, only answers whose id starts with one of them are built.
 
 RUNS_DIR holds the grounded-forge runs ({corpus}-{case}-{run}.out/answer.md);
 CAPTURES_DIR the Gemini captures (gf-cc-{corpus}-{case}-{run}.json, with the
@@ -40,6 +42,8 @@ def quotes(corpus, text_path):
 
 def main():
     runs, caps, out = map(Path, sys.argv[1:4])
+    only = sys.argv[4:]
+    wanted = lambda i: not only or any(i.startswith(p) for p in only)
     out.mkdir(parents=True, exist_ok=True)
     cases = {c["id"]: c["prompt"] for c in json.loads((HERE / "cases.json").read_text())}
     n = 0
@@ -47,6 +51,8 @@ def main():
         if f.name.endswith((".located.json", ".report.json")):
             continue
         cap = json.loads(f.read_text())
+        if not wanted(cap["id"]):
+            continue
         corpus, case, run = cap["id"].split("-")[:3]
         loc = json.loads(f.with_suffix(".located.json").read_text())
         ann = f.with_suffix(".annotated.md").read_text().split("\n", 4)[-1]
@@ -62,6 +68,8 @@ def main():
         n += 1
     for d in sorted(runs.glob("*-C?-?.out")):
         corpus, case, run = d.name[:-4].split("-")
+        if not wanted(d.name[:-4]):
+            continue
         ans = (d / "answer.md").read_text()
         (out / f"gf-{corpus}-{case}-{run}.md").write_text(
             f"# gf-{corpus}-{case}-{run}\n\nConverted sources: {CONVERTED[corpus]}\n\n## Question\n\n{cases[case]}\n\n## Answer\n\n{ans}\n\n"

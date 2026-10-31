@@ -138,7 +138,7 @@ The compiled assistant's retrieval pattern at session start:
 4. For a *diagnostic* query, route through `task-index.json` for the relevant phase, then read the distillations the rows point to.
 5. For a *synthesis* query, decompose into sub-claims, pick the topics and task-index rows that cover them, fetch the concept rows under those topics, then read lights and deeps until each sub-claim has a strong source.
 
-Per-query cost on the demo corpus, post-migration: 28-47k tokens for index reads depending on which axis is loaded, vs ~131k tokens of the pre-migration `.md` indexes. See [`projection-time.md`](projection-time.md) for the steady-state numbers.
+Per-query cost on the demo apps, measured October 2026: 12–41k tokens for index reads depending on which axis is loaded (the task index is most of it; the routing surface is under 5k), vs ~131k tokens of the pre-migration `.md` indexes. See [`projection-time.md`](projection-time.md) for the steady-state numbers.
 
 ## A fourth tier beneath the indexes: semantic search as routing, not content
 

@@ -48,7 +48,7 @@ Watch what changes. The skill prints its work as it goes:
 - **Step 0:** classifies the query shape. *Diagnostic* (a situation in a known task domain) vs *named lookup* vs *synthesis*. For this question, *diagnostic*.
 - **Step 0.5:** lens-applicability check. Reads `lens-index.json` and decides whether any lens materially reshapes the answer. For most queries in the demo corpus: *no lens*.
 - **Sub-claim decomposition.** Writes out the 3-6 sub-claims the answer needs to make, before reading any references.
-- **Routing.** Reads `distillations/decision-making/task-index.json`, identifies the relevant phase (likely *evaluating-trade-offs* or similar), pulls the distillations that route to it, then reads the deep references for the authors whose argument is doing real work.
+- **Routing.** Reads `distillations/decision-making/task-index.json`, identifies the relevant phase (likely *evaluating-trade-offs* or similar), pulls the distillations that route to it, and reads each one whole; the verbatim quotations and evidence markers it cites are already in-band.
 
 The default behaviour does this implicitly; the explicit invocation makes it inspectable. That's the value. When an answer feels thin or off, asking the same question via `/answer-from-corpus` forces the protocol and surfaces where retrieval went sideways.
 
@@ -60,23 +60,23 @@ A typical trace for the question above looks like:
 
 ```
 ---
-*Trace [Diagnostic, lens: none, corpus: demo, no-deep]:
+*Trace [Diagnostic, lens: none, mode: app, corpus: demo]:
 decision-making/task-index → sub-claims: framing the loss
-(openstax-OB), accounting treatment (openstax-accounting),
-stakeholder dynamics (tomlinson-stakeholder-engagement), defensibility
-(openstax-OB Ch 6) → Pass 3 deferred (distillation carries projected
-citations; deliverable is artefact-shaped)*
+(openstax-OB), accounting treatment (openstax-accounting-vol2),
+sunk cost and escalation (openstax-OB Ch 6.4), who bears the
+decision (openstax-principles-management) → 4 distillations read →
+verbatim markers surfaced from in-band citations*
 ```
 
-The bracket carries six fields, in order, each load-bearing:
+The bracket carries up to five fields, in order, each load-bearing:
 
 | Field | What it tells you |
 |---|---|
 | **Protocol** | `Named` / `Diagnostic` / `Synthesis`. Which retrieval shape the skill classified your question as. If you asked a named-lookup question and got `Synthesis`, the classifier missed; ask again more specifically. |
-| **Regime** *(optional)* | `Citation-grade` / `Depth-over-breadth` / `Orientation`. Appears only when a non-default regime fired. Citation-grade means the deep references were re-validated for verbatim citation; Orientation means depth was deferred for a survey question. |
+| **Regime** *(optional)* | `Citation-grade` / `Depth-over-breadth` / `Orientation`. Appears only when a non-default regime fired. Citation-grade means every quoted passage was checked word for word before the answer went out; Orientation means depth was deferred for a survey question. |
 | **Lens** | `lens: <slug>` or `lens: none`. Which lens (if any) shaped salience. For most queries against the demo corpus, `lens: none`. |
 | **Corpus** | `corpus: <slug>`. Which corpus was resolved-against. `corpus: demo` is the default in this tutorial. |
-| **Deep-flag** | `deep` / `no-deep` / `partial`. Whether Pass 3 (deep-reference reading) fired. `no-deep` doesn't mean low-quality; it means the distillations carried the projected citations and re-reading the deeps would only thicken existing coverage. `partial` means deep reads were bounded by source-availability and the trace body names the gap. |
+| **Mode** | `mode: app` or `mode: project`. In an app the reads land on distillations; in the corpus they land on the light and deep references. Every tutorial step but the attribution audit runs in app mode. |
 
 After the bracket, the trace narrates the actual route taken: which index was read first, which sub-claims the answer needed to make, which source addressed each sub-claim. The arrow chain (`task-index → sub-claims: … → Pass 3 …`) is the retrieval audit. You should be able to point at any non-trivial claim in the answer and find the source named in the trace.
 
@@ -85,8 +85,8 @@ After the bracket, the trace narrates the actual route taken: which index was re
 1. **Does the protocol match the question shape?** Named-lookup questions should classify as `Named`; in-task diagnostics should classify as `Diagnostic`; corpus-survey questions should classify as `Synthesis`. A mismatch means routing went sideways; ask again with sharper signal.
 2. **Is `lens: none` correct?** For most demo queries, yes. If the trace says `lens: builder` and you weren't asking for an answer read from the builder's seat, the lens-applicability check over-detected.
 3. **Are the sub-claims complete?** The trace lists 3-10 sub-claims for Diagnostic and Synthesis protocols. If a sub-claim you'd expect is missing (you asked about decision-making *and* stakeholder dynamics; the trace shows only decision-making sources), the decomposition step missed a dimension.
-4. **Are the cited sources the right ones?** The trace names sources by slug. If you can read `tomlinson-stakeholder-engagement` in the trace, the answer is grounded in Tomlinson's treatment; if you can't, no claim in the answer about stakeholder dynamics traces to him.
-5. **Does the deep-flag match what the answer claims?** An answer that cites *verbatim* passages but has `no-deep` in the trace is internally inconsistent: the verbatim claim depends on a deep read that didn't happen. Either Pass 3 fires (`deep`) and the verbatim is defensible, or the verbatim shouldn't be there.
+4. **Are the cited sources the right ones?** The trace names sources by slug. If `openstax-accounting-vol2` is in the trace, the answer's accounting treatment is grounded in that text; if no accounting source appears, no claim about the accounting traces to anything.
+5. **Does every quotation sit in a file the trace names?** A `[V]` passage in the answer must come from a distillation the trace lists as read. A quotation with no named file behind it is the failure the protocol exists to catch; ask for the file.
 
 The trace is not decoration. It's the audit surface the architecture is shaped around: when an answer fails (wrong source, missing sub-claim, fabricated citation), the trace tells you exactly where in the protocol it failed. *Read the trace before reading the answer* once you have the muscle: the trace tells you whether to trust the prose above it.
 
@@ -108,22 +108,19 @@ You may not know what the corpus already covers on a topic. Asking the assistant
 /matching-references stakeholder conflict
 ```
 
-The skill returns a structured list: each reference with its slug, paths to the light and deep references, and a one-line justification for why it matched. Output looks roughly like:
+The skill returns a structured list: each source with its slug, the path to its distillation for the task this app ships, and a one-line justification for why it matched. Output looks roughly like:
 
 ```
-1. tomlinson-stakeholder-engagement
-   light: references/tomlinson-stakeholder-engagement.md
-   deep:  references/tomlinson-stakeholder-engagement-deep.md
-   why:   Direct treatment of stakeholder identification and conflict cycles.
+1. openstax-organizational-behavior
+   distillation: distillations/decision-making/openstax-organizational-behavior-decision-making.md
+   why:   Ch 14 conflict modes; Ch 6.4 process versus relationship conflict in group decisions.
 
-2. openstax-organizational-behavior
-   light: references/openstax-organizational-behavior.md
-   deep:  references/openstax-organizational-behavior-deep.md
-   why:   Chapter 14 covers conflict management at team and inter-group level.
+2. liberating-structures-handbook
+   distillation: distillations/decision-making/liberating-structures-handbook-decision-making.md
+   why:   Structures that surface disagreement in the room without letting it turn personal.
 
 3. nhs-just-culture-guide
-   light: references/nhs-just-culture-guide.md
-   deep:  references/nhs-just-culture-guide-deep.md
+   distillation: distillations/decision-making/nhs-just-culture-guide-decision-making.md
    why:   Conflict between accountability frames in post-incident review.
 
 […]
@@ -141,7 +138,7 @@ Three different *shapes* of query: a topic, a situation, and a named concept. Th
 
 - Topic and situation queries hit the **concept axis** (`concept-index.json`, whose topics block is read once per session and whose concept rows are fetched by topic) and the **task-axis indexes** (`distillations/{task}/task-index.json`).
 - Named-concept queries find the concept's row in `concept-index.json` directly, by its name or a synonym.
-- Named-author or named-title queries hit the **corpus catalogue** (`reference-index.json`).
+- Named-author or named-title queries scan the slugs in `slug-table.json`; author and title usually appear in the slug.
 
 When `matching-references` returns nothing, that's a real signal: the corpus genuinely doesn't cover the topic. That's when you'd reach for the *scoping a source* tutorial: bringing new material in.
 
@@ -185,9 +182,9 @@ Then invoke:
 /audit-attribution ~/draft.md
 ```
 
-The skill walks five steps: reads the draft, identifies its distinctive contributions, scans the corpus for closest neighbours, classifies the overlap (*safe synthesis* / *adjacent territory* / *under-attribution risk* / *demoted distinctive*), and recommends specific provenance fixes.
+The skill reads the draft and names its distinctive contributions, routes through the concept index's topic map and Chroma to a candidate set, keeps only the closest neighbours (would the candidate feel passed off?), classifies each overlap (catalogue, argument, structural, phrase, origin-story), checks whether the draft names the neighbour in proximity, and recommends a specific provenance sentence per gap. It also scans named coinages and checks that your own contribution is stated, not buried.
 
-For a draft this short, the audit will likely surface `tomlinson-stakeholder-engagement` and (depending on phrasing) one or two organisational-behaviour sources. It might flag *"stakeholder ambiguity"* as a coinage that needs an explicit *"my term for"* marker, or recommend a footnote naming Tomlinson's identification protocol as the closest cited neighbour.
+For a draft this short, the audit will likely surface `openstax-organizational-behavior` (its power-and-politics chapter: influence that runs outside formal authority, coalitions, resource dependence) and perhaps `openstax-business-ethics` (defining and prioritising stakeholders). It might flag *"stakeholder ambiguity"* as a coinage that needs an explicit *"my term for"* marker, or recommend one sentence naming the informal-influence literature as the closest neighbour and saying what the draft adds to it.
 
 The skill is not a fact-check. It's a *build/contribute boundary check*: surfacing what a reader familiar with the corpus would notice you didn't name. The fix is rarely *"add citations"*: it's usually *"add one provenance sentence naming the closest neighbour and the distinction you're drawing."*
 

@@ -184,8 +184,8 @@ The schema for every field is at [`../reference/build-profile-schema.md`](../ref
 Then author the CLAUDE.md template at `{corpus-root}/build-profiles/my-task.md`. Use [`corpus.commons/demo/build-profiles/decision.md`](../../corpus.commons/demo/build-profiles/decision.md) as a structural model:
 
 - One-line description of the app's purpose.
-- *What you have access to:* references, distillations, lenses, skills.
-- *Retrieval order:* runtime JSON indexes first (slug-table + reference-index + concept-index + per-task task-index), then the distillation, then deep/light refs.
+- *What you have access to:* distillations, runtime indexes, lenses, skills; and a line saying the reference tier stays at corpus level.
+- *Retrieval order:* runtime JSON indexes first (per-task task-index, the topics block of concept-index, slug-table), then the distillation.
 - *Citation discipline:* surface evidence-classification markers when they matter.
 - *Source-integrity rule:* never silently degrade coverage.
 
@@ -201,8 +201,7 @@ node build.js my-task
 
 The build:
 
-- Copies your references into `corpus.local/my-corpus/apps/my-task/references/`.
-- Copies your task's distillations into `apps/my-task/distillations/my-task/`.
+- Copies your task's distillations into `corpus.local/my-corpus/apps/my-task/distillations/my-task/`, and ships the runtime indexes at the app root (`slug-table.json`, a `concept-index.json` filtered to the shipped sources, `lens-index.json`).
 - Copies the lens library (if `lenses.include: true`).
 - Stamps the CLAUDE.md.
 - Validates referential integrity and the sources pair-check.
@@ -217,7 +216,7 @@ cd ~/gaf-tutorial/my-app
 claude .
 ```
 
-Ask a question that exercises your corpus. The assistant should route through *your* distillation index, read *your* distillations, cite *your* deep references.
+Ask a question that exercises your corpus. The assistant should route through *your* distillation index, read *your* distillations, and cite their in-band quotations and evidence markers.
 
 If it doesn't route through your material, the task index may not have entries for the question's situation. Inspect `apps/my-task/distillations/my-task/{TASK}-DISTILLATION-INDEX.md` (the operator-inspection view) and add routing rows for the situations your corpus supports; the next build regenerates `task-index.json` from the updated markdown.
 

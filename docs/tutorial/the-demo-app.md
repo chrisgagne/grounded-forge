@@ -5,7 +5,7 @@ A walk through the matrix architecture using the apps that ship pre-built in the
 By the end you will have:
 
 1. Opened the decision app in Claude Code.
-2. Asked it a question and seen the matrix route through index → distillation → deep reference.
+2. Asked it a question and seen the matrix route through index → distillation.
 3. Opened the stakeholder app and asked the *same* question, and watched the answer change.
 
 That last step is the architecture in one move. Once you've felt it, the rest of the docs make sense.
@@ -34,7 +34,7 @@ corpus.commons/demo/apps/
 └── retro-mode/
 ```
 
-Each is a self-contained Claude Code project: a `CLAUDE.md`, a `references/` folder with all 26 light + deep references, a task-specific `distillations/` folder, a `lenses/` folder, and bundled skills under `.claude/skills/`. The two ceremony apps (`aar-mode`, `retro-mode`) also ship a corpus-bound runtime agent under `.claude/agents/`.
+Each is a self-contained Claude Code project: a `CLAUDE.md`, a task-specific `distillations/` folder (one distillation per source, with its `task-index.json`), the runtime indexes at the root (`concept-index.json`, `slug-table.json`, `lens-index.json`), a `lenses/` folder, and bundled skills under `.claude/skills/`. The light and deep references stay in the corpus. The two ceremony apps (`aar-mode`, `retro-mode`) also ship a corpus-bound runtime agent under `.claude/agents/`.
 
 ## Step 2: Open the decision app in Claude Code
 
@@ -43,7 +43,7 @@ cd corpus.commons/demo/apps/decision
 claude .
 ```
 
-You're now in a Claude Code session whose context is *the app*, not the source repo. The session sees the references, the distillations, the lenses, the skills, and the CLAUDE.md that tells it how to behave.
+You're now in a Claude Code session whose context is *the app*, not the source repo. The session sees the distillations, the runtime indexes, the lenses, the skills, and the CLAUDE.md that tells it how to behave. The reference tier stays in the corpus.
 
 ## Step 3: Ask it a decision question
 
@@ -53,10 +53,10 @@ In the session:
 
 What you should see (it may take a moment):
 
-1. The assistant reads `distillations/decision-making/task-index.json` (the situation router) along with the corpus-level `reference-index.json` and `concept-index.json`.
+1. The assistant reads `distillations/decision-making/task-index.json` (the situation router), the topics block of `concept-index.json` (the concept axis) and `slug-table.json` (ID ↔ slug).
 2. It identifies which distillations apply (likely a combination of decision-frameworks sources, organisational-behaviour sources on team composition, possibly the facilitation guide if it routes that way).
 3. It reads the relevant distillation file(s), the pre-projected guidance for decision-making work.
-4. When it cites, it cites from the *deep* reference (`{slug}-deep.md`), carrying evidence-classification markers like `[V]` (verbatim), `[AP]` (author paraphrase), `[AR]` (author argument).
+4. When it cites, it cites from the distillation, which carries verbatim quotations and evidence-classification markers in-band: `[V]` (verbatim), `[AP]` (author paraphrase), `[AR]` (author argument).
 
 If the answer is grounded (claims trace to files, citations are inline, the assistant says "I don't have coverage on X" when the corpus doesn't reach), the chain is working.
 
@@ -118,9 +118,9 @@ That gap is what the next tutorial begins to close.
 You exercised the matrix architecture end-to-end without writing or building anything:
 
 - **Pre-built:** the five demo apps ship in the repo; no build step needed to use them.
-- **Routing:** each app's CLAUDE.md instructs the assistant to read the runtime JSON indexes first (the corpus-level `reference-index.json` and `concept-index.json`, plus the per-task `task-index.json`).
+- **Routing:** each app's CLAUDE.md instructs the assistant to read the runtime JSON indexes first (`concept-index.json`, `slug-table.json`, `lens-index.json`, plus the per-task `task-index.json`).
 - **Projection:** the same reference reads differently in the decision app and the stakeholder app, because each shipped a different pre-projection.
-- **Citation:** answers trace to deep references with evidence-classification markers, not to training priors.
+- **Citation:** answers trace to distillations whose quotations and evidence-classification markers were audited against the source text, not to training priors.
 
 The architecture's claim is that this is *cheaper, more honest, and more scalable* than asking the model to re-derive task-specific guidance from raw sources on every query. For the argument, read [`../architecture/projection-time.md`](../architecture/projection-time.md).
 

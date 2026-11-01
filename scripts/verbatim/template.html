@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verbatim report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Archivo+Narrow:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="vendor/d3.v7.min.js"></script>
+<style>
+:root{
+  --g-ground:#FFFFFF; --g-ink:#1D2328; --g-secondary:#4A545E; --g-rule:#D5DAE0;
+  --g-action:#1F4BB0; --g-action-hover:#163A8C;
+  --g-cat-1:#9A5B00; --g-cat-1-tint:#FCEFD9;   /* a copyrighted-ceiling corpus */
+  --g-cat-2:#6B4BA6; --g-cat-2-tint:#EEE9F7;   /* an open-nc-ceiling corpus */
+  --g-cat-3:#0F6E78; --g-cat-3-tint:#DEF0F2;
+  --g-hatch:repeating-linear-gradient(135deg, var(--g-ink) 0 1px, transparent 1px 7px);
+  --font-body:"Archivo",Arial,sans-serif; --font-display:"Archivo Narrow","Arial Narrow",Arial,sans-serif;
+  --measure:760px; --margin:340px; --gap:48px;
+}
+*{box-sizing:border-box}
+html{background:var(--g-ground)}
+body{margin:0;color:var(--g-ink);font-family:var(--font-body);font-size:19px;line-height:1.64;background:var(--g-ground)}
+a{color:var(--g-action)} a:hover{color:var(--g-action-hover)}
+.page{max-width:calc(var(--measure) + var(--gap) + var(--margin));margin:0 auto;padding:40px 20px 120px}
+header{border-top:3px solid var(--g-ink);padding-top:14px;margin-bottom:28px}
+.kicker{font-family:var(--font-display);font-size:16px;letter-spacing:.02em;color:var(--g-secondary);text-transform:uppercase}
+h1{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5vw,58px);line-height:1.08;margin:6px 0 14px;max-width:var(--measure)}
+.meta{font-size:16px;color:var(--g-secondary);max-width:var(--measure)}
+.flags{display:flex;flex-wrap:wrap;gap:22px 36px;align-items:center;font-size:16px;color:var(--g-secondary);border-top:1px solid var(--g-rule);border-bottom:1px solid var(--g-rule);padding:12px 0;margin:22px 0 6px}
+.flags code{font-family:ui-monospace,Menlo,monospace;font-size:14px;color:var(--g-ink)}
+.flags label{display:inline-flex;align-items:center;gap:10px}
+.flags input[type=range]{width:160px;accent-color:var(--g-action)}
+.flags select{font:inherit;font-size:15px;color:var(--g-ink);border:1px solid var(--g-rule);background:#fff;padding:2px 6px;border-radius:3px}
+.flags input[type=checkbox]{accent-color:var(--g-action);width:16px;height:16px}
+.key{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:15px;color:var(--g-secondary);margin:10px 0 0}
+.key .sw{display:inline-block;width:38px;height:0;border-bottom:2px solid;vertical-align:middle;margin-right:8px}
+.key .sw.dash{border-bottom-style:dashed}
+.key .sw.hatch{height:10px;border:0;background:var(--g-hatch)}
+
+/* figures row */
+.figures{display:grid;grid-template-columns:1fr;gap:34px 40px;margin:34px 0 10px}
+@media (min-width:1180px){.figures{grid-template-columns:minmax(0,1fr) 360px}.figures .wide{grid-column:1 / -1}}
+figure{margin:0}
+figcaption{font-size:16px;line-height:1.5;color:var(--g-secondary);max-width:500px;margin-top:6px}
+figcaption b{color:var(--g-ink);font-weight:600}
+.figtitle{font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--g-ink);margin:0 0 4px}
+svg text{font-family:var(--font-body);fill:var(--g-secondary);font-size:14px}
+svg text.ink{fill:var(--g-ink)}
+svg text.narrow{font-family:var(--font-display)}
+.hero{font-family:var(--font-display);font-weight:600;font-size:64px;line-height:1;color:var(--g-ink);margin:0}
+.hero small{display:block;font-family:var(--font-body);font-weight:400;font-size:16px;color:var(--g-secondary);line-height:1.5;margin-top:4px;max-width:360px}
+.strip{display:flex;height:12px;margin:14px 0 6px;gap:2px}
+.strip div{height:100%;min-width:0}
+.striplabels{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:14px;color:var(--g-secondary)}
+.striplabels .sw{display:inline-block;width:14px;height:10px;vertical-align:-1px;margin-right:6px}
+
+/* body grid */
+.body{position:relative;display:grid;grid-template-columns:minmax(0,var(--measure));gap:var(--gap)}
+@media (min-width:1180px){.body{grid-template-columns:var(--measure) var(--margin)}}
+article{max-width:var(--measure)}
+article p{max-width:600px;margin:0 0 1.1em}
+h2{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3vw,34px);line-height:1.15;margin:1.5em 0 .5em;max-width:600px}
+.note{font-size:16px;color:var(--g-secondary);border-left:3px solid var(--g-rule);padding:2px 0 2px 16px;max-width:600px;margin:0 0 1.5em}
+.margin{position:relative;display:none}
+@media (min-width:1180px){.margin{display:block}}
+
+/* placed spans: a quote wears quotation marks and a standing tint; a paraphrase is italic with a visible tag */
+.v{cursor:pointer;border-bottom:1.5px solid var(--c);padding-bottom:1px;transition:background .15s}
+.v.q{background:var(--t);box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.v.q::before{content:"\201C"}
+.v.q::after{content:"\201D"}
+.v:hover,.v.open{background:var(--t);filter:saturate(1.6)}
+.v.open{border-bottom-width:2.5px}
+.v sup{font-family:var(--font-display);font-size:11px;color:var(--g-secondary);margin-left:2px;letter-spacing:.02em;font-style:normal}
+.v.para{border-bottom-style:dashed;font-style:italic;background:none}
+.v.para .tag{font-family:var(--font-display);font-style:normal;font-size:12px;color:var(--g-secondary);border:1px solid var(--g-rule);border-radius:3px;padding:0 4px;margin-left:5px;vertical-align:1px;letter-spacing:.02em}
+.v.missing{border-bottom:0;background:var(--g-hatch);background-size:100% 6px;background-repeat:no-repeat;background-position:0 100%;font-style:italic}
+.v.missing .tag{font-family:var(--font-display);font-style:normal;font-size:12px;color:var(--g-secondary);border:1px solid var(--g-ink);border-radius:3px;padding:0 4px;margin-left:5px;vertical-align:1px}
+
+/* sidenote: the quote in its own paragraph of source */
+.side{position:absolute;left:0;width:var(--margin);font-size:15px;line-height:1.5;color:var(--g-ink);border-top:2px solid var(--c);padding-top:8px;background:var(--g-ground)}
+.side.inline{position:static;width:auto;max-width:600px;margin:0 0 1.4em;padding:10px 0 0}
+.side .where{font-family:var(--font-display);font-size:15px;color:var(--g-secondary);margin-bottom:6px}
+.side .where b{color:var(--g-ink);font-weight:600}
+.side .ctx{color:var(--g-secondary);max-height:420px;overflow:auto}
+.side .ctx mark{background:var(--t);color:var(--g-ink);box-shadow:0 0 0 2px var(--t);border-radius:2px}
+.side .ctx p{margin:0 0 .7em;max-width:none}
+.side .verify{margin:8px 0 0;font-size:14px;display:flex;flex-wrap:wrap;gap:4px 16px}
+.side .verify button[disabled]{color:var(--g-secondary);text-decoration:none;cursor:not-allowed;opacity:.55}
+.side .verify a,.side .verify button{font:inherit;color:var(--g-action);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
+.side .stack{margin-top:10px;border-top:1px solid var(--g-rule);padding-top:8px;display:none}
+.side .stack.show{display:block}
+.side .row{display:grid;grid-template-columns:86px 1fr;gap:8px;font-size:13.5px;line-height:1.45;padding:5px 0;border-bottom:1px solid var(--g-rule)}
+.side .row .k{font-family:var(--font-display);color:var(--g-secondary);font-size:14px}
+.side .row .k b{display:inline-block;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--g-ink);border:1px solid var(--g-rule);border-radius:3px;padding:0 4px;margin-left:4px}
+.side .row .p{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--g-secondary);display:block;word-break:break-all}
+.side .row .t{color:var(--g-ink)}
+.side .fig img{max-width:100%;border:1px solid var(--g-rule);margin-top:6px}
+.side .close{float:right;font:inherit;color:var(--g-secondary);background:none;border:0;cursor:pointer;font-size:18px;line-height:1;padding:0 2px}
+.cmd{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--g-secondary);background:#F5F6F8;padding:4px 6px;border-radius:3px;display:block;margin-top:6px;white-space:pre-wrap;word-break:break-all}
+
+/* chart in the article */
+.chart{margin:10px 0 24px;max-width:var(--measure)}
+.chart .wrap{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:900px){.chart .wrap{grid-template-columns:1fr 200px}}
+.chart .srcfig img{width:100%;border:1px solid var(--g-rule)}
+.chart .srcfig{font-size:14px;color:var(--g-secondary);line-height:1.45}
+.tip{position:fixed;pointer-events:none;background:var(--g-ink);color:#E6E8EC;font-size:13px;line-height:1.4;padding:6px 9px;border-radius:3px;max-width:320px;display:none;z-index:9}
+
+/* original viewer */
+.viewer{position:fixed;inset:0;background:rgba(29,35,40,.55);z-index:20;display:none}
+.viewer.show{display:block}
+.vpanel{position:absolute;top:24px;bottom:24px;left:50%;transform:translateX(-50%);width:min(1100px,calc(100vw - 40px));background:var(--g-ground);border-top:3px solid var(--g-ink);display:flex;flex-direction:column;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.vbar{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--g-rule);font-size:15px;color:var(--g-secondary)}
+.vbar b{color:var(--g-ink);font-family:var(--font-display);font-size:17px;font-weight:600}
+.vbar button{font:inherit;font-size:15px;color:var(--g-action);background:none;border:1px solid var(--g-rule);border-radius:3px;padding:3px 10px;cursor:pointer}
+.vbar button:hover{border-color:var(--g-action)}
+.vbar .x{margin-left:auto;border:0;font-size:22px;line-height:1;color:var(--g-secondary)}
+.vbar .status{font-size:14px;flex-basis:100%}
+.vbody{flex:1;overflow:auto;background:#EEF0F3;position:relative}
+#pdfhost{position:relative;margin:16px auto;box-shadow:0 2px 12px rgba(0,0,0,.18);background:#fff}
+#pdfhost canvas{display:block}
+.textLayer{position:absolute;inset:0;overflow:hidden;opacity:1;line-height:1;text-size-adjust:none;forced-color-adjust:none;transform-origin:0 0;z-index:2}
+.textLayer span,.textLayer br{color:transparent;position:absolute;white-space:pre;cursor:text;transform-origin:0 0}
+.textLayer .hl{background:var(--t,#FCEFD9);mix-blend-mode:multiply;border-radius:2px}
+#pnghost{position:relative;margin:16px auto;box-shadow:0 2px 12px rgba(0,0,0,.18);background:#fff}
+#pnghost img{display:block;width:100%}
+#pnghost .box{position:absolute;background:var(--t,#FCEFD9);mix-blend-mode:multiply;border-radius:2px}
+#epubhost{height:100%;background:#fff;margin:0 auto;max-width:900px}
+
+footer{margin-top:48px;border-top:1px solid var(--g-rule);padding-top:12px;font-size:14px;color:var(--g-secondary);font-style:italic;max-width:var(--measure)}
+footer code{font-style:normal;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+  <div class="kicker">grounded-forge · verbatim mode</div>
+  <h1 id="q"></h1>
+  <div class="meta" id="meta"></div>
+  <div class="flags">
+    <label><code>--verbatim</code> <input type="range" id="verb" min="0" max="1" step="0.05" value="1"> <code id="verbval">1.00</code></label>
+    <label><code>--joins</code> <select id="joins"><option value="essay">essay</option><option value="minimal">minimal</option></select></label>
+    <label><code>--context</code> <select id="ctx"><option value="paras:1">paras:1</option><option value="chars:600">chars:600</option><option value="words:120">words:120</option><option value="pages:1">pages:1</option></select></label>
+    <label><input type="checkbox" id="ship"> as it would ship <code>max_visibility: open-nc</code></label>
+  </div>
+  <div class="key" id="key"></div>
+</header>
+
+<section class="figures">
+  <figure class="wide">
+    <div class="figtitle">Where the report draws from</div>
+    <div id="sourcemap"></div>
+    <figcaption>One strip per source, length by word count, chapter ticks beneath. Each dot is a span placed in this report, at its line in the converted text. Hover a dot for the passage; the colour is the corpus.</figcaption>
+  </figure>
+  <figure>
+    <div class="figtitle">Coverage of the question</div>
+    <div id="coverage"></div>
+    <figcaption>Each row is a sub-claim of the answer; each column a source. A filled dot is the author's own words on the page, a ring is the model's paraphrase of them, hatching is a span the resolver could not place.</figcaption>
+  </figure>
+  <figure>
+    <div class="figtitle">Whose words</div>
+    <p class="hero" id="hero"></p>
+    <div class="strip" id="strip"></div>
+    <div class="striplabels" id="striplabels"></div>
+    <figcaption>Words on this page by who wrote them. Moves with <code>--verbatim</code>, <code>--joins</code> and the shipping gate.</figcaption>
+  </figure>
+</section>
+
+<div class="body">
+  <article id="article"></article>
+  <aside class="margin" id="margin"></aside>
+</div>
+<footer id="trace"></footer>
+</div>
+<div class="tip" id="tip"></div>
+<div class="viewer" id="viewer"><div class="vpanel">
+  <div class="vbar"><b id="vtitle"></b><span id="vwhere"></span><button id="vprev">‹ previous page</button><button id="vnext">next page ›</button><button id="vback">back to the quote</button><button class="x" id="vclose" title="close">×</button><span class="status" id="vstatus"></span></div>
+  <div class="vbody" id="vbody"><div id="pnghost" hidden></div></div>
+</div></div>
+<script>
+// ---------- original viewer: the quote highlighted on the rendered page ----------
+const V = {kind:null, pdf:null, pageNo:1, hitPage:null, anchor:"", tint:"", sp:null, src:null, textCache:new Map(), book:null, rendition:null, cfi:null};
+const norm = s => (s||"").replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,"-").replace(/­/g,"").replace(/ﬁ/g,"fi").replace(/ﬂ/g,"fl").replace(/\s+/g," ").toLowerCase();
+const el = id => document.getElementById(id);
+function vstatus(t){ el("vstatus").textContent = t; }
+function closeViewer(){ el("viewer").classList.remove("show"); el("vprev").disabled=false; el("vnext").disabled=false; if(V.rendition){ try{V.rendition.destroy();}catch(e){} V.rendition=null; V.book=null; } }
+el("vclose").addEventListener("click",closeViewer);
+el("viewer").addEventListener("click",e=>{ if(e.target===el("viewer")) closeViewer(); });
+document.addEventListener("keydown",e=>{ if(!el("viewer").classList.contains("show")) return; if(e.key==="Escape") closeViewer(); if(e.key==="ArrowRight") el("vnext").click(); if(e.key==="ArrowLeft") el("vprev").click(); });
+
+async function openViewer(sp, src){
+  if(!(sp.pages && sp.pages.length)) return;
+  V.sp=sp; V.src=src; V.tint = colourOf(sp).tint;
+  el("vtitle").textContent = `${src.author}, ${src.title}`; el("vwhere").textContent = sp.locator||"";
+  el("viewer").classList.add("show"); el("pnghost").hidden = false; el("pnghost").style.setProperty("--t", V.tint);
+  V.kind="png"; V.pages = sp.pages; V.pi = Math.max(0, sp.pages.findIndex(p=>p.n===sp.hit_page)); showPng();
+}
+function showPng(){
+  const p = V.pages[V.pi], host = el("pnghost"); const w = Math.min(el("vbody").clientWidth-32, 880);
+  host.style.width = w+"px";
+  host.innerHTML = `<img src="${p.png}" alt="page ${p.n}">` + (p.boxes||[]).map(b=>`<div class="box" style="left:${(100*b[0]).toFixed(2)}%;top:${(100*b[1]).toFixed(2)}%;width:${(100*(b[2]-b[0])).toFixed(2)}%;height:${(100*(b[3]-b[1])).toFixed(2)}%"></div>`).join("");
+  const hit = p.n===V.sp.hit_page, epub = V.sp.page_layout==="epub-reflow";
+  el("vwhere").textContent = `${V.sp.locator||""} · ${epub?"EPUB page":"PDF page"} ${p.n}${p.folio?` · printed p. ${p.folio}`:""}${hit?" · the quote is highlighted":""}`;
+  vstatus(`${epub?"The EPUB has no fixed pages; this is the book laid out at a fixed page size by the renderer, so the page number is the renderer's, not the publisher's. ":""}Pages ${V.pages[0].n} to ${V.pages[V.pages.length-1].n} are pre-rendered in this folder.`);
+  el("vprev").disabled = V.pi===0; el("vnext").disabled = V.pi===V.pages.length-1;
+  el("vbody").scrollTop = 0;
+  const img = host.querySelector("img"), toBox = ()=>{ const b = host.querySelector(".box"); if(b) b.scrollIntoView({block:"center"}); };
+  if(img.complete) toBox(); else img.addEventListener("load", toBox, {once:true});
+}
+el("vprev").addEventListener("click",()=>{ if(V.pi>0){ V.pi--; showPng(); } });
+el("vnext").addEventListener("click",()=>{ if(V.pi<V.pages.length-1){ V.pi++; showPng(); } });
+el("vback").addEventListener("click",()=>{ V.pi = Math.max(0, V.pages.findIndex(p=>p.n===V.sp.hit_page)); showPng(); });
+window.openViewer = openViewer;
+</script>
+
+
+<script>
+const REPORT = /*__REPORT__*/;
+const BUNDLE = /*__BUNDLE__*/;
+
+const INIT = /*__INIT__*/;
+const PALETTE = [{c:"var(--g-cat-1)",t:"var(--g-cat-1-tint)",hex:"#9A5B00",tint:"#FCEFD9"},{c:"var(--g-cat-2)",t:"var(--g-cat-2-tint)",hex:"#6B4BA6",tint:"#EEE9F7"},{c:"var(--g-cat-3)",t:"var(--g-cat-3-tint)",hex:"#0F6E78",tint:"#DEF0F2"}];
+// copyrighted-ceiling corpora take the first colour, open ones the next, so a corpus keeps its colour across reports
+const CORPUS = {}; Object.entries(BUNDLE.corpora).sort((a,b)=>(a[1].ceiling==="copyrighted"?0:1)-(b[1].ceiling==="copyrighted"?0:1)||a[0].localeCompare(b[0]))
+  .forEach(([k,v],i)=>{ CORPUS[k] = {...PALETTE[i%PALETTE.length], label:`${k} (${v.tier==="corpus.local"?"private":"public"}, ${v.ceiling})`}; });
+const colourOf = sp => CORPUS[corpusOf(sp)] || PALETTE[0];
+const SHIP_CEILING = ["open","open-nc"];
+const state = {verbatim:1, ctx:"paras:1", ship:false, open:null, joins:"essay", ...INIT};
+const PH = {}; for(const sec of REPORT.sections) for(const j of sec.joins) if(typeof j!=="string") PH[j.span]=j;
+const joinsOf = sec => (state.joins==="minimal" && sec.joins_min) ? sec.joins_min.map(j=>typeof j==="string"?j:{...PH[j.span],...j}) : sec.joins;
+const spanOf = id => BUNDLE.spans[id] || {status:"not-found"};
+const srcOf = sp => sp.source ? BUNDLE.sources[sp.source] : null;
+const corpusOf = sp => (sp.corpus || (srcOf(sp)||{}).corpus || Object.keys(BUNDLE.corpora)[0]);
+const esc = s => (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const words = s => (s||"").trim().split(/\s+/).filter(Boolean).length;
+const surname = src => { if(src.short) return src.short; const a=(src.author||"").split(/,|\band\b|&/)[0].trim(); const parts=a.split(/\s+/); return a.startsWith("OpenStax")?"OpenStax":parts[parts.length-1]; };
+const shortTitle = src => { let t=(src.title||src.slug).split(":")[0]; t=t.replace(/^The /,""); return t.length>30? t.slice(0,28)+"…" : t; };
+
+// mode per span: "verbatim" | "para" | "missing"; reason for para
+function modeOf(id){
+  const sp = spanOf(id);
+  if(sp.status==="not-found" || !sp.verified) return {m:"missing"};
+  const src = srcOf(sp);
+  if(state.ship && !SHIP_CEILING.includes(src.scope)) return {m:"para", why:"licence"};
+  const n = REPORT.rank.length, keep = Math.ceil(state.verbatim*n - 1e-9);
+  const r = REPORT.rank.indexOf(id);
+  if(r >= keep) return {m:"para", why:"ratio"};
+  return {m:"verbatim"};
+}
+
+function render(){
+  document.getElementById("q").textContent = REPORT.question;
+  document.getElementById("meta").innerHTML = `Generated ${BUNDLE.generated} · protocol ${REPORT.mode.protocol} · lens ${REPORT.mode.lens} · corpora ${REPORT.mode.corpora.join(", ")} · ${Object.keys(BUNDLE.sources).length} sources, ${Object.keys(BUNDLE.spans).length} spans`;
+  document.getElementById("key").innerHTML = Object.entries(CORPUS).map(([k,v])=>`<span><span class="v q" style="--c:${v.c};--t:${v.t};cursor:default;font-size:14px">the author's words</span> ${v.label}</span>`).join("")
+    + `<span><span class="v para" style="--c:var(--g-secondary);cursor:default;font-size:14px">the model's paraphrase<span class="tag">paraphrase</span></span></span><span><span class="sw hatch"></span>could not be placed</span>`;
+  renderArticle(); renderSourceMap(); renderCoverage(); renderInk(); renderTrace();
+}
+
+function renderArticle(){
+  const art = document.getElementById("article");
+  let h = `<p class="note">${esc(REPORT.coverage_note)}</p>`;
+  for(const sec of REPORT.sections){
+    h += `<h2>${esc(sec.heading)}</h2><p>`;
+    for(const j of joinsOf(sec)){
+      if(typeof j==="string"){ h += esc(j); continue; }
+      const sp = spanOf(j.span), md = modeOf(j.span), co = colourOf(sp);
+      const text = md.m==="verbatim" ? sp.text : j.paraphrase;
+      const mark = sp.source || "?";
+      const tag = md.m==="para" ? `<span class="tag">paraphrase${md.why==="licence"?", licence":""}</span>` : md.m==="missing" ? `<span class="tag">not placed</span>` : "";
+      h += `<span class="v ${md.m==="verbatim"?"q":md.m}" data-id="${j.span}" style="--c:${co.c};--t:${co.t}" title="${md.m==="para"?(md.why==="licence"?"paraphrased: copyrighted source under the shipping ceiling":"paraphrased: below the --verbatim share"):md.m==="missing"?"the resolver could not place this span":"the author's own words, placed from the converted source"}">${esc(text)}<sup>${esc(mark)}</sup>${tag}</span>`;
+      CHARTS.forEach((c,i)=>{ if(c.span===j.span) h += `</p><div class="chart" id="chart-${i}"></div><p>`; });
+    }
+    h += `</p>`;
+  }
+  art.innerHTML = h;
+  art.querySelectorAll(".v").forEach(el=>el.addEventListener("click",()=>toggleSide(el)));
+  CHARTS.forEach(renderChart);
+  if(state.open && typeof state.openFig!=="number"){ const el = art.querySelector(`.v[data-id="${state.open}"]`); if(el) openSide(el); }
+}
+
+// ---------- sidenote: the quote in its own paragraph ----------
+function contextWindow(sp){
+  const before = sp.context?.before||"", after = sp.context?.after||"", lead = sp.context?.lead||"", tail = sp.context?.tail||"";
+  const [unit,nRaw] = state.ctx.split(":"); const n = +nRaw||1;
+  const lastParas = (s,k)=>s.split(/\n\s*\n|\n/).filter(x=>x.trim()).slice(-k).join("\n");
+  const firstParas = (s,k)=>s.split(/\n\s*\n|\n/).filter(x=>x.trim()).slice(0,k).join("\n");
+  // chars and words count out from the span across its paragraph and into the neighbours; paras and pages add whole paragraphs around the span's own
+  const fullB = [before, lead].filter(Boolean).join("\n\n"), fullA = [tail, after].filter(Boolean).join("\n\n");
+  if(unit==="chars") return {b:"", a:"", lead:fullB.slice(-n).replace(/\s+/g," "), tail:fullA.slice(0,n).replace(/\s+/g," "), note:`${n} characters either side`};
+  if(unit==="words"){ const bw=fullB.split(/\s+/).filter(Boolean), aw=fullA.split(/\s+/).filter(Boolean); return {b:"", a:"", lead:bw.slice(-n).join(" "), tail:aw.slice(0,n).join(" "), note:`${n} words either side`}; }
+  if(unit==="pages") return {b:before, a:after, lead, tail, note: sp.page? `page ${sp.page}; the converter kept this page's text as two paragraphs either side` : "no page marker kept by the converter; showing the paragraphs the bundle holds"};
+  return {b:lastParas(before,n), a:firstParas(after,n), lead, tail, note:`the span's paragraph and ${n} either side`};
+}
+function closeSide(){ document.querySelectorAll(".side").forEach(e=>e.remove()); document.querySelectorAll(".v.open, .chart.open").forEach(e=>e.classList.remove("open")); state.open=null; state.openFig=false; }
+function toggleSide(el){ const was = el.classList.contains("open"); closeSide(); if(!was) openSide(el); }
+function openSide(el){
+  const id = el.dataset.id, sp = spanOf(id), src = srcOf(sp), md = modeOf(id), co = colourOf(sp);
+  el.classList.add("open"); state.open = id;
+  const side = document.createElement("div"); side.className="side"; side.style.setProperty("--c",co.c); side.style.setProperty("--t",co.t);
+  if(sp.status==="not-found" || !sp.verified){
+    side.innerHTML = `<button class="close" title="close">×</button><div class="where"><b>Not placed.</b> ${esc(sp.note||"The resolver did not find the anchor in the converted source.")}</div><div class="ctx">What you read on the page is the model's paraphrase, marked as such. The trace footer counts it.</div>`;
+  } else {
+    const w = contextWindow(sp);
+    const pageLink = src.served && /\.pdf$/i.test(src.served) ? `<a href="${esc(src.served)}#page=${sp.hit_page||sp.page||1}" target="_blank">original PDF${sp.hit_page?`, PDF page ${sp.hit_page}`:""}</a>` : (src.served ? `<a href="${esc(src.served)}" download>download the EPUB</a>` : `<span>original not held</span>`);
+    const anchor = sp.text.split(/\s+/).slice(0,8).join(" ");
+    side.innerHTML = `<button class="close" title="close">×</button>
+      <div class="where"><b>${esc(src.author)}</b>, <i>${esc(src.title)}</i> (${esc(String(src.year))}) · ${esc(sp.locator||"")}${sp.page?` · p. ${esc(String(sp.page))}`:""}${md.m!=="verbatim"?` · <span style="color:var(--g-cat-1)">shown on the page as paraphrase</span>`:""}</div>
+      <div class="ctx">${w.b?`<p>…${esc(w.b)}</p>`:""}<p>${esc(w.lead)}${w.lead?" ":""}<mark>${esc(sp.text)}</mark>${w.tail?" ":""}${esc(w.tail)}</p>${w.a?`<p>${esc(w.a)}…</p>`:""}</div>
+      <div class="verify">${origButton(sp,src)}${pageLink}${convLink(sp,src)}<button class="more">provenance ▸</button></div>
+      <code class="cmd">grep -nF '${esc(anchor.replace(/'/g,"'\\''"))}' '${esc(src.converted)}'</code>
+      <div class="stack">${stackRows(sp,src)}</div>`;
+    side.querySelector(".more").addEventListener("click",e=>{ const s=side.querySelector(".stack"); s.classList.toggle("show"); e.target.textContent = s.classList.contains("show")?"provenance ▾":"provenance ▸"; });
+    const ob = side.querySelector(".orig"); if(ob) ob.addEventListener("click",()=>window.openViewer(sp, src));
+  }
+  side.querySelector(".close").addEventListener("click",closeSide);
+  const margin = document.getElementById("margin");
+  if(getComputedStyle(margin).display!=="none"){
+    margin.appendChild(side);
+    const top = el.getBoundingClientRect().top - margin.getBoundingClientRect().top;
+    side.style.top = Math.max(0,top-6)+"px";
+  } else { side.classList.add("inline"); el.closest("p").after(side); }
+}
+function convLink(sp,src){ return src.converted_local ? `<a href="${esc(src.converted_local)}" target="_blank">converted text, line ${sp.line}</a>` : `<span>converted text, line ${sp.line}</span>`; }
+function origButton(sp,src){
+  if(sp.pages && sp.pages.length) return `<button class="orig"><b>see the page in the original</b></button>`;
+  if(!src.served) return `<button class="orig" disabled title="the original file is not held in this folder">see the page in the original</button>`;
+  return `<button class="orig" disabled title="no page images were pre-rendered for this span">see the page in the original</button>`;
+}
+function stackRows(sp,src){
+  const row = (k,path,text,marker)=>`<div class="row"><div class="k">${k}${marker?`<b>${esc(marker)}</b>`:""}</div><div><span class="p">${esc(path)}</span><span class="t">${esc(text)}</span></div></div>`;
+  let h = row("original", src.original||"not held", src.original?`${src.scope} · ${src.licence||""}`:"the sidecar records the checksum; the file itself is not held");
+  h += row("converted", `${src.converted}:${sp.line}`, `${src.words.toLocaleString()} words, ${src.lines.toLocaleString()} lines; this span at line ${sp.line}`);
+  const L = sp.layers||{};
+  h += L.deep ? row("deep ref", `${L.deep.path}:${L.deep.line}`, L.deep.text, L.deep.marker) : row("deep ref", src.refs?.deep||"", "no line carries this claim");
+  h += L.light ? row("light ref", `${L.light.path}:${L.light.line}`, L.light.text) : row("light ref", src.refs?.light||"", "no line carries this claim");
+  const ds = L.distillations||[];
+  if(ds.length) for(const d of ds) h += row(`distillation · ${d.task}`, `${d.path}:${d.line}`, d.text);
+  else h += row("distillations", Object.values(src.refs?.distillations||{}).join(", ")||"none", "no distillation line carries this claim");
+  if(sp.figure) h += `<div class="row"><div class="k">figure</div><div class="fig"><span class="p">${esc(sp.figure.image||"")}</span><span class="t">${esc(sp.figure.caption||"")}${sp.figure.line?` (caption at line ${sp.figure.line})`:""}</span>${sp.figure.local?`<a href="${esc(sp.figure.local)}" target="_blank"><img src="${esc(sp.figure.local)}" alt=""></a>`:""}</div></div>`;
+  return h;
+}
+
+// ---------- tooltip ----------
+const tip = document.getElementById("tip");
+function showTip(ev,html){ tip.innerHTML=html; tip.style.display="block"; moveTip(ev); }
+function moveTip(ev){ const x=ev.clientX+14, y=ev.clientY+14; tip.style.left=Math.min(x,window.innerWidth-340)+"px"; tip.style.top=y+"px"; }
+function hideTip(){ tip.style.display="none"; }
+
+// ---------- figure 1: source map ----------
+function renderSourceMap(){
+  const el = d3.select("#sourcemap"); el.selectAll("*").remove();
+  const srcs = Object.entries(BUNDLE.sources).map(([id,s])=>({id,...s})).sort((a,b)=>a.corpus.localeCompare(b.corpus)||b.words-a.words);
+  const W = Math.round(el.node().getBoundingClientRect().width || document.querySelector(".page").getBoundingClientRect().width - 40 || 760), narrow = W < 900, labelW = narrow ? 0 : 300, rightW = 80, rowH = narrow ? 44 : 30, top = 8;
+  const H = top + srcs.length*rowH + 10;
+  const svg = el.append("svg").attr("width",W).attr("height",H).attr("viewBox",`0 0 ${W} ${H}`).style("max-width","100%").attr("role","img").attr("aria-label","Where each placed span sits in its source");
+  const x = d3.scaleLinear().domain([0, d3.max(srcs,s=>s.words)]).range([0, W-labelW-rightW]);
+  const g = svg.selectAll("g.row").data(srcs).join("g").attr("class","row").attr("transform",(d,i)=>`translate(0,${top+i*rowH})`);
+  g.append("text").attr("x",0).attr("y",narrow ? 8 : 17).attr("class","ink").text(d=>narrow ? `${surname(d)}, ${shortTitle(d)}` : `${surname(d)}, ${shortTitle(d)}`.slice(0,36)).style("font-size","14px");
+  const sy = narrow ? 26 : 13;
+  g.append("line").attr("x1",labelW).attr("x2",d=>labelW+x(d.words)).attr("y1",sy).attr("y2",sy).attr("stroke","var(--g-rule)").attr("stroke-width",4).attr("stroke-linecap","round");
+  g.each(function(d){
+    const gg = d3.select(this);
+    const toX = line => labelW + x(d.words*(line/Math.max(1,d.lines)));
+    gg.selectAll("line.ch").data((d.chapters||[]).filter(c=>c.line>0)).join("line").attr("class","ch").attr("x1",c=>toX(c.line)).attr("x2",c=>toX(c.line)).attr("y1",sy+4).attr("y2",sy+10).attr("stroke","var(--g-ink)").attr("stroke-width",1);
+    const spans = Object.entries(BUNDLE.spans).filter(([id,s])=>s.source===d.id && s.verified).map(([id,s])=>({id,...s}));
+    gg.selectAll("circle").data(spans).join("circle").attr("cx",s=>toX(s.line)).attr("cy",sy).attr("r",5).attr("fill",CORPUS[d.corpus].hex).attr("stroke","#fff").attr("stroke-width",2).style("cursor","pointer")
+      .on("mousemove",(ev,s)=>showTip(ev,`<b>${esc(s.locator||"")}</b>${s.page?` · p. ${s.page}`:""}<br>“${esc(s.text.slice(0,140))}${s.text.length>140?"…":""}”`)).on("mouseleave",hideTip)
+      .on("click",(ev,s)=>{ const t=document.querySelector(`.v[data-id="${s.id}"]`); if(t){ t.scrollIntoView({behavior:"smooth",block:"center"}); closeSide(); openSide(t);} });
+  });
+  g.append("text").attr("x",W).attr("y",sy+4).attr("text-anchor","end").text(d=>`${Math.round(d.words/1000)}k words`).style("font-size","13px");
+}
+
+// ---------- figure 2: coverage ----------
+function renderCoverage(){
+  const el = d3.select("#coverage"); el.selectAll("*").remove();
+  const srcs = Object.entries(BUNDLE.sources).map(([id,s])=>({id,...s})).sort((a,b)=>a.corpus.localeCompare(b.corpus)||surname(a).localeCompare(surname(b)));
+  const rows = REPORT.subclaims, labelW = 190, cell = 24, top = 70, W = labelW + srcs.length*cell + 8, H = top + rows.length*cell + 6;
+  const svg = el.append("svg").attr("width",W).attr("height",H).attr("viewBox",`0 0 ${W} ${H}`).style("max-width","100%").attr("role","img").attr("aria-label","Sub-claims by source");
+  svg.selectAll("text.col").data(srcs).join("text").attr("class","col narrow").attr("transform",(d,i)=>`translate(${labelW+i*cell+cell/2+4},${top-8}) rotate(-60)`).text(d=>surname(d)).style("font-size","13px");
+  svg.selectAll("line.h").data(rows).join("line").attr("x1",0).attr("x2",W).attr("y1",(d,i)=>top+i*cell+cell).attr("y2",(d,i)=>top+i*cell+cell).attr("stroke","var(--g-rule)");
+  svg.selectAll("text.row").data(rows).join("text").attr("x",0).attr("y",(d,i)=>top+i*cell+16).attr("class","ink").text(d=>d.label).style("font-size","13px");
+  rows.forEach((r,i)=>srcs.forEach((s,j)=>{
+    const ids = r.spans.filter(id=>spanOf(id).source===s.id);
+    if(!ids.length) return;
+    const modes = ids.map(modeOf), m = modes.some(x=>x.m==="verbatim")?"verbatim":modes.some(x=>x.m==="para")?"para":"missing";
+    const cx = labelW+j*cell+cell/2, cy = top+i*cell+cell/2, col = CORPUS[s.corpus].hex;
+    const c = svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",5).attr("stroke","#fff").attr("stroke-width",2).style("cursor","pointer");
+    if(m==="verbatim") c.attr("fill",col);
+    else if(m==="para") c.attr("fill","#fff").attr("stroke",col).attr("stroke-width",2);
+    else c.attr("fill","url(#hatch)");
+    c.on("mousemove",ev=>showTip(ev,`<b>${esc(r.label)}</b> · ${esc(surname(s))}<br>${ids.length} span${ids.length>1?"s":""}, ${m==="verbatim"?"author's words":m==="para"?"paraphrased":"not placed"}`)).on("mouseleave",hideTip)
+     .on("click",()=>{ const t=document.querySelector(`.v[data-id="${ids[0]}"]`); if(t){ t.scrollIntoView({behavior:"smooth",block:"center"}); closeSide(); openSide(t);} });
+  }));
+  const defs = svg.append("defs"); defs.append("pattern").attr("id","hatch").attr("width",4).attr("height",4).attr("patternUnits","userSpaceOnUse").attr("patternTransform","rotate(135)").append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",4).attr("stroke","var(--g-ink)").attr("stroke-width",1);
+}
+
+// ---------- figure 3: whose words ----------
+function renderInk(){
+  const counts = {para:0, model:0}; for(const k of Object.keys(CORPUS)) counts[k]=0;
+  for(const sec of REPORT.sections) for(const j of joinsOf(sec)){
+    if(typeof j==="string"){ counts.model += words(j); continue; }
+    const sp = spanOf(j.span), md = modeOf(j.span);
+    if(md.m==="verbatim") counts[corpusOf(sp)] += words(sp.text); else counts.para += words(j.paraphrase);
+  }
+  const total = Object.values(counts).reduce((a,b)=>a+b,0), own = Object.keys(CORPUS).reduce((a,k)=>a+counts[k],0);
+  document.getElementById("hero").innerHTML = `${Math.round(100*own/Math.max(1,total))}%<small>of the ${total.toLocaleString()} words in the body of this page are the authors' own, placed from the converted sources. The rest are the model's.</small>`;
+  const segs = [...Object.keys(CORPUS).map(k=>[k,counts[k],CORPUS[k].hex,`author's words, ${k}`]),["para",counts.para,"#fff","paraphrase"],["model",counts.model,"#D5DAE0","model"]].filter(s=>s[1]>0);
+  document.getElementById("strip").innerHTML = segs.map(s=>`<div style="flex:${s[1]};background:${s[2]};${s[0]==="para"?"outline:1.5px dashed var(--g-secondary);outline-offset:-1.5px;":""}" title="${s[3]}: ${s[1]} words"></div>`).join("");
+  document.getElementById("striplabels").innerHTML = segs.map(s=>`<div><span class="sw" style="background:${s[2]};${s[0]==="para"?"outline:1.5px dashed var(--g-secondary);outline-offset:-1.5px;":""}"></span>${s[3]} ${s[1].toLocaleString()}</div>`).join("");
+  window.OWN_SHARE = own/Math.max(1,total);
+}
+
+// ---------- charts: drawn only from numbers the span states ----------
+// A chart sits in REPORT.charts; the resolver checks each drawn number against its span's placed text (BUNDLE.charts[i].ok).
+const CHARTS = (REPORT.charts||[]).map((c,i)=>({...c, check:(BUNDLE.charts||[])[i]||{ok:false,why:"not checked by the resolver"}}));
+function chartFigSpan(c){ return [c.span,...(c.figure_spans||[])].map(id=>({id,...spanOf(id)})).find(s=>s.figure); }
+function renderChart(c,i){
+  const host = document.getElementById(`chart-${i}`); if(!host) return;
+  if(!c.check.ok){ host.innerHTML = `<div class="figtitle">${esc(c.title)}</div><p class="note">Chart withdrawn: ${esc(c.check.why)}. A chart is drawn only from numbers its passage states.</p>`; return; }
+  host.innerHTML = `<div class="figtitle">${esc(c.title)}</div><div class="wrap"><div class="csvg"></div><div class="srcfig"></div></div><figcaption>${esc(c.caption||"")}</figcaption>`;
+  const W = 540, H = 300, m = {t:14,r:150,b:34,l:44}, col = colourOf(spanOf(c.span)).hex, cols = ["var(--g-ink)", col, "var(--g-secondary)"];
+  const svg = d3.select(host.querySelector(".csvg")).append("svg").attr("width","100%").attr("viewBox",`0 0 ${W} ${H}`).attr("role","img").attr("aria-label",c.title);
+  if(c.kind==="growth"){
+    const xmax = c.x_max||48, base = c.base||100, xs = d3.range(0,xmax+1);
+    const series = c.series.map((s,k)=>({...s, rate:Math.pow(2,1/s.value)-1, col:cols[k%3]}));
+    series.forEach(s=>s.pts = xs.map(t=>({t,v:base*Math.pow(1+s.rate,t)})));
+    const x = d3.scaleLinear().domain([0,xmax]).range([m.l,W-m.r]), y = d3.scaleLinear().domain([0,d3.max(series,s=>s.pts[s.pts.length-1].v)]).nice().range([H-m.b,m.t]);
+    svg.append("g").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(4).tickSize(0).tickPadding(8)).call(g=>g.select(".domain").attr("stroke","var(--g-rule)"));
+    svg.append("g").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6).tickFormat(d=>d>=1000?(d/1000)+"K":d)).call(g=>g.select(".domain").remove());
+    svg.append("text").attr("x",W-m.r).attr("y",H-4).attr("text-anchor","end").text(c.x_label||"").style("font-size","12px");
+    const line = d3.line().x(p=>x(p.t)).y(p=>y(p.v)).curve(d3.curveMonotoneX);
+    series.forEach(s=>{
+      svg.append("path").attr("d",line(s.pts)).attr("fill","none").attr("stroke",s.col).attr("stroke-width",2);
+      const last = s.pts[s.pts.length-1];
+      svg.append("circle").attr("cx",x(last.t)).attr("cy",y(last.v)).attr("r",4).attr("fill",s.col).attr("stroke","#fff").attr("stroke-width",2);
+      svg.append("text").attr("x",x(last.t)+8).attr("y",y(last.v)+4).attr("class","ink").style("font-size","12px").text(s.label);
+      svg.append("text").attr("x",x(last.t)+8).attr("y",y(last.v)+18).style("font-size","12px").style("fill","var(--g-secondary)").text(`doubling every ${s.value} ${c.x_label||""}, ${(100*s.rate).toFixed(2)}% each`);
+      svg.append("text").attr("x",x(last.t)+8).attr("y",y(last.v)+32).style("font-size","12px").text(`${Math.round(last.v).toLocaleString()} at ${xmax}`);
+      d3.range(1,12).forEach(k=>{ const t=s.value*k; if(t>xmax) return; svg.append("circle").attr("cx",x(t)).attr("cy",y(base*Math.pow(2,k))).attr("r",3).attr("fill","#fff").attr("stroke",s.col).attr("stroke-width",1.5); });
+    });
+    svg.append("text").attr("x",m.l+4).attr("y",m.t+12).text(`from ${base}, small rings mark each doubling`).style("font-size","12px");
+  } else {
+    const x = d3.scaleBand().domain(c.series.map(s=>s.label)).range([m.l,W-40]).padding(0.35), y = d3.scaleLinear().domain([0,d3.max(c.series,s=>s.value)]).nice().range([H-m.b,m.t]);
+    svg.append("g").attr("transform",`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickSize(0).tickPadding(8)).call(g=>g.select(".domain").attr("stroke","var(--g-rule)"));
+    svg.append("g").attr("transform",`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickSize(0).tickPadding(6)).call(g=>g.select(".domain").remove());
+    svg.selectAll("rect.b").data(c.series).join("rect").attr("x",s=>x(s.label)).attr("width",x.bandwidth()).attr("y",s=>y(s.value)).attr("height",s=>y(0)-y(s.value)).attr("fill",col);
+    svg.selectAll("text.v").data(c.series).join("text").attr("x",s=>x(s.label)+x.bandwidth()/2).attr("y",s=>y(s.value)-6).attr("text-anchor","middle").style("font-size","12px").text(s=>`${s.value}${c.unit||""}`);
+  }
+  const figSpan = chartFigSpan(c), df = host.querySelector(".srcfig");
+  if(figSpan && figSpan.figure && figSpan.figure.local){ df.innerHTML = `<img src="${esc(figSpan.figure.local)}" alt="the source's figure"><div><b style="color:var(--g-ink)">Based on the source's own figure.</b> Click the chart or the thumbnail for the figure, its caption, and the passage the numbers come from.</div>`; }
+  else df.innerHTML = `<div><b style="color:var(--g-ink)">Based on a passage, not a figure.</b> Click the chart for the passage the numbers come from.</div>`;
+  const openFig = ()=>{ const was = host.classList.contains("open"); closeSide(); if(!was) openFigSide(host, c, figSpan); };
+  host.querySelector(".csvg").style.cursor = "pointer"; host.querySelector(".csvg").addEventListener("click",openFig);
+  df.style.cursor = "pointer"; df.addEventListener("click",openFig);
+  if(state.openFig===i){ document.querySelectorAll(".side").forEach(e=>e.remove()); openFigSide(host, c, figSpan); }
+}
+function openFigSide(host, c, figSpan){
+  const sp = spanOf(c.span), src = srcOf(sp), co = colourOf(sp);
+  host.classList.add("open"); state.open = c.span; state.openFig = CHARTS.indexOf(c);
+  const side = document.createElement("div"); side.className="side"; side.style.setProperty("--c",co.c); side.style.setProperty("--t",co.t);
+  const f = figSpan && figSpan.figure;
+  const nums = (sp.text||"").replace(/(\d+(?:\.\d+)?)/g,"\u0001$1\u0002");
+  const marked = esc(nums).replace(/\u0001/g,"<mark>").replace(/\u0002/g,"</mark>");
+  side.innerHTML = `<button class="close" title="close">×</button>
+    <div class="where"><b>What this chart is based on.</b> ${esc(src.author)}, <i>${esc(src.title)}</i> (${esc(String(src.year))}) · ${esc(sp.locator||"")}${sp.page?` · p. ${esc(String(sp.page))}`:""}</div>
+    ${f && f.local ? `<div class="fig"><a href="${esc(f.local)}" target="_blank"><img src="${esc(f.local)}" alt="the source's figure"></a></div><div class="ctx" style="margin-top:6px"><p>${esc(f.caption||"")}${f.line?` <span style="color:var(--g-secondary)">(caption at line ${f.line})</span>`:""}</p></div>` : `<div class="ctx"><p>No extracted image for a figure this passage names.</p></div>`}
+    <div class="where" style="margin-top:10px">The numbers are taken from this passage, line ${sp.line} of the converted text:</div>
+    <div class="ctx"><p>${marked}</p></div>
+    <div class="verify">${origButton(sp,src)}${convLink(sp,src)}<button class="more">provenance ▸</button></div>
+    <div class="stack">${stackRows(sp,src)}</div>`;
+  side.querySelector(".more").addEventListener("click",e=>{ const s=side.querySelector(".stack"); s.classList.toggle("show"); e.target.textContent = s.classList.contains("show")?"provenance ▾":"provenance ▸"; });
+  side.querySelector(".close").addEventListener("click",closeSide);
+  const fob = side.querySelector(".orig"); if(fob) fob.addEventListener("click",()=>window.openViewer(sp, src));
+  const margin = document.getElementById("margin");
+  if(getComputedStyle(margin).display!=="none"){ margin.appendChild(side); side.style.top = Math.max(0, host.getBoundingClientRect().top - margin.getBoundingClientRect().top)+"px"; }
+  else { side.classList.add("inline"); host.after(side); }
+}
+
+function renderTrace(){
+  let placed=0, para=0, lic=0, missing=0;
+  for(const id of Object.keys(BUNDLE.spans)){ const m=modeOf(id); if(m.m==="verbatim") placed++; else if(m.m==="missing") missing++; else { para++; if(m.why==="licence") lic++; } }
+  document.getElementById("trace").innerHTML = `${esc(REPORT.trace)} · <code>spans: ${placed} placed, ${para} paraphrased (${lic} by licence), ${missing} missing · --verbatim ${state.verbatim.toFixed(2)} --joins ${state.joins} --context ${state.ctx}</code>`;
+}
+
+document.getElementById("verb").addEventListener("input",e=>{ state.verbatim=+e.target.value; document.getElementById("verbval").textContent=state.verbatim.toFixed(2); renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
+document.getElementById("joins").addEventListener("change",e=>{ state.joins=e.target.value; renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
+document.getElementById("ctx").addEventListener("change",e=>{ state.ctx=e.target.value; if(state.open){ const el=document.querySelector(`.v[data-id="${state.open}"]`); closeSide(); if(el) openSide(el);} renderTrace(); });
+document.getElementById("ship").addEventListener("change",e=>{ state.ship=e.target.checked; renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
+window.addEventListener("resize",()=>{ renderSourceMap(); if(state.open){ const el=document.querySelector(`.v[data-id="${state.open}"]`); closeSide(); if(el) openSide(el);} });
+document.getElementById("verb").value = state.verbatim; document.getElementById("verbval").textContent = (+state.verbatim).toFixed(2);
+document.getElementById("joins").value = state.joins; document.getElementById("ctx").value = state.ctx; document.getElementById("ship").checked = !!state.ship;
+render();
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>renderSourceMap());
+</script>
+</body>
+</html>

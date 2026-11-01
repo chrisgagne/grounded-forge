@@ -126,7 +126,7 @@ h2{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3vw,34px
 .textLayer .hl{background:var(--t,#FCEFD9);mix-blend-mode:multiply;border-radius:2px}
 #pnghost{position:relative;margin:16px auto;box-shadow:0 2px 12px rgba(0,0,0,.18);background:#fff}
 #pnghost img{display:block;width:100%}
-#pnghost .box{position:absolute;background:var(--t,#FCEFD9);mix-blend-mode:multiply;border-radius:2px}
+#pnghost .box{position:absolute;pointer-events:none}   /* the highlight is drawn into the PNG; the box only marks where to scroll */
 #epubhost{height:100%;background:#fff;margin:0 auto;max-width:900px}
 
 footer{margin-top:48px;border-top:1px solid var(--g-rule);padding-top:12px;font-size:14px;color:var(--g-secondary);font-style:italic;max-width:var(--measure)}
@@ -352,7 +352,7 @@ function hideTip(){ tip.style.display="none"; }
 function renderSourceMap(){
   const el = d3.select("#sourcemap"); el.selectAll("*").remove();
   const srcs = Object.entries(BUNDLE.sources).map(([id,s])=>({id,...s})).sort((a,b)=>a.corpus.localeCompare(b.corpus)||b.words-a.words);
-  const W = Math.round(el.node().getBoundingClientRect().width || document.querySelector(".page").getBoundingClientRect().width - 40 || 760), narrow = W < 900, labelW = narrow ? 0 : 300, rightW = 80, rowH = narrow ? 44 : 30, top = 8;
+  const W = Math.round(Math.max(0, el.node().getBoundingClientRect().width || document.querySelector(".page").getBoundingClientRect().width - 40) || 760) /* the page is hidden, width 0, while the page viewer is open */, narrow = W < 900, labelW = narrow ? 0 : 300, rightW = 80, rowH = narrow ? 44 : 30, top = 8;
   const H = top + srcs.length*rowH + 10;
   const svg = el.append("svg").attr("width",W).attr("height",H).attr("viewBox",`0 0 ${W} ${H}`).style("max-width","100%").attr("role","img").attr("aria-label","Where each placed span sits in its source");
   const x = d3.scaleLinear().domain([0, d3.max(srcs,s=>s.words)]).range([0, W-labelW-rightW]);

@@ -5,11 +5,12 @@
         [--verbatim R] [--joins essay|minimal] [--context UNIT:N] [--ship]
 
 Reads <report-folder>/report.json (the model's joins) and bundle.json (the resolver's
-placed spans) and writes <report-folder>/preview.html from this folder's template.html.
+placed spans) and writes <report-folder>/preview.html from this folder's template.html,
+and answer.md, the same report as plain prose with its pointers (flatten.py).
 Copies into the report folder everything the page opens, so the folder works zipped
 and from file://: vendor/ (D3), originals/ (the source PDFs and EPUBs), converted/
 (the converted text each span was placed from), figures/, and pages/ (the hit page and
-two either side, pre-rendered as PNGs with highlight boxes, through PyMuPDF).
+two either side, pre-rendered as PNGs through PyMuPDF, the passage highlighted on the hit page).
 
 The flags set the page's opening state only; every one of them is also a control on
 the page. No model call: the flags change what is shown, never what was placed.
@@ -42,6 +43,26 @@ def load_fitz():
             return None
 
 
+def page_pixmap(doc, i, quads, fitz, zoom, tint=(1.0, 0.85, 0.35)):
+    """Page i as a pixmap, with the passage highlighted in the image itself (each box multiplied
+    by a highlighter tint), so the PNG shows it wherever it is opened. Works the same for a PDF
+    and an EPUB, and never touches the original."""
+    pix = doc[i].get_pixmap(matrix=fitz.Matrix(zoom, zoom), alpha=False)
+    if not quads:
+        return pix
+    w, h, n = pix.width, pix.height, pix.n
+    buf = bytearray(pix.samples)
+    for q in quads:
+        r = fitz.Rect(q) * fitz.Matrix(zoom, zoom)
+        x0, x1 = max(0, int(r.x0)), min(w, int(r.x1) + 1)
+        for y in range(max(0, int(r.y0)), min(h, int(r.y1) + 1)):
+            row = y * pix.stride
+            for c in range(min(n, 3)):
+                seg = slice(row + x0 * n + c, row + x1 * n + c, n)
+                buf[seg] = bytes(int(v * tint[c]) for v in buf[seg])
+    return fitz.Pixmap(pix.colorspace, w, h, bytes(buf), False)
+
+
 def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
     """For each span: find its page in the PDF or EPUB, render that page and `window` either
     side to PNG, and record the highlight boxes as fractions of the page."""
@@ -52,7 +73,7 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
         doc.layout(width=500, height=720, fontsize=12)   # a fixed layout so the EPUB has pages to show
     rendered = 0
     texts = [_norm(doc[i].get_text()).lower() for i in range(doc.page_count)]
-    for sp in spans:
+    for span_id, sp in spans:
         words = _norm(sp["text"].replace("---", "-").replace("--", "-")).split()
         probes = []
         # start at the span's first word, then a few words in, past a compound the book may break across lines
@@ -85,12 +106,17 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
             print(f"  {sid}: page not found for span starting {probes[0]!r}", file=sys.stderr); continue
         page = doc[hit]; rect = page.rect
         quads = page.search_for(_norm(sp["text"])) or page.search_for(" ".join(words[:12])) or page.search_for(found_q)
+        if not quads:   # the page sets the span differently from the extraction (hyphens, ligatures): box it in five-word pieces
+            for k in range(0, len(words), 5):
+                piece = " ".join(words[k:k + 5])
+                quads += page.search_for(piece) or page.search_for(piece.replace("'", "’"))
         boxes = [[(q.x0 - rect.x0) / rect.width, (q.y0 - rect.y0) / rect.height, (q.x1 - rect.x0) / rect.width, (q.y1 - rect.y0) / rect.height] for q in quads]
         sp["hit_page"] = hit + 1; sp["pages"] = []; sp["page_layout"] = "epub-reflow" if is_epub else "pdf"
         for i in range(max(0, hit - window), min(doc.page_count, hit + window + 1)):
-            png = pages_dir / f"{sid}-{i + 1}.png"
+            # the hit page carries this span's highlight, so it is the span's own file; the pages either side are shared
+            png = pages_dir / (f"{sid}-{i + 1}-{span_id}.png" if i == hit else f"{sid}-{i + 1}.png")
             if True:   # always: a replaced original or a new layout must not show stale pages
-                doc[i].get_pixmap(matrix=fitz.Matrix(zoom, zoom)).save(str(png)); rendered += 1
+                page_pixmap(doc, i, quads if i == hit else [], fitz, zoom).save(str(png)); rendered += 1
             txt = doc[i].get_text().strip().split("\n")
             folio = None
             for cand in (txt[:3] + txt[-3:]):
@@ -156,7 +182,7 @@ def render(out, init):
             copy_if_changed(f, dst)
             src["served"] = f"originals/{dst.name}"
             if fitz is not None:
-                pages += prerender_pages(out, sid, f, [s for s in bundle["spans"].values() if s.get("source") == sid and s.get("verified")], fitz)
+                pages += prerender_pages(out, sid, f, [(k, s) for k, s in bundle["spans"].items() if s.get("source") == sid and s.get("verified")], fitz)
         else:
             print(f"original not servable: {f}", file=sys.stderr)
 
@@ -165,6 +191,8 @@ def render(out, init):
     for marker, value in (("/*__REPORT__*/", report), ("/*__BUNDLE__*/", bundle), ("/*__INIT__*/", init)):
         html = html.replace(marker, json.dumps(value, ensure_ascii=False).replace("</", "<\\/"))
     (out / "preview.html").write_text(html)
+    from flatten import flatten   # the plain-prose answer, from the same bundle as the page
+    (out / "answer.md").write_text(flatten(out)[0])
     with_pages = sum(1 for s in bundle["spans"].values() if s.get("pages"))
     print(f"wrote {out / 'preview.html'}: {with_pages} of {len(bundle['spans'])} spans have pre-rendered pages ({pages} new PNGs)", file=sys.stderr)
     return {"spans_with_pages": with_pages, "new_pngs": pages}

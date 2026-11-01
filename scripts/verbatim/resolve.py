@@ -22,6 +22,7 @@ REPO = HERE.parents[1]
 TIERS = (("corpus.commons", "open-nc"), ("corpus.local", "copyrighted"))
 ABBR = {"u.s", "e.g", "i.e", "dr", "mr", "mrs", "ms", "vs", "no", "p", "pp", "fig", "st", "jr", "sr", "etc", "cf", "ch", "vol", "inc", "co", "ed", "eds", "al", "prof", "gen", "gov", "sen", "rep", "lt", "col", "capt", "sgt", "mt", "ft", "approx", "dept", "fig", "figs", "op", "ibid"}
 PARA_BREAK = re.compile(r"\n[ \t]*\n")
+SOFT_PARA_WORDS = 300   # a blank-line block longer than this is checked for paragraph ends the conversion lost
 TERMINAL = re.compile(r"[.!?][\"”’')\]]*(?=\s|$)")
 
 
@@ -159,7 +160,28 @@ class Source:
         breaks = [m.end() for m in PARA_BREAK.finditer(self.joined, 0, start)]
         a = breaks[-1] if breaks else 0
         m = PARA_BREAK.search(self.joined, end)
-        return a, (m.start() if m else len(self.joined))
+        b = m.start() if m else len(self.joined)
+        if len(self.joined[a:b].split()) > SOFT_PARA_WORDS:
+            a, b = self.soft_para(a, b, start, end)
+        return a, b
+
+    def soft_para(self, a, b, start, end):
+        """Some PDF conversions keep the printed lines but drop the blank line between paragraphs,
+        so a chapter reads as one block. Inside such a block a paragraph still ends on a short line
+        that closes a sentence and is followed by a capitalised line: narrow [a, b) to that one."""
+        first, last = self.line_of(a), self.line_of(b - 1)
+        widths = sorted(len(self.lines[i].rstrip()) for i in range(first, last + 1) if self.lines[i].strip())
+        width = widths[len(widths) // 2]
+        ends = [i for i in range(first, last)
+                if len(self.lines[i].rstrip()) < 0.8 * width
+                and re.search(r"[.!?:][\"”’')\]]*$", self.lines[i].rstrip())
+                and re.match(r"\s*[\"“‘'(]?[A-Z0-9]", self.lines[i + 1])]
+        s_line, e_line = self.line_of(start), self.line_of(end - 1)
+        before = [i for i in ends if i < s_line]
+        after = [i for i in ends if i >= e_line]
+        na = self.line_starts[before[-1] + 1] if before else a
+        nb = self.line_starts[after[0]] + len(self.lines[after[0]]) if after else b
+        return max(a, na), min(b, nb)
 
     def sentence_span(self, start, end, sentences=1):
         """Expand [start, end) to whole sentences inside its paragraph: back to the start of
@@ -202,8 +224,20 @@ class Source:
             after = [l for l in self.lines[le + 1:le + 13] if l.strip()][:k]
             return "\n\n".join(before), "\n\n".join(after)
         pa, pb = self.para_bounds(start, end)
-        before = [p for p in self.joined[max(0, pa - 6000):pa].split("\n\n") if p.strip()][-k:]
-        after = [p for p in self.joined[pb:pb + 6000].split("\n\n") if p.strip()][:k]
+        text = self.joined; before, after = [], []
+        # step one paragraph at a time through para_bounds, so breaks the conversion lost count too
+        a = pa
+        for _ in range(k):
+            p = len(text[:a].rstrip()) - 1
+            if p < 0: break
+            a, z = self.para_bounds(p, p + 1)
+            before.insert(0, text[a:z])
+        z = pb
+        for _ in range(k):
+            q = len(text) - len(text[z:].lstrip())
+            if q >= len(text): break
+            a, z = self.para_bounds(q, q + 1)
+            after.append(text[a:z])
         soft = lambda p: re.sub(r"\s*\n\s*", " ", p.strip())
         return "\n\n".join(soft(p) for p in before), "\n\n".join(soft(p) for p in after)
 
@@ -245,16 +279,23 @@ class Source:
                 return l
         return ""
 
-    def page(self, line):
+    def page(self, line, text=None):
         """The printed page the converter kept, if any: a Pandoc EPUB page-break anchor
         ({#page_12}, {#ch3.xhtml_page_101 .pagebreak}; not {#homepage_12}), an epub:type
         pagebreak, or an OpenStax running header. A bare number on a line is not trusted (it may
         be a footnote, a list number, or the folio of the page before), so for a PDF the renderer
         reads the printed page off the PDF page it finds the span on instead."""
+        marker = re.compile(r"\{#(?:[^}\s]*[_.])?(?:page|pg)[_-]?(\d+)\b[^}]*\}|pagebreak[^>]*?(?:title|aria-label)=\"(\d+)\"", re.I)
         for i in range(line, max(-1, line - 120), -1):
             raw = self.raw_lines[i]
-            m = re.search(r"\{#(?:[^}\s]*[_.])?(?:page|pg)[_-]?(\d+)\b[^}]*\}", raw, re.I) or re.search(r"pagebreak[^>]*?(?:title|aria-label)=\"(\d+)\"", raw)
-            if m: return int(m.group(1))
+            found = list(marker.finditer(raw))
+            if i == line and text and found:   # on the span's own line, a marker after the span starts the next page
+                at = raw.find(" ".join(text.split()[:4]))
+                if at >= 0:
+                    found = [m for m in found if m.start() < at]
+            if found:
+                m = found[-1]
+                return int(m.group(1) or m.group(2))
             l = self.lines[i].strip()
             m = re.match(r"^\d+\.\d+\s+•\s+.+?\s{2,}(\d+)\s*$", l) or re.match(r"^(\d+)\s{2,}\d+\s+•\s+", l)
             if m: return int(m.group(1))
@@ -470,7 +511,7 @@ def main():
                 fig["image"] = f["image"] if (src.root / f["image"]).exists() else None
                 fig["via"] = f.get("via")
         out_spans[span_id] = {"source": sid, "corpus": src.corpus, "status": level, "verified": True, "hits": hits, "text": text, "anchor": j["anchor"], "line": line,
-                              "locator": src.locator(line - 1), "page": src.page(line - 1),
+                              "locator": src.locator(line - 1), "page": src.page(line - 1, text),
                               "context": {"before": before, "after": after, "lead": own_b, "tail": own_a},
                               "layers": layers, "figure": fig}
         print(f"ok {span_id}: {level}, line {line}, {len(text.split())} words, p.{out_spans[span_id]['page']}, {out_spans[span_id]['locator'][:50]!r}", file=sys.stderr)

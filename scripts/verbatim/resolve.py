@@ -20,7 +20,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 TIERS = (("corpus.commons", "open-nc"), ("corpus.local", "copyrighted"))
-ABBR = {"u.s", "e.g", "i.e", "dr", "mr", "mrs", "ms", "vs", "no", "p", "pp", "fig", "st", "jr", "sr", "etc", "cf", "ch", "vol", "inc", "co", "ed", "eds", "al"}
+ABBR = {"u.s", "e.g", "i.e", "dr", "mr", "mrs", "ms", "vs", "no", "p", "pp", "fig", "st", "jr", "sr", "etc", "cf", "ch", "vol", "inc", "co", "ed", "eds", "al", "prof", "gen", "gov", "sen", "rep", "lt", "col", "capt", "sgt", "mt", "ft", "approx", "dept", "fig", "figs", "op", "ibid"}
+PARA_BREAK = re.compile(r"\n[ \t]*\n")
 TERMINAL = re.compile(r"[.!?][\"”’')\]]*(?=\s|$)")
 
 
@@ -42,56 +43,60 @@ def clean(line: str) -> str:
     s = re.sub(r"\[([^\[\]]*?)\]\{\.[^}]*\}", r"\1", s)       # nested once more
     s = re.sub(r"\{[#.][^}]*\}", "", s)                        # stray {.class} and {#id}
     s = re.sub(r"\[([^\[\]]*?)\]\(#[^)]*\)", r"\1", s)        # [text](#link)
+    s = re.sub(r"(?<!!)\[([^\[\]]+?)\]\((?:https?:|mailto:|www\.)[^)]*\)", r"\1", s)   # [text](https://…)
     s = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", s)                # images
     s = re.sub(r"(?<!\w)[*_]{1,3}(?=\S)", "", s); s = re.sub(r"(?<=\S)[*_]{1,3}(?!\w)", "", s)  # emphasis
     s = s.replace("\\", "")
     return s
 
 
-def norm_char(c: str) -> str:
-    return {"‘": "'", "’": "'", "“": '"', "”": '"', "–": "-", "—": "-", "­": "", "ﬁ": "fi", "ﬂ": "fl", " ": " "}.get(c, c)
+FOLD = {"‘": "'", "’": "'", "“": '"', "”": '"', "–": "-", "—": "-", "­": "", "ﬁ": "fi", "ﬂ": "fl", "ﬀ": "ff", "ﬃ": "ffi", "ﬄ": "ffl", "\u00a0": " ", "\u200b": ""}
 
 
 def build_norm(text: str, loose=False):
-    """Normalised string plus a map from each normalised index to the original index.
+    """Normalised string plus maps from each normalised index to the original start and end.
 
-    exact: quotes, dashes, ligatures and whitespace folded, case folded.
-    loose: as exact, and a hyphen at a line end between two letters rejoins the
-           word, and every character that is not a letter or digit becomes a space.
+    exact: quotes, dashes, ligatures, soft hyphens and whitespace folded, case folded.
+    loose: as exact, and a hyphen at a line end between two letters rejoins the word, and
+           every character that is not a letter or digit becomes a space, except a sign
+           written against a number (-5, +5), which is kept.
+    The same function normalises the source and the anchor, so the two always agree.
     """
-    out, idx = [], []
+    out, starts, ends = [], [], []
     i, n = 0, len(text)
-    prev_space = False
-    while i < n:
-        c = text[i]
-        if loose and c == "-" and i + 1 < n and text[i + 1] == "\n" and i > 0 and text[i - 1].isalpha():
-            j = i + 1
-            while j < n and text[j].isspace():
-                j += 1
-            if j < n and text[j].islower():
-                i = j; continue
-        if text.startswith("---", i): c, step = "-", 3
-        elif text.startswith("--", i): c, step = "-", 2
-        else: c, step = norm_char(c), 1
-        if loose and not c.isalnum():
-            c = " "
-        if c.isspace():
-            if not prev_space and out:
-                out.append(" "); idx.append(i)
+    prev_space = True
+    def emit(ch, a, b):
+        nonlocal prev_space
+        if ch == " ":
+            if not prev_space:
+                out.append(" "); starts.append(a); ends.append(b)
             prev_space = True
         else:
-            for ch in c.lower():
-                out.append(ch); idx.append(i)
-            prev_space = False
+            out.append(ch); starts.append(a); ends.append(b); prev_space = False
+    while i < n:
+        if loose and text[i] in "-\u00ad" and i > 0 and text[i - 1].isalpha():
+            j = i + 1
+            while j < n and text[j] in " \t": j += 1
+            if j < n and text[j] == "\n":
+                j += 1
+                while j < n and text[j] in " \t": j += 1
+                if j < n and text[j].isalpha() and (text[j].islower() or text[i - 1].isupper()):
+                    i = j; continue
+        if text.startswith("---", i): c, step = "-", 3
+        elif text.startswith("--", i): c, step = "-", 2
+        else: c, step = FOLD.get(text[i], text[i]), 1
+        if loose and c in "-+" and i + step < n and text[i + step].isdigit():
+            emit(c, i, i + step); i += step; continue
+        for ch in c.lower():
+            if ch.isspace() or (loose and not ch.isalnum()): emit(" ", i, i + step)
+            else: emit(ch, i, i + step)
         i += step
-    return "".join(out), idx
+    while out and out[-1] == " ": out.pop(); starts.pop(); ends.pop()
+    return "".join(out), starts, ends
 
 
 def norm_query(q: str, loose=False) -> str:
-    s = "".join(norm_char(c) for c in q.replace("---", "-").replace("--", "-"))
-    if loose:
-        s = "".join(c if c.isalnum() else " " for c in s)
-    return re.sub(r"\s+", " ", s).strip().lower()
+    return build_norm(q.strip(), loose)[0].strip()
 
 
 # ---------- a converted source ----------
@@ -109,36 +114,52 @@ class Source:
         self.line_starts = []; pos = 0
         for l in self.lines:
             self.line_starts.append(pos); pos += len(l) + 1
-        self.norm, self.nmap = build_norm(self.joined)
+        self.norm, self.nmap, self.nend = build_norm(self.joined)
         self._loose = None
         self.words = sum(len(l.split()) for l in self.lines)
 
     def line_of(self, off): return bisect.bisect_right(self.line_starts, off) - 1
 
+    @staticmethod
+    def _hits(norm, q):
+        """Every match of q in norm that starts and ends on a word boundary, overlaps included."""
+        out, at = [], norm.find(q)
+        while at >= 0:
+            before = norm[at - 1] if at else " "
+            after = norm[at + len(q)] if at + len(q) < len(norm) else " "
+            if not (before.isalnum() and q[0].isalnum()) and not (after.isalnum() and q[-1].isalnum()):
+                out.append(at)
+            at = norm.find(q, at + 1)
+        return out
+
     def find(self, anchor):
-        """(start, end, level, hits) of the first hit, or None. Levels: exact, then loose."""
+        """(start, end, level, hits) of the first boundary-valid hit, or None. Levels: exact, then loose.
+        hits counts every boundary-valid occurrence; more than one means the anchor is ambiguous."""
         q = norm_query(anchor)
-        at = self.norm.find(q) if q else -1
-        if at >= 0:
-            return self.nmap[at], self.nmap[at + len(q) - 1] + 1, "exact", self.norm.count(q)
+        hits = self._hits(self.norm, q) if q else []
+        if hits:
+            at = hits[0]
+            return self.nmap[at], self.nend[at + len(q) - 1], "exact", len(hits)
         if self._loose is None:
             self._loose = build_norm(self.joined, loose=True)
-        lnorm, lmap = self._loose
+        lnorm, lmap, lend = self._loose
         q = norm_query(anchor, loose=True)
         if len(q.split()) < 6:      # too short to place loosely without a false hit
             return None
-        at = lnorm.find(q)
-        if at < 0:
+        hits = self._hits(lnorm, q)
+        if not hits:
             return None
-        return lmap[at], lmap[at + len(q) - 1] + 1, "loose", lnorm.count(q)
+        at = hits[0]
+        return lmap[at], lend[at + len(q) - 1], "loose", len(hits)
 
     def para_bounds(self, start, end):
         if self.line_is_para:
             ls, le = self.line_of(start), self.line_of(end - 1)
             return self.line_starts[ls], self.line_starts[le] + len(self.lines[le])
-        a = self.joined.rfind("\n\n", 0, start); a = 0 if a < 0 else a + 2
-        b = self.joined.find("\n\n", end); b = len(self.joined) if b < 0 else b
-        return a, b
+        breaks = [m.end() for m in PARA_BREAK.finditer(self.joined, 0, start)]
+        a = breaks[-1] if breaks else 0
+        m = PARA_BREAK.search(self.joined, end)
+        return a, (m.start() if m else len(self.joined))
 
     def sentence_span(self, start, end, sentences=1):
         """Expand [start, end) to whole sentences inside its paragraph: back to the start of
@@ -150,8 +171,11 @@ class Source:
         for m in re.finditer(r"[.!?][\"”’')\]]*\s+", text[pa:start]):
             if not self._abbr(text, pa + m.start()):
                 s = pa + m.end()
-        e = max(start, end - 1); count = 0
-        while True:
+        e = end; count = 0
+        tail = re.search(r"[.!?][\"”’')\]]*$", text[max(start, end - 4):end])
+        if tail and not self._abbr(text, max(start, end - 4) + tail.start()):
+            count = 1
+        while count < sentences:
             m = TERMINAL.search(text, e, pb)
             if not m: e = pb; break
             e = m.end()
@@ -222,16 +246,18 @@ class Source:
         return ""
 
     def page(self, line):
-        """The printed page the converter kept, if any: a Pandoc EPUB page anchor, an OpenStax
-        running header, or a bare folio line. None when the converter kept none nearby."""
+        """The printed page the converter kept, if any: a Pandoc EPUB page-break anchor
+        ({#page_12}, {#ch3.xhtml_page_101 .pagebreak}; not {#homepage_12}), an epub:type
+        pagebreak, or an OpenStax running header. A bare number on a line is not trusted (it may
+        be a footnote, a list number, or the folio of the page before), so for a PDF the renderer
+        reads the printed page off the PDF page it finds the span on instead."""
         for i in range(line, max(-1, line - 120), -1):
-            m = re.search(r"\{#[^}]*page_?(\d+)[^}]*\}|\bpage_(\d+)\b", self.raw_lines[i])
-            if m: return int(m.group(1) or m.group(2))
+            raw = self.raw_lines[i]
+            m = re.search(r"\{#(?:[^}\s]*[_.])?(?:page|pg)[_-]?(\d+)\b[^}]*\}", raw, re.I) or re.search(r"pagebreak[^>]*?(?:title|aria-label)=\"(\d+)\"", raw)
+            if m: return int(m.group(1))
             l = self.lines[i].strip()
             m = re.match(r"^\d+\.\d+\s+•\s+.+?\s{2,}(\d+)\s*$", l) or re.match(r"^(\d+)\s{2,}\d+\s+•\s+", l)
             if m: return int(m.group(1))
-        for i in range(line, max(-1, line - 60), -1):
-            if re.fullmatch(r"\s*(\d{1,3})\s*", self.lines[i]): return int(self.lines[i].strip())
         return None
 
     def chapters(self):
@@ -352,13 +378,15 @@ def check_sources(report, corpora):
         if tables[c].get(sid) != meta.get("slug"):
             want = next((k for k, v in tables[c].items() if v == meta.get("slug")), None)
             problems.append(f"{sid}: slug-table says {tables[c].get(sid)!r}, report says {meta.get('slug')!r}" + (f" (that slug is {want})" if want else ""))
-        conv = meta.get("converted")
-        if not conv or not (root / conv).exists():
-            found = find_converted(root, meta.get("slug", ""))
-            if found:
-                meta["converted"] = found
-            else:
-                problems.append(f"{sid}: converted file not found ({conv!r})")
+        conv, canon = meta.get("converted"), find_converted(root, meta.get("slug", ""))
+        inside = bool(conv) and (root / conv).resolve().is_relative_to((root / "sources/converted").resolve()) and (root / conv).is_file()
+        if canon and conv != canon:
+            if conv: problems.append(f"{sid}: converted path {conv!r} is not the slug's own; using {canon!r}")
+            meta["converted"] = canon
+        elif not canon and not inside:
+            problems.append(f"{sid}: converted file not found ({conv!r})")
+        elif not canon:
+            meta["converted_unconfirmed"] = True   # inside sources/converted/, but nothing names it as this slug's
     return problems
 
 
@@ -388,6 +416,10 @@ def main():
     folder = args.folder.resolve()
     report = json.loads((folder / "report.json").read_text())
     corpora = {c: corpus_info(c) for c in sorted({m["corpus"] for m in report["sources"].values()} | set(report.get("mode", {}).get("corpora", [])))}
+    ids = [j["span"] for j in placeholders(report)]
+    dupes = sorted({i for i in ids if ids.count(i) > 1})
+    if dupes:
+        raise SystemExit(f"duplicate span IDs: {', '.join(dupes)}; every placeholder needs its own")
     problems = check_sources(report, corpora)
     for p in problems: print("SOURCE", p, file=sys.stderr)
     bad = {p.split(":")[0] for p in problems if "converted file not found" in p or "is not one of" in p}

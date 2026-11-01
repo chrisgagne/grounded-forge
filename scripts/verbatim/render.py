@@ -27,7 +27,7 @@ REPO = HERE.parents[1]
 def _norm(s):
     for a, b in (("‘", "'"), ("’", "'"), ("“", '"'), ("”", '"'), ("–", "-"), ("—", "-"), ("ﬁ", "fi"), ("ﬂ", "fl")):
         s = s.replace(a, b)
-    return " ".join(s.split())
+    return " ".join(s.replace("|", " ").split())   # a converted table's cell rules are not on the page
 
 
 def load_fitz():
@@ -51,11 +51,12 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
     if is_epub:
         doc.layout(width=500, height=720, fontsize=12)   # a fixed layout so the EPUB has pages to show
     rendered = 0
+    texts = [_norm(doc[i].get_text()).lower() for i in range(doc.page_count)]
     for sp in spans:
         words = _norm(sp["text"].replace("---", "-").replace("--", "-")).split()
         probes = []
         # start at the span's first word, then a few words in, past a compound the book may break across lines
-        for off, k in ((0, 8), (0, 6), (0, 5), (3, 6), (6, 6), (9, 5)):
+        for off, k in ((0, 12), (0, 8), (0, 6), (0, 5), (3, 6), (6, 6), (9, 5)):
             base = " ".join(words[off:off + k])
             if len(base.split()) < 4: continue
             # the converter wrote a dash as "-"; the book may set it as an em or en dash, spaced or not
@@ -66,12 +67,20 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
         start = min(max(0, start), doc.page_count - 1)
         order = list(range(start, min(doc.page_count, start + 120))) + [i for i in range(doc.page_count) if i < start or i >= start + 120]
         hit, found_q = None, None
-        for i in order:
-            page = doc[i]
-            for q in probes:
-                if page.search_for(q):
+        # longest probe first, across the whole document, so a short prefix that recurs on an
+        # earlier page cannot win over the page that holds more of the span
+        for q in probes:
+            nq = q.lower()
+            for i in order:
+                if nq in texts[i]:
                     hit, found_q = i, q; break
             if hit is not None: break
+        if hit is None:   # text extraction can differ from search_for (dehyphenation, ligatures): ask PyMuPDF page by page
+            for i in order:
+                for q in probes:
+                    if doc[i].search_for(q):
+                        hit, found_q = i, q; break
+                if hit is not None: break
         if hit is None:
             print(f"  {sid}: page not found for span starting {probes[0]!r}", file=sys.stderr); continue
         page = doc[hit]; rect = page.rect
@@ -80,7 +89,7 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
         sp["hit_page"] = hit + 1; sp["pages"] = []; sp["page_layout"] = "epub-reflow" if is_epub else "pdf"
         for i in range(max(0, hit - window), min(doc.page_count, hit + window + 1)):
             png = pages_dir / f"{sid}-{i + 1}.png"
-            if not png.exists():
+            if True:   # always: a replaced original or a new layout must not show stale pages
                 doc[i].get_pixmap(matrix=fitz.Matrix(zoom, zoom)).save(str(png)); rendered += 1
             txt = doc[i].get_text().strip().split("\n")
             folio = None
@@ -92,12 +101,14 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
                     if i - 60 <= n <= i + 1:   # a printed folio never exceeds the PDF page index by more than the cover
                         folio = n; break
             sp["pages"].append({"n": i + 1, "png": f"pages/{png.name}", "boxes": boxes if i == hit else [], "folio": folio})
+            if i == hit and folio is not None and not sp.get("page"):
+                sp["page"], sp["page_via"] = folio, "the folio printed on the PDF page"
         print(f"  {sid}: span on {'EPUB' if is_epub else 'PDF'} page {hit + 1} (printed p. {sp.get('page')}), {len(boxes)} highlight boxes", file=sys.stderr)
     return rendered
 
 
 def copy_if_changed(src, dst):
-    if not dst.exists() or dst.stat().st_size != src.stat().st_size:
+    if not dst.exists() or dst.stat().st_size != src.stat().st_size or dst.stat().st_mtime < src.stat().st_mtime:
         shutil.copyfile(src, dst)
 
 

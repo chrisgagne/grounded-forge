@@ -75,7 +75,7 @@ def run_claude(prompt, add_dirs, model, log_path, max_turns):
         tail = (log.get("result") or log.get("stderr") or "")[-600:]
         if re.search(r"usage limit|rate limit|limit reached", tail, re.I):
             raise SystemExit(f"usage limit: {tail}")
-        print(f"  model step reported an error: {tail}", file=sys.stderr)
+        raise SystemExit(f"the model step failed (exit {p.returncode}); see {log_path}: {tail}")
     return log
 
 
@@ -83,6 +83,9 @@ def placeholders(report):
     for sec in report.get("sections", []):
         for j in sec.get("joins", []):
             if isinstance(j, dict): yield j
+
+
+QUOTED = re.compile(r"[\"“‘]([^\"”’]{12,}?)[\"”’](?!\w)")
 
 
 def lint(report):
@@ -101,9 +104,9 @@ def lint(report):
     for sec in report.get("sections", []):
         for form in ("joins", "joins_min"):
             for j in sec.get(form, []) or []:
-                if isinstance(j, str):
-                    for q in re.findall(r"[\"“]([^\"”]{12,})[\"”]", j):
-                        if len(q.split()) >= 4: out.append(f"{form} in {sec.get('heading', '')[:30]!r} carries a quoted run: {q[:60]!r}")
+                text = j if isinstance(j, str) else (j.get("paraphrase", "") if form == "joins" else "")
+                for q in QUOTED.findall(text):
+                    if len(q.split()) >= 4: out.append(f"QUOTE: {form} in {sec.get('heading', '')[:30]!r} carries a quoted run: {q[:60]!r}")
         if sec.get("joins_min") is not None:
             a = [j["span"] for j in sec["joins"] if isinstance(j, dict)]
             b = [j.get("span") for j in sec["joins_min"] if isinstance(j, dict)]
@@ -160,6 +163,7 @@ def main():
     ap.add_argument("--verbatim", type=float, help="render-time, no model call: opening --verbatim share, 0..1")
     ap.add_argument("--context", help="render-time, no model call: paras:1, chars:600, words:120 or pages:1")
     ap.add_argument("--ship", action="store_true", help="render-time, no model call: open under the open-nc shipping gate")
+    ap.add_argument("--allow-join-quotes", action="store_true", help="render even though the model's prose carries quotation marks (check each first)")
     ap.add_argument("--render-only", action="store_true", help="no model call: resolve and render an existing report.json")
     args = ap.parse_args()
     out = args.out.resolve(); out.mkdir(parents=True, exist_ok=True)
@@ -175,6 +179,8 @@ def main():
                       "essay": "Write `joins` (the essay form) only; leave `joins_min` out.",
                       "minimal": "Write `joins` in the terse form (no lead-ins; the source mark names the source) and leave `joins_min` out."}[args.joins]
         prompt = MODEL_PROMPT.format(question=args.question, corpora_list=corpora_list, corpora_names=", ".join(names), out=out, joins_rule=joins_rule)
+        for stale in ("report.json", "repair.json", "bundle.json", "summary.json"):
+            (out / stale).unlink(missing_ok=True)   # a failed step must not leave an old answer to render
         print(f"model step ({args.model}) over {', '.join(names)} …", file=sys.stderr)
         log = run_claude(prompt, [REPO / i["root"] for i in infos.values()] + [out], args.model, out / "model-step.json", args.max_turns)
         summary["model_step"] = {k: log.get(k) for k in ("seconds", "num_turns", "total_cost_usd")}
@@ -191,6 +197,11 @@ def main():
     problems = lint(report)
     for p in problems: print("  contract:", p, file=sys.stderr)
     summary["contract_problems"] = problems
+    quoted = [p for p in problems if p.startswith("QUOTE:")]
+    if quoted and not args.allow_join_quotes:
+        raise SystemExit("the model's own prose carries quotation marks around four or more words; a quotation reaches the page only "
+                         "through a placeholder. Fix report.json (paraphrase it, or make it a span) and rerun with --render-only, "
+                         "or pass --allow-join-quotes after checking each one is not a source's words:\n  " + "\n  ".join(quoted))
     bundle = resolve(out)
     missing = [k for k, s in bundle["spans"].items() if not s.get("verified")]
     summary["first_pass"] = {"spans": len(bundle["spans"]), "placed": len(bundle["spans"]) - len(missing), "missing": list(missing), "loose": [k for k, s in bundle["spans"].items() if s.get("status") == "loose"]}
@@ -204,6 +215,7 @@ def main():
             conv = bundle["sources"].get(j["source"], {}).get("converted") or src.get("converted")
             root = bundle["corpora"].get(src.get("corpus"), {}).get("root", "")
             items.append(f"- span {k}: source {j['source']} ({src.get('slug')}), converted file {root}/{conv}\n  old anchor (not found): {j['anchor']!r}\n  paraphrase: {j.get('paraphrase', '')}")
+        (out / "repair.json").unlink(missing_ok=True)
         print(f"repair pass for {len(missing)} spans …", file=sys.stderr)
         log = run_claude(REPAIR_PROMPT.format(items="\n".join(items), out=out), [REPO / bundle["corpora"][c]["root"] for c in bundle["corpora"]] + [out], args.model, out / "repair-step.json", 60)
         summary["repair_step"] = {k: log.get(k) for k in ("seconds", "num_turns", "total_cost_usd")}

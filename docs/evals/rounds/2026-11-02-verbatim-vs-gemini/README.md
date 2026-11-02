@@ -16,7 +16,7 @@ Gemini Notebook is the comparison because it is what a reader would otherwise us
 ## Design
 
 - **One question:** "How can NZ better prepare itself for the next pandemic?" Neither corpus holds a public-health source or anything on New Zealand, so both arms answer obliquely. That makes it a test of honest grounding as much as of retrieval.
-- **Same library.** The forge arm ran over the private `aarbuddy` corpus only. The Gemini arm is the AARBuddy notebook, which holds the same corpus as uploaded on 19 October 2026 (291 sources, all ticked). The five sources the forge report cites are all in the notebook (checked 2 November).
+- **Same library.** The forge arm ran over the private `aarbuddy` corpus only. The Gemini arm is the AARBuddy notebook, which holds the same corpus as uploaded on 19 October 2026 (low hundreds of sources, all ticked). The five sources the forge report cites are all in the notebook (checked 2 November).
 - **Same originals for the judge.** Each judge gets both answers and the original PDFs and EPUBs of every source either answer cites, plus converted text for any source with no original file.
 - **Blind.** The arms are labelled A and B, the order swapped between the two judges, and nothing in either package or brief names the tool that made it.
 
@@ -56,7 +56,7 @@ These findings hold for these two answers to this one question. The forge delive
 
 ### How the Gemini arm ran
 
-- **Asked once**, at 11:50 notebook time on 2 November, in a cleared chat, with all 291 sources ticked, including the five the forge report cites.
+- **Asked once**, at 11:50 notebook time on 2 November, in a cleared chat, with every source ticked, including the five the forge report cites.
 - **Chat settings.** The notebook's Configure Chat was not at its default. It was set to a Custom style ("Write content for CTO/CEOs reading LinkedIn") with Longer responses. It was switched to Default style and Default length for the question, then restored. The 31 October non-duality answer saved beside the forge reports ran under that custom setting.
 - **One stray prompt.** Before the real question, a misplaced click sent the notebook's own suggested prompt (how the notebook can help with these sources). The chat was cleared again, so the round's question was asked in a clean chat.
 - **What came back.** Five numbered strategies, about 580 words, with 28 distinct citations (49 markers, once six collapsed groups were expanded) to twelve sources. Four of them are also cited by the forge report: Edmondson, Hollnagel's *Safety-II in Practice*, Suleyman, and Kim & Spear. Gemini did not cite Dörner. The other eight:

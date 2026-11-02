@@ -4,9 +4,9 @@ Exported 2 November 2026 from each notebook's source panel, before the first que
 
 ## Question 1 and 2: the `aarbuddy` corpus and the AARBuddy notebook
 
-- **Notebook:** `fa973698-94ab-4e51-b831-d3c3adb873e9`, 291 sources. For the round, 290 were ticked: *Come Prepared to Die* was unticked before question 2 and re-ticked afterwards. Question 1's Gemini answer is round 1's, asked with all 291 ticked.
-- **Corpus:** 337 slugs in `slug-table.json`.
-- **In both:** 329 corpus sources. 283 are one notebook file each; two of those files each merge several parts of one source. The other 48 are one course's session notes, uploaded as four bundles.
+- **Notebook:** low hundreds of sources. For the round, all but one were ticked: *Come Prepared to Die* was unticked before question 2 and re-ticked afterwards. Question 1's Gemini answer is round 1's, asked with every source ticked.
+- **Corpus:** low hundreds of sources, each a slug in `slug-table.json`.
+- **In both:** every corpus source but eight. Most are one notebook file each; two files each merge several parts of one source, and one course's session notes went up as four bundles.
 - **In the corpus, not in the notebook (8):** four whose upload failed with a bare error, two ingested after the notebook was built, and two not uploaded, for no reason the upload record gives.
 - **In the notebook, not in the corpus (4):**
   - *Come Prepared to Die: An Engineering Leader's Field Guide to the Leadership Paradigms AI Is Exposing*, Chris's own book, a Google Doc. Unticked for question 2. Round 1's Gemini answer cites it twice.

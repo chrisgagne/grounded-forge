@@ -26,6 +26,15 @@ from pathlib import Path
 SHIP_CEILING = ("open", "open-nc")
 
 
+def drop_doubled_lead(join, paraphrase):
+    """A join's lead-in that the paraphrase after it repeats ("The DOE handbook:" before "The DOE
+    handbook rejects…") names the source twice, so it is dropped."""
+    lead = re.search(r"[^.!?]*$", join).group(0)
+    words = lambda t: [w for w in re.findall(r"[a-z0-9']+", t.lower()) if w != "the"]
+    lw = words(lead)
+    return join[:len(join) - len(lead)].rstrip() if lw and words(paraphrase)[:len(lw)] == lw else join
+
+
 def flatten(folder, base=None, ship=False, joins="essay"):
     report = json.loads((folder / "report.json").read_text())
     bundle = json.loads((folder / "bundle.json").read_text())
@@ -37,18 +46,22 @@ def flatten(folder, base=None, ship=False, joins="essay"):
         para, notes = [], []
         ph = {j["span"]: j for j in sec["joins"] if isinstance(j, dict)}
         form = sec.get("joins_min") if joins == "minimal" and sec.get("joins_min") else sec["joins"]
+        after_join = False   # the paragraph so far ends in a join, not a span
         for j in (ph.get(x["span"], x) if isinstance(x, dict) else x for x in form):
             if isinstance(j, str):
-                para.append(j); continue
+                para.append(j); after_join = True; continue
+            lead_before, after_join = after_join, False
             n += 1
             sp = bundle["spans"].get(j["span"], {})
             src = srcs.get(j["source"], {})
             who = f"{src.get('author', '')}, {src.get('title', '')} ({src.get('year', '')})"
+            pointed = sp.get("show") == "paraphrase"
+            if lead_before and (not sp.get("verified") or pointed or (ship and src.get("scope") not in SHIP_CEILING)):
+                para[-1] = drop_doubled_lead(para[-1], j["paraphrase"])
             if not sp.get("verified"):
                 para.append(f"{j['paraphrase']} [{n}, paraphrase]")
                 notes.append(f"[{n}] {who}. Paraphrase by the answer's author; no passage is pointed to.")
                 continue
-            pointed = sp.get("show") == "paraphrase"
             if ship and src.get("scope") not in SHIP_CEILING:   # as it would ship: a copyrighted source's words stay with it
                 para.append(f"{j['paraphrase']} [{n}]")
                 notes.append("\n".join([

@@ -234,6 +234,12 @@ const joinsOf = sec => (state.joins==="minimal" && sec.joins_min) ? sec.joins_mi
 const spanOf = id => BUNDLE.spans[id] || {status:"not-found"};
 const srcOf = sp => sp.source ? BUNDLE.sources[sp.source] : null;
 const corpusOf = sp => (sp.corpus || (srcOf(sp)||{}).corpus || Object.keys(BUNDLE.corpora)[0]);
+// a lead-in the paraphrase after it repeats ("The DOE handbook:" before "The DOE handbook rejects…") names the source twice: drop it
+const leadWords = t => (t.toLowerCase().match(/[a-z0-9']+/g)||[]).filter(w=>w!=="the");
+function dropDoubledLead(join, para){
+  const lead = join.match(/[^.!?]*$/)[0], lw = leadWords(lead), pw = leadWords(para||"");
+  return lw.length && lw.every((w,i)=>pw[i]===w) ? join.slice(0, join.length-lead.length).trimEnd()+" " : join;
+}
 const esc = s => (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const words = s => (s||"").trim().split(/\s+/).filter(Boolean).length;
 const surname = src => { if(src.short) return src.short; const a=(src.author||"").split(/,|\band\b|&/)[0].trim(); const parts=a.split(/\s+/); return a.startsWith("OpenStax")?"OpenStax":parts[parts.length-1]; };
@@ -276,8 +282,9 @@ function renderArticle(){
   let h = `<p class="note">${esc(REPORT.coverage_note)}</p>`;
   for(const sec of REPORT.sections){
     h += `<h2>${esc(sec.heading)}</h2><p>`;
-    for(const j of joinsOf(sec)){
-      if(typeof j==="string"){ h += esc(j); continue; }
+    const js = joinsOf(sec);
+    for(const [i,j] of js.entries()){
+      if(typeof j==="string"){ const nx = js[i+1]; h += esc(nx && typeof nx==="object" && modeOf(nx.span).m!=="verbatim" ? dropDoubledLead(j, nx.paraphrase) : j); continue; }
       const sp = spanOf(j.span), md = modeOf(j.span), co = colourOf(sp);
       const text = md.m==="verbatim" ? sp.text : j.paraphrase;
       const mark = sp.source || "?";

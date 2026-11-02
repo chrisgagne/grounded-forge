@@ -15,6 +15,7 @@ No model in the loop. A span whose anchor is not found is recorded with status
 scripts/verbatim/contract.md.
 """
 import argparse, bisect, datetime, json, re, sys
+from collections import Counter
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -24,6 +25,18 @@ ABBR = {"u.s", "e.g", "i.e", "dr", "mr", "mrs", "ms", "vs", "no", "p", "pp", "fi
 PARA_BREAK = re.compile(r"\n[ \t]*\n")
 SOFT_PARA_WORDS = 300   # a blank-line block longer than this is checked for paragraph ends the conversion lost
 TERMINAL = re.compile(r"[.!?][\"”’')\]]*(?=\s|$)")
+CLOSED = re.compile(r"[.!?:;][\"”’')\]]*$")   # a line that closes a sentence, a list item or a lead-in
+NOTE_AFTER_STOP = re.compile(r"(?<=[A-Za-z][.!?])\d{1,3}(?=\s|$)|(?<=[A-Za-z][.!?][\"”’)])\s?\d{1,3}(?=\s+[A-Z“\"]|\s*$)")
+
+
+def strip_notes(s: str) -> str:
+    """A footnote number set after a full stop ("alone.19 When", 'discipline."84 The'), unless the
+    word before the stop is an abbreviation ("p.12", "No.5")."""
+    def keep(m):
+        w = re.search(r"(\S+?)[.!?][\"”’)]?$", s[max(0, m.start() - 14):m.start()])
+        tok = w.group(1).lower().strip("(\"'“‘[") if w else ""
+        return m.group(0) if tok in ABBR or len(tok) == 1 else ""
+    return NOTE_AFTER_STOP.sub(keep, s)
 
 
 def corpus_info(name):
@@ -55,6 +68,7 @@ def clean(line: str) -> str:
     s = re.sub(r"\[(\d{1,3})\]\((?!https?:)[^)]*\)", "", s)                  # [12](#fn12): a footnote call
     s = re.sub(r"\[([^\[\]]+?)\]\((?!https?:|mailto:|www\.)[^)]*\)", r"\1", s)  # [text](file.html#x): an internal link
     s = re.sub(r"(?<=[\w.,;:!?’”\"')])\[\d{1,3}\]|\^\d{1,3}\^?|\[\^\d{1,3}\]", "", s)  # [16], ^1, [^1]: footnote calls
+    s = strip_notes(s)                                                         # a bare footnote number after a full stop
     s = re.sub(r"</?[a-zA-Z][^>]{0,80}>", "", s)                              # inline e-book tags
     s = re.sub(r"^\s*(?:[-*+•♦▪◦‣]\s+)+", "", s)                             # list markers, "- ♦ " included
     if s.lstrip().startswith("|"): s = re.sub(r"\s*\|\s*", " ", s).strip()
@@ -121,6 +135,11 @@ class Source:
         self.lines = [clean(l) for l in self.raw_lines]
         nonempty = sorted(len(l) for l in self.lines if l.strip())
         self.line_is_para = (nonempty[len(nonempty) // 2] if nonempty else 0) > 180   # one paragraph per line
+        # page furniture a PDF conversion leaves between pages: a folio, or a short running head that
+        # recurs through the book, set against a blank line
+        bare = [l.strip() for l in self.lines]; seen = Counter(bare)
+        self.furniture = {i for i, l in enumerate(bare) if l and (i == 0 or not bare[i - 1] or i + 1 == len(bare) or not bare[i + 1])
+                          and (re.fullmatch(r"\d{1,4}", l) or (len(l) <= 40 and seen[l] >= 5 and not CLOSED.search(l) and not l.startswith(("#", "|"))))}
         self.joined = "\n".join(self.lines)
         self.line_starts = []; pos = 0
         for l in self.lines:
@@ -151,6 +170,7 @@ class Source:
     def find(self, anchor):
         """(start, end, level, hits) of the first boundary-valid hit, or None. Levels: exact, then loose.
         hits counts every boundary-valid occurrence; more than one means the anchor is ambiguous."""
+        anchor = strip_notes(anchor)   # the text it is matched against has lost its footnote numbers
         q = norm_query(anchor)
         hits = self._hits(self.norm, q) if q else []
         if hits:
@@ -176,9 +196,46 @@ class Source:
         a = breaks[-1] if breaks else 0
         m = PARA_BREAK.search(self.joined, end)
         b = m.start() if m else len(self.joined)
+        a, b = self.bridge(a, b)
         if len(self.joined[a:b].split()) > SOFT_PARA_WORDS:
             a, b = self.soft_para(a, b, start, end)
         return a, b
+
+    def bridge(self, a, b):
+        """A page break in a PDF conversion is a blank line, often with the folio and running heads,
+        that can fall mid-sentence. Widen [a, b) across each break where the block before it does not
+        close a sentence and the text after it goes on in lower case."""
+        content = lambda i: self.lines[i].strip() and i not in self.furniture
+        n = len(self.lines)
+        while True:
+            last = self.line_of(b - 1)
+            k = last
+            while k >= 0 and not content(k): k -= 1
+            j = last + 1
+            while j < n and j - last <= 12 and not content(j): j += 1
+            if k < 0 or j >= n or not content(j) or CLOSED.search(self.lines[k].rstrip()) or not self.lines[j].lstrip()[:1].islower(): break
+            m = PARA_BREAK.search(self.joined, self.line_starts[j])
+            b = m.start() if m else len(self.joined)
+        while a > 0:
+            first = self.line_of(a)
+            j = first
+            while j < n and not content(j): j += 1
+            k = first - 1
+            while k >= 0 and first - k <= 12 and not content(k): k -= 1
+            if j >= n or k < 0 or not content(k) or not self.lines[j].lstrip()[:1].islower() or CLOSED.search(self.lines[k].rstrip()): break
+            breaks = [m.end() for m in PARA_BREAK.finditer(self.joined, 0, self.line_starts[k])]
+            a = breaks[-1] if breaks else 0
+        return a, b
+
+    def clip(self, a, b):
+        """The joined text [a, b), less any page furniture a bridged page break left inside it."""
+        la, lb = self.line_of(a), self.line_of(max(a, b - 1))
+        if not any(i in self.furniture for i in range(la, lb + 1)): return self.joined[a:b]
+        keep = []
+        for i in range(la, lb + 1):
+            if i in self.furniture: continue
+            keep.append(self.joined[max(a, self.line_starts[i]):min(b, self.line_starts[i] + len(self.lines[i]))])
+        return "\n".join(keep)
 
     def soft_para(self, a, b, start, end):
         """Some PDF conversions keep the printed lines but drop the blank line between paragraphs,
@@ -214,7 +271,11 @@ class Source:
             head = text[s:nl].strip(); letters = re.findall(r"[A-Za-z]", head)
             words = head.split()
             titled = sum(w[0].isupper() for w in words if w[0].isalpha() and len(w) > 3) >= max(1, 0.75 * len([w for w in words if w[0].isalpha() and len(w) > 3]))
-            if not (head and len(words) <= 10 and len(letters) >= 3 and not re.search(r"[.!?:;,]$", head)
+            # a heading has its own line and a capitalised sentence after it; a sentence's first words wrapped
+            # onto the line above ("SDT", "The Board") have neither
+            own_line = s == 0 or text[s - 1] == "\n"
+            if not (own_line and re.match(r"\s*[\"“‘'(]?[A-Z0-9]", text[nl + 1:nl + 8])
+                    and head and len(words) <= 10 and len(letters) >= 3 and not re.search(r"[.!?:;,]$", head)
                     and (sum(c.isupper() for c in letters) >= 0.9 * len(letters) or titled)): break
             s = nl + 1
             while s < start and text[s].isspace(): s += 1
@@ -261,13 +322,13 @@ class Source:
             p = len(text[:a].rstrip()) - 1
             if p < 0: break
             a, z = self.para_bounds(p, p + 1)
-            before.insert(0, text[a:z])
+            before.insert(0, self.clip(a, z))
         z = pb
         for _ in range(k):
             q = len(text) - len(text[z:].lstrip())
             if q >= len(text): break
             a, z = self.para_bounds(q, q + 1)
-            after.append(text[a:z])
+            after.append(self.clip(a, z))
         soft = lambda p: re.sub(r"\s*\n\s*", " ", p.strip())
         return "\n\n".join(soft(p) for p in before), "\n\n".join(soft(p) for p in after)
 
@@ -275,7 +336,7 @@ class Source:
         """The rest of the span's own paragraph, before and after the span."""
         pa, pb = self.para_bounds(s, e)
         soft = lambda p: re.sub(r"\s*\n\s*", " ", p).strip()
-        return soft(self.joined[pa:s]), soft(self.joined[e:pb])
+        return soft(self.clip(pa, s)), soft(self.clip(e, pb))
 
     def locator(self, line):
         for i in range(line, max(-1, line - 400), -1):
@@ -522,7 +583,7 @@ def main():
             print(f"NOT FOUND {span_id}: {j['anchor']!r}", file=sys.stderr); continue
         a, b, level, hits = hit
         s, e = src.sentence_span(a, b, sentences=max(1, min(4, int(j.get("sentences", 1)))))
-        text = re.sub(r"[ \t]{2,}", " ", re.sub(r"\s*\n\s*", " ", src.joined[s:e]).replace("\u200b", "")).strip()
+        text = re.sub(r"[ \t]{2,}", " ", re.sub(r"\s*\n\s*", " ", src.clip(s, e)).replace("\u200b", "")).strip()
         label = re.match(r"([A-Z][a-z]{3,}):\s+", text)
         if label and len(re.findall(rf"(?m)^\s*{label.group(1)}:", src.joined)) >= 5:   # a recurring column label ("Recommendation:") the converter ran in
             text = text[label.end():]

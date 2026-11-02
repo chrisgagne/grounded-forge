@@ -298,6 +298,23 @@ Placed spans carrying each kind, round 3's same cells in brackets:
 - a compound the conversion joined ("frontend"), where the page prints two words;
 - a word the original's own text layer misreads, where the quotation is right.
 
+**Re-rendered after three resolver and renderer fixes.** The seven reports were placed and rendered again from their own `report.json`, with no model call and so no new cost:
+- a span crosses a page break where the text before it doesn't close a sentence and the text after it goes on in lower case, and the folio and running heads between are left out;
+- a heading is stripped from a sentence's start only when it has its own line and a capitalised sentence after it;
+- a footnote number after a full stop is stripped, from the text and from the anchor.
+
+The re-render turned up a fault the scan above missed: ten spans had lost their opening words. In two, a page break split the sentence and the span began after the break. In eight, the heading strip took a sentence's first words for a heading, because the line wrap left them on the line above ("SDT", "The Board", "Weyerhaeuser, for"). The page check passed all ten, since every word left was on the page.
+
+| Across the 297 spans | Round 3b as scored | Re-rendered |
+|---|---|---|
+| Stop mid-sentence | 10 | 0 |
+| Start mid-sentence | 10 | 0 |
+| Footnote numeral after a full stop | 13 | 0 |
+| A lead-in the paraphrase after it repeats, in `answer.md` | 1 | 0 |
+| Page check: checked, match | 129, 127 | 129, 127 |
+
+33 of the 297 span texts changed. Most grew to a whole sentence. Seven got shorter, because the old resolver didn't take "learning.6 We" as a sentence end and so ran a `sentences` count one sentence long. One of those seven now leaves out a word its paraphrase uses ("overboldness"), which the scorers would grade partial. The two spans that still start in lower case are DOE list items, which is right. The split words ("main- tain") are untouched. The re-rendered answers weren't scored again.
+
 ### Length and cost
 
 | Report | Spans | Quotations | Pointed paraphrases | Sections | Words | Credits pointed | Page check: checked, match | Cost | Minutes |
@@ -329,9 +346,7 @@ The three fixes did what they were for:
 
 Citation support holds at round 3's level, with no citation missing in 297.
 
-The two breadth ideas round 3 dropped on both corpora, intent two levels up and the after-action review's rules, are still missing. So the larger answers reach for more of the same sources rather than for the parts of the question they skipped. A check of the plan against the question's parts, before anything is placed, is still untried. Two resolver fixes are small and next:
-- end a span at the sentence's own end rather than at a page break;
-- drop the lead-in the credit pass leaves in front of a paraphrase.
+The two breadth ideas round 3 dropped on both corpora, intent two levels up and the after-action review's rules, are still missing. So the larger answers reach for more of the same sources rather than for the parts of the question they skipped. A check of the plan against the question's parts, before anything is placed, is still untried. The placement faults the round found, page-break stops, cut openings, footnote numbers and a doubled lead-in, are fixed and re-rendered to zero (above).
 
 The price is size and money: answers about 40% longer, at 1.7 times round 3's cost and 3.8 times `answer-from-corpus`'s, and nearly twice round 3's time.
 

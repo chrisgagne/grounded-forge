@@ -144,6 +144,7 @@ footer code{font-style:normal;font-family:ui-monospace,Menlo,monospace;font-size
     <label><code>--joins</code> <select id="joins"><option value="essay">essay</option><option value="minimal">minimal</option></select></label>
     <label><code>--context</code> <select id="ctx"><option value="paras:1">paras:1</option><option value="chars:600">chars:600</option><option value="words:120">words:120</option><option value="pages:1">pages:1</option></select></label>
     <label><input type="checkbox" id="ship"> as it would ship <code>max_visibility: open-nc</code></label>
+    <label><input type="checkbox" id="passages"> show pointed paraphrases as the author's passage</label>
   </div>
   <div class="key" id="key"></div>
 </header>
@@ -227,7 +228,7 @@ const CORPUS = {}; Object.entries(BUNDLE.corpora).sort((a,b)=>(a[1].ceiling==="c
   .forEach(([k,v],i)=>{ CORPUS[k] = {...PALETTE[i%PALETTE.length], label:`${k} (${v.tier==="corpus.local"?"private":"public"}, ${v.ceiling})`}; });
 const colourOf = sp => CORPUS[corpusOf(sp)] || PALETTE[0];
 const SHIP_CEILING = ["open","open-nc"];
-const state = {verbatim:1, ctx:"paras:1", ship:false, open:null, joins:"essay", ...INIT};
+const state = {verbatim:1, ctx:"paras:1", ship:false, passages:false, open:null, joins:"essay", ...INIT};
 const PH = {}; for(const sec of REPORT.sections) for(const j of sec.joins) if(typeof j!=="string") PH[j.span]=j;
 const joinsOf = sec => (state.joins==="minimal" && sec.joins_min) ? sec.joins_min.map(j=>typeof j==="string"?j:{...PH[j.span],...j}) : sec.joins;
 const spanOf = id => BUNDLE.spans[id] || {status:"not-found"};
@@ -251,9 +252,10 @@ function pageCheckNote(sp){
 function modeOf(id){
   const sp = spanOf(id);
   if(sp.status==="not-found" || !sp.verified) return {m:"missing"};
-  if(sp.show==="paraphrase") return {m:"para", why:"pointed"};
   const src = srcOf(sp);
+  if(sp.show==="paraphrase" && !(state.passages && !(state.ship && !SHIP_CEILING.includes(src.scope)))) return {m:"para", why:"pointed"};
   if(state.ship && !SHIP_CEILING.includes(src.scope)) return {m:"para", why:"licence"};
+  if(sp.show==="paraphrase") return {m:"verbatim", pointed:true};   // the passage a pointed paraphrase rests on, shown in its place
   const n = REPORT.rank.length, keep = Math.ceil(state.verbatim*n - 1e-9);
   const r = REPORT.rank.indexOf(id);
   if(r >= keep) return {m:"para", why:"ratio"};
@@ -279,7 +281,7 @@ function renderArticle(){
       const text = md.m==="verbatim" ? sp.text : j.paraphrase;
       const mark = sp.source || "?";
       const tag = md.m==="para" ? `<span class="tag">paraphrase${md.why==="licence"?", licence":md.why==="pointed"?" of a passage":""}</span>` : md.m==="missing" ? `<span class="tag">not placed</span>` : "";
-      h += `<span class="v ${md.m==="verbatim"?"q":md.m}" data-id="${j.span}" style="--c:${co.c};--t:${co.t}" title="${md.m==="para"?(md.why==="licence"?"paraphrased: copyrighted source under the shipping ceiling":md.why==="pointed"?"the model's own sentence about a passage it points to: click to see the passage":"paraphrased: below the --verbatim share"):md.m==="missing"?"the resolver could not place this span":"the author's own words, placed from the converted source"}">${esc(text)}<sup>${esc(mark)}</sup>${tag}</span>`;
+      h += `<span class="v ${md.m==="verbatim"?"q":md.m}" data-id="${j.span}" style="--c:${co.c};--t:${co.t}" title="${md.m==="para"?(md.why==="licence"?"paraphrased: copyrighted source under the shipping ceiling":md.why==="pointed"?"the model's own sentence about a passage it points to: click to see the passage":"paraphrased: below the --verbatim share"):md.m==="missing"?"the resolver could not place this span":md.pointed?"the author's passage that the model's sentence rests on, placed from the converted source":"the author's own words, placed from the converted source"}">${esc(text)}<sup>${esc(mark)}</sup>${tag}</span>`;
       CHARTS.forEach((c,i)=>{ if(c.span===j.span) h += `</p><div class="chart" id="chart-${i}"></div><p>`; });
     }
     h += `</p>`;
@@ -499,9 +501,10 @@ document.getElementById("verb").addEventListener("input",e=>{ state.verbatim=+e.
 document.getElementById("joins").addEventListener("change",e=>{ state.joins=e.target.value; renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
 document.getElementById("ctx").addEventListener("change",e=>{ state.ctx=e.target.value; if(state.open){ const el=document.querySelector(`.v[data-id="${state.open}"]`); closeSide(); if(el) openSide(el);} renderTrace(); });
 document.getElementById("ship").addEventListener("change",e=>{ state.ship=e.target.checked; renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
+document.getElementById("passages").addEventListener("change",e=>{ state.passages=e.target.checked; renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
 window.addEventListener("resize",()=>{ renderSourceMap(); if(state.open){ const el=document.querySelector(`.v[data-id="${state.open}"]`); closeSide(); if(el) openSide(el);} });
 document.getElementById("verb").value = state.verbatim; document.getElementById("verbval").textContent = (+state.verbatim).toFixed(2);
-document.getElementById("joins").value = state.joins; document.getElementById("ctx").value = state.ctx; document.getElementById("ship").checked = !!state.ship;
+document.getElementById("joins").value = state.joins; document.getElementById("ctx").value = state.ctx; document.getElementById("ship").checked = !!state.ship; document.getElementById("passages").checked = !!state.passages;
 render();
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>renderSourceMap());
 </script>

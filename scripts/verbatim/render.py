@@ -265,12 +265,13 @@ def main():
     ap.add_argument("--joins", choices=("essay", "minimal"), default=None, help="opening join form (default: the report's mode.joins, else essay)")
     ap.add_argument("--context", default=None, choices=("paras:1", "chars:600", "words:120", "pages:1"), help="opening context window for a clicked span (default paras:1)")
     ap.add_argument("--ship", action="store_true", help="open as it would ship: copyrighted sources paraphrased under max_visibility open-nc")
+    ap.add_argument("--passages", action="store_true", help="open with each pointed paraphrase shown as the author's passage it rests on")
     args = ap.parse_args()
     out = args.folder.resolve()
     report = json.loads((out / "report.json").read_text())
     init = {"verbatim": args.verbatim if args.verbatim is not None else 1.0,
             "joins": args.joins or report.get("mode", {}).get("joins", "essay"),
-            "ctx": args.context or "paras:1", "ship": args.ship}
+            "ctx": args.context or "paras:1", "ship": args.ship, "passages": args.passages}
     if init["joins"] not in ("essay", "minimal"):
         init["joins"] = "essay"
     render(out, init)

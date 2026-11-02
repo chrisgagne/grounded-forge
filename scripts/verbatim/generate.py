@@ -192,6 +192,7 @@ def render(out, args):
     if args.verbatim is not None: cmd += ["--verbatim", str(args.verbatim)]
     if args.context: cmd += ["--context", args.context]
     if args.ship: cmd += ["--ship"]
+    if args.passages: cmd += ["--passages"]
     if args.joins in ("essay", "minimal"): cmd += ["--joins", args.joins]
     p = subprocess.run(cmd, capture_output=True, text=True)
     if p.returncode != 0:   # no uv: render without page images
@@ -228,6 +229,7 @@ def main():
     ap.add_argument("--verbatim", type=float, help="render-time, no model call: opening --verbatim share, 0..1")
     ap.add_argument("--context", help="render-time, no model call: paras:1, chars:600, words:120 or pages:1")
     ap.add_argument("--ship", action="store_true", help="render-time, no model call: open under the open-nc shipping gate")
+    ap.add_argument("--passages", action="store_true", help="render-time, no model call: open with pointed paraphrases shown as the author's passages")
     ap.add_argument("--allow-join-quotes", action="store_true", help="render even though the model's prose carries quotation marks (check each first)")
     ap.add_argument("--allow-unpointed-credits", action="store_true", help="render even though join sentences still credit a source with no pointer (check each first)")
     ap.add_argument("--render-only", action="store_true", help="no model call: resolve and render an existing report.json")

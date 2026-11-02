@@ -105,6 +105,12 @@ Pooled over each case's two runs. U is the share of citations graded none.
 - **Small n, cases written with the corpora in view.** Three cases, two runs, by the operator and Claude.
 - **The private corpus is reported as counts.** No answer text, chunk or quotation from it is in this folder.
 
+## Related
+
+- [Verbatim mode against Gemini Notebook](../2026-11-02-verbatim-vs-gemini/) and its [round 2](../2026-11-02-verbatim-vs-gemini-2/) judge grounded-forge's verbatim mode, where code places the authors' exact sentences, against Gemini. They cover six answers and score each claim, not each citation, so their figures don't compare with this round's.
+- [Verbatim mode on the case-citations cases](../2026-11-02-verbatim-case-citations/) adds verbatim mode as a third arm here: these cases, this unit and grade, and the runs above reused as they are.
+- [What the evals show](../../grounded-forge-vs-gemini.md) draws the four rounds together.
+
 ## What changed
 
 - [`../../gemini-notebook-arm.md`](../../gemini-notebook-arm.md) lists this round as run.

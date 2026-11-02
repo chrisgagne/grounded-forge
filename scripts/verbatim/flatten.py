@@ -9,7 +9,9 @@ original file and the page within it, converted file and line, the span's own pa
 page images (the hit page shows the passage highlighted), and the check of the quotation against
 the printed page. A pointed paraphrase is the model's sentence, unquoted, with the same
 pointers. A span the resolver could not place is given as the model's paraphrase, marked as
-such. Nothing names the tool that made it.
+such. Nothing names the tool that made it. --ship writes it as it would ship: a source above
+the open-nc ceiling shows as the answer's paraphrase with its section and printed page, and
+none of its text, paragraph or page images.
 
 render.py calls this at the end of every render, writing <report-folder>/answer.md from the
 same bundle as the page, so the two never disagree. File paths are relative to the report
@@ -17,11 +19,14 @@ folder unless --base gives the path a reader will reach the folder by (a judge's
 
 The output quotes the sources, so it stays beside the report.
 """
-import argparse, json
+import argparse, json, re
 from pathlib import Path
 
 
-def flatten(folder, base=None):
+SHIP_CEILING = ("open", "open-nc")
+
+
+def flatten(folder, base=None, ship=False, joins="essay"):
     report = json.loads((folder / "report.json").read_text())
     bundle = json.loads((folder / "bundle.json").read_text())
     at = (lambda p: f"{base}/{p}") if base else (lambda p: p)
@@ -30,7 +35,9 @@ def flatten(folder, base=None):
     lines = [f"# Answer\n\nQuestion: {report['question']}\n", report.get("coverage_note", "") + "\n"]
     for sec in report["sections"]:
         para, notes = [], []
-        for j in sec["joins"]:
+        ph = {j["span"]: j for j in sec["joins"] if isinstance(j, dict)}
+        form = sec.get("joins_min") if joins == "minimal" and sec.get("joins_min") else sec["joins"]
+        for j in (ph.get(x["span"], x) if isinstance(x, dict) else x for x in form):
             if isinstance(j, str):
                 para.append(j); continue
             n += 1
@@ -42,6 +49,13 @@ def flatten(folder, base=None):
                 notes.append(f"[{n}] {who}. Paraphrase by the answer's author; no passage is pointed to.")
                 continue
             pointed = sp.get("show") == "paraphrase"
+            if ship and src.get("scope") not in SHIP_CEILING:   # as it would ship: a copyrighted source's words stay with it
+                para.append(f"{j['paraphrase']} [{n}]")
+                notes.append("\n".join([
+                    f"[{n}] {who}. Paraphrased: the source is {src.get('scope') or 'not open'}, so its words are not reproduced here.",
+                    f"    section: {sp.get('locator') or 'not recorded'}; printed page: {sp.get('page') or 'not kept by the converter'}",
+                ]))
+                continue
             para.append(f"{j['paraphrase']} [{n}]" if pointed else f"“{sp['text']}” [{n}]")
             pages = ", ".join(at(p["png"]) for p in sp.get("pages", []))
             hit = next((p for p in sp.get("pages", []) if p["boxes"]), None)
@@ -67,7 +81,8 @@ def flatten(folder, base=None):
                 f"    paragraph: {ctx}",
                 f"    page check: {check}",
             ]))
-        lines.append(f"## {sec['heading']}\n\n{''.join(para).strip()}\n\nPointers:\n\n" + "\n\n".join(notes) + "\n")
+        body = re.sub(r"\s{2,}", " ", " ".join(x.strip() for x in para if x.strip()))   # the terse form leaves no space between a join and a span
+        lines.append(f"## {sec['heading']}\n\n{body}\n\nPointers:\n\n" + "\n\n".join(notes) + "\n")
     return "\n".join(lines), n
 
 
@@ -75,10 +90,12 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("folder", type=Path)
     ap.add_argument("--out", type=Path, default=None, help="default <report-folder>/answer.md")
+    ap.add_argument("--joins", choices=("essay", "minimal"), default="essay", help="the join form: essay (lead-ins) or minimal (the terse form, which reads better paraphrased)")
+    ap.add_argument("--ship", action="store_true", help="as it would ship: sources above open-nc paraphrased, with no text, paragraph or page image from them")
     ap.add_argument("--base", default=None, help="the path a reader will reach the report folder by; default: paths relative to it")
     args = ap.parse_args()
     folder = args.folder.resolve()
-    text, n = flatten(folder, args.base.rstrip("/") if args.base else None)
+    text, n = flatten(folder, args.base.rstrip("/") if args.base else None, args.ship, args.joins)
     out = args.out or folder / "answer.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(text)

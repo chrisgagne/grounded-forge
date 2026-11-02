@@ -93,7 +93,7 @@ Required: yes.
 
 Glob patterns matched against files in `{source_dir}/references/`. `include_patterns` is the allow-list (typically just `*.md`). `exclude_patterns` removes audit scaffolding (`_ingest_*`) that lives alongside the references in the source repo but should not ship.
 
-The build also unconditionally copies the runtime JSON indexes that sit at corpus root or alongside the references: `slug-table.json` (into `apps/{profile}/references/`), `reference-index.json` (into `apps/{profile}/`), and `concept-index.json` (into `apps/{profile}/`). These are not glob-filtered; they ship with every profile because the runtime skills inside the app read them on every query.
+The build also ships the runtime JSON indexes that remain meaningful in an app, all at the app root: `slug-table.json` (copied from `references/`), `concept-index.json` (filtered to the sources whose distillations ship, with no in-source section pointers) and `lens-index.json` (filtered to the lenses that clear the visibility ceiling). These are not glob-filtered. `reference-index.json` and the light and deep references stay in the corpus: each distillation names its author and title in its first paragraph.
 
 ### `distillations`
 

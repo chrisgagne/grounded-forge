@@ -1,6 +1,6 @@
 # Verbatim mode on the case-citations cases: does placing the authors' words lift citation support?
 
-**Status: designed, not run.** It waits on the two generator fixes round 2 found (below).
+**Status: designed, not run.** Ready to run at `bca4b590`, which has the two generator fixes round 2 called for (below).
 
 ## Why this round
 
@@ -47,10 +47,10 @@ No Gemini question is asked again, and no `answer-from-corpus` answer is regener
 - **Scorers.** Opus 5.5 in a fresh context, with the case-citations scoring brief unchanged, then a Sol re-grade of all 10 answers through `compare_sol.py`.
 - **Private results** are reported as counts and kinds of failure only. No answer text, passage or quotation leaves the private tier.
 
-## Before running: the two fixes round 2 found
+## The two fixes round 2 called for, in place at `bca4b590`
 
-1. **Every credited sentence carries a pointer.** In round 2, attributed sentences the model wrote in its joins carried no pointer: 22 of 54 on the Marines question. The generator must turn each one into a marked paraphrase with an anchor, which the resolver places and points to, and its lint must fail a join that credits a source without one. Otherwise this round mostly measures that gap again.
-2. **Placed quotations match the page, not just the conversion.** Strip converter markup (table pipes, Pandoc `:::` and `>` markers) from placed text. Have the renderer compare each span's words with the PDF or EPUB page it finds them on and flag any difference, such as an OCR "AID" for "AND".
+1. **Every credited sentence carries a pointer.** In round 2, 22 of 54 attributed sentences on the Marines question had no pointer, because the model wrote them in its joins. Such a sentence is now a *pointed paraphrase*: the model's own sentence with an anchor, which the resolver places and points to. `generate.py` finds join sentences that credit a source, runs one repair pass on them, and stops on any credit left without a pointer. A fresh run on the Marines question had 12 pointed paraphrases and no credit left without a pointer.
+2. **Placed quotations are checked against the page, not just the conversion.** Converter markup (table bars, Pandoc fences and blockquote markers) and run-in headings are left out of placed text. The renderer compares each quotation word for word with its page in the original. It sets a word the conversion split ("bet ter") as the page prints it, and records any other difference. The check reads the original's text layer, so an OCR slip the PDF's own text shares, like round 2's "AID" for "AND", goes uncaught. Report the page-check counts beside quotation exactness.
 
 ## Reading the result, stated before running
 

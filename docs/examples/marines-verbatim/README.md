@@ -10,7 +10,7 @@ An answer from the demo corpus in which every quotation is the author's own sent
 
 ## How to read it
 
-- **[`preview.html`](preview.html)** is the report itself. Open it on GitHub Pages, or download this folder and open the file. It opens with every claim in the author's words.
+- **[`preview.html`](preview.html)** is the report itself. Open it [on GitHub Pages](https://chrisgagne.github.io/grounded-forge/examples/marines-verbatim/preview.html), or download this folder and open the file. It opens with every claim in the author's words.
 - **Click any passage.** The sidenote names the book, section and printed page, says whether the quotation matches the printed page, and shows the passage inside its own paragraph.
 - **See the page in the original.** This opens an image of the printed page, with the passage highlighted.
 - **Converted text, line N** opens the converted source in this repository at that line.

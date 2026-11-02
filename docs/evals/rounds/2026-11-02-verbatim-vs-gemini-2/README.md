@@ -1,8 +1,8 @@
 # Verbatim mode against Gemini Notebook, round 2: the same comparison with a stricter rubric
 
-**Status: designed, not run.** Questions are still to be chosen.
+**Status: designed, not run.** Three questions, each over one corpus only.
 
-[Round 1](../2026-11-02-verbatim-vs-gemini/) asked one question. Both blind judges preferred the forge answer: every quotation was exact, and its claims took a half to a third of the judge operations to check. Sol's review of that design found six weaknesses that only a different rubric can fix. Round 2 is that rubric, run on the pandemic question again (both answers reused) and on new questions the generator was never tuned on.
+[Round 1](../2026-11-02-verbatim-vs-gemini/) asked one question. Both blind judges preferred the forge answer: every quotation was exact, and its claims took a half to a third of the judge operations to check. Sol's review of that design found six weaknesses that only a different rubric can fix. Round 2 is that rubric, run on the pandemic question again (both answers reused) and on two questions the generator was never tuned on, one per corpus.
 
 ## What changed from round 1, and why
 
@@ -23,10 +23,20 @@ The forge package changed too. Each fix came from a defect the round-1 judges fo
 
 ## Design
 
-- **Questions.** The pandemic question from round 1, with both arms' answers reused unchanged, plus two new questions. Each new question gets a fresh forge run with `generate.py` and a fresh Gemini answer.
+- **Questions.** Each runs over one corpus only, against the notebook that holds it.
+
+  | # | Question | Corpus and notebook | Forge answer | Gemini answer |
+  |---|---|---|---|---|
+  | 1 | How can NZ better prepare itself for the next pandemic? | `aarbuddy`, the AARBuddy notebook | round 1's, reused | round 1's, reused |
+  | 2 | The non-duality question, word for word as in `verbatim-reports/non-duality/question.txt` | `aarbuddy`, the AARBuddy notebook | `verbatim-reports/non-duality/` | asked fresh |
+  | 3 | Please draw some interesting parallels between US Marines war-fighting doctrine and modern "textbook" business administration. | `demo`, the demo notebook | `verbatim-reports/marines-business/` | asked fresh |
+
+  Question 1 is the control: the same two answers as round 1, under the stricter rubric. If round 1's verdict holds there, a different result on questions 2 and 3 comes from the question, not the rubric. All three forge reports were re-rendered at `785acff6` with no new model call.
+
+  Question 2 was written for Gemini and asks for a chat memo; the forge arm answers it as a report page. Judging is by claim, so the form does not enter the scores, but the write-up says so. Gemini's saved 31 October answer to it ran under a custom chat style, so it is asked again at Default.
 - **The two arms' libraries.**
-  - Forge: the private `aarbuddy` corpus.
-  - Gemini: the AARBuddy notebook, with *Come Prepared to Die* unticked. Before the first question, export the notebook's source list and match it against the corpus's `slug-table.json` into `manifest.md`, listing what is in one and not the other.
+  - Forge: the `aarbuddy` corpus for questions 1 and 2, the `demo` corpus for question 3.
+  - Gemini: the AARBuddy notebook, with *Come Prepared to Die* unticked, and the demo notebook. Before the first question, export each notebook's source list and match it against its corpus's `slug-table.json` into `manifest.md`, listing what is in one and not the other.
 - **Gemini arm.** Each question is asked once, in a cleared chat, at Default style and length. Restore the notebook's custom chat setting afterwards. Capture every citation popup in full, without picking among them.
 - **Forge arm.** `generate.py --model opus --joins both`. The evaluated deliverable is `answer.md` as `render.py` writes it, with its paths rewritten to the judges' neutral path (`flatten.py --base`).
 - **Identity masking.** Judges reach the files through a neutral symlink, and nothing names either tool. The two arms still differ in form: pointer blocks and page images against citation popups. Judges record a guess at which tool made the answer, after scoring.

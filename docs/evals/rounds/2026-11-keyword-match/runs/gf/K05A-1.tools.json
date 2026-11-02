@@ -1,0 +1,65 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is the scope of work mandate on the vertical axis of the Org Topologies map?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "topolog",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-1/references/slug-table.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "references/*topolog*",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-1"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-1/references/org-topologies-primer-2025.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "vertical|scope of work|mandate",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-1/references/org-topologies-primer-2025-deep.md",
+   "-i": true,
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-1/references/org-topologies-primer-2025-deep.md",
+   "offset": 39,
+   "limit": 12
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "bigger is its field of play|switching costs to work on something|It's an org design decision to limit|organizational simplification",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-1/sources/converted",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K05A-1/sources/converted/org-topologies-primer-2025.md",
+   "offset": 500,
+   "limit": 65
+  }
+ }
+]

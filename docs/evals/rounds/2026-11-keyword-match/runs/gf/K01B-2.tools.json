@@ -1,0 +1,143 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Our pipeline throws the same warning on every deploy. Years ago it scared us; now nobody blinks, since nothing ever broke. How does a team drift into treating a red flag as fine?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/lens-index.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t084|\"t080|\"t079|\"t036",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/references/caib-report-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/references/doe-hpi-handbook-vol1.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)conditioned by success|elastic waistband|weak signal|in family|first decision was a turning point|each successful landing",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/sources/converted/caib-report-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)drift toward failure|at-risk behavior|preoccupation with failure|bald tire|robust is|non-event|dynamic non|rarely penalized",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 2150,
+   "limit": 135
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/sources/converted/caib-report-vol1.md",
+   "offset": 19665,
+   "limit": 145
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 11520,
+   "limit": 170
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 8600,
+   "limit": 16
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/sources/converted/caib-report-vol1.md",
+   "offset": 18025,
+   "limit": 15
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Taken one at a time, each decision seemed correct|Prove to me that Columbia has not been harmed|amplify weak signals so they can be tracked|having to prove that the situation was unsafe|increasingly regarded the foam-shedding as inevitable",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/sources/converted/caib-report-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Taken one at a time|Prove to me that|amplify weak signals",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-2/sources/converted/caib-report-vol1.md",
+   "output_mode": "content",
+   "-A": 1
+  }
+ }
+]

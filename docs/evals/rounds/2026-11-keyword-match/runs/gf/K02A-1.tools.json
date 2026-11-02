@@ -1,0 +1,105 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is friction in war, and why does it make the simple difficult?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "friction",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/references/mcdp1-warfighting.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "[Ff]riction",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/sources/converted/mcdp1-warfighting.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/sources/converted/mcdp1-warfighting.md",
+   "offset": 270,
+   "limit": 70
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "[Ff]riction",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/references/mcdp1-warfighting-deep.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/references/mcdp1-warfighting-deep.md",
+   "offset": 30,
+   "limit": 36
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/sources/converted/mcdp1-warfighting.md",
+   "offset": 1470,
+   "limit": 14
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/sources/converted/mcdp1-warfighting.md",
+   "offset": 2578,
+   "limit": 20
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "simplest thing is difficult",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/sources/converted/mcdp1-warfighting.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Everything in war is",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/sources/converted/mcdp1-warfighting.md",
+   "output_mode": "content",
+   "-A": 2
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-1/sources/converted/mcdp1-warfighting.md",
+   "offset": 176,
+   "limit": 6
+  }
+ }
+]

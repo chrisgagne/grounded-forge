@@ -1,0 +1,103 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Our board can't settle on a strategy, and nobody knows how the market will react. Is there a tool that plots issues by how sure we are of the facts and how much we see eye to eye?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "schema_version|topic_lines",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 5
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "stacey|agreement.*certainty|certainty.*agreement",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2",
+   "-i": true,
+   "glob": "*.json",
+   "output_mode": "content",
+   "head_limit": 30
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/concept-index.json",
+   "offset": 1,
+   "limit": 92
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t025",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Agreement|Uncertainty|Stacey|Zimmerman",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/references/liberating-structures-handbook.md",
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Agreement|Uncertainty|Stacey|Zimmerman",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/references/liberating-structures-handbook-deep.md",
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/references/liberating-structures-handbook-deep.md",
+   "offset": 100,
+   "limit": 20
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Agreement|Stacey|Zimmerman|recipe|airplane",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/sources/converted",
+   "-i": true,
+   "output_mode": "files_with_matches"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Agreement/Uncertainty|Ralph Stacey|Brenda Zimmerman suggests",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/sources/converted/liberating-structures-handbook.md",
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-2/sources/converted/liberating-structures-handbook.md",
+   "offset": 1615,
+   "limit": 55
+  }
+ }
+]

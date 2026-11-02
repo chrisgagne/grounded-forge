@@ -1,0 +1,76 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is friction in war, and why does it make the simple difficult?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "friction",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-2/concept-index.json",
+   "-i": true,
+   "output_mode": "content",
+   "head_limit": 40
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-2/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00q\"|\"t056",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-2",
+   "glob": "{concept-index.json,references/slug-table.json}",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-2/references/mcdp1-warfighting.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)friction",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-2/references/mcdp1-warfighting-deep.md",
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-2/references/mcdp1-warfighting-deep.md",
+   "offset": 50,
+   "limit": 8
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)friction",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-2/sources/converted",
+   "output_mode": "content",
+   "-n": true,
+   "head_limit": 40
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K02A-2/sources/converted/mcdp1-warfighting.md",
+   "offset": 135,
+   "limit": 200
+  }
+ }
+]

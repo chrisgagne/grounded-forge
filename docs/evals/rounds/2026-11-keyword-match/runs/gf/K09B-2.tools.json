@@ -1,0 +1,119 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "We hired temps to clear a backlog of customer complaints; the temps gave sloppy answers, which caused even more complaints. What pattern is this?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"schema_version\"|\"topic_lines\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/concept-index.json",
+   "offset": 1,
+   "limit": 92
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/lens-index.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t023|\"t024|\"t025",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that|shifting the burden|archetype|unintended consequence",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00n\"|\"001\"|\"00u\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that fail|fixes that backfire|shifting the burden|archetype",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/references",
+   "output_mode": "count"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/references/ssdl-systems-thinking-foundations.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "fixes that|shifting the burden|unintended|quick fix|symptomatic",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/references/ssdl-systems-thinking-foundations-deep.md",
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/references/ssdl-systems-thinking-foundations-deep.md",
+   "offset": 110,
+   "limit": 150
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "The fix might solve the problem in the short run|impede our ability to invest time and energy|not meant to erase the uniqueness|The system will react to the accumulation|speed up how quickly teachers",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/sources/converted/ssdl-systems-thinking-foundations.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "short-term fix\\.|short run|uniqueness|how quickly|quick-fix to the symptoms|not only the input",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K09B-2/sources/converted/ssdl-systems-thinking-foundations.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ }
+]

@@ -1,0 +1,203 @@
+{
+ "id": "K01B-1",
+ "question": "Our pipeline throws the same warning on every deploy. Years ago it scared us; now nobody blinks, since nothing ever broke. How does a team drift into treating a red flag as fine?",
+ "captured_at": "2026-10-31T01:47:02.287Z",
+ "sources_ticked": "35",
+ "text": "Drifting into treating a red flag as fine is a well-documented organizational pattern driven by predictable cognitive biases, habituation, and systemic dynamics:\n1. Normalization of Deviance\nSociologist Diane Vaughan coined the term normalization of deviance to describe how organizations incrementally accept technical deviations or unexpected anomalies until they are treated as standard, acceptable baseline behavior[1]. When a pipeline warning occurs repeatedly without causing an outage, the team reclassifies the alert from an \"out-of-family\" signal of potential danger into a routine, \"in-family\" operational nuisance[2][3]. Because the anomaly is encountered constantly during normal operations, it loses its power as an alarm[3].\n2. The \"Bald Tire\" Effect (Past Success Justification)\nHuman performance frameworks identify a mindset known as the \"Bald Tire\" effect—the belief that past success justifies not changing an existing condition or practice (\"I've driven 60,000 miles on these tires and haven't had a flat yet\")[4]. When a system repeatedly triggers a warning but nothing breaks, team members fall into a \"Pollyanna\" bias, assuming everything is inherently normal and ordered[4]. Over time, lack of immediate negative consequences is misconstrued as proof of safety and system robustness[4][5].\n3. Alarm Fatigue and Cognitive Habituation\nIn software engineering, continuous exposure to non-fatal or false-positive signals creates nuisance alarms[6][7]. Studies on developer behavior show that as the rate of non-actionable or routine warnings increases, developers mentally default to assuming the warning is benign and stop processing the alert altogether[8][9]. Because deliberate mental effort requires significant cognitive resources, human attention naturally habituates and ignores persistent background noise that does not require an immediate, forced response[8][10][11].\n4. Practical Drift & Reversed Burden of Proof\nAs teams adapt to daily productivity pressures, they undergo practical drift—a gradual, unexamined departure from baseline rules toward routine workarounds[12][13][14]. A subtle but dangerous shift occurs in the team's culture: the burden of proof is reversed[15][16]. Instead of requiring engineers to prove that a deployment is completely clean and safe before releasing, the system implicitly demands that someone prove the warning is an active emergency before anyone invests the effort to fix it[15][16].\nHow High-Reliability Teams Reset the Baseline\nHigh-Reliability Organizations (HROs) avoid this trap by maintaining a preoccupation with failure[17]. They treat any persistent anomaly or lapse as a symptom of potential systemic weakness rather than proof that the system is resilient[17]. To restore clear signals, high-reliability teams maintain an \"uneasy respect\" for human fallibility and actively clean up or fix nuisance alerts so that when a true red flag appears, it demands immediate attention[7][18][19][20].\n🚨 Next Step Idea: Would you like to explore strategies for running a pipeline \"clean-up sprint\" or structured audit to silence nuisance warnings and re-establish strict alert thresholds?",
+ "occurrences": [
+  {
+   "n": 1,
+   "context": "Sociologist Diane Vaughan coined the term normalization of deviance to describe how organizations incrementally accept technical deviations or unexpected anomalies until they are treated as standard, acceptable baseline behavior"
+  },
+  {
+   "n": 2,
+   "context": "eated as standard, acceptable baseline behavior1. When a pipeline warning occurs repeatedly without causing an outage, the team reclassifies the alert from an \"out-of-family\" signal of potential danger into a routine, \"in-family\" operational nuisance"
+  },
+  {
+   "n": 3,
+   "context": "ated as standard, acceptable baseline behavior1. When a pipeline warning occurs repeatedly without causing an outage, the team reclassifies the alert from an \"out-of-family\" signal of potential danger into a routine, \"in-family\" operational nuisance2"
+  },
+  {
+   "n": 3,
+   "context": "g an outage, the team reclassifies the alert from an \"out-of-family\" signal of potential danger into a routine, \"in-family\" operational nuisance23. Because the anomaly is encountered constantly during normal operations, it loses its power as an alarm"
+  },
+  {
+   "n": 4,
+   "context": "Human performance frameworks identify a mindset known as the \"Bald Tire\" effect—the belief that past success justifies not changing an existing condition or practice (\"I've driven 60,000 miles on these tires and haven't had a flat yet\")"
+  },
+  {
+   "n": 4,
+   "context": "ition or practice (\"I've driven 60,000 miles on these tires and haven't had a flat yet\")4. When a system repeatedly triggers a warning but nothing breaks, team members fall into a \"Pollyanna\" bias, assuming everything is inherently normal and ordered"
+  },
+  {
+   "n": 4,
+   "context": "tedly triggers a warning but nothing breaks, team members fall into a \"Pollyanna\" bias, assuming everything is inherently normal and ordered4. Over time, lack of immediate negative consequences is misconstrued as proof of safety and system robustness"
+  },
+  {
+   "n": 5,
+   "context": "edly triggers a warning but nothing breaks, team members fall into a \"Pollyanna\" bias, assuming everything is inherently normal and ordered4. Over time, lack of immediate negative consequences is misconstrued as proof of safety and system robustness4"
+  },
+  {
+   "n": 6,
+   "context": "In software engineering, continuous exposure to non-fatal or false-positive signals creates nuisance alarms"
+  },
+  {
+   "n": 7,
+   "context": "In software engineering, continuous exposure to non-fatal or false-positive signals creates nuisance alarms6"
+  },
+  {
+   "n": 8,
+   "context": "se-positive signals creates nuisance alarms67. Studies on developer behavior show that as the rate of non-actionable or routine warnings increases, developers mentally default to assuming the warning is benign and stop processing the alert altogether"
+  },
+  {
+   "n": 9,
+   "context": "e-positive signals creates nuisance alarms67. Studies on developer behavior show that as the rate of non-actionable or routine warnings increases, developers mentally default to assuming the warning is benign and stop processing the alert altogether8"
+  },
+  {
+   "n": 8,
+   "context": "gn and stop processing the alert altogether89. Because deliberate mental effort requires significant cognitive resources, human attention naturally habituates and ignores persistent background noise that does not require an immediate, forced response"
+  },
+  {
+   "n": 10,
+   "context": ""
+  },
+  {
+   "n": 11,
+   "context": "10"
+  },
+  {
+   "n": 12,
+   "context": "As teams adapt to daily productivity pressures, they undergo practical drift—a gradual, unexamined departure from baseline rules toward routine workarounds"
+  },
+  {
+   "n": 13,
+   "context": ""
+  },
+  {
+   "n": 14,
+   "context": "13"
+  },
+  {
+   "n": 15,
+   "context": " to daily productivity pressures, they undergo practical drift—a gradual, unexamined departure from baseline rules toward routine workarounds12unfold_less1314. A subtle but dangerous shift occurs in the team's culture: the burden of proof is reversed"
+  },
+  {
+   "n": 16,
+   "context": "o daily productivity pressures, they undergo practical drift—a gradual, unexamined departure from baseline rules toward routine workarounds12unfold_less1314. A subtle but dangerous shift occurs in the team's culture: the burden of proof is reversed15"
+  },
+  {
+   "n": 15,
+   "context": "f is reversed1516. Instead of requiring engineers to prove that a deployment is completely clean and safe before releasing, the system implicitly demands that someone prove the warning is an active emergency before anyone invests the effort to fix it"
+  },
+  {
+   "n": 16,
+   "context": "is reversed1516. Instead of requiring engineers to prove that a deployment is completely clean and safe before releasing, the system implicitly demands that someone prove the warning is an active emergency before anyone invests the effort to fix it15"
+  },
+  {
+   "n": 17,
+   "context": "High-Reliability Organizations (HROs) avoid this trap by maintaining a preoccupation with failure"
+  },
+  {
+   "n": 17,
+   "context": "High-Reliability Organizations (HROs) avoid this trap by maintaining a preoccupation with failure17. They treat any persistent anomaly or lapse as a symptom of potential systemic weakness rather than proof that the system is resilient"
+  },
+  {
+   "n": 7,
+   "context": "roof that the system is resilient17. To restore clear signals, high-reliability teams maintain an \"uneasy respect\" for human fallibility and actively clean up or fix nuisance alerts so that when a true red flag appears, it demands immediate attention"
+  },
+  {
+   "n": 18,
+   "context": ""
+  },
+  {
+   "n": 19,
+   "context": "18"
+  },
+  {
+   "n": 20,
+   "context": "1819"
+  }
+ ],
+ "legend": {
+  "1": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "While NASA properly designated key debris events as In-Flight Anomalies in the past, more recent events indicate that NASA engineers and management did not appreciate the scope, or lack of scope, of the Hazard Reports involving foam shedding.40 Ultimately, NASA's hazard analyses, which were based on reducing or eliminating foam-shed-ding, were not succeeding. Shuttle Program management made no adjustments to the analyses to recognize this fact. The acceptance of events that are not supposed to happen has been described by sociologist Diane Vaughan as the \"normalization of deviance.\"\" The history of foam-problem decisions shows how NASA first began and then continued flying with foam losses, so that flying with these deviations from design specifications was viewed as normal and acceptable. Dr. Richard Feynman, a member of the Presiden-tial Commission on the Space Shuttle Challenger Accident, discusses this phenomena in the context of the Challenger accident. The parallels are striking:"
+  },
+  "2": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "From the beginning, NASA's belief about both these problems was affected by the fact that engineers were evaluating them in a work environment where technical problems were normal. Although management treated the Shuttle as operational, it was in reality an experimental vehicle. Many anomalies were expected on each mission. Against this backdrop, an anomaly was not in itself a warning sign of impending catastrophe. Another contributing factor was that both foam debris strikes and O-ring erosion events were examined separately, one at a time. Individual incidents were not read by engineers as strong signals of danger. What NASA engineers and managers saw were pieces of illstructured problems.' An incident of O-ring erosion or foam bipod debris would be followed by several launches where"
+  },
+  "3": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "were followed by all-clear signals — in other words, NASA managers and engineers were receiving mixed signals.' Some signals defined as weak at the time were, in retrospect, warnings of danger. Foam debris damaged tile was assumed (erroneously) not to pose a danger to the wing. If a primary O-ring failed, the secondary was assumed (erroneously) to provide a backup. Finally, because foam debris strikes were occurring frequently, like O-ring erosion in the years before Challenger, foam anomalies became routine signals — a normal part of Shuttle operations, not signals of danger. Other anomalies gave signals that were strong, like wiring malfunctions or the cracked balls in Ball Strut Tie Rod As-semblies, which had a clear relationship to a \"loss of mission.\" On those occasions, NASA stood down from launch, sometimes for months, while the problems were corrected. In contrast, foam debris and eroding 0-rings were defined as nagging issues of seemingly little consequence. Their significance became clear only in retrospect, after lives had been lost."
+  },
+  "4": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Department of Energy Human Performance Handbook Chapter 2 Reducing Error\nalways faced a protected enemy and devastating machine gun fire. Millions of men killed and wounded, yet the Generals persisted. The cycle continued—over the top, early success, then overwhelming losses and retreat.\"19\n• Invulnerability. A sense of immunity to error, failure, or injury. Most people do not believe they will err in the next few moments: “That can’t happen to me.” Error is always a surprise when it happens. This is an outcome of the human limitation to accurately estimate risk. The failure to secure enough lifeboats for all passengers and to train the seamen how to launch them and load them ultimately resulted in the biggest maritime loss of civilian lives in history on the Titanic. Invulnerability was so ingrained in the minds of the ship owners about the ship being unsinkable that to supply the vessel with life boats for all passengers was foolhardy and would somehow leave the impression that the ship could sink. Hence, only half enough life boats were brought on board for the maiden voyage. When disaster struck, seaman struggled to launch the available craft. In the panic and confusion, numerous boats floated away from the mother ship only partially loaded.\n• Pollyanna – All is well. People tend to presume that all is normal and perfect in their immediate surroundings20 Humans seek order in their environment, not disorder. They tend to fill in gaps in perception and to see wholes instead of portions.21 Consequently, people unconsciously believe that everything will go as planned. This is particularly true when people perform routine activities, unconsciously thinking nothing will go wrong. This belief is characterized with quotes such as “What can go wrong?” or “It's routine.” This attitude promotes an inaccurate perception of risk and can lead individuals to ignore unusual situations or hazards, potentially causing them to react either too late or not at all.22\n• Bald Tire. A belief that past performance is justification for not changing (improving) existing practices or conditions: “I've got 60,000 miles on this set of tires and haven't had a flat yet.” A history of success can promote complacency and overconfidence. Evidence of this attitude is characterized with quotes such as, “We haven't had any problems in the past,” or “We've always done it this way.” Managers can be tempted to ignore recommendations for improvement if results have been good. What happened with the Columbia space shuttle is a good example. Over the course of 22 years, on every flight, some foam covering the outer skin of the external fuel tank fell away during launch and struck the shuttle. Foam strikes were normalized to the point where they were simply viewed as a “maintenance” issue—a concern that did not threaten a mission’s success. In 2003, even after it became clear from the launch videos that foam had struck the Orbiter in a manner never before seen, Space Shuttle Program managers were not unduly alarmed. They could not imagine why anyone would want a photo of something that could be fixed after landing. Learned attitudes about foam strikes diminished management’s wariness of their danger.23"
+  },
+  "5": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "From the beginning, the Board witnessed a consistent lack of concern about the debris strike on Columbia. NASA man-agers told the Board \"there was no safety-of-flight issue\" and \"we couldn't have done anything about it anyway.\" The investigation uncovered a troubling pattern in which Shuttle Program management made erroneous assumptions about the robustness of a system based on prior success rather than\nThe Shuttle Program's complex structure erected barriers to effective communication and its safety culture no longer asks enough hard questions about risk. (Safety culture refers to an organization's characteristics and attitudes — promoted by its leaders and internalized by its members — that serve to make safety the top priority.) In this context, the Board believes the mistakes that were made on STS-107 are not isolated failures, but are indicative of systemic flaws that existed prior to the accident. Had the Shuttle Program observed the principles discussed in the previous two sections, the threat that foam posed to the Orbiter, particularly after the STS-112 and STS-107 foam strikes, might have been more fully appreciated by Shuttle Program management."
+  },
+  "6": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Department of Energy Human Performance Handbook Chapter 2 Reducing Error\nWork Environment Human Nature\n• Distractions / Interruptions\n• Changes / Departure from routine\n• Confusing displays / Controls\n• Work-arounds / OSSβ instrumentation\n• Hidden system response\n• Unexpected equipment conditions\n• Lack of alternative indication\n• Personality conflicts\n• Back shift or recent shift change\n• Excessive group cohesiveness / peer pressure\n• Production overemphasis\n• Adverse physical climate (habitability)\n• No accounting of performance.\n• Conflicting conventions; stereotypes\n• Poor equipment layout; poor access\n• Fear of consequences of error\n• Mistrust among work groups\n• Meaningless rules\n• Nuisance alarms\n• Unavailable parts or tools\n• Acceptability of “cookbooking” practices\n• “Rule book” culture\n• Equipment sensitivity (inadvertent actions)\n• Lack of clear strategic vision or goals\n• Stress (limits attention)\n• Habit patterns\n• Assumptions (inaccurate mental"
+  },
+  "7": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "monotony\n• mistrust among\ncoworkers / work groups\n• regular use of at-risk\npractices\n• excessive time on task\n• excessive group\ncohesiveness / peer pressure\n• no accounting of performance\n• acceptability of “cooketc.\n• high data flow\n• back shift / recent shift\nchange\n• adverse physical climate\n/ habitability\n• conflicting conventions;\nstereotypes\n• backshift; recent shift\nchange\n• poor equipment layout /\naccess\n• nuisance alarms\n• equipment sensitivity to\nvibration\nbooking”"
+  },
+  "8": {
+   "source": "jones-evidence-based-sweng.pdf",
+   "chunk": "C−F C+F\nrewriting in terms of the probability of the two kinds of warning (i.e., C+F = 1), we get: Cp−Fp\nso, for instance, when the false positive rate is 0.25 the probability of a developer processing all the warning generated by a tool is 0.75−0.25→ 0.5, and does not depend on the total number of warnings.\n• an instant gratification developer who processes each warning and stops when a sequence of N consecutive false positive warnings have been encountered. This kind of thinking is analogous to that of the hot hand in sports (what psychologists call the clustering illusion)."
+  },
+  "9": {
+   "source": "jones-evidence-based-sweng.pdf",
+   "chunk": "that a developer will stop using the tool concerned if they are encountered too often. Higher false-positive rates\n5 10 15 20 25 30\n0.0\n0.2\n0.4\n0.6\n0.8\n1.0\nNumber of warnings\n0.2\n0.3\n0.4\n0.5\n0.2 0.3\n0.4\n0.5\n3 false positives 4 false positives\nFigure 9.1: Probability that three (red) or four (blue) consecutive false positive warnings occur in some total number of warnings (false positive rate appears on the line). Github–Local\n20 40 60 80 100 120\n20\n50\n100\n200\n500\n1000\n2000\n5000\n10000\nJokes rated"
+  },
+  "10": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Department of Energy Human Performance Handbook Chapter 2 Reducing Error\ndecreases. It can result in panic, inhibiting the ability to effectively sense, perceive, recall, think, or act. Anxiety and fear usually follow when an individual feels unable to respond successfully. Along with anxiety and fear, memory lapses are among the first symptoms to appear. The inability to think critically or to perform physical acts with accuracy soon follows.\nAvoidance of Mental Strain. Humans are reluctant to engage in lengthy concentrated thinking, as it requires high levels of attention for extended periods. Thinking is a slow, laborious process that requires great effort.1 Consequently, people tend to look for familiar patterns and apply well-tried solutions to a problem. There is the temptation to settle for satisfactory solutions rather than continue seeking a better solution. The mental biases, or shortcuts, often used to reduce mental effort and expedite decision-making include:"
+  },
+  "11": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": " taking logs; and\n replacing parts during maintenance.\nError Modes are the prevalent ways, not the only ways, people err for the particular performance mode. Error modes are generalities that aid in anticipating and managing errorlikely situations aggravated by inattention, misinterpretation, and inaccurate mental models.\nSkill-Based Error Mode – Inattention\nThe error mode for skill-based performance is inattention. Skill-based errors are primarily execution errors, involving action slips and lapses in attention or concentration. Errors involve inadvertent slips and unintentional omissions triggered by simple human variability or by not recognizing changes (note the Δ symbol on the above chart) in task requirements, system response, or facility conditions related to the task. Some examples of errors committed while in the skill-based performance level follow."
+  },
+  "12": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Department of Energy Human Performance Handbook Chapter 2 Reducing Error\npersonal injury, or even correction from peers or a supervisor. Instead it is consistently reinforced with convenience, comfort, time savings, and, in rare cases, with fun.24\nExamples of at-risk behaviors on the job\n hurrying through an activity;\n following procedures cookbook-style (blind or unthinking compliance);\n removing several danger tags quickly without annotating removal on the clearance sheet when removed;"
+  },
+  "13": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": " operating a forklift in a reckless manner;\n opening a hazardous materials storage tank without knowing the contents; and\n failing to follow procedures for safeguarding sensitive technical information.\nPersistent use of at-risk behaviors builds overconfidence and trust in personal skills and ability. This is a slippery slope, since people foolishly presume they will not err. Without correction, atrisk behaviors can become automatic (skill-based), such as rolling through stop signs at residential intersections. Over the long-term, people will begin to underestimate the risk of hazards and the possibility of error and will consider danger (or error) as more remote.25 People will become so used to the practice that, under the right circumstances, an event occurs. Managers and supervisors must provide specific feedback when at-risk behavior is observed."
+  },
+  "14": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "were they in conflict with other rules, regulations, or guidance?\n• Was there confusion in roles and responsibilities?\n• Were there indications of practical drift (the unintentional adaptation of routine behaviors from written procedure) or cultural pressures that were inconsistent with espoused values of the organization?\n• Were there structural inconsistencies around communication of decisions down through the organization, feedback up through the organization, and communication across the organization?\n• Were communications clear? How did the message sent compare with the"
+  },
+  "15": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "F6.3-18 After Program managers learned about the foam strike, their belief that it would not be a problem was confirmed (early, and without analysis) by a trusted expert who was readily accessible and spoke from \"experience.\" No one in management questioned this conclusion.\nF6.3-19 Managers asked \"Who's requesting the photos?\" instead of assessing the merits of the request. Management seemed more concerned about the staff followin g proper channels (even while they were themselves taking informal advice) than they were about the analysis."
+  },
+  "16": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "NASA's culture of bureaucratic accountability emphasized chain of command, procedure, following the rules, and going by the book. While rules and procedures were essential for coordination, they had an unintended but negative effect. Allegiance to hierarchy and procedure had replaced defer-\nIn both cases, engineers initially presented concerns as well as possible solutions — a request for images, a recommendation to place temperature constraints on launch. Manage-ment did not listen to what their engineers were telling them. Instead, rules and procedures took priority. For Columbia, program managers turned off the Kennedy engineers' initial request for Department of Defense imagery, with apologies to Defense Department representatives for not having followed \"proper channels.\" In addition, NASA administrators asked for and promised corrective action to prevent such a violation of protocol from recurring. Debris Assessment Team analysts at Johnson were asked by managers to demonstrate a \"mandatory need\" for their imagery request, but were not told how to do that. Both Challenger and Columbia engineering teams were held to the usual quantitative standard of proof. But it was a reverse of the usual circumstance: instead of having to prove it was safe to fly, they were asked to prove that it was unsafe to fly."
+  },
+  "17": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Preoccupation with Failure – HROs assess all anomalies, large and small; they treat any lapse as a symptom that something is wrong with the system, something that could have severe consequences if separate small errors happened to coincide at one unfortunate minute. HROs encourage reporting of errors and near misses, they elaborate experiences of a near miss for what can be learned. They are wary of the potential liabilities of success, including complacency and\nDepartment of Energy Human Performance Handbook Chapter 5 Human Performance Evolution"
+  },
+  "18": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Latent Organizational Weaknesses\nLatent organizational weaknesses are hidden deficiencies in management control processes (for example, strategy, policies, work control, training, and resource allocation) or values (shared beliefs, attitudes, norms, and assumptions) that create work place conditions that can provoke errors (precursors) and degrade the integrity of controls (flawed controls).15 Latent organizational weaknesses include system-level weaknesses that may exist in procedure development and review, engineering design and approval, procurement and product receipt inspection, training and qualification system(s), and so on. The decisions and activities of managers and supervisors determine what is done, how well it is done, and when it is done, either contributing to the health of the system(s) or further weakening its resistance to error and events. System-level weaknesses are aggregately referred to as latent organizational weaknesses. Consequently, managers and supervisors should perform their duties with the same uneasy respect for error-prone work environments as workers. A second strategic thrust to preventing events should be the identification and elimination of latent organizational weaknesses."
+  },
+  "19": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Diminishing people’s dependencies on equipment can be addressed by:\n applying forcing functions and interlocks;\n eliminating repetitive monitoring of equipment through design modifications;\n alerting personnel to the failure of warning systems;\n staggering work activities on redundant equipment at different times or assigning different persons to perform the same task;\nDepartment of Energy Human Performance Handbook Chapter 2 Reducing Error\n diversifying types of equipment or components, thereby forcing the use of different practices; for example, for turbine-driven and motor-driven pumps;"
+  },
+  "20": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "• Uneasiness toward human fallibility – individuals acknowledging their capacity to err, to make a mistake or slip at any time, and being wary of conditions conducive to error; tending to follow procedures carefully and applying human performance tools rigorously.\n• Questioning attitude – maintaining vigilant situational awareness toward surrounding working conditions to detect error-likely situations, unsafe or hazardous working conditions, or otherwise unusual conditions; not proceeding in the face of uncertainty and basing decisions on facts\n• Conservative approach – taking actions or making decisions that err in the direction of safety rather than production, especially when doubt exists; exhibited by placing systems, equipment, or the facility in a safe condition before stopping an activity\n• Avoiding “unsafe” attitudes – being aware of and avoiding attitudes and practices detrimental to high levels of reliability, such as Pollyanna, summit fever, heroic, pride, fatalism, and invulnerability to error"
+  }
+ }
+}

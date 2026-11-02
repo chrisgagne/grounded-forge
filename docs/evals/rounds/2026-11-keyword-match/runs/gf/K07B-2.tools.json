@@ -1,0 +1,142 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Brothers Tom and Ian went through their parents' awful divorce; Tom sank into deep depression and Ian coped. Why might a rough patch tip one sibling over but not the other?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/lens-index.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t03[345]",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)stress|resilien|coping|depress|heritab|twin|epigen",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00[hjl]\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)diathesis|depress|stress|twin|heritab|resilien",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/references/openstax-psychology-2e.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)diathesis|depress|stress|twin|heritab|resilien",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/references/openstax-psychology-2e-deep.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/references/openstax-psychology-2e-deep.md",
+   "offset": 386,
+   "limit": 60
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)diathesis",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/sources/converted/openstax-psychology-2e.md",
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/sources/converted/openstax-psychology-2e.md",
+   "offset": 26205,
+   "limit": 30
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)Biological Basis of Major Depressive|Psychological Basis of Major|twin|heritab|Beck|hopelessness|rumination|stressful life events",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/sources/converted/openstax-psychology-2e.md",
+   "output_mode": "content",
+   "-n": true,
+   "offset": 0
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/sources/converted/openstax-psychology-2e.md",
+   "offset": 27015,
+   "limit": 170
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/sources/converted/openstax-psychology-2e.md",
+   "offset": 4176,
+   "limit": 20
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "eye of the beholder|governed largely by perceived control|soothing impact of friends",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-2/sources/converted/openstax-psychology-2e.md",
+   "output_mode": "content",
+   "-A": 1
+  }
+ }
+]

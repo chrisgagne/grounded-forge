@@ -1,0 +1,339 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "CTO at a 140-person logistics SaaS, ~60 engineers in nine squads across three product lines. Sprints plan ~40 points, ship ~25, carry over the rest. Marketing wants a feature a week and says quality is engineering's problem; engineering blames churn on bugs. Head of engineering set a 40% throughput \"stretch\" target by Q1 tied to squad leads' bonuses. Most developers are on 2-3 squads at once (CEO rule: nobody idle). A bad release took the customer portal down for 4 hours; the postmortem named the developer, who is now on a performance plan. CEO wants to buy AI coding tools to \"do both\". Deliverable: a two-page memo for the CEO saying what's actually going on, what to change first and why that first, and where the source thinking disagrees with itself."
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "references/*.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/concept-index.json",
+   "limit": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/lens-index.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "topic_lines",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/concept-index.json",
+   "offset": 1,
+   "limit": 93
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"(t011|t051|t003|t002|t083|t023|t052|t053|t016|t015|t013|t008|t039|t047|t005|t084)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/concept-index.json",
+   "output_mode": "content",
+   "offset": 0,
+   "head_limit": 0
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/org-topologies-primer-2025.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/open-kanban.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/lfuo-learning-review-guide-2024.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/nhs-just-culture-guide.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/ssdl-systems-thinking-foundations.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/jones-evidence-based-sweng.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/doe-hpi-handbook-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/caib-report-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/references/scrum-guide-2020.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "optimized in isolation|10,000 agents|100% utili|more output|Resource Topology",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/org-topologies-primer-2025.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "no single part of a system|Muri|sustainable pace",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/open-kanban.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "surest way to kill|tell fewer accounts|not accountability-free|goal conflicts of which",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "rarely appropriate",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/nhs-just-culture-guide.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "deeper trouble in the system|prerequisite for a reporting culture|minimizes the frequency, but not the severity|perfectly tuned",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "misguided and potentially disastrous|too close to too many margins|Leaders create culture|inverted this burden|retirements, resignations",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/caib-report-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Goodhart|economically worthwhile|communication overhead",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/jones-evidence-based-sweng.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "easier and faster than|impede our ability",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/ssdl-systems-thinking-foundations.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Only what has already happened|Quality does not decrease",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/scrum-guide-2020.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/org-topologies-primer-2025.md",
+   "offset": 745,
+   "limit": 45
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/org-topologies-primer-2025.md",
+   "offset": 1140,
+   "limit": 10
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/org-topologies-primer-2025.md",
+   "offset": 1425,
+   "limit": 20
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/jones-evidence-based-sweng.md",
+   "offset": 41866,
+   "limit": 10
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/ssdl-systems-thinking-foundations.md",
+   "offset": 1250,
+   "limit": 20
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "offset": 476,
+   "limit": 14
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "continue to use|worthwhile benefit|not economically worth",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/jones-evidence-based-sweng.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Respect for people|no single part",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/open-kanban.md",
+   "output_mode": "content",
+   "-o": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 326,
+   "limit": 6
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/caib-report-vol1.md",
+   "offset": 17590,
+   "limit": 10
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/caib-report-vol1.md",
+   "offset": 20443,
+   "limit": 4
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "willing to (continue|use)|are shipped|worthwhile fixing",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/jones-evidence-based-sweng.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "no single part of a system can ever bring overall improvement",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/open-kanban.md",
+   "output_mode": "count"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "[Ff]aster, [Bb]etter, [Cc]heaper",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/caib-report-vol1.md",
+   "output_mode": "content",
+   "-C": 3,
+   "head_limit": 30
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "stretch goal",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 3,
+   "head_limit": 40
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted/open-practice-library.md",
+   "offset": 13575,
+   "limit": 27
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "not rent|28-to-1|28 to 1",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C1-1/sources/converted",
+   "output_mode": "content",
+   "glob": "{org-topologies-primer-2025,jones-evidence-based-sweng}.md",
+   "-C": 1
+  }
+ }
+]

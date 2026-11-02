@@ -1,0 +1,137 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Brothers Tom and Ian went through their parents' awful divorce; Tom sank into deep depression and Ian coped. Why might a rough patch tip one sibling over but not the other?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t034|\"t033|\"t035",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "diathesis|vulnerab.*stress|resilien|depress",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00l\"|\"00h\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)diathesis|depress|stress",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/references/openstax-psychology-2e.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)diathesis|depress",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/references/openstax-psychology-2e-deep.md",
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/references/openstax-psychology-2e-deep.md",
+   "offset": 395,
+   "limit": 60
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/references/openstax-psychology-2e-deep.md",
+   "offset": 72,
+   "limit": 3
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)diathesis",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/sources/converted",
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/sources/converted/openstax-psychology-2e.md",
+   "offset": 26206,
+   "limit": 32
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/sources/converted/openstax-psychology-2e.md",
+   "offset": 27000,
+   "limit": 150
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/sources/converted/openstax-psychology-2e.md",
+   "offset": 27149,
+   "limit": 30
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "governed largely by perceived control",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K07B-1/sources/converted/openstax-psychology-2e.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ }
+]

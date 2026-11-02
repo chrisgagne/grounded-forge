@@ -1,0 +1,834 @@
+{
+ "id": "demo-C1-2-chat",
+ "notebook_tag": "demo",
+ "condition": "chat",
+ "question": "I'm CTO at a 140-person logistics SaaS. Three product lines, one engineering group of about 60 in nine squads. Every sprint overflows: we plan around 40 points, ship 25, and carry the rest into the next one. Marketing wants a feature a week for the growth push and says quality is engineering's problem; engineering says the churn numbers come from bugs. My head of engineering has set a \"stretch\" target of 40% more throughput by Q1 and tied the squad leads' bonus to it. Most developers sit on two or three squads at once, because the CEO's rule is that nobody is idle. Last month a bad release took the customer portal down for four hours; the postmortem named the developer who merged it, and he's now on a performance plan. The CEO's answer to all of this is to buy AI coding tools so we can \"do both\".\n\nI need a two-page memo for the CEO that says what's actually going on here, what to change first and why that first, and where the thinking you're drawing on disagrees with itself.\n\nAnswer here in the chat.",
+ "captured_at": "2026-10-31T22:35:30.262Z",
+ "sources_ticked": "35",
+ "text": "MEMORANDUM\nTO: Chief Executive Officer\nFROM: Chief Technology Officer\nDATE: October 31, 2026\nSUBJECT: Systemic Diagnostic & Strategic Action Plan: Engineering Flow, Quality, and Operational Governance\nExecutive Summary & Diagnostic: \"What Is Actually Going On Here\"\nOur current operational crisis—sprint overruns, escalating churn from production bugs, department friction, and recent outages—is not caused by developer apathy or insufficient coding speed. It is the predictable result of a systemic design failure. We are running our software organization on flawed operational assumptions that systematically generate bottleneck queues, incentivize quality compromises, and create severe single-point failures[1][2][3].\nBelow is the systemic diagnosis across four key organizational dynamics:\n1. The Utilization Trap & Queuing Chaos (Operating as a Resource Topology)\nOur rule that \"nobody is idle,\" which splits developers across two or three squads simultaneously, is the primary driver of our delivery collapse[3][4]. In organizational design terminology, we are operating in a Resource Topology—a model that attempts to maximize local labor utilization (\"keeping people 100% busy\") rather than value flow[3][5].\nQueuing Theory (Little’s Law) dictates that as resource utilization approaches 100%, queue times and lead times increase exponentially (Cycle Time=WIP/Throughput)[6]. By forcing engineers onto multiple squads, we inflate Work-In-Progress (WIP) and generate massive context-switching overhead[4][7].\nFurthermore, software development communication overhead grows non-linearly with team interdependencies (D\npeak\n\t​\n\n thresholds)[8]. Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls[4][7][8]. A system with 100% busy people inevitably yields 0% flow efficiency[3][9].\n2. Goodhart’s Law & Perverse Incentives (The 40% Stretch Target)\nTying squad leads' bonuses to an arbitrary \"stretch\" target of 40% more throughput by Q1 triggers Goodhart’s Law: \"When a measure becomes a target, it ceases to be a good measure\"[10][11].\nExpecting a clogged system to deliver 40% more throughput forces engineers into an Efficiency-Thoroughness Trade-Off (ETTO)[12]. When output volume is tied to financial compensation, teams systematically sacrifice thoroughness—skipping automated testing, truncating code reviews, and taking architectural shortcuts[12][13][14].\nThe result is a surge in technical debt and production defects[15]. Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets[13][14][15][16].\n3. The Blame Cycle vs. Systemic Safety (The Postmortem Failure)\nPlacing the developer who merged the bad release on a Performance Improvement Plan (PIP) is a critical organizational mistake[17][18].\nHuman Performance Improvement (HPI) and Just Culture research demonstrate that human error is a symptom of underlying system weakness, not the root cause[1][2][19]. Blaming the individual (\"the sharp end\") creates a false illusion that the problem is solved while leaving the latent organizational pathogens—unclear rollback procedures, missing automated integration tests, and fatigue—completely intact[2][17][20].\nDisciplining staff for honest operational errors initiates a destructive Blame Cycle[18][21]. It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages[21][22][23][24][25].\n4. AI Coding Tools as a \"Fix That Fails\"\nInvesting in AI coding tools as a standalone solution to \"do both\" (increase throughput and maintain quality) represents the classic system archetype Fixes that Fail[26][27].\nAI tools accelerate localized code generation (\"doing\" tasks)[28]. However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster[3][15][29]. AI cannot solve a structural queueing and alignment problem[3][30].\nPrioritized Action Plan: \"What to Change First and Why That First\"\nTo restore operational stability, we must apply the Theory of Constraints (TOC): \"Any improvements made anywhere besides the bottleneck are an illusion\"[31][32][33].\n[Phase 1: Unblock Bottleneck] ──► [Phase 2: Remove Perverse Incentives] ──► [Phase 3: Institute Just Culture] ──► [Phase 4: Strategic AI]\n  • Eliminate Multi-Squads        • Cancel 40% Throughput Bonus           • Reverse Developer PIP              • Target Automated Gates\n  • Enforce Strict WIP Limits     • Implement Flow & Quality Metrics       • Blameless Postmortems              • Elevate Skill Mandate\n\nStep 1: Eliminate Multi-Squad Allocation & Limit WIP (Immediate Priority)\nAction: Immediately ban multi-squad assignment. Mandate that every developer belongs to exactly one squad. Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs[4][7][34][35].\nWhy First?: Multi-squad context-switching is our single greatest system bottleneck[4][7]. Until we stop task-switching and clear the clogged pipeline, no amount of target-setting, process changes, or AI tools will increase output[31][32]. Single-squad dedication instantly reduces WIP, lowers context-switching costs, and restores predictable flow[4][6][36].\nStep 2: De-Link Bonuses from Throughput & Align on Flow/Quality Metrics\nAction: Cancel the 40% throughput bonus target for squad leads. Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering[9][10][37][38][39].\nWhy Second: Once WIP is capped, we must remove the perverse financial incentives driving Goodhart's Law gaming, point-inflation, and quality cutting[10][11][16].\nStep 3: Transition to a Just Culture & Institute Blameless Postmortems\nAction: Reverse the PIP for the developer involved in the portal outage. Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postmortems[40][41][42][43][44]. Shift investment toward automated deployment guardrails and pre-release verification testing[1][45][46].\nWhy Third: Unclogging the workflow requires transparent reporting[25][47]. Rebuilding psychological safety ensures engineers report system flaws and production risks early without fear of retribution[22][23][25].\nStep 4: Deploy AI Strategically to Elevate Team Capabilities\nAction: Shift our AI investment from general code generation to automating our specific delivery constraints—such as automated regression test suite generation, pull-request verification, and deployment pipeline checks[29][30].\nWhy Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units[30][35][48][49][50].\nTheoretical Disagreements: Tensions & Nuance in the Management Science\nTo make an informed decision, we must acknowledge where the foundational management theories we are drawing upon disagree with one another:\nStrategic Area\n\t\nTheoretical Tension\n\t\nCore Contradiction in Literature\n\t\nResolution for Our SaaS Context\n\n\nGoal Setting vs. Process Quality\n\t\nGoal-Setting Theory (Locke & Latham) vs. Total Quality Management (TQM) (Deming)\n\t\nGoal-Setting Theory argues that difficult, specific \"stretch\" goals drive higher motivation and effort[51][52][53]. Deming and TQM counter that numerical stretch targets narrow vision, induce fear, invite cheating, and destroy process quality[54][55][56].\n\t\nStretch goals work for simple, independent tasks; in complex software engineering, aggressive numerical targets induce systemic gaming under Goodhart's Law[10][14][54]. We must adopt Deming's focus on continuous process improvement over arbitrary velocity quotas[54][55].\n\n\nResource Efficiency vs. Flow Efficiency\n\t\nScientific Management (Taylorism) vs. Lean / Queuing Theory\n\t\nClassical Management prioritizes 100% labor utilization (\"nobody is idle\") to maximize resource cost-efficiency[3][57][58]. Lean and Queuing Theory prove that 100% capacity utilization causes infinite queue delays, destroyed flow, and higher overall costs[3][6][9][39].\n\t\nIn software delivery, optimizing for human utilization destroys value flow[9][39]. We must intentionalize capacity slack so work items can move rapidly without waiting in queues[4][6][39].\n\n\nIndividual Accountability vs. System Safety\n\t\nStrict Individual Accountability vs. Just Culture / Blameless Safety\n\t\nPure \"blameless\" models posit that human errors are 100% system-induced and individual discipline is always counterproductive[24][59][60][61][62]. Just Culture frameworks (Reason, DOE HPI) distinguish between honest human error and reckless, intentional violations[18][40][63][64].\n\t\nWe must reject individual scapegoating for honest errors while maintaining clear accountability for adherence to workable, agreed-upon engineering safety standards[18][40][63][65].\n\n\nAI Value Model\n\t\nMicro-Efficiency vs. Strategic Organizational Elevation\n\t\nConventional executive views see AI as an individual labor-saving tool (writing syntax faster)[28]. Org Topologies demonstrates that localized speedups in \"doing\" tasks without expanding team scope or removing dependencies merely compound downstream bottlenecks[3][29][66].\n\t\nAI investment must focus on expanding team capabilities to eliminate dependencies, not padding task-level coding speed[29][30].\nSummary Recommendation\nBy ending multi-squad matrixing, capping Work-in-Progress, replacing velocity quotas with flow/quality metrics, and establishing a Just Culture, we can stabilize our customer portal, reduce bug-driven churn, and create a sustainable delivery engine[4][6][25][34][40].\n💡 Next Step: Would you like me to prepare an implementation matrix mapping out squad realignments, WIP limit thresholds, and replacement flow metrics for our upcoming leadership meeting?",
+ "occurrences": [
+  {
+   "n": 1,
+   "context": "s the predictable result of a systemic design failure. We are running our software organization on flawed operational assumptions that systematically generate bottleneck queues, incentivize quality compromises, and create severe single-point failures"
+  },
+  {
+   "n": 2,
+   "context": ""
+  },
+  {
+   "n": 3,
+   "context": "2"
+  },
+  {
+   "n": 3,
+   "context": "Our rule that \"nobody is idle,\" which splits developers across two or three squads simultaneously, is the primary driver of our delivery collapse"
+  },
+  {
+   "n": 4,
+   "context": "Our rule that \"nobody is idle,\" which splits developers across two or three squads simultaneously, is the primary driver of our delivery collapse3"
+  },
+  {
+   "n": 3,
+   "context": "ultaneously, is the primary driver of our delivery collapse34. In organizational design terminology, we are operating in a Resource Topology—a model that attempts to maximize local labor utilization (\"keeping people 100% busy\") rather than value flow"
+  },
+  {
+   "n": 5,
+   "context": "ltaneously, is the primary driver of our delivery collapse34. In organizational design terminology, we are operating in a Resource Topology—a model that attempts to maximize local labor utilization (\"keeping people 100% busy\") rather than value flow3"
+  },
+  {
+   "n": 6,
+   "context": "Queuing Theory (Little’s Law) dictates that as resource utilization approaches 100%, queue times and lead times increase exponentially (Cycle Time=WIP/Throughput)"
+  },
+  {
+   "n": 4,
+   "context": "that as resource utilization approaches 100%, queue times and lead times increase exponentially (Cycle Time=WIP/Throughput)6. By forcing engineers onto multiple squads, we inflate Work-In-Progress (WIP) and generate massive context-switching overhead"
+  },
+  {
+   "n": 7,
+   "context": "hat as resource utilization approaches 100%, queue times and lead times increase exponentially (Cycle Time=WIP/Throughput)6. By forcing engineers onto multiple squads, we inflate Work-In-Progress (WIP) and generate massive context-switching overhead4"
+  },
+  {
+   "n": 8,
+   "context": "Furthermore, software development communication overhead grows non-linearly with team interdependencies (Dpeak​ thresholds)"
+  },
+  {
+   "n": 4,
+   "context": "re, software development communication overhead grows non-linearly with team interdependencies (Dpeak​ thresholds)8. Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls"
+  },
+  {
+   "n": 7,
+   "context": " development communication overhead grows non-linearly with team interdependencies (Dpeak​ thresholds)8. Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls4unfold_less"
+  },
+  {
+   "n": 8,
+   "context": "development communication overhead grows non-linearly with team interdependencies (Dpeak​ thresholds)8. Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls4unfold_less7"
+  },
+  {
+   "n": 3,
+   "context": "ependencies (Dpeak​ thresholds)8. Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls4unfold_less78. A system with 100% busy people inevitably yields 0% flow efficiency"
+  },
+  {
+   "n": 9,
+   "context": "pendencies (Dpeak​ thresholds)8. Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls4unfold_less78. A system with 100% busy people inevitably yields 0% flow efficiency3"
+  },
+  {
+   "n": 10,
+   "context": "Tying squad leads' bonuses to an arbitrary \"stretch\" target of 40% more throughput by Q1 triggers Goodhart’s Law: \"When a measure becomes a target, it ceases to be a good measure\""
+  },
+  {
+   "n": 11,
+   "context": "Tying squad leads' bonuses to an arbitrary \"stretch\" target of 40% more throughput by Q1 triggers Goodhart’s Law: \"When a measure becomes a target, it ceases to be a good measure\"10"
+  },
+  {
+   "n": 12,
+   "context": "Expecting a clogged system to deliver 40% more throughput forces engineers into an Efficiency-Thoroughness Trade-Off (ETTO)"
+  },
+  {
+   "n": 12,
+   "context": "es engineers into an Efficiency-Thoroughness Trade-Off (ETTO)12. When output volume is tied to financial compensation, teams systematically sacrifice thoroughness—skipping automated testing, truncating code reviews, and taking architectural shortcuts"
+  },
+  {
+   "n": 13,
+   "context": "into an Efficiency-Thoroughness Trade-Off (ETTO)12. When output volume is tied to financial compensation, teams systematically sacrifice thoroughness—skipping automated testing, truncating code reviews, and taking architectural shortcuts12unfold_less"
+  },
+  {
+   "n": 14,
+   "context": "to an Efficiency-Thoroughness Trade-Off (ETTO)12. When output volume is tied to financial compensation, teams systematically sacrifice thoroughness—skipping automated testing, truncating code reviews, and taking architectural shortcuts12unfold_less13"
+  },
+  {
+   "n": 15,
+   "context": "The result is a surge in technical debt and production defects"
+  },
+  {
+   "n": 13,
+   "context": "The result is a surge in technical debt and production defects15. Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets"
+  },
+  {
+   "n": 14,
+   "context": "The result is a surge in technical debt and production defects15. Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets13unfold_less"
+  },
+  {
+   "n": 15,
+   "context": "The result is a surge in technical debt and production defects15. Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets13unfold_less14"
+  },
+  {
+   "n": 16,
+   "context": "The result is a surge in technical debt and production defects15. Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets13unfold_less1415"
+  },
+  {
+   "n": 17,
+   "context": "Placing the developer who merged the bad release on a Performance Improvement Plan (PIP) is a critical organizational mistake"
+  },
+  {
+   "n": 18,
+   "context": "Placing the developer who merged the bad release on a Performance Improvement Plan (PIP) is a critical organizational mistake17"
+  },
+  {
+   "n": 1,
+   "context": "Human Performance Improvement (HPI) and Just Culture research demonstrate that human error is a symptom of underlying system weakness, not the root cause"
+  },
+  {
+   "n": 2,
+   "context": "Human Performance Improvement (HPI) and Just Culture research demonstrate that human error is a symptom of underlying system weakness, not the root cause1unfold_less"
+  },
+  {
+   "n": 19,
+   "context": "Human Performance Improvement (HPI) and Just Culture research demonstrate that human error is a symptom of underlying system weakness, not the root cause1unfold_less2"
+  },
+  {
+   "n": 2,
+   "context": "ld_less219. Blaming the individual (\"the sharp end\") creates a false illusion that the problem is solved while leaving the latent organizational pathogens—unclear rollback procedures, missing automated integration tests, and fatigue—completely intact"
+  },
+  {
+   "n": 17,
+   "context": "Blaming the individual (\"the sharp end\") creates a false illusion that the problem is solved while leaving the latent organizational pathogens—unclear rollback procedures, missing automated integration tests, and fatigue—completely intact2unfold_less"
+  },
+  {
+   "n": 20,
+   "context": "aming the individual (\"the sharp end\") creates a false illusion that the problem is solved while leaving the latent organizational pathogens—unclear rollback procedures, missing automated integration tests, and fatigue—completely intact2unfold_less17"
+  },
+  {
+   "n": 18,
+   "context": "Disciplining staff for honest operational errors initiates a destructive Blame Cycle"
+  },
+  {
+   "n": 21,
+   "context": "Disciplining staff for honest operational errors initiates a destructive Blame Cycle18"
+  },
+  {
+   "n": 21,
+   "context": "or honest operational errors initiates a destructive Blame Cycle1821. It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages"
+  },
+  {
+   "n": 22,
+   "context": "rational errors initiates a destructive Blame Cycle1821. It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages21unfold_less"
+  },
+  {
+   "n": 23,
+   "context": "tional errors initiates a destructive Blame Cycle1821. It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages21unfold_less22"
+  },
+  {
+   "n": 24,
+   "context": "onal errors initiates a destructive Blame Cycle1821. It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages21unfold_less2223"
+  },
+  {
+   "n": 25,
+   "context": "al errors initiates a destructive Blame Cycle1821. It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages21unfold_less222324"
+  },
+  {
+   "n": 26,
+   "context": "Investing in AI coding tools as a standalone solution to \"do both\" (increase throughput and maintain quality) represents the classic system archetype Fixes that Fail"
+  },
+  {
+   "n": 27,
+   "context": "Investing in AI coding tools as a standalone solution to \"do both\" (increase throughput and maintain quality) represents the classic system archetype Fixes that Fail26"
+  },
+  {
+   "n": 28,
+   "context": "AI tools accelerate localized code generation (\"doing\" tasks)"
+  },
+  {
+   "n": 3,
+   "context": "AI tools accelerate localized code generation (\"doing\" tasks)28. However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster"
+  },
+  {
+   "n": 15,
+   "context": "AI tools accelerate localized code generation (\"doing\" tasks)28. However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster3unfold_less"
+  },
+  {
+   "n": 29,
+   "context": "AI tools accelerate localized code generation (\"doing\" tasks)28. However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster3unfold_less15"
+  },
+  {
+   "n": 3,
+   "context": "(\"doing\" tasks)28. However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster3unfold_less1529. AI cannot solve a structural queueing and alignment problem"
+  },
+  {
+   "n": 30,
+   "context": "\"doing\" tasks)28. However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster3unfold_less1529. AI cannot solve a structural queueing and alignment problem3"
+  },
+  {
+   "n": 31,
+   "context": "To restore operational stability, we must apply the Theory of Constraints (TOC): \"Any improvements made anywhere besides the bottleneck are an illusion\""
+  },
+  {
+   "n": 32,
+   "context": ""
+  },
+  {
+   "n": 33,
+   "context": "32"
+  },
+  {
+   "n": 4,
+   "context": "iately ban multi-squad assignment. Mandate that every developer belongs to exactly one squad. Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs"
+  },
+  {
+   "n": 7,
+   "context": "ulti-squad assignment. Mandate that every developer belongs to exactly one squad. Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs4unfold_less"
+  },
+  {
+   "n": 34,
+   "context": "lti-squad assignment. Mandate that every developer belongs to exactly one squad. Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs4unfold_less7"
+  },
+  {
+   "n": 35,
+   "context": "i-squad assignment. Mandate that every developer belongs to exactly one squad. Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs4unfold_less734"
+  },
+  {
+   "n": 4,
+   "context": "Why First?: Multi-squad context-switching is our single greatest system bottleneck"
+  },
+  {
+   "n": 7,
+   "context": "Why First?: Multi-squad context-switching is our single greatest system bottleneck4"
+  },
+  {
+   "n": 31,
+   "context": "Why First?: Multi-squad context-switching is our single greatest system bottleneck47. Until we stop task-switching and clear the clogged pipeline, no amount of target-setting, process changes, or AI tools will increase output"
+  },
+  {
+   "n": 32,
+   "context": "Why First?: Multi-squad context-switching is our single greatest system bottleneck47. Until we stop task-switching and clear the clogged pipeline, no amount of target-setting, process changes, or AI tools will increase output31"
+  },
+  {
+   "n": 4,
+   "context": "il we stop task-switching and clear the clogged pipeline, no amount of target-setting, process changes, or AI tools will increase output3132. Single-squad dedication instantly reduces WIP, lowers context-switching costs, and restores predictable flow"
+  },
+  {
+   "n": 6,
+   "context": "ask-switching and clear the clogged pipeline, no amount of target-setting, process changes, or AI tools will increase output3132. Single-squad dedication instantly reduces WIP, lowers context-switching costs, and restores predictable flow4unfold_less"
+  },
+  {
+   "n": 36,
+   "context": "sk-switching and clear the clogged pipeline, no amount of target-setting, process changes, or AI tools will increase output3132. Single-squad dedication instantly reduces WIP, lowers context-switching costs, and restores predictable flow4unfold_less6"
+  },
+  {
+   "n": 9,
+   "context": "Action: Cancel the 40% throughput bonus target for squad leads. Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering"
+  },
+  {
+   "n": 10,
+   "context": "Action: Cancel the 40% throughput bonus target for squad leads. Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering9unfold_less"
+  },
+  {
+   "n": 37,
+   "context": "Action: Cancel the 40% throughput bonus target for squad leads. Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering9unfold_less10"
+  },
+  {
+   "n": 38,
+   "context": "Action: Cancel the 40% throughput bonus target for squad leads. Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering9unfold_less1037"
+  },
+  {
+   "n": 39,
+   "context": "tion: Cancel the 40% throughput bonus target for squad leads. Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering9unfold_less103738"
+  },
+  {
+   "n": 10,
+   "context": "Why Second: Once WIP is capped, we must remove the perverse financial incentives driving Goodhart's Law gaming, point-inflation, and quality cutting"
+  },
+  {
+   "n": 11,
+   "context": "Why Second: Once WIP is capped, we must remove the perverse financial incentives driving Goodhart's Law gaming, point-inflation, and quality cutting10unfold_less"
+  },
+  {
+   "n": 16,
+   "context": "Why Second: Once WIP is capped, we must remove the perverse financial incentives driving Goodhart's Law gaming, point-inflation, and quality cutting10unfold_less11"
+  },
+  {
+   "n": 40,
+   "context": "he developer involved in the portal outage. Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postmortems"
+  },
+  {
+   "n": 41,
+   "context": "involved in the portal outage. Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postmortems40unfold_less"
+  },
+  {
+   "n": 42,
+   "context": "volved in the portal outage. Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postmortems40unfold_less41"
+  },
+  {
+   "n": 43,
+   "context": "lved in the portal outage. Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postmortems40unfold_less4142"
+  },
+  {
+   "n": 44,
+   "context": "ed in the portal outage. Implement James Reason's Culpability Decision Tree and the Substitution Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postmortems40unfold_less414243"
+  },
+  {
+   "n": 1,
+   "context": " Test (\"Would another engineer with similar training have made the same error under those exact system pressures?\") for all postmortems40unfold_less41424344. Shift investment toward automated deployment guardrails and pre-release verification testing"
+  },
+  {
+   "n": 45,
+   "context": "d another engineer with similar training have made the same error under those exact system pressures?\") for all postmortems40unfold_less41424344. Shift investment toward automated deployment guardrails and pre-release verification testing1unfold_less"
+  },
+  {
+   "n": 46,
+   "context": "another engineer with similar training have made the same error under those exact system pressures?\") for all postmortems40unfold_less41424344. Shift investment toward automated deployment guardrails and pre-release verification testing1unfold_less45"
+  },
+  {
+   "n": 25,
+   "context": "Why Third: Unclogging the workflow requires transparent reporting"
+  },
+  {
+   "n": 47,
+   "context": "Why Third: Unclogging the workflow requires transparent reporting25"
+  },
+  {
+   "n": 22,
+   "context": "Why Third: Unclogging the workflow requires transparent reporting2547. Rebuilding psychological safety ensures engineers report system flaws and production risks early without fear of retribution"
+  },
+  {
+   "n": 23,
+   "context": "Why Third: Unclogging the workflow requires transparent reporting2547. Rebuilding psychological safety ensures engineers report system flaws and production risks early without fear of retribution22unfold_less"
+  },
+  {
+   "n": 25,
+   "context": "Why Third: Unclogging the workflow requires transparent reporting2547. Rebuilding psychological safety ensures engineers report system flaws and production risks early without fear of retribution22unfold_less23"
+  },
+  {
+   "n": 29,
+   "context": "Action: Shift our AI investment from general code generation to automating our specific delivery constraints—such as automated regression test suite generation, pull-request verification, and deployment pipeline checks"
+  },
+  {
+   "n": 30,
+   "context": "Action: Shift our AI investment from general code generation to automating our specific delivery constraints—such as automated regression test suite generation, pull-request verification, and deployment pipeline checks29"
+  },
+  {
+   "n": 30,
+   "context": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units"
+  },
+  {
+   "n": 35,
+   "context": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units30unfold_less"
+  },
+  {
+   "n": 48,
+   "context": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units30unfold_less35"
+  },
+  {
+   "n": 49,
+   "context": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units30unfold_less3548"
+  },
+  {
+   "n": 50,
+   "context": "Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units30unfold_less354849"
+  },
+  {
+   "n": 51,
+   "context": "Goal-Setting Theory argues that difficult, specific \"stretch\" goals drive higher motivation and effort"
+  },
+  {
+   "n": 52,
+   "context": ""
+  },
+  {
+   "n": 53,
+   "context": "52"
+  },
+  {
+   "n": 54,
+   "context": "Goal-Setting Theory argues that difficult, specific \"stretch\" goals drive higher motivation and effort51unfold_less5253. Deming and TQM counter that numerical stretch targets narrow vision, induce fear, invite cheating, and destroy process quality"
+  },
+  {
+   "n": 55,
+   "context": ""
+  },
+  {
+   "n": 56,
+   "context": "55"
+  },
+  {
+   "n": 10,
+   "context": "Stretch goals work for simple, independent tasks; in complex software engineering, aggressive numerical targets induce systemic gaming under Goodhart's Law"
+  },
+  {
+   "n": 14,
+   "context": ""
+  },
+  {
+   "n": 54,
+   "context": "14"
+  },
+  {
+   "n": 54,
+   "context": "k for simple, independent tasks; in complex software engineering, aggressive numerical targets induce systemic gaming under Goodhart's Law10unfold_less1454. We must adopt Deming's focus on continuous process improvement over arbitrary velocity quotas"
+  },
+  {
+   "n": 55,
+   "context": "for simple, independent tasks; in complex software engineering, aggressive numerical targets induce systemic gaming under Goodhart's Law10unfold_less1454. We must adopt Deming's focus on continuous process improvement over arbitrary velocity quotas54"
+  },
+  {
+   "n": 3,
+   "context": "Classical Management prioritizes 100% labor utilization (\"nobody is idle\") to maximize resource cost-efficiency"
+  },
+  {
+   "n": 57,
+   "context": ""
+  },
+  {
+   "n": 58,
+   "context": "57"
+  },
+  {
+   "n": 3,
+   "context": "Management prioritizes 100% labor utilization (\"nobody is idle\") to maximize resource cost-efficiency3unfold_less5758. Lean and Queuing Theory prove that 100% capacity utilization causes infinite queue delays, destroyed flow, and higher overall costs"
+  },
+  {
+   "n": 6,
+   "context": ""
+  },
+  {
+   "n": 9,
+   "context": "6"
+  },
+  {
+   "n": 39,
+   "context": "69"
+  },
+  {
+   "n": 9,
+   "context": "In software delivery, optimizing for human utilization destroys value flow"
+  },
+  {
+   "n": 39,
+   "context": "In software delivery, optimizing for human utilization destroys value flow9"
+  },
+  {
+   "n": 4,
+   "context": "In software delivery, optimizing for human utilization destroys value flow939. We must intentionalize capacity slack so work items can move rapidly without waiting in queues"
+  },
+  {
+   "n": 6,
+   "context": ""
+  },
+  {
+   "n": 39,
+   "context": "6"
+  },
+  {
+   "n": 24,
+   "context": "Pure \"blameless\" models posit that human errors are 100% system-induced and individual discipline is always counterproductive"
+  },
+  {
+   "n": 59,
+   "context": ""
+  },
+  {
+   "n": 60,
+   "context": "59"
+  },
+  {
+   "n": 61,
+   "context": "5960"
+  },
+  {
+   "n": 62,
+   "context": "596061"
+  },
+  {
+   "n": 18,
+   "context": "\" models posit that human errors are 100% system-induced and individual discipline is always counterproductive24unfold_less59606162. Just Culture frameworks (Reason, DOE HPI) distinguish between honest human error and reckless, intentional violations"
+  },
+  {
+   "n": 40,
+   "context": ""
+  },
+  {
+   "n": 63,
+   "context": "40"
+  },
+  {
+   "n": 64,
+   "context": "4063"
+  },
+  {
+   "n": 18,
+   "context": "We must reject individual scapegoating for honest errors while maintaining clear accountability for adherence to workable, agreed-upon engineering safety standards"
+  },
+  {
+   "n": 40,
+   "context": ""
+  },
+  {
+   "n": 63,
+   "context": "40"
+  },
+  {
+   "n": 65,
+   "context": "4063"
+  },
+  {
+   "n": 28,
+   "context": "Conventional executive views see AI as an individual labor-saving tool (writing syntax faster)"
+  },
+  {
+   "n": 3,
+   "context": "nal executive views see AI as an individual labor-saving tool (writing syntax faster)28. Org Topologies demonstrates that localized speedups in \"doing\" tasks without expanding team scope or removing dependencies merely compound downstream bottlenecks"
+  },
+  {
+   "n": 29,
+   "context": ""
+  },
+  {
+   "n": 66,
+   "context": "29"
+  },
+  {
+   "n": 29,
+   "context": "AI investment must focus on expanding team capabilities to eliminate dependencies, not padding task-level coding speed"
+  },
+  {
+   "n": 30,
+   "context": "AI investment must focus on expanding team capabilities to eliminate dependencies, not padding task-level coding speed29"
+  },
+  {
+   "n": 4,
+   "context": "By ending multi-squad matrixing, capping Work-in-Progress, replacing velocity quotas with flow/quality metrics, and establishing a Just Culture, we can stabilize our customer portal, reduce bug-driven churn, and create a sustainable delivery engine"
+  },
+  {
+   "n": 6,
+   "context": ""
+  },
+  {
+   "n": 25,
+   "context": "6"
+  },
+  {
+   "n": 34,
+   "context": "625"
+  },
+  {
+   "n": 40,
+   "context": "62534"
+  }
+ ],
+ "legend": {
+  "1": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "It is not easy to anticipate exactly how trivial conditions can influence individual performance. Error-provoking aspects of facility*1 design, procedures, processes, and human nature exist everywhere. No matter how efficiently equipment functions; how good the training, supervision, and procedures; and how well the best worker, engineer, or manager performs his or her duties, people cannot perform better than the organization supporting them.1 Human error is caused not only by normal human fallibility, but also by incompatible management and leadership practices and organizational weaknesses in work processes and values. Therefore, defense-in-depth with respect to the human element is needed to improve the resilience of programmatic systems and to drive down human error and events."
+  },
+  "2": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "In 1997, Reason published Managing the Risks of Organizational Accidents. Reason maintained that to understand how organizational accidents occur requires that we look deeper into the system. Unsafe acts by individuals may trigger an event. However, latent conditions within the organization, aligned with local workplace and task factors, contribute to accidents in the form of process errors or as error-likely situations. Thus it is the combination of these latent conditions in conjunction with an active error that more correctly accounts for events. From this perspective, errors are the consequences, not the causes, of disturbances in the organization. Accidents are the result of failed controls and barriers. People are fallible, even the best make mistakes. It is human nature to err. However, events can be eliminated or controlled by changing the conditions in which people work. Managing the risks of organizational accidents requires that managers, supervisors, and staff work to eliminate latent organizational weaknesses. Reason proposes three compelling reasons why latent conditions have to be eliminated."
+  },
+  "3": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "Resource Topology There are three common Org Topologies to know, starting  with: The Resource Topology—​a topology characterized by  frozen functional archetypes specialized in one domain. Its  purpose is to ensure that each unit is 100% utilized (i.e.  resource utilization). It is seen in “resource management”  approaches where “resource managers” (or project  managers) are responsible for planning and monitoring  resource allocation and utilization.\nIn this topology, the value-​creation work takes place among  the Doing Archetypes in the lower left quadrant. However,  none of these can independently produce end-​to-​end  customer value. They depend on each other due to narrow  specialization. Additionally, they lack a clear and holistic  understanding of customer value, as their work mandate  focuses solely on specific tasks or capabilities."
+  },
+  "4": {
+   "source": "open-practice-library.md",
+   "chunk": "--------------------------------------------------------------------------------\n--------------------------------------------------------------------------------\n<!-- file: limit-work-in-progress.md -->\n--------------------------------------------------------------------------------\nparticipants:\n- the team\n- each individual subtitle: Pipes that aren't clogged increase the flow through the system resources:\n- link: 'https://kanbantool.com/kanban-wip-limits' linkType: web description: Kanban WIP Limits\n- link: 'https://www.youtube.com/watch?v=SFMlu87MkYI' linkType: video description: Example projects (video)\n- link: 'http://www.flickr.com/photos/65534354@N00/4872229081' linkType: web description: '\"Pipes, Valves and Gauges\"' templateKey: practice-page title: Limit Work in Progress date: 2019-10-19T08:56:15.621Z authors:\n- rhdojun tags:\n- culture icon: /images/valves.jpg whatIs: >- Instead of taking on all tasks that people hand to you as a person or representative of your team, you don't accept new tasks unless you still have free capacity. whyDo: >- Usually people take on all new tasks that come in, especially when a task they work on is waiting on external input. Then suddenly 3 of these tasks can continue and the person doesn't have the time to finish all of the same time. So the person gets overloaded, nobody knows how the progress is, and tasks get stuck in a progressed state where nobody else can help."
+  },
+  "5": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "Learning in this topology is largely confined to improving  existing skills rather than discovering new ones. The  Resource Topology is fit for organizations that rent available  resources for their existing defined skills, reaching their  business objectives (e.g. making profit) by keeping 100% of  them 100% busy. Such a topology is a management’s choice  and justified, for example, when the relationships are  temporary between the Directing and Doing archetypes (e.g.  a movie Producer hiring dancers for a scene)."
+  },
+  "6": {
+   "source": "open-practice-library.md",
+   "chunk": "What will you get?\nKanban will provide you a set of metrics to measure your process. These metrics are very usefull to improve your flow and identify points of failure.\n* Lead Time: Measures how much time a task spends in the Kanban board, since get in and get out. A measure for our customers.\n* Cycle Time: Measures how much time a task spends going through the process, from when the task started.\n* Throughput: Measures the total amount of work delivered (completed work items).\nThese metrics are connected by the Little's Law: Cycle Time = WIP / Throughput"
+  },
+  "7": {
+   "source": "open-kanban.pdf",
+   "chunk": "3. Reduce the Batch Size of your Efforts Research in the way the mind works, and countless experiences from Lean, the Theory of Constraints and Kanban confirm that to deliver value faster, with better flow and good team morale we need to focus and limit the number of things we do. Multitasking does not work. Limiting how many things you do at any given time, means reducing the batch size of whatever you are doing at a particular stage of the value chain. By doing this you will deliver value faster because you are able to focus your efforts, one of the best explanations of this fact has been given by Donald G. Reinertsen. Keeping the team focused helps them finish what they start faster. Limiting WIP is a consequence of reducing the batch size of your efforts, and not the other way around. However doing either will result in improvements in efficiency and productivity. Open Kanban does not ask you to limit WIP, but it does request that you “Reduce the Batch Size of your Efforts.” How do you reduce the batch size of your efforts? Reduce the complexity and the quantity of things you do at any stage of the value chain. In software development this would mean: reduce the number of large stories (epics) you create, and do your best to keep stories simple; also reduce the volume of stories you work on any stage of the Software Development Life Cycle; this way your team will focus, and deliver more value."
+  },
+  "8": {
+   "source": "jones-evidence-based-sweng.pdf",
+   "chunk": "Dpeak =\n[ 1+ t0\n(1+α)t0\n] 1 α\nIf α = 1 (i.e., everybody on the project incurs the same communications overhead), then Dpeak =\n1+t0 2t0\n, which for small t0 is: Dpeak ≈ 1 2t0\n. For example, if team members spend 10% of their time communicating with every other team member: Dpeak =\n1+0.1 2×0.1 ≈ 5.\nIn this team of five, 50% of each person’s time is spent communicating.\nIf α = 0.8, then: Dpeak = [\n1+0.1 (1+0.8)×0.1\n] 1 0.8 ≈ 10.\nFigure 5.57 shows the effective rate of production (i.e., sum of the non-communications work of all team members) of a team of a given size, whose culture has a particular form of communication overhead."
+  },
+  "9": {
+   "source": "open-practice-library.md",
+   "chunk": "--------------------------------------------------------------------------------\n--------------------------------------------------------------------------------\n<!-- file: manage-flow.md -->\n--------------------------------------------------------------------------------\ntemplateKey: practice-page title: Manage Flow subtitle: Optimize the processing work items date: 2019-10-19T09:24:08.129Z authors:\n- rhdojun tags:\n- culture mobiusTag: foundation icon: /images/pullstuckcar.jpg whatIs: Direct the focus of optimization on work items, e.g. tasks, problems, process steps, instead of the people. That means metrics also need to focus on work items, not on people. whyDo: >- Everybody already experienced a few times in their life that it is totally possible that everybody is busy to the point of being overworked but the work gets done slower and slower."
+  },
+  "10": {
+   "source": "open-practice-library.md",
+   "chunk": "Points of note:\nTry to keep this survey anonymous. Honest answers are of utmost importance.\nResist the temptation to measure too frequently. Once per quarter or every six months is appropriate.\nAvoid setting score improvement as a goal - be conscious that GoodHart's Law means that when a measure becomes a target, it ceases to become a good measure.\nIf you have a large enough organisation, or enough data over time, you could try applying data science practices to identify outliers in the data that can indicate particular areas of concern, for particular teams, or disruptive events that correlate with a dip in scores. mediaGallery:"
+  },
+  "11": {
+   "source": "jones-evidence-based-sweng.pdf",
+   "chunk": "Goodhart’s law is an observation about human behavior, rather than a law: “Any observed statistical regularity will tend to collapse once pressure is placed on it for control purposes.” If the measurements collected were actively used to control or evaluate the development team (for instance), then developers have a motivation to cause the measurements to move in a direction favorable to themselves.\nA study by Perry, Staudenmayer and Votta1472 investigated various software development activities (e.g., working time on an activity, and activities performed throughout the day), as measured by the developers involved (i.e., self reports) and as measured by external observers. Differences in reported measurement values included, developers reporting activity time 2.8% higher, on average, than that reported by an observer; the measurement agreement rate for activities performed varied between 0.6 and 0.95."
+  },
+  "12": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "or to exchange ideas. (Oxford Dictionary)\nDoctrine: a body of principles evolved from laws, culture, history and precedence that\nguides the action of an organization. It is the expression of the fundamental framework\nand concepts that also guides the planning and conduct of operations.\nEfficiency-Thoroughness Trade-Off: “In their daily activities, at work or at leisure, people (and organizations) routinely make a choice between being effective and being\nthorough, since it rarely is possible to be both at the same time. If demands to productivity or performance are high, thoroughness is reduced until the productivity goals are met. If demands to safety are high, efficiency is reduced until the safety goals are"
+  },
+  "13": {
+   "source": "openstax-organizational-behavior.pdf",
+   "chunk": "CONCEPT CHECK\nto decide who is laid off (procedural justice). For example, layoffs based on seniority may be perceived as more fair than layoffs based on supervisors’ opinions.\nGoal Theory It remains true that difficult, specific goals result in better performance than easy and vague goals, assuming they are accepted. Recent research highlights the positive effects of performance feedback and goal commitment in the goal-setting process. Monetary incentives enhance motivation when they are tied to goal achievement, by increasing the level of goal commitment. There are negative sides to goal theory as well. If goals conflict, employees may sacrifice performance on important job duties. For example, if both quantitative and qualitative goals are set for performance, employees may emphasize quantity because this goal achievement is more visible."
+  },
+  "14": {
+   "source": "openstax-principles-management.pdf",
+   "chunk": "supervisors who insist on maintaining excessive control.\nAnother dysfunctional result of poor control systems can be seen in their effect on goal-setting programs. Whereas a good control system can help design and monitor valuable goal-setting programs, a poor control system can accomplish quite the opposite. A control system focused on unreasonable ends and means goals can motivate workers to establish inappropriate individual goals. For instance, the ends goal Donald Pemble established of having all bridges inspected within two years was unreachable, and his monthly inspection quotas (means goals) were unobtainable. Donald’s insistence on maintaining these inappropriate goals was evident in his reactions when the inspectors failed to meet them. Consequently, Shannon and her coworkers focused on preserving their jobs as a primary goal, rather than on conducting quality inspections."
+  },
+  "15": {
+   "source": "open-practice-library.md",
+   "chunk": "time: 30 mins difficulty: easy participants:\n- The Team\n--------------------------------------------------------------------------------\n--------------------------------------------------------------------------------\n<!-- file: technical-debt.md -->\n--------------------------------------------------------------------------------\ntemplateKey: practice-page title: Technical Debt subtitle: The cost of reworking quickly implemented solutions date: 2020-02-17T13:56:42.629Z authors:\n- dappleyard93 tags:\n- value\n- methods mobiusTag: delivery icon: /images/Tech debt Radar.jpg whatIs: >- Technical debt as a concept reflects the cost of rework caused by taking shortcuts or choosing an easier solution, instead of using a better approach that may take longer. Technical debt can in some ways be compared to monetary debt in that it can accumulate 'interest', making it harder to implement changes later on. Unaddressed technical debt increases software entropy, slows development and may cause much bigger problems further down the line."
+  },
+  "16": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": " lacking correction or coaching of at-risk practices, or using human performance tools improperly;\n having inconsistencies between what managers say they want and what they reward or pay attention to;\n making uncritical observation comments so as to not offend those observed;\n initiating disciplinary action for honest mistakes;\n providing bonuses based solely on productivity measures; and\n proceeding to the next action or step before signing off concurrent verification.\nOversight Controls"
+  },
+  "17": {
+   "source": "caib-report-vol1.pdf",
+   "chunk": "22 Changing personnel is a typical response after an organization has some kind of harmful outcome. It has great symbolic value. A change in personnel points to individuals as the cause and removing them gives the false impression that the problems have been solved, leaving unresolved organizational system problems. See Scott Sagan, The Limits of Safety. Princeton: Princeton University Press, 1993.\nDiane Vaughan, The Challenger Launch Decision: Risky Technology, Culture, and Deviance at NASA (Chicago: University of Chicago Press. 1996)."
+  },
+  "18": {
+   "source": "doe-hpi-handbook-vol2.pdf",
+   "chunk": "the balance right between how unintentional errors and willful violations are addressed in the organization. Ideally there should be zero tolerance for reckless conduct balanced by widespread confidence among managers that the vast majority of unintended unsafe acts will go unpunished as honest errors.\n1. Stop naming, blaming, shaming, and retraining individuals for honest errors. Remember an error is an unintentional departure from an expected behavior—it is something the performer did not intend to do."
+  },
+  "19": {
+   "source": "doe-hpi-handbook-vol2.pdf",
+   "chunk": "Human Performance Tools\nINVESTIGATING EVENTS TRIGGERED BY HUMAN ERROR\nOverview A traditional view of events and accidents is that they are caused by shortcomings in human competence, attention, or attitude. It may be under the label of “loss of situation awareness,” procedural “violation,” or “poor” management. A new and different view is that human error is not the cause of failure, but a symptom of failure—trouble deeper inside the system. Human error is not the chief threat to system safety, but rather latent organizational conditions set the stage for error and determine the severity of the consequences. Human error is not just random. It is tied to features of people’s tools, the tasks they perform, and the operating environment in which they work. In this perspective, human error is not the conclusion but rather the starting point of investigations. The point of these investigations should be to prevent recurrence, not simply to find people to punish."
+  },
+  "20": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "learning because it faults only one part of the system. However, safety is in the entire system. Practitioners at the “sharp end” (those workers who directly confront the risks of the workplace) are inheritors of policies, training programs, tools,\nculture, incentives, etc., that are the responsibility of those managers and administrators at the “blunt-end.” Practitioners at the sharp end are those who make real-time, operational risk management decisions. Those at the blunt end are the supervisors, and administrators who are engaged in strategic risk management"
+  },
+  "21": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "H u m a n E rro r\nuodnM ore fla w ed d e fenses nse lediv id ua l cI srer o rs a nd /o r d isc ip line dcu& e rro r p\nB la m e C yc leta R edu ced tru s tiona lLa ten t o rg an iz\nrese s is tses pw e akn\nM an age m e n t les Lesss om m u n ica tio ncea w a re o f jo bs it\ncond itio ns\nDepartment of Energy Human Performance Handbook Chapter 4 Culture & Leadership\nCREATE A JUST CULTURE\nThe Blame Cycle\nThe “blame cycle” depicted below is urged on by the belief that human error occurs because people are not properly motivated.29 In reality, no matter how motivated an individual is, active errors will continue to occur, occasionally. Events will continue as long as event investigations stop prematurely at the active human error. The true causes (typically organizational weaknesses) will not be discovered—will remain latent or hidden—and errors and events will persist."
+  },
+  "22": {
+   "source": "open-practice-library.md",
+   "chunk": "* Identifying factors that lead to an incident and affected the incident timeline, both in good and bad way\n* Improves communication both within the team and across teams involved in the incident response and Postmortem itself - “if we can openly talk about failures, we can talk about anything”\n* Promote the safe culture of “it’s alright to fail” howTo: >- A successful Blameless Postmortem is build on two fundations:\n* Availability of the information regarding the incident.\n* Psychological safety of all participants that promotes speaking up openly"
+  },
+  "23": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "terms of wholes and relationships.\nJUST CULTURE\nJust Culture is characterized by the intersection of valuing trust, fairness and dignity. In a just culture, an organization has an open and safe reporting system where everyone can speak. In a\njust culture, organizations are accountable for systems they design and analysis of the incident—not the individual. Many organizations have policies that describe nonpunitive responses to error. However, internal barriers to speaking up include\nnegative management responses and the risk of discipline from leaders."
+  },
+  "24": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "“You’ve got nothing to fear if you’ve done nothing wrong.”\nPunishing or blaming employees involved in an accident is the surest way to kill a learning culture. The attitude expressed in the quote above is a threat and has no place\nin an FLA.\n“Holding people accountable and blaming people are two quite different things. Blaming people may in fact make them less accountable: they will tell fewer accounts,\nthey may feel less compelled to have their voice heard, to participate in improvement efforts. Blame-free or no-fault systems are not accountability-free systems. On the contrary: such systems want to open the ability for people to hold their account, so that everybody can respond and take responsibility for doing something about the problem."
+  },
+  "25": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "flow of information is constrained.\nWe want to create a culture where employees feel safe to raise their hands and openly share unsafe conditions, individual mistakes, errors, close calls and risky decisions. A “Just Culture” is a workplace where employees at all levels are\naccountable for their participation and their commitment to the organization’s\nsafety culture. The “Just” part of Just Culture which stems from the word Justice, is the essential and fundamental recognition that workers are inheritors of the tools,"
+  },
+  "26": {
+   "source": "ssdl-system-archetypes.pdf",
+   "chunk": "Archetype #3: Shifting the burden\nThe “shifting the burden” archetype shows what happens when we address the symptoms of a problem with a quick-fix solution. This solution is easier and faster than creating an upstream solution to the problem, and we are often meeting a very real, urgent need for a student. However, the quick-fix to the symptoms may actually impede our ability to invest time and energy to the fundamental solution. This makes it even harder to apply a fundamental solution and even more tempting to rely on quick fixes. Thus, the problem cannot be completely solved."
+  },
+  "27": {
+   "source": "ssdl-system-archetypes.pdf",
+   "chunk": "The “fixes that fail” archetype describes attempts to address a problem through a short-term fix. The fix might solve the problem in the short run, but it also generates unintended consequences that actually make the original problem worse.\nMETHODS BRIEF SERIES 1.07\n+ APPLYING SYSTEM ARCHETYPES IN K-12 EDUCATION\nArchetype #1: Fixes that fail\nTemplate Archetype #1\nTemplate Archetype #2\nExample Archetype #2\nExample Archetype #1\nArchetype #2: Success to the successful\nshe can trust. She begins to see herself as a “bad” student and becomes even more disruptive in class."
+  },
+  "28": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "“Doing” \nTask-​oriented work  without a view of the  whole picture.\nHeavily reliant on  directives from others.\nOperational efficiency booster for tasks requiring routine  expertise with intelligent automation, task-​specific agents, \nand virtual assistants.\nOptimizes repetitive and tactical work.\nAutomated and predictive guidance within task execution.\nEnhances productivity by reducing the  cognitive load.\nEnsures consistent execution quality.\n“Delivering”\nDeliver value within a  narrow scope but often "
+  },
+  "29": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "> What parts of the company are the focus of org development?  The Product Management and R&D departments, so focus on AI  investment there. \n> What archetypes are part of the target? What’s a dominant constraint  from one to the other?  The R&D department has mostly TASKS-1 individuals, and the target is  CAPS-3 teams. On investigation, it’s a lack of front-​end design and  coding skilled people. Focus time, money, and management attention on  AIs, especially on that big bottleneck, over a generic “adopt AI.”"
+  },
+  "30": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "Evolving rightward on the horizontal axis to broader skills mandate will  become ever easier due to AI. And likewise upward on the vertical axis  to a broader work mandate. So, top-​right Driving archetypes will  become more feasible.\nObviously, “adopt AI everywhere you can” will be the general guidance,  but given the limited resources of money, time, and attention, in  strategic org design with OT we recommend that you ask and answer  these questions:\nFor example, a pet-​supply company creates e-​commerce software in a  Resource topology. It’s a mature, uncomplicated market. Competition  has delivered a better website and app that customers love. Leadership  has decided on a business objective of retaining customers, with an org  goal of fast flow to parity, by targeting a Delivery topology with CAPS-3  teams."
+  },
+  "31": {
+   "source": "open-practice-library.md",
+   "chunk": "--------------------------------------------------------------------------------\n--------------------------------------------------------------------------------\n<!-- file: the-theory-of-constraints.md -->\n--------------------------------------------------------------------------------\ntemplateKey: practice-page title: The Theory of Constraints subtitle: \"“Any improvements made anywhere besides the bottleneck are an illusion.” \" date: 2021-06-04T10:17:34.156Z authors:\n- tom-geraghty tags:\n- methods mobiusTag: foundation icon: /images/three-contract-management-bottlenecks-eliminated-by-automation.png whatIs: >- Eliyahu Goldratt first described the Theory Of Constraints (ToC) in his 1984 book, \"The Goal\", which focused on manufacturing and was a key catalyst for the revolution in the performance of manufacturing in subsequent years."
+  },
+  "32": {
+   "source": "open-practice-library.md",
+   "chunk": "The Theory of Constraints shows us that in any process, there must be a single bottleneck that limits the total throughput of the process: in the same way that a chain has a weakest link, a process has a single slowest component. whyDo: >- Whilst it may be easy to improve some part of the process, if that component isn't the bottleneck, it will either have zero effect on the throughput because the bottleneck is upstream, or it will actually cause more pain in the system by adding pressure to the bottleneck, if the bottleneck is downstream."
+  },
+  "33": {
+   "source": "openstax-accounting-vol2.pdf",
+   "chunk": "Figure 1.12 Kaizen Board Showing Kaizen Process and Some Related Tactics. (credit left: modification of “Woman Standing in Front of Sitting People” by “rawpixel.com”/Pexels, Pexels license / Public Domain; right: modification of “A few kaizen tactics” by Sacha Chua/ Flickr, CC BY 2.0)\nAnother lean practice, the theory of constraints (TOC), involves recognizing and removing bottlenecks within the value chain that may be limiting an organization’s profitability. This philosophy, developed by Dr. Eliyahu M. Goldratt, is a valuable instrument for improving the flaws in processes. The main goal of this methodology is to remove obstructions, or constraints, which are referred to as “bottlenecks.” There are several types of bottlenecks that organizations must deal with endlessly. One example occurs at the grocery store when it is crowded and there are only three checkout lanes open but ten people in each line. Obviously, the bottleneck is created by having too few checkout lanes open. The bottleneck can be mitigated by opening more checkout lanes. Other examples are listed in Table 1.5."
+  },
+  "34": {
+   "source": "open-practice-library.md",
+   "chunk": "WIP Limit\nLimit work in progress. These sample numbers represent the maximum number of functional items for workflow. Promote finishing and provoke important discussions. “Stop starting, start finishing!”\nOne Way\nDo not move cards backwards. An item flows when work is completed at each step. If a correction needs to be made, keep the item in the same column, eventually signaling that a block exists. Focus on finishing.\nMetrics\nThroughput - The amount of items delivered in a given time frame, usually weeks."
+  },
+  "35": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "DIRECT﻿ING \nDOING\nResource Topology: Directing + Doing\nDelivery Topology Compared to the Resource Topology, this topology upgrades  delivery units to have fast flow by removing dependencies.  Structurally, this typically involves forming complete cross-​ functional teams, and facilitating a smoother path to  “completely done” work. In some domains, this topology is  called a “Feature Factory” since Delivery units can provide a  near-​endless stream of features. Note a strong focus on  outputs and local efficiency."
+  },
+  "36": {
+   "source": "open-practice-library.md",
+   "chunk": "If one makes sure to only work on one task and then on the next one doesn't get overloaded. That means the person stays responsive, flexible and the status stays visible. If a task gets stuck waiting on external resources the person can help reducing this external dependency or making it more visible at least, to the rest of the team. howTo: >-\n* As a team, determine the amount of in-progress work you want to be your maximum at any given time.\n* Set that limit as your WIP limit and ensure throughout the sprint that it is not exceeded\n* Review WIP Limit at the end of the sprint and adjust if needed jumbotron: /images/valves.jpg area: foundation-culture-and-collaboration time: '0' mediaGallery:\n- link: 'https://www.youtube.com/watch?v=SFMlu87MkYI'\n- link: 'https://openpracticelibrary.github.io/opl-media/images/valves.jpg' people: '1' difficulty: moderate mobiusTag: foundation"
+  },
+  "37": {
+   "source": "open-practice-library.md",
+   "chunk": "It is an alternative to OKRs (Objective Key Results) and SMART (Specific Measurable Achievable Relevant Time bound) goals. whyDo: >- The thorny world of objective setting can kill a team's drive. Different people gravitate towards different models, but it is generally agreed that top down, cascaded objectives deserve to rot in the 90's. As teams move towards greater autonomy, translating the purpose and vision into meaningful and measurable activities can be uncomfortable at best. Enter GEMs - Goal : Experiments : Measures."
+  },
+  "38": {
+   "source": "open-practice-library.md",
+   "chunk": "Lead Time - The clock starts ticking on replenishment and ends when the item is delivered.The number of calendar days to get an item done is the lead time.\nCFD - Cumulative Flow Diagram Shows demand, WIP, approximate average lead time and delivery rate capabilities.\nTo collect these metrics you only need the start and finishing date for an item then count how many items you have per day in each column.\nExplicit Policies\nPost policies where you can see them. Policies are rules for how we work and should be developed collaboratively. Example - pull criteria, wip limits, date to deploy."
+  },
+  "39": {
+   "source": "open-practice-library.md",
+   "chunk": "One could ask themselves, why is that? And what is more important? Is it better that everybody is busy or would it be better if more work gets done?\nUsually in comparison it should be clear the second point is much more important: work needs to get done.\nBut to get there one cannot track indirect metrics like utilization of employees. Instead one needs to track work item related metrics like how long a task stays work in progress. And one needs to make visible when tasks get stuck so the team can analyse together why it got stuck and how this could be avoided the next time. howTo: >- Typical activities for managing flow are:"
+  },
+  "40": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "Department of Energy Human Performance Handbook Chapter 4 Culture & Leadership\naccountable for their actions in the same fashion that someone who intentionally performs work he or she knows is contrary to known standards.\nA just environment is all about getting the balance right between how willful violations and unintentional errors are addressed in the organization. All too often organizations do not make clear the distinctions between errors and violations. A just organization clears the smoke in the air between erring and violating. To do so, management sets a zero tolerance policy for reckless conduct—bad acts that we call violations. Zero tolerance for violations is balanced by the belief and the widespread confidence among the leadership that the vast majority of unintended unsafe acts will go unpunished as honest errors—unintended departures from expected behavior—on the part of the performer. There are proven methods to help organizations determine culpability for serious incidences in which unsafe acts are involved."
+  },
+  "41": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "The Culpability Decision Tree\nThe logic diagram below is a proven management tool intended to help determine the culpability level of an individual in response to events or near misses triggered by human error.33 When used in conjunction with the organization’s accountability policy, the tool supports the fair and consistent application of disciplinary outcomes across all departments and work groups. An explanation of how to make use of the Culpability Decision Tree is provided in Appendix B. The tool is an adaptation of Dr. James Reason’s Culpability Decision Tree in his book, Managing the Risks of Organizational Accidents, which provides further in-depth description of the use of the diagram."
+  },
+  "42": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "self-reported?\nPasses the substitution\ntest?\nWere expectations\navailable, intelligible, workable, and\ncorrect?\nKnowingly violate\nexpectations?\nWere consequences\nintended?\nWere actions\nintended?\nEvaluate relevant organizational processes and related management\nand supervisory practices.\nNo\nYes\nYes\nYes\nYes No\nNo\nNo No\nNo Yes\nYes\nYes\nNo\nYes\nNo\nWhen an event is initiated by an honest error, as determined by one or more of the tools described above, the entire system that supports the performance in question should be evaluated (see “systems-thinking” in Chapter 3). Events triggered by human error are often symptomatic of a system failure. Instead of asking how the individual failed the organization, the question “how did the organization fail the individual?” would be more appropriate. In addition to the individual, what or who could have prevented the event? What flaws or oversights in work processes, policies, or procedures contributed, promoted, or allowed the error and event to occur? Because the majority of the causes of events originate in the system of controls, processes, and values established by the management team, management's first reaction to events should be to look within the organization."
+  },
+  "43": {
+   "source": "doe-hpi-handbook-vol2.pdf",
+   "chunk": "• Culpability Test – If the individual was working while under the influence; was clowning around with equipment or vehicles; was taking unwarranted short cuts; or consciously selected sub-standard or inappropriate tools, equipment, or parts, then they are likely more culpable for their actions\n• The Substitution Test – The following question is asked of several peers of the individual involved in the event: “In light of how events unfolded and were perceived by those involved in real time, is it likely that you (a different person with similar skills and training) would have behaved any differently?” The question can be worded differently: “given the circumstances that prevailed at the time, could you be"
+  },
+  "44": {
+   "source": "doe-hpi-handbook-vol2.pdf",
+   "chunk": "DOE-HDBK-1028-2009\nHuman Performance Tools\nsure that you would not have committed the same or a similar type of unsafe act?” If the answers are “no,” then blame is likely inappropriate.\n• Culpability Decision Tree (CDT) – This is used in conjunction with an organization’s accountability policy. The CDT is a logic diagram that managers can follow as they ask questions to determine an individual’s intent, expectations, prior knowledge, and prior performance problems associated with their recent unsafe act. By following the logic on the CDT, the manager can gage both individual culpability (for an intentional act to cause harm, reckless violation, and negligent error) and organizational culpability (for induced violation and induced error). See attachment."
+  },
+  "45": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "To improve human performance and facility performance, efforts should be made to (1) reduce the occurrence of errors at all levels of the organization and (2) enhance the integrity of controls, or safeguards discovered to be weak or missing. Reducing errors (Re) and managing controls (Mc) will lead to zero significant events (ØE). The formula for achieving this goal is Re + Mc → ØE. Eliminating significant facility events will result in performance improvement within the organization.\nReducing Error"
+  },
+  "46": {
+   "source": "open-practice-library.md",
+   "chunk": "One part of managing a software-engineering process is catching problems at the \"lowest-value\" stage—that is, at the time at which the least investment has been made and at which problems cost the least to correct. To achieve such a goal, developers use \"quality gates,\" periodic tests or reviews that determine whether the quality of the product at one stage is sufficient to support moving on to the next.\nBy this, a second important benefit is revealed: Ego-less Programming. As Jeff Atwood states in his blog post:"
+  },
+  "47": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "engineer a reporting culture—an organizational climate in which people are prepared to report their errors . . . An effective reporting culture depends, in\nturn, on how the organization handles blame and punishment . . . What is needed\nis a just culture . . .”\nJ. T. Reason, Managing the Risks of Organizational Accidents (Aldershot,\nEngland: Ashgate, 1997), p195.\n“I got behind the safety shelter; then in a little bit, I heard a voice say,\nGet in This Truck!”\n2011, Salt Fire\nEntrapment and Shelter Deployment FLA. U.S. Forest Service Photo"
+  },
+  "48": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "team\nteam\nhuman\nteam\nteampool\npool\nElev ate\nE xi\nst in\ng O\nD\nBusiness Objectives\nF u tu\nre O\nD\nOrg Topologies MADE Method \n(2) ASSESS\n(4) ELEVATE\nOrg Goal\nOrg Design\nCapabilities,  Culture, \nPerformance\n(1) MAP\n(3) DESIGN\nElevate Your Organization with Strategic AI Adoption Any management approach that doesn’t include AI as a central part  of the future workforce, is of the past. We are rapidly entering a world  of AI agents and humanoid robots playing a role at work and home. \nA key insight when designing with OT: Specialization and expertise are  vanishing as limited resources, due to intelligence as a service. That  makes it much easier to elevate an organization! So when you are  deciding on new teams requiring new expert knowledge, shed the old  assumptions, “We don’t have enough experts, therefore…”. Spin up  another 10,000 agents. "
+  },
+  "49": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "5. Unbounded.  An Expanding Unit learns whatever they need to get the job  done. In contrast, Unbounded Units have the mandate to learn anything for  unbounded exploration. This may seem unusual today, but with AI traditional  limitations vanish, so who knows where future groups can go?\nFUNCTIONAL END-​TO-​END EXPANDING UNBOUNDEDMULTI-​SKILL\nincreasing Scope of \nSkills Mandate\nVertical Dimension of Org Design: Work Mandate The Vertical Axis\nWhereas the horizontal axis is the scope of skills mandate,  the vertical represents the scope of work mandate given to  organizational units. That determines how units collaborate,  learn, and share work. The higher a unit is on the map, the  bigger is its field of play. At the highest levels, the scope of  work of different units overlaps, motivating them to learn to  co-​own and work as one super unit – “Team-​of-​Teams”."
+  },
+  "50": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "In economic terms, this axis represents the switching costs to  work on something different (decreasing from bottom to top),  and, therefore how easy it is for the whole organization to  switch direction, ideally driven by feedback, innovation,  competition, or strategic changes.\nThe larger the scope of work the units own, the closer they  are to holistically understanding and solving real problems.\nless\nSCOPE OF SKILLS MANDATE more\nincreasing Scope of \nWork Mandate\nUNBOUNDED\nTASKS\nCAPABILTIES"
+  },
+  "51": {
+   "source": "openstax-organizational-behavior.pdf",
+   "chunk": "The second basic premise is that difficult goals result in better performance than easy goals. This does not mean that difficult goals are always achieved, but our performance will usually be better when we intend to achieve harder goals. Your goal of an A in Classical Mechanics at Cal Tech may not get you your A, but it may earn you a B+, which you wouldn’t have gotten otherwise. Difficult goals cause us to exert more effort, and this almost always results in better performance.\nAnother premise of goal theory is that specific goals are better than vague goals. We often wonder what we need to do to be successful. Have you ever asked a professor “What do I need to do to get an A in this course?” If she responded “Do well on the exams,” you weren’t much better off for having asked. This is a vague response. Goal theory says that we perform better when we have specific goals. Had your professor told you the key thrust of the course, to turn in all the problem sets, to pay close attention to the essay questions on exams, and to aim for scores in the 90s, you would have something concrete on which to build a strategy."
+  },
+  "52": {
+   "source": "openstax-principles-management.pdf",
+   "chunk": "The second basic premise is that difficult goals result in better performance than easy goals. This does not mean that difficult goals are always achieved, but our performance will usually be better when we intend to achieve harder goals. Your goal of an A in Classical Mechanics at Cal Tech may not get you your A, but it may earn you a B+, which you wouldn’t have gotten otherwise. Difficult goals cause us to exert more effort, and this almost always results in better performance.\nAnother premise of goal theory is that specific goals are better than vague goals. We often wonder what we need to do to be successful. Have you ever asked a professor “What do I need to do to get an A in this course?” If she responded “Do well on the exams,” you weren’t much better off for having asked. This is a vague response. Goal theory says that we perform better when we have specific goals. Had your professor told you the key thrust of the course, to turn in all the problem sets, to pay close attention to the essay questions on exams, and to aim for scores in the 90s, you would have something concrete on which to build a strategy."
+  },
+  "53": {
+   "source": "openstax-introduction-business.pdf",
+   "chunk": "Goal-Setting Theory Goal-setting theory is based on the premise that an individual’s intention to work toward a goal is a primary source of motivation. Once set, the goal clarifies for the employee what needs to be accomplished and how much effort will be required for completion. The theory has three main components: (1) specific goals lead to a higher level of performance than do more generalized goals (“do your best”); (2) more difficult goals lead to better performance than do easy goals (provided the individual accepts the goal); and (3) feedback on progress toward the goal enhances performance. Feedback is particularly important because it helps the individual identify the gap between the real (the actual performance) and the ideal (the desired outcome defined by the goal). Given the trend toward employee empowerment in the workplace, more and more employees are participating in the goal-setting process."
+  },
+  "54": {
+   "source": "openstax-principles-management.pdf",
+   "chunk": "The Negative Side of Goals There is, however, a negative side to goal setting. Total quality management (TQM) pioneer W. Edwards Deming fears that goals tend to narrow the performer’s vision and invite people to slack off once the goal is achieved. TQM is also oriented more toward process (means) than toward success (goals, outcomes). Organizational learning and continuous improvement, a central component of TQM, is oriented toward continually finding problems in the production process that when eliminated will result in performance increases.40 Performance goals, on the other hand, generally focus the performer’s attention on successfully achieving a specified level of accomplishment at some future point."
+  },
+  "55": {
+   "source": "openstax-introduction-business.pdf",
+   "chunk": "Dr. W. Edwards Deming, an American management consultant, was the first to say that quality control should be a company-wide goal. His ideas were adopted by the Japanese in the 1950s but largely ignored in the United States until the 1970s. Deming believed that quality control starts with top management, who must foster a company-wide culture dedicated to producing quality.\nDeming’s concept of Total Quality Management (TQM) emphasizes the use of quality principles in all aspects of a company’s production and operations. It recognizes that all employees involved with bringing a product or service to customers—marketing, purchasing, accounting, shipping, manufacturing—contribute to its quality. TQM focuses on continuous improvement, a commitment to constantly seek better ways of doing things in order to achieve greater efficiency and improve quality. Company-wide teams work together to"
+  },
+  "56": {
+   "source": "openstax-principles-management.pdf",
+   "chunk": "Exhibit 17.12 Performance, Aspiration Level, and Satisfaction (Attribution: Copyright Rice University, OpenStax, under CC-BY 4.0 license)\nManaging through Goal Setting What can managers do to motivate employees through goal setting? First, it is important to encourage goal acceptance and commitment. This can be accomplished by working with organizational members to set difficult, specific, and reasonable goals and to make certain that members perceive them as reasonable. If necessary, provide training and other support needed to make the goals attainable. Offer feedback that lets people know when they are approaching the goal. Avoid using threats. Feedback that criticizes without providing insight into ways to contribute to performance improvements is both frustrating and unlikely to be effective. One of Deming’s concerns about goal setting is that it creates fear in employees—fear of the failure to reach the goal. He sees fear as a serious disease that contributes to poor organizational performance.46"
+  },
+  "57": {
+   "source": "openstax-introduction-business.pdf",
+   "chunk": "The gap between what is and what is required. Anything that decreases a specific behavior.\nA theory of motivation that holds that people do things because they know that certain consequences will follow.\nAnything that increases a specific behavior. A system of management developed by Frederick W. Taylor and based on four\nprinciples: developing a scientific approach for each element of a job, scientifically selecting and training workers, encouraging cooperation between workers and managers, and dividing work and responsibility between management and workers according to who can better perform a particular task."
+  },
+  "58": {
+   "source": "openstax-introduction-business.pdf",
+   "chunk": "A theory developed by William Ouchi that combines U.S. and Japanese business practices by emphasizing long-term employment, slow career development, moderate specialization, group decisionmaking, individual responsibility, relatively informal control over the employee, and concern for workers.\nThe gap between what is and what is desired.\nSummary of Learning Outcomes\n9.1 Early Theories of Motivation 1. What are the basic principles of Frederick Taylor’s concept of scientific management?\nScientific management is based on the belief that employees are motivated by economic incentives and that there is “one best way” to perform any job. The four basic principles of scientific management developed by Taylor are as follows:"
+  },
+  "59": {
+   "source": "open-practice-library.md",
+   "chunk": "--------------------------------------------------------------------------------\n--------------------------------------------------------------------------------\n<!-- file: blameless-postmortem.md -->\n--------------------------------------------------------------------------------\ntemplateKey: practice-page title: Blameless Postmortem subtitle: Turn incident into an investment in future reliability date: 2022-03-22T11:10:08.413Z authors:\n- jfilipcz tags:\n- learn mobiusTag: delivery icon: /images/markus-winkler-afw1hht0nss-unsplash.jpg whatIs: >- Blameless Postmortem is a post-incident practice assessing an incident or other types of outages, its timeline, environment conditions, and all possible factors that lead an incident to happen. A postmortem typically also covers incident timeline and all factors that in a given organization generate incident, and impacts operators behavior before, during and after the outage has happened. Practice allows participants and stakeholders to quickly form conclusions on what were the most important factors contributing to the incident. It also serves a learning purpose, both by providing in depth experience for participants and by producing a postmortem summary which can be shared with all interested parties. A postmortem can be treated as the evolution of a Root Cause Analysis (RCA) which is done in almost all major IT support organizations."
+  },
+  "60": {
+   "source": "open-practice-library.md",
+   "chunk": "The major difference between an RCA and Blameless Postmortem is the way both of them are run, with the later putting emphasis not only establishing the root cause but also ensuring that there’s no form of possibly harmful judgement being made along the way. Often a postmortem is also carried out in a less formalized manner, making sure that the actual story comes before documentation.\n“Our job is not to point fingers at an unlucky engineer that applied a wrong configuration file, our job is to figure out why he picked the wrong one and what we personally and as an organization can do to prevent it in the future.” whyDo: >- A Blameless Postmortem serves couple of important purposes:"
+  },
+  "61": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "tremendous impact. If the Leader assumes the accident happened because someone failed to do\nsomething right, then the natural response is to determine what rules or protocols were broken. This leads to identifying (or blaming) the rule breaker and then the\nassumption is that we’ve returned the system to safety. Following this logic, all that’s needed are better rules or better compliance. And that’s the end of story— until the next accident. History has shown us that this approach is not only"
+  },
+  "62": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "Attempting to hold individuals “accountable” (in the traditional sense) for systems -level weaknesses or failures obliterates learning opportunities. Our employees are engaged in complex work in an increasingly complex environment. When we do not\npay homage to the complexities of the work environment in the wake of an accident and instead pretend that the work environment is simple or even complicated, we are not treating our employees fairly or affording them the dignity they deserve.\nWhen employees are exposed to unfair treatment, the inevitable reaction is a breakdown in trust. When employees don’t trust the organization they work for, the"
+  },
+  "63": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "responsibilities to reinforce expectations and ensure that key safety responsibilities and expectations are being met.\n• Personnel at all levels of the organization are held accountable for shortfalls in meeting standards and expectations related to fulfilling safety responsibilities. Accountability is demonstrated both by recognition of excellent safety performers as well as identification of less-than-adequate performers. In holding people accountable, in the context of a just culture, managers consider individual intentions and the organizational factors that may have contributed.\n• Willful violations of requirements are rare, and personnel and organizations are held strictly accountable in the context of a just culture. Unintended failures to follow requirements are promptly reported, and personnel and organizations are given credit for self-identification and reporting of errors."
+  },
+  "64": {
+   "source": "doe-hpi-handbook-vol1.pdf",
+   "chunk": "The line between acceptable and unacceptable behavior is more clear when the logic diagram is used. An intentional act to cause harm (lower left) is wholly unacceptable and should receive very severe sanctions, possibly administered by the courts rather than the organization. Knowingly violating expectations that were workable likely suggests reckless violation, a condition that warrants sanctions. The remaining categories should be thought of as blameless— unless they involve aggravating factors not considered here. Experience suggests that the majority of unsafe acts—perhaps 90 percent or more—fall into the blameless category.35"
+  },
+  "65": {
+   "source": "lfuo-learning-review-guide-2024.pdf",
+   "chunk": "trainings, procedures, the production incentives and the safety-vs.-production values of the workplace. In this culture, management holds itself accountable for how it manages these system- and culturally created artifacts, especially the safety-\nvs.-production values of the workplace.\nAccountability is a principle focus. Accountability means to give an honest account. In a Just Culture, there is consensus among all employees that information\n(learning) is the lifeblood of safety. If our employees won’t tell us what happened, the probability that we will be able to improve as an organization and act to prevent similar accidents in the future is greatly reduced. Most importantly, employees and administrators openly share stories of how they balance the tradeoffs between safety"
+  },
+  "66": {
+   "source": "org-topologies-primer-2025.pdf",
+   "chunk": "However, in order to streamline delivery, discovery must  remain separated in space and time. Similar to the Resource  Topology, Directing Archetypes emphasize up-​front analysis  to supply the work, and they may direct an “analysis Doing  unit” to discover and then write “the specs”, or they may  create them themselves. \nKeeping the teams ‘fast’ and constantly ‘efficient’ in  producing the outputs is only possible when the teams in the  Delivery Archetypes are permanently fixed to a narrow work  scope—​an internal component or a specific set of  capabilities. The other side of this coin is that they cannot  easily switch contexts. By the intentions of this org design,  teams lack the work mandate to engage with the “big  picture” but are allowed to expand their skill set becoming  more and more efficient within their narrow area of expertise."
+  }
+ },
+ "reports": []
+}

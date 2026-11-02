@@ -1,0 +1,126 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Why should a learning review avoid counterfactual arguments?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "counterfactual",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "hindsight|local rationality|outcome bias|second stor|sensemaking|should have",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "counterfactual|hindsight",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/references/lfuo-learning-review-guide-2024-deep.md",
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "counterfactual|hindsight",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content",
+   "-C": 6
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "hindsight|counterfactual",
+   "-i": true,
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/references/doe-hpi-handbook-vol1-deep.md",
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/references/doe-hpi-handbook-vol1-deep.md",
+   "offset": 211,
+   "limit": 1
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/references/lfuo-learning-review-guide-2024-deep.md",
+   "offset": 300,
+   "limit": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/references/lfuo-learning-review-guide-2024-deep.md",
+   "offset": 84,
+   "limit": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "concentrating on who caused|made sense at the time|should have done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Fundamental Attribution Error",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-2/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ }
+]

@@ -1,0 +1,785 @@
+{
+  "id": "gemini-demo-C2-1-chat",
+  "citations": [
+    {
+      "n": "1",
+      "claim": "Standard management textbooks—and the corporate playbooks derived from them—presume a world of predictable strategy cycles, top-down planned change, cascaded Key Performance Indicators (KPIs), and str",
+      "cited": "openstax-accounting-vol2",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Control, planning, and evaluation appear, but not the full predictable-cycle, KPI-cascade, and hierarchy characterization."
+    },
+    {
+      "n": "2",
+      "claim": "Standard management textbooks—and the corporate playbooks derived from them—presume a world of predictable strategy cycles, top-down planned change, cascaded Key Performance Indicators (KPIs), and str",
+      "cited": "openstax-introduction-business",
+      "support": "none",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "The chunk explicitly rejects chain-of-command communication as harmful; it does not support this characterization of the textbook position."
+    },
+    {
+      "n": "3",
+      "claim": "Standard management textbooks—and the corporate playbooks derived from them—presume a world of predictable strategy cycles, top-down planned change, cascaded Key Performance Indicators (KPIs), and str",
+      "cited": "openstax-organizational-behavior",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Supports centralized top-down planned change only, not the other asserted textbook assumptions."
+    },
+    {
+      "n": "4",
+      "claim": "Standard management textbooks—and the corporate playbooks derived from them—presume a world of predictable strategy cycles, top-down planned change, cascaded Key Performance Indicators (KPIs), and str",
+      "cited": "openstax-principles-management",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Describes strategy evaluation and adjustment, not the full set of predictable cycles, cascaded KPIs, and strict command controls."
+    },
+    {
+      "n": "5",
+      "claim": "Where textbooks see organizations as controllable engines, these traditions view them as complex, dynamic systems operating under inescapable friction, disorder, and uncertainty.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Describes friction in warfare only; neither the textbook contrast nor all the other traditions are established."
+    },
+    {
+      "n": "6",
+      "claim": "Where textbooks see organizations as controllable engines, these traditions view them as complex, dynamic systems operating under inescapable friction, disorder, and uncertainty.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Describes inescapable uncertainty in warfare only, not the whole cross-tradition contrast."
+    },
+    {
+      "n": "7",
+      "claim": "Where textbooks see organizations as controllable engines, these traditions view them as complex, dynamic systems operating under inescapable friction, disorder, and uncertainty.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries war as a complex system with friction and uncertainty, but not the textbook characterization or the other traditions."
+    },
+    {
+      "n": "5",
+      "claim": "Uncertainty Cannot Be Planned Away: Military maneuver doctrine (MCDP 1 Warfighting) notes that uncertainty and friction are permanent attributes of complex environments.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries persistent friction in war, not the full uncertainty-and-friction claim across complex environments."
+    },
+    {
+      "n": "6",
+      "claim": "Uncertainty Cannot Be Planned Away: Military maneuver doctrine (MCDP 1 Warfighting) notes that uncertainty and friction are permanent attributes of complex environments.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries unavoidable uncertainty and its relation to friction in war; the broader claim about complex environments exceeds this scope."
+    },
+    {
+      "n": "8",
+      "claim": "Attempting to gather complete information or enforce detailed timetables before acting surrenders tempo and initiative.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Rejects certainty and controlling events to fit plans, but does not establish the specific timetable and lost-tempo consequences."
+    },
+    {
+      "n": "9",
+      "claim": "Attempting to gather complete information or enforce detailed timetables before acting surrenders tempo and initiative.",
+      "cited": "mcdp1-warfighting",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Explicitly connects seeking certainty with lost initiative and excessive control with slower tempo, while rejecting imposed precise order and obsolete plans."
+    },
+    {
+      "n": "10",
+      "claim": "Errors Are Systemic Symptoms, Not Individual Failures: Human performance frameworks (such as Department of Energy HPI) demonstrate that human fallibility is normal; active errors are triggered by late",
+      "cited": "doe-hpi-handbook-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries normal fallibility, organizational processes, and incompatible leadership practices; the specific leadership-incentive claim is not supplied."
+    },
+    {
+      "n": "11",
+      "claim": "Errors Are Systemic Symptoms, Not Individual Failures: Human performance frameworks (such as Department of Energy HPI) demonstrate that human fallibility is normal; active errors are triggered by late",
+      "cited": "doe-hpi-handbook-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries latent weaknesses provoking active errors, but not normal fallibility or the specific process-design and leadership-incentive details."
+    },
+    {
+      "n": "12",
+      "claim": "Blame Kills Learning and Hides Operational Reality: In wildfire learning reviews and healthcare safety frameworks, punitive \"accountability\" is recognized as the fastest way to destroy trust.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Calls punishment the surest way to kill a learning culture; it does not establish the healthcare scope or the fastest destruction of trust as stated."
+    },
+    {
+      "n": "13",
+      "claim": "Blame Kills Learning and Hides Operational Reality: In wildfire learning reviews and healthcare safety frameworks, punitive \"accountability\" is recognized as the fastest way to destroy trust.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Links unfair individual accountability to loss of learning and trust, but not the healthcare scope or fastest-way qualification."
+    },
+    {
+      "n": "12",
+      "claim": "When workers fear punishment, critical operational truth goes underground, leaving management blind until a catastrophic failure occurs.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Blame reduces accounts and participation, but the claimed blindness lasting until catastrophe is not established."
+    },
+    {
+      "n": "14",
+      "claim": "When workers fear punishment, critical operational truth goes underground, leaving management blind until a catastrophic failure occurs.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Directly describes punitive accountability driving learning underground; management blindness until catastrophe is an added consequence."
+    },
+    {
+      "n": "15",
+      "claim": "Past Success Can Be a Deceptive Distorter: The Columbia Accident Investigation Board (CAIB) revealed how organizations normalize anomalies over time—treating recurring defects (such as foam strikes) a",
+      "cited": "caib-report-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries normalization of foam strikes, but does not explicitly establish prior mission survival as the reason."
+    },
+    {
+      "n": "16",
+      "claim": "Past Success Can Be a Deceptive Distorter: The Columbia Accident Investigation Board (CAIB) revealed how organizations normalize anomalies over time—treating recurring defects (such as foam strikes) a",
+      "cited": "caib-report-vol1",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Links erroneous robustness assumptions to prior success and connects that pattern to the insufficiently appreciated foam threat."
+    },
+    {
+      "n": "3",
+      "claim": "Detailed Control & Planned Steps: Top-down change models (e.g., Kotter’s 8-step process) and operational plans specify detailed actions and rigid reporting hierarchies.",
+      "cited": "openstax-organizational-behavior",
+      "support": "partial",
+      "wrong_book": "yes",
+      "quote_exact": "",
+      "note": "Carries Kotter as centralized planned change in hierarchical settings, not the entire operational-plans and rigid-reporting claim."
+    },
+    {
+      "n": "17",
+      "claim": "Detailed Control & Planned Steps: Top-down change models (e.g., Kotter’s 8-step process) and operational plans specify detailed actions and rigid reporting hierarchies.",
+      "cited": "openstax-introduction-business",
+      "support": "partial",
+      "wrong_book": "yes",
+      "quote_exact": "",
+      "note": "Carries specific operational standards and methods, but not Kotter or rigid reporting hierarchies."
+    },
+    {
+      "n": "18",
+      "claim": "Detailed Control & Planned Steps: Top-down change models (e.g., Kotter’s 8-step process) and operational plans specify detailed actions and rigid reporting hierarchies.",
+      "cited": "openstax-organizational-behavior",
+      "support": "partial",
+      "wrong_book": "yes",
+      "quote_exact": "",
+      "note": "Discusses hierarchy and span of control, including an organic alternative; not Kotter, detailed operational actions, or a general prescription of rigid reporting."
+    },
+    {
+      "n": "19",
+      "claim": "Commander’s Intent & Mission Tactics: Leaders specify the purpose/why and target end-state, leaving execution tactics to decentralized units at the point of decision.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries decentralized decisions based on senior intent at the point of decision, but not explicit purpose and target end-state specifications."
+    },
+    {
+      "n": "20",
+      "claim": "Commander’s Intent & Mission Tactics: Leaders specify the purpose/why and target end-state, leaving execution tactics to decentralized units at the point of decision.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries assigning missions without prescribing execution methods, but not the full purpose/end-state and point-of-decision formulation."
+    },
+    {
+      "n": "21",
+      "claim": "Commander’s Intent & Mission Tactics: Leaders specify the purpose/why and target end-state, leaving execution tactics to decentralized units at the point of decision.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries intent as context for initiative and coordination, but not all the task/end-state and decentralized-execution details."
+    },
+    {
+      "n": "22",
+      "claim": "Subordinates inform after acting rather than waiting for permission.",
+      "cited": "mcdp1-warfighting",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Explicitly says subordinates inform the commander after acting and do not wait for permission."
+    },
+    {
+      "n": "23",
+      "claim": "Individual Metrics & Incentives: Management by Objectives (MBO) and OKRs tie individual quantitative performance to appraisals, rewards, or corrective measures.",
+      "cited": "openstax-accounting-vol2",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries employee measures and incentives, not MBO, OKRs, appraisal, and corrective measures as a combined claim."
+    },
+    {
+      "n": "24",
+      "claim": "Individual Metrics & Incentives: Management by Objectives (MBO) and OKRs tie individual quantitative performance to appraisals, rewards, or corrective measures.",
+      "cited": "openstax-organizational-behavior",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries quantitative-output MBO for employee appraisal; does not establish OKRs or the reward/corrective-measure portions."
+    },
+    {
+      "n": "12",
+      "claim": "Restorative Just Culture: Retributive blame is rejected.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Explicitly rejects punishing and blaming accident participants."
+    },
+    {
+      "n": "25",
+      "claim": "Restorative Just Culture: Retributive blame is rejected.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Explicitly excludes blame, shame, and punishment from the FLA process."
+    },
+    {
+      "n": "26",
+      "claim": "Accountability means inviting employees to give an honest account of conditions without fear, allowing the organization to fix system flaws.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries sharing accounts to expose system strengths and weaknesses, but not the complete invitation-without-fear formulation."
+    },
+    {
+      "n": "27",
+      "claim": "Accountability means inviting employees to give an honest account of conditions without fear, allowing the organization to fix system flaws.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Contrasts punitive accountability with creating space for honest accounts and holding the agency accountable for improving conditions and the system."
+    },
+    {
+      "n": "28",
+      "claim": "Accountability means inviting employees to give an honest account of conditions without fear, allowing the organization to fix system flaws.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries honest accounts, open sharing, and management accountability for system artifacts, but does not fully state the fear-free invitation described."
+    },
+    {
+      "n": "2",
+      "claim": "Hierarchical Chain of Command: Information and issue resolution strictly follow line management channels to maintain control.",
+      "cited": "openstax-introduction-business",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Describes the chain-of-command communication practice and its concentration of managerial power, but explicitly condemns it rather than prescribing it as the textbook playbook."
+    },
+    {
+      "n": "29",
+      "claim": "Deference to Frontline Expertise: Rigid hierarchy and \"proper channels\" silence critical warnings.",
+      "cited": "caib-report-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries inhibited warnings and managers failing to provide communication routes, but not the specific rigid-hierarchy/proper-channels mechanism."
+    },
+    {
+      "n": "30",
+      "claim": "Deference to Frontline Expertise: Rigid hierarchy and \"proper channels\" silence critical warnings.",
+      "cited": "caib-report-vol1",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Explicitly describes hierarchy and proper-channel rules overriding engineers and blocking warnings and imagery requests."
+    },
+    {
+      "n": "31",
+      "claim": "Deference to Frontline Expertise: Rigid hierarchy and \"proper channels\" silence critical warnings.",
+      "cited": "caib-report-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries hierarchy silencing signals, but not the specific proper-channels mechanism."
+    },
+    {
+      "n": "32",
+      "claim": "High-reliability organizations defer to operational expertise and actively amplify weak signals.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Explicitly lists deference to expertise and preoccupation with failure; active amplification of weak signals is not stated."
+    },
+    {
+      "n": "33",
+      "claim": "Resource Utilization & Functional Silos: Departments specialize by function, focusing on maximizing local 100% resource utilization.",
+      "cited": "org-topologies-primer-2025",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries functional specialization and handoff waste, but not the 100-percent local-utilization objective."
+    },
+    {
+      "n": "34",
+      "claim": "Resource Utilization & Functional Silos: Departments specialize by function, focusing on maximizing local 100% resource utilization.",
+      "cited": "org-topologies-primer-2025",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Explicitly describes functionally specialized units and the objective of 100-percent resource utilization."
+    },
+    {
+      "n": "34",
+      "claim": "Cross-Functional Autonomous Flow: \"Resource Topologies\" create handoff waste and slow delivery.",
+      "cited": "org-topologies-primer-2025",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries narrow specialization and dependencies, but does not explicitly establish handoff waste and slow delivery."
+    },
+    {
+      "n": "35",
+      "claim": "Cross-Functional Autonomous Flow: \"Resource Topologies\" create handoff waste and slow delivery.",
+      "cited": "org-topologies-primer-2025",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries specification handovers, upfront planning, and replanning, but not the full claim of handoff waste and slow delivery."
+    },
+    {
+      "n": "36",
+      "claim": "Complete cross-functional teams with broad skill mandates deliver end-to-end outcomes autonomously.",
+      "cited": "org-topologies-primer-2025",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Defines complete archetypes by all necessary skills and mandates, independent delivery of customer value, and outcome/flow orientation."
+    },
+    {
+      "n": "37",
+      "claim": "Complete cross-functional teams with broad skill mandates deliver end-to-end outcomes autonomously.",
+      "cited": "org-topologies-primer-2025",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries complete cross-functional delivery teams and removing dependencies, but emphasizes feature outputs and local efficiency rather than broad mandates and autonomous outcomes."
+    },
+    {
+      "n": "8",
+      "claim": "Maneuver Warfare (MCDP 1): Emphasizes speed, fluidity, improvisation, and breaking away from outlived plans or rigid standard operating procedures when battlefield conditions shift.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries speed, initiative, and coping with chaos, but not the full improvisation and departure-from-plans-or-SOPs formulation."
+    },
+    {
+      "n": "9",
+      "claim": "Maneuver Warfare (MCDP 1): Emphasizes speed, fluidity, improvisation, and breaking away from outlived plans or rigid standard operating procedures when battlefield conditions shift.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries tempo, adaptation, and abandoning obsolete plans, but not the specific departure from standard operating procedures."
+    },
+    {
+      "n": "38",
+      "claim": "Maneuver Warfare (MCDP 1): Emphasizes speed, fluidity, improvisation, and breaking away from outlived plans or rigid standard operating procedures when battlefield conditions shift.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries improvisation and actions diverging from the original scheme, but not the speed or procedural-compliance parts."
+    },
+    {
+      "n": "39",
+      "claim": "Nuclear Safety (DOE HPI): Prioritizes strict procedural adherence, mandatory self-checking, and administrative controls to prevent active human errors in high-hazard processing environments.",
+      "cited": "doe-hpi-handbook-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Discusses error-likely conditions and administrative/engineered hazard controls, not strict adherence or mandatory self-checking."
+    },
+    {
+      "n": "40",
+      "claim": "Nuclear Safety (DOE HPI): Prioritizes strict procedural adherence, mandatory self-checking, and administrative controls to prevent active human errors in high-hazard processing environments.",
+      "cited": "doe-hpi-handbook-vol1",
+      "support": "none",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "The chunk says procedures, self-checking, and verification are less reliable and favors engineered controls; it does not support the asserted prioritization."
+    },
+    {
+      "n": "41",
+      "claim": "Nuclear Safety (DOE HPI): Prioritizes strict procedural adherence, mandatory self-checking, and administrative controls to prevent active human errors in high-hazard processing environments.",
+      "cited": "doe-hpi-handbook-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries high expectations and error prevention, but not mandatory self-checking and administrative controls as stated."
+    },
+    {
+      "n": "41",
+      "claim": "High-Reliability Engineering (DOE HPI): Views strict compliance with established standards as essential for communicative clarity and hazard control.",
+      "cited": "doe-hpi-handbook-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries maintaining standards to communicate the value of error prevention and avoid unsafe practices, not communicative clarity as claimed."
+    },
+    {
+      "n": "42",
+      "claim": "Wildfire Learning Reviews (LFUO / Just Culture): Acknowledges that experience naturally teaches front-line workers which rules must be shortcutted to achieve efficiency in real-world complexity.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Says experience teaches which rules can be shortcut; the answer strengthens this to rules that must be shortcutted."
+    },
+    {
+      "n": "13",
+      "claim": "Attempting to fix bad outcomes by layering on more rules or demanding total compliance is viewed as counterproductive and naive.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Criticizes individual accountability for systemic failures and oversimplification, but does not discuss adding rules or demanding total compliance."
+    },
+    {
+      "n": "43",
+      "claim": "Attempting to fix bad outcomes by layering on more rules or demanding total compliance is viewed as counterproductive and naive.",
+      "cited": "lfuo-learning-review-guide-2024",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Critiques the assumption that rules and compliance restore safety, but the chunk ends before its conclusion and does not carry all the added total-compliance and naive qualifications."
+    },
+    {
+      "n": "19",
+      "claim": "Military Mission Command: Places ultimate operational authority and risk balancing in the hands of the line commander.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Describes decentralized command framed by senior intent, not ultimate line-command authority and risk balancing as stated."
+    },
+    {
+      "n": "21",
+      "claim": "Military Mission Command: Places ultimate operational authority and risk balancing in the hands of the line commander.",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Describes unity through intent and coordination, but not ultimate operational authority or risk balancing."
+    },
+    {
+      "n": "30",
+      "claim": "Because program managers are inherently driven by cost and schedule pressures (e.g., NASA’s launch commitments), high-risk systems require an independent Technical Safety Authority with separate fundi",
+      "cited": "caib-report-vol1",
+      "support": "none",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Describes hierarchy blocking engineering concerns and reversing the burden of proof; contains neither cost/schedule pressure nor the independent-authority requirement."
+    },
+    {
+      "n": "44",
+      "claim": "Because program managers are inherently driven by cost and schedule pressures (e.g., NASA’s launch commitments), high-risk systems require an independent Technical Safety Authority with separate fundi",
+      "cited": "caib-report-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries launch-schedule pressure, but not independent technical authority, separate funding, or veto power."
+    },
+    {
+      "n": "45",
+      "claim": "Because program managers are inherently driven by cost and schedule pressures (e.g., NASA’s launch commitments), high-risk systems require an independent Technical Safety Authority with separate fundi",
+      "cited": "caib-report-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries schedule-driven normalization and a need for safety-expert authority, but not the specified independent funding or veto structure."
+    },
+    {
+      "n": "46",
+      "claim": "Because program managers are inherently driven by cost and schedule pressures (e.g., NASA’s launch commitments), high-risk systems require an independent Technical Safety Authority with separate fundi",
+      "cited": "caib-report-vol1",
+      "support": "none",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Discusses bureaucratic response and the basis for organizational principles; does not state the independent-authority, funding, veto, or cost/schedule claim."
+    },
+    {
+      "n": "19",
+      "claim": "By publishing clear Commander’s Intent—defining the strategic context, purpose, and required outcome—subordinates can exercise independent initiative to solve unexpected problems without waiting for p",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries independent decisions based on senior intent without waiting up the chain, but not the full context, purpose, and required-outcome specification."
+    },
+    {
+      "n": "20",
+      "claim": "By publishing clear Commander’s Intent—defining the strategic context, purpose, and required outcome—subordinates can exercise independent initiative to solve unexpected problems without waiting for p",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries freedom to execute an assigned mission and initiative, but not the complete statement of strategic context and intent."
+    },
+    {
+      "n": "22",
+      "claim": "By publishing clear Commander’s Intent—defining the strategic context, purpose, and required outcome—subordinates can exercise independent initiative to solve unexpected problems without waiting for p",
+      "cited": "mcdp1-warfighting",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries adaptation without permission, but not defining intent through strategic context, purpose, and outcome."
+    },
+    {
+      "n": "23",
+      "claim": "When quarterly targets are missed or a product launch stumbles, traditional performance management seeks individual fault.",
+      "cited": "openstax-accounting-vol2",
+      "support": "none",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Recommends motivating employees through suitable measures and incentives; says nothing about seeking individual fault after missed targets or launches."
+    },
+    {
+      "n": "47",
+      "claim": "Following the U.S. Army AAR methodology, organizations establish candid, professional discussions immediately following key events.",
+      "cited": "tc-25-20-army-aar",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Defines professional discussions of events, but does not specify immediate timing or all the candor qualifications."
+    },
+    {
+      "n": "48",
+      "claim": "Following the U.S. Army AAR methodology, organizations establish candid, professional discussions immediately following key events.",
+      "cited": "tc-25-20-army-aar",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries immediate timing and participant discussion, but not the complete candid-professional-discussion definition."
+    },
+    {
+      "n": "47",
+      "claim": "By focusing on comparing what happened against what was intended across ranks, leaders uncover operational friction without triggering defensive behaviors.",
+      "cited": "tc-25-20-army-aar",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries discovering what happened and why for soldiers, leaders, and units, but not comparison against intent or the nondefensive result."
+    },
+    {
+      "n": "49",
+      "claim": "By focusing on comparing what happened against what was intended across ranks, leaders uncover operational friction without triggering defensive behaviors.",
+      "cited": "tc-25-20-army-aar",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries candid participant learning rather than a one-sided critique, but not the intended-versus-actual comparison or all the claimed effects."
+    },
+    {
+      "n": "50",
+      "claim": "By focusing on comparing what happened against what was intended across ranks, leaders uncover operational friction without triggering defensive behaviors.",
+      "cited": "tc-25-20-army-aar",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries discussion of plans and actual events and says open questions are less likely to provoke defensiveness; the answer turns this into an unqualified absence of defensive behavior."
+    },
+    {
+      "n": "33",
+      "claim": "Organizing 300 people into functional silos (Marketing, Sales, Engineering, QA) optimizes for \"resource utilization\" but kills organizational tempo through constant dependencies and handoffs.",
+      "cited": "org-topologies-primer-2025",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries functional handoffs and slow delivery, but not the resource-utilization objective or the specific 300-person-company application."
+    },
+    {
+      "n": "34",
+      "claim": "Organizing 300 people into functional silos (Marketing, Sales, Engineering, QA) optimizes for \"resource utilization\" but kills organizational tempo through constant dependencies and handoffs.",
+      "cited": "org-topologies-primer-2025",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries utilization and specialization dependencies, but not the whole claim about handoffs and tempo in a 300-person firm."
+    },
+    {
+      "n": "36",
+      "claim": "Shifting toward complete, cross-functional units (Adaptive/Delivery Topologies) grants teams end-to-end mandates to deliver value directly to customers.",
+      "cited": "org-topologies-primer-2025",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries independent customer-value delivery by complete archetypes, but not the named Adaptive/Delivery topology classification or the entire restructuring claim."
+    },
+    {
+      "n": "37",
+      "claim": "Shifting toward complete, cross-functional units (Adaptive/Delivery Topologies) grants teams end-to-end mandates to deliver value directly to customers.",
+      "cited": "org-topologies-primer-2025",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries complete cross-functional Delivery units and fast flow, but not Adaptive topologies or broad end-to-end customer-value mandates; its emphasis is feature output."
+    },
+    {
+      "n": "45",
+      "claim": "At 300 people, executive teams easily succumb to schedule-driven blind spots.",
+      "cited": "caib-report-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries NASA schedule pressure hiding danger, not a finding about executive teams in 300-person companies."
+    },
+    {
+      "n": "51",
+      "claim": "At 300 people, executive teams easily succumb to schedule-driven blind spots.",
+      "cited": "caib-report-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries NASA schedule and budget pressures distorting risk decisions, not the asserted 300-person threshold."
+    },
+    {
+      "n": "30",
+      "claim": "In NASA’s Columbia management meetings, engineers concerned about foam strikes were required to prove a safety flight threat existed before management would act.",
+      "cited": "caib-report-vol1",
+      "support": "supports",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Explicitly states that Columbia engineers had to demonstrate mandatory need and prove unsafe flight rather than management having to prove safety."
+    },
+    {
+      "n": "11",
+      "claim": "Leaders running mid-sized companies must actively solicit dissenting frontline voices, audit latent operational weaknesses, and ensure market or launch deadlines do not override technical reality.",
+      "cited": "doe-hpi-handbook-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries finding and eliminating latent organizational weaknesses, but not soliciting dissent or resisting deadlines."
+    },
+    {
+      "n": "29",
+      "claim": "Leaders running mid-sized companies must actively solicit dissenting frontline voices, audit latent operational weaknesses, and ensure market or launch deadlines do not override technical reality.",
+      "cited": "caib-report-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries leaders providing routes for engineers to challenge management, but not all the latent-weakness and deadline safeguards."
+    },
+    {
+      "n": "52",
+      "claim": "Leaders running mid-sized companies must actively solicit dissenting frontline voices, audit latent operational weaknesses, and ensure market or launch deadlines do not override technical reality.",
+      "cited": "caib-report-vol1",
+      "support": "partial",
+      "wrong_book": "no",
+      "quote_exact": "",
+      "note": "Carries soliciting dissent and alternative perspectives, but not auditing latent weaknesses or preventing deadline pressure from overriding technical reality."
+    }
+  ],
+  "ideas": [
+    {
+      "idea": "Commander's intent and mission tactics: state the task and its purpose, prescribe method only as far as coordination needs, against cascading KPIs that prescribe outputs",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "Subordinates should understand intent two levels up",
+      "present": "no",
+      "credited_ok": "no"
+    },
+    {
+      "idea": "Friction and uncertainty are the normal condition; plans that assume otherwise deny the nature of the work",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "No zero-defects mentality: be lenient on bold errors and severe on inaction, against appraisal systems that punish visible mistakes",
+      "present": "no",
+      "credited_ok": "no"
+    },
+    {
+      "idea": "Deference to expertise and a reluctance to simplify: decisions migrate to whoever knows most, not to rank",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "Preoccupation with failure: treat weak signals and near-misses as data, against dashboards that report green",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "Normalization of deviance and schedule pressure: a success record is not evidence of safety; Columbia's foam",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "An independent technical authority or safety function with its own line, not one that reports to the programme it checks",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "Work as imagined versus work as done; learn why the action made sense at the time, not who broke the rule",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "The after-action review: leaders enter the discussion only when necessary, it is permissible to disagree, no critique or lecture",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "What the textbooks teach that the doctrine contradicts: management by objectives and goal cascades; control systems; change managed through a programme",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "A disagreement among the doctrine sources: the war-fighting doctrine prizes tempo, boldness and accepting risk; the high-reliability sources prize redundancy, verification and stopping when unsure",
+      "present": "yes",
+      "credited_ok": "yes"
+    },
+    {
+      "idea": "Simple, complicated, complex: the playbook fits the complicated case and fails in the complex one",
+      "present": "no",
+      "credited_ok": "no"
+    }
+  ],
+  "sources_cited": 10,
+  "note": "Most stacked chunks support only fragments of compound claims; textbook positions are caricatured, the DOE self-checking claim reverses its chunk, and independent-authority and 300-person assertions exceed the cited chunks.\nThree Kotter attributions cite OpenStax secondary sources; full credited sources carry ten key ideas, but two-level intent, no-zero-defects/inaction, and the simple/complicated/complex distinction are absent. No quotations of five or more words."
+}

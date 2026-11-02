@@ -23,10 +23,10 @@ Sol (`gpt-6.1-sol`) is from a different model family from Claude, and wrote none
 
 ## What held across the rounds
 
-**Where Gemini cites, its markers land near the claim, not on it.**
-- In the case-citations round, 19% of Gemini's markers opened a chunk that carries the claim as stated, under Sol. The rest mostly carried part of it, or a weaker form.
-- `answer-from-corpus`'s credits carried their claim 83% of the time under Sol and 94% under the Claude scorers. Verbatim mode's carried it 91% and 96% (round 3).
-- Outright misses were rare on both sides: Gemini 1–7% of markers per case under Sol, grounded-forge 0–2%.
+**Where Gemini cites, its markers land near the claim, not on it.** A Gemini citation tells the reader where the topic lives; a grounded-forge citation tells them where the claim lives.
+- **The like-for-like comparison is verbatim mode.** A verbatim-mode pointer names one passage, the same grain as a Gemini marker's chunk. On the same cases, 91% of verbatim mode's citations carried their claim as stated under Sol and 96% under the Claude scorers (round 3), against 19% of Gemini's markers under Sol (case-citations round). Most of Gemini's other markers carried part of the claim, or a weaker form of it.
+- **`answer-from-corpus`'s figure is at a coarser grain.** Its credits carried their claim 83% of the time under Sol and 94% under the Claude scorers. But a credit names a whole source, and the scorer searched the book for the claim, while a Gemini marker names one chunk. "Does it carry the claim?" is an easier test for a book than for a chunk, so 83% against 19% overstates the gap somewhat.
+- **Outright misses were rare on both sides:** Gemini 1–7% of markers per case under Sol, grounded-forge 0–2%. Gemini's problem is claims that go a little further than their passages, not invention.
 
 **Asked for a memo, Gemini often doesn't cite at all.** In 7 of 10 as-asked runs, it wrote the memo as a Studio report with no citation markers.
 

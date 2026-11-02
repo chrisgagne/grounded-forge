@@ -36,10 +36,9 @@ The fix is to move the quote out of the model's hands. The model names the span;
                       Default 1 for the operator's own use; the build profile's
                       max_visibility ceiling clamps copyrighted sources to paraphrase
                       in anything that ships.
---context UNIT[:N]    How much surrounding source text a click reveals.
-                      chars:600, words:120, paras:1 (default), pages:1.
-                      The unit is a window on the converted file; pages resolve
-                      through the page markers the converter kept.
+--context paras:N     How much surrounding source text a click reveals: the
+                      passage's paragraph and N paragraphs either side, N = 0, 1
+                      (default) or 2. The window is on the converted file.
 ```
 
 ## Placeholder grammar
@@ -80,7 +79,8 @@ The preview renders `report.json` as a page in the G design system, with Tufte's
 - Click a span: its sidenote shows the span inside its context window at the current `--context` unit, with the locator and page. The unit can be changed on the page.
 - Click "more": the sidenote expands to the provenance stack, one row per layer, each row the actual line from that file, with the evidence marker the deep reference gives it.
 - Charts are bound to numbers the source states, not to numbers the model remembers. Each chart names the passage it is drawn from and, where the source has its own figure, shows that figure beside the redraw with its caption and page.
-- Three figures stand above the prose: where in each source the report's spans sit (a strip per source, chapter ticks, one mark per span), the share of the page's words that are the authors' own, and the coverage of the question's sub-claims by source.
+- Three figures stand above the prose: where in each source the report's spans sit (a strip per source, the most-used first, one mark per span), the share of the page's words that are the authors' own, and which sources each part of the answer draws on. With many sources, the two source figures show the top 12 and expand to all.
+- A box above the answer says how well the corpus fits the question (`corpus_fit`): how much it answers and from where, where it is thin, and two or three works outside it that would close the gaps, to check with `finding-resources` before ingesting.
 - The trace footer is the one the skill writes today, plus `spans: N placed, M paraphrased by licence, K missing`.
 
 ## What this does not change

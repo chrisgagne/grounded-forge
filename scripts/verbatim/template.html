@@ -33,6 +33,10 @@ h1{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5vw,58px
 .flags input[type=range]{width:160px;accent-color:var(--g-action)}
 .flags select{font:inherit;font-size:15px;color:var(--g-ink);border:1px solid var(--g-rule);background:#fff;padding:2px 6px;border-radius:3px}
 .flags input[type=checkbox]{accent-color:var(--g-action);width:16px;height:16px}
+.how{font-size:15px;line-height:1.5;color:var(--g-secondary);max-width:var(--measure);margin:6px 0 4px}
+.how summary{cursor:pointer;color:var(--g-action)}
+.how p{margin:6px 0}
+.how b{color:var(--g-ink);font-weight:600}
 .key{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:15px;color:var(--g-secondary);margin:10px 0 0}
 .key .sw{display:inline-block;width:38px;height:0;border-bottom:2px solid;vertical-align:middle;margin-right:8px}
 .key .sw.dash{border-bottom-style:dashed}
@@ -83,7 +87,7 @@ h2{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3vw,34px
 .side.inline{position:static;width:auto;max-width:600px;margin:0 0 1.4em;padding:10px 0 0}
 .side .where{font-family:var(--font-display);font-size:15px;color:var(--g-secondary);margin-bottom:6px}
 .side .where b{color:var(--g-ink);font-weight:600}
-.side .ctx{color:var(--g-secondary);max-height:420px;overflow:auto}
+.side .ctx{position:relative;color:var(--g-secondary);max-height:420px;overflow:auto}
 .side .ctx mark{background:var(--t);color:var(--g-ink);box-shadow:0 0 0 2px var(--t);border-radius:2px}
 .side .ctx p{margin:0 0 .7em;max-width:none}
 .side .verify{margin:8px 0 0;font-size:14px;display:flex;flex-wrap:wrap;gap:4px 16px}
@@ -129,6 +133,16 @@ h2{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3vw,34px
 #pnghost .box{position:absolute;pointer-events:none}   /* the highlight is drawn into the PNG; the box only marks where to scroll */
 #epubhost{height:100%;background:#fff;margin:0 auto;max-width:900px}
 
+.fit{border:1px solid var(--g-rule);border-top:3px solid var(--g-cat-1);padding:14px 18px 6px;margin:0 0 1.8em;max-width:var(--measure);font-size:16px;line-height:1.55}
+.fit .figtitle{margin-bottom:6px}
+.fit p{max-width:none;margin:0 0 .8em}
+.fit h3{font-family:var(--font-display);font-weight:600;font-size:17px;margin:12px 0 4px}
+.fit ul{margin:0 0 .8em;padding-left:20px}
+.fit li{margin:0 0 .35em}
+.fit .run{color:var(--g-secondary);font-size:15px}
+.fit code{font-family:ui-monospace,Menlo,monospace;font-size:13px}
+.showall{font:inherit;font-size:15px;color:var(--g-action);background:none;border:1px solid var(--g-rule);border-radius:3px;padding:3px 10px;cursor:pointer;margin-top:6px}
+.showall:hover{border-color:var(--g-action)}
 footer{margin-top:48px;border-top:1px solid var(--g-rule);padding-top:12px;font-size:14px;color:var(--g-secondary);font-style:italic;max-width:var(--measure)}
 footer code{font-style:normal;font-family:ui-monospace,Menlo,monospace;font-size:12px}
 </style>
@@ -140,12 +154,19 @@ footer code{font-style:normal;font-family:ui-monospace,Menlo,monospace;font-size
   <h1 id="q"></h1>
   <div class="meta" id="meta"></div>
   <div class="flags">
-    <label><code>--verbatim</code> <input type="range" id="verb" min="0" max="1" step="0.05" value="1"> <code id="verbval">1.00</code></label>
-    <label><code>--joins</code> <select id="joins"><option value="essay">essay</option><option value="minimal">minimal</option></select></label>
-    <label><code>--context</code> <select id="ctx"><option value="paras:1">paras:1</option><option value="chars:600">chars:600</option><option value="words:120">words:120</option><option value="pages:1">pages:1</option></select></label>
-    <label><input type="checkbox" id="ship"> as it would ship <code>max_visibility: open-nc</code></label>
-    <label><input type="checkbox" id="passages"> show pointed paraphrases as the author's passage</label>
+    <label title="--verbatim">Quotations kept <input type="range" id="verb" min="0" max="1" step="0.05" value="1"> <span id="verbval">100%</span></label>
+    <label title="--joins">The model's own sentences <select id="joins"><option value="essay">full prose</option><option value="minimal">bare links</option></select></label>
+    <label title="--context">Source shown around a quotation <select id="ctx"><option value="paras:0">its paragraph</option><option value="paras:1">one paragraph either side</option><option value="paras:2">two paragraphs either side</option></select></label>
+    <label title="--ship"><input type="checkbox" id="ship"> As it would ship (copyrighted and private sources paraphrased)</label>
+    <label title="--passages"><input type="checkbox" id="passages"> Swap each paraphrase for the author's passage</label>
   </div>
+  <details class="how"><summary>What these controls do</summary>
+    <p><b>Quotations kept.</b> The share of quotations shown in the author's words, most important first. Below 100%, the rest show as the model's paraphrase of them.</p>
+    <p><b>The model's own sentences.</b> Everything on the page that isn't an author's words or a paraphrase of a passage is the model's: the sentences that introduce a passage, link one to the next, and say what they mean for the question. <i>Full prose</i> reads as an essay. <i>Bare links</i> cuts those sentences to a few words, so nearly everything left is the sources.</p>
+    <p><b>Source shown around a quotation.</b> Click any quotation or paraphrase and the margin shows the passage in the source text, highlighted. This sets how much of the text around it you see.</p>
+    <p><b>As it would ship.</b> A distribution built to share carries only openly licensed wording, so quotations from copyrighted and private sources turn into the model's paraphrase.</p>
+    <p><b>Swap each paraphrase for the author's passage.</b> Where the model wrote its own sentence about a passage (dashed underline, tagged <i>paraphrase of a passage</i>), show the passage itself in its place. Either way, a click opens the passage.</p>
+  </details>
   <div class="key" id="key"></div>
 </header>
 
@@ -153,12 +174,12 @@ footer code{font-style:normal;font-family:ui-monospace,Menlo,monospace;font-size
   <figure class="wide">
     <div class="figtitle">Where the report draws from</div>
     <div id="sourcemap"></div>
-    <figcaption>One strip per source, length by word count, chapter ticks beneath. Each dot is a span placed in this report, at its line in the converted text. Hover a dot for the passage; the colour is the corpus.</figcaption>
+    <figcaption>One row per source, the most-used first. The grey strip is the whole source, drawn to scale by word count. Each dot is a passage this report uses, placed where it sits in the source. Hover a dot for the passage and the chapter it sits in, click it to jump there.</figcaption>
   </figure>
   <figure>
     <div class="figtitle">Coverage of the question</div>
     <div id="coverage"></div>
-    <figcaption>Each row is a sub-claim of the answer; each column a source. A filled dot is the author's own words on the page, a ring is the model's paraphrase of them, hatching is a span the resolver could not place.</figcaption>
+    <figcaption id="covcap"></figcaption>
   </figure>
   <figure>
     <div class="figtitle">Whose words</div>
@@ -202,7 +223,7 @@ function showPng(){
   const p = V.pages[V.pi], host = el("pnghost"); const w = Math.min(el("vbody").clientWidth-32, 880);
   host.style.width = w+"px";
   host.innerHTML = `<img src="${p.png}" alt="page ${p.n}">` + (p.boxes||[]).map(b=>`<div class="box" style="left:${(100*b[0]).toFixed(2)}%;top:${(100*b[1]).toFixed(2)}%;width:${(100*(b[2]-b[0])).toFixed(2)}%;height:${(100*(b[3]-b[1])).toFixed(2)}%"></div>`).join("");
-  const hit = p.n===V.sp.hit_page, epub = V.sp.page_layout==="epub-reflow";
+  const hit = p.n===V.sp.hit_page || (p.boxes||[]).length>0, epub = V.sp.page_layout==="epub-reflow";
   el("vwhere").textContent = `${V.sp.locator||""} · ${epub?"EPUB page":"PDF page"} ${p.n}${p.folio?` · printed p. ${p.folio}`:""}${hit?" · the quote is highlighted":""}`;
   vstatus(`${epub?"The EPUB has no fixed pages; this is the book laid out at a fixed page size by the renderer, so the page number is the renderer's, not the publisher's. ":""}Pages ${V.pages[0].n} to ${V.pages[V.pages.length-1].n} are pre-rendered in this folder.`);
   el("vprev").disabled = V.pi===0; el("vnext").disabled = V.pi===V.pages.length-1;
@@ -228,7 +249,16 @@ const CORPUS = {}; Object.entries(BUNDLE.corpora).sort((a,b)=>(a[1].ceiling==="c
   .forEach(([k,v],i)=>{ CORPUS[k] = {...PALETTE[i%PALETTE.length], label:`${k} (${v.tier==="corpus.local"?"private":"public"}, ${v.ceiling})`}; });
 const colourOf = sp => CORPUS[corpusOf(sp)] || PALETTE[0];
 const SHIP_CEILING = ["open","open-nc"];
-const state = {verbatim:1, ctx:"paras:1", ship:false, passages:false, open:null, joins:"essay", ...INIT};
+const state = {verbatim:1, ctx:"paras:1", ship:false, passages:false, open:null, joins:"essay", allSrc:false, allCov:false, ...INIT};
+if(!/^paras:[012]$/.test(state.ctx)) state.ctx = state.ctx==="pages:1" ? "paras:2" : "paras:1";   // a report rendered before the three-way context control
+const SHOW = 12;   // rows each source figure shows before "show all"
+const PLACED = {}; for(const s of Object.values(BUNDLE.spans)) if(s.verified) PLACED[s.source] = (PLACED[s.source]||0)+1;
+const srcsByUse = () => Object.entries(BUNDLE.sources).map(([id,s])=>({id,...s,n:PLACED[id]||0})).sort((a,b)=>b.n-a.n||b.words-a.words);
+const clip = (t,k) => t.length>k ? t.slice(0,k-1).trimEnd()+"…" : t;
+function showAll(host, total, key, redraw){
+  if(total<=SHOW) return;
+  host.append("button").attr("class","showall").text(state[key]?`Show the top ${SHOW}`:`Show all ${total} sources`).on("click",()=>{ state[key]=!state[key]; redraw(); });
+}
 const PH = {}; for(const sec of REPORT.sections) for(const j of sec.joins) if(typeof j!=="string") PH[j.span]=j;
 const joinsOf = sec => (state.joins==="minimal" && sec.joins_min) ? sec.joins_min.map(j=>typeof j==="string"?j:{...PH[j.span],...j}) : sec.joins;
 const spanOf = id => BUNDLE.spans[id] || {status:"not-found"};
@@ -243,7 +273,8 @@ function dropDoubledLead(join, para){
 const esc = s => (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const words = s => (s||"").trim().split(/\s+/).filter(Boolean).length;
 const surname = src => { if(src.short) return src.short; const a=(src.author||"").split(/,|\band\b|&/)[0].trim(); const parts=a.split(/\s+/); return a.startsWith("OpenStax")?"OpenStax":parts[parts.length-1]; };
-const shortTitle = src => { let t=(src.title||src.slug).split(":")[0]; t=t.replace(/^The /,""); return t.length>30? t.slice(0,28)+"…" : t; };
+// a series title ("Program Level 3: … — Session 1: Engaging the Heart") says less than its part's own name
+const shortTitle = src => { let t=(src.title||src.slug); const part = t.match(/\b(?:Session|Part|Chapter|Module)\s+\w+:\s*(.+)$/i); t = part ? part[1] : t.split(/ [—–] /).pop(); t=t.split(":")[0].replace(/^The /,""); return t.length>30? t.slice(0,28)+"…" : t; };
 
 // mode per span: "verbatim" | "para" | "missing"; reason for para
 function pageCheckNote(sp){
@@ -273,13 +304,14 @@ function render(){
   document.getElementById("q").textContent = REPORT.question;
   document.getElementById("meta").innerHTML = `Generated ${BUNDLE.generated} · protocol ${REPORT.mode.protocol} · lens ${REPORT.mode.lens} · corpora ${REPORT.mode.corpora.join(", ")} · ${Object.keys(BUNDLE.sources).length} sources, ${Object.keys(BUNDLE.spans).length} spans`;
   document.getElementById("key").innerHTML = Object.entries(CORPUS).map(([k,v])=>`<span><span class="v q" style="--c:${v.c};--t:${v.t};cursor:default;font-size:14px">the author's words</span> ${v.label}</span>`).join("")
-    + `<span><span class="v para" style="--c:var(--g-secondary);cursor:default;font-size:14px">the model's paraphrase<span class="tag">paraphrase</span></span></span><span><span class="sw hatch"></span>could not be placed</span>`;
+    + `<span><span class="v para" style="--c:var(--g-secondary);cursor:default;font-size:14px">the model's paraphrase<span class="tag">paraphrase</span></span></span>`
+    + (Object.values(BUNDLE.spans).some(s=>!s.verified) ? `<span><span class="sw hatch"></span>could not be placed</span>` : "");
   renderArticle(); renderSourceMap(); renderCoverage(); renderInk(); renderTrace();
 }
 
 function renderArticle(){
   const art = document.getElementById("article");
-  let h = `<p class="note">${esc(REPORT.coverage_note)}</p>`;
+  let h = fitBox();
   for(const sec of REPORT.sections){
     h += `<h2>${esc(sec.heading)}</h2><p>`;
     const js = joinsOf(sec);
@@ -300,18 +332,23 @@ function renderArticle(){
   if(state.open && typeof state.openFig!=="number"){ const el = art.querySelector(`.v[data-id="${state.open}"]`); if(el) openSide(el); }
 }
 
+// ---------- how well the corpus fits the question ----------
+function fitBox(){
+  const f = REPORT.corpus_fit, title = `<div class="figtitle">How well the corpus fits this question</div>`;
+  if(!f) return REPORT.coverage_note ? `<div class="fit">${title}<p>${esc(REPORT.coverage_note)}</p></div>` : "";
+  const gaps = (f.gaps||[]).map(g=>`<li><b>${esc(g.gap)}.</b> ${esc(g.detail||"")}</li>`).join("");
+  const cands = (f.candidates||[]).map(c=>`<li><b>${esc(c.work)}</b>${c.closes?`: ${esc(c.closes)}`:""}</li>`).join("");
+  return `<div class="fit">${title}<p>${esc(f.summary||"")}</p>`
+    + (gaps ? `<h3>Where it is thin</h3><ul>${gaps}</ul>` : "")
+    + (cands ? `<h3>Sources that could close the gaps</h3><ul>${cands}</ul><p class="run">Named by the model from general knowledge, not found in the corpus. Run <code>finding-resources</code> on them to check licence, format and fit before ingesting any.</p>` : "")
+    + `</div>`;
+}
+
 // ---------- sidenote: the quote in its own paragraph ----------
 function contextWindow(sp){
-  const before = sp.context?.before||"", after = sp.context?.after||"", lead = sp.context?.lead||"", tail = sp.context?.tail||"";
-  const [unit,nRaw] = state.ctx.split(":"); const n = +nRaw||1;
-  const lastParas = (s,k)=>s.split(/\n\s*\n|\n/).filter(x=>x.trim()).slice(-k).join("\n");
-  const firstParas = (s,k)=>s.split(/\n\s*\n|\n/).filter(x=>x.trim()).slice(0,k).join("\n");
-  // chars and words count out from the span across its paragraph and into the neighbours; paras and pages add whole paragraphs around the span's own
-  const fullB = [before, lead].filter(Boolean).join("\n\n"), fullA = [tail, after].filter(Boolean).join("\n\n");
-  if(unit==="chars") return {b:"", a:"", lead:fullB.slice(-n).replace(/\s+/g," "), tail:fullA.slice(0,n).replace(/\s+/g," "), note:`${n} characters either side`};
-  if(unit==="words"){ const bw=fullB.split(/\s+/).filter(Boolean), aw=fullA.split(/\s+/).filter(Boolean); return {b:"", a:"", lead:bw.slice(-n).join(" "), tail:aw.slice(0,n).join(" "), note:`${n} words either side`}; }
-  if(unit==="pages") return {b:before, a:after, lead, tail, note: sp.page? `page ${sp.page}; the converter kept this page's text as two paragraphs either side` : "no page marker kept by the converter; showing the paragraphs the bundle holds"};
-  return {b:lastParas(before,n), a:firstParas(after,n), lead, tail, note:`the span's paragraph and ${n} either side`};
+  const c = sp.context||{}, n = +String(state.ctx).split(":")[1] || 0;
+  const paras = t => (t||"").split(/\n\s*\n|\n/).filter(x=>x.trim());
+  return {b: n ? paras(c.before).slice(-n) : [], a: n ? paras(c.after).slice(0,n) : [], lead: c.lead||"", tail: c.tail||""};
 }
 function closeSide(){ document.querySelectorAll(".side").forEach(e=>e.remove()); document.querySelectorAll(".v.open, .chart.open").forEach(e=>e.classList.remove("open")); state.open=null; state.openFig=false; }
 function toggleSide(el){ const was = el.classList.contains("open"); closeSide(); if(!was) openSide(el); }
@@ -328,7 +365,7 @@ function openSide(el){
     side.innerHTML = `<button class="close" title="close">×</button>
       <div class="where"><b>${esc(src.author)}</b>, <i>${esc(src.title)}</i> (${esc(String(src.year))}) · ${esc(sp.locator||"")}${sp.page?` · p. ${esc(String(sp.page))}`:""}${md.m!=="verbatim"?` · <span style="color:var(--g-cat-1)">shown on the page as paraphrase</span>`:""}</div>
       ${pageCheckNote(sp)}
-      <div class="ctx">${w.b?`<p>…${esc(w.b)}</p>`:""}<p>${esc(w.lead)}${w.lead?" ":""}<mark>${esc(sp.text)}</mark>${w.tail?" ":""}${esc(w.tail)}</p>${w.a?`<p>${esc(w.a)}…</p>`:""}</div>
+      <div class="ctx">${w.b.map((t,i)=>`<p>${i?"":"…"}${esc(t)}</p>`).join("")}<p>${esc(w.lead)}${w.lead?" ":""}<mark>${esc(sp.text)}</mark>${w.tail?" ":""}${esc(w.tail)}</p>${w.a.map((t,i)=>`<p>${esc(t)}${i===w.a.length-1?"…":""}</p>`).join("")}</div>
       <div class="verify">${origButton(sp,src)}${pageLink}${convLink(sp,src)}<button class="more">provenance ▸</button></div>
       <code class="cmd">grep -nF '${esc(anchor.replace(/'/g,"'\\''"))}' '${esc(src.converted)}'</code>
       <div class="stack">${stackRows(sp,src)}</div>`;
@@ -342,6 +379,8 @@ function openSide(el){
     const top = el.getBoundingClientRect().top - margin.getBoundingClientRect().top;
     side.style.top = Math.max(0,top-6)+"px";
   } else { side.classList.add("inline"); el.closest("p").after(side); }
+  const ctx = side.querySelector(".ctx"), mk = ctx && ctx.querySelector("mark");
+  if(mk) ctx.scrollTop = Math.max(0, mk.offsetTop - Math.max(8, (ctx.clientHeight - mk.offsetHeight)/2));
 }
 function convLink(sp,src){
   if(!src.converted_local) return `<span>converted text, line ${sp.line}</span>`;
@@ -376,37 +415,43 @@ function hideTip(){ tip.style.display="none"; }
 // ---------- figure 1: source map ----------
 function renderSourceMap(){
   const el = d3.select("#sourcemap"); el.selectAll("*").remove();
-  const srcs = Object.entries(BUNDLE.sources).map(([id,s])=>({id,...s})).sort((a,b)=>a.corpus.localeCompare(b.corpus)||b.words-a.words);
-  const W = Math.round(Math.max(0, el.node().getBoundingClientRect().width || document.querySelector(".page").getBoundingClientRect().width - 40) || 760) /* the page is hidden, width 0, while the page viewer is open */, narrow = W < 900, labelW = narrow ? 0 : 300, rightW = 80, rowH = narrow ? 44 : 30, top = 8;
+  const all = srcsByUse(), srcs = state.allSrc ? all : all.slice(0,SHOW);
+  const W = Math.round(Math.max(0, el.node().getBoundingClientRect().width || document.querySelector(".page").getBoundingClientRect().width - 40) || 760) /* the page is hidden, width 0, while the page viewer is open */, narrow = W < 900, labelW = narrow ? 0 : 300, rightW = narrow ? 0 : 170, rowH = narrow ? 52 : 30, top = 8;
   const H = top + srcs.length*rowH + 10;
   const svg = el.append("svg").attr("width",W).attr("height",H).attr("viewBox",`0 0 ${W} ${H}`).style("max-width","100%").attr("role","img").attr("aria-label","Where each placed span sits in its source");
-  const x = d3.scaleLinear().domain([0, d3.max(srcs,s=>s.words)]).range([0, W-labelW-rightW]);
+  const x = d3.scaleLinear().domain([0, d3.max(srcs,s=>s.words)]).range([0, W-labelW-rightW-(narrow?0:16)]);
   const g = svg.selectAll("g.row").data(srcs).join("g").attr("class","row").attr("transform",(d,i)=>`translate(0,${top+i*rowH})`);
-  g.append("text").attr("x",0).attr("y",narrow ? 8 : 17).attr("class","ink").text(d=>narrow ? `${surname(d)}, ${shortTitle(d)}` : `${surname(d)}, ${shortTitle(d)}`.slice(0,36)).style("font-size","14px");
+  const stat = d => `${d.n} passage${d.n===1?"":"s"} · ${d.words>=1000?Math.round(d.words/1000)+"k":d.words} words`;
+  g.append("text").attr("x",0).attr("y",narrow ? 8 : 17).attr("class","ink").text(d=>narrow ? `${surname(d)}, ${shortTitle(d)} · ${stat(d)}` : clip(`${surname(d)}, ${shortTitle(d)}`,40)).style("font-size","14px").append("title").text(d=>`${d.author}, ${d.title}`);
   const sy = narrow ? 26 : 13;
   g.append("line").attr("x1",labelW).attr("x2",d=>labelW+x(d.words)).attr("y1",sy).attr("y2",sy).attr("stroke","var(--g-rule)").attr("stroke-width",4).attr("stroke-linecap","round");
   g.each(function(d){
     const gg = d3.select(this);
     const toX = line => labelW + x(d.words*(line/Math.max(1,d.lines)));
-    gg.selectAll("line.ch").data((d.chapters||[]).filter(c=>c.line>0)).join("line").attr("class","ch").attr("x1",c=>toX(c.line)).attr("x2",c=>toX(c.line)).attr("y1",sy+4).attr("y2",sy+10).attr("stroke","var(--g-ink)").attr("stroke-width",1);
     const spans = Object.entries(BUNDLE.spans).filter(([id,s])=>s.source===d.id && s.verified).map(([id,s])=>({id,...s}));
     gg.selectAll("circle").data(spans).join("circle").attr("cx",s=>toX(s.line)).attr("cy",sy).attr("r",5).attr("fill",CORPUS[d.corpus].hex).attr("stroke","#fff").attr("stroke-width",2).style("cursor","pointer")
       .on("mousemove",(ev,s)=>showTip(ev,`<b>${esc(s.locator||"")}</b>${s.page?` · p. ${s.page}`:""}<br>“${esc(s.text.slice(0,140))}${s.text.length>140?"…":""}”`)).on("mouseleave",hideTip)
       .on("click",(ev,s)=>{ const t=document.querySelector(`.v[data-id="${s.id}"]`); if(t){ t.scrollIntoView({behavior:"smooth",block:"center"}); closeSide(); openSide(t);} });
   });
-  g.append("text").attr("x",W).attr("y",sy+4).attr("text-anchor","end").text(d=>`${Math.round(d.words/1000)}k words`).style("font-size","13px");
+  if(!narrow) g.append("text").attr("x",W).attr("y",sy+4).attr("text-anchor","end").text(stat).style("font-size","13px");
+  showAll(el, all.length, "allSrc", renderSourceMap);
 }
 
 // ---------- figure 2: coverage ----------
 function renderCoverage(){
   const el = d3.select("#coverage"); el.selectAll("*").remove();
-  const srcs = Object.entries(BUNDLE.sources).map(([id,s])=>({id,...s})).sort((a,b)=>a.corpus.localeCompare(b.corpus)||surname(a).localeCompare(surname(b)));
-  const rows = REPORT.subclaims, labelW = 190, cell = 24, top = 70, W = labelW + srcs.length*cell + 8, H = top + rows.length*cell + 6;
-  const svg = el.append("svg").attr("width",W).attr("height",H).attr("viewBox",`0 0 ${W} ${H}`).style("max-width","100%").attr("role","img").attr("aria-label","Sub-claims by source");
-  svg.selectAll("text.col").data(srcs).join("text").attr("class","col narrow").attr("transform",(d,i)=>`translate(${labelW+i*cell+cell/2+4},${top-8}) rotate(-60)`).text(d=>surname(d)).style("font-size","13px");
-  svg.selectAll("line.h").data(rows).join("line").attr("x1",0).attr("x2",W).attr("y1",(d,i)=>top+i*cell+cell).attr("y2",(d,i)=>top+i*cell+cell).attr("stroke","var(--g-rule)");
-  svg.selectAll("text.row").data(rows).join("text").attr("x",0).attr("y",(d,i)=>top+i*cell+16).attr("class","ink").text(d=>d.label).style("font-size","13px");
-  rows.forEach((r,i)=>srcs.forEach((s,j)=>{
+  const all = srcsByUse(), srcs = state.allCov ? all : all.slice(0,SHOW);
+  const cols = REPORT.subclaims, labelW = 180, cell = 26, top = 150, W = labelW + cols.length*cell + 12, H = top + srcs.length*cell + 6;
+  const wrap = el.append("div").style("overflow-x","auto");
+  const svg = wrap.append("svg").attr("width",W).attr("height",H).attr("viewBox",`0 0 ${W} ${H}`).attr("role","img").attr("aria-label","Sources by part of the answer");
+  const defs = svg.append("defs"); defs.append("pattern").attr("id","hatch").attr("width",4).attr("height",4).attr("patternUnits","userSpaceOnUse").attr("patternTransform","rotate(135)").append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",4).attr("stroke","var(--g-ink)").attr("stroke-width",1);
+  const band = svg.append("rect").attr("x",0).attr("width",W).attr("height",cell).attr("fill","#F1F3F6").style("display","none");
+  svg.selectAll("text.col").data(cols).join("text").attr("class","col narrow").attr("transform",(d,i)=>`translate(${labelW+i*cell+cell/2+4},${top-8}) rotate(-55)`).text(d=>clip(d.label,28)).style("font-size","13px").append("title").text(d=>d.label);
+  svg.selectAll("line.h").data(srcs).join("line").attr("x1",0).attr("x2",W).attr("y1",(d,i)=>top+i*cell+cell).attr("y2",(d,i)=>top+i*cell+cell).attr("stroke","var(--g-rule)");
+  svg.selectAll("text.row").data(srcs).join("text").attr("x",0).attr("y",(d,i)=>top+i*cell+17).attr("class","ink").text(d=>clip(`${surname(d)}, ${shortTitle(d)}`,26)).style("font-size","13px").append("title").text(d=>`${d.author}, ${d.title}`);
+  svg.selectAll("rect.rowhit").data(srcs).join("rect").attr("class","rowhit").attr("x",0).attr("width",labelW).attr("y",(d,i)=>top+i*cell).attr("height",cell).attr("fill","transparent")
+    .on("mouseenter",(ev,d)=>band.attr("y",top+srcs.indexOf(d)*cell).style("display",null)).on("mouseleave",()=>band.style("display","none"));
+  srcs.forEach((s,i)=>cols.forEach((r,j)=>{
     const ids = r.spans.filter(id=>spanOf(id).source===s.id);
     if(!ids.length) return;
     const modes = ids.map(modeOf), m = modes.some(x=>x.m==="verbatim")?"verbatim":modes.some(x=>x.m==="para")?"para":"missing";
@@ -415,10 +460,12 @@ function renderCoverage(){
     if(m==="verbatim") c.attr("fill",col);
     else if(m==="para") c.attr("fill","#fff").attr("stroke",col).attr("stroke-width",2);
     else c.attr("fill","url(#hatch)");
-    c.on("mousemove",ev=>showTip(ev,`<b>${esc(r.label)}</b> · ${esc(surname(s))}<br>${ids.length} span${ids.length>1?"s":""}, ${m==="verbatim"?"author's words":m==="para"?"paraphrased":"not placed"}`)).on("mouseleave",hideTip)
+    c.on("mousemove",ev=>{ band.attr("y",top+i*cell).style("display",null); showTip(ev,`<b>${esc(r.label)}</b><br>${esc(surname(s))}, ${esc(shortTitle(s))}: ${ids.length} passage${ids.length>1?"s":""}, ${m==="verbatim"?"quoted":m==="para"?"paraphrased":"not placed"}`); }).on("mouseleave",()=>{ band.style("display","none"); hideTip(); })
      .on("click",()=>{ const t=document.querySelector(`.v[data-id="${ids[0]}"]`); if(t){ t.scrollIntoView({behavior:"smooth",block:"center"}); closeSide(); openSide(t);} });
   }));
-  const defs = svg.append("defs"); defs.append("pattern").attr("id","hatch").attr("width",4).attr("height",4).attr("patternUnits","userSpaceOnUse").attr("patternTransform","rotate(135)").append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",4).attr("stroke","var(--g-ink)").attr("stroke-width",1);
+  showAll(el, all.length, "allCov", renderCoverage);
+  const missing = Object.values(BUNDLE.spans).some(s=>!s.verified);
+  document.getElementById("covcap").innerHTML = `One row per source, the most-used first; one column per part of the answer (hover a column's name for all of it). A filled dot means the page quotes that source for that part, a ring that it paraphrases it${missing?"; hatching marks a passage the resolver could not place":""}. Click a dot to jump to the passage.`;
 }
 
 // ---------- figure 3: whose words ----------
@@ -509,13 +556,13 @@ function renderTrace(){
   document.getElementById("trace").innerHTML = `${esc(REPORT.trace)} · <code>spans: ${placed} placed, ${para} paraphrased (${lic} by licence), ${missing} missing · --verbatim ${state.verbatim.toFixed(2)} --joins ${state.joins} --context ${state.ctx}</code>`;
 }
 
-document.getElementById("verb").addEventListener("input",e=>{ state.verbatim=+e.target.value; document.getElementById("verbval").textContent=state.verbatim.toFixed(2); renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
+document.getElementById("verb").addEventListener("input",e=>{ state.verbatim=+e.target.value; document.getElementById("verbval").textContent=`${Math.round(100*state.verbatim)}%`; renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
 document.getElementById("joins").addEventListener("change",e=>{ state.joins=e.target.value; renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
 document.getElementById("ctx").addEventListener("change",e=>{ state.ctx=e.target.value; if(state.open){ const el=document.querySelector(`.v[data-id="${state.open}"]`); closeSide(); if(el) openSide(el);} renderTrace(); });
 document.getElementById("ship").addEventListener("change",e=>{ state.ship=e.target.checked; renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
 document.getElementById("passages").addEventListener("change",e=>{ state.passages=e.target.checked; renderArticle(); renderCoverage(); renderInk(); renderTrace(); });
 window.addEventListener("resize",()=>{ renderSourceMap(); if(state.open){ const el=document.querySelector(`.v[data-id="${state.open}"]`); closeSide(); if(el) openSide(el);} });
-document.getElementById("verb").value = state.verbatim; document.getElementById("verbval").textContent = (+state.verbatim).toFixed(2);
+document.getElementById("verb").value = state.verbatim; document.getElementById("verbval").textContent = `${Math.round(100*state.verbatim)}%`;
 document.getElementById("joins").value = state.joins; document.getElementById("ctx").value = state.ctx; document.getElementById("ship").checked = !!state.ship; document.getElementById("passages").checked = !!state.passages;
 render();
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>renderSourceMap());

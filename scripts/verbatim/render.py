@@ -109,6 +109,51 @@ def load_fitz():
             return None
 
 
+def _toks(s):
+    return re.findall(r"[a-z0-9]+", _norm(s).lower())
+
+
+def span_boxes(page, text, fitz, cont=False):
+    """One box per printed line of the span on this page, whether it runs past the page, and how
+    many of its words the page held. Finds where the span's opening words start in the page's own
+    word list and where its closing words end, and boxes every word between, so a line-end hyphen
+    or a curly quote inside the span cannot cut the highlight short. A span that runs on past the
+    page is boxed to the page's last word; `cont` boxes its rest on the next page, past the
+    running head."""
+    pw = page.get_text("words")   # (x0, y0, x1, y1, word, block, line, word_no), in reading order
+    flat = [(t, wi) for wi, w in enumerate(pw) for t in _toks(w[4])]
+    toks, st = [t for t, _ in flat], _toks(text)
+    if len(st) < 4 or not toks:
+        return [], False, 0
+
+    def find(seq, lo=0):
+        for i in range(lo, len(toks) - len(seq) + 1):
+            if toks[i:i + len(seq)] == seq:
+                return i
+        return None
+
+    offs = range(0, 16) if cont else (0, 1, 2, 3)
+    start = next(((i if cont else max(0, i - off)) for off in offs if (i := find(st[off:off + 4])) is not None), None)
+    if start is None:
+        return [], False, 0
+    end = None
+    for off in (0, 1, 2, 3, 5, 8):
+        seq = st[len(st) - 4 - off:len(st) - off]
+        if len(seq) < 4:
+            break
+        i = find(seq, start)
+        if i is not None and i - start <= len(st) + 20:
+            end = i + 3 + off; break
+    past = end is None and start + len(st) > len(toks)
+    end = min(len(toks) - 1, end if end is not None else start + len(st) - 1)
+    lines = {}
+    for wi in sorted({flat[k][1] for k in range(start, end + 1)}):
+        x0, y0, x1, y1, _, b, ln, _ = pw[wi]
+        r = lines.get((b, ln))
+        lines[(b, ln)] = [x0, y0, x1, y1] if r is None else [min(r[0], x0), min(r[1], y0), max(r[2], x1), max(r[3], y1)]
+    return [fitz.Rect(*r) for r in lines.values()], past, end - start + 1
+
+
 def page_pixmap(doc, i, quads, fitz, zoom, tint=(1.0, 0.85, 0.35)):
     """Page i as a pixmap, with the passage highlighted in the image itself (each box multiplied
     by a highlighter tint), so the PNG shows it wherever it is opened. Works the same for a PDF
@@ -173,22 +218,27 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
         if hit is None:
             print(f"  {sid}: page not found for span starting {probes[0]!r}", file=sys.stderr); continue
         page = doc[hit]; rect = page.rect
-        quads = page.search_for(_norm(sp["text"])) or page.search_for(" ".join(words[:12])) or page.search_for(found_q)
+        quads, past, held = span_boxes(page, sp["text"], fitz)
+        # a span that runs over the page break is lit on the next page too
+        next_quads = span_boxes(doc[hit + 1], " ".join(_toks(sp["text"])[held:]), fitz, cont=True)[0] if past and hit + 1 < doc.page_count else []
+        quads = quads or page.search_for(_norm(sp["text"])) or page.search_for(" ".join(words[:12])) or page.search_for(found_q)
         if not quads:   # the page sets the span differently from the extraction (hyphens, ligatures): box it in five-word pieces
             for k in range(0, len(words), 5):
                 piece = " ".join(words[k:k + 5])
                 quads += page.search_for(piece) or page.search_for(piece.replace("'", "’"))
-        boxes = [[(q.x0 - rect.x0) / rect.width, (q.y0 - rect.y0) / rect.height, (q.x1 - rect.x0) / rect.width, (q.y1 - rect.y0) / rect.height] for q in quads]
+        frac = lambda qs, r: [[(q.x0 - r.x0) / r.width, (q.y0 - r.y0) / r.height, (q.x1 - r.x0) / r.width, (q.y1 - r.y0) / r.height] for q in qs]
+        boxes = frac(quads, rect)
         sp["hit_page"] = hit + 1; sp["pages"] = []; sp["page_layout"] = "epub-reflow" if is_epub else "pdf"
         if sp.get("show") != "paraphrase":
             sp["page_check"] = page_check(doc, hit, sp["text"], fitz, vocab)
             heal_splits(sp)
             trim_edges(sp)
         for i in range(max(0, hit - window), min(doc.page_count, hit + window + 1)):
-            # the hit page carries this span's highlight, so it is the span's own file; the pages either side are shared
-            png = pages_dir / (f"{sid}-{i + 1}-{span_id}.png" if i == hit else f"{sid}-{i + 1}.png")
+            # a page carrying this span's highlight is the span's own file; the pages either side are shared
+            lit = quads if i == hit else next_quads if i == hit + 1 else []
+            png = pages_dir / (f"{sid}-{i + 1}-{span_id}.png" if lit else f"{sid}-{i + 1}.png")
             if True:   # always: a replaced original or a new layout must not show stale pages
-                page_pixmap(doc, i, quads if i == hit else [], fitz, zoom).save(str(png)); rendered += 1
+                page_pixmap(doc, i, lit, fitz, zoom).save(str(png)); rendered += 1
             txt = doc[i].get_text().strip().split("\n")
             folio = None
             for cand in (txt[:3] + txt[-3:]):
@@ -198,10 +248,10 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
                     n = int(m.group(1))
                     if i - 60 <= n <= i + 1:   # a printed folio never exceeds the PDF page index by more than the cover
                         folio = n; break
-            sp["pages"].append({"n": i + 1, "png": f"pages/{png.name}", "boxes": boxes if i == hit else [], "folio": folio})
+            sp["pages"].append({"n": i + 1, "png": f"pages/{png.name}", "boxes": frac(lit, doc[i].rect) if lit else [], "folio": folio})
             if i == hit and folio is not None and not sp.get("page"):
                 sp["page"], sp["page_via"] = folio, "the folio printed on the PDF page"
-        print(f"  {sid}: span on {'EPUB' if is_epub else 'PDF'} page {hit + 1} (printed p. {sp.get('page')}), {len(boxes)} highlight boxes", file=sys.stderr)
+        print(f"  {sid}: span on {'EPUB' if is_epub else 'PDF'} page {hit + 1} (printed p. {sp.get('page')}), {len(boxes)} highlight boxes{f', {len(next_quads)} more on the next page' if next_quads else ''}", file=sys.stderr)
     return rendered
 
 
@@ -279,7 +329,7 @@ def main():
     ap.add_argument("folder", type=Path, help="report folder holding report.json and bundle.json")
     ap.add_argument("--verbatim", type=float, default=None, help="opening share of ranked spans shown as the author's words, 0..1 (default 1)")
     ap.add_argument("--joins", choices=("essay", "minimal"), default=None, help="opening join form (default: the report's mode.joins, else essay)")
-    ap.add_argument("--context", default=None, choices=("paras:1", "chars:600", "words:120", "pages:1"), help="opening context window for a clicked span (default paras:1)")
+    ap.add_argument("--context", default=None, choices=("paras:0", "paras:1", "paras:2"), help="opening context for a clicked span: its paragraph, and 0, 1 or 2 paragraphs either side (default paras:1)")
     ap.add_argument("--ship", action="store_true", help="open as it would ship: copyrighted sources paraphrased under max_visibility open-nc")
     ap.add_argument("--passages", action="store_true", help="open with each pointed paraphrase shown as the author's passage it rests on")
     args = ap.parse_args()

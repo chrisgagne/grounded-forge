@@ -2,6 +2,8 @@
 
 **Status: run 2 November 2026.** Both arms answered the one question, and two blind Opus judges scored both answers, with the order swapped between them. Both judges would hand the forge package to a reader who must check every claim. Sol's design points that need a revised brief (listed under "Second opinion") are not addressed; whether to run a second judging round is Chris's call.
 
+**Related.** The [case-citations round](../2026-11-case-citations/) is the larger study of the same comparison: 30 answers and about 1,500 citations, graded by two model families. It graded every citation on whether its chunk or source carries the claim, and found 19% of Gemini's markers do, against 83% of `answer-from-corpus`'s credits. That round's figures and this one's don't compare: it scores each marker, this round each claim. [Round 3](../2026-11-02-verbatim-case-citations/) puts verbatim mode on that round's cases and rubric.
+
 ## The question this round asks
 
 [Verbatim mode](../../../architecture/verbatim-mode-proposal.md) moves quotation out of the model's hands: the model names a passage by an anchor copied from the converted source, and a deterministic resolver places the author's sentence there, with its line, section, page and a pre-rendered image of the page. The claim worth testing is the one Chris set as the standard: *it should be dead simple for the human to verify the quote in context*. Two things, per claim:

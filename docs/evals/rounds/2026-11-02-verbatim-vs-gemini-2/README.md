@@ -56,6 +56,8 @@ The forge package changed too. Each fix came from a defect the round-1 judges fo
 
    Steps are judge operations under the brief's counting rule, not human effort.
 
+**Related.** The [case-citations round](../2026-11-case-citations/) is the larger study of the same comparison: 30 answers and about 1,500 citations, graded by two model families. It graded every citation on whether its chunk or source carries the claim, and found 19% of Gemini's markers do, against 83% of `answer-from-corpus`'s credits. That round's figures and this one's don't compare: it scores each marker, this round each claim. [Round 3](../2026-11-02-verbatim-case-citations/) puts verbatim mode on that round's cases and rubric.
+
 ## Results
 
 These hold for these six answers to these three questions. The forge deliverable judged is `answer.md` as `render.py` writes it, paths rewritten to the judges' neutral path. "Operations" are judge operations under the brief's counting rule, not human effort.

@@ -1,0 +1,118 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "My reviewers keep framing last month's crane incident write-up as \"had Sam checked the brake, we'd be fine.\" Is that a helpful way to frame an incident write-up?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/lens-index.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t002|\"t003|\"t004|\"t083|\"t078|\"t076",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/references/lfuo-learning-review-guide-2024.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/references/nhs-just-culture-guide.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/references/doe-hpi-handbook-vol1.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)counterfactual|If this person had|blind the team|accountability-free|seem reasonable",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)effect or symptom of deeper trouble|prerequisite for a reporting culture|who caused|hindsight|made sense",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)rarely appropriate|treat wider patient safety",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/sources/converted/nhs-just-culture-guide.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/sources/converted/lfuo-learning-review-guide-2024.md",
+   "offset": 3040,
+   "limit": 25
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)hindsight|explains nothing|who caused",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/references/doe-hpi-handbook-vol1-deep.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03B-2/references/doe-hpi-handbook-vol1-deep.md",
+   "offset": 211,
+   "limit": 1
+  }
+ }
+]

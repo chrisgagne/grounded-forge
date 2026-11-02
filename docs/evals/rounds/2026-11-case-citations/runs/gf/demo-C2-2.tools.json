@@ -1,0 +1,245 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Our executive team runs on the standard management playbook: strategy cascaded into KPIs, quarterly targets, performance reviews, a change programme with a steering committee. I've been reading things written for very different worlds, armies at war, shuttle launches, nuclear plants, wildfire crews, and I keep feeling they'd run a company differently. What surprising insights come from reading those traditions against the management textbooks? Where do they flatly contradict what the textbooks teach, and where does the contradiction actually matter for someone running a 300-person company? Write it for a sceptical CEO, about two pages. Say where the sources disagree with each other, not only with the textbook."
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "schema_version|topic_lines",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/concept-index.json",
+   "offset": 1,
+   "limit": 92
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/lens-index.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t055|\"t051|\"t083|\"t084|\"t080|\"t047|\"t003|\"t054|\"t001|\"t050|\"t040",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 0
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/mcdp1-warfighting.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/caib-report-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/lfuo-learning-review-guide-2024.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/doe-hpi-handbook-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/tc-25-20-army-aar.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/nhs-just-culture-guide.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/openstax-principles-management.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(intent is predominant|two levels|only to the degree|zero defects|errors of inaction|by exception|not prescriptive|precise, positive control)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/mcdp1-warfighting.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(Information is the lifeblood|must avoid causal|add complexity|surest way to kill|nothing to fear|work as imagined|Outcome-based)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(perfectly tuned|waste of time and is an insult|leadership is a defense|just culture is a prerequisite|not a cause of failure, alone|blameless)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(Chart after chart|does not grade|not a critique|always weaknesses)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/tc-25-20-army-aar.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/mcdp1-warfighting.md",
+   "offset": 1845,
+   "limit": 30
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/mcdp1-warfighting.md",
+   "offset": 2830,
+   "limit": 140
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/lfuo-learning-review-guide-2024.md",
+   "offset": 1795,
+   "limit": 22
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/tc-25-20-army-aar.md",
+   "offset": 970,
+   "limit": 12
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(We can't make that date|Mission management welcomed|elastic waistband|Leaders create culture|blind spot is it believes|past success as a justification|Taken one at a time|too close to too many margins|Prove to me that Columbia)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/caib-report-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(Goal planning|goal planning|forced ranking|stack ranking|more complex the|employee involvement|real-time)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/openstax-principles-management-deep.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/openstax-principles-management-deep.md",
+   "offset": 975,
+   "limit": 30
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/references/openstax-principles-management-deep.md",
+   "offset": 618,
+   "limit": 8
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(planning and controlling move closer|The more complex the potential change)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/openstax-principles-management.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/openstax-principles-management.md",
+   "offset": 25910,
+   "limit": 8
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "singling out an individual is rarely appropriate",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/nhs-just-culture-guide.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(Status mattered|rules and procedures took priority)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/caib-report-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/lfuo-learning-review-guide-2024.md",
+   "offset": 476,
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "wants to be the",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-2/sources/converted/caib-report-vol1.md",
+   "output_mode": "content"
+  }
+ }
+]

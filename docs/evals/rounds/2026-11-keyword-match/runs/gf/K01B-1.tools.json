@@ -1,0 +1,193 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Our pipeline throws the same warning on every deploy. Years ago it scared us; now nobody blinks, since nothing ever broke. How does a team drift into treating a red flag as fine?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "schema_version|topic_lines",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/concept-index.json",
+   "offset": 1,
+   "limit": 92
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/lens-index.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t084|\"t080|\"t036|\"t079",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/references/caib-report-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/references/doe-hpi-handbook-vol1.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)normaliz|normalis|elastic|in family|conditioned by success|weak signal|strong signal|first decision|acceptable risk|each successful|inevitable",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/references/caib-report-vol1-deep.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)drift|at-risk|bald tire|normaliz|pollyanna|invulnerab|preoccupation|routine task|non-event|robust",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/references/doe-hpi-handbook-vol1-deep.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/references/caib-report-vol1-deep.md",
+   "offset": 120,
+   "limit": 120
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/references/doe-hpi-handbook-vol1-deep.md",
+   "offset": 95,
+   "limit": 20
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/references/doe-hpi-handbook-vol1-deep.md",
+   "offset": 185,
+   "limit": 50
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "With each successful landing|that first decision was a turning point|elastic waistband|Anomalies that did not lead to catastrophic|strange term indeed|repeated over time, can result|Taken one at a time|efficiency becomes a strong signal|Little by little, NASA|NASA inverted this burden|no process addresses the need|healthy fear of failure",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/caib-report-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "past performance is justification|Persistent use of at-risk|quiet non-events|will not self-reveal|nuisance alarms|windows into the system",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/caib-report-vol1.md",
+   "offset": 19674,
+   "limit": 56
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/caib-report-vol1.md",
+   "offset": 19815,
+   "limit": 8
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/caib-report-vol1.md",
+   "offset": 15203,
+   "limit": 4
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "repeated over time|becomes a strong signal|update a hazard analysis|source of valid engineering",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/caib-report-vol1.md",
+   "output_mode": "content",
+   "-B": 1,
+   "-A": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "non-problems|deemed non",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/caib-report-vol1.md",
+   "output_mode": "content",
+   "-B": 2
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 2150,
+   "limit": 12
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 8604,
+   "limit": 10
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 6405,
+   "limit": 5
+  }
+ }
+]

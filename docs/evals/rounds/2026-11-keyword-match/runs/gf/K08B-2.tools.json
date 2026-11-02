@@ -1,0 +1,178 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "My colleague learned that a recently recruited guy at her desk earns a bigger salary than she does, and she's lost all drive. What explains that?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/concept-index.json",
+   "limit": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/concept-index.json",
+   "offset": 3,
+   "limit": 8
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t039|\"t046|\"t045|\"t048|\"t047",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "equal pay|pay gap|compensation|wage discrimination|organizational justice|distributive justice|procedural justice|hygiene|two-factor",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/concept-index.json",
+   "output_mode": "content",
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"00h\"|\"00j\"|\"00l\"|\"00d\"",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/references/slug-table.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equity|inequit|equal pay|pay gap|herzberg|hygiene|fairness|salary",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/references",
+   "output_mode": "count"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equity|inequit|equal pay|pay gap|herzberg|hygiene|fairness|salary|justice",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/references/openstax-organizational-behavior-deep.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equity|inequit|equal pay|pay gap|herzberg|hygiene|fairness|salary|justice",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/references/openstax-principles-management-deep.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equal pay|pay gap|wage|salary|compensation",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/references/openstax-business-ethics-deep.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equal pay|pay gap|wage discrimination|Title VII",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/references/openstax-business-law-deep.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/references/openstax-organizational-behavior-deep.md",
+   "offset": 268,
+   "limit": 36
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/references/openstax-principles-management-deep.md",
+   "offset": 758,
+   "limit": 24
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/references/openstax-business-ethics-deep.md",
+   "offset": 265,
+   "limit": 8
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Intense forms of dissatisfaction distract employees|equal skill, effort, and responsibility|people overrate|overrate their own",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/sources/converted",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/sources/converted/openstax-principles-management.md",
+   "offset": 20826,
+   "limit": 6
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)overrate|tend to overestimate|referent other",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/sources/converted/openstax-principles-management.md",
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/sources/converted/openstax-principles-management.md",
+   "offset": 21229,
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-2/sources/converted/openstax-principles-management.md",
+   "offset": 21178,
+   "limit": 6
+  }
+ }
+]

@@ -1,0 +1,139 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Our developers call a ticket finished when the code compiles on their laptop, then testers find it's half-baked. What should a group agree on so \"finished\" means one thing?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "references/*definition*"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)definition of done|done criteria|explicit polic|acceptance criteria|definition of ready",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t008|\"t009|\"t011|\"t013|\"t014|\"t010",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)definition of done|definition-of-done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/sources/converted",
+   "output_mode": "count"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/references/scrum-guide-2020-deep.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)definition of done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/sources/converted",
+   "output_mode": "content",
+   "glob": "{open-practice-library,letaw-handbook-sweng-methods,org-topologies-primer-2025}.md",
+   "-C": 4
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/sources/converted/open-practice-library.md",
+   "offset": 1329,
+   "limit": 80
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)definition of done|DoD",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/references/open-practice-library-deep.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)explicit|polic|done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/sources/converted/open-kanban.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/sources/converted/org-topologies-primer-2025.md",
+   "offset": 410,
+   "limit": 50
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/sources/converted/letaw-handbook-sweng-methods.md",
+   "offset": 1835,
+   "limit": 35
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "formal description of the state of the Increment|cannot be released or even presented|returns to the Product Backlog for future|mutually define and comply|Instilling quality by adhering|standards of the organization, all Scrum Teams",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-1/sources/converted/scrum-guide-2020.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ }
+]

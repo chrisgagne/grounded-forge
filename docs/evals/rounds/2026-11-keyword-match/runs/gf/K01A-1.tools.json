@@ -1,0 +1,134 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is the normalization of deviance, and how did it show up in NASA's decisions about foam loss?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "normaliz|normalis",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "references/*",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t084|\"t079",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/references/caib-report-vol1.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "normaliz|Vaughan|in family|turnaround|accepted risk",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/references/caib-report-vol1-deep.md",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/references/caib-report-vol1-deep.md",
+   "offset": 120,
+   "limit": 20
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/references/caib-report-vol1-deep.md",
+   "offset": 225,
+   "limit": 40
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "sources/converted/*caib*",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "increasingly regarded the foam-shedding as inevitable|established a precedent for accepting, rather than eliminating|elastic waistband, expanding to hold larger|treated as a source of valid engineering data|a strange term indeed for a violation|fly not one but two missions before resolving|used past success as a justification for future|redefined as a weak signal|each decision seemed correct|regarded more as a turnaround or maintenance issue|they never understood why|has not followed its own rules and requirements on foam",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/sources/converted/caib-report-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/sources/converted/caib-report-vol1.md",
+   "offset": 19674,
+   "limit": 40
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/sources/converted/caib-report-vol1.md",
+   "offset": 19796,
+   "limit": 25
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/sources/converted/caib-report-vol1.md",
+   "offset": 13408,
+   "limit": 6
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/sources/converted/caib-report-vol1.md",
+   "offset": 13551,
+   "limit": 6
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/sources/converted/caib-report-vol1.md",
+   "offset": 14076,
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "strange term|decision seemed correct|Vaughan",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-1/sources/converted/caib-report-vol1.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ }
+]

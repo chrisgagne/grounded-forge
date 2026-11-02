@@ -1,0 +1,183 @@
+{
+ "id": "K04B-2",
+ "question": "Our developers call a ticket finished when the code compiles on their laptop, then testers find it's half-baked. What should a group agree on so \"finished\" means one thing?",
+ "captured_at": "2026-10-31T02:12:20.404Z",
+ "sources_ticked": "35",
+ "text": "To eliminate ambiguity between developers and testers, your team needs to establish a shared Definition of Done (DoD)[1][2]. Code compiling on a developer's laptop only checks basic syntactic validity locally; it does not guarantee that functionality, integration, testing, or user expectations have been met[1][3].\nA Definition of Done is a formal, transparent agreement co-created by the entire team (developers, QA testers, and product owners) that lays out the explicit quality gates every ticket must pass before it can be considered complete[1][2][4]. If a ticket does not satisfy every item in the DoD, it cannot be called finished, showcased, or released[2].\nEssential Quality Criteria for a Definition of Done\nTo ensure \"finished\" has a single, unambiguous meaning across your group, agree on the following standard requirements:\nSatisfied Acceptance Criteria: The ticket fulfills all specific conditions of satisfaction defined for that work item (often expressed in Given/When/Then testable scenarios)[5][6][7].\nPeer Code Review: Someone other than the code's author has inspected the code for readability, design quality, security vulnerabilities, and adherence to team style guides[8][9].\nAutomated & Integration Testing: Code passes all automated unit tests, static code analysis, and integration tests after being merged into the shared repository and deployed to a staging environment—confirming it works beyond the developer's laptop[3][10][11].\nNon-Functional & Security Checks: Essential non-functional requirements (such as performance benchmarks, logging, system security checks, and updated documentation) have been satisfied[8][12][13].\nNo Regression / Defect-Free: Verification confirms that the new code does not break existing application behavior[10][14].\nComplementary Practices to Prevent \"Half-Baked\" Work\nEstablish a Definition of Ready (DoR): Set clear entry criteria before developers pick up a ticket (e.g., following the INVEST model) so scope, acceptance criteria, and technical constraints are clear up front[15][16].\nRefine the DoD in Retrospectives: Whenever testers discover unhandled edge cases or missing verification steps, use your Sprint Retrospectives to update the Definition of Done so the team continuously tightens its quality standards[17][18].\n💡 Would you like me to draft a customizable Definition of Done template tailored to your team's current development and QA workflow?",
+ "occurrences": [
+  {
+   "n": 1,
+   "context": "To eliminate ambiguity between developers and testers, your team needs to establish a shared Definition of Done (DoD)"
+  },
+  {
+   "n": 2,
+   "context": "To eliminate ambiguity between developers and testers, your team needs to establish a shared Definition of Done (DoD)1"
+  },
+  {
+   "n": 1,
+   "context": " your team needs to establish a shared Definition of Done (DoD)12. Code compiling on a developer's laptop only checks basic syntactic validity locally; it does not guarantee that functionality, integration, testing, or user expectations have been met"
+  },
+  {
+   "n": 3,
+   "context": "your team needs to establish a shared Definition of Done (DoD)12. Code compiling on a developer's laptop only checks basic syntactic validity locally; it does not guarantee that functionality, integration, testing, or user expectations have been met1"
+  },
+  {
+   "n": 1,
+   "context": "A Definition of Done is a formal, transparent agreement co-created by the entire team (developers, QA testers, and product owners) that lays out the explicit quality gates every ticket must pass before it can be considered complete"
+  },
+  {
+   "n": 2,
+   "context": ""
+  },
+  {
+   "n": 4,
+   "context": "2"
+  },
+  {
+   "n": 2,
+   "context": " testers, and product owners) that lays out the explicit quality gates every ticket must pass before it can be considered complete1unfold_less24. If a ticket does not satisfy every item in the DoD, it cannot be called finished, showcased, or released"
+  },
+  {
+   "n": 5,
+   "context": "Satisfied Acceptance Criteria: The ticket fulfills all specific conditions of satisfaction defined for that work item (often expressed in Given/When/Then testable scenarios)"
+  },
+  {
+   "n": 6,
+   "context": "Satisfied Acceptance Criteria: The ticket fulfills all specific conditions of satisfaction defined for that work item (often expressed in Given/When/Then testable scenarios)5unfold_less"
+  },
+  {
+   "n": 7,
+   "context": "Satisfied Acceptance Criteria: The ticket fulfills all specific conditions of satisfaction defined for that work item (often expressed in Given/When/Then testable scenarios)5unfold_less6"
+  },
+  {
+   "n": 8,
+   "context": "Peer Code Review: Someone other than the code's author has inspected the code for readability, design quality, security vulnerabilities, and adherence to team style guides"
+  },
+  {
+   "n": 9,
+   "context": "Peer Code Review: Someone other than the code's author has inspected the code for readability, design quality, security vulnerabilities, and adherence to team style guides8"
+  },
+  {
+   "n": 3,
+   "context": "Automated & Integration Testing: Code passes all automated unit tests, static code analysis, and integration tests after being merged into the shared repository and deployed to a staging environment—confirming it works beyond the developer's laptop"
+  },
+  {
+   "n": 10,
+   "context": "& Integration Testing: Code passes all automated unit tests, static code analysis, and integration tests after being merged into the shared repository and deployed to a staging environment—confirming it works beyond the developer's laptop3unfold_less"
+  },
+  {
+   "n": 11,
+   "context": "Integration Testing: Code passes all automated unit tests, static code analysis, and integration tests after being merged into the shared repository and deployed to a staging environment—confirming it works beyond the developer's laptop3unfold_less10"
+  },
+  {
+   "n": 8,
+   "context": "Non-Functional & Security Checks: Essential non-functional requirements (such as performance benchmarks, logging, system security checks, and updated documentation) have been satisfied"
+  },
+  {
+   "n": 12,
+   "context": "Non-Functional & Security Checks: Essential non-functional requirements (such as performance benchmarks, logging, system security checks, and updated documentation) have been satisfied8unfold_less"
+  },
+  {
+   "n": 13,
+   "context": "Non-Functional & Security Checks: Essential non-functional requirements (such as performance benchmarks, logging, system security checks, and updated documentation) have been satisfied8unfold_less12"
+  },
+  {
+   "n": 10,
+   "context": "No Regression / Defect-Free: Verification confirms that the new code does not break existing application behavior"
+  },
+  {
+   "n": 14,
+   "context": "No Regression / Defect-Free: Verification confirms that the new code does not break existing application behavior10"
+  },
+  {
+   "n": 15,
+   "context": "Establish a Definition of Ready (DoR): Set clear entry criteria before developers pick up a ticket (e.g., following the INVEST model) so scope, acceptance criteria, and technical constraints are clear up front"
+  },
+  {
+   "n": 16,
+   "context": "Establish a Definition of Ready (DoR): Set clear entry criteria before developers pick up a ticket (e.g., following the INVEST model) so scope, acceptance criteria, and technical constraints are clear up front15"
+  },
+  {
+   "n": 17,
+   "context": "Refine the DoD in Retrospectives: Whenever testers discover unhandled edge cases or missing verification steps, use your Sprint Retrospectives to update the Definition of Done so the team continuously tightens its quality standards"
+  },
+  {
+   "n": 18,
+   "context": "Refine the DoD in Retrospectives: Whenever testers discover unhandled edge cases or missing verification steps, use your Sprint Retrospectives to update the Definition of Done so the team continuously tightens its quality standards17"
+  }
+ ],
+ "legend": {
+  "1": {
+   "source": "open-practice-library.md",
+   "chunk": "--------------------------------------------------------------------------------\n--------------------------------------------------------------------------------\n<!-- file: definition-of-done.md -->\n--------------------------------------------------------------------------------\ntemplateKey: practice-page title: Definition of Done subtitle: Shared knowledge and understanding of what it means for a work item to be done by a team date: 2018-08-29T20:14:43.236Z authors:\n- tdbeattie\n- mtakane\n- mvmaestri tags:\n- culture mobiusTag: foundation icon: /images/definitionofdone_original.png whatIs: >-\n* Criteria agreed across the team and shared with others that should be met before any work items is considered complete by any team member.\n* Collaboratively created, maintained and enforced criteria by the team.\n* A place where non-functional and functional work that should be performed for each and every work item can be managed. whyDo: >-\n* Aligns understanding and shared expectations across stakeholder groups on, for example, quality, assurance and documentation activities being performed throughout delivery.\n* Drives quality into products being built incrementally. howTo: >-"
+  },
+  "2": {
+   "source": "scrum-guide-2020.pdf",
+   "chunk": "measures required for the product.\nThe moment a Product Backlog item meets the Definition of Done, an Increment is born.\nThe Definition of Done creates transparency by providing everyone a shared understanding of what\nwork was completed as part of the Increment. If a Product Backlog item does not meet the Definition of\nDone, it cannot be released or even presented at the Sprint Review. Instead, it returns to the Product\nBacklog for future consideration.\nIf the Definition of Done for an increment is part of the standards of the organization, all Scrum Teams"
+  },
+  "3": {
+   "source": "open-practice-library.md",
+   "chunk": "Easy and quick tests can be executed right after building (compiling) an application or when code is pushed or merged in source control. End-to-End and Security tests usually are executed one the software is deployed in some non-production environment.\nMany of these tests can be run in parallel, decreasing the overall time taken to run a collection of tests.\nTools such as Tekton, Jenkins or TravisCI could be used to execute these tests.\nP﻿ublishing and visualizing the execution reports of the test is another key aspect of the Test Automation, as these reports provide a rapid visualization about the status of the quality, and results of all these steps along the life cycle of the software."
+  },
+  "4": {
+   "source": "scrum-guide-2020.pdf",
+   "chunk": "building trust.\n5\nScrum Team\nThe fundamental unit of Scrum is a small team of people, a Scrum Team. The Scrum Team consists of\none Scrum Master, one Product Owner, and Developers. Within a Scrum Team, there are no sub-teams\nor hierarchies. It is a cohesive unit of professionals focused on one objective at a time, the Product Goal.\nScrum Teams are cross-functional, meaning the members have all the skills necessary to create value\neach Sprint. They are also self-managing, meaning they internally decide who does what, when, and"
+  },
+  "5": {
+   "source": "open-practice-library.md",
+   "chunk": "<!-- file: backlog-refinement.md -->\n--------------------------------------------------------------------------------\ntemplateKey: practice-page title: Backlog Refinement subtitle: Understand, prioritise, and clarify items in the backlog to ensure they're ready to work on. date: 2018-08-10T11:50:22.000Z authors:\n- theisey\n- mtakane\n- tdbeattie\n- jonathanjohnston\n- noelo\n- ilaria66\n- mvmaestri\n- cverna tags: [] mobiusTag: options icon: /images/productbacklogrefinementoriginal.png whatIs: >-\n* Having a conversation to provide clarity surrounding the detail or conditions of satisfaction for work items in the backlog\n* Identifying priority for work items in the backlog\n* Sometimes called \"Backlog Grooming\" whyDo: |-\n* Drive team shared understanding of work items in regards to:\n    * Scope of work in the backlog\n    * Conditions of satisfaction\n    * Prioritization of what to do first howTo: >-"
+  },
+  "6": {
+   "source": "open-practice-library.md",
+   "chunk": "This practice is focused on the business value using patterns such as Given/When/Then to capture the behavior of the system from a conversation between business and technical people. whyDo: >- This is a way for product teams to work that closes the gap between business and technical people by:\n* Creating a shared understanding of requirements using an ubiquitous language\n* Helping guide development, decreasing rework, and increasing flow\n* Creating business-facing scenarios that attempt to describe the behavior of a story, feature, or capability from a user’s perspective howTo: >- The BDD process requires to specify the tests of any software in terms of the desired behavior of the unit. The desired behavior consists of the requirements set by the business that has business value for whatever software unit under construction, this is referred to as an “outside-in” activity."
+  },
+  "7": {
+   "source": "letaw-handbook-sweng-methods.pdf",
+   "chunk": "Figure 3.4 User Story with Definitions of Done Example\nOnce each of the acceptance criteria are confirmed to be done, the user story can be considered “DONE-done.”\nIdeally, testing the acceptance criteria can be automated. Figure 3.5 provides example pseudocode for testing an acceptance criterion.\n1 def test_go_to_time(): \n2   # given \n3   assert os.isWindows(),\"Not Windows!\" \n4   player.open() \n5   player.play_video('test.mkv') \n6 \n7   # when \n8   user.send_keyboard_shortcut(\"Ctrl-T\") \n9 \n10   # then \n11   assert player.screen.is_showing(GOTOTIME) "
+  },
+  "8": {
+   "source": "open-practice-library.md",
+   "chunk": "--------------------------------------------------------------------------------\n--------------------------------------------------------------------------------\n<!-- file: code-review.md -->\n--------------------------------------------------------------------------------\ntemplateKey: practice-page title: Code Review subtitle: Improve quality and knowledge sharing through collaboration and peer review. date: 2020-08-12T20:44:12.964Z authors:\n- mabulgu tags:\n- learn mobiusTag: delivery icon: /images/code-review.png whatIs: >- Code Review is a software quality assurance activity that someone other than the author(s) checks the relevant piece of code and considers questions like:\n* TL;DR: Is the code clean? :)\n* Design: Is the code well-designed and appropriate for your system?\n* Functionality: Does the code behave as the developer likely intended? Is it the right behavior for users? Looking at the requirements, are all cases/functions fully implemented?\n* Complexity: Could the code be made simpler? Would another developer be able to easily understand and use this code when they come across it in the future? As Martin Fowler states in his book Refactoring: Improving the Design of Existing Code:"
+  },
+  "9": {
+   "source": "open-practice-library.md",
+   "chunk": "The first phase takes place before the original author shares their code with the team and consists of the author verifying they haven’t included any real passwords, keys, tokens, or other secrets in their code.\nThe next phase happens during review and each item may be completed by any of the reviewers besides the original author. The reviewers confirm the right people have been tagged in and that they all understand the intended change.\nThey then check for the presence of debug code, the handling of untrusted data and response information, the correct use of tools, and that there is sufficient log and test coverage."
+  },
+  "10": {
+   "source": "open-practice-library.md",
+   "chunk": "--------------------------------------------------------------------------------\n<!-- file: test-automation.md -->\n--------------------------------------------------------------------------------\ntemplateKey: practice-page title: Test Automation subtitle: Shortening the feedback loop and increasing the quality of code. date: 2021-04-13T00:30:23.187Z authors:\n- syvanen\n- Zenigata\n- itblaked\n- rmarting tags:\n- methods mobiusTag: foundation icon: /images/testautomation_original.png whatIs: >- Test Automation allows teams to remove the slow and manual testing cycles related to software development. Test Automation can include such things as:\n* Static code analysis\n* Linting\n* Unit tests\n* End-to-end tests\n* Configurations and policy checks\n* Security tests (dependencies, vulnerabilities, and pen tests) whyDo: >-\n* ﻿Improved quality: Applying patterns like Test-Driven Development or Behavior-Driven Development drives up shared understanding Increase code quality.\n* Deliver reliably at speed: As features are produced, you can confidently release without a large manual registration each time.﻿\n* Fewer bottlenecks: Without automated tests, queues form in front of testers.\n* Faster feedback: Identifying earlier any potential failure before promote changes into production environments.\n* Standardise approach to testing: Defining a way of working where testing is another goal and benefit for the product team. howTo: >- T﻿hese tests are steps of the Continuous Integration (CI) and Continuous Delivery pipeline, such other main steps of the software delivery life cycle."
+  },
+  "11": {
+   "source": "nist-ssdf-1-1.pdf",
+   "chunk": "Test Executable Code to Identify Vulnerabilities and Verify Compliance with Security Requirements (PW.8): Help identify vulnerabilities so that they can be corrected before the software is released in order to prevent exploitation. Using automated methods lowers the effort and resources needed to detect vulnerabilities and improves traceability and repeatability. Executable code includes binaries, directly executed bytecode and source code, and any other form of code that an organization deems executable."
+  },
+  "12": {
+   "source": "open-practice-library.md",
+   "chunk": "1. Ensure that everyone participating is comfortable with the headings and what they mean.\n2. For each heading capture important considerations or requirements for the system or solution and add stickies for each item. Depending on the number of participants, you could use facilitation techniques such as 1-2-4-all or splitting into smaller groups to capture items.\n3. For each heading playback the stickies as a group.\n4. During the playback think about whether each sticky should be:\n    * An item added to the backlog and prioritised as it requires work to realise.\n    * An item that should be included in the Definition of Done for other backlog items.\n    * Part of the acceptance criteria for other backlog items."
+  },
+  "13": {
+   "source": "nist-ssdf-1-1.pdf",
+   "chunk": "PO.4.1: Define criteria for software security checks and track throughout the SDLC.\nExample 1: Ensure that the criteria adequately indicate how effectively security risk is being managed. Example 2: Define key performance indicators (KPIs), key risk indicators (KRIs), vulnerability severity scores, and other measures for software security. Example 3: Add software security criteria to existing checks (e.g., the Definition of Done in agile SDLC methodologies). Example 4: Review the artifacts generated as part of the software development workflow system to determine if they meet the criteria. Example 5: Record security check approvals, rejections, and exception requests as part of the workflow and tracking system. Example 6: Analyze collected data in the context of the security successes and failures of each development project, and use the results to improve the SDLC."
+  },
+  "14": {
+   "source": "scrum-guide-2020.pdf",
+   "chunk": "Developers work during the Sprint, they keep the Sprint Goal in mind. If the work turns out to be\ndifferent than they expected, they collaborate with the Product Owner to negotiate the scope of the\nSprint Backlog within the Sprint without affecting the Sprint Goal.\nIncrement\nAn Increment is a concrete stepping stone toward the Product Goal. Each Increment is additive to all\nprior Increments and thoroughly verified, ensuring that all Increments work together. In order to\nprovide value, the Increment must be usable."
+  },
+  "15": {
+   "source": "open-practice-library.md",
+   "chunk": "--------------------------------------------------------------------------------\n--------------------------------------------------------------------------------\n<!-- file: definition-of-ready.md -->\n--------------------------------------------------------------------------------\ntemplateKey: practice-page title: Definition of Ready subtitle: Shared knowledge regarding what it means for a work item to be ready to be worked on date: 2018-08-16T03:38:19.000Z authors:\n- mtakane\n- ilaria66 tags:\n- culture mobiusTag: foundation icon: /images/dor.jpg whatIs: >-\n* Criteria that is used to identify any work item as ready to be be taken by a team member and worked on\n* Collaboratively created, maintained and enforced criteria by the team whyDo: |-\n* Reduce scope creep on \"in-flight\" work items\n* Increase understanding of the work item when pulling it to be worked on howTo: >-"
+  },
+  "16": {
+   "source": "letaw-handbook-sweng-methods.pdf",
+   "chunk": "Anyone on the team—or any project stakeholder—might come up with user stories. Once the user stories are initially defined, they can be used to start a conversation with the client and others on the team. Clients can guide you on setting priorities for user stories. This conversation is also a good time to get more details about the user stories, which should be added to the card.\nWant examples of comically bad user stories? Check out the Shit User Story Twitter feed (@Shi tUserStory)\nWhat makes a good user story? Besides the characteristics of good requirements listed earlier in this chapter, the INVEST acronym (Wake, 2003) can help you remember characteristics of good user stories:"
+  },
+  "17": {
+   "source": "approach-perfect-field-guide-scrum-events.pdf",
+   "chunk": "Output  \n• Backlog Items capturing improvement experiments to be attempted in the next Sprint .\n• Changes to the Definition of “Done” ( ap.tips/dod )\n• Unofficially, changes to the Definition of “ Ready ” ( ap.tips/dor ) and Working Agreement\n( ap.tips/workingagreement ).\nSample 1½-Hour Sprint Retrospective Agenda  \n• 5 minutes: “Set the stage.” This is a good chance to break the ice with your team and remind ourselves why this is so important.\n• Invite each team member to share one-word or a brief phrase that describes how they’re feeling.\n• Have a team member read Norm Kerth’s “Retrospective Prime Directive” to the rest of the team: “Regardless of what we discover, we understand and truly believe that everyone did the best job they could, given what they knew at the time, their skills and abilities, the resources available, and the situation at hand.”"
+  },
+  "18": {
+   "source": "scrum-guide-2020.pdf",
+   "chunk": "next. The Product Backlog may also be adjusted to meet new opportunities. The Sprint Review is a\nworking session and the Scrum Team should avoid limiting it to a presentation.\nThe Sprint Review is the second to last event of the Sprint and is timeboxed to a maximum of four hours\nfor a one-month Sprint. For shorter Sprints, the event is usually shorter.\n10\nSprint Retrospective\nThe purpose of the Sprint Retrospective is to plan ways to increase quality and effectiveness.\nThe Scrum Team inspects how the last Sprint went with regards to individuals, interactions, processes,"
+  }
+ }
+}

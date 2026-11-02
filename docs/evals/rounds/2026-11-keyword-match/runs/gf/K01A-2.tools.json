@@ -1,0 +1,152 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "What is the normalization of deviance, and how did it show up in NASA's decisions about foam loss?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "normaliz|normalis",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t084|\"t079|foam|Columbia|Challenger",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/references/caib-report-vol1.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "normaliz|Vaughan|in family|foam",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/references/caib-report-vol1-deep.md",
+   "-i": true,
+   "output_mode": "count"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "normali[sz]|in family|elastic|turnaround|accepted risk|STS-112|first decision",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/references/caib-report-vol1-deep.md",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/references/caib-report-vol1-deep.md",
+   "offset": 120,
+   "limit": 40
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/references/caib-report-vol1-deep.md",
+   "offset": 225,
+   "limit": 12
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "sources/converted/*caib*",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "continually normalized|non-deviant|turning point\\. It established|elastic waistband|source of valid engineering|increasingly regarded the foam|strange term indeed|not one but two missions|past success as a justification|redefined as a weak signal|each decision seemed correct|Over the course of 113 missions|cleared the way for Columbia|never understood why",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/sources/converted/caib-report-vol1.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/sources/converted/caib-report-vol1.md",
+   "offset": 19664,
+   "limit": 64
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/sources/converted/caib-report-vol1.md",
+   "offset": 13060,
+   "limit": 6
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/sources/converted/caib-report-vol1.md",
+   "offset": 13405,
+   "limit": 12
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/sources/converted/caib-report-vol1.md",
+   "offset": 13548,
+   "limit": 40
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/sources/converted/caib-report-vol1.md",
+   "offset": 14075,
+   "limit": 8
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/sources/converted/caib-report-vol1.md",
+   "offset": 19796,
+   "limit": 22
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "one at a time, each|each decision seemed|cleared the way",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K01A-2/sources/converted/caib-report-vol1.md",
+   "output_mode": "content",
+   "-A": 2
+  }
+ }
+]

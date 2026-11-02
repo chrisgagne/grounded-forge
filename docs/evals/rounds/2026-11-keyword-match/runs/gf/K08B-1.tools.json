@@ -1,0 +1,140 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "My colleague learned that a recently recruited guy at her desk earns a bigger salary than she does, and she's lost all drive. What explains that?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "references/*"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t039|\"t046|\"t045|\"t048|\"t072",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "equity|pay|salar|justice|fairness",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/concept-index.json",
+   "output_mode": "content",
+   "-i": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equity|inequit|social comparison|pay|fairness|justice",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/references/openstax-organizational-behavior-deep.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)equity|inequit|social comparison|fairness|justice",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/references/openstax-principles-management-deep.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/references/openstax-organizational-behavior-deep.md",
+   "offset": 268,
+   "limit": 70
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)underreward|referent other|overrate|compression|new hires|newly hired",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/sources/converted",
+   "output_mode": "content",
+   "head_limit": 40
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/sources/converted/openstax-organizational-behavior.md",
+   "offset": 10366,
+   "limit": 140
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/sources/converted/openstax-organizational-behavior.md",
+   "offset": 10755,
+   "limit": 25
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/sources/converted/openstax-organizational-behavior.md",
+   "offset": 10915,
+   "limit": 15
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)procedural justice|distributive justice|Equal Pay Act|satisfaction is influenced by comparisons|pay secrecy may have",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/sources/converted",
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)procedural justice|satisfaction is influenced by comparisons|treating employees equally and treating them equitably",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K08B-1/sources/converted/openstax-organizational-behavior.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ }
+]

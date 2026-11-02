@@ -1,0 +1,7 @@
+# demo-C2-1
+
+Our executive team runs on the standard management playbook: strategy cascaded into KPIs, quarterly targets, performance reviews, a change programme with a steering committee. I've been reading things written for very different worlds, armies at war, shuttle launches, nuclear plants, wildfire crews, and I keep feeling they'd run a company differently. What surprising insights come from reading those traditions against the management textbooks? Where do they flatly contradict what the textbooks teach, and where does the contradiction actually matter for someone running a 300-person company?
+
+Write it for a sceptical CEO, about two pages. Say where the sources disagree with each other, not only with the textbook.
+
+I have authored an executive report tailored for a CEO that contrasts standard management textbook principles against high-reliability traditions from military combat, nuclear power, aerospace, wildland firefighting, and healthcare operations. The document analyzes core contradictions around top-down KPI cascades versus Commander's Intent, individual performance appraisals versus systemic latent traps, and managerial critiques versus rank-agnostic After-Action Reviews, explaining why these differences directly impact a 300-person company. Additionally, it highlights key internal schisms among high-reliability doctrines themselves—such as maneuver speed versus nuclear error suppression, and restorative learning versus administrative steering committees—to provide a clear operational framework.

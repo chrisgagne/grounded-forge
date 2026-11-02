@@ -1,0 +1,154 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Our developers call a ticket finished when the code compiles on their laptop, then testers find it's half-baked. What should a group agree on so \"finished\" means one thing?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t00[789]|\"t01[01345]|\"t027",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/references/scrum-guide-2020.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "definition of done|done criteria|explicit polic|definition of ready",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/sources/converted",
+   "-i": true,
+   "output_mode": "count"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Definition of Done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/sources/converted/scrum-guide-2020.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "definition of done|definition of ready",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/sources/converted/open-practice-library.md",
+   "-i": true,
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "definition of done|done criteria",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/sources/converted/letaw-handbook-sweng-methods.md",
+   "-i": true,
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/sources/converted/open-practice-library.md",
+   "offset": 1329,
+   "limit": 95
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "polic|done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/sources/converted/open-kanban.md",
+   "-i": true,
+   "output_mode": "content",
+   "head_limit": 30
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Definition of Done|definition of done",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/references/approach-perfect-field-guide-scrum-events-deep.md",
+   "output_mode": "content",
+   "-C": 2
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/references/approach-perfect-field-guide-scrum-events-deep.md",
+   "offset": 334,
+   "limit": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": ".{0,200}(polic|[Dd]one).{0,200}",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K04B-2/sources/converted/open-kanban.md",
+   "output_mode": "content",
+   "-o": true,
+   "head_limit": 10
+  }
+ }
+]

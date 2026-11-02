@@ -1,0 +1,90 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Why should a learning review avoid counterfactual arguments?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "counterfactual",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "hindsight|should have|local rationality",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/concept-index.json",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "counterfactual",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/references",
+   "-i": true,
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/references/lfuo-learning-review-guide-2024-deep.md",
+   "offset": 236,
+   "limit": 80
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "[Cc]ounterfactual",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/sources/converted",
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "offset": 3038,
+   "limit": 30
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K03A-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "offset": 4770,
+   "limit": 50
+  }
+ }
+]

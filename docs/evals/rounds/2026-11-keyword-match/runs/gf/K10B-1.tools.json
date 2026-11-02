@@ -1,0 +1,104 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Our board can't settle on a strategy, and nobody knows how the market will react. Is there a tool that plots issues by how sure we are of the facts and how much we see eye to eye?"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "stacey|certainty|agreement",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/concept-index.json",
+   "-i": true,
+   "output_mode": "content",
+   "head_limit": 40
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "lens-index.json",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/lens-index.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t025|\"t050",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)agreement|certainty",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/references",
+   "glob": "liberating-structures-handbook*.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)Agreement/Uncertainty",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/references/liberating-structures-handbook-deep.md",
+   "output_mode": "content",
+   "-n": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/references/liberating-structures-handbook.md",
+   "offset": 1,
+   "limit": 30
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/references/liberating-structures-handbook-deep.md",
+   "offset": 100,
+   "limit": 20
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(?i)Ralph Stacey|Brenda Zimmerman suggests|Many of our strategies|Introduce the idea of the Agreement",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K10B-1/sources/converted",
+   "output_mode": "content",
+   "-C": 6
+  }
+ }
+]

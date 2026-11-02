@@ -1,0 +1,96 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "An engineer edited a drawing and a manual years ago; the mistake sat unnoticed until a technician followed the drawing and got hurt. Is there a name for the set of records that mistakes like that live in?"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "schema_version|topic_lines",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1/concept-index.json",
+   "output_mode": "content",
+   "head_limit": 5
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "latent|drawing|configuration|design basis|documentation",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1/concept-index.json",
+   "output_mode": "content",
+   "-i": true,
+   "head_limit": 60
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t076|\"t078|\"t081",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1/concept-index.json",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "paper plant",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 4
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "paper plant",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1/references/doe-hpi-handbook-vol1-deep.md",
+   "output_mode": "content",
+   "-i": true,
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1/references/doe-hpi-handbook-vol1-deep.md",
+   "offset": 51,
+   "limit": 8
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "Latent errors? (result|are|typically)|undetected for years",
+   "path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content",
+   "-C": 3
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/keyword-match/K06B-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "offset": 2358,
+   "limit": 25
+  }
+ }
+]

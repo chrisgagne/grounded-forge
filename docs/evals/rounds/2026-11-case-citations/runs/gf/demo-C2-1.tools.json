@@ -1,0 +1,290 @@
+[
+ {
+  "tool": "Skill",
+  "input": {
+   "skill": "answer-from-corpus",
+   "args": "Our executive team runs on the standard management playbook: strategy cascaded into KPIs, quarterly targets, performance reviews, a change programme with a steering committee. I've been reading things written for very different worlds, armies at war, shuttle launches, nuclear plants, wildfire crews, and I keep feeling they'd run a company differently. What surprising insights come from reading those traditions against the management textbooks? Where do they flatly contradict what the textbooks teach, and where does the contradiction actually matter for someone running a 300-person company? Write it for a sceptical CEO, about two pages. Say where the sources disagree with each other, not only with the textbook."
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "references/*"
+  }
+ },
+ {
+  "tool": "Glob",
+  "input": {
+   "pattern": "*.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/concept-index.json",
+   "limit": 5
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/concept-index.json",
+   "offset": 9,
+   "limit": 84
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/lens-index.json"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/slug-table.json"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "\"t0(01|02|03|04|47|49|50|51|54|55|56|80|83|84|79|82|78)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/concept-index.json",
+   "output_mode": "content",
+   "-n": false
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/mcdp1-warfighting.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/caib-report-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/lfuo-learning-review-guide-2024.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/doe-hpi-handbook-vol1.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/openstax-principles-management.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/tc-25-20-army-aar.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/nhs-just-culture-guide.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/openstax-organizational-behavior.md"
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/references/doe-hpi-handbook-vol2.md"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(zero defects|overboldness|timidity|prescribe the method|degree that is essential|two levels up|tempts|positive control|not prescriptive|disagree|dissent)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/mcdp1-warfighting.md",
+   "output_mode": "content",
+   "-i": true
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/mcdp1-warfighting.md",
+   "offset": 1815,
+   "limit": 95
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/mcdp1-warfighting.md",
+   "offset": 2190,
+   "limit": 25
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/mcdp1-warfighting.md",
+   "offset": 2830,
+   "limit": 150
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(used past success as a justification|inverted this burden|Prove to me that Columbia|seemed correct|elastic waistband|believes it has a strong safety culture|Leaders create culture|underlying problem has been solved|weight of evidence supports|too close to too many margins|rolled up|amplify weak signals|sought no others)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/caib-report-vol1.md",
+   "output_mode": "content",
+   "-C": 1
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(perfectly tuned|waste of time and is an insult|prerequisite for a reporting culture|organization failed the individual|no routine tasks|leadership is a defense)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/doe-hpi-handbook-vol1.md",
+   "output_mode": "content",
+   "-C": 1,
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(counted because|can be counted|knee-jerk|lagging indicator)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/doe-hpi-handbook-vol2.md",
+   "output_mode": "content",
+   "-C": 2,
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(add complexity|adds complexity|increasing risk|believe the problem|lifeblood|avoid causal statements|forced retraining|managing risks, not outcomes|outcome-based|Outcome based)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content",
+   "-C": 1,
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(not a critique|does not grade|always weaknesses|obscures any meaning|did not perform to standard|rank consciousness)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/tc-25-20-army-aar.md",
+   "output_mode": "content",
+   "-C": 1,
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(retrain|perform to standard)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/tc-25-20-army-aar.md",
+   "output_mode": "content",
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(recommendations, develop|jump straight|solved the problem|problem is solved|Outcome-based|risk management is about)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content",
+   "-C": 2,
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(17\\.1|goal planning|greater the need for|stuck in the middle|undermined teamwork|collaboration)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/openstax-principles-management.md",
+   "output_mode": "content",
+   "-i": true,
+   "head_limit": 30
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(median|higher levels of performance|goal plan|employee involvement|top-down)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/openstax-principles-management.md",
+   "output_mode": "content",
+   "-i": true,
+   "head_limit": 30
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/openstax-principles-management.md",
+   "offset": 24660,
+   "limit": 35
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/openstax-principles-management.md",
+   "offset": 14196,
+   "limit": 35
+  }
+ },
+ {
+  "tool": "Read",
+  "input": {
+   "file_path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/openstax-principles-management.md",
+   "offset": 25092,
+   "limit": 12
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(goal conflicts of which|two inches|elephant in the room|Fear the fusion)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/lfuo-learning-review-guide-2024.md",
+   "output_mode": "content",
+   "-C": 1,
+   "-i": true
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "rarely appropriate",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/nhs-just-culture-guide.md",
+   "output_mode": "content"
+  }
+ },
+ {
+  "tool": "Grep",
+  "input": {
+   "pattern": "(conservative|zero significant events)",
+   "path": "/Users/Shared/aar-ab-runs/case-citations/demo-C2-1/sources/converted/doe-hpi-handbook-vol2.md",
+   "output_mode": "content",
+   "-i": true,
+   "head_limit": 8
+  }
+ }
+]

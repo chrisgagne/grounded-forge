@@ -1,6 +1,6 @@
 # Verbatim mode against Gemini Notebook, round 2: the same comparison with a stricter rubric
 
-**Status: run 2 November 2026.** Three questions, each over one corpus only. Gemini asked twice fresh, six claims passes, twelve single-answer judges, all on Opus; every judge scored every claim. Under the stricter rubric the forge answer's quotations stay near exact, and its claims hold up better on the two aarbuddy questions. On the demo question Gemini's claims were more often supported as delivered, because a third of the forge answer's attributed sentences carry no pointer. Round 1's effort gap closes: a passage the answer shows now costs nothing to read, and Gemini shows one for every marker.
+**Status: run 2 November 2026.** Three questions, each over one corpus only. Gemini asked twice fresh, six claims passes, twelve single-answer judges, all on Opus; every judge scored every claim. Under the stricter rubric the forge answer's quotations stay near exact, and its claims hold up better on the two aarbuddy questions. On the demo question Gemini's claims were more often supported as delivered, because a third of the forge answer's attributed sentences carry no pointer. Round 1's effort gap closes: a passage the answer shows now costs nothing to read, and Gemini shows one for every marker. A Sol re-grade, one judge per answer, agrees with the Opus judges on 85% of delivered calls and holds the first two questions' readings, but on the demo question it puts the forge answer ahead on both measures, because it counted a source named in the sentence as that sentence's pointer.
 
 [Round 1](../2026-11-02-verbatim-vs-gemini/) asked one question. Both blind judges preferred the forge answer: every quotation was exact, and its claims took a half to a third of the judge operations to check. Sol's review of that design found six weaknesses that only a different rubric can fix. Round 2 is that rubric, run on the pandemic question again (both answers reused) and on two questions the generator was never tuned on, one per corpus.
 
@@ -64,11 +64,11 @@ These hold for these six answers to these three questions. The forge deliverable
 
 ### How the Gemini arm ran
 
-- **Libraries.** [`manifest.md`](manifest.md) lists both arms' sources. The AARBuddy notebook and the `aarbuddy` corpus share 329 sources. Eight corpus sources are not in the notebook: four uploads failed, two were ingested after it was built, two were never uploaded. Four notebook files are not corpus sources: *Come Prepared to Die* (unticked for question 2), a synthetic incident case and two lens specs. The demo notebook holds all 31 demo sources and nothing else.
+- **Libraries.** [`manifest.md`](manifest.md) gives both arms' source counts. The AARBuddy notebook holds all but eight of the `aarbuddy` corpus's sources, low hundreds in all. Of the eight, four uploads failed, two were ingested after it was built, two were never uploaded. Four notebook files are not corpus sources: *Come Prepared to Die* (unticked for question 2), a synthetic incident case and two lens specs. The demo notebook holds all 31 demo sources and nothing else.
 - **Question 2.** Asked once, word for word, at Default style and length, in a cleared chat, with *Come Prepared to Die* unticked. Saving the Default setting sent the notebook's own suggested prompt, as in round 1; the chat was cleared again before the question. Afterwards the custom chat setting was restored, the chat cleared and the source re-ticked. Gemini answered with a memo of about 1,500 words, 65 distinct citations (115 markers). Its header read "FROM: Gemini Notebook"; the judges' copy redacts that one line.
 - **Question 3.** Asked once in the demo notebook, already at Default. Its chat held one earlier exchange, saved before clearing (`gemini-notebook-arm/demo-notebook-chat-2026-11-01.md`). The answer, about 700 words, has 38 distinct citations (69 markers) to six sources.
 - **Capture.** Every popup was captured in full and moved to disk through the clipboard, so the passages are byte-exact. Question 1 reuses round 1's capture.
-- **Judges' library.** Originals of every source either answer cites, converted text for the six with none. The four Aletheia level bundles Gemini cites were rebuilt from the 48 session PDFs, one bookmark per session, as uploaded; the upload-time files are gone. Question 1's *Come Prepared to Die* citations were scored from the shown passages.
+- **Judges' library.** Originals of every source either answer cites, converted text for the six with none. Four of the files Gemini cites are one course's session notes, rebuilt from its session PDFs as uploaded, one bookmark per session; the upload-time files are gone. Question 1's *Come Prepared to Die* citations were scored from the shown passages.
 
 ### Claims
 
@@ -131,11 +131,32 @@ Completion was 100%: all twelve judges scored every claim in their list. Judge 2
 - **On question 3, over the demo corpus, it splits by measure.** Gemini is ahead on delivered support (62% against 52–57%), the forge answer once recovered (89–91% against 77–79%). Its quotations stay exact, and its applications are marked as its own.
 - **Identity masking was thin.** All six Gemini judges guessed a NotebookLM-style tool. All six forge judges guessed a quote-locating pipeline with an LLM writer.
 
+### Sol re-grade
+
+Six Sol judges (`gpt-6.1-sol`, Codex `exec`, read-only sandbox), one per answer, a model family that wrote neither answer. Each got the Opus judges' brief, claim list, answer and library, through the same neutral paths, changed only to return its result as its final message. All six scored every claim. Figures cover quotations and attributed claims, as in the table above; Opus is judge 1 / judge 2.
+
+| | Delivered `yes`, Opus | Delivered `yes`, Sol | Supported once recovered, Opus | Supported once recovered, Sol | Sol agrees with each Opus judge on `yes` / not `yes` | The two Opus judges agree |
+|---|---|---|---|---|---|---|
+| **Q1 forge** | 26/30, 26/30 | 29/30 | 28/30, 29/30 | 29/30 | 27/30, 27/30 | 30/30 |
+| **Q1 Gemini** | 5/9, 5/9 | 4/9 | 6/9, 6/9 | 5/9 | 8/9, 8/9 | 9/9 |
+| **Q2 forge** | 27/47, 31/47 | 30/47 | 43/47, 46/47 | 41/47 | 40/47, 40/47 | 41/47 |
+| **Q2 Gemini** | 21/55, 23/55 | 26/55 | 32/55, 35/55 | 38/55 | 44/55, 46/55 | 51/55 |
+| **Q3 forge** | 31/54, 28/54 | 37/54 | 48/54, 49/54 | 48/54 | 46/54, 43/54 | 51/54 |
+| **Q3 Gemini** | 24/39, 24/39 | 25/39 | 31/39, 30/39 | 28/39 | 34/39, 34/39 | 39/39 |
+
+Sol agrees with an Opus judge on 397 of 468 delivered calls (85%); the two Opus judges agree with each other on 221 of 234 (94%).
+
+- **Question 1 holds, and the gap widens.** Sol gives the forge answer 29 of 30 and Gemini 4 of 9. Its three splits on the forge answer are claims the Opus judges called narrower or overstated and Sol called supported. Its one split on Gemini goes the other way.
+- **Question 2 holds, by a smaller margin.** Forge 64% against Gemini 47% as delivered, 87% against 69% once recovered. Sol is milder than Opus on Gemini's overstatement (7 `overstated`, against 12–16) and stricter on its quotations: 5 of 12 exact against the shown passage, counting two hyphenation differences, and 9 of 12 against the full source. The forge answer's quotations are 14 of 14 again.
+- **Question 3's split does not hold under Sol.** Sol puts the forge answer ahead on both measures: 69% against 64% as delivered, 89% against 72% once recovered. The difference is how the judges read "pointer". Of the forge answer's 22 attributed sentences with no pointer, Opus scored all but a few `absent` on delivery. Sol scored 8 of them `yes`, taking the source the sentence names, or the passage shown beside it, as what the answer gives. Under the Opus reading Gemini leads on delivered support; under Sol's, the forge answer does. Question 3's delivered lead sits inside that ambiguity. The brief should say whether a source named in the sentence counts as a pointer, and the forge answer should carry pointers on those sentences either way.
+- **Effort is not comparable across the families.** Sol charged opening a file and searching it as two operations, so its recovery costs (3 to 5 operations per claim) run above the Opus judges' (1 to 3) for both answers.
+- **Identity.** Sol's three forge judges guessed a corpus-retrieval tool with file and line pointers; its three Gemini judges guessed a document-retrieval chatbot. None named a product.
+
 ### Files
 
 Copyrighted text stays under `corpus.local/aarbuddy/projects/verbatim-reports/`:
 
-- `{nz-pandemic,non-duality,marines-business}/r2/`: `answer-A.md`, `answer-B.md`, both `claims-*.md` and their briefs, `originals/`, `converted-only/`, and `judges/{A1,A2,B1,B2}/` (brief and result).
+- `{nz-pandemic,non-duality,marines-business}/r2/`: `answer-A.md`, `answer-B.md`, both `claims-*.md` and their briefs, `originals/`, `converted-only/`, `judges/{A1,A2,B1,B2}/` (brief and result), and `judges/sol-{A,B}/` (brief, result and Codex log).
 - `{non-duality,marines-business}/judge/gemini-answer.md`: the Gemini captures, with every passage.
 - `{each}/judge/r2-key.md`: which arm is A and which B, and the library list.
 - The judges reached these files through the symlinks `corpus.local/aarbuddy/projects/r2-q{1,2,3}`.

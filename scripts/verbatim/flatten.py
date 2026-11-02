@@ -67,11 +67,13 @@ def flatten(folder, base=None, ship=False, joins="essay"):
             elif not pc.get("checked"):
                 check = "not run" + (f" ({pc['why']})" if pc.get("why") else " (no original file)")
             else:
-                left = [d for d in pc.get("differences", []) if not d.get("corrected")]
+                left = [d for d in pc.get("differences", []) if not (d.get("corrected") or d.get("trimmed"))]
                 fixed = [d for d in pc.get("differences", []) if d.get("corrected")]
                 check = ("matches the printed page word for word" if not left else "differs from the printed page: " + "; ".join(
                     f"“{d['quote']}” where the page has “{d['page']}”" if d["page"] else f"“{d['quote']}” not on the page" for d in left))
                 if fixed: check += "; split words set as the page prints them: " + ", ".join(f"“{d['page']}”" for d in fixed)
+                cut = [d for d in pc.get("differences", []) if d.get("trimmed")]
+                if cut: check += "; converter debris not on the page, trimmed: " + ", ".join(f"“{d['quote']}”" for d in cut)
             notes.append("\n".join([
                 f"[{n}] {who}" + (". The answer's paraphrase; the passage it rests on:" if pointed else ""),
                 f"    section: {sp.get('locator') or 'not recorded'}; printed page: {sp.get('page') or 'not kept by the converter'}",

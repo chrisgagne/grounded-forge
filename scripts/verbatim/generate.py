@@ -46,7 +46,7 @@ Do this:
 
 1. Read scripts/verbatim/contract.md in full. It is the output contract.
 2. Read .claude/skills/answer-from-corpus/SKILL.md in full and run it in project mode over {corpora_names}: classify the shape, run the lens check, decompose into sub-claims, route through each corpus's concept-index.json (topics block first), triage light references, read the deep references of the authors doing real work. Project mode never reads a distillation or a task index.
-3. For each claim you want in an author's words, open the converted source (the path is in the deep reference's header or the source's sidecar under sources/original/{{slug}}.source.md) and Grep or Read the passage. Copy an anchor of 8 to 12 consecutive words from the line you read, choose `sentences` so the placed span carries the claim, and write the paraphrase. Aim for 8 to 14 spans across 4 to 6 sections, spread across distinct authors, the most load-bearing ranked first.
+3. For each claim you want in an author's words, open the converted source (the path is in the deep reference's header or the source's sidecar under sources/original/{{slug}}.source.md) and Grep or Read the passage. Copy an anchor of 8 to 12 consecutive words from the line you read, choose `sentences` so the placed span carries the claim, and write the paraphrase. Size the answer to the question, not to a target: one section per move the argument needs, and a placeholder for every sub-claim the protocol found, so that each idea the corpus can support for this question is in the answer. A narrow question may need a few placeholders; a broad synthesis may need many. Where a secondary idea needs only a sentence, make it a pointed paraphrase, not a quotation. Spread the spans across distinct authors, and rank the most load-bearing first.
 4. Before writing, check every anchor with Grep against its converted file (fixed-string, case-insensitive, on a distinctive 5- or 6-word stretch of it). Replace any anchor that does not match.
 5. Write the report with the Write tool to {out}/report.json. {joins_rule} Your joins state what follows from the spans for the question asked, in plain prose; they never quote, and they never credit. Every sentence that says what a source says, holds, found or recommends is a placeholder: a quotation, or a pointed paraphrase (`"show": "paraphrase"`, your sentence in `paraphrase`, with an anchor to the passage it rests on). A sentence comparing two sources is one pointed paraphrase per source. A join names an author only in a lead-in that runs straight into the placeholder after it. The coverage note says plainly what the corpora lack for this question and names two or three ingestion candidates.
 6. Run `python3 -c "import json;json.load(open('{out}/report.json'))"` to check the file parses. Then reply with one line: the number of spans and sections.
@@ -68,6 +68,7 @@ Read scripts/verbatim/contract.md ("The rules that matter" and the placeholder t
 - If one passage in one source carries it: replace the sentence in that section's `joins` with a pointed paraphrase placeholder, {{"span": "…", "source": "…", "anchor": "…", "sentences": N, "paraphrase": "…", "show": "paraphrase"}}. The paraphrase is the sentence itself, reworded only as far as the passage needs. Copy the anchor, 8 to 12 consecutive words, from a line of the converted source you read with Read or Grep, and check it with a fixed-string, case-insensitive Grep on a distinctive 5- or 6-word stretch. Put the same span in `joins_min` at the same place, and in a subclaim. Leave it out of `rank`.
 - If it compares two sources: one pointed paraphrase per source, joined by your own words.
 - If no passage carries it: cut the credit. Rewrite it as your own reasoning with no source named, or drop it.
+- If it is in the coverage note: the coverage note names only what the corpus lacks. Rewrite the sentence so it claims nothing about a corpus source, or move the claim into a section as a pointed paraphrase.
 - If it is not a credit at all (for example "the board" meaning a company's board): leave it, and list it in {out}/credits-reviewed.json as [{{"sentence": "…", "why": "…"}}].
 
 Change nothing else in the report. Write report.json back with the Write tool, check it parses with `python3 -c "import json;json.load(open('{out}/report.json'))"`, then reply with one line: how many sentences you made into placeholders, cut, and left.
@@ -115,6 +116,39 @@ def credits(report, bundle):
                     if (named and named.search(sent)) or SOURCE_REF.search(sent):
                         found.append({"section": sec.get("heading", ""), "form": form, "sentence": sent})
     return found
+
+
+SWEEP_PROMPT = """Read {out}/report.json, a verbatim-mode report (shape: scripts/verbatim/contract.md). List every sentence in the model's own prose that says what a source in the corpus says, holds, found, recommends or does without being a placeholder. The model's own prose is the strings in each section's `joins` and `joins_min`, and the `coverage_note`. A source may be named (an author, a book, a report) or referred to ("the textbook", "the Marines", "both sources", "the board"). Leave out the placeholders themselves (the objects), a lead-in that runs straight into the placeholder after it, the answer's own reasoning that credits no source, and, in the coverage note, its account of what the corpus holds and lacks ("it has Kotter on change but no strategy text") and the works it names for ingestion. In the coverage note, list only a sentence that says what a corpus source itself says, does or is worth ("which Seddon leans on", "the primer's material is a recommendation, not a result").
+
+Write {out}/credits-found.json with the Write tool as [{{"section": "<the section heading, or coverage note>", "form": "joins | joins_min | coverage_note", "sentence": "<the sentence exactly as written>"}}], or [] if there are none. Then reply with one line: how many you found."""
+
+
+def sweep(out, model, roots):
+    """A model reads the prose for credits no word list catches; returns them in credits()'s shape."""
+    (out / "credits-found.json").unlink(missing_ok=True)
+    log = run_claude(SWEEP_PROMPT.format(out=out), roots + [out], model, out / "sweep-step.json", 20)
+    try:
+        found = json.loads((out / "credits-found.json").read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        found = []
+    report = json.loads((out / "report.json").read_text())
+    leads = set()   # a lead-in running straight into the placeholder after it carries that placeholder's pointer
+    for sec in report.get("sections", []):
+        for form in ("joins", "joins_min"):
+            js = sec.get(form) or []
+            for i, j in enumerate(js):
+                if isinstance(j, str) and i + 1 < len(js) and isinstance(js[i + 1], dict):
+                    last = ([p for p in re.split(r"(?<=[.!?])\s+", j.strip()) if p] or [""])[-1]
+                    if not re.search(r"[.!?][\"”’')]*$", last): leads.add(" ".join(last.split()))
+    return [c for c in found if isinstance(c, dict) and c.get("sentence") and " ".join(c["sentence"].split()) not in leads], log
+
+
+def merge_credits(*lists):
+    seen, out = set(), []
+    for c in (c for l in lists for c in l):
+        key = " ".join(c["sentence"].split())
+        if key not in seen: seen.add(key); out.append(c)
+    return out
 
 
 def run_claude(prompt, add_dirs, model, log_path, max_turns):
@@ -298,13 +332,18 @@ def main():
         bundle = resolve(out)
         missing = [k for k, s in bundle["spans"].items() if not s.get("verified")]
 
+    roots = [REPO / bundle["corpora"][c]["root"] for c in bundle["corpora"]]
     found = credits(report, bundle)
+    if not args.render_only:
+        swept, log = sweep(out, args.model, roots)
+        summary["sweep_step"] = {k: log.get(k) for k in ("seconds", "num_turns", "total_cost_usd")}
+        found = merge_credits(found, swept)
     reviewed = json.loads((out / "credits-reviewed.json").read_text()) if (out / "credits-reviewed.json").exists() else []
     found = [c for c in found if c["sentence"] not in {r.get("sentence") for r in reviewed}]
     if found and not args.render_only:
         items = "\n".join(f"- section {c['section']!r} ({c['form']}): {c['sentence']}" for c in found)
         print(f"credit pass for {len(found)} join sentences …", file=sys.stderr)
-        log = run_claude(CREDIT_PROMPT.format(items=items, out=out), [REPO / bundle["corpora"][c]["root"] for c in bundle["corpora"]] + [out], args.model, out / "credit-step.json", 80)
+        log = run_claude(CREDIT_PROMPT.format(items=items, out=out), roots + [out], args.model, out / "credit-step.json", 80)
         summary["credit_step"] = {k: log.get(k) for k in ("seconds", "num_turns", "total_cost_usd")}
         summary["credits_before_repair"] = len(found)
         report = json.loads((out / "report.json").read_text())
@@ -317,7 +356,9 @@ def main():
         bundle = resolve(out)
         missing = [k for k, s in bundle["spans"].items() if not s.get("verified")]
         reviewed = json.loads((out / "credits-reviewed.json").read_text()) if (out / "credits-reviewed.json").exists() else []
-        found = [c for c in credits(report, bundle) if c["sentence"] not in {r.get("sentence") for r in reviewed}]
+        swept, log = sweep(out, args.model, roots)
+        summary["sweep_after_repair"] = {k: log.get(k) for k in ("seconds", "num_turns", "total_cost_usd")}
+        found = [c for c in merge_credits(credits(report, bundle), swept) if c["sentence"] not in {r.get("sentence") for r in reviewed}]
     summary["credits_reviewed_not_credits"] = reviewed
     summary["unpointed_credits"] = found
     if found:
@@ -335,10 +376,10 @@ def main():
     rendered = json.loads((out / "bundle.json").read_text())
     pcs = [s.get("page_check") for s in rendered["spans"].values() if s.get("show") != "paraphrase" and s.get("verified")]
     summary["page_check"] = {"quotations": len(pcs), "checked": sum(1 for p in pcs if p and p.get("checked")),
-                             "match": sum(1 for p in pcs if p and p.get("checked") and not [d for d in p.get("differences", []) if not d.get("corrected")]),
+                             "match": sum(1 for p in pcs if p and p.get("checked") and not [d for d in p.get("differences", []) if not (d.get("corrected") or d.get("trimmed"))]),
                              "split_words_set_from_page": sum(1 for p in pcs if p for d in p.get("differences", []) if d.get("corrected")),
-                             "differ": {k: [d for d in s["page_check"]["differences"] if not d.get("corrected")] for k, s in rendered["spans"].items()
-                                        if s.get("page_check", {}).get("differences") and [d for d in s["page_check"]["differences"] if not d.get("corrected")]}}
+                             "differ": {k: [d for d in s["page_check"]["differences"] if not (d.get("corrected") or d.get("trimmed"))] for k, s in rendered["spans"].items()
+                                        if s.get("page_check", {}).get("differences") and [d for d in s["page_check"]["differences"] if not (d.get("corrected") or d.get("trimmed"))]}}
     summary["own_share_minimal_v1"] = round(own_share(report, bundle, "minimal"), 3)
     summary["own_share_essay_v1"] = round(own_share(report, bundle, "essay"), 3)
     (out / "summary.json").write_text(json.dumps(summary, indent=1, ensure_ascii=False))

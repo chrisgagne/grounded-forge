@@ -59,7 +59,7 @@ The model step of `generate.py` writes one file, `report.json`, in the report fo
 }
 ```
 
-`joins` is the essay form: strings of model prose and placeholder objects, in reading order. Strings carry their own leading and trailing spaces. Each section opens with a string and holds one to four quotation placeholders, plus a pointed paraphrase for every other sentence that credits a source.
+`joins` is the essay form: strings of model prose and placeholder objects, in reading order. Strings carry their own leading and trailing spaces. Each section opens with a string and holds as many placeholders as its argument needs: quotations where the author's words carry the point, and a pointed paraphrase for every other sentence that credits a source. The number of sections and placeholders follows from the question, not from a target.
 
 `joins_min` is the terse form of the same section: the same placeholders, by `span` ID only, in the same order, with the shortest strings that still make the argument. No lead-ins ("As Edmondson puts it:", "Dörner observes"): the span's source mark names the source. A string may be empty or absent between two spans.
 

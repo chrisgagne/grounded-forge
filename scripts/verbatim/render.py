@@ -65,8 +65,23 @@ def page_check(doc, hit, text, fitz, vocab):
             q = a[i1:i2]
             near = b[max(0, j1 - 3):j2 + 3]   # the alignment can lose a split word's place: look for it whole close by
             whole = "".join(q)
-            diffs.append({"quote": " ".join(q), "page": whole if len(q) > 1 and whole in near else None})
+            found = whole if len(q) > 1 and whole in near else None
+            edge = "start" if i1 == 0 else "end" if i2 == len(a) else None
+            diffs.append({"quote": " ".join(q), "page": found, **({"edge": edge} if edge and not found else {})})
     return {"checked": True, "differences": diffs}
+
+
+def trim_edges(sp, most=6):
+    """Words at a quotation's start or end that its printed page doesn't have are converter debris
+    (a column label, a running head, a heading run into the paragraph): trim them, and record it."""
+    for d in sp["page_check"].get("differences", []):
+        if not d.get("edge") or len(d["quote"].split()) > most: continue
+        words = r"[^\w]+".join(re.escape(w).replace("'", "['’]") for w in d["quote"].split())
+        pat = (r"(?i)^\W*" + words + r"\W*") if d["edge"] == "start" else (r"(?i)\W*" + words + r"\W*$")
+        new = re.sub(pat, "", sp["text"], count=1).strip()
+        if new and new != sp["text"]:
+            sp["text"] = new[0].upper() + new[1:] if d["edge"] == "start" else new
+            d["trimmed"] = True
 
 
 def heal_splits(sp):
@@ -168,6 +183,7 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
         if sp.get("show") != "paraphrase":
             sp["page_check"] = page_check(doc, hit, sp["text"], fitz, vocab)
             heal_splits(sp)
+            trim_edges(sp)
         for i in range(max(0, hit - window), min(doc.page_count, hit + window + 1)):
             # the hit page carries this span's highlight, so it is the span's own file; the pages either side are shared
             png = pages_dir / (f"{sid}-{i + 1}-{span_id}.png" if i == hit else f"{sid}-{i + 1}.png")

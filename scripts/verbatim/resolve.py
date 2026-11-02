@@ -52,6 +52,11 @@ def clean(line: str) -> str:
     if re.match(r"^\s*:{3,}", s): return ""
     if re.match(r"^\s*\|[\s:|-]*-{3,}[\s:|-]*\|?\s*$", s): return "\u200b"   # a table rule: gone, but not a paragraph break (some conversions set prose as a table)
     s = re.sub(r"^\s*(?:>\s?)+", "", s)
+    s = re.sub(r"\[(\d{1,3})\]\((?!https?:)[^)]*\)", "", s)                  # [12](#fn12): a footnote call
+    s = re.sub(r"\[([^\[\]]+?)\]\((?!https?:|mailto:|www\.)[^)]*\)", r"\1", s)  # [text](file.html#x): an internal link
+    s = re.sub(r"(?<=[\w.,;:!?’”\"')])\[\d{1,3}\]|\^\d{1,3}\^?|\[\^\d{1,3}\]", "", s)  # [16], ^1, [^1]: footnote calls
+    s = re.sub(r"</?[a-zA-Z][^>]{0,80}>", "", s)                              # inline e-book tags
+    s = re.sub(r"^\s*(?:[-*+•♦▪◦‣]\s+)+", "", s)                             # list markers, "- ♦ " included
     if s.lstrip().startswith("|"): s = re.sub(r"\s*\|\s*", " ", s).strip()
     return s
 
@@ -123,8 +128,13 @@ class Source:
         self.norm, self.nmap, self.nend = build_norm(self.joined)
         self._loose = None
         self.words = sum(len(l.split()) for l in self.lines)
+        self.qa = sum(1 for i in range(len(self.lines)) if self.is_question(i)) >= 30   # set as dialogue: many short question lines
 
     def line_of(self, off): return bisect.bisect_right(self.line_starts, off) - 1
+
+    def is_question(self, i):
+        l = self.lines[i].strip().strip("*_")
+        return 0 < len(l) <= 150 and l.endswith("?") and l[0].isupper()
 
     @staticmethod
     def _hits(norm, q):
@@ -202,14 +212,21 @@ class Source:
             nl = text.find("\n", s, start)
             if nl < 0: break
             head = text[s:nl].strip(); letters = re.findall(r"[A-Za-z]", head)
-            if not (head and len(head.split()) <= 8 and len(letters) >= 3 and not re.search(r"[.!?:;,]$", head)
-                    and sum(c.isupper() for c in letters) >= 0.9 * len(letters)): break
+            words = head.split()
+            titled = sum(w[0].isupper() for w in words if w[0].isalpha() and len(w) > 3) >= max(1, 0.75 * len([w for w in words if w[0].isalpha() and len(w) > 3]))
+            if not (head and len(words) <= 10 and len(letters) >= 3 and not re.search(r"[.!?:;,]$", head)
+                    and (sum(c.isupper() for c in letters) >= 0.9 * len(letters) or titled)): break
             s = nl + 1
             while s < start and text[s].isspace(): s += 1
         e = end; count = 0
         tail = re.search(r"[.!?][\"”’')\]]*$", text[max(start, end - 4):end])
         if tail and not self._abbr(text, max(start, end - 4) + tail.start()):
             count = 1
+        if self.qa:   # in a question-and-answer book, an interviewer's question line is a turn, not the author's next sentence
+            ln = self.line_of(end - 1) + 1
+            while ln < len(self.lines) and self.line_starts[ln] < pb:
+                if self.is_question(ln): pb = self.line_starts[ln]; break
+                ln += 1
         while count < sentences:
             m = TERMINAL.search(text, e, pb)
             if not m: e = pb; break
@@ -506,6 +523,9 @@ def main():
         a, b, level, hits = hit
         s, e = src.sentence_span(a, b, sentences=max(1, min(4, int(j.get("sentences", 1)))))
         text = re.sub(r"[ \t]{2,}", " ", re.sub(r"\s*\n\s*", " ", src.joined[s:e]).replace("\u200b", "")).strip()
+        label = re.match(r"([A-Z][a-z]{3,}):\s+", text)
+        if label and len(re.findall(rf"(?m)^\s*{label.group(1)}:", src.joined)) >= 5:   # a recurring column label ("Recommendation:") the converter ran in
+            text = text[label.end():]
         line = src.line_of(s) + 1
         before, after = src.paragraphs(s, e)
         own_b, own_a = src.own_paragraph(s, e)

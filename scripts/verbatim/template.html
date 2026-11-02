@@ -242,10 +242,11 @@ const shortTitle = src => { let t=(src.title||src.slug).split(":")[0]; t=t.repla
 // mode per span: "verbatim" | "para" | "missing"; reason for para
 function pageCheckNote(sp){
   const pc = sp.page_check; if(!pc || !pc.checked) return "";
-  const left = (pc.differences||[]).filter(d=>!d.corrected), fixed = (pc.differences||[]).filter(d=>d.corrected);
+  const left = (pc.differences||[]).filter(d=>!d.corrected && !d.trimmed), fixed = (pc.differences||[]).filter(d=>d.corrected), cut = (pc.differences||[]).filter(d=>d.trimmed);
   const parts = [];
   if(left.length) parts.push(`<b>Differs from the printed page:</b> ${left.map(d=>d.page?`“${esc(d.quote)}” where the page has “${esc(d.page)}”`:`“${esc(d.quote)}” is not on the page`).join("; ")}.`);
   if(fixed.length) parts.push(`Split words set as the page prints them: ${fixed.map(d=>`“${esc(d.page)}”`).join(", ")}.`);
+  if(cut.length) parts.push(`Converter debris not on the page, trimmed: ${cut.map(d=>`“${esc(d.quote)}”`).join(", ")}.`);
   return parts.length ? `<div class="where" style="color:var(--g-cat-1)">${parts.join(" ")}</div>` : `<div class="where">Matches the printed page word for word.</div>`;
 }
 

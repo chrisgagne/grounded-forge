@@ -74,7 +74,7 @@ Change nothing else in the report. Write report.json back with the Write tool, c
 """
 
 ORG = re.compile(r"\b(?:Corps|Department|Board|Service|Agency|Institute|University|OpenStax|Commission|Administration|Committee|Office|Cent(?:er|re)|Foundation|Council|Association|Press|NASA|Navy|Army|Marine|Forest|Health|Energy|Rice|Collective|Team|Group|NHS|Improvement)\b")
-SOURCE_REF = re.compile(r"\b(?:the|this|that|both|either|each|neither|all|these|those|its|his|her|their)\s+(?:[\w'’-]+\s+){0,2}?(?:textbook|text|book|doctrine|manual|report|guide|handbook|study|studies|source|sources|author|authors|board|paper|article|chapter|framework|literature|tradition|teachers?|teachings?|pamphlet|publication|research|findings?)\b", re.I)
+SOURCE_REF = re.compile(r"\b(?:the|this|both|either|each|neither|all|these|those|its|his|her|their)\s+(?:[\w'’-]+\s+){0,2}?(?:textbook|text|book|doctrine|manual|report|guide|handbook|study|studies|source|sources|author|authors|board|paper|article|chapter|framework|literature|tradition|teachers?|teachings?|pamphlet|publication|research|findings?)\b", re.I)
 
 
 def source_names(report, bundle):

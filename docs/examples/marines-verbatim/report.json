@@ -1,0 +1,488 @@
+{
+ "question": "Please draw some interesting parallels between US Marines war-fighting doctrine and modern \"textbook\" business administration.",
+ "mode": {
+  "verbatim": 1.0,
+  "context": "paras:1",
+  "protocol": "Synthesis",
+  "lens": "none",
+  "corpora": [
+   "demo"
+  ],
+  "joins": "essay"
+ },
+ "coverage_note": "The demo corpus holds one military source, MCDP 1 itself, and general business textbooks, so every parallel here is drawn by setting the two side by side; no source in the corpus applies mission command, intent or manoeuvre thinking to business directly, and none speaks for the textbook tradition beyond OpenStax. The management textbook's deep reference leaves out its exercise apparatus, and only the chapters on decisions, management history, environments, strategy, structure and planning were read for this answer. Candidates that would let the corpus answer this question directly: Stephen Bungay's The Art of Action (mission command applied to business strategy and execution), Peter Drucker's The Practice of Management (the primary source for management by objectives), and Stanley McChrystal and colleagues' Team of Teams (decentralised command carried from the military into large organisations).",
+ "subclaims": [
+  {
+   "id": "c1",
+   "label": "Uncertainty: plan it away or fight through",
+   "spans": [
+    "mcdp-uncertainty",
+    "pom-plan-reasons",
+    "pom-planning-closer"
+   ]
+  },
+  {
+   "id": "c2",
+   "label": "Intent versus cascaded goals",
+   "spans": [
+    "mcdp-intent-in-mission",
+    "pom-mission-why",
+    "pom-goal-hierarchy",
+    "mcdp-intent-predominant"
+   ]
+  },
+  {
+   "id": "c3",
+   "label": "Decentralise by rule or by contingency",
+   "spans": [
+    "mcdp-decentralize",
+    "pom-organic",
+    "pom-contingency",
+    "caib-hro-both"
+   ]
+  },
+  {
+   "id": "c4",
+   "label": "Fast and slow decision modes",
+   "spans": [
+    "mcdp-intuitive-analytical",
+    "pom-two-systems",
+    "pom-programmed-pairing",
+    "pom-reactive-expertise",
+    "pom-time-constraints",
+    "mcdp-any-decision"
+   ]
+  },
+  {
+   "id": "c5",
+   "label": "Error, blame and inaction",
+   "spans": [
+    "mcdp-zero-defects",
+    "mcdp-inaction",
+    "pom-involvement-blame",
+    "pom-escalation",
+    "mcdp-reinforce-failure"
+   ]
+  },
+  {
+   "id": "c6",
+   "label": "Doctrine is not a framework",
+   "spans": [
+    "mcdp-doctrine-procedures",
+    "pom-merton-absolutes",
+    "ot-framework-pitch"
+   ]
+  }
+ ],
+ "rank": [
+  "mcdp-intent-predominant",
+  "pom-goal-hierarchy",
+  "mcdp-decentralize",
+  "pom-organic",
+  "caib-hro-both",
+  "mcdp-uncertainty",
+  "pom-planning-closer",
+  "mcdp-intuitive-analytical",
+  "pom-programmed-pairing",
+  "mcdp-zero-defects",
+  "pom-involvement-blame",
+  "mcdp-doctrine-procedures",
+  "pom-merton-absolutes"
+ ],
+ "sections": [
+  {
+   "heading": "Both start from not knowing",
+   "joins": [
+    "Both traditions begin with the same problem: how to act when nobody can know what will happen next. MCDP 1 sets out its starting point: ",
+    {
+     "span": "mcdp-uncertainty",
+     "source": "00q",
+     "anchor": "Because we can never eliminate uncertainty, we must learn to fight",
+     "sentences": 2,
+     "paraphrase": "MCDP 1 holds that uncertainty can never be removed, so Marines must fight well despite it, through simple, flexible plans, contingency planning, standing procedures and initiative among subordinates."
+    },
+    " The management textbook comes at the same problem through planning: ",
+    {
+     "span": "pom-plan-reasons",
+     "source": "00j",
+     "show": "paraphrase",
+     "anchor": "Managers have several reasons for formulating plans for themselves, their employees",
+     "sentences": 1,
+     "paraphrase": "The management textbook lists offsetting uncertainty and change as the first of five reasons managers plan, ahead of focus, a road map, efficiency and control."
+    },
+    " For a manager, the practical question is whether initiative sits inside the answer to uncertainty or outside it. Once the environment turns rough, the textbook moves the work down to where it happens: ",
+    {
+     "span": "pom-planning-closer",
+     "source": "00j",
+     "anchor": "planning and controlling move closer to the point in the organization",
+     "sentences": 1,
+     "paraphrase": "The management textbook observes that as uncertainty, rapid change and turbulence rise, planning and controlling shift toward the people who carry the plans out day to day."
+    },
+    " Put plainly, the rougher the market, the more a business has to be run the way a Marine unit is run."
+   ],
+   "joins_min": [
+    "",
+    {
+     "span": "mcdp-uncertainty"
+    },
+    " ",
+    {
+     "span": "pom-plan-reasons"
+    },
+    " Under turbulence: ",
+    {
+     "span": "pom-planning-closer"
+    },
+    " The rougher the market, the more a firm must run like a Marine unit."
+   ]
+  },
+  {
+   "heading": "Commander's intent and the mission statement",
+   "joins": [
+    "The closest match in vocabulary is between commander's intent and the business mission statement, and the two even share a document. In MCDP 1, intent travels with the mission: ",
+    {
+     "span": "mcdp-intent-in-mission",
+     "source": "00q",
+     "show": "paraphrase",
+     "anchor": "A commander normally provides intent as part of the mission statement",
+     "sentences": 1,
+     "paraphrase": "MCDP 1 places the commander's intent inside the mission statement a commander hands to a subordinate."
+    },
+    " The textbook gives its mission statement a similar job: ",
+    {
+     "span": "pom-mission-why",
+     "source": "00j",
+     "show": "paraphrase",
+     "anchor": "The mission statement takes the why of a vision statement",
+     "sentences": 1,
+     "paraphrase": "The management textbook describes the mission statement as taking the reason behind a firm's vision and sketching broadly how the firm will pursue it."
+    },
+    " The difference lies in what flows down the hierarchy after that. The textbook's version is a cascade of goals: ",
+    {
+     "span": "pom-goal-hierarchy",
+     "source": "00j",
+     "anchor": "In the process, managers must make sure that lower-level goals combine",
+     "sentences": 1,
+     "paraphrase": "The management textbook tells managers to make sure that goals set at each lower level add up to the goals above them."
+    },
+    " MCDP 1 on the two parts of every mission: ",
+    {
+     "span": "mcdp-intent-predominant",
+     "source": "00q",
+     "anchor": "The task describes the action to be taken while the intent",
+     "sentences": 4,
+     "paraphrase": "MCDP 1 splits every mission into a task, which says what to do, and an intent, which says why, and ranks the intent higher because it keeps guiding action after a changed situation has made the task obsolete."
+    },
+    " For a business, this is the sharpest lesson in the whole comparison. A cascaded target goes stale the moment the market moves, while a stated reason behind the target still tells a team what to do next."
+   ],
+   "joins_min": [
+    "Same document, different load. ",
+    {
+     "span": "mcdp-intent-in-mission"
+    },
+    " ",
+    {
+     "span": "pom-mission-why"
+    },
+    " What cascades differs: ",
+    {
+     "span": "pom-goal-hierarchy"
+    },
+    " Against: ",
+    {
+     "span": "mcdp-intent-predominant"
+    },
+    " A target goes stale when the market moves; a reason keeps guiding."
+   ]
+  },
+  {
+   "heading": "How far to push decisions down",
+   "joins": [
+    "Where decisions get made is where the comparison turns most practical. MCDP 1 commits to one answer: ",
+    {
+     "span": "mcdp-decentralize",
+     "source": "00q",
+     "anchor": "First and foremost, in order to generate the tempo of operations",
+     "sentences": 2,
+     "paraphrase": "MCDP 1 requires decentralised command, both for tempo and to cope with the disorder of combat: subordinates decide on their own initiative from their senior's intent instead of sending information up and waiting for a decision to come down."
+    },
+    " The management textbook describes organic structures this way: ",
+    {
+     "span": "pom-organic",
+     "source": "00j",
+     "anchor": "these organizational forms work best in unstable, complex, changing environments",
+     "sentences": 2,
+     "paraphrase": "The management textbook places organic structures in unstable, complex, changing environments, with flatter hierarchies and decisions flowing in several directions."
+    },
+    " That sits inside its wider stance: ",
+    {
+     "span": "pom-contingency",
+     "source": "00j",
+     "show": "paraphrase",
+     "anchor": "The contingency school changed this by proposing that there are no universal",
+     "sentences": 2,
+     "paraphrase": "The management textbook presents the contingency school's view that management has no universal rules, because each situation calls for its own response."
+    },
+    " There is less conflict here than it first seems: war sits at the unstable, complex end of that scale, so a fixed rule and a contingent one give the same answer there. The Columbia board adds the move a business most needs: ",
+    {
+     "span": "caib-hro-both",
+     "source": "00u",
+     "anchor": "manner when appropriate, is the hallmark of a high-reliability organization",
+     "sentences": 1,
+     "paraphrase": "The Columbia Accident Investigation Board names the ability to work centrally when that fits and in a decentralised way when that fits as the mark of a high-reliability organisation."
+    },
+    " Most firms run a stable core and an unstable edge at once, so the skill to build is switching between the two, not picking a side."
+   ],
+   "joins_min": [
+    "",
+    {
+     "span": "mcdp-decentralize"
+    },
+    " ",
+    {
+     "span": "pom-organic"
+    },
+    " ",
+    {
+     "span": "pom-contingency"
+    },
+    " War sits at the unstable end, so both answers agree there. ",
+    {
+     "span": "caib-hro-both"
+    },
+    " Firms with a stable core and an unstable edge need to switch, not pick."
+   ]
+  },
+  {
+   "heading": "Fast and slow decisions, paired differently",
+   "joins": [
+    "Decision-making holds the most surprising contrast. MCDP 1 assigns its two modes like this: ",
+    {
+     "span": "mcdp-intuitive-analytical",
+     "source": "00q",
+     "anchor": "Decisionmaking may be an intuitive process based on experience",
+     "sentences": 4,
+     "paraphrase": "MCDP 1 expects intuitive, experience-based decisions at lower levels and in fluid, uncertain situations, and analytical comparison of options at higher levels or in deliberate planning."
+    },
+    " The textbook's two systems look much the same at first: ",
+    {
+     "span": "pom-two-systems",
+     "source": "00j",
+     "show": "paraphrase",
+     "anchor": "The reflective system is logical, analytical, deliberate, and methodical, while",
+     "sentences": 1,
+     "paraphrase": "The management textbook contrasts a reflective system that is logical and deliberate with a reactive system that is quick, intuitive and driven by emotion or habit."
+    },
+    " Its default pairing, though, runs the other way: ",
+    {
+     "span": "pom-programmed-pairing",
+     "source": "00j",
+     "anchor": "Nonprogrammed decisions will generally need to be processed via the reflective system",
+     "sentences": 2,
+     "paraphrase": "The management textbook sends novel decisions to the slow, reflective system and keeps the quick, reactive system for routine decisions that heuristics can handle."
+    },
+    " The textbook does leave a door open: ",
+    {
+     "span": "pom-reactive-expertise",
+     "source": "00j",
+     "show": "paraphrase",
+     "anchor": "However, the reactive system can be lifesaving when time is",
+     "sentences": 1,
+     "paraphrase": "The management textbook grants that the reactive system can save lives when time is short and works far better when it rests on experience and expertise."
+    },
+    " Put together, a novel and fast-moving situation is where the two would most often send a manager in opposite directions. Time shows the same split: ",
+    {
+     "span": "pom-time-constraints",
+     "source": "00j",
+     "show": "paraphrase",
+     "anchor": "When there is little time available to collect information and to rationally",
+     "sentences": 1,
+     "paraphrase": "The management textbook lists time pressure among the barriers to good decisions, since little time to gather and weigh information makes a good novel decision much less likely."
+    },
+    " ",
+    {
+     "span": "mcdp-any-decision",
+     "source": "00q",
+     "show": "paraphrase",
+     "anchor": "If we fail to make a decision out of lack of will",
+     "sentences": 3,
+     "paraphrase": "MCDP 1 holds that failing to decide hands the initiative to the enemy, so as a basis for action almost any decision beats none."
+    },
+    " For a business in a fast market, treating decision speed as a capability to build, rather than a pressure to endure, is the more useful stance."
+   ],
+   "joins_min": [
+    "",
+    {
+     "span": "mcdp-intuitive-analytical"
+    },
+    " ",
+    {
+     "span": "pom-two-systems"
+    },
+    " Paired the other way: ",
+    {
+     "span": "pom-programmed-pairing"
+    },
+    " ",
+    {
+     "span": "pom-reactive-expertise"
+    },
+    " Time, too: ",
+    {
+     "span": "pom-time-constraints"
+    },
+    " ",
+    {
+     "span": "mcdp-any-decision"
+    },
+    " Build decision speed; don't just endure it."
+   ]
+  },
+  {
+   "heading": "Mistakes, blame and the cost of waiting",
+   "joins": [
+    "Treatment of error is where a business reader may be most surprised. MCDP 1 on the mistakes of junior leaders: ",
+    {
+     "span": "mcdp-zero-defects",
+     "source": "00q",
+     "anchor": "We should deal with such errors leniently; there must be no",
+     "sentences": 2,
+     "paraphrase": "MCDP 1 asks leaders to treat junior leaders' errors of overboldness leniently and rejects a zero-defects mentality, so that fear of punishment does not stifle boldness or initiative."
+    },
+    " It is just as firm in the other direction: ",
+    {
+     "span": "mcdp-inaction",
+     "source": "00q",
+     "show": "paraphrase",
+     "anchor": "On the other hand, we should deal severely with errors of",
+     "sentences": 2,
+     "paraphrase": "MCDP 1 tells leaders to deal severely with inaction and timidity and refuses to accept a lack of orders as an excuse for doing nothing."
+    },
+    " The textbook's nearest match is its involvement-oriented organisation: ",
+    {
+     "span": "pom-involvement-blame",
+     "source": "00j",
+     "anchor": "Control in high-involvement organizations is diffused through many groups and is",
+     "sentences": 2,
+     "paraphrase": "The management textbook describes control in high-involvement organisations as spread across many groups and aimed at getting the task done rather than blaming one person, unlike control-oriented systems where the hierarchy holds the reins and failure lands on the individual."
+    },
+    " On sunk effort, the textbook warns: ",
+    {
+     "span": "pom-escalation",
+     "source": "00j",
+     "show": "paraphrase",
+     "anchor": "progress down the wrong path isn't really progress, and they are willing",
+     "sentences": 1,
+     "paraphrase": "The management textbook asks managers to see that pressing on down a wrong path is not progress, and to be ready to rethink a decision and change direction."
+    },
+    " MCDP 1 gives the field version: ",
+    {
+     "span": "mcdp-reinforce-failure",
+     "source": "00q",
+     "show": "paraphrase",
+     "anchor": "when shifting the main effort, we seek to exploit success rather",
+     "sentences": 1,
+     "paraphrase": "MCDP 1 tells commanders who shift their main effort to move it toward what is working, not to pour more into what is failing."
+    },
+    " The business lesson is that blame-free control works only if waiting carries a cost too; without that, it turns into permission to do nothing."
+   ],
+   "joins_min": [
+    "",
+    {
+     "span": "mcdp-zero-defects"
+    },
+    " ",
+    {
+     "span": "mcdp-inaction"
+    },
+    " ",
+    {
+     "span": "pom-involvement-blame"
+    },
+    " ",
+    {
+     "span": "pom-escalation"
+    },
+    " ",
+    {
+     "span": "mcdp-reinforce-failure"
+    },
+    " Blame-free control needs a cost for waiting."
+   ]
+  },
+  {
+   "heading": "Doctrine is not a framework",
+   "joins": [
+    "The last parallel concerns what a body of rules is for. MCDP 1 states its own standing: ",
+    {
+     "span": "mcdp-doctrine-procedures",
+     "source": "00q",
+     "anchor": "Our doctrine does not consist of procedures to be applied in specific",
+     "sentences": 2,
+     "paraphrase": "MCDP 1 describes its doctrine as general guidance that takes judgment to apply, not a set of procedures for set situations, and so as authoritative but not prescriptive."
+    },
+    " Merton, as the management textbook quotes him, saw what happens when rules lose that standing: ",
+    {
+     "span": "pom-merton-absolutes",
+     "source": "00j",
+     "anchor": "devotion to the rules leads to their transformation into absolutes; they are",
+     "sentences": 2,
+     "paraphrase": "The management textbook quotes Robert Merton's warning that devotion to rules hardens them into absolutes cut loose from their purposes, which blocks adaptation to conditions the rule-writers never foresaw."
+    },
+    " The Org Topologies primer turns the same worry on management frameworks: ",
+    {
+     "span": "ot-framework-pitch",
+     "source": "00p",
+     "show": "paraphrase",
+     "anchor": "This is the pitch from consulting companies big and small, and naturally",
+     "sentences": 1,
+     "paraphrase": "The Org Topologies primer calls the off-the-shelf management framework a consultancy pitch that tempts firms to follow the crowd rather than understand and design their own organisation."
+    },
+    " For a business, the test of any playbook is whether it still lets people act well in a situation its authors did not foresee."
+   ],
+   "joins_min": [
+    "",
+    {
+     "span": "mcdp-doctrine-procedures"
+    },
+    " ",
+    {
+     "span": "pom-merton-absolutes"
+    },
+    " ",
+    {
+     "span": "ot-framework-pitch"
+    },
+    " Test a playbook on the case its authors didn't foresee."
+   ]
+  }
+ ],
+ "charts": [],
+ "trace": "Trace [Synthesis, Depth-over-breadth, lens: none, mode: project, corpus: demo]: lens-index read, lens-neutral question → concept-index topics block → topics t025, t040, t044, t049, t050, t051, t052, t055, t056 → sub-claims: uncertainty (mcdp1-warfighting, openstax-principles-management), intent versus cascaded goals (mcdp1-warfighting, openstax-principles-management), decentralisation (mcdp1-warfighting, openstax-principles-management, caib-report-vol1), decision modes (mcdp1-warfighting, openstax-principles-management), error and blame (mcdp1-warfighting, openstax-principles-management), doctrine versus framework (mcdp1-warfighting, openstax-principles-management, org-topologies-primer-2025) → light ref: openstax-principles-management → deep refs: mcdp1-warfighting (full), openstax-principles-management (PARTIAL: thesis, Chs 1-4, 9-10, 17 read), caib-report-vol1 and org-topologies-primer-2025 (searched to the passage) → 25 anchors (13 quotations, 12 pointed paraphrases) checked against sources/converted, all found once, none replaced",
+ "sources": {
+  "00q": {
+   "slug": "mcdp1-warfighting",
+   "corpus": "demo",
+   "converted": "sources/converted/mcdp1-warfighting.md",
+   "short": "MCDP 1"
+  },
+  "00j": {
+   "slug": "openstax-principles-management",
+   "corpus": "demo",
+   "converted": "sources/converted/openstax-principles-management.md",
+   "short": "OpenStax PoM"
+  },
+  "00u": {
+   "slug": "caib-report-vol1",
+   "corpus": "demo",
+   "converted": "sources/converted/caib-report-vol1.md",
+   "short": "CAIB"
+  },
+  "00p": {
+   "slug": "org-topologies-primer-2025",
+   "corpus": "demo",
+   "converted": "sources/converted/org-topologies-primer-2025.md",
+   "short": "Org Topologies"
+  }
+ }
+}

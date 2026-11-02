@@ -6,20 +6,12 @@ Exported 2 November 2026 from each notebook's source panel, before the first que
 
 - **Notebook:** `fa973698-94ab-4e51-b831-d3c3adb873e9`, 291 sources. For the round, 290 were ticked: *Come Prepared to Die* was unticked before question 2 and re-ticked afterwards. Question 1's Gemini answer is round 1's, asked with all 291 ticked.
 - **Corpus:** 337 slugs in `slug-table.json`.
-- **In both:** 329 corpus sources. 283 are one notebook file each (two of those files merge several parts of one source: the ten MindTime style chapters, and Retromat volumes 1–5). 48 are the Aletheia course sessions, uploaded as four level bundles (L1 sessions 1–12, L2 sessions 0–14, L3 sessions 1–12 plus the Diamond Body practices, L3 Year 2 sessions 1–8).
-- **In the corpus, not in the notebook (8):**
-  - `conger-body-recovery`: its upload failed with a bare error (no text layer, or none given)
-  - `enns-win-without-pitching`: ingested 23 October, after the notebook was built
-  - `kaplan-oneness-separateness`: its upload failed with a bare error (no text layer, or none given)
-  - `learning-science`: in the corpus before the notebook was built, but not uploaded; the upload record gives no reason
-  - `porges-polyvagal`: in the corpus before the notebook was built, but not uploaded; the upload record gives no reason
-  - `port-book-yourself-solid`: ingested 30 October, after the notebook was built
-  - `rasmussen-srk-risk`: its upload failed with a bare error (no text layer, or none given)
-  - `weinberg-design-stable-systems`: its upload failed with a bare error (no text layer, or none given)
+- **In both:** 329 corpus sources. 283 are one notebook file each; two of those files each merge several parts of one source. The other 48 are one course's session notes, uploaded as four bundles.
+- **In the corpus, not in the notebook (8):** four whose upload failed with a bare error, two ingested after the notebook was built, and two not uploaded, for no reason the upload record gives.
 - **In the notebook, not in the corpus (4):**
   - *Come Prepared to Die: An Engineering Leader's Field Guide to the Leadership Paradigms AI Is Exposing*, Chris's own book, a Google Doc. Unticked for question 2. Round 1's Gemini answer cites it twice.
-  - *Larchwood incident notes*, a synthetic case written for an earlier round's live-facilitation question.
-  - Two lens specs uploaded as sources for an earlier round: `chris-gagne-consultant-coach.md` and `sean-mcgrail-revenue-leader.md`.
+  - A synthetic incident case written for an earlier round's live-facilitation question.
+  - Two lens specs uploaded as sources for an earlier round.
 
 ## Question 3: the `demo` corpus and the demo notebook
 
@@ -30,4 +22,4 @@ Exported 2 November 2026 from each notebook's source panel, before the first que
 
 ## The forge arm
 
-The forge arm reads the corpus through its references and converted text, so its library is the corpus row of each table above. It did not read *Come Prepared to Die*, the Larchwood case or the lens files, none of which are corpus sources.
+The forge arm reads the corpus through its references and converted text, so its library is the corpus row of each table above. It did not read *Come Prepared to Die*, the synthetic case or the lens specs, none of which are corpus sources.

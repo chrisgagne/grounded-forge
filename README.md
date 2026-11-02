@@ -38,7 +38,7 @@ The two ceremony profiles cross-link: `aar-mode` is the event-triggered cross-fu
 
 ## What you can do from here
 
-Before running anything, [`docs/examples/marines-vs-business-admin-conversation.md`](docs/examples/marines-vs-business-admin-conversation.md) shows what the output looks like: a captured `answer-from-corpus` session, verbatim — Marine warfighting doctrine × textbook business administration, with the full routing pass, retrieval trace, and evidence markers in-band. ~5 minutes to read.
+Before running anything, see what the output looks like. [`docs/examples/marines-verbatim/`](docs/examples/marines-verbatim/) answers the question of what US Marine warfighting doctrine and textbook business administration have in common, from the demo corpus, in verbatim mode. Every quotation is placed from its source by code, and every claim opens the passage it rests on, with its printed page highlighted (~5 minutes). [`docs/examples/marines-vs-business-admin-conversation.md`](docs/examples/marines-vs-business-admin-conversation.md) asks the same question through `answer-from-corpus` and shows how an answer is built: the full routing pass, retrieval trace, and evidence markers in-band.
 
 1. **[The demo app](docs/tutorial/the-demo-app.md):** open a built app in Claude Code, ask it questions, see the matrix route. Zero setup. ~25 minutes.
 2. **[Querying the library](docs/tutorial/querying-the-library.md):** the three read-only skills — `answer-from-corpus`, `matching-references`, `audit-attribution` — plus *reading the trace* (the five-second answer audit). ~30–45 minutes.

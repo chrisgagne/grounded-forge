@@ -335,7 +335,11 @@ function openSide(el){
     side.style.top = Math.max(0,top-6)+"px";
   } else { side.classList.add("inline"); el.closest("p").after(side); }
 }
-function convLink(sp,src){ return src.converted_local ? `<a href="${esc(src.converted_local)}" target="_blank">converted text, line ${sp.line}</a>` : `<span>converted text, line ${sp.line}</span>`; }
+function convLink(sp,src){
+  if(!src.converted_local) return `<span>converted text, line ${sp.line}</span>`;
+  const href = /^https?:/.test(src.converted_local) ? `${src.converted_local}#L${sp.line}` : src.converted_local;   // a published copy links the repository's file, at the line
+  return `<a href="${esc(href)}" target="_blank">converted text, line ${sp.line}</a>`;
+}
 function origButton(sp,src){
   if(sp.pages && sp.pages.length) return `<button class="orig"><b>see the page in the original</b></button>`;
   if(!src.served) return `<button class="orig" disabled title="the original file is not held in this folder">see the page in the original</button>`;

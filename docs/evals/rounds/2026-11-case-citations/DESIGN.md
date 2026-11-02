@@ -4,7 +4,7 @@
 
 ## The question
 
-The [keyword-match round](../2026-11-keyword-match/) asked single-concept questions and found Gemini Notebook locates a plainly described concept whatever the words used. It did not recreate the October failure ([Q2 of the private round](../2026-10-22-gemini-notebook-private-corpus/)): a long case raising several issues at once, over about 290 sources, where Gemini's prose was right but every citation marker pointed at a chunk from another book. Two explanations remain: the **shape** of the question (several issues tangled in a user's words, a deliverable asked for) and the **scale** of the notebook. This round runs the same cases over a 35-source notebook and a 291-source one, and scores every citation marker on whether the chunk it points at carries the claim it's attached to.
+The [keyword-match round](../2026-11-keyword-match/) asked single-concept questions and found Gemini Notebook locates a plainly described concept whatever the words used. It did not recreate the October failure ([Q2 of the private round](../2026-10-22-gemini-notebook-private-corpus/)): a long case raising several issues at once, over a library in the low hundreds of sources, where Gemini's prose was right but every citation marker pointed at a chunk from another book. Two explanations remain: the **shape** of the question (several issues tangled in a user's words, a deliverable asked for) and the **scale** of the notebook. This round runs the same cases over a 35-source notebook and a private one in the low hundreds of sources, and scores every citation marker on whether the chunk it points at carries the claim it's attached to.
 
 The cases are modelled on the questions the operator has put to the corpus since June 2026, read from his own session logs: a situation in a client's or colleague's words, several issues at once, a named reader and a form ("a two-page memo for the CEO"), and often "show where the sources disagree". None is a rerun; Coppervale (October's Q2) and Larchwood (the 28 October round) were set aside because Gemini has answered both.
 
@@ -21,7 +21,7 @@ Three, in [`cases.json`](cases.json), each the bare prompt a user would type, wi
 ## Arms and runs
 
 - **Gemini Notebook, demo:** the 35-file notebook of the keyword-match round (the original files behind all 31 demo sources).
-- **Gemini Notebook, aarbuddy:** the October private notebook, 291 sources, all ticked; no case text, note or lens is a source. Chat history deleted and Studio files removed before the first run and between runs.
+- **Gemini Notebook, aarbuddy:** the October private notebook, low hundreds of sources, all ticked; no case text, note or lens is a source. Chat history deleted and Studio files removed before the first run and between runs.
 - **grounded-forge, demo** and **grounded-forge, aarbuddy:** `answer-from-corpus` in project mode over each corpus's reference tier, isolated `claude -p` on Opus 5.5 at effort high ([`run_gf.py`](run_gf.py), as in the keyword-match round, with the corpus a parameter). No distillations. The aarbuddy copy includes its lens index and specs, as the project does; the prompt names no lens.
 
 Two runs per case per arm: C1 and C2 on all four arms, C3 on the two aarbuddy arms. 20 answers in all, 10 of them Gemini's.
@@ -44,7 +44,7 @@ No two-sentence windows and no single key sentence: the keyword-match round show
 Let U be an arm's share of citations graded does-not-support, pooled over a case's two runs.
 
 - **The October pattern recurs** on a case and notebook when Gemini's U is at least 25% there.
-- **Scale is the cause** if, on both C1 and C2, Gemini's U on the 291-source notebook exceeds its U on the 35-source notebook by 15 points or more.
+- **Scale is the cause** if, on both C1 and C2, Gemini's U on the private notebook exceeds its U on the 35-source notebook by 15 points or more.
 - **Shape is the cause** if Gemini's U is at least 25% on both notebooks for C1 or C2.
 - **Neither** if Gemini's U stays under 15% on both notebooks for both cases; then the October failure needs an explanation this round didn't test (the rules paragraph those first runs carried, or the case notes being a source in the notebook rather than in the prompt).
 - grounded-forge's U is reported beside Gemini's on each arm. It isn't a hypothesis here; it's the comparison the October round made by hand.

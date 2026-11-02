@@ -15,7 +15,12 @@
 3. Repair, once: if any span was not found, one more `claude -p` run sees only the missing
    placeholders and their converted files and supplies a new anchor copied from the text;
    resolve again. A span still missing stays hatched and shows its paraphrase, never a quote.
-4. Render (render.py, through uv for an arm64 PyMuPDF): <out>/preview.html, self-contained.
+4. Credits, once: every join sentence that credits a source ("MCDP 1 ranks…", "the textbook
+   says…", "Both sources…") must be a placeholder, so it carries a pointer. If any is not,
+   one more `claude -p` run turns each into a pointed paraphrase (or cuts the credit), and
+   resolve runs again. A credit still without a pointer stops the run.
+5. Render (render.py, through uv for an arm64 PyMuPDF): <out>/preview.html and answer.md,
+   with every quotation checked word for word against its page in the original.
 
 Render-time flags need no model call: --verbatim, --context, --ship and the page's own
 controls change what is shown, never what was placed. --render-only re-resolves and
@@ -43,7 +48,7 @@ Do this:
 2. Read .claude/skills/answer-from-corpus/SKILL.md in full and run it in project mode over {corpora_names}: classify the shape, run the lens check, decompose into sub-claims, route through each corpus's concept-index.json (topics block first), triage light references, read the deep references of the authors doing real work. Project mode never reads a distillation or a task index.
 3. For each claim you want in an author's words, open the converted source (the path is in the deep reference's header or the source's sidecar under sources/original/{{slug}}.source.md) and Grep or Read the passage. Copy an anchor of 8 to 12 consecutive words from the line you read, choose `sentences` so the placed span carries the claim, and write the paraphrase. Aim for 8 to 14 spans across 4 to 6 sections, spread across distinct authors, the most load-bearing ranked first.
 4. Before writing, check every anchor with Grep against its converted file (fixed-string, case-insensitive, on a distinctive 5- or 6-word stretch of it). Replace any anchor that does not match.
-5. Write the report with the Write tool to {out}/report.json. {joins_rule} Your joins state what follows from the spans for the question asked, in plain prose, and name the source by author; they never quote. The coverage note says plainly what the corpora lack for this question and names two or three ingestion candidates.
+5. Write the report with the Write tool to {out}/report.json. {joins_rule} Your joins state what follows from the spans for the question asked, in plain prose; they never quote, and they never credit. Every sentence that says what a source says, holds, found or recommends is a placeholder: a quotation, or a pointed paraphrase (`"show": "paraphrase"`, your sentence in `paraphrase`, with an anchor to the passage it rests on). A sentence comparing two sources is one pointed paraphrase per source. A join names an author only in a lead-in that runs straight into the placeholder after it. The coverage note says plainly what the corpora lack for this question and names two or three ingestion candidates.
 6. Run `python3 -c "import json;json.load(open('{out}/report.json'))"` to check the file parses. Then reply with one line: the number of spans and sections.
 """
 
@@ -53,6 +58,63 @@ REPAIR_PROMPT = """The verbatim-mode resolver could not find these anchors in th
 
 Write {out}/repair.json as {{"span-id": {{"anchor": "…", "sentences": N}}, …}} with the Write tool, one entry per span above, then reply with one line: how many anchors you replaced.
 """
+
+CREDIT_PROMPT = """In the verbatim-mode report at {out}/report.json, these sentences in the model's own prose (the joins) say what a source says, holds or found, but carry no pointer to a passage:
+
+{items}
+
+Read scripts/verbatim/contract.md ("The rules that matter" and the placeholder table), then fix each sentence in report.json:
+
+- If one passage in one source carries it: replace the sentence in that section's `joins` with a pointed paraphrase placeholder, {{"span": "…", "source": "…", "anchor": "…", "sentences": N, "paraphrase": "…", "show": "paraphrase"}}. The paraphrase is the sentence itself, reworded only as far as the passage needs. Copy the anchor, 8 to 12 consecutive words, from a line of the converted source you read with Read or Grep, and check it with a fixed-string, case-insensitive Grep on a distinctive 5- or 6-word stretch. Put the same span in `joins_min` at the same place, and in a subclaim. Leave it out of `rank`.
+- If it compares two sources: one pointed paraphrase per source, joined by your own words.
+- If no passage carries it: cut the credit. Rewrite it as your own reasoning with no source named, or drop it.
+- If it is not a credit at all (for example "the board" meaning a company's board): leave it, and list it in {out}/credits-reviewed.json as [{{"sentence": "…", "why": "…"}}].
+
+Change nothing else in the report. Write report.json back with the Write tool, check it parses with `python3 -c "import json;json.load(open('{out}/report.json'))"`, then reply with one line: how many sentences you made into placeholders, cut, and left.
+"""
+
+ORG = re.compile(r"\b(?:Corps|Department|Board|Service|Agency|Institute|University|OpenStax|Commission|Administration|Committee|Office|Cent(?:er|re)|Foundation|Council|Association|Press|NASA|Navy|Army|Marine|Forest|Health|Energy|Rice|Collective|Team|Group|NHS|Improvement)\b")
+SOURCE_REF = re.compile(r"\b(?:the|this|that|both|either|each|neither|all|these|those|its|his|her|their)\s+(?:[\w'’-]+\s+){0,2}?(?:textbook|text|book|doctrine|manual|report|guide|handbook|study|studies|source|sources|author|authors|board|paper|article|chapter|framework|literature|tradition|teachers?|teachings?|pamphlet|publication|research|findings?)\b", re.I)
+
+
+def source_names(report, bundle):
+    """The words a join would use to credit a source of the run's corpora: personal surnames from
+    the corpora's reference indexes and the run's sources, and each cited source's short name."""
+    authors = [s.get("author", "") for s in bundle.get("sources", {}).values()]
+    for c in bundle.get("corpora", {}).values():
+        ri = REPO / c["root"] / "reference-index.json"
+        if ri.exists():
+            authors += [r.get("author") or "" for r in json.loads(ri.read_text()).get("refs", {}).values()]
+    names = {s.get("short", "").strip() for s in report.get("sources", {}).values()} - {""}
+    for a in authors:
+        if not a or ORG.search(a): continue
+        for person in re.split(r";|&|\band\b", a):
+            person = person.strip()
+            surname = person.split(",")[0].strip() if "," in person else (person.split()[-1] if person.split() else "")
+            surname = re.sub(r"[^\w'’-]", "", surname)
+            if len(surname) >= 3 and surname[0].isupper() and not surname.isupper(): names.add(surname)
+    return names
+
+
+def credits(report, bundle):
+    """Join sentences that credit a source without being a placeholder: they name a source, or
+    refer to one ("the textbook", "both sources"), and are not a lead-in running straight into
+    the placeholder after them."""
+    names = source_names(report, bundle)
+    named = re.compile(r"(?<![\w-])(?:" + "|".join(sorted(map(re.escape, names), key=len, reverse=True)) + r")(?![\w-])") if names else None
+    found = []
+    for sec in report.get("sections", []):
+        for form in ("joins", "joins_min"):
+            js = sec.get(form) or []
+            for i, j in enumerate(js):
+                if not isinstance(j, str): continue
+                parts = [p for p in re.split(r"(?<=[.!?])\s+", j.strip()) if p]
+                for k, sent in enumerate(parts):
+                    lead_in = k == len(parts) - 1 and i + 1 < len(js) and isinstance(js[i + 1], dict) and not re.search(r"[.!?][\"”’')]*$", sent)
+                    if lead_in: continue
+                    if (named and named.search(sent)) or SOURCE_REF.search(sent):
+                        found.append({"section": sec.get("heading", ""), "form": form, "sentence": sent})
+    return found
 
 
 def run_claude(prompt, add_dirs, model, log_path, max_turns):
@@ -98,7 +160,10 @@ def lint(report):
         if not 8 <= n <= 12: out.append(f"{j.get('span')}: anchor has {n} words")
         if j.get("source") not in report.get("sources", {}): out.append(f"{j.get('span')}: source {j.get('source')} not in sources")
         if not j.get("paraphrase"): out.append(f"{j.get('span')}: no paraphrase")
-    if sorted(report.get("rank", [])) != sorted(ids): out.append("rank does not list every span exactly once")
+    for j in placeholders(report):
+        if j.get("show", "quote") not in ("quote", "paraphrase"): out.append(f"{j.get('span')}: show must be quote or paraphrase")
+    quotes = [j.get("span") for j in placeholders(report) if j.get("show") != "paraphrase"]
+    if sorted(report.get("rank", [])) != sorted(quotes): out.append("rank does not list every quotation placeholder exactly once (pointed paraphrases are left out)")
     sub = {s for c in report.get("subclaims", []) for s in c.get("spans", [])}
     if set(ids) - sub: out.append(f"spans in no subclaim: {sorted(set(ids) - sub)}")
     for sec in report.get("sections", []):
@@ -147,7 +212,7 @@ def own_share(report, bundle, joins="minimal"):
         for j in form:
             if isinstance(j, str): model += len(j.split()); continue
             sp = bundle["spans"].get(j["span"], {})
-            if sp.get("verified"): own += len(sp["text"].split())
+            if sp.get("verified") and sp.get("show") != "paraphrase": own += len(sp["text"].split())
             else: model += len(ph.get(j["span"], {}).get("paraphrase", "").split())
     return own / max(1, own + model)
 
@@ -164,6 +229,7 @@ def main():
     ap.add_argument("--context", help="render-time, no model call: paras:1, chars:600, words:120 or pages:1")
     ap.add_argument("--ship", action="store_true", help="render-time, no model call: open under the open-nc shipping gate")
     ap.add_argument("--allow-join-quotes", action="store_true", help="render even though the model's prose carries quotation marks (check each first)")
+    ap.add_argument("--allow-unpointed-credits", action="store_true", help="render even though join sentences still credit a source with no pointer (check each first)")
     ap.add_argument("--render-only", action="store_true", help="no model call: resolve and render an existing report.json")
     args = ap.parse_args()
     out = args.out.resolve(); out.mkdir(parents=True, exist_ok=True)
@@ -230,16 +296,55 @@ def main():
         bundle = resolve(out)
         missing = [k for k, s in bundle["spans"].items() if not s.get("verified")]
 
+    found = credits(report, bundle)
+    reviewed = json.loads((out / "credits-reviewed.json").read_text()) if (out / "credits-reviewed.json").exists() else []
+    found = [c for c in found if c["sentence"] not in {r.get("sentence") for r in reviewed}]
+    if found and not args.render_only:
+        items = "\n".join(f"- section {c['section']!r} ({c['form']}): {c['sentence']}" for c in found)
+        print(f"credit pass for {len(found)} join sentences …", file=sys.stderr)
+        log = run_claude(CREDIT_PROMPT.format(items=items, out=out), [REPO / bundle["corpora"][c]["root"] for c in bundle["corpora"]] + [out], args.model, out / "credit-step.json", 80)
+        summary["credit_step"] = {k: log.get(k) for k in ("seconds", "num_turns", "total_cost_usd")}
+        summary["credits_before_repair"] = len(found)
+        report = json.loads((out / "report.json").read_text())
+        problems = lint(report)
+        for p in problems: print("  contract:", p, file=sys.stderr)
+        summary["contract_problems"] = problems
+        quoted = [p for p in problems if p.startswith("QUOTE:")]
+        if quoted and not args.allow_join_quotes:
+            raise SystemExit("the credit pass left quotation marks in the model's prose:\n  " + "\n  ".join(quoted))
+        bundle = resolve(out)
+        missing = [k for k, s in bundle["spans"].items() if not s.get("verified")]
+        reviewed = json.loads((out / "credits-reviewed.json").read_text()) if (out / "credits-reviewed.json").exists() else []
+        found = [c for c in credits(report, bundle) if c["sentence"] not in {r.get("sentence") for r in reviewed}]
+    summary["credits_reviewed_not_credits"] = reviewed
+    summary["unpointed_credits"] = found
+    if found:
+        for c in found: print(f"  unpointed credit in {c['section'][:30]!r}: {c['sentence'][:100]}", file=sys.stderr)
+        if not args.render_only and not args.allow_unpointed_credits:
+            (out / "summary.json").write_text(json.dumps(summary, indent=1, ensure_ascii=False))
+            raise SystemExit(f"{len(found)} join sentences still credit a source with no pointer (listed above and in summary.json). Make each "
+                             "a pointed paraphrase in report.json and rerun with --render-only, or pass --allow-unpointed-credits after checking each.")
+    summary["pointed_paraphrases"] = sum(1 for j in placeholders(report) if j.get("show") == "paraphrase")
+
     summary["spans"] = len(bundle["spans"]); summary["placed"] = len(bundle["spans"]) - len(missing); summary["missing"] = missing
     summary["charts"] = bundle.get("charts", [])
     summary["source_problems"] = bundle.get("source_problems", [])
     summary["render"] = render(out, args)
+    rendered = json.loads((out / "bundle.json").read_text())
+    pcs = [s.get("page_check") for s in rendered["spans"].values() if s.get("show") != "paraphrase" and s.get("verified")]
+    summary["page_check"] = {"quotations": len(pcs), "checked": sum(1 for p in pcs if p and p.get("checked")),
+                             "match": sum(1 for p in pcs if p and p.get("checked") and not [d for d in p.get("differences", []) if not d.get("corrected")]),
+                             "split_words_set_from_page": sum(1 for p in pcs if p for d in p.get("differences", []) if d.get("corrected")),
+                             "differ": {k: [d for d in s["page_check"]["differences"] if not d.get("corrected")] for k, s in rendered["spans"].items()
+                                        if s.get("page_check", {}).get("differences") and [d for d in s["page_check"]["differences"] if not d.get("corrected")]}}
     summary["own_share_minimal_v1"] = round(own_share(report, bundle, "minimal"), 3)
     summary["own_share_essay_v1"] = round(own_share(report, bundle, "essay"), 3)
     (out / "summary.json").write_text(json.dumps(summary, indent=1, ensure_ascii=False))
     print(f"\nspans placed {summary['placed']} of {summary['spans']}, missing {len(missing)}"
           f"{' (' + ', '.join(missing) + ')' if missing else ''}; pages pre-rendered for {summary['render'].get('spans_with_pages')} spans"
-          f"; authors' words {100 * summary['own_share_minimal_v1']:.0f}% at --joins minimal, {100 * summary['own_share_essay_v1']:.0f}% essay\n{out / 'preview.html'}")
+          f"; authors' words {100 * summary['own_share_minimal_v1']:.0f}% at --joins minimal, {100 * summary['own_share_essay_v1']:.0f}% essay"
+          f"; {summary['pointed_paraphrases']} pointed paraphrases, {len(summary['unpointed_credits'])} credits without a pointer"
+          f"; {summary['page_check']['match']} of {summary['page_check']['quotations']} quotations match the printed page\n{out / 'preview.html'}")
 
 
 if __name__ == "__main__":

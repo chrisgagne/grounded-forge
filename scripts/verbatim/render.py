@@ -18,7 +18,8 @@ the page. No model call: the flags change what is shown, never what was placed.
 Deterministic: no model in the loop. Without an arm64 PyMuPDF the pages are skipped
 and the page's "see the page in the original" button greys out.
 """
-import argparse, json, re, shutil, sys
+import argparse, difflib, json, re, shutil, sys
+from collections import Counter
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -29,6 +30,56 @@ def _norm(s):
     for a, b in (("‘", "'"), ("’", "'"), ("“", '"'), ("”", '"'), ("–", "-"), ("—", "-"), ("ﬁ", "fi"), ("ﬂ", "fl")):
         s = s.replace(a, b)
     return " ".join(s.replace("|", " ").split())   # a converted table's cell rules are not on the page
+
+
+WORD = re.compile(r"[a-z0-9]+(?:'[a-z]+)*")
+
+
+def _words(s):
+    s = re.sub(r"(?<=[a-z])\d+\b", "", _norm(s).lower())   # a footnote call set against its word
+    s = re.sub(r"(?<=[a-z])-(?=[a-z])", "", s)              # a compound compares as one word, as the page's dehyphenated text has it
+    return WORD.findall(s)
+
+
+def page_check(doc, hit, text, fitz, vocab):
+    """Compare a placed quotation with the words printed on its page (and the next, for a span that
+    runs over), and list every word of the quotation the page has differently or not at all: an
+    OCR slip or a conversion error. Words the page has and the quotation lacks (a running head,
+    a footnote call) are not counted."""
+    flags = getattr(fitz, "TEXT_DEHYPHENATE", 0)
+    page = " ".join(doc[i].get_text("text", flags=flags) for i in range(hit, min(doc.page_count, hit + 2)))
+    a, b = _words(text), _words(page)
+    sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
+    if sum(m.size for m in sm.get_matching_blocks()) < 0.6 * len(a):
+        return {"checked": False, "why": "the page's text does not line up with the quotation"}
+    diffs = []
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == "replace" and (j2 - j1) <= 2 * (i2 - i1) + 2:
+            q, pg = a[i1:i2], b[j1:j2]
+            # the same letters spaced differently: the page's text layer glued two real words ("theart"),
+            # unless the quotation's pieces are not words this source uses ("bet ter", a word the conversion split)
+            if "".join(q) == "".join(pg) and len(q) > len(pg) and all(vocab.get(w, 0) >= 3 for w in q):
+                continue
+            diffs.append({"quote": " ".join(q), "page": " ".join(pg)})
+        elif tag in ("replace", "delete"):
+            q = a[i1:i2]
+            near = b[max(0, j1 - 3):j2 + 3]   # the alignment can lose a split word's place: look for it whole close by
+            whole = "".join(q)
+            diffs.append({"quote": " ".join(q), "page": whole if len(q) > 1 and whole in near else None})
+    return {"checked": True, "differences": diffs}
+
+
+def heal_splits(sp):
+    """Where the conversion split a word the printed page has whole ("bet ter" for "better"), set
+    the quotation to the page's word and record it. Nothing else in a quotation is ever changed."""
+    for d in sp["page_check"].get("differences", []):
+        q, pg = d["quote"].split(), (d["page"] or "").split()
+        if not pg or "".join(q) != "".join(pg) or len(q) <= len(pg): continue
+        pat = r"(?i)(?<!\w)" + r"[\s\-]+".join(re.escape(w).replace("'", "['’]") for w in q) + r"(?!\w)"
+        # "bet ter" was one word on the page; "self- motivated" keeps its hyphen and loses only the space
+        new = re.sub(pat, lambda m: re.sub(r"\s+", "", m.group(0)), sp["text"], count=1)
+        if new != sp["text"]:
+            sp["text"] = new; d["corrected"] = True
 
 
 def load_fitz():
@@ -73,6 +124,8 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
         doc.layout(width=500, height=720, fontsize=12)   # a fixed layout so the EPUB has pages to show
     rendered = 0
     texts = [_norm(doc[i].get_text()).lower() for i in range(doc.page_count)]
+    conv = out / "converted" / f"{sid}.md"
+    vocab = Counter(_words(conv.read_text(encoding="utf-8", errors="replace"))) if conv.exists() else Counter()
     for span_id, sp in spans:
         words = _norm(sp["text"].replace("---", "-").replace("--", "-")).split()
         probes = []
@@ -112,6 +165,9 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
                 quads += page.search_for(piece) or page.search_for(piece.replace("'", "’"))
         boxes = [[(q.x0 - rect.x0) / rect.width, (q.y0 - rect.y0) / rect.height, (q.x1 - rect.x0) / rect.width, (q.y1 - rect.y0) / rect.height] for q in quads]
         sp["hit_page"] = hit + 1; sp["pages"] = []; sp["page_layout"] = "epub-reflow" if is_epub else "pdf"
+        if sp.get("show") != "paraphrase":
+            sp["page_check"] = page_check(doc, hit, sp["text"], fitz, vocab)
+            heal_splits(sp)
         for i in range(max(0, hit - window), min(doc.page_count, hit + window + 1)):
             # the hit page carries this span's highlight, so it is the span's own file; the pages either side are shared
             png = pages_dir / (f"{sid}-{i + 1}-{span_id}.png" if i == hit else f"{sid}-{i + 1}.png")
@@ -194,6 +250,10 @@ def render(out, init):
     from flatten import flatten   # the plain-prose answer, from the same bundle as the page
     (out / "answer.md").write_text(flatten(out)[0])
     with_pages = sum(1 for s in bundle["spans"].values() if s.get("pages"))
+    for k, sp in bundle["spans"].items():
+        d = sp.get("page_check", {}).get("differences", [])
+        if d:
+            print(f"  page check {k}: " + "; ".join(f"{x['quote']!r} on the page {x['page']!r}" + (" (corrected)" if x.get("corrected") else "") if x["page"] else f"{x['quote']!r} not on the page" for x in d), file=sys.stderr)
     print(f"wrote {out / 'preview.html'}: {with_pages} of {len(bundle['spans'])} spans have pre-rendered pages ({pages} new PNGs)", file=sys.stderr)
     return {"spans_with_pages": with_pages, "new_pngs": pages}
 

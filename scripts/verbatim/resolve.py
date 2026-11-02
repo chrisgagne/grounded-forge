@@ -48,6 +48,11 @@ def clean(line: str) -> str:
     s = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", s)                # images
     s = re.sub(r"(?<!\w)[*_]{1,3}(?=\S)", "", s); s = re.sub(r"(?<=\S)[*_]{1,3}(?!\w)", "", s)  # emphasis
     s = s.replace("\\", "")
+    # converter markup a quotation must not carry: Pandoc div fences, blockquote markers, table rules and cell bars
+    if re.match(r"^\s*:{3,}", s): return ""
+    if re.match(r"^\s*\|[\s:|-]*-{3,}[\s:|-]*\|?\s*$", s): return "\u200b"   # a table rule: gone, but not a paragraph break (some conversions set prose as a table)
+    s = re.sub(r"^\s*(?:>\s?)+", "", s)
+    if s.lstrip().startswith("|"): s = re.sub(r"\s*\|\s*", " ", s).strip()
     return s
 
 
@@ -193,6 +198,14 @@ class Source:
         for m in re.finditer(r"[.!?][\"”’')\]]*\s+", text[pa:start]):
             if not self._abbr(text, pa + m.start()):
                 s = pa + m.end()
+        while True:   # a heading the conversion ran into the paragraph is not part of the sentence
+            nl = text.find("\n", s, start)
+            if nl < 0: break
+            head = text[s:nl].strip(); letters = re.findall(r"[A-Za-z]", head)
+            if not (head and len(head.split()) <= 8 and len(letters) >= 3 and not re.search(r"[.!?:;,]$", head)
+                    and sum(c.isupper() for c in letters) >= 0.9 * len(letters)): break
+            s = nl + 1
+            while s < start and text[s].isspace(): s += 1
         e = end; count = 0
         tail = re.search(r"[.!?][\"”’')\]]*$", text[max(start, end - 4):end])
         if tail and not self._abbr(text, max(start, end - 4) + tail.start()):
@@ -492,7 +505,7 @@ def main():
             print(f"NOT FOUND {span_id}: {j['anchor']!r}", file=sys.stderr); continue
         a, b, level, hits = hit
         s, e = src.sentence_span(a, b, sentences=max(1, min(4, int(j.get("sentences", 1)))))
-        text = re.sub(r"\s*\n\s*", " ", src.joined[s:e]).strip()
+        text = re.sub(r"[ \t]{2,}", " ", re.sub(r"\s*\n\s*", " ", src.joined[s:e]).replace("\u200b", "")).strip()
         line = src.line_of(s) + 1
         before, after = src.paragraphs(s, e)
         own_b, own_a = src.own_paragraph(s, e)
@@ -515,6 +528,8 @@ def main():
                               "context": {"before": before, "after": after, "lead": own_b, "tail": own_a},
                               "layers": layers, "figure": fig}
         print(f"ok {span_id}: {level}, line {line}, {len(text.split())} words, p.{out_spans[span_id]['page']}, {out_spans[span_id]['locator'][:50]!r}", file=sys.stderr)
+    for j in placeholders(report):   # a pointed paraphrase is placed like a quotation, but the page shows the model's sentence
+        out_spans[j["span"]]["show"] = "paraphrase" if j.get("show") == "paraphrase" else "quote"
     charts = []
     for c in report.get("charts", []):
         why = check_chart(c, out_spans)

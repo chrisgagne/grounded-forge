@@ -12,7 +12,9 @@ and from file://: vendor/ (D3), originals/ (the source PDFs and EPUBs), converte
 (the converted text each span was placed from), figures/, and pages/ (the hit page and
 two either side, pre-rendered as PNGs through PyMuPDF, the passage highlighted on the hit page).
 --pages-only leaves the original files out of the folder: the page images are still drawn
-from them, and any copy an earlier render left in originals/ is removed.
+from them, and any copy an earlier render left in originals/ is removed. --gemini CAPTURE
+writes gemini.html beside the page from a captured Gemini Notebook answer (gemini.py), and
+links the two pages to each other.
 
 The flags set the page's opening state only; every one of them is also a control on
 the page. No model call: the flags change what is shown, never what was placed.
@@ -262,7 +264,7 @@ def copy_if_changed(src, dst):
         shutil.copyfile(src, dst)
 
 
-def render(out, init, pages_only=False):
+def render(out, init, pages_only=False, gemini=None):
     report = json.loads((out / "report.json").read_text())
     bundle = json.loads((out / "bundle.json").read_text())
     root_of = lambda corpus: REPO / bundle["corpora"][corpus]["root"]
@@ -316,6 +318,14 @@ def render(out, init, pages_only=False):
     if not any(odir.iterdir()):
         odir.rmdir()
 
+    if gemini:
+        cap = out / "gemini-capture.md"
+        if Path(gemini).resolve() != cap.resolve():
+            shutil.copyfile(gemini, cap)
+        from gemini import write as write_gemini
+        g = write_gemini(cap, out)
+        init = {**init, "gemini": "gemini.html"}
+        print(f"wrote {out / 'gemini.html'}: {g['markers']} markers, {g['citations']} citations" + (f"; no passage captured for {g['uncaptured']}" if g["uncaptured"] else ""), file=sys.stderr)
     (out / "bundle.json").write_text(json.dumps(bundle, ensure_ascii=False, indent=1))   # with the served files and page images, for anything that reads the folder
     html = (HERE / "template.html").read_text()
     for marker, value in (("/*__REPORT__*/", report), ("/*__BUNDLE__*/", bundle), ("/*__INIT__*/", init)):
@@ -341,6 +351,7 @@ def main():
     ap.add_argument("--ship", action="store_true", help="open as it would ship: copyrighted sources paraphrased under max_visibility open-nc")
     ap.add_argument("--passages", action="store_true", help="open with each pointed paraphrase shown as the author's passage it rests on")
     ap.add_argument("--pages-only", action="store_true", help="leave the original PDFs and EPUBs out of the folder; keep the page images (the hit page and two either side)")
+    ap.add_argument("--gemini", type=Path, default=None, metavar="CAPTURE", help="a captured Gemini Notebook answer to the same question (markdown, see gemini.py): write gemini.html beside the page and link the two")
     args = ap.parse_args()
     out = args.folder.resolve()
     report = json.loads((out / "report.json").read_text())
@@ -349,7 +360,7 @@ def main():
             "ctx": args.context or "paras:1", "ship": args.ship, "passages": args.passages}
     if init["joins"] not in ("essay", "minimal"):
         init["joins"] = "essay"
-    render(out, init, args.pages_only)
+    render(out, init, args.pages_only, args.gemini)
 
 
 if __name__ == "__main__":

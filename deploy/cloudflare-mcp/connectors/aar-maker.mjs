@@ -4,7 +4,7 @@
 export default {
   id: "aar-maker",
   title: "AAR Maker",
-  version: "0.2.0",
+  version: "0.2.1",
   contact: "https://github.com/chrisgagne/grounded-forge/issues", // support and privacy requests; shown on /privacy
   app: "../../corpus.commons/demo/apps/aar-mode",
   task: "aar",
@@ -31,7 +31,7 @@ export default {
 
   notice: `# Using AAR Maker
 
-AAR Maker is a hosted connector run by Approach Perfect, Limited (the Supplier named in DISCLAIMER.md). It serves an after-action review library and its facilitation workflows to your own AI assistant.
+AAR Maker is built by Chris Gagné (https://chrisgagne.com) and run as a hosted connector by Approach Perfect, Limited (the Supplier named in DISCLAIMER.md). It serves an after-action review library and its facilitation workflows to your own AI assistant.
 
 - **It facilitates nothing itself.** Your assistant runs the review, on your model provider's service and under their terms. The connector receives only what its tools are called with: workflow and section names, source ids and search words. Your incident details reach it only if your assistant puts some in a search.
 - **It isn't professional advice.** A review run with it is not legal, safety, clinical or HR advice (DISCLAIMER.md, clause 4), and its findings are yours to weigh.
@@ -133,7 +133,7 @@ AAR Maker is a hosted connector run by Approach Perfect, Limited (the Supplier n
 <p><strong>Cursor:</strong> <a href="{{cursor}}">Add to Cursor</a>, or add <code>"aar-maker": { "url": "{{origin}}/mcp" }</code> under <code>mcpServers</code> in <code>~/.cursor/mcp.json</code>, then sign in with GitHub when Cursor asks.</p>
 <p><strong>First run:</strong> “Help me run an after-action review of [the incident or project].” Bring the timeline and who was involved.</p>
 {{privacy}}
-<p class="mute"><small>Built by Chris Gagné. The library's licence terms are served with it: ask the assistant for AAR Maker's licence.</small></p>`,
+<p class="mute"><small>Built by <a href="https://chrisgagne.com">Chris Gagné</a>. The library's licence terms are served with it: ask the assistant for AAR Maker's licence.</small></p>`,
   },
 
   // What selftest.mjs checks against this connector's bundle.

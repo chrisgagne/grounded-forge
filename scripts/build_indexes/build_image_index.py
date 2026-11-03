@@ -2,11 +2,13 @@
 """Merge per-source staging files into a corpus's IMAGE-INDEX.yaml.
 
 Image classification runs per source, in parallel, and each source agent
-writes its result to ``docs/images/_ingest_image_index_{slug}.yaml``. The
-corpus-level index is merged from those staging files once every per-source
+writes its result to ``docs/images/{corpus}/_ingest_image_index_{slug}.yaml``.
+The corpus-level index is merged from those staging files once every per-source
 step has completed — the same staging-then-assemble shape the reference and
 concept indexes use, and for the same reason: parallel agents must not
-read-modify-write one shared file.
+read-modify-write one shared file. Staging is filed by corpus because one slug
+can be ingested into several corpora, each with its own descriptions of the
+same figures.
 
 The index is merged, not rebuilt. A source with a staging file has its entries
 replaced by the staging file's; every other entry already in the index is
@@ -63,7 +65,7 @@ except ImportError:
     raise SystemExit(1)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-STAGING_DIR = REPO_ROOT / "docs" / "images"
+STAGING_ROOT = REPO_ROOT / "docs" / "images"
 STAGING_GLOB = "_ingest_image_index_*.yaml"
 
 # Keys holding substantive entries, and keys holding the classifier's record of
@@ -75,10 +77,10 @@ REJECTED_KEYS = ("not_substantive", "decorative_deleted", "decorative")
 PROVENANCE = """\
 # Written by scripts/build_indexes/build_image_index.py. Each run replaces
 # the entries of every source that has a staging file at
-# docs/images/_ingest_image_index_{slug}.yaml and carries every other entry
-# forward, so this file, not the staging, is the record. To change a source's
-# entries, edit its staging file and rerun; to remove them, rerun with
-# --drop {slug}.
+# docs/images/{corpus}/_ingest_image_index_{slug}.yaml and carries every
+# other entry forward, so this file, not the staging, is the record. To
+# change a source's entries, edit its staging file and rerun; to remove
+# them, rerun with --drop {slug}.
 """
 
 HEADER = """\
@@ -223,24 +225,25 @@ def main() -> int:
         sys.stderr.write(f"No converted/ directory at {converted}\n")
         return 1
 
+    staging_dir = STAGING_ROOT / args.corpus
     by_slug: dict[str, list[dict]] = {}
     rejected_total = 0
-    foreign: list[str] = []
+    stray: list[str] = []
     unfinished: list[str] = []
     empty: list[str] = []
     problems: list[str] = []
 
-    for path in sorted(STAGING_DIR.glob(STAGING_GLOB)):
+    for path in sorted(staging_dir.glob(STAGING_GLOB)):
         slug = path.name[len("_ingest_image_index_"):-len(".yaml")]
-        # Staging is repo-wide, and a source is only indexable once it has a
-        # deep reference. A staging file with no deep ref is either another
-        # corpus's, or this corpus's ingestion stopped before Pass A — the
-        # distinction matters, so the two are reported separately.
+        # A source is only indexable once it has a deep reference. A staging
+        # file with no deep ref means the ingestion stopped before Pass A, or,
+        # with no converted text either, that the file sits under the wrong
+        # corpus or outlived its source; the two are reported separately.
         if not (refs_dir / f"{slug}-deep.md").exists():
             if (converted / f"{slug}.md").exists():
                 unfinished.append(slug)
             else:
-                foreign.append(slug)
+                stray.append(slug)
             continue
         entries, rejected, notes = load_staging(path)
         rejected_total += rejected
@@ -282,9 +285,16 @@ def main() -> int:
     ]
 
     print(f"corpus:            {args.corpus}")
-    print(f"staging files:     {len(by_slug)} indexable for this corpus")
-    if foreign:
-        print(f"other corpora:     {len(foreign)} staging files skipped")
+    print(f"staging files:     {len(by_slug)} indexable in {staging_dir.relative_to(REPO_ROOT)}/")
+    for s_ in sorted(stray):
+        print(f"WARN {s_}: staging file but neither a deep reference nor converted text in "
+              f"this corpus; skipped")
+    # Staging files from before it was filed by corpus sit at docs/images/
+    # itself. They are never read, because nothing in one says whose it is.
+    flat = len(list(STAGING_ROOT.glob(STAGING_GLOB)))
+    if flat:
+        print(f"WARN {flat} staging files directly under docs/images/ are not read; "
+              f"scripts/migrate-image-staging.py files them by corpus")
     if unfinished:
         print(f"NOT INDEXED:       {len(unfinished)} sources converted and image-classified "
               f"but with no deep reference — their ingestion never completed:")
@@ -305,9 +315,7 @@ def main() -> int:
 
     # Every replacement is reported. A staging file that holds fewer entries
     # than the index had deletes the difference, and a truncated staging file
-    # looks the same as a reclassification. Staging is keyed by slug alone, so a
-    # slug ingested into two corpora shares one staging file, which may hold the
-    # other corpus's descriptions.
+    # looks the same as a reclassification.
     for slug in sorted(staged):
         before = indexed.get(slug, [])
         if staged[slug] == before:
@@ -317,11 +325,6 @@ def main() -> int:
               f"added:             {slug}: {len(staged[slug])} entries")
         if len(staged[slug]) < len(before):
             print(f"WARN {slug}: {len(before) - len(staged[slug])} entries will go")
-        others = sorted(p.parent.parent.name for p in REPO_ROOT.glob(
-            f"corpus.*/*/references/{slug}-deep.md") if p.parent.parent != root)
-        if before and others:
-            print(f"WARN {slug}: also ingested in {', '.join(others)}; its staging file may "
-                  f"describe that corpus's copy, so check the diff before committing")
 
     if carried:
         print(f"carried forward:   {sum(len(v) for v in carried.values())} entries across "
@@ -336,7 +339,7 @@ def main() -> int:
     for slug in sorted(drop):
         print(f"dropped:           {slug}: {len(indexed.get(slug, []))} entries"
               + ("" if slug in indexed else " (none in the index; check the slug)"))
-        if (STAGING_DIR / f"_ingest_image_index_{slug}.yaml").exists():
+        if (staging_dir / f"_ingest_image_index_{slug}.yaml").exists():
             print(f"WARN --drop {slug}: its staging file still exists; the next run without "
                   f"--drop {slug} will index it again")
 

@@ -172,7 +172,7 @@ When ingesting many sources in one work-session, dispatch multiple subagents in 
 - `_planning/staging/{corpus}/refs/{slug}.json`: refs-pass output (one per source).
 - `_planning/staging/{corpus}/concepts/candidates.json`, `decisions.json`: corpus-wide concept aggregation (single file, written once after every per-source step completes).
 - `_planning/staging/{corpus}/concepts/topic-payload.jsonl`, `topics.json`: the topic linker's input and its filing of concepts under topics (written once per batch, after the concept index is assembled). A staged pass adds `topic-names.jsonl`, `topic-payload.chunk-NN.jsonl`, `topics.skeleton.json`, `topics.chunk-NN.json` and `topics.consolidation.json` beside them.
-- `docs/images/_ingest_image_index_{slug}.yaml`: image-index staging (one per source). Merged into `{corpus-root}/sources/converted/IMAGE-INDEX.yaml` by `scripts/build_indexes/build_image_index.py` at Pass H; **an image absent from that index is not part of the library**, so the merge step is not optional. This staging path sits at repo root rather than inside the corpus, which means a private corpus's per-figure descriptions land in a shared tree — `docs/images/` is gitignored to keep them off any public remote.
+- `docs/images/{corpus}/_ingest_image_index_{slug}.yaml`: image-index staging (one per source per corpus; a slug ingested into two corpora has two). Merged into `{corpus-root}/sources/converted/IMAGE-INDEX.yaml` by `scripts/build_indexes/build_image_index.py` at Pass H; **an image absent from that index is not part of the library**, so the merge step is not optional. This staging path sits at repo root rather than inside the corpus, which means a private corpus's per-figure descriptions land in a shared tree — `docs/images/` is gitignored to keep them off any public remote.
 
 The build scripts (`scripts/build_indexes/`) consume the staging artefacts and write the canonical JSON indexes in `corpus.commons/{corpus}/`. Two reasons for the staging layer:
 
@@ -238,7 +238,7 @@ Runs only if pre-flight scope is *full*. Skip if *text-only*; [`ingesting-images
 1. Run `python3 scripts/extract-images.py {corpus-root}/sources/ingest/{source}.pdf` before removing the input.
 2. The extractor writes images to `{corpus-root}/sources/converted/{source-slug}-images/` and an extraction manifest to `{corpus-root}/sources/converted/extraction-manifest.json`.
 3. Classify each extracted image by visual inspection (Read tool on the image file):
-   - **SUBSTANTIVE**: diagram, chart, table, model, framework, process flow, decision tree, formula illustration, or other figure carrying conceptual content. Add an entry to `{corpus-root}/sources/converted/IMAGE-INDEX.yaml` with description, tags, suggested-use, and framework cross-references.
+   - **SUBSTANTIVE**: diagram, chart, table, model, framework, process flow, decision tree, formula illustration, or other figure carrying conceptual content. Add an entry to the staging file `docs/images/{corpus}/_ingest_image_index_{slug}.yaml` with description, tags, suggested-use, and framework cross-references; Pass H merges it into `{corpus-root}/sources/converted/IMAGE-INDEX.yaml`.
    - **DECORATIVE**: photographs, cover art, ornamental rules, blank frames, publisher logos, paper textures, icons. Delete from `{corpus-root}/sources/converted/{source-slug}-images/`.
 4. Image *files* are gitignored. The *index* travels with the repo. If an image is not in `IMAGE-INDEX.yaml`, it is not part of the library.
 

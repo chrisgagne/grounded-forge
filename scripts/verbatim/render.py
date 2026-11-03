@@ -2,7 +2,7 @@
 """Render a verbatim-mode report folder to a self-contained page.
 
     uv run --python 3.12 --with pymupdf python scripts/verbatim/render.py <report-folder> \
-        [--verbatim R] [--joins essay|minimal] [--context UNIT:N] [--ship]
+        [--verbatim R] [--joins essay|minimal] [--context UNIT:N] [--ship] [--pages-only]
 
 Reads <report-folder>/report.json (the model's joins) and bundle.json (the resolver's
 placed spans) and writes <report-folder>/preview.html from this folder's template.html,
@@ -11,6 +11,8 @@ Copies into the report folder everything the page opens, so the folder works zip
 and from file://: vendor/ (D3), originals/ (the source PDFs and EPUBs), converted/
 (the converted text each span was placed from), figures/, and pages/ (the hit page and
 two either side, pre-rendered as PNGs through PyMuPDF, the passage highlighted on the hit page).
+--pages-only leaves the original files out of the folder: the page images are still drawn
+from them, and any copy an earlier render left in originals/ is removed.
 
 The flags set the page's opening state only; every one of them is also a control on
 the page. No model call: the flags change what is shown, never what was placed.
@@ -260,7 +262,7 @@ def copy_if_changed(src, dst):
         shutil.copyfile(src, dst)
 
 
-def render(out, init):
+def render(out, init, pages_only=False):
     report = json.loads((out / "report.json").read_text())
     bundle = json.loads((out / "bundle.json").read_text())
     root_of = lambda corpus: REPO / bundle["corpora"][corpus]["root"]
@@ -296,17 +298,23 @@ def render(out, init):
         copy_if_changed(conv, cdir / f"{sid}.md")
         src["converted_local"] = f"converted/{sid}.md"
         src["served"] = None
+        src["original_omitted"] = pages_only
         if not src.get("original"):
             continue
         f = root_of(src["corpus"]) / src["original"]
         if f.exists() and f.suffix.lower() in (".pdf", ".epub"):
             dst = odir / f"{sid}{f.suffix.lower()}"
-            copy_if_changed(f, dst)
-            src["served"] = f"originals/{dst.name}"
+            if pages_only:
+                dst.unlink(missing_ok=True)
+            else:
+                copy_if_changed(f, dst)
+                src["served"] = f"originals/{dst.name}"
             if fitz is not None:
                 pages += prerender_pages(out, sid, f, [(k, s) for k, s in bundle["spans"].items() if s.get("source") == sid and s.get("verified")], fitz)
         else:
             print(f"original not servable: {f}", file=sys.stderr)
+    if not any(odir.iterdir()):
+        odir.rmdir()
 
     (out / "bundle.json").write_text(json.dumps(bundle, ensure_ascii=False, indent=1))   # with the served files and page images, for anything that reads the folder
     html = (HERE / "template.html").read_text()
@@ -332,6 +340,7 @@ def main():
     ap.add_argument("--context", default=None, choices=("paras:0", "paras:1", "paras:2"), help="opening context for a clicked span: its paragraph, and 0, 1 or 2 paragraphs either side (default paras:1)")
     ap.add_argument("--ship", action="store_true", help="open as it would ship: copyrighted sources paraphrased under max_visibility open-nc")
     ap.add_argument("--passages", action="store_true", help="open with each pointed paraphrase shown as the author's passage it rests on")
+    ap.add_argument("--pages-only", action="store_true", help="leave the original PDFs and EPUBs out of the folder; keep the page images (the hit page and two either side)")
     args = ap.parse_args()
     out = args.folder.resolve()
     report = json.loads((out / "report.json").read_text())
@@ -340,7 +349,7 @@ def main():
             "ctx": args.context or "paras:1", "ship": args.ship, "passages": args.passages}
     if init["joins"] not in ("essay", "minimal"):
         init["joins"] = "essay"
-    render(out, init)
+    render(out, init, args.pages_only)
 
 
 if __name__ == "__main__":

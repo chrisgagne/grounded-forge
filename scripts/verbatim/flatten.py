@@ -104,7 +104,7 @@ def flatten(folder, base=None, ship=False, joins="essay"):
             notes.append("\n".join([
                 f"[{n}] {who}" + (". The answer's paraphrase; the passage it rests on:" if pointed else ""),
                 f"    section: {sp.get('locator') or 'not recorded'}; printed page: {sp.get('page') or 'not kept by the converter'}",
-                f"    original file: {at(src['served']) if src.get('served') else 'not held'}" + (f", {layout} {sp['hit_page']}" if sp.get("hit_page") else ""),
+                f"    original file: {at(src['served']) if src.get('served') else 'left out of this folder' if src.get('original_omitted') else 'not held'}" + (f", {layout} {sp['hit_page']}" if sp.get("hit_page") else ""),
                 f"    converted text: {at(src['converted_local'])}, line {sp['line']}",
                 f"    page images: {pages or 'none'}" + (f" (the passage is highlighted on {at(hit['png'])})" if hit else ""),
                 f"    paragraph: {ctx}",

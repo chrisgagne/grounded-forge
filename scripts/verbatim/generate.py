@@ -3,7 +3,7 @@
 
     python3 scripts/verbatim/generate.py --question "…" --corpora aarbuddy,demo --out <folder>
         [--model opus] [--joins both|essay|minimal]
-        [--verbatim R] [--context UNIT:N] [--ship] [--render-only]
+        [--verbatim R] [--context UNIT:N] [--ship] [--passages] [--pages-only] [--render-only]
 
 1. Model step. One headless `claude -p` run from the repo root, with --add-dir for each
    corpus root and the tools Read, Grep, Glob, Bash and Write. It runs answer-from-corpus
@@ -227,6 +227,7 @@ def render(out, args):
     if args.context: cmd += ["--context", args.context]
     if args.ship: cmd += ["--ship"]
     if args.passages: cmd += ["--passages"]
+    if args.pages_only: cmd += ["--pages-only"]
     if args.joins in ("essay", "minimal"): cmd += ["--joins", args.joins]
     p = subprocess.run(cmd, capture_output=True, text=True)
     if p.returncode != 0:   # no uv: render without page images
@@ -264,6 +265,7 @@ def main():
     ap.add_argument("--context", help="render-time, no model call: paras:0, paras:1 or paras:2 (the passage's paragraph and that many either side)")
     ap.add_argument("--ship", action="store_true", help="render-time, no model call: open under the open-nc shipping gate")
     ap.add_argument("--passages", action="store_true", help="render-time, no model call: open with pointed paraphrases shown as the author's passages")
+    ap.add_argument("--pages-only", action="store_true", help="render-time, no model call: leave the original PDFs and EPUBs out of the folder, keeping the page images (the hit page and two either side)")
     ap.add_argument("--allow-join-quotes", action="store_true", help="render even though the model's prose carries quotation marks (check each first)")
     ap.add_argument("--allow-unpointed-credits", action="store_true", help="render even though join sentences still credit a source with no pointer (check each first)")
     ap.add_argument("--render-only", action="store_true", help="no model call: resolve and render an existing report.json")

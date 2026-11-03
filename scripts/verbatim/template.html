@@ -360,7 +360,7 @@ function openSide(el){
     side.innerHTML = `<button class="close" title="close">×</button><div class="where"><b>Not placed.</b> ${esc(sp.note||"The resolver did not find the anchor in the converted source.")}</div><div class="ctx">What you read on the page is the model's paraphrase, marked as such. The trace footer counts it.</div>`;
   } else {
     const w = contextWindow(sp);
-    const pageLink = src.served && /\.pdf$/i.test(src.served) ? `<a href="${esc(src.served)}#page=${sp.hit_page||sp.page||1}" target="_blank">original PDF${sp.hit_page?`, PDF page ${sp.hit_page}`:""}</a>` : (src.served ? `<a href="${esc(src.served)}" download>download the EPUB</a>` : `<span>original not held</span>`);
+    const pageLink = src.served && /\.pdf$/i.test(src.served) ? `<a href="${esc(src.served)}#page=${sp.hit_page||sp.page||1}" target="_blank">original PDF${sp.hit_page?`, PDF page ${sp.hit_page}`:""}</a>` : (src.served ? `<a href="${esc(src.served)}" download>download the EPUB</a>` : `<span>${src.original_omitted?"original left out of this folder":"original not held"}</span>`);
     const anchor = sp.text.split(/\s+/).slice(0,8).join(" ");
     side.innerHTML = `<button class="close" title="close">×</button>
       <div class="where"><b>${esc(src.author)}</b>, <i>${esc(src.title)}</i> (${esc(String(src.year))}) · ${esc(sp.locator||"")}${sp.page?` · p. ${esc(String(sp.page))}`:""}${md.m!=="verbatim"?` · <span style="color:var(--g-cat-1)">shown on the page as paraphrase</span>`:""}</div>

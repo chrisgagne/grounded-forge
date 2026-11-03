@@ -18,13 +18,14 @@ Between 31 October and 2 November 2026, four eval rounds put the same questions 
 | [Verbatim round 1](rounds/2026-11-02-verbatim-vs-gemini/) | 1 (NZ pandemic), private | 2 | claim | 2 blind Opus judges |
 | [Verbatim round 2](rounds/2026-11-02-verbatim-vs-gemini-2/) | 3, one corpus each | 6 | claim, from a shared claim list | 12 single-answer Opus judges, then 6 Sol judges |
 | [Verbatim round 3](rounds/2026-11-02-verbatim-case-citations/) | the case-citations cases | 10 (verbatim mode) | citation | Opus, then a Sol re-grade of all 10 |
+| [Round 3b](rounds/2026-11-02-verbatim-case-citations/#round-3b-after-the-fixes) | the same cases, after three generator fixes | 7 (verbatim mode) | citation | Opus, then a Sol re-grade of all 7 |
 
 Sol (`gpt-6.1-sol`) is from a different model family from Claude, and wrote none of the answers.
 
 ## What held across the rounds
 
 **Where Gemini cites, its markers land near the claim, not on it.** A Gemini citation tells the reader where the topic lives; a grounded-forge citation tells them where the claim lives.
-- **The like-for-like comparison is verbatim mode.** A verbatim-mode pointer names one passage, the same grain as a Gemini marker's chunk. On the same cases, 91% of verbatim mode's citations carried their claim as stated under Sol and 96% under the Claude scorers (round 3), against 19% of Gemini's markers under Sol (case-citations round). Most of Gemini's other markers carried part of the claim, or a weaker form of it.
+- **The like-for-like comparison is verbatim mode.** A verbatim-mode pointer names one passage, the same grain as a Gemini marker's chunk. On the same cases, 91% of verbatim mode's citations carried their claim as stated under Sol and 96% under the Claude scorers (round 3), against 19% of Gemini's markers under Sol (case-citations round). Round 3b's longer answers held it: 89% under Sol, 96% under the Claude scorers. Most of Gemini's other markers carried part of the claim, or a weaker form of it.
 - **`answer-from-corpus`'s figure is at a coarser grain.** Its credits carried their claim 83% of the time under Sol and 94% under the Claude scorers. But a credit names a whole source, and the scorer searched the book for the claim, while a Gemini marker names one chunk. "Does it carry the claim?" is an easier test for a book than for a chunk, so 83% against 19% overstates the gap somewhat.
 - **Outright misses were rare on both sides:** Gemini 1–7% of markers per case under Sol, grounded-forge 0–2%. Gemini's problem is claims that go a little further than their passages, not invention.
 
@@ -39,7 +40,7 @@ Sol (`gpt-6.1-sol`) is from a different model family from Claude, and wrote none
 - Round 1: 12 of Gemini's 23 claims were fully supported, against all 14 forge quotations and 10–11 of 12 other forge claims.
 - Round 2, question 2: as delivered, 38–42% of Gemini's quotations and attributed claims were supported under Opus and 47% under Sol, against the forge answer's 57–66% and 64%.
 
-**Coverage of the expected ideas is about level.** Both arms covered the case-citations answer keys about equally. Verbatim mode covered fewer on the broadest case: 14 of 26 expected ideas, against `answer-from-corpus`'s 21 and 19. Building an answer around placed passages narrowed a broad synthesis.
+**Coverage of the expected ideas is about level.** Both arms covered the case-citations answer keys about equally. In round 3, verbatim mode covered fewer on the broadest case: 14 of 26 expected ideas, against `answer-from-corpus`'s 21 and 19, because a fixed budget of placed passages narrowed a broad synthesis. Round 3b dropped the budget and let the model size the answer to the question. That brought it to 20 of 26 on the private corpus, level with `answer-from-corpus`, and 17 on the public one, 4 short. Sol sees a smaller gain, leaving it 1 and 3 short.
 
 **Verbatim mode holds level with `answer-from-corpus` on citation support.** Its pre-registered lift was 5 points or more in three of five cells. Under the Claude scorers it lifted support in one (+8.7), and was within 5 points in the other four. Under Sol it would have met the lift. Its value is that every claim opens its passage and printed page in one click, which this rubric doesn't score.
 
@@ -47,7 +48,7 @@ Sol (`gpt-6.1-sol`) is from a different model family from Claude, and wrote none
 
 On round 2's demo question, under the Opus judges, Gemini's claims were more often supported as delivered: 62% against 52–57%. Twenty-two of the forge answer's attributed sentences had no pointer. Under Sol the forge answer led: 69% against 64%, because Sol counted the source a sentence names as its pointer.
 
-Since then, every sentence that credits a source is a *pointed paraphrase*, with its own pointer, and the generator stops on any it finds without one. In round 3, three slipped through, across 10 answers.
+Since then, every sentence that credits a source is a *pointed paraphrase*, with its own pointer, and the generator stops on any it finds without one. In round 3, three slipped through, across 10 answers. Round 3b added a model sweep for credits a word list misses, and none of its 7 answers left one without a pointer.
 
 ## Effort to check
 
@@ -58,7 +59,7 @@ How much effort a reader saves depends on how effort is counted.
 
 ## Limits
 
-- **Claude is on both sides.** grounded-forge's answers are written by Claude, and Claude is the primary scorer. Sol re-graded the case-citations round, round 2 and round 3. It agreed with the Claude scorers on 96% of miss calls in the case-citations round, and on every one in round 3. In round 2 it agreed on 85% of delivered calls, against 94% between the two Opus judges. Round 1 was judged by Opus only.
+- **Claude is on both sides.** grounded-forge's answers are written by Claude, and Claude is the primary scorer. Sol re-graded the case-citations round, round 2 and round 3. It agreed with the Claude scorers on 96% of miss calls in the case-citations round, and on every one in rounds 3 and 3b. In round 2 it agreed on 85% of delivered calls, against 94% between the two Opus judges. Round 1 was judged by Opus only.
 - **Blinding was thin.** Judges guessed which kind of tool wrote an answer from its form, pointer blocks against citation popups.
 - **The numbers are small.** Three cases, four questions, one or two runs each, written with the corpora in view. Read this as a direction, not a rate.
 - **Scale.** Gemini's share of markers carrying the claim as stated fell from 23–57% on the public notebook to 10–24% on the private one. Its miss rate didn't rise. The private corpus is reported as counts only.

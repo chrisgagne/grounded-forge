@@ -302,7 +302,7 @@ function modeOf(id){
 
 function render(){
   document.getElementById("q").textContent = REPORT.question;
-  document.getElementById("meta").innerHTML = `Generated ${BUNDLE.generated} · protocol ${REPORT.mode.protocol} · lens ${REPORT.mode.lens} · corpora ${REPORT.mode.corpora.join(", ")} · ${Object.keys(BUNDLE.sources).length} sources, ${Object.keys(BUNDLE.spans).length} spans`;
+  document.getElementById("meta").innerHTML = `Generated ${BUNDLE.generated} · protocol ${REPORT.mode.protocol} · lens ${REPORT.mode.lens} · corpora ${REPORT.mode.corpora.join(", ")} · ${Object.keys(BUNDLE.sources).length} sources, ${Object.keys(BUNDLE.spans).length} spans` + (INIT.gemini ? ` · <a href="${INIT.gemini}">Gemini Notebook's answer to the same question</a>` : "");
   document.getElementById("key").innerHTML = Object.entries(CORPUS).map(([k,v])=>`<span><span class="v q" style="--c:${v.c};--t:${v.t};cursor:default;font-size:14px">the author's words</span> ${v.label}</span>`).join("")
     + `<span><span class="v para" style="--c:var(--g-secondary);cursor:default;font-size:14px">the model's paraphrase<span class="tag">paraphrase</span></span></span>`
     + (Object.values(BUNDLE.spans).some(s=>!s.verified) ? `<span><span class="sw hatch"></span>could not be placed</span>` : "");

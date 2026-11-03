@@ -111,9 +111,12 @@ Then run `--audit` again: each round audits the whole diff fresh, and every fix 
 
 ```bash
 python3 -m scripts.build_indexes.build_task_index --corpus {name}   # the rewrites edited the index views after the script built their JSON
+python3 scripts/build_indexes/build_image_index.py --corpus {name} --drop {slug}
 npm run build
 npm run setup-chroma -- --corpus corpus.commons/{name} --rebuild   # if {corpus}/chroma/ exists
 ```
+
+The image-index merge carries forward every entry it has no staging file for, so a source's entries leave only through `--drop`; the script has already cut them, and the merge's `dropped:` line confirms none remain. It also merges any other source's staging that the index hadn't caught up with; list that in the summary as a change the rebuilds pulled in.
 
 The build must pass. A failure on referential integrity means a file still links to one of the removed source's files, usually a doc that used it as a worked example; that is rewrite work left undone (*Rewrite what still draws on it*), not a build problem. Then confirm the source is gone from what ships: `grep -rlF {slug} {corpus}/apps {corpus}/okf` returns nothing beyond the copies of an image's alt text waiting on a redraw.
 

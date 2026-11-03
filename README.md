@@ -157,11 +157,12 @@ The comparative method evaluation is a separate surface: a blind LLM-judge proto
 
 4. *Where the corpus is canonical and the filenames route it, these rounds showed no answer-quality gain for the matrix; naive corpus access suffices there.* The matrix's remaining case on that surface is audit traceability and session amortisation; its necessary case is the corpora the training prior cannot route.
 
-5. *Against Gemini Notebook, the edge is the harness and the method, not retrieval or distillations* ([the round](docs/evals/rounds/2026-10-22-gemini-notebook-private-corpus/)). Over a private corpus (287 of its 330 sources in the notebook), Gemini Notebook tied on a lookup and was wider on a broad synthesis, while grounded-forge was deeper. grounded-forge pulled ahead on four kinds of work:
-   - applying sources to a case;
-   - keeping safety cautions;
+5. *Against Gemini Notebook, the edge is the harness and the method, not the distillations* ([the round](docs/evals/rounds/2026-10-22-gemini-notebook-private-corpus/)). Over a private corpus (287 of its 330 sources in the notebook), Gemini Notebook tied on a lookup and was wider on a broad synthesis, while grounded-forge was deeper. grounded-forge pulled ahead on five kinds of work:
+   - citations a reader can follow to the page (on a long case, every Gemini citation marker pointed at the wrong book; [a single-concept follow-up](docs/evals/rounds/2026-11-keyword-match/) gave the shared-words explanation no support);
    - finding *every* instance (22 of 23 items to 15, with Gemini calling its list complete);
-   - running a live review, where Gemini asked no questions at all.
+   - keeping safety cautions;
+   - applying sources to a case;
+   - running a live review, where Gemini asked no questions at all, against the private app and against the public AAR Maker over the same open sources.
 
    Within grounded-forge, references plus a page of written principles matched the distillation app on one-shot work, and swapping the distillations for plain light references changed nothing measurable, one-shot or live, on Opus or on Sonnet. Live, the facilitation procedure was what made the assistant ask before it wrote. Both sides invented specifics when filling gaps. grounded-forge marked which parts were inference and named its gaps; Gemini Notebook presented its guesses as findings and its partial lists as complete. Every Claude configuration at least once quoted a summary layer's wording as the author's, so `answer-from-corpus` now checks author quotations before it answers.
 

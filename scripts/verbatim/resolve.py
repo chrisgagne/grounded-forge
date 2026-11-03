@@ -392,18 +392,6 @@ class Source:
             if m: return int(m.group(1))
         return None
 
-    def chapters(self):
-        out = []
-        for i, l in enumerate(self.lines):
-            m = re.match(r"^#{1,2}\s+(.+)", l.strip())
-            if m: out.append({"title": m.group(1).strip()[:60], "line": i + 1})
-        if not out:
-            for i, l in enumerate(self.lines):
-                if re.match(r"^(CHAPTER|Chapter)\s+\d+\b", l.strip()): out.append({"title": l.strip()[:60], "line": i + 1})
-        if len(out) > 40:
-            out = [c for c in out if not re.match(r"^\d+\.\d+", c["title"])] or out
-        return out[:40]
-
     def grep_layer(self, relpath, keywords):
         p = self.root / relpath
         if not p.exists(): return None
@@ -570,7 +558,7 @@ def main():
             original, via = find_original(src.root, src.slug, src.converted, sc)
         out_sources[sid] = {"slug": src.slug, "corpus": src.corpus, "short": src.meta.get("short", ""), "title": sc.get("title", src.meta.get("title", src.slug)), "author": sc.get("author", src.meta.get("author", "")),
                             "year": int(re.sub(r"\D", "", str(sc.get("publish_year", src.meta.get("year", 0)))) or 0), "scope": sc.get("scope", src.meta.get("scope", "copyrighted")), "licence": sc.get("licence", src.meta.get("licence", "")),
-                            "original": original, "original_via": via if original else None, "converted": src.converted, "lines": len(src.lines), "words": src.words, "chapters": src.chapters(), "refs": refs}
+                            "original": original, "original_via": via if original else None, "converted": src.converted, "lines": len(src.lines), "words": src.words, "refs": refs}
     for j in placeholders(report):
         sid = j["source"]; span_id = j["span"]
         if sid not in sources:

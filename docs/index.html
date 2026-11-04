@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>grounded-forge</title>
+<meta name="description" content="A workshop for source-grounded assistants: every claim opens the passage it rests on.">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --text: #1f1d1a;
+    --muted: #5d5850;
+    --rule: #e2ddd3;
+    --link: #8a3b12;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171614;
+      --text: #ece8e1;
+      --muted: #aaa398;
+      --rule: #34312c;
+      --link: #f0a070;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.6 Georgia, "Iowan Old Style", "Times New Roman", serif;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 3rem 16px 4rem; }
+  img { width: 100%; height: auto; border-radius: 4px; }
+  h1 { font-size: 2rem; margin: 1.5rem 0 0.25rem; }
+  .lede { color: var(--muted); font-style: italic; margin-top: 0; }
+  h2 { font-size: 1.15rem; margin: 2.25rem 0 0.5rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  a { color: var(--link); }
+  ul { padding-left: 1.2rem; }
+  li { margin-bottom: 0.5rem; }
+  footer { color: var(--muted); font-size: 0.9rem; margin-top: 3rem; }
+</style>
+</head>
+<body>
+<main>
+  <img src="assets/forge-hero.png" alt="A workshop scene: a craftsperson in a leather apron hands a small notebook to a practitioner, with a wall of lit card-catalog drawers behind them.">
+  <h1>grounded-forge</h1>
+  <p class="lede">A workshop for grounded assistants: facilitators, coaches, analysts, advisors.</p>
+  <p>The library reads each source once, under audit, and projects it onto every task the assistant supports. Answers cite back to the passage they rest on, so a reader can check every claim.</p>
+
+  <h2>See an answer</h2>
+  <p><a href="examples/marines-verbatim/preview.html"><strong>Marine warfighting doctrine and the business textbook</strong></a>: what US Marine doctrine and textbook business administration have in common, answered from the open demo corpus in verbatim mode. Every quotation is placed from its source by code, and every claim opens its passage with the printed page highlighted. About five minutes.</p>
+
+  <h2>See the evals</h2>
+  <ul>
+    <li><a href="https://github.com/chrisgagne/grounded-forge/blob/main/docs/evals/grounded-forge-vs-gemini.md">grounded-forge against Gemini Notebook</a>: what the rounds from October and November 2026 show, including where Gemini led.</li>
+    <li><a href="https://github.com/chrisgagne/grounded-forge/tree/main/docs/evals/rounds">Every eval round</a>, with its questions, answers and judges' scores.</li>
+    <li><a href="https://github.com/chrisgagne/grounded-forge/blob/main/docs/evals/methodology.md">Methodology</a>.</li>
+  </ul>
+
+  <h2>Build your own</h2>
+  <p>The <a href="https://github.com/chrisgagne/grounded-forge">repository</a> holds the build system, the demo corpus and the tutorials. Start with <a href="https://github.com/chrisgagne/grounded-forge/blob/main/docs/tutorial/the-demo-app.md">the demo app</a>.</p>
+
+  <footer>Built by Chris Gagné.</footer>
+</main>
+</body>
+</html>

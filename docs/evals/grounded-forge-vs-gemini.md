@@ -55,7 +55,7 @@ Since then, every sentence that credits a source is a *pointed paraphrase*, with
 How much effort a reader saves depends on how effort is counted.
 - **Round 1:** checking the forge answer took a third to a half of the judge operations.
 - **Round 2:** the rubric charged nothing for reading a passage the answer already shows. Gemini shows one for every marker, so its supported claims cost nothing to check either, and the gap closed.
-- **Where a claim fails,** the forge answer's line and page pointers let a judge find the right place in one step. Gemini names the book only.
+- **Where a claim fails,** the forge answer's line and page pointers let a judge find the right place in one step. The judges worked from Gemini's captured popups, which name the file and show the chunk but not its page, so they searched the whole file. Gemini's own interface does more: checked on 4 November 2026, a marker opens the chunk in the notebook's source view, highlighted in the extracted text, under a scan of its page.
 
 ## Limits
 

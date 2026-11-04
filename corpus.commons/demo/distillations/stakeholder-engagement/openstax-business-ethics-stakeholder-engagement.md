@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:df51e6b991770aca483fcf192dd74a4677075674465b815b618b62922f80338a -->
+<!-- derived-from-neighbours: none -->
 # OpenStax Business Ethics, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2018). *Business Ethics*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-ethics. Senior contributing authors Stephen M. Byars and Kurt Stanberry; seven contributing authors.

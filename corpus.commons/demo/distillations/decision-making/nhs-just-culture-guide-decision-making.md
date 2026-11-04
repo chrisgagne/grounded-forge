@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:ce9f74fa23371ad54bf48332e39b47613490eef4ecb0d701a1e83f290b069a70 -->
+<!-- derived-from-neighbours: none -->
 # NHS Just Culture Guide, Decision-Making Distillation
 
 **Source:** NHS Improvement (2018). *A Just Culture Guide*. A3 portrait poster, single page. Open Government Licence v3.0; the poster states no licence, and the basis is NHS England's website terms. Based on the work of Professor James Reason and the National Patient Safety Agency's Incident Decision Tree. https://cpcw.org.uk/wp-content/uploads/sites/19/2018/03/180316-NHSi_just_culture_guide_A3.pdf.

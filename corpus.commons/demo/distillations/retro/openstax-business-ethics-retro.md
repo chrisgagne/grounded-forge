@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:df51e6b991770aca483fcf192dd74a4677075674465b815b618b62922f80338a -->
+<!-- derived-from-task: sha256:db5a96a24cbba2344ea5b099b43c84ff244ca65ffcc0ac06b91ec36e026c0a23 -->
+<!-- derived-from-neighbours: none -->
 # OpenStax Business Ethics, Retro Distillation
 
 **Source:** OpenStax (2018). *Business Ethics*. Senior contributing authors Stephen M. Byars and Kurt Stanberry et al. Houston, TX: Rice University. Licence: CC BY-NC-SA 4.0. Scope: open-nc.

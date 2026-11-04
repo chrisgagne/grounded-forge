@@ -14,13 +14,18 @@ an end-to-end check that a deep edit propagates, exercised against the real CLI
 over a hermetic fixture corpus (a temp dir passed via --root), so it touches no
 real corpus and needs no LLM.
 
-Four properties, each a case that throws on failure:
+Properties, each a case that throws on failure:
   1. A correctly-derived, stamped tier reads clean (exit 0).
   2. stranded-tier: editing the deep without re-deriving strands the tier → STALE, exit 1.
   3. Re-deriving and re-stamping restores clean (exit 0).
   4. An unstamped artefact only WARNS, never fails (exit 0) — the property that
      lets the gate be wired before adoption is broad. A regression here would
      silently turn the ratchet into a hard block.
+  5. Re-stamping keeps the blank line between the stamp and the title.
+  6. A neighbour's deep moving strands a distillation that names it, and only
+     that one; its own deep and the light ref are untouched.
+  7. The task spec moving strands the distillation.
+  8. A neighbour named in the text but missing from the stamp only warns.
 
 No test framework, matching tests/lens-visibility.test.js: each case succeeds
 silently or raises; the runner collects failures, prints a summary, exits non-zero.
@@ -212,12 +217,75 @@ def case_restamping_preserves_the_blank_line_after_the_stamp(root: Path) -> None
     )
 
 
+NEIGHBOUR = "neighbour-source"
+
+
+def add_neighbour(root: Path) -> None:
+    """A second source with a deep, and a cross-reference row to it in the
+    fixture distillation, written the way corpus distillations name neighbours."""
+    (root / "references" / f"{NEIGHBOUR}-deep.md").write_text(
+        f"# Deep: {NEIGHBOUR}\n\nNeighbour claim.\n", encoding="utf-8"
+    )
+    dist = root / "distillations" / TASK / f"{SLUG}-{TASK}.md"
+    dist.write_text(
+        dist.read_text(encoding="utf-8")
+        + f"\n| Neighbour Source ({NEIGHBOUR}) | Says the neighbour claim. |\n",
+        encoding="utf-8",
+    )
+
+
+def case_neighbour_edit_strands_the_citing_distillation(root: Path) -> None:
+    build_fixture(root, claim="CLAIM-X supported by the deep.")
+    add_neighbour(root)
+    run_check(root, "--stamp")
+    dist = (root / "distillations" / TASK / f"{SLUG}-{TASK}.md").read_text(encoding="utf-8")
+    assert_(f"derived-from-neighbours: {NEIGHBOUR}@" in dist, f"neighbour not stamped:\n{dist}")
+    assert_(run_check(root)[0] == 0, "freshly stamped tier with a neighbour should pass")
+
+    nd = root / "references" / f"{NEIGHBOUR}-deep.md"
+    nd.write_text(nd.read_text(encoding="utf-8").replace("Neighbour claim.", "Revised."), encoding="utf-8")
+
+    rc, out = run_check(root)
+    assert_(rc == 1, f"a moved neighbour must read STALE (exit 1); got {rc}\n{out}")
+    lines = stale_lines(out)
+    assert_(len(lines) == 1 and f"neighbour {NEIGHBOUR} moved" in lines[0],
+            f"only the citing distillation should be STALE, naming the neighbour\n{out}")
+
+
+def case_task_spec_edit_strands_the_distillation(root: Path) -> None:
+    build_fixture(root, claim="CLAIM-X supported by the deep.")
+    spec = root / "tasks" / f"{TASK}.md"
+    spec.parent.mkdir(parents=True, exist_ok=True)
+    spec.write_text("# AAR task\n\nPhase 1.\n", encoding="utf-8")
+    run_check(root, "--stamp")
+    assert_(run_check(root)[0] == 0, "freshly stamped tier with a task spec should pass")
+
+    spec.write_text("# AAR task\n\nPhase 1.\nPhase 2.\n", encoding="utf-8")
+    rc, out = run_check(root)
+    lines = stale_lines(out)
+    assert_(rc == 1 and len(lines) == 1 and "task spec moved" in lines[0],
+            f"a moved task spec must strand the distillation alone\n{out}")
+
+
+def case_unstamped_neighbour_only_warns(root: Path) -> None:
+    build_fixture(root, claim="CLAIM-X supported by the deep.")
+    (root / "references" / f"{NEIGHBOUR}-deep.md").write_text("# Deep\n", encoding="utf-8")
+    run_check(root, "--stamp")  # stamped with `none`: no neighbour named yet
+    add_neighbour(root)  # a row to the neighbour appears without a re-stamp
+    rc, out = run_check(root)
+    assert_(rc == 0, f"an unstamped neighbour must warn, not fail; got {rc}\n{out}")
+    assert_(f"no stamp for neighbours {NEIGHBOUR}" in out, f"warning should name the neighbour\n{out}")
+
+
 CASES = [
     case_clean_state_passes,
     case_deep_edit_strands_tier,
     case_rederive_and_restamp_restores_clean,
     case_unstamped_only_warns,
     case_restamping_preserves_the_blank_line_after_the_stamp,
+    case_neighbour_edit_strands_the_citing_distillation,
+    case_task_spec_edit_strands_the_distillation,
+    case_unstamped_neighbour_only_warns,
 ]
 
 

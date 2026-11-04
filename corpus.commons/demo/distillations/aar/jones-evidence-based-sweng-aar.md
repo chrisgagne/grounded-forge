@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:dbc6bdc222a537d7fe25afee4bfe2616877db291769165e237ef01327d6458b4 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: letaw-handbook-sweng-methods@a10e1eeb60987843 lfuo-learning-review-guide-2024@f9fced2966c3cef3 openstax-organizational-behavior@b9eff8de80458b89 -->
 # Jones, Evidence-Based Software Engineering, AAR Distillation
 
 **Source:** Jones, D. M. (2020). *Evidence-Based Software Engineering: based on the publicly available data*. Version 1.0. Knowledge Software, Ltd. ISBN: 978-1-8382913-0-3. Licence: CC BY-SA 4.0 (copyleft propagates to derivatives). Scope: open.

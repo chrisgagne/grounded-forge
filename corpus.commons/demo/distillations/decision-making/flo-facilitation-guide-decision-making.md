@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:61fd5854f4b4134888076a683872cdeb87bd66f0817114612460e7fbd7a562a3 -->
+<!-- derived-from-neighbours: none -->
 # Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide — Decision-Making Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. **Licence:** CC BY 4.0. Open scope; attribution required on derivative works.

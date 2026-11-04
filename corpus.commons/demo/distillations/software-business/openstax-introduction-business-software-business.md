@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:767c4bf3cb76809578d67ca3450533e1a9396a1d17ee64a829f8dd3eca8390cc -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 openstax-accounting-vol2@8652eb488af72d43 openstax-business-ethics@df51e6b991770aca openstax-business-law@84e9d1325c64c50c openstax-entrepreneurship@7ade4c45685ba232 openstax-organizational-behavior@b9eff8de80458b89 openstax-principles-finance@2d6680682f0e3e64 openstax-principles-management@4a174b85f3983a96 openstax-principles-marketing@5bd7a89724e270fc -->
 # OpenStax Introduction to Business, Software-Business Distillation
 
 **Source:** OpenStax (2018). *Introduction to Business*. Rice University. CC BY 4.0. https://openstax.org/details/books/introduction-business. Lead author Lawrence J. Gitman; six senior contributing authors.

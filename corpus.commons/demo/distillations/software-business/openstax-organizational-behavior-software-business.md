@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:b9eff8de80458b8930d4432cbe1ddcfabb75fe6427497a962992c797140e5768 -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 nhs-just-culture-guide@ce9f74fa23371ad5 openstax-business-ethics@df51e6b991770aca openstax-business-law@84e9d1325c64c50c openstax-entrepreneurship@7ade4c45685ba232 openstax-principles-management@4a174b85f3983a96 openstax-principles-marketing@5bd7a89724e270fc tc-25-20-army-aar@f9f9bb80576820e7 -->
 # OpenStax Organizational Behavior, Software-Business Distillation
 
 **Source:** OpenStax (2019). *Organizational Behavior*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/organizational-behavior. Lead author J. Stewart Black; 11 contributing authors.

@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:2c668822fecdf54714b63079caeca78f47bef9125fb71b948d64a18348c25144 -->
+<!-- derived-from-neighbours: none -->
 # Heft & Pattillo (Group Jazz), Liberating Structures Handbook — Decision-Making Distillation
 
 **Source:** Heft, L. & Pattillo, A. (compilers), with materials by H. Lipmanowicz and K. McCandless (2010). *Engaging Everyone with Liberating Structures Handbook*. Washington, DC: Group Jazz. Licence: CC BY-NC-SA 3.0 Unported. https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf.

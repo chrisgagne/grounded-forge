@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:2d4a20cfd1f18fc3cdf6d95d0690c885c2c6391bd9a92f7f95bf825683af19f9 -->
+<!-- derived-from-neighbours: none -->
 # Hurtado, Open Kanban — Stakeholder-Engagement Distillation
 
 **Source:** Hurtado, J. (with Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban — Open Source Initiative to create a Kanban core that is Agile, Lean and Free*. Release 1.00 Rev A. Licence: CC BY 3.0 Unported. https://github.com/agilelion/Open-Kanban.

@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:b9eff8de80458b8930d4432cbe1ddcfabb75fe6427497a962992c797140e5768 -->
+<!-- derived-from-neighbours: none -->
 # OpenStax Organizational Behavior, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Organizational Behavior*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/organizational-behavior. Lead author J. Stewart Black; 11 contributing authors.

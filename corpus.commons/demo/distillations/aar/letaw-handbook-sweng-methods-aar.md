@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:a10e1eeb60987843801dd946e70c6b6eb5e20861a10936aa3d30e6ab556869b3 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: jones-evidence-based-sweng@dbc6bdc222a537d7 nhs-just-culture-guide@ce9f74fa23371ad5 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Letaw, Handbook of Software Engineering Methods, AAR Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. Licence: CC BY-NC 4.0 (non-commercial; copyleft propagates to NC derivatives). Scope: open-nc.

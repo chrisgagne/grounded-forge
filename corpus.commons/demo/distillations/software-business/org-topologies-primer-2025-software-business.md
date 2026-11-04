@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:88fc18dc052f23657291ecba7e45fe6ef3dc07814ed4708b8e508cc83462857e -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: approach-perfect-field-guide-scrum-events@6f679312153b12b5 barbrook-johnson-systems-mapping@ea2d425e98736d7d jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 open-kanban@2d4a20cfd1f18fc3 open-practice-library@3100bec10b79404a scrum-guide-2020@5b1c36ec761d50b3 ssdl-systems-thinking-foundations@a53db542968c9e81 -->
 # Krivitsky, Larman & Flemm, Org Topologies Primer — Software-Business Distillation
 
 **Source:** Alexey Krivitsky, Craig Larman & Roland Flemm (2025). *Strategic Org Design: The Primer*. Org Topologies™ 2025 Edition. February 2025. Licence: CC BY-NC-SA 4.0. https://orgtopologies.com.

@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:7ade4c45685ba2322fe1886eca4d73f0799d9e7686a7903b629c9d5d9ee6bfbd -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 openstax-accounting-vol2@8652eb488af72d43 openstax-business-ethics@df51e6b991770aca openstax-business-law@84e9d1325c64c50c openstax-principles-finance@2d6680682f0e3e64 openstax-principles-management@4a174b85f3983a96 openstax-principles-marketing@5bd7a89724e270fc -->
 # OpenStax Entrepreneurship, Software-Business Distillation
 
 **Source:** OpenStax (2020). *Entrepreneurship*. Rice University. Senior contributing authors Michael Laverty and Chris Littel; 19 contributing authors. CC BY-NC-SA 4.0.

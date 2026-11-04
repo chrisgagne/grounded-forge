@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:f9f9bb80576820e76d0f46dd2ce83e7df0c5b1285060bb3a1a38f3d5ea1a164d -->
+<!-- derived-from-neighbours: none -->
 # US Army TC 25-20, Stakeholder-Engagement Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. **Licence:** Public domain (17 USC §105 — US Government work product). Open scope; no copyleft propagation.

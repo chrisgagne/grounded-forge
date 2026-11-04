@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:2d4a20cfd1f18fc3cdf6d95d0690c885c2c6391bd9a92f7f95bf825683af19f9 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: approach-perfect-field-guide-scrum-events@6f679312153b12b5 lfuo-learning-review-guide-2024@f9fced2966c3cef3 ssdl-systems-thinking-foundations@a53db542968c9e81 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Open Kanban, AAR Distillation
 
 **Source:** Joseph Hurtado (with contributor Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban*, Release 1.00 Rev A. CC BY 3.0 Unported. Scope: open. Operator note (not from the source): Open Kanban is the corpus's redistributable Kanban-methodology slot, not a canonical-Kanban-authority source; Hurtado is a minor author by broader industry-recognition standards. The Goldratt and Deming lineage cited below is borrowed-through: Goldratt's *Theory of Constraints* and Deming's *System of Profound Knowledge* are both cited by name in the source but are not in this corpus.

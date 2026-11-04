@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:f9f9bb80576820e76d0f46dd2ce83e7df0c5b1285060bb3a1a38f3d5ea1a164d -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: open-practice-library@3100bec10b79404a openstax-psychology-2e@03774165082001ad scrum-guide-2020@5b1c36ec761d50b3 ssdl-systems-thinking-foundations@a53db542968c9e81 -->
 # US Army TC 25-20, After-Action Review Distillation
 
 **Source:** Headquarters, Department of the Army (1993). *A Leader's Guide to After-Action Reviews*. Training Circular 25-20, 30 September 1993. **Licence:** Public domain (17 USC §105 — US Government work product). **Scope:** open.

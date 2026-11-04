@@ -4,7 +4,7 @@
 export default {
   id: "aar-maker",
   title: "AAR Maker",
-  version: "0.2.1",
+  version: "0.2.2",
   contact: "https://github.com/chrisgagne/grounded-forge/issues", // support and privacy requests; shown on /privacy
   app: "../../corpus.commons/demo/apps/aar-mode",
   task: "aar",
@@ -127,7 +127,7 @@ AAR Maker is built by Chris Gagné (https://chrisgagne.com) and run as a hosted 
     landing: `<h1>AAR Maker</h1>
 <p>A source-grounded after-action review coach, served as an MCP connector. It runs a review blameless by default and draws on openly licensed sources: US Army TC 25-20, the US Forest Service learning review guide, NHS Just Culture, the DOE human performance handbooks, the Columbia accident report and others.</p>
 <p>Connector URL: <code>{{origin}}/mcp</code></p>
-<p><strong>Claude</strong> (web, desktop or mobile): Settings → Connectors → Add custom connector, paste the URL, then sign in with GitHub. Open the connector and set Read-only tools to <em>Always allow</em>, or Claude will ask before every library read.</p>
+<p><strong>Claude</strong> (web, desktop or mobile): add it from its <a href="https://claude.ai/directory/aar-maker">listing in the Claude connector directory</a>, then sign in with GitHub. Open the connector and set Read-only tools to <em>Always allow</em>, or Claude will ask before every library read.</p>
 <p><strong>Claude Code:</strong> <code>claude mcp add --transport http aar-maker {{origin}}/mcp</code>, then <code>/mcp</code> to sign in.</p>
 <p><strong>ChatGPT:</strong> Settings → Plugins, add a server (Streamable HTTP, the URL above, no token), then sign in with GitHub. Start your first message with “Use AAR Maker to…”: ChatGPT won't use it unless asked.</p>
 <p><strong>Cursor:</strong> <a href="{{cursor}}">Add to Cursor</a>, or add <code>"aar-maker": { "url": "{{origin}}/mcp" }</code> under <code>mcpServers</code> in <code>~/.cursor/mcp.json</code>, then sign in with GitHub when Cursor asks.</p>

@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:4a174b85f3983a961e49237ba66764f1015ba881b5d936224d31771ae4163acc -->
+<!-- derived-from-task: sha256:db5a96a24cbba2344ea5b099b43c84ff244ca65ffcc0ac06b91ec36e026c0a23 -->
+<!-- derived-from-neighbours: none -->
 # OpenStax Principles of Management, Retro Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Lead author David S. Bright et al. Houston, TX: Rice University. Licence: CC BY-NC-SA 4.0. Scope: open-nc.

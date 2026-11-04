@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:2c668822fecdf54714b63079caeca78f47bef9125fb71b948d64a18348c25144 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: lfuo-learning-review-guide-2024@f9fced2966c3cef3 nhs-just-culture-guide@ce9f74fa23371ad5 openstax-organizational-behavior@b9eff8de80458b89 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Liberating Structures Handbook, AAR Distillation
 
 **Source:** Heft, L. & Pattillo, A. (compilers), with materials by H. Lipmanowicz and K. McCandless (2010). *Engaging Everyone with Liberating Structures Handbook*. Washington, DC: Group Jazz. Licence: CC BY-NC-SA 3.0 Unported. https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf. Scope: open-nc.

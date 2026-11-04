@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:b9eff8de80458b8930d4432cbe1ddcfabb75fe6427497a962992c797140e5768 -->
+<!-- derived-from-task: sha256:db5a96a24cbba2344ea5b099b43c84ff244ca65ffcc0ac06b91ec36e026c0a23 -->
+<!-- derived-from-neighbours: none -->
 # OpenStax Organizational Behavior, Retro Distillation
 
 **Source:** OpenStax (2019). *Organizational Behavior*. Lead author J. Stewart Black (INSEAD). ISBN 978-1-947172-72-2 (digital). Licence: **CC BY-NC-SA 4.0**. Scope: open-nc.

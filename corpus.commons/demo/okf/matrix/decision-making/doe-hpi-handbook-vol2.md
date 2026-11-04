@@ -12,7 +12,7 @@ sources:
     resource: https://www.energy.gov/sites/default/files/2026-04/1028-2009_Volume%202.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-06T17:06:54+13:00
+  at: 2026-11-04T14:27:34+13:00
 ---
 # US DOE, Human Performance Improvement Handbook Vol. 2, Decision-Making Distillation
 

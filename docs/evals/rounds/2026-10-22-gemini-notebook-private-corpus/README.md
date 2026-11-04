@@ -1,17 +1,19 @@
 # Gemini Notebook against a private grounded-forge corpus, and what the matrix's layers are worth
 
-**TL;DR.** Over 18 tests (19–22 October 2026), a private grounded-forge corpus was run blind against Google's Gemini Notebook over the same sources. It was then taken apart, layer by layer, to see what each part of the design contributes.
+**TL;DR.** Over 19 questions (19–28 October 2026), a private grounded-forge corpus was run blind against Google's Gemini Notebook over the same sources. It was then taken apart, layer by layer, to see what each part of the design contributes. The public AAR Maker was then run against a notebook of its own 22 open sources.
 
-- **Retrieval wasn't grounded-forge's edge.**
-  - On a lookup and a trap question, the two tied.
-  - On the one wide synthesis, Gemini was wider: about 20 sources, including the strongest voice grounded-forge missed. grounded-forge was deeper, with every answer-key item and more insight. Quote accuracy was close.
-- **grounded-forge pulled ahead where the work needs more than retrieval:**
-  - applying sources to a case;
-  - keeping safety cautions;
+- **Gemini Notebook retrieved as well as grounded-forge on a lookup, a trap and a wide synthesis, and fell short on a long case, an exhaustive question and safety lines.**
+  - On a lookup, a trap question and a debate with a stable vocabulary, the two tied. On the debate Gemini was wider: about 20 sources, including the strongest voice grounded-forge missed. grounded-forge was deeper, with every answer-key item and more insight. Quote accuracy was close.
+  - On a long case, Gemini's quotes were real but every one of its citation markers pointed at a different book. On an exhaustive question it found 15 of 23 items and called its list complete; grounded-forge, reading every session, found 22. On a coaching course it twice missed a safety line held in sessions its retrieval never reached.
+  - [The case-citations round](../2026-11-case-citations/), which graded every citation over this notebook and the public one, didn't reproduce the wrong-book markers: of 1,105 private-notebook citations, none landed on an unrelated book. What held instead is markers near the claim, not on it (19% carried the claim as stated, under a scorer from another model family), and loose quotations (9 of about 60 found word for word). See [what the rounds show](../../grounded-forge-vs-gemini.md).
+- **grounded-forge pulled ahead where the work needs more than a matching passage:**
+  - citations a reader can follow to the page;
   - finding *every* instance of something;
+  - keeping safety cautions;
+  - applying sources to a case;
   - running a live review.
 
-  On an exhaustive question it found 22 of 23 items to Gemini's 15, and Gemini called its own list complete. In a live review with a participant who answers only what's asked, Gemini asked no questions at all.
+  In a live review with a participant who answers only what's asked, Gemini asked no questions at all: not in the private app's runs, and not against the public AAR Maker over the same open sources, where AAR Maker drew out 24 and 25 of 32 hidden facts to Gemini's none.
 - **Within grounded-forge, the distillations didn't earn their keep.** Swapping them for plain light references under the same app made no measurable difference, one-shot or live, on Opus or on Sonnet. What did the work was the audited references and the pieces built by hand for the task: a page of written principles, a facilitation procedure for live sessions, and, for the coaching review, a competency framework worth about 28 points. That led to two fixes: a quote check that now ships with `answer-from-corpus`, and an open question about the project's tagline.
 
 Single runs or pairs, one judge family, and a private corpus: read this as a direction, not a decimal.
@@ -33,6 +35,7 @@ Nothing from the private corpus is published here: no source text, no distillati
 - **G, Gemini Notebook:** the notebook as a user would use it, with default settings and the chat cleared before each question. Q1–Q6 carried a paragraph of rules (quote exactly, mark gaps). The rules turned out to lead Gemini, so Q1, Q2 and Q6 were rerun with the bare question a user would type, and from Q7 on Gemini got the bare question only.
 - **Project mode:** a fresh Claude session over the corpus's references, using `answer-from-corpus`.
 - **App mode:** the compiled AAR app (distillations, task index, AAR skills).
+- **AAR Maker (Q20):** the public connector at `aar.groundedforge.com/mcp`, driven by isolated `claude -p`, against a notebook of the original files behind its 22 open sources; plus plain Claude and Codex over the same files with no procedure.
 - **Ablations:**
   - references plus the app's instructions without distillations (M);
   - references plus only the app's principles block (P);
@@ -55,7 +58,7 @@ How the Claude arms ran and were scored:
 | 5 | Wide synthesis with quotations (where the sources disagree on root cause) | Gemini wider: about 20 sources, including the library's strongest pro-root-cause voice, which grounded-forge missed; 39 of 40 quotations exact. grounded-forge deeper: every answer-key item, including two Gemini missed, and more insight beyond listing; 34 of 34 exact, one wrong "not in source" call. |
 | 6 | Organisational case | Tie on content: Gemini stronger on flow mechanics, grounded-forge on why the agreement failed. With the rules paragraph Gemini also stated a condition and its gaps; asked plainly, it gave neither. |
 | 7 | Reading a job posting through a lens | Both good; grounded-forge deeper. |
-| 8 | Safety question on a coaching course | Both grounded. Gemini left out the course's contraindication for clients with a history of psychosis. |
+| 8 | Safety question on a coaching course | Both grounded. Gemini left out the course's contraindication for clients with a history of psychosis: grounded-forge's per-session routing reached sessions Gemini's level-bundle retrieval never used, and the course handles the topic mostly without the word the question used. |
 | 9 | Find *every* referral and contraindication in that course | grounded-forge 22 of 23 key items with the right sessions, and an honest "about 95%". Gemini 15 (plus 3 partial), several sessions wrong, an invented level, and the psychosis caution missed again, while calling its list "comprehensive, re-verified". |
 | 10 | AAR write-up, all facts given (one-shot) | App with distillations 87; references only 79; Gemini 62. |
 | 10M | Same, references + the app's instructions, no distillations | 88. |
@@ -67,13 +70,14 @@ How the Claude arms ran and were scored:
 | 15 | Review a real coaching session (pseudonymised) against a competency framework | Distillations 83.2; project mode 82.0; the full review skill's earlier report 83.5; Gemini 51, with the scope-of-practice moment missed in half its readings. |
 | 17 | 14b with principles plus "ask before you write" | 6–9 facts, AAR 43–44: it asked early, then stopped. |
 | 19 | Distillations (D) against light references (L), on Opus and on Sonnet: Q15's review without the framework, and a live review in the capped harness below | Review: Opus D 55.3, L 55.0; Sonnet D 43.5, L 48.0 (Q15 with the framework: 83.2). Live: on each model the two pairs split one each way; means Opus D 69.5, L 74.5; Sonnet 68.5 each. |
+| 20 | 14b again, the public AAR Maker against a notebook of its own 22 open sources (28 October) | AAR Maker 24 and 25 facts, AAR 72–74; Gemini 0 facts in both runs, 24–33, and a finished report published unasked. Same model and files without the procedure: plain Claude 2 and 7 facts, 28–40; Codex 12 and 17 facts, 38–52. |
 
 A harness run of Q14 with a 14-turn cap went the other way (principles 68 against procedure 62), because the procedure spent its turns on the timeline and never reached actions. Its pacing was in minutes, which a chat assistant can't see. Two changes fixed it: an exchange budget (be into analysis by halfway and into actions by three-quarters), and the history and measures questions no arm had asked. With them, the procedure finished inside the cap. It reached both facts and was preferred over principles in both blind readings (71 against 66.5, one run). Its actions were still the weaker of the two.
 
 ## What the evidence says about the layers
 
-1. **Retrieval isn't where grounded-forge wins.** Gemini Notebook retrieves well over a few hundred sources. It tied on the lookup, and on the wide synthesis it found more sources than grounded-forge did. Its failures came from applying sources to a case and from reasoning past them, not from finding them.
-2. **The harness is a real advantage.** grounded-forge runs where it can read every relevant file, spawn readers and check its own quotes. That's how it won the exhaustive question (Q9): ten parallel readers covered the whole course. A chat product can't do this from inside its retrieval budget. grounded-forge also kept the safety cautions Gemini dropped (Q8, Q15), but these tests don't show why.
+1. **Gemini Notebook's retrieval failed on the long case; a single-concept test gave the shared-words reading no support.** Over a few hundred sources it tied on the lookup (Q3) and found more sources than grounded-forge on the wide synthesis (Q5), and Q6's case text carried the Kanban slogan, so both Gemini runs found the WIP literature at once. On Q2 the prose names Hollnagel and Dekker and quotes them exactly, while every citation marker points at a chunk from another book: "efficiency" led to a management book and to a book on the Enneagram. The model's own knowledge covered for the retrieval. In Q1 five claims cited real passages that don't carry them. On the coaching course, retrieval over four level-sized bundles never reached the sessions holding the cautions (Q8) and found 15 of 23 on the exhaustive question (Q9). The first reading of Q2 was that Gemini retrieves by shared words. A paired test over the public demo corpus ([the keyword-match round](../2026-11-keyword-match/)) gave it no support: asked for ten passages in situation words that share no content word with the passage, Gemini cited the target section in all 20 answers, as it did in the author's terms; three of those answers missed part of the answer key. That test is narrower than the hypothesis, since each question was a plain paraphrase of one concept and Gemini retrieves by meaning. What's left to explain Q2 is the question's shape (a long case raising several issues at once), a corpus eight times larger, and level-sized bundles, none of them tested there.
+2. **The harness is a real advantage.** grounded-forge runs where it can read every relevant file, spawn readers and check its own quotes. That's how it won the exhaustive question (Q9): ten parallel readers covered the whole course. A chat product can't do this from inside its retrieval budget. grounded-forge also kept the safety cautions Gemini dropped. In Q8 its per-session routing reached sessions Gemini's retrieval didn't; why Gemini missed the scope-of-practice moment in Q15 the tests don't show.
 3. **The distillations added little to answer quality on these tests.**
    - On AAR work, where the literature is in the model's training, references plus the app's instructions matched or beat the app with distillations (Q10M).
    - On the coaching course, which isn't in training, distillations and references tied (Q15). But every arm was given an annotated competency framework that already carries the course's techniques. Q19 withheld it: both Opus arms dropped about 28 points, and distillations and light references still tied.
@@ -90,7 +94,7 @@ A harness run of Q14 with a 14-turn cap went the other way (principles 68 agains
    - Project mode quoted a light reference's paraphrase as the author's words.
 
    The skill already forbade both, and neither was caught. `answer-from-corpus` now runs [`check_quotes.py`](../../../../.claude/skills/answer-from-corpus/check_quotes.py) before an answer goes out. It flags any author quotation that matches only a summary layer or nothing at all. Run on the Q10 answers, it caught every such case found there by hand.
-6. **Gemini Notebook is an answer engine.** Given an incident and asked to run the review, it wrote a confident document from the first message, with invented specifics, and never asked a question.
+6. **Gemini Notebook is an answer engine.** Given an incident and asked to run the review, it wrote a confident document from the first message, with invented specifics, and never asked a question. That held across eleven runs: nine against the private app (Q14, Q14b) and two against the public AAR Maker over the same open sources (Q20). With the same model and files but no procedure, plain Claude asked once and then waited, and Codex answered first and asked late (Q20), so the procedure, not the model or the sources, is what keeps the facilitator asking.
 
 ## What each product can do (checked 22 October 2026)
 
@@ -114,7 +118,7 @@ Gemini Notebook and an agent harness (Claude Code, Codex) are different kinds of
 
   Calling it "chat-only" is already out of date.
 
-That's the frame for this round. On retrieval the two are comparable. grounded-forge's clearest wins (Q9, Q14b, the quote check) come from things only an agent can do: read everything, run a procedure, and check its own output.
+That's the frame for this round. On a single-concept question, the two retrieve alike. grounded-forge's clearest wins (Q2's citations, Q9, Q14b, Q20, the quote check) come from things only an agent can do: read everything, run a procedure, and check its own output.
 
 ## Trust: what each side did with what it didn't know
 

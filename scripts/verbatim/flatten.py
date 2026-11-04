@@ -35,13 +35,27 @@ def drop_doubled_lead(join, paraphrase):
     return join[:len(join) - len(lead)].rstrip() if lw and words(paraphrase)[:len(lw)] == lw else join
 
 
+def fit_text(report):
+    """How well the corpus fits the question: corpus_fit as a short list, or an older report's coverage_note."""
+    f = report.get("corpus_fit")
+    if not f:
+        return report.get("coverage_note", "")
+    out = ["## How well the corpus fits this question\n", f.get("summary", "") + "\n"]
+    if f.get("gaps"):
+        out += ["Where it is thin:\n"] + [f"- **{g['gap']}.** {g.get('detail', '')}" for g in f["gaps"]] + [""]
+    if f.get("candidates"):
+        out += ["Sources that could close the gaps (named from general knowledge, not found in the corpus; check them with `finding-resources` before ingesting):\n"]
+        out += [f"- **{c['work']}**" + (f": {c['closes']}" if c.get("closes") else "") for c in f["candidates"]]
+    return "\n".join(out)
+
+
 def flatten(folder, base=None, ship=False, joins="essay"):
     report = json.loads((folder / "report.json").read_text())
     bundle = json.loads((folder / "bundle.json").read_text())
     at = (lambda p: f"{base}/{p}") if base else (lambda p: p)
     srcs = bundle["sources"]
     n = 0
-    lines = [f"# Answer\n\nQuestion: {report['question']}\n", report.get("coverage_note", "") + "\n"]
+    lines = [f"# Answer\n\nQuestion: {report['question']}\n", fit_text(report) + "\n"]
     for sec in report["sections"]:
         para, notes = [], []
         ph = {j["span"]: j for j in sec["joins"] if isinstance(j, dict)}
@@ -90,7 +104,7 @@ def flatten(folder, base=None, ship=False, joins="essay"):
             notes.append("\n".join([
                 f"[{n}] {who}" + (". The answer's paraphrase; the passage it rests on:" if pointed else ""),
                 f"    section: {sp.get('locator') or 'not recorded'}; printed page: {sp.get('page') or 'not kept by the converter'}",
-                f"    original file: {at(src['served']) if src.get('served') else 'not held'}" + (f", {layout} {sp['hit_page']}" if sp.get("hit_page") else ""),
+                f"    original file: {at(src['served']) if src.get('served') else 'left out of this folder' if src.get('original_omitted') else 'not held'}" + (f", {layout} {sp['hit_page']}" if sp.get("hit_page") else ""),
                 f"    converted text: {at(src['converted_local'])}, line {sp['line']}",
                 f"    page images: {pages or 'none'}" + (f" (the passage is highlighted on {at(hit['png'])})" if hit else ""),
                 f"    paragraph: {ctx}",

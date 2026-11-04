@@ -12,7 +12,7 @@ sources:
     resource: http://www.knosof.co.uk/ESEUR/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-11-04T14:27:34+13:00
 ---
 # Jones, Evidence-Based Software Engineering, AAR Distillation
 

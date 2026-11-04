@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:dbc6bdc222a537d7fe25afee4bfe2616877db291769165e237ef01327d6458b4 -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: letaw-handbook-sweng-methods@a10e1eeb60987843 openstax-accounting-vol2@8652eb488af72d43 openstax-business-ethics@df51e6b991770aca openstax-principles-management@4a174b85f3983a96 openstax-principles-marketing@5bd7a89724e270fc -->
 # Jones, Evidence-based Software Engineering, Software-Business Distillation
 
 **Source:** Derek M. Jones (2020). *Evidence-based Software Engineering: based on the publicly available data*. Version 1.0. ISBN 978-1-8382913-0-3. CC BY-SA 4.0. http://www.knosof.co.uk/ESEUR/. **Distribution note:** This distillation is a derivative of a CC BY-SA 4.0 source and carries the same SA copyleft obligation.

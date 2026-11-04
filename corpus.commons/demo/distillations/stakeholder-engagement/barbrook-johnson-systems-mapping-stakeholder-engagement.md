@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:ea2d425e98736d7de742d47e711a5873e4c8700d3388ddc6fdec016e73f24070 -->
+<!-- derived-from-neighbours: none -->
 # Barbrook-Johnson & Penn, Systems Mapping — Stakeholder-Engagement Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature. 197 pages. **Licence:** CC BY 4.0 (Open Access). **Distribution note:** Unrestricted with attribution.

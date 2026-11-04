@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:61fd5854f4b4134888076a683872cdeb87bd66f0817114612460e7fbd7a562a3 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: lfuo-learning-review-guide-2024@f9fced2966c3cef3 liberating-structures-handbook@2c668822fecdf547 openstax-psychology-2e@03774165082001ad tc-25-20-army-aar@f9f9bb80576820e7 -->
 # FLO Facilitation Guide, AAR Distillation
 
 **Source:** Bennett, G., Cougler Blom, B., Riessner, S., & Currie, S. (2019). *FLO Facilitation Guide*. Victoria, B.C.: BCcampus. Ebook ISBN 978-1-77420-036-0. Licence: **CC BY 4.0**. Scope: open.

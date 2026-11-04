@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:8652eb488af72d432beb08d370ace36252ea7bfcb11e763c6dc195475416fb94 -->
+<!-- derived-from-neighbours: open-kanban@2d4a20cfd1f18fc3 openstax-business-ethics@df51e6b991770aca openstax-principles-finance@2d6680682f0e3e64 -->
 # OpenStax Principles of Accounting Volume 2, Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 2: Managerial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-managerial-accounting. Senior contributing authors Mitchell Franklin, Patty Graybeal, Dixon Cooper; 28 contributing authors.

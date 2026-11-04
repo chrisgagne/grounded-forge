@@ -10,11 +10,11 @@ An answer from the demo corpus in which every quotation is the author's own sent
 
 ## How to read it
 
-- **[`preview.html`](preview.html)** is the report itself. Open it on GitHub Pages, or download this folder and open the file. It opens with every claim in the author's words.
+- **[`preview.html`](preview.html)** is the report itself. Open it [on GitHub Pages](https://chrisgagne.github.io/grounded-forge/examples/marines-verbatim/preview.html), or download this folder and open the file. It opens with every claim in the author's words.
 - **Click any passage.** The sidenote names the book, section and printed page, says whether the quotation matches the printed page, and shows the passage inside its own paragraph.
 - **See the page in the original.** This opens an image of the printed page, with the passage highlighted.
 - **Converted text, line N** opens the converted source in this repository at that line.
-- **Untick "show pointed paraphrases as the author's passage"** to see the 12 sentences the model wrote in its own words. Each still opens the passage it rests on.
+- **Untick "Swap each paraphrase for the author's passage"** to see the 12 sentences the model wrote in its own words. Each still opens the passage it rests on.
 - **[`answer.md`](answer.md)** is the same report as plain prose, every pointer written out, for reading on GitHub.
 
 This copy carries one page image per passage, the highlighted one, and none of the original files. The originals are large, and an NC source's original never ships from this repository. The page's "original" link is therefore greyed out. The sources' own sites are linked below.

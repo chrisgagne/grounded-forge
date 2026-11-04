@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:6f679312153b12b512aef56abab46ce9bc547c73f9aa5b93753fc6e18a325b74 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: lfuo-learning-review-guide-2024@f9fced2966c3cef3 liberating-structures-handbook@2c668822fecdf547 openstax-organizational-behavior@b9eff8de80458b89 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Approach Perfect Field Guide to Scrum Events, AAR Distillation
 
 **Source:** Chris Gagné (2020). *The Approach Perfect Field Guide to Scrum Events*. April 3, 2020 edition. Approach Perfect, Limited. CC BY 4.0 (author-relicensed for this corpus). Scope: open.

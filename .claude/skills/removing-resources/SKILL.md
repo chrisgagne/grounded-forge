@@ -111,10 +111,13 @@ Then run `--audit` again: each round audits the whole diff fresh, and every fix 
 
 ```bash
 python3 -m scripts.build_indexes.build_task_index --corpus {name}   # the rewrites edited the index views after the script built their JSON
+python3 scripts/build_indexes/build_image_index.py --corpus {name} --drop {slug}
 python3 scripts/check_derived_provenance.py --corpus {name} --stamp --slug {other} ...   # each source whose distillation you rewrote
 npm run build
 npm run setup-chroma -- --corpus corpus.commons/{name} --rebuild   # if {corpus}/chroma/ exists
 ```
+
+The image-index merge carries forward every entry it has no staging file for, so a source's entries leave only through `--drop`; the script has already cut them, and the merge's `dropped:` line confirms none remain. It also merges any other source's staging that the index hadn't caught up with; list that in the summary as a change the rebuilds pulled in.
 
 A distillation that cited the removed source stamps that source's deep as a neighbour, so check mode reads it STALE (`deep gone`) until it is re-stamped. Re-stamp only the rewrites the audit passed: the stamp asserts they are current. Then `python3 scripts/check_derived_provenance.py --corpus {name}` must report 0 STALE.
 

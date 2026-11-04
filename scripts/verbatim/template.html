@@ -101,6 +101,7 @@ h2{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3vw,34px
 .side .row .p{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--g-secondary);display:block;word-break:break-all}
 .side .row .t{color:var(--g-ink)}
 .side .fig img{max-width:100%;border:1px solid var(--g-rule);margin-top:6px}
+.srcfig-body{margin:22px 0 26px;cursor:pointer;max-width:var(--measure)}.srcfig-body img{max-width:100%;border:1px solid var(--g-rule)}.srcfig-body figcaption{font-size:13px;line-height:1.45;color:var(--g-ink);margin-top:6px}.srcfig-body .whose{display:block;color:var(--g-secondary);margin-top:2px}
 .side .fig p{font-size:12px;line-height:1.4;color:var(--g-secondary);margin:4px 0 10px}
 .side .close{float:right;font:inherit;color:var(--g-secondary);background:none;border:0;cursor:pointer;font-size:18px;line-height:1;padding:0 2px}
 .cmd{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--g-secondary);background:#F5F6F8;padding:4px 6px;border-radius:3px;display:block;margin-top:6px;white-space:pre-wrap;word-break:break-all}
@@ -315,7 +316,7 @@ function renderArticle(){
   let h = fitBox();
   for(const sec of REPORT.sections){
     h += `<h2>${esc(sec.heading)}</h2><p>`;
-    const js = joinsOf(sec);
+    const js = joinsOf(sec), figs = [];
     for(const [i,j] of js.entries()){
       if(typeof j==="string"){ const nx = js[i+1]; h += esc(nx && typeof nx==="object" && modeOf(nx.span).m!=="verbatim" ? dropDoubledLead(j, nx.paraphrase) : j); continue; }
       const sp = spanOf(j.span), md = modeOf(j.span), co = colourOf(sp);
@@ -324,11 +325,17 @@ function renderArticle(){
       const tag = md.m==="para" ? `<span class="tag">paraphrase${md.why==="licence"?", licence":md.why==="pointed"?" of a passage":""}</span>` : md.m==="missing" ? `<span class="tag">not placed</span>` : "";
       h += `<span class="v ${md.m==="verbatim"?"q":md.m}" data-id="${j.span}" style="--c:${co.c};--t:${co.t}" title="${md.m==="para"?(md.why==="licence"?"paraphrased: copyrighted source under the shipping ceiling":md.why==="pointed"?"the model's own sentence about a passage it points to: click to see the passage":"paraphrased: below the --verbatim share"):md.m==="missing"?"the resolver could not place this span":md.pointed?"the author's passage that the model's sentence rests on, placed from the converted source":"the author's own words, placed from the converted source"}">${esc(text)}<sup>${esc(mark)}</sup>${tag}</span>`;
       CHARTS.forEach((c,i)=>{ if(c.span===j.span) h += `</p><div class="chart" id="chart-${i}"></div><p>`; });
+      if(sp.verified && sp.figure && sp.figure.local && !CHARTS.some(c=>[c.span,...(c.figure_spans||[])].includes(j.span)) && !figs.includes(j.span)) figs.push(j.span);
     }
     h += `</p>`;
+    for(const id of figs){   // the source's own figure, where the author's passage names it: after the section, never mid-sentence
+      const sp = spanOf(id), f = sp.figure, src = srcOf(sp);
+      h += `<figure class="srcfig-body" data-span="${esc(id)}"><img src="${esc(f.local)}" alt="${esc(f.caption||f.name)}"><figcaption>${esc(f.caption||f.name)}<span class="whose">The source's own figure: ${esc(src.short||src.title)}${f.page?`, p. ${esc(String(f.page))}`:""}, named in the passage “${esc(sp.text.split(/\s+/).slice(0,5).join(" "))}…” above. Click for the passage.</span></figcaption></figure>`;
+    }
   }
   art.innerHTML = h;
   art.querySelectorAll(".v").forEach(el=>el.addEventListener("click",()=>toggleSide(el)));
+  art.querySelectorAll(".srcfig-body").forEach(f=>f.addEventListener("click",()=>{ const el = art.querySelector(`.v[data-id="${f.dataset.span}"]`); if(el){ toggleSide(el); el.scrollIntoView({block:"center",behavior:"smooth"}); } }));
   CHARTS.forEach(renderChart);
   if(state.open && typeof state.openFig!=="number"){ const el = art.querySelector(`.v[data-id="${state.open}"]`); if(el) openSide(el); }
 }

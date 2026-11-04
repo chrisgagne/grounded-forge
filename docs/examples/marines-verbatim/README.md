@@ -5,7 +5,7 @@ An answer from the demo corpus in which every quotation is the author's own sent
 - **Question:** Please draw some interesting parallels between US Marines war-fighting doctrine and modern "textbook" business administration.
 - **Corpus:** `demo`, open sources only.
 - **Made:** the model step on 2 November 2026 by [`scripts/verbatim/generate.py`](../../../scripts/verbatim/generate.py) (one Opus run), then resolved and rendered on 4 November with no model call, and copied here by [`publish.py`](../../../scripts/verbatim/publish.py).
-- **What it holds:** 25 placed spans, 13 quotations and 12 pointed paraphrases. No credit is left without a pointer. One passage names a figure ("As Exhibit 4.4 shows", OpenStax *Principles of Management*), and its sidenote shows that figure from the source, attached by the resolver rather than the model.
+- **What it holds:** 25 placed spans, 13 quotations and 12 pointed paraphrases. No credit is left without a pointer. One passage names a figure ("As Exhibit 4.4 shows", OpenStax *Principles of Management*), and the page shows that figure from the source after the passage's section and again in its sidenote, attached by the resolver rather than the model.
 - **Page check:** every quotation is word for word with the converted text. 12 of the 13 also match their printed page. The thirteenth is flagged on its span: there the PDF's own text layer carries an OCR slip.
 
 ## How to read it

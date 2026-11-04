@@ -12,7 +12,7 @@ sources:
     resource: https://doi.org/10.6028/NIST.SP.800-218
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-09-28T15:12:32+13:00
+  at: 2026-11-04T14:27:34+13:00
 ---
 
 # NIST SSDF v1.1 for software-business work

@@ -19,7 +19,7 @@ Pointers:
     page check: matches the printed page word for word; split words set as the page prints them: “developing”, “initiative”
 
 [2] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019). The answer's paraphrase; the passage it rests on:
-    section: Ch 17, Organizational Planning and Controlling; printed page: 488
+    section: Ch 17, Organizational Planning and Controlling; printed page: 489
     original file: not held, PDF page 503
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 24529
     page images: pages/00j-503-pom-plan-reasons.png (the passage is highlighted on pages/00j-503-pom-plan-reasons.png)
@@ -27,7 +27,7 @@ Pointers:
     page check: not run (a paraphrase)
 
 [3] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019)
-    section: Ch 17.7 • Management by Objectives: A Planning and Control Technique; printed page: 517
+    section: Ch 17.7 • Management by Objectives: A Planning and Control Technique; printed page: 518
     original file: not held, PDF page 532
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 25913
     page images: pages/00j-532-pom-planning-closer.png (the passage is highlighted on pages/00j-532-pom-planning-closer.png)
@@ -49,7 +49,7 @@ Pointers:
     page check: not run (a paraphrase)
 
 [5] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019). The answer's paraphrase; the passage it rests on:
-    section: Ch 9.2 • Firm Vision and Mission; printed page: 249
+    section: Ch 9.2 • Firm Vision and Mission; printed page: 250
     original file: not held, PDF page 264
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 12669
     page images: pages/00j-264-pom-mission-why.png (the passage is highlighted on pages/00j-264-pom-mission-why.png)
@@ -57,7 +57,7 @@ Pointers:
     page check: not run (a paraphrase)
 
 [6] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019)
-    section: Ch 17.4 • Goals or Outcome Statements; printed page: 499
+    section: Ch 17.4 • Goals or Outcome Statements; printed page: 500
     original file: not held, PDF page 514
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 25032
     page images: pages/00j-514-pom-goal-hierarchy.png (the passage is highlighted on pages/00j-514-pom-goal-hierarchy.png)
@@ -87,7 +87,7 @@ Pointers:
     page check: differs from the printed page: “un certainty” where the page has “uncertainly”; split words set as the page prints them: “control”, “information”, “decision”
 
 [9] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019)
-    section: Ch 4.2 • External Environments and Industries; printed page: 83
+    section: Ch 4.2 • External Environments and Industries; printed page: 84
     original file: not held, PDF page 98
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 4527
     page images: pages/00j-98-pom-organic.png (the passage is highlighted on pages/00j-98-pom-organic.png)
@@ -95,7 +95,7 @@ Pointers:
     page check: matches the printed page word for word
 
 [10] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019). The answer's paraphrase; the passage it rests on:
-    section: Ch 3.7 • Contingency and System Management; printed page: 69
+    section: Ch 3.7 • Contingency and System Management; printed page: 70
     original file: not held, PDF page 84
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 3865
     page images: pages/00j-84-pom-contingency.png (the passage is highlighted on pages/00j-84-pom-contingency.png)
@@ -125,7 +125,7 @@ Pointers:
     page check: matches the printed page word for word; split words set as the page prints them: “experience”
 
 [13] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019). The answer's paraphrase; the passage it rests on:
-    section: Ch 2.1 • Overview of Managerial Decision-Making; printed page: 25
+    section: Ch 2.1 • Overview of Managerial Decision-Making; printed page: 26
     original file: not held, PDF page 40
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 1535
     page images: pages/00j-40-pom-two-systems.png (the passage is highlighted on pages/00j-40-pom-two-systems.png)
@@ -133,7 +133,7 @@ Pointers:
     page check: not run (a paraphrase)
 
 [14] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019)
-    section: Ch 2, Managerial Decision-Making; printed page: 28
+    section: Ch 2, Managerial Decision-Making; printed page: 29
     original file: not held, PDF page 43
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 1675
     page images: pages/00j-43-pom-programmed-pairing.png (the passage is highlighted on pages/00j-43-pom-programmed-pairing.png)
@@ -141,7 +141,7 @@ Pointers:
     page check: matches the printed page word for word
 
 [15] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019). The answer's paraphrase; the passage it rests on:
-    section: Ch 2, Managerial Decision-Making; printed page: 44
+    section: Ch 2, Managerial Decision-Making; printed page: 46
     original file: not held, PDF page 60
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 2670
     page images: pages/00j-60-pom-reactive-expertise.png (the passage is highlighted on pages/00j-60-pom-reactive-expertise.png)
@@ -149,7 +149,7 @@ Pointers:
     page check: not run (a paraphrase)
 
 [16] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019). The answer's paraphrase; the passage it rests on:
-    section: Ch 2.4 • Barriers to Effective Decision-Making; printed page: 29
+    section: Ch 2.4 • Barriers to Effective Decision-Making; printed page: 30
     original file: not held, PDF page 44
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 1736
     page images: pages/00j-44-pom-time-constraints.png (the passage is highlighted on pages/00j-44-pom-time-constraints.png)
@@ -187,7 +187,7 @@ Pointers:
     page check: not run (a paraphrase)
 
 [20] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019)
-    section: Ch 17.7 • Management by Objectives: A Planning and Control Technique; printed page: 517
+    section: Ch 17.7 • Management by Objectives: A Planning and Control Technique; printed page: 518
     original file: not held, PDF page 532
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 25905
     page images: pages/00j-532-pom-involvement-blame.png (the passage is highlighted on pages/00j-532-pom-involvement-blame.png)
@@ -195,7 +195,7 @@ Pointers:
     page check: matches the printed page word for word
 
 [21] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019). The answer's paraphrase; the passage it rests on:
-    section: Ch 2.4 • Barriers to Effective Decision-Making; printed page: 29
+    section: Ch 2.4 • Barriers to Effective Decision-Making; printed page: 30
     original file: not held, PDF page 44
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 1729
     page images: pages/00j-44-pom-escalation.png (the passage is highlighted on pages/00j-44-pom-escalation.png)
@@ -225,7 +225,7 @@ Pointers:
     page check: matches the printed page word for word; split words set as the page prints them: “judgment”
 
 [24] OpenStax (David S. Bright, Anastasia H. Cortes, Donald G. Gardner et al.), Principles of Management (2019)
-    section: Ch 3, The History of Management; printed page: 64
+    section: Ch 3, The History of Management; printed page: 65
     original file: not held, PDF page 79
     converted text: https://github.com/chrisgagne/grounded-forge/blob/main/corpus.commons/demo/sources/converted/openstax-principles-management.md?plain=1, line 3608
     page images: pages/00j-79-pom-merton-absolutes.png (the passage is highlighted on pages/00j-79-pom-merton-absolutes.png)

@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:ea2d425e98736d7de742d47e711a5873e4c8700d3388ddc6fdec016e73f24070 -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: flo-facilitation-guide@61fd5854f4b41348 jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 liberating-structures-handbook@2c668822fecdf547 nhs-just-culture-guide@ce9f74fa23371ad5 open-practice-library@3100bec10b79404a openstax-accounting-vol2@8652eb488af72d43 openstax-business-ethics@df51e6b991770aca openstax-organizational-behavior@b9eff8de80458b89 openstax-principles-management@4a174b85f3983a96 ssdl-systems-thinking-foundations@a53db542968c9e81 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Barbrook-Johnson & Penn, Systems Mapping — Software-Business Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature. 197 pages. **Licence:** CC BY 4.0 (Open Access). **Distribution note:** Unrestricted with attribution.

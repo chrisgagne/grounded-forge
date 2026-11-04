@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:5b1c36ec761d50b3cc003ea04858f6cc1f9a4287d5f7d66b291dcd143539f555 -->
+<!-- derived-from-neighbours: none -->
 # Schwaber & Sutherland, The Scrum Guide — Decision-Making Distillation
 
 **Source:** Schwaber, K. & Sutherland, J. (2020). *The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game*. November 2020 edition. scrumguides.org. Licence: CC BY-SA 4.0. https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf.

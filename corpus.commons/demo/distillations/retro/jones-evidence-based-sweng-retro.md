@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:dbc6bdc222a537d7fe25afee4bfe2616877db291769165e237ef01327d6458b4 -->
+<!-- derived-from-task: sha256:db5a96a24cbba2344ea5b099b43c84ff244ca65ffcc0ac06b91ec36e026c0a23 -->
+<!-- derived-from-neighbours: none -->
 # Jones, Evidence-Based Software Engineering, Retro Distillation
 
 **Source:** Jones, D. M. (2020). *Evidence-Based Software Engineering: based on the publicly available data*. Version 1.0. Knowledge Software, Ltd. ISBN: 978-1-8382913-0-3. Licence: CC BY-SA 4.0 (copyleft propagates to derivatives). Scope: open.

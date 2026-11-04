@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:88fc18dc052f23657291ecba7e45fe6ef3dc07814ed4708b8e508cc83462857e -->
+<!-- derived-from-neighbours: approach-perfect-field-guide-scrum-events@6f679312153b12b5 barbrook-johnson-systems-mapping@ea2d425e98736d7d openstax-organizational-behavior@b9eff8de80458b89 openstax-principles-management@4a174b85f3983a96 scrum-guide-2020@5b1c36ec761d50b3 ssdl-systems-thinking-foundations@a53db542968c9e81 -->
 # Krivitsky, Larman & Flemm, Org Topologies Primer — Decision-Making Distillation
 
 **Source:** Alexey Krivitsky, Craig Larman & Roland Flemm (2025). *Strategic Org Design: The Primer*. Org Topologies™ 2025 Edition. February 2025. Licence: CC BY-NC-SA 4.0. https://orgtopologies.com.

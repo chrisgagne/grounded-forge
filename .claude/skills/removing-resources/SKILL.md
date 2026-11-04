@@ -111,9 +111,12 @@ Then run `--audit` again: each round audits the whole diff fresh, and every fix 
 
 ```bash
 python3 -m scripts.build_indexes.build_task_index --corpus {name}   # the rewrites edited the index views after the script built their JSON
+python3 scripts/check_derived_provenance.py --corpus {name} --stamp --slug {other} ...   # each source whose distillation you rewrote
 npm run build
 npm run setup-chroma -- --corpus corpus.commons/{name} --rebuild   # if {corpus}/chroma/ exists
 ```
+
+A distillation that cited the removed source stamps that source's deep as a neighbour, so check mode reads it STALE (`deep gone`) until it is re-stamped. Re-stamp only the rewrites the audit passed: the stamp asserts they are current. Then `python3 scripts/check_derived_provenance.py --corpus {name}` must report 0 STALE.
 
 The build must pass. A failure on referential integrity means a file still links to one of the removed source's files, usually a doc that used it as a worked example; that is rewrite work left undone (*Rewrite what still draws on it*), not a build problem. Then confirm the source is gone from what ships: `grep -rlF {slug} {corpus}/apps {corpus}/okf` returns nothing beyond the copies of an image's alt text waiting on a redraw.
 

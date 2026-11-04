@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:6f679312153b12b512aef56abab46ce9bc547c73f9aa5b93753fc6e18a325b74 -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 nhs-just-culture-guide@ce9f74fa23371ad5 openstax-accounting-vol2@8652eb488af72d43 openstax-organizational-behavior@b9eff8de80458b89 openstax-principles-management@4a174b85f3983a96 org-topologies-primer-2025@88fc18dc052f2365 scrum-guide-2020@5b1c36ec761d50b3 -->
 # Gagné, The Approach Perfect Field Guide to Scrum Events — Software-Business Distillation
 
 **Source:** Gagné, C. (2020). *The Approach Perfect Field Guide to Scrum Events*. April 3, 2020 edition. Approach Perfect, Limited. Public licence: CC BY-ND 4.0; relicensed CC BY 4.0 by the author for this corpus. https://approachperfect.com/wp-content/uploads/2020/04/The-Approach-Perfect-Field-Guide-to-Scrum-Events-2020-04-03.pdf.

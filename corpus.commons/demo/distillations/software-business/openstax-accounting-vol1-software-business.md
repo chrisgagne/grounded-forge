@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:f9efb2005d651301ac8efe6bfbf495a9cf6b3f8f0a252e2feb2945f14b64a05f -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: none -->
 # OpenStax Principles of Accounting Vol 1 (Financial Accounting), Software-Business Distillation
 
 **Source:** OpenStax (2019). *Principles of Accounting, Volume 1: Financial Accounting*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-financial-accounting. Senior contributing authors Mitchell Franklin (lead), Patty Graybeal, Dixon Cooper; 28 contributing authors.

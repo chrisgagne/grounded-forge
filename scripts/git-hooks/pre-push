@@ -328,9 +328,9 @@ if ! command -v python3 >/dev/null 2>&1; then
   warn "python3 not available; skipping derived-tier provenance check"
 else
   # Every corpus present on disk (both tiers) is checked. check_derived_provenance.py
-  # exits 1 ONLY when a derived artefact carries a STALE stamp — its deep moved after
-  # the artefact was derived and it was never re-derived/re-stamped (the stranded-tier
-  # failure mode). UNSTAMPED artefacts only warn, so this gate never blocks on gradual
+  # exits 1 ONLY when a derived artefact carries a STALE stamp — its deep, its task spec
+  # or a neighbour it cites moved after the artefact was derived and it was never
+  # re-derived/re-stamped (the stranded-tier failure mode). UNSTAMPED artefacts only warn, so this gate never blocks on gradual
   # adoption; it blocks solely on genuine staleness. corpus.local/ corpora are checked
   # when present (they package into distros) but are never pushed.
   PROV_FAILURES=""
@@ -349,7 +349,7 @@ else
   elif [ -z "$PROV_FAILURES" ]; then
     pass "no stale derived artefacts across ${n_corpus} corpus/corpora"
   else
-    fail "stale derived artefacts (re-derive Pass F/G from the audited deep, then re-stamp with --stamp):"
+    fail "stale derived artefacts (re-derive Pass F/G, or re-check the rows that cite what moved, then re-stamp with --stamp):"
     printf "%b" "$PROV_FAILURES" | head -24 >&2
   fi
 fi

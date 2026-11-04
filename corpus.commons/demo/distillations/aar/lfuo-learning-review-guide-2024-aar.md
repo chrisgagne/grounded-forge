@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:f9fced2966c3cef3dc1f1746cbe0990b2d32be166abdffc9e7fae22b5aa054d8 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: barbrook-johnson-systems-mapping@ea2d425e98736d7d doe-hpi-handbook-vol1@7675603708056246 nhs-just-culture-guide@ce9f74fa23371ad5 openstax-psychology-2e@03774165082001ad tc-25-20-army-aar@f9f9bb80576820e7 -->
 # US Forest Service LFUO 2024, After-Action Review Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Scope:** open.

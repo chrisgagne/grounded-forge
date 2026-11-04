@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:88fc18dc052f23657291ecba7e45fe6ef3dc07814ed4708b8e508cc83462857e -->
+<!-- derived-from-neighbours: approach-perfect-field-guide-scrum-events@6f679312153b12b5 flo-facilitation-guide@61fd5854f4b41348 liberating-structures-handbook@2c668822fecdf547 nhs-just-culture-guide@ce9f74fa23371ad5 open-practice-library@3100bec10b79404a openstax-organizational-behavior@b9eff8de80458b89 -->
 # Krivitsky, Larman & Flemm, Org Topologies Primer — Stakeholder-Engagement Distillation
 
 **Source:** Alexey Krivitsky, Craig Larman & Roland Flemm (2025). *Strategic Org Design: The Primer*. Org Topologies™ 2025 Edition. February 2025. Licence: CC BY-NC-SA 4.0. https://orgtopologies.com.

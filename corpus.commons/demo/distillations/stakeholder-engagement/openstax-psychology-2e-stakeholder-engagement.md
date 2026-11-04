@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:03774165082001ad86a3412a3a09f20999934a7e33463d6d7fb140443ff8224d -->
+<!-- derived-from-neighbours: none -->
 # OpenStax Psychology 2e, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/psychology-2e. Senior contributing authors Rose M. Spielman, William J. Jenkins, Marilyn D. Lovett; 10 contributing authors.

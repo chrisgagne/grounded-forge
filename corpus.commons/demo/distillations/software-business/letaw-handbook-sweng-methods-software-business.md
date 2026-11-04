@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:a10e1eeb60987843801dd946e70c6b6eb5e20861a10936aa3d30e6ab556869b3 -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: approach-perfect-field-guide-scrum-events@6f679312153b12b5 barbrook-johnson-systems-mapping@ea2d425e98736d7d jones-evidence-based-sweng@dbc6bdc222a537d7 lfuo-learning-review-guide-2024@f9fced2966c3cef3 liberating-structures-handbook@2c668822fecdf547 nhs-just-culture-guide@ce9f74fa23371ad5 open-kanban@2d4a20cfd1f18fc3 open-practice-library@3100bec10b79404a openstax-accounting-vol2@8652eb488af72d43 openstax-business-ethics@df51e6b991770aca openstax-business-law@84e9d1325c64c50c openstax-principles-finance@2d6680682f0e3e64 openstax-principles-management@4a174b85f3983a96 openstax-principles-marketing@5bd7a89724e270fc scrum-guide-2020@5b1c36ec761d50b3 ssdl-systems-thinking-foundations@a53db542968c9e81 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Letaw, Handbook of Software Engineering Methods — Software-Business Distillation
 
 **Source:** Letaw, L. (2024). *Handbook of Software Engineering Methods* (2nd ed.). Oregon State University. CC BY-NC 4.0. https://open.oregonstate.education/setextbook/.

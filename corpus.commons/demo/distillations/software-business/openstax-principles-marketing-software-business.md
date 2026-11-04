@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:5bd7a89724e270fc6488a467b1b70e19721309d4749e5cbd8f310d977fe1e41b -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: approach-perfect-field-guide-scrum-events@6f679312153b12b5 jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 openstax-accounting-vol2@8652eb488af72d43 openstax-business-ethics@df51e6b991770aca openstax-introduction-business@767c4bf3cb768095 openstax-organizational-behavior@b9eff8de80458b89 openstax-principles-finance@2d6680682f0e3e64 openstax-principles-management@4a174b85f3983a96 scrum-guide-2020@5b1c36ec761d50b3 -->
 # OpenStax, Principles of Marketing, Software-Business Distillation
 
 **Source:** OpenStax (2023). *Principles of Marketing*. CC BY-NC-SA 4.0.

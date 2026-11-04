@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:5b1c36ec761d50b3cc003ea04858f6cc1f9a4287d5f7d66b291dcd143539f555 -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: approach-perfect-field-guide-scrum-events@6f679312153b12b5 jones-evidence-based-sweng@dbc6bdc222a537d7 lfuo-learning-review-guide-2024@f9fced2966c3cef3 nhs-just-culture-guide@ce9f74fa23371ad5 open-kanban@2d4a20cfd1f18fc3 openstax-business-ethics@df51e6b991770aca openstax-organizational-behavior@b9eff8de80458b89 openstax-principles-management@4a174b85f3983a96 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Schwaber & Sutherland, The Scrum Guide — Software-Business Distillation
 
 **Source:** Schwaber, K. & Sutherland, J. (2020). *The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game*. November 2020 edition. scrumguides.org. Licence: CC BY-SA 4.0. https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf.

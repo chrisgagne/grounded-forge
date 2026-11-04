@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:5b1c36ec761d50b3cc003ea04858f6cc1f9a4287d5f7d66b291dcd143539f555 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: open-practice-library@3100bec10b79404a openstax-psychology-2e@03774165082001ad ssdl-systems-thinking-foundations@a53db542968c9e81 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Scrum Guide 2020, AAR Distillation
 
 **Source:** Ken Schwaber & Jeff Sutherland (2020). *The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game*. November 2020 edition. scrumguides.org. CC BY-SA 4.0. Scope: open.

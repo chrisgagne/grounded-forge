@@ -18,8 +18,8 @@ What it does, in order:
    distillations on every task axis, the converted text and its image folder,
    its own audit files under ``references/_audit/`` (other sources' audit
    files that mention it are history and stay), and its gitignored working
-   files under ``_planning/`` (extracted, refs and discovery records, Pass I
-   driver folder) and ``docs/images/{corpus}/``.
+   files under ``_planning/`` (extracted, refs, image-index and discovery
+   records, Pass I driver folder).
 3. Drops its entries from ``IMAGE-INDEX.yaml`` and ``extraction-manifest.json``.
 4. Edits each ``{TASK}-DISTILLATION-INDEX.md``: a row or bullet whose only
    distillation is this source's goes; a row shared with other sources loses
@@ -278,9 +278,9 @@ class Removal:
                    self.root / "sources" / "converted" / f"{self.slug}-images",
                    REPO_ROOT / "_planning" / "extracted" / self.corpus / f"{self.slug}.json",
                    staging_dir(self.corpus, "refs") / f"{self.slug}.json",
+                   staging_dir(self.corpus, "images") / f"_ingest_image_index_{self.slug}.yaml",
                    REPO_ROOT / "_planning" / "discovery" / f"{self.slug}.json",
-                   REPO_ROOT / "_planning" / "pass-i" / self.corpus / self.slug,
-                   REPO_ROOT / "docs" / "images" / self.corpus / f"_ingest_image_index_{self.slug}.yaml"]
+                   REPO_ROOT / "_planning" / "pass-i" / self.corpus / self.slug]
         for task in self.tasks:
             targets += [f for f in (self.dist / task).glob(f"{self.slug}-{task}*.md") if self.owns(f.name)]
         audit = refs / "_audit"

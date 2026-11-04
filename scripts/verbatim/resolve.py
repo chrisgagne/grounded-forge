@@ -418,7 +418,7 @@ class Source:
             if re.match(rf"^\s*{re.escape(name)}\b", l.strip()) and not l.strip().endswith("shows"):
                 cap = {"line": i + 1, "caption": l.strip()[:300]}; break
         img = None
-        for idx in (self.root / "sources/converted/IMAGE-INDEX.yaml", REPO / "docs/images" / self.root.name / f"_ingest_image_index_{self.slug}.yaml"):
+        for idx in (self.root / "sources/converted/IMAGE-INDEX.yaml", REPO / "_planning/staging" / self.root.name / "images" / f"_ingest_image_index_{self.slug}.yaml"):
             if not idx.exists(): continue
             txt = idx.read_text(encoding="utf-8", errors="replace")
             for block in re.split(r"\n(?=- )", txt):

@@ -2,8 +2,9 @@
 """Merge per-source staging files into a corpus's IMAGE-INDEX.yaml.
 
 Image classification runs per source, in parallel, and each source agent
-writes its result to ``docs/images/{corpus}/_ingest_image_index_{slug}.yaml``.
-The corpus-level index is merged from those staging files once every per-source
+writes its result to
+``_planning/staging/{corpus}/images/_ingest_image_index_{slug}.yaml``. The
+corpus-level index is merged from those staging files once every per-source
 step has completed — the same staging-then-assemble shape the reference and
 concept indexes use, and for the same reason: parallel agents must not
 read-modify-write one shared file. Staging is filed by corpus because one slug
@@ -12,7 +13,7 @@ same figures.
 
 The index is merged, not rebuilt. A source with a staging file has its entries
 replaced by the staging file's; every other entry already in the index is
-carried forward unchanged. The index is the durable copy: ``docs/images/`` is
+carried forward unchanged. The index is the durable copy: ``_planning/`` is
 gitignored, so staging files are missing on a fresh clone, and some corpora
 hold entries that never had one (ported from an older image library, or
 curated by hand). A rebuild from staging alone would delete those. Removing a
@@ -65,8 +66,12 @@ except ImportError:
     raise SystemExit(1)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-STAGING_ROOT = REPO_ROOT / "docs" / "images"
 STAGING_GLOB = "_ingest_image_index_*.yaml"
+# Where staging was written before it moved beside the other per-corpus
+# staging: flat, then by corpus. docs/ is the GitHub Pages folder, so a
+# private corpus's figure descriptions there were one forced add from going
+# live. Files left there are reported, never read.
+LEGACY_ROOT = REPO_ROOT / "docs" / "images"
 
 # Keys holding substantive entries, and keys holding the classifier's record of
 # what it rejected. Anything else in a staging mapping is a schema surprise and
@@ -77,8 +82,8 @@ REJECTED_KEYS = ("not_substantive", "decorative_deleted", "decorative")
 PROVENANCE = """\
 # Written by scripts/build_indexes/build_image_index.py. Each run replaces
 # the entries of every source that has a staging file at
-# docs/images/{corpus}/_ingest_image_index_{slug}.yaml and carries every
-# other entry forward, so this file, not the staging, is the record. To
+# _planning/staging/{corpus}/images/_ingest_image_index_{slug}.yaml and
+# carries every other entry forward, so this file, not the staging, is the record. To
 # change a source's entries, edit its staging file and rerun; to remove
 # them, rerun with --drop {slug}.
 """
@@ -105,6 +110,11 @@ WHOLLY_DERIVED = """\
 # from the per-source staging files at docs/images/_ingest_image_index_*.yaml.
 # Never hand-edit it; edit the staging file and rebuild.
 """
+
+
+def staging_dir(corpus: str) -> Path:
+    """Image staging for one corpus, beside its refs and concepts staging."""
+    return REPO_ROOT / "_planning" / "staging" / corpus / "images"
 
 
 def corpus_root(name: str) -> Path:
@@ -225,7 +235,7 @@ def main() -> int:
         sys.stderr.write(f"No converted/ directory at {converted}\n")
         return 1
 
-    staging_dir = STAGING_ROOT / args.corpus
+    staging = staging_dir(args.corpus)
     by_slug: dict[str, list[dict]] = {}
     rejected_total = 0
     stray: list[str] = []
@@ -233,7 +243,7 @@ def main() -> int:
     empty: list[str] = []
     problems: list[str] = []
 
-    for path in sorted(staging_dir.glob(STAGING_GLOB)):
+    for path in sorted(staging.glob(STAGING_GLOB)):
         slug = path.name[len("_ingest_image_index_"):-len(".yaml")]
         # A source is only indexable once it has a deep reference. A staging
         # file with no deep ref means the ingestion stopped before Pass A, or,
@@ -285,16 +295,14 @@ def main() -> int:
     ]
 
     print(f"corpus:            {args.corpus}")
-    print(f"staging files:     {len(by_slug)} indexable in {staging_dir.relative_to(REPO_ROOT)}/")
+    print(f"staging files:     {len(by_slug)} indexable in {staging.relative_to(REPO_ROOT)}/")
     for s_ in sorted(stray):
         print(f"WARN {s_}: staging file but neither a deep reference nor converted text in "
               f"this corpus; skipped")
-    # Staging files from before it was filed by corpus sit at docs/images/
-    # itself. They are never read, because nothing in one says whose it is.
-    flat = len(list(STAGING_ROOT.glob(STAGING_GLOB)))
-    if flat:
-        print(f"WARN {flat} staging files directly under docs/images/ are not read; "
-              f"scripts/migrate-image-staging.py files them by corpus")
+    legacy = len(list(LEGACY_ROOT.rglob(STAGING_GLOB)))
+    if legacy:
+        print(f"WARN {legacy} staging files under docs/images/ are not read; "
+              f"scripts/migrate-image-staging.py moves them to _planning/staging/")
     if unfinished:
         print(f"NOT INDEXED:       {len(unfinished)} sources converted and image-classified "
               f"but with no deep reference — their ingestion never completed:")
@@ -339,7 +347,7 @@ def main() -> int:
     for slug in sorted(drop):
         print(f"dropped:           {slug}: {len(indexed.get(slug, []))} entries"
               + ("" if slug in indexed else " (none in the index; check the slug)"))
-        if (staging_dir / f"_ingest_image_index_{slug}.yaml").exists():
+        if (staging / f"_ingest_image_index_{slug}.yaml").exists():
             print(f"WARN --drop {slug}: its staging file still exists; the next run without "
                   f"--drop {slug} will index it again")
 

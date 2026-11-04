@@ -12,7 +12,7 @@ sources:
     resource: https://openstax.org/details/books/entrepreneurship
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-17T11:27:42+13:00
+  at: 2026-11-04T14:27:34+13:00
 ---
 # OpenStax Entrepreneurship, Stakeholder-Engagement Distillation
 

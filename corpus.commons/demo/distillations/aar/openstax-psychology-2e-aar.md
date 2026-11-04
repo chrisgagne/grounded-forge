@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:03774165082001ad86a3412a3a09f20999934a7e33463d6d7fb140443ff8224d -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: open-practice-library@3100bec10b79404a scrum-guide-2020@5b1c36ec761d50b3 ssdl-systems-thinking-foundations@a53db542968c9e81 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # OpenStax Psychology 2e, AAR Distillation
 
 **Source:** OpenStax (2020). *Psychology 2e*. Senior contributing author Rose M. Spielman. ISBN 978-1-951693-23-7 (digital). Licence: **CC BY-NC-SA 4.0**. Scope: open-nc.

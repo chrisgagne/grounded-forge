@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:f9fced2966c3cef3dc1f1746cbe0990b2d32be166abdffc9e7fae22b5aa054d8 -->
+<!-- derived-from-neighbours: none -->
 # LFUO 2024, Stakeholder-Engagement Distillation
 
 **Source:** US Forest Service, Risk Management Council & Office of Safety & Occupational Health (2024). *Learning From Unintended Outcomes and Learning Review Implementation Guide*. Revised April 2024. 98 pages. **Licence:** Public domain (17 USC §105 — US federal-employee work). **Distribution note:** No copyright obligation propagates from this source; derivative works are unrestricted under US copyright law.

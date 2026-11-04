@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:2d6680682f0e3e64e77a0886414644938d1009a01a7f4265cf19e0836fbf9f48 -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 openstax-accounting-vol2@8652eb488af72d43 openstax-business-ethics@df51e6b991770aca openstax-business-law@84e9d1325c64c50c openstax-entrepreneurship@7ade4c45685ba232 openstax-principles-marketing@5bd7a89724e270fc -->
 # OpenStax Principles of Finance, Software-Business Distillation
 
 **Source:** OpenStax (2022). *Principles of Finance*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/principles-finance. Senior contributing authors Julie Dahlquist and Rainford Knight, with six contributing authors.

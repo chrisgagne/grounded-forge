@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:2c668822fecdf54714b63079caeca78f47bef9125fb71b948d64a18348c25144 -->
+<!-- derived-from-task: sha256:db5a96a24cbba2344ea5b099b43c84ff244ca65ffcc0ac06b91ec36e026c0a23 -->
+<!-- derived-from-neighbours: none -->
 # Liberating Structures Handbook, Retro Distillation
 
 **Source:** Heft, L. & Pattillo, A. (compilers), with materials by H. Lipmanowicz and K. McCandless (2010). *Engaging Everyone with Liberating Structures Handbook*. Washington, DC: Group Jazz. Licence: CC BY-NC-SA 3.0 Unported. https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf. Scope: open-nc.

@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:3100bec10b79404aeb94e9e1d93d4f5c108c6cb4630a643b1a8c15907f6e0b44 -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: approach-perfect-field-guide-scrum-events@6f679312153b12b5 jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 lfuo-learning-review-guide-2024@f9fced2966c3cef3 nhs-just-culture-guide@ce9f74fa23371ad5 open-kanban@2d4a20cfd1f18fc3 openstax-accounting-vol2@8652eb488af72d43 openstax-business-ethics@df51e6b991770aca openstax-organizational-behavior@b9eff8de80458b89 openstax-principles-management@4a174b85f3983a96 scrum-guide-2020@5b1c36ec761d50b3 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Open Practice Library, Software-Business Distillation
 
 **Source:** Open Practice Library (Red Hat Open Innovation Labs community, 2016–present). 266 community-curated practice pages at `openpracticelibrary.com`. Licence: **CC BY 4.0** for content. Cloned commit `8bfa450e75dfba1e2a3c68ac0e514e587f6f116e` (2026-05-13). See `open-practice-library-deep.md` for the full deep reference.

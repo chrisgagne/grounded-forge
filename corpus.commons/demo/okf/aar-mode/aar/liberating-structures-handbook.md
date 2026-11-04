@@ -12,7 +12,7 @@ sources:
     resource: https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-15T20:30:11+13:00
+  at: 2026-11-04T14:27:34+13:00
 ---
 # Liberating Structures Handbook, AAR Distillation
 

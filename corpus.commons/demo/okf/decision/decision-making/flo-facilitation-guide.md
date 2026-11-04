@@ -12,7 +12,7 @@ sources:
     resource: https://opentextbc.ca/flofacilitatorguide/
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T22:53:06+13:00
+  at: 2026-11-04T14:27:34+13:00
 ---
 # Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide — Decision-Making Distillation
 

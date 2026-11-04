@@ -14,7 +14,7 @@ The model step of `generate.py` writes one file, `report.json`, in the report fo
 {
   "question": "the question exactly as asked",
   "mode": {"verbatim": 1.0, "context": "paras:1", "protocol": "Synthesis", "lens": "none", "corpora": ["aarbuddy"], "joins": "essay"},
-  "coverage_note": "…",
+  "corpus_fit": {"summary": "…", "gaps": [ … ], "candidates": [ … ]},
   "subclaims": [ … ],
   "rank": [ … ],
   "sections": [ … ],
@@ -31,7 +31,7 @@ The model step of `generate.py` writes one file, `report.json`, in the report fo
 | `mode.lens` | string | `none`, or the lens slug(s) applied. |
 | `mode.corpora` | list of bare corpus names | The corpora the run was allowed to read. |
 | `mode.verbatim`, `mode.context`, `mode.joins` | | Leave at `1.0`, `"paras:1"`, `"essay"`. The renderer's flags override them. |
-| `coverage_note` | string | One short paragraph, the model's words: what the corpora lack for this question, said plainly, and two or three named ingestion candidates (authors or works) that would let the corpus answer it directly. Ingestion candidates are named, never cited. |
+| `corpus_fit` | object | How well the corpora fit this question, in the model's words; the page shows it as a box above the answer. `summary`: one or two sentences on how much of the question the corpora answer and from where. `gaps`: list of `{"gap": "short name", "detail": "what is missing, said plainly"}`, the places the corpora are thin for this question. `candidates`: two or three `{"work": "Author, Title", "closes": "which gap it would close, and how"}`, works outside the corpora that would let them answer it directly. Candidates are named, never cited; the page tells the reader to check them with `finding-resources` before ingesting. Older reports carry a one-paragraph `coverage_note` string instead, which the page still shows. |
 | `subclaims` | list | The answer's moves: `{"id": "c1", "label": "Act on early evidence", "spans": ["span-id", …]}`. Every span appears in at least one subclaim. Labels are short (under 45 characters). |
 | `rank` | list of span IDs | Every quotation placeholder exactly once, most load-bearing first; pointed paraphrases are left out. `--verbatim R` keeps the first `ceil(R × n)` as the author's words and shows the rest as their paraphrase. |
 | `sections` | list | The answer, below. |

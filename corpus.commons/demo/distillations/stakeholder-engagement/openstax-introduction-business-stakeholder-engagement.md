@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:767c4bf3cb76809578d67ca3450533e1a9396a1d17ee64a829f8dd3eca8390cc -->
+<!-- derived-from-neighbours: openstax-business-ethics@df51e6b991770aca openstax-organizational-behavior@b9eff8de80458b89 openstax-principles-management@4a174b85f3983a96 -->
 # OpenStax Introduction to Business, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2018). *Introduction to Business*. Rice University. CC BY 4.0. https://openstax.org/details/books/introduction-business. Lead author Lawrence J. Gitman; six senior contributing authors.

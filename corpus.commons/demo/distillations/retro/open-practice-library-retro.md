@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:3100bec10b79404aeb94e9e1d93d4f5c108c6cb4630a643b1a8c15907f6e0b44 -->
+<!-- derived-from-task: sha256:db5a96a24cbba2344ea5b099b43c84ff244ca65ffcc0ac06b91ec36e026c0a23 -->
+<!-- derived-from-neighbours: none -->
 # Open Practice Library, Retro Distillation
 
 **Source:** Open Practice Library (Red Hat Open Innovation Labs community, 2016–present). 266 community-curated practice pages at `openpracticelibrary.com`. Licence: CC BY 4.0. Cloned commit `8bfa450e75dfba1e2a3c68ac0e514e587f6f116e` (2026-05-13). Scope: open.

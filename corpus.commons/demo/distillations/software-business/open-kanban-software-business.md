@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:2d4a20cfd1f18fc3cdf6d95d0690c885c2c6391bd9a92f7f95bf825683af19f9 -->
+<!-- derived-from-task: sha256:66538b09b3faed797ba19c994dfe8c958838bd834e07579142c57f8e0ed43e47 -->
+<!-- derived-from-neighbours: approach-perfect-field-guide-scrum-events@6f679312153b12b5 jones-evidence-based-sweng@dbc6bdc222a537d7 letaw-handbook-sweng-methods@a10e1eeb60987843 lfuo-learning-review-guide-2024@f9fced2966c3cef3 nhs-just-culture-guide@ce9f74fa23371ad5 open-practice-library@3100bec10b79404a openstax-principles-management@4a174b85f3983a96 scrum-guide-2020@5b1c36ec761d50b3 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Hurtado, Open Kanban — Software-Business Distillation
 
 **Source:** Hurtado, J. (with Annita Yegorova Hurtado), AgileLion Institute. *Open Kanban — Open Source Initiative to create a Kanban core that is Agile, Lean and Free*. Release 1.00 Rev A. Licence: CC BY 3.0 Unported. https://github.com/agilelion/Open-Kanban.

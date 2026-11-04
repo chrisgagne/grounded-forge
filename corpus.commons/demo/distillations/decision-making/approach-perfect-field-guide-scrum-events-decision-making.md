@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:6f679312153b12b512aef56abab46ce9bc547c73f9aa5b93753fc6e18a325b74 -->
+<!-- derived-from-neighbours: scrum-guide-2020@5b1c36ec761d50b3 -->
 # Gagné, The Approach Perfect Field Guide to Scrum Events — Decision-Making Distillation
 
 **Source:** Gagné, C. (2020). *The Approach Perfect Field Guide to Scrum Events*. April 3, 2020 edition. Approach Perfect, Limited. Public licence: CC BY-ND 4.0; relicensed CC BY 4.0 by the author for this corpus. https://approachperfect.com/wp-content/uploads/2020/04/The-Approach-Perfect-Field-Guide-to-Scrum-Events-2020-04-03.pdf.

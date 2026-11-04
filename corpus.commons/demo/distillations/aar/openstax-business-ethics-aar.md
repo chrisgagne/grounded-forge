@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:df51e6b991770aca483fcf192dd74a4677075674465b815b618b62922f80338a -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: lfuo-learning-review-guide-2024@f9fced2966c3cef3 nhs-just-culture-guide@ce9f74fa23371ad5 openstax-organizational-behavior@b9eff8de80458b89 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # OpenStax Business Ethics, AAR Distillation
 
 **Source:** OpenStax (2018). *Business Ethics*. Senior contributing authors Stephen M. Byars and Kurt Stanberry et al. Houston, TX: Rice University. Licence: CC BY-NC-SA 4.0. Scope: open-nc.

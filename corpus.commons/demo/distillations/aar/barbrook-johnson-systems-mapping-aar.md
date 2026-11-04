@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:ea2d425e98736d7de742d47e711a5873e4c8700d3388ddc6fdec016e73f24070 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: lfuo-learning-review-guide-2024@f9fced2966c3cef3 org-topologies-primer-2025@88fc18dc052f2365 ssdl-systems-thinking-foundations@a53db542968c9e81 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Barbrook-Johnson & Penn, Systems Mapping, AAR Distillation
 
 **Source:** Barbrook-Johnson, P., & Penn, A. S. (2022). *Systems Mapping: How to build and use causal models of systems*. Palgrave Macmillan / Springer Nature, Cham. ISBN 978-3-031-01833-6. DOI: https://doi.org/10.1007/978-3-031-01919-7. Licence: **CC BY 4.0**. Scope: open. Seven methods covered: Rich Pictures, Theory of Change, Causal Loop Diagrams, Participatory Systems Mapping, Fuzzy Cognitive Mapping, Bayesian Belief Networks, System Dynamics.

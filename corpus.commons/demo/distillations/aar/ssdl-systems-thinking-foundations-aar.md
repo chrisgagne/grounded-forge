@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:a53db542968c9e8166c201add9acf2a5a79eca98c748cbbabf283e2f9d48f620 -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: open-practice-library@3100bec10b79404a openstax-psychology-2e@03774165082001ad scrum-guide-2020@5b1c36ec761d50b3 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # SSDL Systems Thinking Foundations, AAR Distillation
 
 **Source:** Farrell, A., Hu, M., Chin, L., Branz, M., Evbuoma, E. I., Liem, W., & Ballard, E. (2021). *Methods Briefs Series 1: Systems Thinking Foundations*. Social System Design Lab, Brown School at Washington University in St. Louis. Five briefs: 1.02 *Characteristics of Complex Problems*, 1.03 *Mental Models*, 1.05 *Understanding Systems from a Feedback Perspective*, 1.06 *Accumulations*, 1.07 *System Archetypes*. Licence: **CC BY-SA 4.0**. Scope: open. This source is the demo corpus's open-licence systems-thinking foundation; it borrows-through Senge, Meadows, Sterman, and Kim, none of whom is held directly in the demo corpus.

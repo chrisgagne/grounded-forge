@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:84e9d1325c64c50c8d9f05feca24a2ed3abc38d61bfe317fa136b5071359b9a2 -->
+<!-- derived-from-neighbours: openstax-organizational-behavior@b9eff8de80458b89 openstax-principles-management@4a174b85f3983a96 -->
 # OpenStax Business Law I Essentials, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2019). *Business Law I Essentials*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-law-i-essentials. Lead author Mirande Valbrune (Esq.); six contributing authors.

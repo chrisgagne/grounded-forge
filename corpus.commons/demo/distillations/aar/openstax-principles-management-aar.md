@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:4a174b85f3983a961e49237ba66764f1015ba881b5d936224d31771ae4163acc -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: lfuo-learning-review-guide-2024@f9fced2966c3cef3 openstax-organizational-behavior@b9eff8de80458b89 ssdl-systems-thinking-foundations@a53db542968c9e81 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # OpenStax Principles of Management, AAR Distillation
 
 **Source:** OpenStax (2019). *Principles of Management*. Lead author David S. Bright et al. Houston, TX: Rice University. Licence: CC BY-NC-SA 4.0. Scope: open-nc.

@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:88fc18dc052f23657291ecba7e45fe6ef3dc07814ed4708b8e508cc83462857e -->
+<!-- derived-from-task: sha256:a36bcb37dcaace6a9fb5802376f4997c0848d6ae03fd9fd3b3d251167f385c76 -->
+<!-- derived-from-neighbours: barbrook-johnson-systems-mapping@ea2d425e98736d7d lfuo-learning-review-guide-2024@f9fced2966c3cef3 nhs-just-culture-guide@ce9f74fa23371ad5 open-practice-library@3100bec10b79404a openstax-principles-management@4a174b85f3983a96 ssdl-systems-thinking-foundations@a53db542968c9e81 tc-25-20-army-aar@f9f9bb80576820e7 -->
 # Krivitsky, Larman & Flemm, Org Topologies Primer — AAR Distillation
 
 **Source:** Alexey Krivitsky, Craig Larman & Roland Flemm (2025). *Strategic Org Design: The Primer*. Org Topologies™ 2025 Edition. February 2025. Licence: CC BY-NC-SA 4.0. https://orgtopologies.com.

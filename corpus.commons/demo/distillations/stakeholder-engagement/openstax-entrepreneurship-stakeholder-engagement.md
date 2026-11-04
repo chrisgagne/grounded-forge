@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:7ade4c45685ba2322fe1886eca4d73f0799d9e7686a7903b629c9d5d9ee6bfbd -->
+<!-- derived-from-neighbours: openstax-principles-management@4a174b85f3983a96 -->
 # OpenStax Entrepreneurship, Stakeholder-Engagement Distillation
 
 **Source:** OpenStax (2020). *Entrepreneurship*. Rice University. Senior contributing authors Michael Laverty and Chris Littel; 19 contributing authors. CC BY-NC-SA 4.0.

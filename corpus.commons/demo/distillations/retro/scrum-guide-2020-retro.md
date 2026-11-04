@@ -1,4 +1,6 @@
 <!-- derived-from-deep: sha256:5b1c36ec761d50b3cc003ea04858f6cc1f9a4287d5f7d66b291dcd143539f555 -->
+<!-- derived-from-task: sha256:db5a96a24cbba2344ea5b099b43c84ff244ca65ffcc0ac06b91ec36e026c0a23 -->
+<!-- derived-from-neighbours: none -->
 # Schwaber & Sutherland, The Scrum Guide 2020 — Retro Distillation
 
 **Source:** Ken Schwaber & Jeff Sutherland (2020). *The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game*. November 2020 edition. scrumguides.org. CC BY-SA 4.0. Scope: open.

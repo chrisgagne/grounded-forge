@@ -1,4 +1,5 @@
 <!-- derived-from-deep: sha256:84e9d1325c64c50c8d9f05feca24a2ed3abc38d61bfe317fa136b5071359b9a2 -->
+<!-- derived-from-neighbours: none -->
 # OpenStax Business Law I Essentials, Decision-Making Distillation
 
 **Source:** OpenStax (2019). *Business Law I Essentials*. Rice University. CC BY-NC-SA 4.0. https://openstax.org/details/books/business-law-i-essentials. Lead author Mirande Valbrune (Esq.); six contributing authors.

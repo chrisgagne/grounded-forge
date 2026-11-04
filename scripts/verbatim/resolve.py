@@ -430,6 +430,8 @@ class Source:
         return {"name": name, "image": img, "caption": cap["caption"] if cap else None, "line": cap["line"] if cap else None}
 
 
+FIGURE_NAME = re.compile(r"\b(?:Exhibit|Figure|Fig\.)\s+\d+(?:\.\d+)*[a-z]?\b")
+
 _REFINDEX = {}
 
 
@@ -592,6 +594,10 @@ def main():
             g = src.grep_layer(path, kws)
             if g: g["task"] = task; layers["distillations"].append(g)
         fig = None
+        named = FIGURE_NAME.search(text)
+        if not j.get("figure") and named:   # the author's own sentence points at a figure: code attaches it, as it places the quotation
+            fig = src.figure(re.sub(r"\s+", " ", named.group(0)))
+            if fig: fig["via"] = "named in the placed passage"
         if j.get("figure"):
             f = j["figure"]
             fig = src.figure(f["name"] if isinstance(f, dict) else f)

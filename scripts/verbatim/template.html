@@ -101,6 +101,7 @@ h2{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,3vw,34px
 .side .row .p{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--g-secondary);display:block;word-break:break-all}
 .side .row .t{color:var(--g-ink)}
 .side .fig img{max-width:100%;border:1px solid var(--g-rule);margin-top:6px}
+.side .fig p{font-size:12px;line-height:1.4;color:var(--g-secondary);margin:4px 0 10px}
 .side .close{float:right;font:inherit;color:var(--g-secondary);background:none;border:0;cursor:pointer;font-size:18px;line-height:1;padding:0 2px}
 .cmd{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--g-secondary);background:#F5F6F8;padding:4px 6px;border-radius:3px;display:block;margin-top:6px;white-space:pre-wrap;word-break:break-all}
 
@@ -366,6 +367,7 @@ function openSide(el){
       <div class="where"><b>${esc(src.author)}</b>, <i>${esc(src.title)}</i> (${esc(String(src.year))}) · ${esc(sp.locator||"")}${sp.page?` · p. ${esc(String(sp.page))}`:""}${md.m!=="verbatim"?` · <span style="color:var(--g-cat-1)">shown on the page as paraphrase</span>`:""}</div>
       ${pageCheckNote(sp)}
       <div class="ctx">${w.b.map((t,i)=>`<p>${i?"":"…"}${esc(t)}</p>`).join("")}<p>${esc(w.lead)}${w.lead?" ":""}<mark>${esc(sp.text)}</mark>${w.tail?" ":""}${esc(w.tail)}</p>${w.a.map((t,i)=>`<p>${esc(t)}${i===w.a.length-1?"…":""}</p>`).join("")}</div>
+      ${sp.figure&&sp.figure.local?`<div class="fig"><a href="${esc(sp.figure.local)}" target="_blank"><img src="${esc(sp.figure.local)}" alt="the figure this passage names"></a><p>${esc(sp.figure.caption||sp.figure.name)}</p></div>`:""}
       <div class="verify">${origButton(sp,src)}${pageLink}${convLink(sp,src)}<button class="more">provenance ▸</button></div>
       <code class="cmd">grep -nF '${esc(anchor.replace(/'/g,"'\\''"))}' '${esc(src.converted)}'</code>
       <div class="stack">${stackRows(sp,src)}</div>`;

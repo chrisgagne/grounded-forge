@@ -10,6 +10,8 @@ never published. Of what the report folder holds, the copy keeps:
 - the page and its data (preview.html, bundle.json, report.json, answer.md, vendor/);
 - one page image per span, the page with the passage highlighted (pages/), not the pages
   either side;
+- the source's own figure for any passage that names one (figures/);
+- the folder's README.md, if it has one;
 - no original files, which a repo may not be allowed to redistribute (an NC source's original
   never ships) and which are large; the page's "original" link greys out;
 - no converted text: each span's "converted text, line N" link points at the tracked file in
@@ -42,9 +44,12 @@ def main():
     if closed:
         raise SystemExit(f"not published: sources above open-nc: {closed}")
 
+    readme = (dest / "README.md").read_text() if (dest / "README.md").exists() else None   # the folder's own write-up is not generated
     if dest.exists():
         shutil.rmtree(dest)
     (dest / "pages").mkdir(parents=True)
+    if readme is not None:
+        (dest / "README.md").write_text(readme)
     shutil.copytree(src / "vendor", dest / "vendor")
     for s in bundle["sources"].values():
         s["served"] = None
@@ -53,6 +58,10 @@ def main():
         sp["pages"] = [p for p in sp.get("pages", []) if p["boxes"]]
         for p in sp["pages"]:
             shutil.copyfile(src / p["png"], dest / p["png"])
+        fig = sp.get("figure") or {}
+        if fig.get("local") and (src / fig["local"]).exists():   # the source's own figure a passage names; the scope gate above covers it
+            (dest / "figures").mkdir(exist_ok=True)
+            shutil.copyfile(src / fig["local"], dest / fig["local"])
     (dest / "bundle.json").write_text(json.dumps(bundle, ensure_ascii=False, indent=1))
     (dest / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1))
 

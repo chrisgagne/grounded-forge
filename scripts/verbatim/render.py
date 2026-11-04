@@ -259,6 +259,30 @@ def prerender_pages(out, sid, pdf, spans, fitz, window=2, zoom=1.6):
     return rendered
 
 
+def figure_by_page(root, source, caption, fitz):
+    """The image for a figure the image index files by PDF page rather than by name: find the
+    page of the original that carries the caption, and take the one index entry for that page."""
+    pdf = root / (source.get("original") or "")
+    idx = root / "sources/converted/IMAGE-INDEX.yaml"
+    if not (pdf.is_file() and pdf.suffix.lower() == ".pdf" and idx.exists()):
+        return None
+    probe = _norm(" ".join(caption.split()[:8])).lower()
+    doc = fitz.open(str(pdf))
+    hits = [i for i in range(doc.page_count) if probe in _norm(doc[i].get_text()).lower()]
+    if len(hits) != 1:
+        return None
+    entries = []
+    for block in re.split(r"\n(?=- )", idx.read_text(encoding="utf-8", errors="replace")):
+        ref = re.search(r"^\s*source_ref:\s*(\S+)", block, re.M)
+        page = re.search(r"^\s*page:\s*(\d+)\s*$", block, re.M)
+        file = re.search(r"^-?\s*file:\s*(\S+)", block, re.M)
+        if ref and page and file and ref.group(1) == source["slug"] and int(page.group(1)) == hits[0] + 1:
+            entries.append(file.group(1))
+    if len(entries) != 1:
+        return None
+    return f"sources/converted/{entries[0]}", f"caption on PDF page {hits[0] + 1}; the image index's one entry for that page"
+
+
 def copy_if_changed(src, dst):
     if not dst.exists() or dst.stat().st_size != src.stat().st_size or dst.stat().st_mtime < src.stat().st_mtime:
         shutil.copyfile(src, dst)
@@ -273,7 +297,15 @@ def render(out, init, pages_only=False, gemini=None):
     for f in (HERE / "vendor").iterdir():
         copy_if_changed(f, vdir / f.name)
 
+    fitz = load_fitz()
     figdir = out / "figures"; figdir.mkdir(exist_ok=True)
+    for sid, span in bundle.get("spans", {}).items():
+        fig = span.get("figure")
+        if fig and not fig.get("image") and fig.get("caption") and fitz is not None:
+            source = bundle["sources"][span["source"]]
+            found = figure_by_page(root_of(source["corpus"]), source, fig["caption"], fitz)
+            if found:
+                fig["image"], fig["via"] = found
     for sid, span in bundle.get("spans", {}).items():
         fig = span.get("figure")
         if not fig or not fig.get("image"):
@@ -289,7 +321,6 @@ def render(out, init, pages_only=False, gemini=None):
             fig["local"] = None
             print(f"figure missing on disk: {src}", file=sys.stderr)
 
-    fitz = load_fitz()
     if fitz is None:
         print("no PyMuPDF: skipping page pre-render (run through uv: uv run --python 3.12 --with pymupdf python render.py ...)", file=sys.stderr)
     cdir = out / "converted"; cdir.mkdir(exist_ok=True)

@@ -68,9 +68,8 @@ except ImportError:
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 STAGING_GLOB = "_ingest_image_index_*.yaml"
 # Where staging was written before it moved beside the other per-corpus
-# staging: flat, then by corpus. docs/ is the GitHub Pages folder, so a
-# private corpus's figure descriptions there were one forced add from going
-# live. Files left there are reported, never read.
+# staging. A skill copy older than the move still writes there. docs/ is the
+# GitHub Pages folder, so a file there is reported, never read.
 LEGACY_ROOT = REPO_ROOT / "docs" / "images"
 
 # Keys holding substantive entries, and keys holding the classifier's record of
@@ -301,8 +300,8 @@ def main() -> int:
               f"this corpus; skipped")
     legacy = len(list(LEGACY_ROOT.rglob(STAGING_GLOB)))
     if legacy:
-        print(f"WARN {legacy} staging files under docs/images/ are not read; "
-              f"scripts/migrate-image-staging.py moves them to _planning/staging/")
+        print(f"WARN {legacy} staging files under docs/images/ are not read; move each "
+              f"to _planning/staging/{{corpus}}/images/ for the corpus it describes")
     if unfinished:
         print(f"NOT INDEXED:       {len(unfinished)} sources converted and image-classified "
               f"but with no deep reference — their ingestion never completed:")

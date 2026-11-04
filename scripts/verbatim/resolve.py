@@ -416,7 +416,11 @@ class Source:
         cap = None
         for i, l in enumerate(self.lines):
             if re.match(rf"^\s*{re.escape(name)}\b", l.strip()) and not l.strip().endswith("shows"):
-                cap = {"line": i + 1, "caption": l.strip()[:300]}; break
+                parts = [l.strip()]
+                for nxt in self.lines[i + 1:i + 5]:   # a caption the converter wrapped runs on to the next blank line
+                    if not nxt.strip(): break
+                    parts.append(nxt.strip())
+                cap = {"line": i + 1, "caption": re.sub(r"\s+", " ", " ".join(parts))[:600]}; break
         img = None
         for idx in (self.root / "sources/converted/IMAGE-INDEX.yaml", REPO / "_planning/staging" / self.root.name / "images" / f"_ingest_image_index_{self.slug}.yaml"):
             if not idx.exists(): continue
@@ -427,7 +431,8 @@ class Source:
                     if m: img = m.group(1) if m.lastindex == 1 else m.group(2); break
             if img: break
         if cap is None and img is None: return None
-        return {"name": name, "image": img, "caption": cap["caption"] if cap else None, "line": cap["line"] if cap else None}
+        return {"name": name, "image": img, "caption": cap["caption"] if cap else None, "line": cap["line"] if cap else None,
+                "page": self.page(cap["line"] - 1) if cap else None}
 
 
 FIGURE_NAME = re.compile(r"\b(?:Exhibit|Figure|Fig\.)\s+\d+(?:\.\d+)*[a-z]?\b")

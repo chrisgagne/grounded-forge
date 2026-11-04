@@ -57,6 +57,7 @@ with tempfile.TemporaryDirectory() as d:
         "Some text before the exhibit, on the first page.",
         "",
         "Exhibit 4.4 Company Industry Fit Adapted from: Duncan, R. (1972).",
+        "American Science Quarterly, 17; Daft, R. Organizational Theory and Design.",
         "",
         "As Exhibit 4.4 shows, these organizational forms work best in unstable, complex, changing environments.",
     ]))
@@ -84,6 +85,8 @@ with tempfile.TemporaryDirectory() as d:
     fig = src.figure("Exhibit 4.4")
     check("caption line", fig and fig["line"], 3)
     check("no image by name", fig and fig["image"], None)
+    check("wrapped caption kept whole", fig and fig["caption"],
+          "Exhibit 4.4 Company Industry Fit Adapted from: Duncan, R. (1972). American Science Quarterly, 17; Daft, R. Organizational Theory and Design.")
 
     source = {"slug": "book", "original": "sources/original/book.pdf"}
     found = figure_by_page(root, source, fig["caption"], fitz)

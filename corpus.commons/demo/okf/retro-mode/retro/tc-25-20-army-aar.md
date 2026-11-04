@@ -12,7 +12,7 @@ sources:
     resource: https://armypubs.army.mil/productmaps/pubform/details.aspx?pub_id=71643
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-16T15:48:48+13:00
+  at: 2026-11-04T14:27:34+13:00
 ---
 # US Army TC 25-20, Retrospective Distillation
 

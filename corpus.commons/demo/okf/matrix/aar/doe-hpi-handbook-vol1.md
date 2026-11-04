@@ -12,7 +12,7 @@ sources:
     resource: https://www.energy.gov/sites/default/files/2026-04/doe-hdbk-1028-2009_volume1_0.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-10-06T14:53:14+13:00
+  at: 2026-11-04T14:27:34+13:00
 ---
 # US DOE, Human Performance Improvement Handbook Vol. 1, After-Action Review Distillation
 

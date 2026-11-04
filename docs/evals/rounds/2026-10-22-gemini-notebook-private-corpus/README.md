@@ -5,6 +5,7 @@
 - **Gemini Notebook retrieved as well as grounded-forge on a lookup, a trap and a wide synthesis, and fell short on a long case, an exhaustive question and safety lines.**
   - On a lookup, a trap question and a debate with a stable vocabulary, the two tied. On the debate Gemini was wider: about 20 sources, including the strongest voice grounded-forge missed. grounded-forge was deeper, with every answer-key item and more insight. Quote accuracy was close.
   - On a long case, Gemini's quotes were real but every one of its citation markers pointed at a different book. On an exhaustive question it found 15 of 23 items and called its list complete; grounded-forge, reading every session, found 22. On a coaching course it twice missed a safety line held in sessions its retrieval never reached.
+  - [The case-citations round](../2026-11-case-citations/), which graded every citation over this notebook and the public one, didn't reproduce the wrong-book markers: of 1,105 private-notebook citations, none landed on an unrelated book. What held instead is markers near the claim, not on it (19% carried the claim as stated, under a scorer from another model family), and loose quotations (9 of about 60 found word for word). See [what the rounds show](../../grounded-forge-vs-gemini.md).
 - **grounded-forge pulled ahead where the work needs more than a matching passage:**
   - citations a reader can follow to the page;
   - finding *every* instance of something;

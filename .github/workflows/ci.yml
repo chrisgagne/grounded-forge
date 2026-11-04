@@ -27,8 +27,9 @@ jobs:
       # --ignore-scripts skips puppeteer's browser download; nothing here needs it.
       - run: npm ci --ignore-scripts
 
-      # pass-i-driver imports scripts/pass_i/run.py, which reads YAML.
-      - run: pip install pyyaml
+      # pass-i-driver imports scripts/pass_i/run.py, which reads YAML; the verbatim-figure test
+      # opens a PDF.
+      - run: pip install pyyaml pymupdf
 
       - name: Tests
         run: npm test

@@ -39,6 +39,11 @@ jobs:
           npm run -s slug-table:demo:check
           npm run -s codex-agents:check
 
+      # Every [V] quote the shipped apps and connectors serve must match its converted source.
+      # Findings open on 5 Nov 2026 are baselined (scripts/verbatim-baseline.json); new ones fail.
+      - name: Verbatim quotes in shipped distillations
+        run: python3 scripts/ci-verbatim.py
+
       # Compiled apps and OKF bundles under corpus.commons/ are tracked, so a
       # rebuild from the committed sources must reproduce them exactly.
       - name: Tracked build output matches a fresh build

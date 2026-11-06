@@ -9,7 +9,9 @@ hermetic deep reference, runs the real CLI against a synthetic converted source
 
 Cases mirror the Pass I audit fixtures where they can: 05 (apostrophe style →
 apostrophe, not failing), 06 (capitalisation tidy → near), 07 ([V] on a paraphrase → no-quote),
-09 (silently shortened quote → interrupted or missing). The figure cases hold the
+09 (silently shortened quote → interrupted or missing). A `[V]` stacked after another
+marker (`(Ch 4) [AE] [V]`) checks the quote before the stack; a marker with
+running text after it ends the stack. The figure cases hold the
 rule that no normalisation lets a changed figure pass: a quote that cuts a number
 short at either end never matches, unless what runs on is a note number the
 source's own notes vouch for. The paged section mirrors
@@ -507,6 +509,16 @@ CASES = [
     ("' / ' where the source runs on within a line → near",
      '"Is that the whole story? / Ask it twice before you answer" [V] (Ch 7).',
      "near"),
+    # A [V] stacked after another marker covers the claim the stack closes.
+    ("a [V] stacked after [AE] checks the quote before the stack",
+     'Work is "an activity that produces something of no value" (Ch 4) [AE] [V].',
+     "missing"),
+    ("a [V] stacked after [AP] with a comma passes a true quote",
+     'Work is "an activity that produces something of value for other people" (Ch 4) [AP], [V].',
+     None),
+    ("a [V] after a marker and running text keeps its own segment → no-quote",
+     'Work is "a phrase not in the source at all" [AP], and the source ties work to value [V] (Ch 4).',
+     "no-quote"),
 ]
 
 # Multi-line cases: (label, [(line, expected kind or None)]). Blank lines are

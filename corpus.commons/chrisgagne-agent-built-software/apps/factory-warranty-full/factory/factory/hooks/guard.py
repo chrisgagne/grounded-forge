@@ -41,6 +41,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import fnmatch
+import hashlib
 import json
 import os
 import re
@@ -293,6 +294,32 @@ class Guard:
         return None
 
 
+# What a block log keeps of the tool input. The raw input can carry what the guard just stopped
+# (a secret in a command, a file's content), and the log is kept with the change's evidence, so it
+# keeps paths and patterns, a masked preview of a command, the size of any written text, and a hash
+# of the whole input to tie the entry to it.
+_PATH_KEYS = ("file_path", "path", "notebook_path", "pattern", "glob")
+_SECRETISH = re.compile(
+    r"(?i)(?:(?<=[=:])\s*['\"]?[^\s'\"]{8,}|bearer\s+\S+|\b(?:AKIA|ASIA|ghp_|gho_|github_pat_|sk-|xox[abp]-)\S+"
+    r"|\b[A-Za-z0-9+/_\-]{32,}={0,2})")
+
+
+def log_safe(tool_input):
+    if not isinstance(tool_input, dict):
+        return None
+    raw = json.dumps(tool_input, sort_keys=True, default=str)
+    out = {"sha256": hashlib.sha256(raw.encode()).hexdigest()}
+    for k in _PATH_KEYS:
+        if isinstance(tool_input.get(k), str):
+            out[k] = tool_input[k][:300]
+    if isinstance(tool_input.get("command"), str):
+        out["command"] = _SECRETISH.sub("[masked]", tool_input["command"][:200])
+    for k in ("content", "new_string", "old_string", "new_source"):
+        if isinstance(tool_input.get(k), str):
+            out[k + "_chars"] = len(tool_input[k])
+    return out
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="factory PreToolUse guard")
     ap.add_argument("--worktree", required=True)
@@ -319,7 +346,7 @@ def main(argv: list[str] | None = None) -> int:
             with open(args.log, "a") as f:
                 f.write(json.dumps({"at": dt.datetime.now().isoformat(timespec="seconds"),
                                     "tool": payload.get("tool_name") if isinstance(payload, dict) else None,
-                                    "input": payload.get("tool_input") if isinstance(payload, dict) else None,
+                                    "input": log_safe(payload.get("tool_input") if isinstance(payload, dict) else None),
                                     "reason": reason}) + "\n")
     except BaseException:
         pass

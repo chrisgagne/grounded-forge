@@ -2,6 +2,8 @@
 
 **Status: run on 2 November 2026.** Results [below](#results). On the reading fixed before running, verbatim mode **holds level** with `answer-from-corpus` on citation support: 93–98% of its citations carry their claim as stated, against 88–98%, with no citation graded *none* in 236. It covers fewer of the expected ideas on C2. [Round 3b](#round-3b-after-the-fixes) re-ran C1 and C2 after three generator fixes: C2 coverage comes back to `answer-from-corpus`'s on the private corpus and most of the way on the public one, support holds, and every credit carries a pointer, at about 1.7 times round 3's cost.
 
+The expected-ideas counts in this README use the case-citations round's answer keys, which Claude wrote and Claude's answers are scored against; the [pooled-coverage round](../2026-11-05-pooled-coverage/) replaces them with ideas pooled across all the answers by two families. There, round 3's answers carried about as many supported ideas as Gemini's chat answers, and round 3b's 9–15 more than round 3's.
+
 ## Why this round
 
 The [case-citations round](../2026-11-case-citations/) is the larger study of how well citations carry their claims:

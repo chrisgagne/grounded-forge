@@ -50,7 +50,7 @@ DEFAULT_LEGS = ("claude", "codex")
 CODEX_PRIORITY = {"0": "critical", "1": "high", "2": "medium", "3": "low"}
 # Triage classes where a confirmed medium blocks too: a medium there loses or exposes someone's data (the first real
 # runs' mediums were a retried delete erasing a newer note and a down migration dropping every phone number). The
-# sources set no severity bar; this one is PROPOSED, for the operator to confirm.
+# sources set no severity bar; this one is the factory's, confirmed by the operator (policy.yaml, 2026-11-06).
 LOWER_BAR = ("personal-data", "irreversible")
 # The packet subfolder holding the distillations a distillations-grounded review may open.
 DISTILLATIONS = "distillations"

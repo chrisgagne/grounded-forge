@@ -3,8 +3,8 @@
     python3 build.py OUT_DIR LABELS_JSON demo|aarbuddy
 
 Arms: Gemini chat at default style, Gemini chat under the strict style, Gemini as asked
-(a Studio report or a chat answer), grounded-forge answer-from-corpus, and verbatim mode
-rounds 3 and 3b. Citation markers and pointer blocks are stripped; labels are shuffled.
+(a Studio report or a chat answer), Open Notebook on Opus 5.5 under the strict style (public
+cases only), grounded-forge answer-from-corpus, and verbatim mode rounds 3 and 3b. Citation markers and pointer blocks are stripped; labels are shuffled.
 """
 import json, re, random, os, sys
 GF = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../.."))
@@ -45,6 +45,10 @@ for case in CASES:
             items.append(("gemini-as-asked", run, gem_packet(f"{CCP}/cc-packets-private/gemini-aarbuddy-{case}-{run}.md")))
         pk = open(f"{CCP}/cc-packets/gf-{corpus}-{case}-{run}.md").read().split("## Answer", 1)[1].split("## Quotation locations", 1)[0]
         items.append(("gf-answer-from-corpus", run, pk.strip()))
+        if corpus == "demo":
+            on = f"{GF}/docs/evals/rounds/2026-11-06-open-notebook/runs/demo-{case}-{run}.json"
+            if os.path.exists(on):
+                items.append(("opennotebook-opus-strict", run, re.sub(r"\s*\[source:[a-z0-9]+\]", "", json.load(open(on))["answer"]).strip()))
         for rnd, arm in (("round3", "gf-verbatim-r3"), ("round3b", "gf-verbatim-r3b")):
             p = f"{VB}/{rnd}/{corpus}-{case}-{run}/answer.md"
             if os.path.exists(p): items.append((arm, run, verbatim(p)))

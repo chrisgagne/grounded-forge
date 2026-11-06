@@ -1,36 +1,95 @@
 # Answer H
 
-Question: I'm CTO at a 140-person logistics SaaS. Three product lines, one engineering group of about 60 in nine squads. Every sprint overflows: we plan around 40 points, ship 25, and carry the rest into the next one. Marketing wants a feature a week for the growth push and says quality is engineering's problem; engineering says the churn numbers come from bugs. My head of engineering has set a "stretch" target of 40% more throughput by Q1 and tied the squad leads' bonus to it. Most developers sit on two or three squads at once, because the CEO's rule is that nobody is idle. Last month a bad release took the customer portal down for four hours; the postmortem named the developer who merged it, and he's now on a performance plan. The CEO's answer to all of this is to buy AI coding tools so we can "do both".
+MEMORANDUM
+TO: Chief Executive Officer
+FROM: Chief Technology Officer
+DATE: October 31, 2026
+SUBJECT: Systemic Diagnostic & Strategic Action Plan: Engineering Flow, Quality, and Operational Governance
+Executive Summary & Diagnostic: "What Is Actually Going On Here"
+Our current operational crisis—sprint overruns, escalating churn from production bugs, department friction, and recent outages—is not caused by developer apathy or insufficient coding speed. It is the predictable result of a systemic design failure. We are running our software organization on flawed operational assumptions that systematically generate bottleneck queues, incentivize quality compromises, and create severe single-point failures.
+Below is the systemic diagnosis across four key organizational dynamics:
+1. The Utilization Trap & Queuing Chaos (Operating as a Resource Topology)
+Our rule that "nobody is idle," which splits developers across two or three squads simultaneously, is the primary driver of our delivery collapse. In organizational design terminology, we are operating in a Resource Topology—a model that attempts to maximize local labor utilization ("keeping people 100% busy") rather than value flow.
+Queuing Theory (Little’s Law) dictates that as resource utilization approaches 100%, queue times and lead times increase exponentially (Cycle Time=WIP/Throughput). By forcing engineers onto multiple squads, we inflate Work-In-Progress (WIP) and generate massive context-switching overhead.
+Furthermore, software development communication overhead grows non-linearly with team interdependencies (D
+peak
+	​
 
-I need a two-page memo for the CEO that says what's actually going on here, what to change first and why that first, and where the thinking you're drawing on disagrees with itself.
+ thresholds). Because our 60 engineers are fragmented across 9 squads, individual focus is destroyed, handover friction spikes, and velocity stalls. A system with 100% busy people inevitably yields 0% flow efficiency.
+2. Goodhart’s Law & Perverse Incentives (The 40% Stretch Target)
+Tying squad leads' bonuses to an arbitrary "stretch" target of 40% more throughput by Q1 triggers Goodhart’s Law: "When a measure becomes a target, it ceases to be a good measure".
+Expecting a clogged system to deliver 40% more throughput forces engineers into an Efficiency-Thoroughness Trade-Off (ETTO). When output volume is tied to financial compensation, teams systematically sacrifice thoroughness—skipping automated testing, truncating code reviews, and taking architectural shortcuts.
+The result is a surge in technical debt and production defects. Marketing correctly observes that churn is driven by bugs, but engineering is being explicitly incentivized to generate those bugs to meet volume targets.
+3. The Blame Cycle vs. Systemic Safety (The Postmortem Failure)
+Placing the developer who merged the bad release on a Performance Improvement Plan (PIP) is a critical organizational mistake.
+Human Performance Improvement (HPI) and Just Culture research demonstrate that human error is a symptom of underlying system weakness, not the root cause. Blaming the individual ("the sharp end") creates a false illusion that the problem is solved while leaving the latent organizational pathogens—unclear rollback procedures, missing automated integration tests, and fatigue—completely intact.
+Disciplining staff for honest operational errors initiates a destructive Blame Cycle. It destroys psychological safety, encourages developers to hide near-misses, stifles open communication, and destroys the reporting culture required to prevent catastrophic outages.
+4. AI Coding Tools as a "Fix That Fails"
+Investing in AI coding tools as a standalone solution to "do both" (increase throughput and maintain quality) represents the classic system archetype Fixes that Fail.
+AI tools accelerate localized code generation ("doing" tasks). However, if we feed more code into a pipeline blocked by multi-squad dependencies, manual testing, and high WIP, AI will simply generate buggy code faster. AI cannot solve a structural queueing and alignment problem.
+Prioritized Action Plan: "What to Change First and Why That First"
+To restore operational stability, we must apply the Theory of Constraints (TOC): "Any improvements made anywhere besides the bottleneck are an illusion".
+[Phase 1: Unblock Bottleneck] ──► [Phase 2: Remove Perverse Incentives] ──► [Phase 3: Institute Just Culture] ──► [Phase 4: Strategic AI]
+  • Eliminate Multi-Squads        • Cancel 40% Throughput Bonus           • Reverse Developer PIP              • Target Automated Gates
+  • Enforce Strict WIP Limits     • Implement Flow & Quality Metrics       • Blameless Postmortems              • Elevate Skill Mandate
 
-The demo corpus explains the mechanisms here (utilisation against flow, measurement pressure, blame after incidents, schedule pressure) but holds no direct evidence on three things this memo leans on: what AI coding tools actually do to throughput and defect rates on a real team, the queueing arithmetic that links developers split across squads to carry-over and lead time, and delivery-performance data tying release practice to outages and churn. The Org Topologies primer's AI material is a design recommendation, not a measured result. Ingestion candidates that would let the corpus answer directly: METR's 2025 randomised trial of AI tools on experienced open-source developers; Donald Reinertsen's The Principles of Product Development Flow; and Forsgren, Humble and Kim's Accelerate.
-
-## What is going on: we are built to be busy, not to finish
-
-The sprint overflow, the churn argument and the four-hour outage are one problem seen from three desks. A rule that nobody is idle, with most developers sitting on two or three squads, is a choice of organisation design whose goal is utilisation. Org Topologies gives that design a name: “Its purpose is to ensure that each unit is 100% utilized (i.e. resource utilization). It is seen in “resource management” approaches where “resource managers” (or project managers) are responsible for planning and monitoring resource allocation and utilization.” Full utilisation and fast delivery pull against each other. “Reduce the Batch Size of your Efforts * Research in the way the mind works, and countless experiences from Lean, the Theory of Constraints and Kanban confirm that to deliver value faster, with better flow and good team morale we need to focus and limit the number of things we do. Multitasking does not work.” Planning 40 points and shipping 25 is what this design produces. Each developer's attention is split three ways, work waits on whoever is busy on another squad, and the 15 points carried over every sprint are the queue made visible. Org Topologies warns that when each element of an organisation is optimised in isolation, the performance of the whole system can decline. Keeping every person busy is that kind of local optimisation: it looks efficient person by person and slows the company down.
-
-
-## Why the stretch target and the bonus will make it worse
-
-A 40% throughput target, tied to the squad leads' bonus, lands on a system already running past what it can finish. Squad leads will do what the bonus pays for, and what it pays for is production. The Department of Energy's human performance handbook names what happens to everything else: “Production behaviors naturally take precedence over prevention behaviors unless there is a strong safety culture—nurtured by strong leadership.” The same handbook lists bonuses based solely on productivity measures among the flaws that weaken an organisation's cultural controls against error. Story points are also a number the people being judged can move. “If the measurements collected were actively used to control or evaluate the development team (for instance), then developers have a motivation to cause the measure- ments to move in a direction favorable to themselves.” Expect throughput to rise on paper first: stories split smaller, estimates drift up, testing gets trimmed, and the bugs that feed churn arrive a quarter later.
-
-
-## The postmortem made the next outage more likely
-
-Naming the developer who merged the bad release, and putting him on a performance plan, told sixty engineers what happens to the person standing nearest a failure. The NHS just culture guide starts from the opposite default: “Action singling out an individual is rarely appropriate - most patient safety issues have deeper causes and require wider action.” Before any action against him, its substitution test asks the question our postmortem skipped: The NHS guide's substitution test asks whether other people from the same peer group, with comparable experience and qualifications, would have behaved the same way in similar circumstances. In a release process where one merge can take the portal down for four hours, the honest answer is almost certainly yes. Stopping at the person also keeps the real causes in place. “Events will continue as long as event investigations stop prematurely at the active human error. The true causes (typically organizational weaknesses) will not be discovered—will remain latent or hidden—and errors and events will persist.” The DOE handbook adds that when people believe their errors will be punished, information about those errors tends to stay hidden. The Columbia board saw where that leads: “When causal chains are limited to technical flaws and individual failures, the ensuing responses aimed at preventing a similar event in the future are equally limited: they aim to fix the technical problem and replace or retrain the individual responsible. Such corrections lead to a misguided and potentially disastrous belief that the underlying problem has been solved.” The question for the review is what let one merge reach customers unchecked, and what pace made skipping checks normal.
-
-
-## Marketing and engineering are arguing about the same schedule
-
-Marketing's feature-a-week push and engineering's claim that bugs drive churn are both true, and the same schedule produces both. The Columbia board accepts that aggressive schedules are often a sign of a healthy organisation, but says that because safety and other goals compete with them, schedule pressure must be watched carefully. The danger point is when nobody will say a date cannot be met. “those same people (and this same culture) have difficulty admitting that something "can't" or "shouldn't" be done, that the margin has been cut too much, or that resources are being stretched too thin. No one at NASA wants to be the one to stand up and say, "We can't make that date."” A feature a week is an output target, and output is not what the company is paid for. “However, more output does not mean more outcomes. In fact, more output usually means more cost or investment, which can lower profit (an outcome). Investing to increase outcomes (healthy people, profit) is justified; ‘investing’ to increase output is suspect.” Churn is the outcome that matters for the growth push, and right now we are buying features with the quality that keeps customers.
-
-
-## What to change first, and why that first: one developer, one squad
-
-The first change is the nobody-idle rule. Put every developer on one squad, and plan each squad to what it actually finishes, about 25 points today, not 40. It goes first for two reasons. It is the constraint the other problems flow from: the overflow, the skipped checks behind the outage and the extra pressure the bonus adds all start from attention split three ways. And it is the one change only you can make, because the rule is yours. “Keeping the team focused helps them finish what they start faster.” Two cheap moves follow in the same month: suspend the throughput bonus until the squads have a stable baseline, and reopen the postmortem as a review of the release path, with the performance plan withdrawn until it reports. AI coding tools do not remove the constraint. Writing code faster into a system where work queues between overloaded people grows the queue. If we buy them, Org Topologies gives the test for where they go: “Focus time, money, and management attention on AIs, especially on that big bottleneck, over a generic “adopt AI.”” The primer also predicts that AI agents bring new responsibilities and processes, and that monitoring them will become an important job for people. On teams already split three ways, that monitoring is more work, not less. Fix the focus first; then aim the tools at the release checks that let the outage through.
+Step 1: Eliminate Multi-Squad Allocation & Limit WIP (Immediate Priority)
+Action: Immediately ban multi-squad assignment. Mandate that every developer belongs to exactly one squad. Restructure the 60 engineers into dedicated, stable teams aligned to clear product capabilities, and establish strict WIP limits across all product backlogs.
+Why First?: Multi-squad context-switching is our single greatest system bottleneck. Until we stop task-switching and clear the clogged pipeline, no amount of target-setting, process changes, or AI tools will increase output. Single-squad dedication instantly reduces WIP, lowers context-switching costs, and restores predictable flow.
+Step 2: De-Link Bonuses from Throughput & Align on Flow/Quality Metrics
+Action: Cancel the 40% throughput bonus target for squad leads. Replace sprint velocity targets with Flow Metrics (Lead Time, Cycle Time, Defect Escape Rate) and shared customer outcomes co-owned by Product, Marketing, and Engineering.
+Why Second: Once WIP is capped, we must remove the perverse financial incentives driving Goodhart's Law gaming, point-inflation, and quality cutting.
+Step 3: Transition to a Just Culture & Institute Blameless Postmortems
+Action: Reverse the PIP for the developer involved in the portal outage. Implement James Reason's Culpability Decision Tree and the Substitution Test ("Would another engineer with similar training have made the same error under those exact system pressures?") for all postmortems. Shift investment toward automated deployment guardrails and pre-release verification testing.
+Why Third: Unclogging the workflow requires transparent reporting. Rebuilding psychological safety ensures engineers report system flaws and production risks early without fear of retribution.
+Step 4: Deploy AI Strategically to Elevate Team Capabilities
+Action: Shift our AI investment from general code generation to automating our specific delivery constraints—such as automated regression test suite generation, pull-request verification, and deployment pipeline checks.
+Why Fourth: Guided by Org Topologies, AI should be used to broaden our teams' skills mandate and work mandate, elevating them toward cross-functional, end-to-end delivery units.
+Theoretical Disagreements: Tensions & Nuance in the Management Science
+To make an informed decision, we must acknowledge where the foundational management theories we are drawing upon disagree with one another:
+Strategic Area
+	
+Theoretical Tension
+	
+Core Contradiction in Literature
+	
+Resolution for Our SaaS Context
 
 
-## Where the thinking disagrees with itself
+Goal Setting vs. Process Quality
+	
+Goal-Setting Theory (Locke & Latham) vs. Total Quality Management (TQM) (Deming)
+	
+Goal-Setting Theory argues that difficult, specific "stretch" goals drive higher motivation and effort. Deming and TQM counter that numerical stretch targets narrow vision, induce fear, invite cheating, and destroy process quality.
+	
+Stretch goals work for simple, independent tasks; in complex software engineering, aggressive numerical targets induce systemic gaming under Goodhart's Law. We must adopt Deming's focus on continuous process improvement over arbitrary velocity quotas.
 
-Three tensions run under this memo, and each touches a decision above. The first is stretch targets. Goal theory, as the OpenStax organisational behaviour text reports it, is on our head of engineering's side: “The second basic premise is that difficult goals result in better performance than easy goals.” The same text then names the risk that fits our case: “Perhaps the key caution about goal setting is that it often results in too much focus on quantified measures of performance. Qualitative aspects of a job or task may be neglected because they aren’t easily measured.” The OpenStax text adds that individual goals can backfire in teamwork, and prefers group goals where people depend on one another. So the disagreement is not whether to set hard goals but what to set them on: a shared outcome such as churn or escaped defects, not squad throughput. The second is how much to restructure. Open Kanban says change can start where you are, without changing titles or roles, as long as there are working teams to deliver value. Org Topologies rejects leadership that only sets business objectives, and holds that leaders must design the details of the internal organisation to fit them. The first change above is the small step, but it is still a design decision that only leadership can take. The third is individual accountability. The DOE handbook says that after an honest error the better question is how the organisation failed the individual, not how the individual failed the organisation. The Columbia board keeps a place for personal responsibility: “To the contrary, individuals always must assume responsibility for their actions. What it does mean is that NASA's problems cannot be solved simply by retirements, resignations, or transferring personnel.'” For our developer, that means his choices can sit in the review as one finding among the wider ones, but a performance plan cannot be the whole response.
+
+Resource Efficiency vs. Flow Efficiency
+	
+Scientific Management (Taylorism) vs. Lean / Queuing Theory
+	
+Classical Management prioritizes 100% labor utilization ("nobody is idle") to maximize resource cost-efficiency. Lean and Queuing Theory prove that 100% capacity utilization causes infinite queue delays, destroyed flow, and higher overall costs.
+	
+In software delivery, optimizing for human utilization destroys value flow. We must intentionalize capacity slack so work items can move rapidly without waiting in queues.
+
+
+Individual Accountability vs. System Safety
+	
+Strict Individual Accountability vs. Just Culture / Blameless Safety
+	
+Pure "blameless" models posit that human errors are 100% system-induced and individual discipline is always counterproductive. Just Culture frameworks (Reason, DOE HPI) distinguish between honest human error and reckless, intentional violations.
+	
+We must reject individual scapegoating for honest errors while maintaining clear accountability for adherence to workable, agreed-upon engineering safety standards.
+
+
+AI Value Model
+	
+Micro-Efficiency vs. Strategic Organizational Elevation
+	
+Conventional executive views see AI as an individual labor-saving tool (writing syntax faster). Org Topologies demonstrates that localized speedups in "doing" tasks without expanding team scope or removing dependencies merely compound downstream bottlenecks.
+	
+AI investment must focus on expanding team capabilities to eliminate dependencies, not padding task-level coding speed.
+Summary Recommendation
+By ending multi-squad matrixing, capping Work-in-Progress, replacing velocity quotas with flow/quality metrics, and establishing a Just Culture, we can stabilize our customer portal, reduce bug-driven churn, and create a sustainable delivery engine.
+💡 Next Step: Would you like me to prepare an implementation matrix mapping out squad realignments, WIP limit thresholds, and replacement flow metrics for our upcoming leadership meeting?

@@ -1,36 +1,86 @@
 # Answer H
 
-Question: Our executive team runs on the standard management playbook: strategy cascaded into KPIs, quarterly targets, performance reviews, a change programme with a steering committee. I've been reading things written for very different worlds, armies at war, shuttle launches, nuclear plants, wildfire crews, and I keep feeling they'd run a company differently. What surprising insights come from reading those traditions against the management textbooks? Where do they flatly contradict what the textbooks teach, and where does the contradiction actually matter for someone running a 300-person company?
+# Reading the high-stakes traditions against the management playbook
 
-Write it for a sceptical CEO, about two pages. Say where the sources disagree with each other, not only with the textbook.
+**What this notebook can support.** The notebook holds the following sources:
 
-The demo corpus holds the primary documents of these traditions (Marine Corps doctrine, the Columbia accident report, the DOE human performance handbook, the Forest Service learning review guide, the Army AAR circular) and one general management textbook, but nothing that tests their ideas inside commercial companies. It has no study of mission command in business, no research on what targets and budgets do to behaviour in firms, and no wildfire or nuclear operating doctrine beyond the review and handbook material, so every application to a 300-person company here is reasoning, not evidence. Candidates that would let the corpus answer directly: Stephen Bungay's The Art of Action (mission command applied to companies), Jeremy Hope and Robin Fraser's Beyond Budgeting (management without fixed annual targets), and Karl Weick and Kathleen Sutcliffe's Managing the Unexpected (high-reliability practice for ordinary organisations).
+- **Military:** the Marine Corps doctrine *Warfighting*.
+- **Shuttle launches:** the Columbia Accident Investigation Board (CAIB) report, which also summarises the Challenger findings.
+- **Nuclear and energy:** two volumes of a Department of Energy (DOE) human-performance handbook.
+- **Wildfire:** a wildfire learning-review guide.
+- **Practice:** an Open Practice Library entry.
+- **The textbook side:** several management, organisational-behaviour, accounting and marketing textbooks.
 
-## Write intent, not a cascade of targets
+No source in this notebook covers Mann Gulch, "drop your tools," Goodhart's law, gaming of targets, critiques of performance appraisal, or quarterly targets as such. Nothing below claims evidence that these practices work in companies.
 
-The OpenStax text describes a grand strategy that cascades through the company, growing more specific at each level until front-line employees work on tasks that serve it. The OpenStax management text describes broad goals broken into subgoals at divisional, departmental and job level, with managers making sure the lower-level goals add up to the higher ones. Marine Corps doctrine splits every order in two instead: “The task denotes what is to be done, and sometimes when and where; the intent explains why. Of the two, the intent is pre-dominant. While a situation may change, making the task ob-solete, the intent is more lasting and continues to guide our actions.” A KPI is a task. When the market moves, the people below you are left holding a number that no longer serves the purpose, with no licence to depart from it. MCDP 1 asks subordinates to decide on their own initiative from their grasp of the senior's intent, instead of sending information up the chain and waiting for a decision to come back down. Read to the end, the textbook half concedes the point: “As organizations confront increasing environmental or technology-induced uncertainty, rapid environmental change, and turbulence, planning and controlling move closer to the point in the organization where the plans are implemented and carried out on a day-to-day basis.” For a 300-person company the move is small: put a one-line statement of purpose beside every cascaded target, and tell managers that when the purpose and the number part ways, the purpose wins.
+## 1. The surprise: none of these traditions is anti-planning
 
+*Warfighting* says the planning process applies broadly. "This systematic process of identifying the objective and planning a course to obtain it applies to all areas and levels of preparations". CAIB says "schedule deadlines are an important management tool". DOE recommends that you "Establish metrics to measure program performance and evaluate the effectiveness of actions implemented from lessons learned".
 
-## Targets you cannot miss become risks you cannot see
+My inference: if you expected these worlds to reject objectives, deadlines and metrics, they don't. The contradictions are narrower and sit in specific places.
 
-Quarterly targets work, which is what makes them dangerous. The OpenStax text reports that specific, difficult goals lift performance far more than a vague instruction to try hard. The Columbia board found where that leads when the target is a date: “These charts illustrate that both the Space Shuttle and Space Station Programs were being managed to a particular launch date — February 19, 2004. Days of margin in that schedule were one of the principle metrics by which both programs came to be judged.” The board explains that each time a programme spends less or moves faster than its engineers think reasonable, it adds a small piece of risk, and the pieces pile up until managers no longer see the total. “Little by little, NASA was accepting more and more risk in order to stay on schedule.” No one has to decide to trade care for the date; the metric decides. The nuclear handbook explains why the trade runs one way: “Production behaviors naturally take precedence over prevention behaviors unless there is a strong safety culture—nurtured by strong leadership.” The handbook tells managers to track what matters rather than what is simply easy to count. In your company the hidden cost is rarely a lost crew. It is the quality, maintenance and customer-trust work whose payoff is something that does not happen, which no quarterly target rewards. Ask of every target what people will stop doing to hit it, and track that as well.
+## 2. Where they contradict the textbook
 
+**The purpose outranks the target.** The accounting textbook defines a performance measurement system as one that "evaluates management in a way that will link the goals of the corporation with those of the manager". *Warfighting* splits every mission into the task and the intent, and says "Of the two, the intent is predominant". It adds that a changing situation may make the task obsolete while the intent continues to guide action. It also says a subordinate "who is not given a clear purpose for the assigned mission should ask for one".
 
-## Reviews that teach, not reviews that grade
+My inference: in this vocabulary a quarterly KPI is a task. The doctrine expects people to drop it when circumstances change, whereas a pay-for-the-number system rewards holding to it.
 
-Your annual review asks how the person did against the target. The nuclear handbook turns the question round: “Events triggered by human error are often symptomatic of a system failure. Instead of asking how the individual failed the organization, the question “how did the organization fail the individual?”” The wildfire service is blunter: “Punishing or blaming employees involved in an accident is the surest way to kill a learning culture.” The Army's AAR guide says its review is not a critique and does not grade success or failure, because no one, whatever their rank, holds all the facts. The textbook's own history of appraisal points the same way: “After Jack Welch retired, GE backed away from the practice as well. Companies, GE included, saw that it negatively fostered internal competition and undermined collaboration and teamwork and thus decided to drop forced ranking from their performance management processes.” The contradiction that matters is not about being kind. A review that scores people teaches them to hide the mistakes your system most needs to hear about. Keep pay and appraisal, but run learning reviews where they cannot touch either, and put that promise in writing.
+**Permission versus reporting.** The textbook change process builds a "guiding coalition" of influential people who act as ambassadors. *Warfighting* says subordinates "inform the commander of what they have done, but they do not wait for permission". It also says "The senior intervenes in a subordinate's execution only by exception". DOE's own change guidance says only "Consider a Steering Committee," calling it "a temporary organization established in an advisory capacity".
 
+My inference: a permanent steering committee that approves changes in advance has no counterpart in either source.
 
-## Where the sources split: speed against caution
+**Your dashboard filters out what you most need.** CAIB says that as information moves up a hierarchy, "weak signals drop from memos, problem identification systems, and formal presentations". It also says "the same conclusions, repeated over time, can result in problems eventually being deemed non-problems".
 
-Here the readings pull against each other, and the pull runs through your operating model. MCDP 1 turns blamelessness on its head: MCDP 1 calls overbold errors by junior leaders a necessary part of learning, to be handled leniently, with no demand for a flawless record. “On the other hand, we should deal severely with errors of in- action or timidity. We will not accept lack of orders as justifi-cation for inaction; it is each Marine's duty to take initiative as the situation demands.” MCDP 1 also holds that, as a basis for action, almost any decision beats none. The nuclear handbook sets the bias the other way: “The bias is set on proving work activities are safe before proceeding, rather than proving them unsafe before halting. Personnel do not proceed and do not allow others to proceed when safety is uncertain.” The Columbia board sides with the handbook: high-risk operations must be shown to be safe, not shown to be unsafe, and NASA had flipped that burden. The board resolves the tension by naming the ability to centralise when that fits and decentralise when that fits as the mark of a high-reliability organisation. Each camp is right about its own ground. Bold, fast and forgiving suits work you can undo: pricing tests, sales plays, product bets. Slow and proved-safe suits work you cannot undo: payroll, security, a regulated release, anything that can hurt someone. Most companies run one policy for both. List your irreversible decisions and treat only those the nuclear way.
+My inference: a target-versus-actual review is a roll-up of this kind. Recurring anomalies that never breach a threshold are the ones most likely to disappear.
 
+**Stretching a target adds risk nobody books.** CAIB says that pushing schedules beyond what engineers think reasonable adds risk in small increments until managers lose sight of the total. In its words, "Little by little, NASA was accepting more and more risk in order to stay on schedule". The Rogers Commission criticised NASA for requiring "a contractor to prove that it was not safe to launch, rather than proving it was safe".
 
-## Fix the root cause, or stop hunting for one
+My inference: the question for your forecast reviews is who has to prove what when someone says "we shouldn't commit to this."
 
-Your incident reports and board papers probably end in root causes and action lists. The nuclear handbook keeps the root cause but raises the bar: ““Inattention to detail” and “not following procedures” are not root causes even though these are still commonly cited as such in the DOE complex. A root cause is the cause that, if corrected, will prevent recurrence of the event.” The wildfire guide drops the idea altogether: “The old investigation paradigm has been that we prevent accidents by discovering their root cause, and then fixing the cause to prevent a repeat of the accident. This perspective is problematic in complex systems and highly subjective because they are always outcome dependent. There can always be room for improvement, but we must remember that an accident represents a single data point with a single outcome. FLAs must avoid causal statements.” The guide adds that recommendations often get in the way of learning, because once carried out they add complexity that can raise risk. The Columbia board, by contrast, ended in firm structural demands: The Columbia board concluded that authority over technical requirements and safety should sit with an independent technical authority. Both positions hold at different scales. After a single incident, an action list built on one data point mostly adds procedure. After a pattern, structural change is warranted, and the one worth weighing first is separating the people who own the schedule from the people who can say stop.
+**Fix the system, not the person.** DOE rejects the belief that removing "a few bad performers" fixes things. It says "people cannot perform better than the organization supporting them". It describes a just culture in which "people who make honest errors and mistakes are not blamed". The wildfire guide says that, for many in the fire community, "'accountability' had become synonymous with 'punitive actions'". Its learning reviews now carry an assurance of "no punitive actions".
 
+My inference: a review system that explains results mainly by individual effort sits badly with both sources. No source in this notebook directly critiques performance appraisal, though.
 
-## The steering committee and the change programme
+**Change programmes can succeed on paper.** The textbook opens change by trying to "establish a sense of urgency" and to "create a burning platform". CAIB found that after Challenger, "The fact that many changes had been made supported a belief in the safety of the system." It also found that dangerous aspects of the 1986 culture "remained unchanged". DOE describes its approach as "not so much a program as it is a distinct way of thinking". It notes that "most daily management activity involves some degree of change".
 
-A steering committee that signs off by consensus feels like control. The Columbia board saw the same design in NASA's launch reviews: “In fact, the Rogers Commission found that the Flight Readiness process only affirmed the pre-Challenger engineering risk assessments.'-' Equally troubling, the Board found that the Flight Readiness process, which is built on consensus verified by signatures of all responsible parties, in effect renders no one accountable.” The board adds that in strong safety cultures a leader meets unanimous agreement by arguing the other side and pushing for full debate, and that NASA's mission managers did not seek out dissent. Its warning on reorganisation lands on the change programme itself: “Changes in organizational structure should be made only with careful consideration of their effect on the system and their possible unintended consequences. Changes that make the organization more complex may create new ways that it can fail.48 When changes are put in place, the risk of error initially increases, as old ways of doing things compete with new.” The OpenStax text gives a rule of thumb: the more complex the change, the more employees need a hand in planning and carrying it out. Give each steering decision one named owner, ask the room to argue the opposite case before it signs, and count every structural change as a new risk until it has run for a while.
+My inference: counting delivered initiatives is the reassurance CAIB warns against. Small, routine reorganisations may deserve more care than they get.
+
+**A good track record is not proof of control.** DOE warns against relying on experience to maintain control. It says "Competence does not guarantee positive control".
+
+My inference: a clean record in performance reviews can reflect skill or simply luck so far.
+
+## 3. Where the traditions disagree with each other
+
+**Rules versus judgement.** DOE says people in highly reliable organisations "practice error-prevention rigorously, regardless of their perception of a task's risk and simplicity, how routine it is, and how competent the performer". *Warfighting* calls doctrine "authoritative" but "not prescriptive". It says method should be prescribed "only to the degree that is essential for coordination". CAIB holds both positions at once:
+
+- It says that in unprecedented conditions "flexibility and democratic process should take priority over bureaucratic response."
+- In the same passage it also calls for "new structuring, rules, and management training".
+- It contrasts the submarine programme's rigour with NASA's, saying "NASA requirements are clearly documented but are also more easily waived".
+
+My inference: the split seems to follow the kind of work. Procedure dominates in repeatable, hazardous operations, and judgement dominates in fluid, novel situations. Your company probably has both kinds of work under one review cadence.
+
+**Who can say no.** DOE ties its practices to "line management responsibility for safety". CAIB praises the Navy's "separate compliance verification organization." It faults the Shuttle Program for controlling both engineering and safety. *Warfighting* has seniors intervene only by exception.
+
+**The person or the network.** DOE puts its emphasis on the individual keeping control and resisting overconfidence. The wildfire guide describes moving away from "judging actions or decisions as right or wrong and people as good or bad." It moves toward understanding "a network of influences, or performance shaping factors".
+
+**Recommendations or none.** CAIB issues recommendations. The wildfire learning review develops lessons "without recommendations".
+
+My inference: your post-mortems currently end in owners and actions, which is CAIB's form. The wildfire tradition would argue that this format discourages candour.
+
+**Even the military isn't decentralised without limit.** *Warfighting* says "we cannot allow decentralized initiative without some means of providing unity, or focus, to the various efforts". It names a main effort: "This is how I will achieve a decision; everything else is secondary".
+
+My inference: a dozen KPIs of equal weight differ from this more than a cascade does.
+
+## 4. Where it matters for a 300-person company
+
+My inference, in priority order:
+
+1. **Let people abandon a target when its reason has changed.** Make them state the intent, and treat a missing intent as a leadership failure, not a junior one.
+2. **Build a channel for weak signals that bypasses the KPI roll-up.** DOE's suggestions to "Designate a devil's advocate" and call "timeouts" are cheap to adopt.
+3. **Price every stretch of a target in risk, and flip the burden of proof in go/no-go meetings.**
+4. **Separate blameless learning reviews from appraisal.** Distinguish honest error from wilful violation, not hits from misses.
+5. **Shrink the steering committee to a temporary advisory group, independent of the people it judges.** Judge it by changed behaviour, not by initiatives delivered.
+
+My inference: at 300 people, the long-standing, face-to-face relationships that *Warfighting* relies on are actually achievable. That makes decentralisation less risky for you than for a larger firm.
+
+One closing note for the sceptic: DOE lists ignoring operating experience from "other industries" as an at-risk practice.

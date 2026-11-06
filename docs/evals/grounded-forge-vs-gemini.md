@@ -1,10 +1,10 @@
 # grounded-forge against Gemini Notebook: what the evals show
 
-Between 31 October and 5 November 2026, seven eval rounds put the same questions to Gemini Notebook and to grounded-forge, over the same sources, and checked every citation or claim against the books. This page gathers what held across them, with each figure at the grain it was measured at. Each round's own README has the design, the per-answer tables and the caveats in full.
+Between 31 October and 6 November 2026, eight eval rounds put the same questions to Gemini Notebook and to grounded-forge, and one to Open Notebook, an open-source notebook tool, over the same sources, and checked every citation or claim against the books. This page gathers what held across them, with each figure at the grain it was measured at. Each round's own README has the design, the per-answer tables and the caveats in full.
 
 ## What was compared
 
-- **Gemini Notebook,** with the corpus's original files uploaded as sources, at default chat settings and, in one round, under a strict custom chat style.
+- **Gemini Notebook** on Google's Pro plan, with the corpus's original files uploaded as sources, at default chat settings and, in one round, under a strict custom chat style. Google doesn't say which model answers a Notebook chat; the Ultra plan and Gemini 4 Argon weren't tested in Notebook ([one unscored Argon run](rounds/2026-11-05-gemini-strict-style/#which-gemini) in the Gemini app cited whole files per section).
 - **grounded-forge in two forms.**
   - `answer-from-corpus` in project mode, reading the corpus's audited references and converted text.
   - [Verbatim mode](../architecture/verbatim-mode-proposal.md), where the model writes the argument, and code places each quotation from the converted source and gives every credited claim a pointer to its passage and printed page.
@@ -21,7 +21,8 @@ Between 31 October and 5 November 2026, seven eval rounds put the same questions
 | [Round 3b](rounds/2026-11-02-verbatim-case-citations/#round-3b-after-the-fixes) | the same cases, after three generator fixes | 7 (verbatim mode) | citation | Opus, then a Sol re-grade of all 7 |
 | [Per-sentence re-grade](rounds/2026-11-case-citations/) | the case-citations cases | Gemini's 13 cited answers | sentence, markers taken together | Sol and Opus |
 | [Strict chat style](rounds/2026-11-05-gemini-strict-style/) | the case-citations cases, both libraries | 10 (Gemini, strict style) | marker, then sentence | Sol and Opus |
-| [Pooled coverage](rounds/2026-11-05-pooled-coverage/) | the case-citations cases, both libraries | 57, every arm | idea, pooled across answers | Opus and Sol |
+| [Open Notebook](rounds/2026-11-06-open-notebook/) | the public case-citations cases | 4 (Open Notebook on Opus 5.5, strict style) | sentence, at book level | Opus and Sol |
+| [Pooled coverage](rounds/2026-11-05-pooled-coverage/) | the case-citations cases, both libraries | 61, every arm | idea, pooled across answers | Opus and Sol |
 
 Sol (`gpt-6.1-sol`) is from a different model family from Claude, and wrote none of the answers.
 
@@ -46,7 +47,9 @@ Sol (`gpt-6.1-sol`) is from a different model family from Claude, and wrote none
 - Round 1: 12 of Gemini's 23 claims were fully supported, against all 14 forge quotations and 10–11 of 12 other forge claims.
 - Round 2, question 2: as delivered, 38–42% of Gemini's quotations and attributed claims were supported under Opus and 47% under Sol, against the forge answer's 57–66% and 64%.
 
-**grounded-forge's answers carry more supported ideas.** The [pooled-coverage round](rounds/2026-11-05-pooled-coverage/) pooled every distinct idea across all 57 answers to the cases, with no list written in advance, and checked each against the library. In both families' pooling and on both libraries, `answer-from-corpus` and verbatim mode (after round 3b let the model size the answer) carried 12–18 more supported ideas per answer than Gemini's default chat answers: 50–54 against 38–39 in Sol's pooling, 33–40 against 21–24 in Opus's. `answer-from-corpus` also leads per word; verbatim mode's lead is partly length. Verbatim mode in round 3, with a fixed budget of placed passages, carried about as many as Gemini's chat answers. Gemini's Studio reports carry more ideas than its chat answers, at the lowest density of any arm.
+**On the same model, an open-source notebook comes close on citations.** [Open Notebook](rounds/2026-11-06-open-notebook/), running Claude Opus 5.5 with the strict style, carried 93% of its cited sentences in both families' grading, and 129 of its 134 quotations were exact. Its citations name a whole book, so it was graded at book level, the grain `answer-from-corpus` was graded at (95% Opus, 86% Sol). Most of Gemini's gap looks like the model and the instructions rather than the retrieval design. What separates grounded-forge from Open Notebook is the citation's grain (a passage on the printed page against a whole book), quotations exact by construction, and breadth (below).
+
+**grounded-forge's answers carry more supported ideas.** The [pooled-coverage round](rounds/2026-11-05-pooled-coverage/) pooled every distinct idea across all 61 answers to the cases, with no list written in advance, and checked each against the library. In both families' pooling and on both libraries, `answer-from-corpus` and verbatim mode (after round 3b let the model size the answer) carried 10–18 more supported ideas per answer than Gemini's default chat answers. On the public cases, at about the same length, `answer-from-corpus` carried 5–7 more than Open Notebook on the same model (36.8 against 32.0 in Opus's pooling, 46.5 against 39.5 in Sol's). `answer-from-corpus` also leads per word; verbatim mode's lead is partly length. Verbatim mode in round 3, with a fixed budget of placed passages, carried about as many as Gemini's chat answers. Gemini's Studio reports carry more ideas than its chat answers, at the lowest density of any arm.
 
 **Verbatim mode holds level with `answer-from-corpus` on citation support.** Its pre-registered lift was 5 points or more in three of five cells. Under the Claude scorers it lifted support in one (+8.7), and was within 5 points in the other four. Under Sol it would have met the lift. Its value is that every claim opens its passage and printed page in one click, which this rubric doesn't score.
 
@@ -67,6 +70,7 @@ How much effort a reader saves depends on how effort is counted.
 
 - **Claude is on both sides.** grounded-forge's answers are written by Claude, and Claude is the primary scorer. Sol re-graded the case-citations round, round 2 and round 3. It agreed with the Claude scorers on 96% of miss calls in the case-citations round, and on every one in rounds 3 and 3b. In round 2 it agreed on 85% of delivered calls, against 94% between the two Opus judges. Round 1 was judged by Opus only.
 - **Blinding was thin.** Judges guessed which kind of tool wrote an answer from its form, pointer blocks against citation popups.
+- **One Gemini plan.** Gemini Notebook ran on the Pro plan and grounded-forge on Claude Opus 5.5, Anthropic's top model. The comparison is between the products as an individual buys them, not between the two companies' best models.
 - **The numbers are small.** Three cases, four questions, one or two runs each, written with the corpora in view. Read this as a direction, not a rate.
 - **Coverage has no answer key.** The case-citations round's keys were written by Claude, which also wrote grounded-forge's answers, so coverage comes from the pooled round, where Opus and Sol each pooled the ideas and the ranking holds in both.
 - **Scale.** Gemini's share of markers carrying the claim as stated fell from 23–57% on the public notebook to 10–24% on the private one. Its miss rate didn't rise. The private corpus is reported as counts only.

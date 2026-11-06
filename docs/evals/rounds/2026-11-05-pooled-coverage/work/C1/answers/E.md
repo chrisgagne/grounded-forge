@@ -1,36 +1,98 @@
 # Answer E
 
-Question: I'm CTO at a 140-person logistics SaaS. Three product lines, one engineering group of about 60 in nine squads. Every sprint overflows: we plan around 40 points, ship 25, and carry the rest into the next one. Marketing wants a feature a week for the growth push and says quality is engineering's problem; engineering says the churn numbers come from bugs. My head of engineering has set a "stretch" target of 40% more throughput by Q1 and tied the squad leads' bonus to it. Most developers sit on two or three squads at once, because the CEO's rule is that nobody is idle. Last month a bad release took the customer portal down for four hours; the postmortem named the developer who merged it, and he's now on a performance plan. The CEO's answer to all of this is to buy AI coding tools so we can "do both".
+# Memo to the CEO
 
-I need a two-page memo for the CEO that says what's actually going on here, what to change first and why that first, and where the thinking you're drawing on disagrees with itself.
+**From:** CTO
+**Re:** Why we ship less than we plan, what to change first, and where the advice disagrees
 
-The demo corpus carries org design, flow, just culture, incident learning and motivation theory, but nothing measured on software delivery itself: no research linking work in progress, deploy practice or change failure rate to outcomes, no primary Theory of Constraints or Deming text on targets and merit pay, and no evidence on what AI coding tools do to throughput or defect rates. The memo's causal chain from overload to bugs to churn is therefore argued by analogy from safety and org-design sources, not shown from software data. Ingestion candidates that would let the corpus answer directly: Forsgren, Humble and Kim's Accelerate; Reinertsen's The Principles of Product Development Flow; and Google's Site Reliability Engineering book for its chapter on blameless postmortem culture.
+**How to read this memo.** Sentences with a bracketed citation report only what that passage says. Sentences that begin "My inference:" are my own reading and carry no citation. No source in this notebook covers four topics: whether our churn is caused by bugs, AI *coding* tools specifically (the AI material is about generative AI and automation in general), any measured cost of splitting people across squads, and blame-naming postmortems in software teams in particular.
 
-## The overflow is what a fully booked system produces
+---
 
-The sprint numbers are not a discipline problem. Planning 40 points and shipping 25 every sprint, with most developers split across two or three squads, is the normal output of a design whose goal is that everyone stays busy. The Org Topologies primer names that design by its aim: “Its purpose is to ensure that each unit is 100% utilized (i.e. resource utilization).” The no-idle rule is that aim written as policy. Its cost shows up as switching: “Reduce the Batch Size of your Efforts * Research in the way the mind works, and countless experiences from Lean, the Theory of Constraints and Kanban confirm that to deliver value faster, with better flow and good team morale we need to focus and limit the number of things we do. Multitasking does not work.” When nine squads share the same people, every squad waits on someone who is busy in another squad. The DOE handbook holds that an organisation gets exactly the performance from its people that it is set up to get. The 15 points carried over each sprint are that setup working as built.
+## 1. What is actually going on
 
+**We overload people, and work gets stuck.** The Open Practice Library describes how people "take on all new tasks that come in." When several of those tasks can resume at once, "the person gets overloaded, nobody knows how the progress is, and tasks get stuck in a progressed state where nobody else can help". It says that working on one task, then the next, means "the person stays responsive, flexible and the status stays visible". It also names "carried over stories" as a cause of "a loss of context".
 
-## Why the stretch target and the bonus make it worse
+My inference: Putting most developers on two or three squads is this overload pattern applied across the whole organisation. Our 15 points of carry-over each sprint add to the lost context.
 
-A 40% throughput target on a system already past capacity adds pressure without adding capacity. The Columbia board found that each time a programme cuts money or speeds up a schedule past what its engineers think reasonable, it adds a small amount of risk. The board then says where that ends: “Little by little, NASA was accepting more and more risk in order to stay on schedule.” The four-hour portal outage is the kind of bill that arrives. Tying the squad leads' bonus to points makes the next one likelier, because points are a count. “Perhaps the key caution about goal setting is that it often results in too much focus on quantified measures of performance. Qualitative aspects of a job or task may be neglected because they aren’t easily measured.” Quality is the part of the job a points target cannot see. The bonus is also individual while the work is shared: OpenStax warns that setting individual goals where the work is done by teams can backfire. With developers spread across squads, each lead's bonus pulls on the same people.
+**We plan past what we deliver.** The library lists "Velocity – How much has the team been able to produce recently" as a sprint-planning input. A Scrum guide in the notebook says planning should "Realistically forecast what Increment can be delivered in the upcoming Sprint".
 
+My inference: We ship about 62% of what we plan (25 of 40 points), so every sprint starts with a forecast that fails that test.
 
-## The outage was a system failure filed as one person's fault
+My inference: Even if we hit the full 40% stretch target, 25 points becomes 35, which is still below the 40 we plan. The target would not end the carry-over.
 
-Naming the developer who merged the release, then putting him on a performance plan, answers the wrong question. “Instead of asking how the individual failed the organization, the question “how did the organization fail the individual?”” A release that can take the portal down for four hours passed review, test, deploy and rollback steps that someone designed; the merge was the last step, not the cause. “Action singling out an individual is rarely appropriate - most patient safety issues have deeper causes and require wider action.” Getting this wrong has a price, and it is the next outage: The DOE handbook warns that events keep happening for as long as investigations stop at the person who made the error. This is not a case for no consequences. The NHS guide does keep a branch that ends in management action, which can include individual training, performance management or a change of role. The test is whether any of the other 59 developers, under the same load and the same review rules, could have merged the same change. If the answer is yes, the plan puts a system's design on one person's record, and every developer watching learns to hide the next near miss.
+**The bonus rewards the wrong number.** A management text says hard goals help, but "If goals are perceived as too difficult or impossible, however, they lose their motivating effectiveness." It also says goals fail "when managers assign them without making sure that workers have accepted or committed to the goals".
 
+An accounting text describes a manager whose decision "was based on his bonus being tied to his profitability and not linked to other factors such as dealership profitability or dealership reputation (customer satisfaction)". Our software-engineering source warns that "Performance need not be correlated with productivity".
 
-## AI coding tools are a quick fix aimed at the wrong constraint
+My inference: A squad-lead bonus paid on story-point throughput has the same structure as that manager's bonus. Story points are the teams' own estimates, so the bonus invites inflated estimates and cut corners rather than more delivered value.
 
-More code per developer does not touch the constraint, which is how much work is in flight and how much of it is safe to release. Tools that raise output on top of an overloaded, blame-prone system fit a known pattern: “However, the quick-fix to the symptoms may actually impede our ability to invest time and energy to the fundamental solution. This makes it even harder to apply a fundamental solution and even more tempting to rely on quick fixes.” Marketing's feature-a-week target has the same flaw, since it counts what ships, not what it does for churn. “However, more output does not mean more outcomes. In fact, more output usually means more cost or investment, which can lower profit (an outcome).” If churn comes from bugs, then faster code generation into the same pipeline feeds churn, and the quality argument between marketing and engineering gets louder, not settled.
+**Quality is being treated as one department's job.** A business text says "Successful businesses recognize that quality and productivity must go hand in hand." It also says quality control "requires a company-wide dedication". The software source notes that whether behaviour counts as "a fault, or a feature, can depend on the person doing the classification".
 
+My inference: "Quality is engineering's problem" is the position the business text argues against. Part of the marketing–engineering dispute may simply be that the two sides define "bug" differently.
 
-## What to change first: one squad per person, less work in flight
+**The outage review punished a person, not the process.** An incident handbook describes a newer view that "human error is not the cause of failure, but a symptom of failure—trouble deeper inside the system." It says investigations should "prevent recurrence, not simply to find people to punish". The library's blameless postmortem rests partly on "Psychological safety of all participants that promotes speaking up openly".
 
-Change one thing first. End multi-squad assignments so every developer belongs to one squad, and cut each squad's planned load to what it actually finishes, about 25 points, so work is finished before new work starts. “* Limiting how many things you do at any given time, means reducing the batch size of whatever you are doing at a particular stage of the value chain. By doing this you will deliver value faster because you are able to focus your efforts, one of the best explanations of this fact has been given by Donald G. Reinertsen. Keeping the team focused helps them finish what they start faster.” It goes first because the other problems feed on it: overload drives the quality failures, the quality failures drive churn and the fight with marketing, and fear of blame hides both. Changing it alone will not hold, though, which is why the bonus and the postmortem have to move with it. “If each element (e.g. policies, structures) is optimized in isolation, the performance of the whole system may actually decline for the desired goal (flow can get worse!).” So retire the throughput bonus in the same announcement, and rerun the outage review asking what let the release through rather than who merged it. Only you can take the first step, because the no-idle rule is yours. “Leaders create culture. It is their responsibility to change it. Top administrators must take responsibility for risk, failure, and safety by remaining alert to the effects their decisions have on the system.” Judge the change in one quarter by finished work and escaped defects, not by points; points will fall at first because the plan becomes honest.
+My inference: Naming the developer and putting him on a performance plan teaches everyone that surfacing risk is dangerous. It also leaves open how one merge could take the portal down for four hours.
 
+## 2. What to change first, and why that first
 
-## Where the thinking disagrees with itself
+**First change: stop over-committing the system.**
 
-Three of the recommendations above stand on contested ground. The first is stretch targets. OpenStax, on goal theory: “The second basic premise is that difficult goals result in better performance than easy goals. This does not mean that difficult goals are always achieved, but our performance will usually be better when we intend to achieve harder goals.” The same book then reports a finding that pulls the other way: OpenStax also reports self-determination research finding that as outside rewards rise, people's own motivation falls. Open Kanban adds: Hurtado ties respect for people to sustainable pace and holds that an exhausted team is a recipe for disaster. A cash bonus on points, paid to a team already overloaded, is the case where a hard goal stops helping. The second is whether to restructure. Open Kanban: “* Although Kanban starts where you are, and does not need to modify any titles or roles in an organization, Kanban cannot work without a team to deliver value.” The Org Topologies primer: “A single high-performing team can't deliver its full potential if surrounding structures and processes remain unchanged.” The first step works under either view, but if one squad per person will not hold, nine squads across three product lines is the next thing to redesign. The third is AI. The Org Topologies primer argues that AI is making expert knowledge plentiful, so a shortage of experts should stop limiting how teams are designed. The systems-thinking briefs describe the risk on the other side: The SSDL briefs describe fixes that work in the short run but create side effects that make the original problem worse. Both can be true here: the tools may widen what a squad can take on once work in flight is under control, and deepen the hole if they arrive first.
+My inference: This has three parts.
+- Give each developer one home squad.
+- Have each squad set a work-in-progress (WIP) limit.
+- Plan sprints to recent velocity, roughly 25 points, not 40.
+
+The library's method is to "determine the amount of in-progress work you want to be your maximum at any given time" and to "Review WIP Limit at the end of the sprint and adjust if needed".
+
+My inference: This comes first for three reasons.
+1. **It costs nothing and takes effect next sprint.**
+2. **It makes status visible.** Without that, we cannot judge any later change, including AI tools.
+3. **It is the change that addresses the overload the other symptoms sit on.**
+
+**Two moves that must happen in the same week:**
+
+My inference: First, suspend the link between squad-lead bonuses and the 40% target. A paid incentive to push more points would directly fight a plan to commit to fewer.
+
+My inference: Second, redo the portal postmortem as a blameless, system-focused review, and pause the developer's performance plan while it runs. Until we do, I would expect honest estimates and early warnings to be filtered.
+
+The library advises that key business stakeholders not attend the postmortem, "as their very presence can prevent others from speaking freely".
+
+My inference: You and I should read the draft afterwards rather than sit in the room.
+
+**Next: a shared quality measure with marketing.** The library describes a North Star metric as "connective tissue between the product and the broader business".
+
+My inference: Marketing's feature cadence and engineering's defect work should feed one shared customer-outcome number. Before that, both teams should agree on a single definition of "defect."
+
+**Then: AI tools.** The library cites a framework, attributed to George Westerman of MIT, that says generative AI automation makes sense when "(Cost of Using AI + Cost of Adaptation + Cost of Detecting and Fixing Errors) < Cost of Manual Process." It notes that generative AI "can produce hallucinations". The Org Topologies primer advises focusing on "that big bottleneck, over a generic 'adopt AI'".
+
+My inference: Our weakest point is the error-detection term in that formula: reviewers split across squads, and a release process that already lets outages through. More code, generated faster, into the current system would mostly produce more unchecked code. I would pilot AI tools in one squad, aimed at a named bottleneck, after the changes above.
+
+## 3. Where the thinking disagrees with itself
+
+**Hard goals versus realistic plans.** The management text says "People with difficult goals perform better than those with easy goals." It then adds the conditions on difficulty and acceptance quoted above. The Scrum guide asks for a "Realistically forecast" increment.
+
+My inference: The head of engineering can fairly cite the first half of the goal-setting claim. The real dispute is whether 40% is challenging or impossible, and whether the squads accept it.
+
+**Bonuses work, and backfire.** The business text says bonuses are "replacing the raise" as the way companies reward and motivate. It also reports that at Google, award sizes "created jealousy instead of fostering better teamwork". An organisational-behaviour text says rewards should be "as closely tied to actual job performance as possible".
+
+My inference: The sources argue for changing what the bonus measures, not necessarily for abolishing it.
+
+**Blameless review versus individual accountability.** Another handbook says "Managers and supervisors must provide specific feedback when at-risk behavior is observed" and that "Competence does not guarantee positive control". The library, by contrast, promotes "the safe culture of 'it's alright to fail'".
+
+My inference: One way to reconcile them is that honest error leads to a system fix, while knowingly skipping an existing safeguard leads to direct feedback. No retrieved passage states this distinction. The review should still ask whether a check was bypassed, but only after the system questions.
+
+**Busy people versus on-time delivery.** The software text says a company with fixed headcount "may seek to schedule work so that employees always have something productive to do." It says a company with a delivery date "may seek to schedule staff to optimise for delivery dates".
+
+My inference: "Nobody is idle" serves the first objective, and a feature a week assumes the second. We have to choose between them deliberately.
+
+**AI optimism versus error cost.** The Org Topologies primer says AI "Ensures consistent execution quality" and suggests "Spin up another 10,000 agents". Westerman's framework treats error correction as a standing cost. Accenture, as reported in an ethics text, says AI could "increase labor productivity by as much as 40 percent," and adds "When implemented holistically". The software text says that until effort across activities "is quantified, it is not possible to estimate developer productivity".
+
+My inference: Accenture's macroeconomic "40 percent" is not evidence that our nine squads can reach a 40% throughput gain by Q1. Even that optimistic claim depends on the organisation being changed as a whole.
+
+**Technical debt: sometimes necessary, sometimes fatal.** The library says debt "is not necessarily a bad thing." It also says the debt cycle can "become the death of a product or company".
+
+My inference: Some shortcuts for the growth push may be defensible, provided they are tracked and paid down.
+
+**Advice versus evidence.** My inference: The WIP-limit and blameless-postmortem passages I retrieved are practitioner reasoning with no measured data attached. We should run the first change as an experiment and track three numbers: planned-versus-shipped, carry-over, and incidents per release.

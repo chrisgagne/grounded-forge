@@ -1,6 +1,6 @@
 # Pooled-ideas brief
 
-This folder holds one question (`question.md`) and 12 answers to it (`answers/A.md` to `answers/L.md`), written by different tools and runs. You don't know which wrote which, and nothing turns on guessing. The answers were written from a library whose converted source texts are in the converted-sources folder named in `question.md`.
+This folder holds one question (`question.md`) and 14 answers to it (`answers/A.md` to `answers/N.md`), written by different tools and runs. You don't know which wrote which, and nothing turns on guessing. The answers were written from a library whose converted source texts are in the converted-sources folder named in `question.md`.
 
 Your job is to count coverage without an answer key: build the pool of distinct ideas that appear across all the answers, check each against the library, and record which answers carry each idea.
 

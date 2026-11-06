@@ -537,7 +537,8 @@ class Change:
                            started=res["started"], finished=res["finished"], duration_s=res["duration_s"],
                            prompt_sha256=sha256_file(prompt_file) if prompt_file and prompt_file.exists() else None,
                            output_sha256=res.get("output_sha256"), evidence=evidence,
-                           artefacts=self.hashes(*evidence), reason=res.get("error"))
+                           artefacts=self.hashes(*evidence), reason=res.get("error"), sandbox=res.get("sandbox"),
+                           confinement=res.get("confinement"))
 
     def last_run(self, stage: str) -> list[dict]:
         """Events of the latest run of a stage: everything after its last start event."""

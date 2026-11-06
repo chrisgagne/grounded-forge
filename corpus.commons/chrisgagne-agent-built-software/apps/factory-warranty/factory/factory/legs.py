@@ -28,13 +28,16 @@ import subprocess
 import time
 from pathlib import Path
 
-from factory import isolation
+from factory import isolation, proxy
 
 CODEX_RETRIES = 3
 CODEX_BACKOFF_S = 60
 CODEX_FALLBACKS = ["/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"]
 CLAUDE_AUTH = ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "CLAUDE_CODE_OAUTH_TOKEN")
 CODEX_AUTH = ("OPENAI_API_KEY",)
+# Hosts a confined Codex leg may reach through the proxy: ChatGPT sign-in (chatgpt.com), API-key sign-in
+# (api.openai.com) and token refresh (auth.openai.com).
+CODEX_DOMAINS = ("chatgpt.com", "api.openai.com", "auth.openai.com")
 READ_ONLY_TOOLS = "Read,Grep,Glob"
 WRITE_TOOLS = "Bash,Edit,Write,Read,Grep,Glob,NotebookEdit"  # no web, publishing, scheduling or messaging tools
 TAIL_CHARS = 2000
@@ -216,22 +219,71 @@ def run_claude(prompt: str, cwd: Path, log: Path, *, model: str, timeout_s: int,
     return res
 
 
+def codex_auth_file() -> Path:
+    return Path(os.environ.get("CODEX_HOME") or Path.home() / ".codex") / "auth.json"
+
+
+def codex_read_roots(binary: str) -> list[str]:
+    """What the Codex CLI reads to start: its app bundle (the outermost `.app` holding the binary, since the inner
+    CLI app loads resources beside it), else the folder the binary is in."""
+    real = Path(isolation.expand(binary))
+    apps = [p for p in real.parents if p.suffix == ".app"]
+    return [str(apps[-1] if apps else real.parent)]
+
+
+def codex_policy(binary: str, read, write, extra_read=()) -> isolation.Policy:
+    """The profile the Codex reviewer runs under: reads only `read`, its CLI and the system; writes only `write`;
+    network only to loopback (the proxy). Its sign-in file is the one secret it may read, and write, so a token
+    refresh lands where the operator's own Codex finds it."""
+    auth = isolation.expand(codex_auth_file())
+    return isolation.Policy(writable=[*(isolation.expand(p) for p in write), auth],
+                            readable=[*(isolation.expand(p) for p in read), *codex_read_roots(binary),
+                                      *(isolation.expand(p) for p in extra_read)],
+                            read_secrets=[auth], network=False, label="codex reviewer")
+
+
 def run_codex(prompt: str, cwd: Path, log: Path, out: Path, *, model: str | None, timeout_s: int,
-              sandbox: str = "read-only", output_schema: Path | None = None, effort: str | None = None) -> dict:
+              sandbox: str = "read-only", output_schema: Path | None = None, effort: str | None = None,
+              read=None, os_sandbox: bool = True, tmp_root: Path | None = None, extra_read=(),
+              domains=None) -> dict:
     """One `codex exec` leg; its final message is written to `out` and comes back as `result`. With `output_schema`
     (a JSON Schema file), Codex holds the final message to that shape. `effort` sets Codex's reasoning effort; left
-    out, the CLI's default applies (it reports "none")."""
+    out, the CLI's default applies (it reports "none").
+
+    With `read` (the folders the leg may read), the leg runs confined: under sandbox-exec with `codex_policy`, a
+    private Codex home holding only the sign-in, and its network through an `AllowlistProxy` to `domains` (default
+    `CODEX_DOMAINS`). macOS refuses a sandbox inside a sandbox, so Codex's own sandbox is switched off there
+    (`-s danger-full-access`) and the factory's profile is the boundary for Codex and every command it runs. If the
+    profile can't be applied, the leg doesn't run. `os_sandbox=False` (the operator's opt-out) runs Codex with its
+    own `-s sandbox` instead, reading the whole disk."""
     binary = codex_bin()
     if not binary:
         return {"ok": False, "family": "codex", "cmd": "codex exec", "error": "Codex CLI not found (set CODEX_BIN)",
                 "started": now(), "finished": now(), "duration_s": 0, "log_path": None}
-    cmd = [binary, "exec", *(["-m", model] if model else []), "-s", sandbox, "--skip-git-repo-check",
-           "--ephemeral", "--ignore-user-config", "-C", str(cwd), "-o", str(out),
+    confined = read is not None and os_sandbox
+    home = codex_home(out.parent.parent) if confined else None
+    policy = codex_policy(binary, [*read, out.parent, home], [out.parent, home], extra_read) if confined else None
+    if confined:
+        why = unconfined(policy, True)
+        if why:
+            return {"ok": False, "family": "codex", "cmd": "codex exec", "error": why, "sandbox": "unavailable",
+                    "started": now(), "finished": now(), "duration_s": 0, "log_path": None}
+    cmd = [binary, "exec", *(["-m", model] if model else []), "-s", "danger-full-access" if confined else sandbox,
+           "--skip-git-repo-check", "--ephemeral", "--ignore-user-config", "-C", str(cwd), "-o", str(out),
            *(["-c", f'model_reasoning_effort="{effort}"'] if effort else []),
            *(["--output-schema", str(output_schema)] if output_schema else []), prompt]
     env, _ = scrubbed_env(keep=CODEX_AUTH)
+    hosts = list(domains or CODEX_DOMAINS)
+    seen = {"allowed": set(), "denied": set()}
     for attempt in range(CODEX_RETRIES + 1):
-        res = _spawn(cmd, cwd, log, timeout_s, env)
+        if confined:
+            with isolation.Sandboxed(policy, True, tmp_root) as box, proxy.AllowlistProxy(hosts) as px:
+                run_env = {**env, **box.env(), **px.env(), "CODEX_HOME": str(home)}
+                res = _spawn(box.argv(cmd), cwd, log, timeout_s, run_env)
+            seen["allowed"] |= px.allowed
+            seen["denied"] |= px.denied
+        else:
+            res = _spawn(cmd, cwd, log, timeout_s, env)
         text = log.read_text(errors="replace")
         # A rate limit (HTTP 429) or a model at capacity is transient; retry with backoff. A usage limit ("try again
         # at ...") is not, and fails.
@@ -240,7 +292,11 @@ def run_codex(prompt: str, cwd: Path, log: Path, out: Path, *, model: str | None
             break
         time.sleep(CODEX_BACKOFF_S * (attempt + 1))
     res.update(family="codex", log_path=log, cmd=shlex.join("<prompt>" if c == prompt else c for c in cmd),
-               attempts=attempt + 1)
+               attempts=attempt + 1, sandbox="sandbox-exec" if confined else "off" if read is not None else "codex")
+    if confined:
+        res["confinement"] = {"read_roots": sorted(set(policy.readable)), "write": policy.writable,
+                              "proxy_hosts": hosts, "proxy_allowed": sorted(seen["allowed"]),
+                              "proxy_denied": sorted(seen["denied"])}
     tokens = re.search(r"tokens used\s*\n?\s*([\d,]+)", text, re.I)
     used = re.search(r"^model:\s*(\S+)", text, re.M)
     result = out.read_text() if out.exists() else ""
@@ -254,11 +310,12 @@ def run_codex(prompt: str, cwd: Path, log: Path, out: Path, *, model: str | None
 
 
 def codex_home(root: Path) -> Path:
-    """A Codex home holding only the sign-in, so `codex review` reads no personal config or instructions (it has no
-    --ignore-user-config). The sign-in is linked, never copied."""
+    """A Codex home holding only the sign-in, so Codex reads no personal config, instructions, history or memories
+    (`codex review` has no --ignore-user-config; a confined `codex exec` can't read ~/.codex). The sign-in is linked,
+    never copied."""
     home = root / "codex-home"
     home.mkdir(parents=True, exist_ok=True)
-    auth = Path(os.environ.get("CODEX_HOME") or Path.home() / ".codex") / "auth.json"
+    auth = codex_auth_file()
     if auth.exists() and not (home / "auth.json").exists():
         (home / "auth.json").symlink_to(auth)
     return home

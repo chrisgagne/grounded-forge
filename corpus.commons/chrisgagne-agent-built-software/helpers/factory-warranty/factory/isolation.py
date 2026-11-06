@@ -18,8 +18,11 @@ Both keep the git metadata, the change folder (ledger and evidence) and the
 factory's config out of reach. Every process also gets a minimal environment
 built from an allowlist, not the operator's environment minus a denylist.
 
-What this does not do: hide the rest of the disk from reads (only the secret
-paths are denied), stop local IPC beyond the keychain and Apple events, or
+The Codex reviewer runs under the same machinery with reads confined too
+(`Policy.readable`): its own folder, its CLI and the system (see `legs.run_codex`).
+
+What this does not do: hide the rest of the disk from gate commands' reads
+(only the secret paths are denied), stop local IPC beyond the keychain and Apple events, or
 work where `sandbox-exec` can't apply a profile (Linux; a process that is
 already sandboxed). There the factory refuses to run builder code unless the
 config turns OS isolation off, which the ledger and the pack record.
@@ -46,7 +49,12 @@ ENV_ALLOW = ("PATH", "HOME", "USER", "LOGNAME", "SHELL", "LANG", "LANGUAGE", "TE
              "GOROOT", "JAVA_HOME", "HOMEBREW_PREFIX", "HOMEBREW_CELLAR", "HOMEBREW_REPOSITORY", "SSL_CERT_FILE",
              "SSL_CERT_DIR", "NODE_EXTRA_CA_CERTS", "REQUESTS_CA_BUNDLE", "CLAUDE_BIN", "CODEX_BIN", "CODEX_HOME")
 ENV_PREFIX_ALLOW = ("LC_",)
-DEFAULTS = {"os_sandbox": True, "network": ["install", "adapter"], "allowed_domains": [], "allow_write": [], "env": []}
+# What a read-confined process may read besides its own roots: the root folder itself, the system, system-wide
+# libraries and config, and devices. Not /Users, /opt, /Applications or /Volumes.
+SYSTEM_READ = ("/usr", "/bin", "/sbin", "/System", "/Library", "/private/etc", "/private/var/db", "/dev")
+SYSTEM_READ_LITERAL = ("/", "/etc", "/var", "/tmp", "/private", "/private/var")
+DEFAULTS = {"os_sandbox": True, "network": ["install", "adapter"], "allowed_domains": [], "allow_write": [], "env": [],
+            "codex_read": [], "codex_domains": []}
 
 
 def expand(p: str | Path) -> str:
@@ -139,6 +147,8 @@ class Policy:
     deny_unlink: list[str] = field(default_factory=list)  # folders that may gain files but not be moved or removed
     network: bool = False                  # outbound network; localhost is always allowed
     label: str = ""
+    readable: list[str] | None = None      # when set, reads are confined to these, `writable` and SYSTEM_READ
+    read_secrets: list[str] = field(default_factory=list)  # secret paths this process needs (its own sign-in)
 
     def profile(self, tmp: str) -> str:
         q = lambda p: '"' + p.replace("\\", "\\\\").replace('"', '\\"') + '"'
@@ -151,7 +161,15 @@ class Policy:
             lines += rules("file-write*", [f"(literal {q(p)}) (subpath {q(p)})" for p in compress(self.deny_write)])
         if self.deny_unlink:  # so a locked file's folder can't be renamed away and replaced
             lines += rules("file-write-unlink", [f"(literal {q(p)})" for p in self.deny_unlink])
+        if self.readable is not None:
+            # Names and sizes stay visible (path resolution needs them); contents and folder listings don't.
+            roots = [*SYSTEM_READ, *self.readable, *self.writable, tmp]
+            lines += ["(deny file-read*)", "(allow file-read-metadata)",
+                      "(allow file-read* " + " ".join(f"(literal {q(p)})" for p in SYSTEM_READ_LITERAL) + " "
+                      + " ".join(f"(subpath {q(p)})" for p in roots) + ")"]
         lines.append("(deny file-read* " + " ".join(f"(subpath {q(p)})" for p in secret_paths()) + ")")
+        if self.read_secrets:
+            lines.append("(allow file-read* " + " ".join(f"(literal {q(p)})" for p in self.read_secrets) + ")")
         if not self.network:
             # Only loopback: bind and accept locally, connect to localhost. (A broader `(allow network* (local ip
             # "localhost:*"))` also lets outbound connections through, so each operation is named.)
@@ -204,15 +222,17 @@ class Sandboxed:
     def env(self) -> dict:
         return {"TMPDIR": self.tmp + "/", "TMP": self.tmp, "TEMP": self.tmp}
 
-    def argv(self, cmd: str) -> list[str]:
+    def argv(self, cmd: str | list[str]) -> list[str]:
+        """The confined argv for a shell command (a string, run by bash) or an argv list (run as is)."""
+        run = ["/bin/bash", "-c", cmd] if isinstance(cmd, str) else list(cmd)
         if self.policy is None or not self.enabled:
-            return ["/bin/bash", "-c", cmd]
+            return run
         # The profile goes in a file, not on the command line: a project with thousands of locked test files makes it
         # longer than the system's argument limit. The file sits outside every folder the command may write.
         fd, self.profile_file = tempfile.mkstemp(prefix="factory-profile-", suffix=".sb")
         with os.fdopen(fd, "w") as f:
             f.write(self.policy.profile(self.tmp))
-        return [SANDBOX_EXEC, "-f", self.profile_file, "/bin/bash", "-c", cmd]
+        return [SANDBOX_EXEC, "-f", self.profile_file, *run]
 
 
 def claude_sandbox(deny_write: list[str], allowed_domains: list[str], deny_read: list[str] = ()) -> dict:

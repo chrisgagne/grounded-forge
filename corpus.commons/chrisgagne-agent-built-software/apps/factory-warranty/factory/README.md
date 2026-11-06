@@ -70,6 +70,8 @@ isolation:
   allowed_domains: []     # domains a Claude leg's Bash may reach, e.g. [registry.npmjs.org]
   allow_write: []         # extra folders commands may write, e.g. [~/.npm]
   env: []                 # extra environment variable names to pass through
+  codex_read: []          # extra folders the Codex reviewer may read (a Codex CLI installed outside an .app)
+  codex_domains: []       # hosts the Codex reviewer may reach; default chatgpt.com, api.openai.com, auth.openai.com
 worktree_root: null       # default: ../.factory-worktrees/{repo name}/ (never inside the repo)
 ```
 
@@ -96,7 +98,7 @@ When a stage blocks, `.factory/changes/{id}/decisions-needed.md` says what block
 | 5 gate | locked tests (content, type, mode); your commands, sandboxed; gitleaks; osv-scanner; semgrep (your ruleset plus `factory/rules/semgrep/`); rollback; test/scanner config edits (`surface`); ratchets; required gates; code unchanged by the gate's own commands | any check fails |
 | 6 review | Claude and Codex review blind, read-only, each on its own sanitised export; a Claude leg sorts their findings | a reviewer's or the sort's output is invalid or incomplete, or a confirmed critical or high finding is open |
 | 7 warrant | code assembles `warranty.md` from the ledger | a stage isn't ready or isn't at the current commit, the worktree has uncommitted changes, or an artefact or log changed after the ledger recorded it |
-| 8 release | `deploy_preview` and `smoke`, sandboxed | no valid signature for the current commit |
+| 8 release | attaches an attestation of the signature to the signed commit (`refs/notes/factory`); `deploy_preview` and `smoke`, sandboxed | no valid signature for the current commit |
 
 ## The human step
 
@@ -123,9 +125,14 @@ Builder-controlled code runs in an OS sandbox; the guard is a first line, not th
 
 - **Claude legs** run with Claude Code's sandbox switched on through `--settings` (`failIfUnavailable`, no unsandboxed escape hatch, `strictAllowlist` network with `isolation.allowed_domains`, none by default). Bash and everything it starts can write the worktree and nothing that matters outside it: not git metadata, the change folder, the repo's `.factory/`, Claude settings or a locked test; and can't read the secret paths (`~/.ssh`, `~/.aws`, `~/.gnupg`, `~/.netrc`, `~/.claude/secrets`, keychains, `~/.npmrc`, `~/.kube`, `~/.config/gh` and others; see DESIGN.md).
 - **Gate commands, ratchet and rollback commands, release commands and builder-command adapters** run under `sandbox-exec` with the same limits, plus: a locked test can't be written, replaced or moved even to put it back, and there's no network unless the check is in `isolation.network` (by default `install` and adapters). When `sandbox-exec` can't apply a profile, the command doesn't run.
+- **The Codex reviewer** runs under `sandbox-exec` too, with reads confined to its own review folder, its CLI, the system folders and its sign-in file, and network only through a loopback proxy to its provider (`isolation.codex_domains`). macOS refuses a sandbox inside a sandbox, so Codex's own per-command sandbox is off there and the factory's profile is the boundary for every command Codex runs.
 - **Every leg and command** gets an environment built from an allowlist plus its own CLI's credential; `DATABASE_URL`, `KUBECONFIG` and the like never reach them.
 
-What it doesn't cover, plainly: reads of your files outside the secret paths; Claude Code's per-user temp folder (`/tmp/claude-UID`), which every Claude leg can write and which other Claude Code sessions use for scratch files; local IPC beyond the keychain and Apple events; anything a check granted network can send; and Linux (no `sandbox-exec`). `sandbox-exec` is deprecated by Apple, though it works on macOS 26.5. Claude Code 2.1.288 ignores the guard hook's `onFailure: "block"`, so the guard catches its own errors and exits 2.
+What it doesn't cover, plainly: reads of your files outside the secret paths by Claude legs and sandboxed commands; the Codex reviewer's commands sharing its sign-in file and its route to the provider; Claude Code's per-user temp folder (`/tmp/claude-UID`), which every Claude leg can write and which other Claude Code sessions use for scratch files; local IPC beyond the keychain and Apple events; anything a check granted network can send; and Linux (no `sandbox-exec`). `sandbox-exec` is deprecated by Apple, though it works on macOS 26.5. Claude Code 2.1.288 ignores the guard hook's `onFailure: "block"`, so the guard catches its own errors and exits 2.
+
+## The merge check
+
+The merge into your main happens outside the harness. `factory release` attaches the signature and the pack to the signed commit as a git note; push it with `git push origin refs/notes/factory`. Your repo's CI then runs `factory verify-merge --tree "$(git rev-parse HEAD^{tree})"` as a required check, which passes only when a valid signed pack names exactly the tree that would land. DESIGN.md has the GitHub Actions workflow and what the check doesn't stop (there's no signing key, so an attestation can be forged by someone with push rights who knows the format).
 
 ## The guard
 

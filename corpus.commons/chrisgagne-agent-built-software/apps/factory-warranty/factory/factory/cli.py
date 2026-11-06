@@ -9,6 +9,7 @@
   factory sign --change ID --by NAME      the accountable human, at a terminal
   factory return --change ID --reason ...
   factory status [--change ID]
+  factory verify-merge --tree SHA [--repo PATH]   the merge check for a target repo's CI
   factory calibrate [--grounding none|seeds|distillations] [--only NN-name]
   factory replay run|grade|report --cases FILE --out DIR [--repos DIR]   real-bug replay
 """
@@ -137,6 +138,18 @@ def cmd_status(args) -> int:
     return 0
 
 
+def cmd_verify_merge(args) -> int:
+    repo = Path(args.repo).resolve()
+    problem = release.verify_merge(repo, args.tree)
+    if problem:
+        print(f"merge refused: {inert(problem)}")
+        return 1
+    found, _ = release.find_signed(repo, args.tree)
+    print(f"ok: tree {args.tree} is the tree change {inert(found['change'])} signed "
+          f"(commit {found['commit'][:12]}, signed by {inert(found['by'])} at {inert(found['at'])})")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     signal.signal(signal.SIGTERM, lambda *_: sys.exit(143))  # so running legs are stopped too (legs._spawn)
     ap = argparse.ArgumentParser(prog="factory", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -175,6 +188,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--by", required=True)
     p = add("status", needs_change=False, help="show where a change stands")
     p.add_argument("--change")
+    p = add("verify-merge", needs_change=False,
+            help="pass only if a valid signed pack names this tree (run by the target repo's CI)")
+    p.add_argument("--tree", required=True, help="the merged tree: git rev-parse HEAD^{tree}")
     p = sub.add_parser("calibrate", help="run the seeded-defect fixtures and write a report")
     p.add_argument("--grounding", choices=["none", "seeds", "distillations"])
     p.add_argument("--only", help="run one fixture, e.g. 03-locked-test-edit")
@@ -235,6 +251,8 @@ def dispatch(args) -> int:
         return 0 if ok else 1
     if args.cmd == "status":
         return cmd_status(args)
+    if args.cmd == "verify-merge":
+        return cmd_verify_merge(args)
     if args.cmd == "calibrate":
         from factory import calibrate
         result = calibrate.run(Path(args.dir) if args.dir else None, args.grounding, args.only, not args.no_review)

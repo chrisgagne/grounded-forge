@@ -13,6 +13,10 @@ Gemini Notebook answers with Google's model; grounded-forge with Claude Opus 5.5
 - **Mode:** Ask, Open Notebook's retrieval mode, which searches the embedded chunks and answers with citations. Its Chat mode sends every source in full with each message (about 6 million tokens for this library) and wasn't used.
 - **Questions:** C1 and C2 from [`../2026-11-case-citations/cases.json`](../2026-11-case-citations/cases.json), twice each, with "Answer here in the chat." and the [strict style](../2026-11-05-gemini-strict-style/style.txt) pasted at the top ([`ask.py`](ask.py)). Answers in [`runs/`](runs/); `source-ids.json` maps Open Notebook's source IDs to slugs.
 
+## What a citation opens
+
+Open Notebook's [citations guide](https://github.com/lfnovo/open-notebook/blob/main/docs/3-USER-GUIDE/citations.md) says a citation "always points to a whole item" and that citations "don't carry page numbers, sections or highlighted passages"; to find the place, open the item and search it. In its web interface, asked C1 once more on 6 November, clicking the citation after a quotation from the Open Practice Library opened the whole 266-practice catalogue from the top ([`screens/`](screens/)).
+
 ## Scoring
 
 Open Notebook cites a whole source (`[source:…]`), not a passage, so each cited sentence was graded at book level: the scorer searched the cited books' converted text for the claim, the grain `answer-from-corpus` was graded at in the case-citations round. Opus 5.5 and Sol (`gpt-6.1-sol`), both at effort high, graded every cited sentence with [`brief.md`](brief.md); scores in [`work/`](work/), tally in [`tally.py`](tally.py). Quotations were located with the keyword-match round's `quotes_free.py`.

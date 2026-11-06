@@ -468,9 +468,8 @@ def _run(change, cfg: dict, lc: dict, work: Path) -> bool:
                           "is only the JSON array of findings it asks for.")
     story = change.dir / "story.md"
     story_text = story.read_text() if story.exists() else "(no description)"
-    # A Claude reviewer may not read the change folder or the other reviewers' folders. Codex's read-only sandbox can
-    # read the whole disk, including the change folder (the builder's summary) and the Claude reviewer's live
-    # transcript: a residual risk to its blindness, listed in DESIGN.
+    # A Claude reviewer may not read the change folder or the other reviewers' folders. The Codex reviewer reads only
+    # its own folder (legs.run_codex, under sandbox-exec) unless the operator turned OS isolation off.
     claude_settings = {n: settings_file(change, "review", f"reviewer-{n}",
                                         deny_read=[change.dir, *(work / o for o in folders if o != n)])
                        for n in names if n in ("claude", "claude-plain")}
@@ -490,7 +489,10 @@ def _run(change, cfg: dict, lc: dict, work: Path) -> bool:
         if name == "codex":
             return legs.run_codex(ask(packet), export, logs / logname[name], logs / "codex-final.md",
                                   model=cfg.get("codex_model"), timeout_s=timeout_s,
-                                  output_schema=logs / "findings-schema.json", effort=cfg.get("codex_effort"))
+                                  output_schema=logs / "findings-schema.json", effort=cfg.get("codex_effort"),
+                                  read=[work / name], os_sandbox=change.os_sandbox(), tmp_root=work / name,
+                                  extra_read=change.config["isolation"].get("codex_read") or (),
+                                  domains=change.config["isolation"].get("codex_domains"))
         if name == "claude-plain":
             prompt = brief("reviewer-plain.md", diff=packet / "diff.patch", story=story_text)
             change.path(f"review/packet-{name}/plain-brief.md").write_text(prompt)

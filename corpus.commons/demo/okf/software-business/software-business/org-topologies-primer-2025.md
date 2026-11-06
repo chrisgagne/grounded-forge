@@ -12,7 +12,7 @@ sources:
     resource: https://orgtopologies.com
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-11-04T14:27:34+13:00
+  at: 2026-11-06T15:08:29+13:00
 ---
 # Krivitsky, Larman & Flemm, Org Topologies Primer — Software-Business Distillation
 

@@ -12,7 +12,8 @@ What it checks, per file:
 
   - Every quoted span ("..." or curly “...”) in a segment that ends in a `[V]`
     marker. A segment is the sentence the `[V]` closes, back no further than
-    the previous evidence marker; a full stop that closes an abbreviation
+    the previous evidence marker (markers stacked on the claim, as in
+    `(Ch 4) [AE] [V]`, count as one); a full stop that closes an abbreviation
     ("U.S.", "e.g.", "p.m.") ends no sentence. When that sentence is only a
     citation (`"…the end." (Ch 1, p. 5) [V]`, "(¶12)", "(same section)"),
     the segment is the sentence before it, the one the citation cites. In a
@@ -230,6 +231,8 @@ CITATION_PAREN_RE = re.compile(
 INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
 # A `[V]` that introduces what follows: stacked markers and a citation, then a colon.
 LEAD_IN_RE = re.compile(r"(?:\s*\[(?:V|AP|AR|AE|BT)\])*\s*(?:\([^()]*\))?\s*:")
+# What may sit between stacked markers ("(Ch 4) [AE] [V]", "[AP], [V]").
+STACK_GAP_RE = re.compile(r"[\s,;/]*")
 LIST_ITEM_RE = re.compile(r"\s*(?:[-*+]|\d{1,3}[.)])\s")
 HEADING_RE = re.compile(r"(#{1,6})\s+(.*)")
 # The section where a file describes its own evidence markers.
@@ -904,7 +907,10 @@ def extract(text: str) -> Extracted:
                         ex.figures += 1
                     else:
                         ex.no_quote.append(lineno)
-            prev_end = m.end()
+            # Stacked markers ("(Ch 4) [AE] [V]") close one claim: the next
+            # one's segment starts where the stack does, not at this marker.
+            if not (n + 1 < len(markers) and STACK_GAP_RE.fullmatch(line[m.end() : markers[n + 1].start()])):
+                prev_end = m.end()
     return ex
 
 

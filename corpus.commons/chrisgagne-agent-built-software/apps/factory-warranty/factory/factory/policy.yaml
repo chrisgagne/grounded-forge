@@ -8,7 +8,9 @@ rules:
       A finding the review confirms as critical or high stops the change until it's fixed or you accept it.
     source: No standard sets a severity bar; this one is the factory's.
     set_by: Claude, in the factory's design (2026-10-11)
-    status: PROPOSED
+    status: confirmed
+    confirmed_by: Chris Gagné
+    confirmed_on: 2026-11-06
     values: {blocking: [critical, high]}
   - id: sort-cannot-clear-a-high
     rule: >-
@@ -16,14 +18,18 @@ rules:
       it stays a stop until you decide.
     source: NIST SP 800-218A, PW.1.1 C2 (no AI model in the critical path of a significant security decision without a human)
     set_by: Claude, from the source (2026-10-12)
-    status: PROPOSED
+    status: confirmed
+    confirmed_by: Chris Gagné
+    confirmed_on: 2026-11-06
   - id: medium-blocks-on-personal-data-or-one-way-steps
     rule: >-
       Where a change reaches personal data or a step that can't be undone (a delete, a drop), a confirmed medium
       finding stops it too.
     source: No standard sets it. The first two real changes' medium findings were data loss.
     set_by: Claude's recommendation; Chris Gagné asked for it to be added (2026-10-14)
-    status: PROPOSED
+    status: confirmed
+    confirmed_by: Chris Gagné
+    confirmed_on: 2026-11-06
     values: {lower_bar_classes: [personal-data, irreversible]}
   - id: second-person
     rule: >-
@@ -33,7 +39,9 @@ rules:
       OWASP ASVS 5.0 (automated tools can't fully verify access control or business logic); NIST SP 800-218A
       PW.1.1 C2 (human in the loop). Who counts as qualified is not in any source.
     set_by: Claude (2026-10-14)
-    status: PROPOSED
+    status: confirmed
+    confirmed_by: Chris Gagné
+    confirmed_on: 2026-11-06
     values: {classes: [personal-data, money, auth, irreversible, migration]}
   - id: scans-judge-added-lines
     rule: >-
@@ -41,7 +49,9 @@ rules:
       and their count may not rise.
     source: No standard sets it; a held-out clean change was blocked for warnings that were already there.
     set_by: Claude (2026-10-14)
-    status: PROPOSED
+    status: confirmed
+    confirmed_by: Chris Gagné
+    confirmed_on: 2026-11-06
   - id: pass-mark
     rule: >-
       On the real-bug replay, the factory should catch at least 80% of bug trials, catch at least 70% of bug cases

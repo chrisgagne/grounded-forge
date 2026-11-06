@@ -35,7 +35,12 @@ Each quote is looked for at a ladder of levels and reported at the first level
 that finds it:
 
   exact     Found once conversion noise is set aside on both sides: whitespace
-            collapsed, Markdown emphasis and link syntax dropped, Pandoc's
+            collapsed, Markdown emphasis and link syntax dropped (a link's
+            text may wrap onto a second line, its target carry a title), the
+            space a PDF converter sets beside an emphasis span dropped (inside
+            a quote mark, "“ _Done_ .”", or before a hyphen that joins the next
+            word, "_Capacity_ -adjusted"), an emphasis mark glued to the word
+            before it read as a space ("the_Scrum Team_"), Pandoc's
             Markdown read as its text (`[text]{.italic}` spans, `[]{#…}`
             anchors, endnote links with their attribute blocks, a note
             number linked to its note and glued to a word dropped, backslash
@@ -156,8 +161,14 @@ folio and blank lines is dropped only where it shows a page break: a form feed,
 a folio line, a header whose number at its start or end changes from page to
 page while a chapter or section number beside it stays ("87 Warfighting", "48 5
 • Criminal Liability", "8.1 • Entrepreneurial Marketing 267"), or a header whose
-folio runs with the page count. A recurring line whose numbers never change
-stays in the text. A quote is looked for with the furniture in place first, so
+folio runs with the page count. In a source paged with form feeds, a folio on a
+line of its own among those edge lines is dropped on the same evidence: its
+number runs with the page count. A recurring line whose numbers never change
+stays in the text. A page's footer or header set as a block of two lines or
+more between blank lines (a copyright line and a licence, an authors'
+contributions note) is furniture however long its lines and with no page break
+showing, when the whole block, digits read as one placeholder, recurs at least
+five times. A quote is looked for with the furniture in place first, so
 a quote of a header's own words still matches; one that matches only once the
 furniture is dropped has every other word in place.
 
@@ -268,7 +279,9 @@ PANDOC_SPAN_RE = re.compile(r"\[((?:\\.|[^\[\]\\\n])*)\](?:\([^)\s]*\))?\{[^{}\n
 PANDOC_SPAN_DEPTH = 4
 ESCAPE_RE = re.compile(r"\\([!-/:-@\[-`{-~])")
 BASE_STEPS = [
-    (re.compile(r"\[([^\]\n]*)\]\([^)\s]*\)"), 1),  # Markdown link → its text
+    # Markdown link → its text. The text may wrap onto a second line, and the
+    # target may carry a title ("[Taiichi\n  Ohno](https://… "Taiichi Ohno")").
+    (re.compile(r"\[((?:[^\]\n]|\n(?![ \t]*\n))*)\]\([^)\s]*(?:\s+\"[^\"\n]*\")?\)"), 1),
     # Pandoc's dashes: "---" an em dash, "--" an en dash, but not a
     # command-line option ("--all", a "--" at a word's start before a
     # letter) or an HTML comment's "<!--" and "-->".
@@ -282,6 +295,12 @@ BASE_STEPS = [
     (re.compile(chr(0x00AD) + r"\s*"), ""),  # a soft hyphen can still carry its line break
     (re.compile("[" + INVISIBLE + "]"), ""),
     (re.compile("[" + "".join(LIGATURES) + "]"), lambda m: LIGATURES[m.group(0)]),
+    # Space a PDF converter sets beside an emphasis span: inside a quote mark
+    # ("“ _Done_ .”"), before a hyphen that joins the next word ("_Capacity_
+    # -adjusted"). An opening delimiter glued to the word before it
+    # ("the_Scrum Team_", from a table cell) stands for a space.
+    (re.compile(r"(?<=“)[ \t]+(?=[*_])|(?<=[*_])[ \t]+(?=”)|(?<=[*_])[ \t]+(?=-[A-Za-z])"), ""),
+    (re.compile(r"(?<=[a-z])[*_]+(?=[A-Z])"), " "),
     (re.compile(r"[*_]+"), ""),  # emphasis
     (re.compile(r"<br\s*/?>", re.I), " "),  # line break inside a table cell
     # A double quote inside a quotation becomes single by the nesting
@@ -447,7 +466,8 @@ def _folio_headers(raw: str, lines: list[tuple[int, int, str, bool]]) -> set[int
     folio, in a source paged with form feeds (see the module docstring): among
     the last three lines before a page break or the first two after one, a
     line whose number at its start or end runs with the page count. However
-    long its title, and however rarely it recurs."""
+    long its title, and however rarely it recurs. A folio on a line of its own
+    counts too, on the same evidence."""
     breaks = [m.start() for m in re.finditer(r"\f+", raw)]
     if len(breaks) < FURNITURE_MIN_REPEATS:
         return set()
@@ -463,6 +483,9 @@ def _folio_headers(raw: str, lines: list[tuple[int, int, str, bool]]) -> set[int
         edge = (members[:2] if p > 0 else []) + (members[-3:] if p < len(breaks) else [])
         for n in dict.fromkeys(edge):
             t = re.sub(r"[*_]+", "", lines[n][2]).strip()
+            if FOLIO_LINE_RE.fullmatch(t):
+                candidates.append((n, int(t) - p))
+                continue
             if (not t or len(t) > FOLIO_HEADER_MAX_CHARS or t[0] in "#|" or re.search(r"[.,;:]$", t)
                     or len(re.findall(r"[A-Za-z]", t)) < 2):
                 continue
@@ -507,8 +530,9 @@ def furniture_spans(raw: str) -> list[tuple[int, int]]:
             last.add(nums[-1] if nums else "")
     headers = {k for k, n in counts.items() if n >= FURNITURE_MIN_REPEATS}
     folio_headers = _folio_headers(raw, lines)
+    blocks = _repeated_blocks(lines)
     if not headers and not folio_headers:
-        return []
+        return blocks
     # A header carrying the folio: a number at the start or the end that
     # changes from page to page ("87 Warfighting", "48 5 • Criminal
     # Liability", not "Table 3.2"). A chapter or section number beside it
@@ -533,8 +557,7 @@ def furniture_spans(raw: str) -> list[tuple[int, int]]:
                 return "near-header"
         return "text"
 
-    kinds_of = ["numbered" if n in folio_headers and kind(ln[2]) != "folio" else kind(ln[2])
-                for n, ln in enumerate(lines)]
+    kinds_of = ["numbered" if n in folio_headers else kind(ln[2]) for n, ln in enumerate(lines)]
     spans: list[tuple[int, int]] = []
     i = 0
     while i < len(lines):
@@ -553,7 +576,46 @@ def furniture_spans(raw: str) -> list[tuple[int, int]]:
             body = [ln for ln, k in run if k != "blank"]
             spans.append((body[0][0], body[-1][1]))
         i = j
-    return spans
+    return _merge(spans + blocks)
+
+
+def _repeated_blocks(lines: list[tuple[int, int, str, bool]]) -> list[tuple[int, int]]:
+    """Spans of a page's footer or header set as a block of two lines or more
+    (a copyright line and a licence, an author-contributions note): a block
+    between blank lines whose lines, with digits read as one placeholder,
+    recur together at least FURNITURE_MIN_REPEATS times. However long its
+    lines, and with no page break showing: a whole block recurring word for
+    word is the page's furniture, not the author's text."""
+    found: list[list[tuple[int, int, str, bool]]] = []
+    cur: list[tuple[int, int, str, bool]] = []
+    for ln in lines + [(0, 0, "", True)]:
+        if ln[2].strip() and not ln[3]:
+            cur.append(ln)
+            continue
+        if len(cur) >= 2:
+            found.append(cur)
+        cur = [ln] if ln[2].strip() else []
+    counts: dict[tuple[str, ...], int] = {}
+    keyed = []
+    for block in found:
+        texts = [b[2].strip() for b in block]
+        if any(t[0] in "#|>" or len(re.findall(r"[A-Za-z]", t)) < 2 for t in texts):
+            continue
+        k = tuple(_furniture_key(t) for t in texts)
+        counts[k] = counts.get(k, 0) + 1
+        keyed.append((k, block))
+    return [(b[0][0], b[-1][1]) for k, b in keyed if counts[k] >= FURNITURE_MIN_REPEATS]
+
+
+def _merge(spans: list[tuple[int, int]]) -> list[tuple[int, int]]:
+    """Sorted spans with overlaps joined."""
+    out: list[tuple[int, int]] = []
+    for a, b in sorted(spans):
+        if out and a <= out[-1][1]:
+            out[-1] = (out[-1][0], max(out[-1][1], b))
+        else:
+            out.append((a, b))
+    return out
 
 
 class Source:

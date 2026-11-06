@@ -42,7 +42,7 @@ This distillation gathers these threads into a working pattern: who's invited to
 
 12.  **Sprint Planning invites SMEs at the team's discretion.** "Invited: Stakeholders and other subject matter experts as selected by the team to support the *Scrum Team* as they see fit." [V] The behavioural constraint applies. ("Sprint Planning", "Participants")
 
-13.  **The Sprint Retrospective closes ranks.** "The entire *Scrum Team*. The *Product Owner* and *Scrum Master* should participate as peers to the *Development Team*. No other may attend unless specifically invited to do so by the entire *Scrum Team*." [V] A boundary that protects the team's psychological safety for difficult conversations. The summary table phrases it: "Others must not attend unless freely invited by all on the *Scrum Team*." [V] ("Sprint Retrospective", "Participants"; Scrum Events at a Glance)
+13.  **The Sprint Retrospective closes ranks.** "The entire *Scrum Team*. The *Product Owner* and *Scrum Master* should participate as peers to the *Development Team*." and "No other may attend unless specifically invited to do so by the entire *Scrum Team*." [V] A boundary that protects the team's psychological safety for difficult conversations. The summary table phrases it: "Others must not attend unless freely invited by all on the *Scrum Team*." [V] ("Sprint Retrospective", "Participants"; Scrum Events at a Glance)
 
 14.  **The Vegas Rule or Chatham House Rule for retrospective confidentiality.** Explicit choice between two named rules: the Vegas Rule (unanimous explicit consent before sharing anything) or the Chatham House Rule (information may be shared, identities may not). The rule creates the safe container that lets the team raise difficult issues. ("Sprint Retrospective", "Tips")
 

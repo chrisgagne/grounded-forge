@@ -2,7 +2,7 @@
   "ideas": [
     {
       "id": "I1",
-      "idea": "The delivery problems arise from organisational rules and system design rather than insufficient individual effort or motivation.",
+      "idea": "The delivery failures reflect the organisation’s policies and system design rather than insufficient developer effort or motivation.",
       "kind": "diagnosis",
       "answers": [
         "A",
@@ -16,39 +16,42 @@
         "I",
         "J",
         "K",
-        "L"
+        "L",
+        "M",
+        "N"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:328; org-topologies-primer-2025.md:1142",
-      "note": "General system-design diagnosis applied to the company."
+      "source": "doe-hpi-handbook-vol1.md:1711; org-topologies-primer-2025.md:1145",
+      "note": "The system produces the workforce performance it is designed to produce."
     },
     {
       "id": "I2",
-      "idea": "The nobody-idle rule implements a Resource Topology that optimises utilisation rather than end-to-end delivery.",
+      "idea": "The nobody-idle policy exemplifies a Resource Topology that optimises specialist utilisation rather than end-to-end customer delivery.",
       "kind": "diagnosis",
       "answers": [
         "A",
         "B",
         "C",
         "D",
-        "E",
         "F",
+        "G",
         "H",
         "I",
         "J",
         "K",
-        "L"
+        "L",
+        "N"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:747",
-      "note": "The topology explicitly aims at full resource utilisation."
+      "source": "org-topologies-primer-2025.md:750",
+      "note": "The primer defines this topology and its utilisation objective."
     },
     {
       "id": "I3",
-      "idea": "Assigning developers to several squads increases concurrent work and context switching, reducing focus and completion speed.",
-      "kind": "mechanism",
+      "idea": "Sharing developers across squads fragments attention, creates dependencies and waiting, and reduces effective delivery capacity.",
+      "kind": "diagnosis",
       "answers": [
         "A",
         "B",
@@ -61,120 +64,120 @@
         "I",
         "J",
         "K",
-        "L"
+        "L",
+        "M",
+        "N"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "open-kanban.md:115; open-practice-library.md:3783",
-      "note": "Direct application of the warning against multitasking."
+      "source": "open-kanban.md:116; open-practice-library.md:3788",
+      "note": "Direct application of the sources’ multitasking and overload mechanisms; no measured percentage is implied."
     },
     {
       "id": "I4",
-      "idea": "Shared developers create cross-squad waits because work stops while the needed person serves another squad.",
-      "kind": "mechanism",
-      "answers": [
-        "C",
-        "D",
-        "E",
-        "F",
-        "H",
-        "I",
-        "J",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:763; open-practice-library.md:3790",
-      "note": "Specialisation creates dependencies; blocked work accumulates."
-    },
-    {
-      "id": "I5",
-      "idea": "Interruptions and task switching increase cognitive sequencing errors as well as consuming attention.",
+      "idea": "Communication overhead can grow non-linearly with team size and reduce total team output.",
       "kind": "mechanism",
       "answers": [
         "A",
-        "I",
-        "J",
-        "L"
+        "H",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22330",
+      "note": "Jones models communication overhead and peak productive team size, rather than measuring these nine squads."
+    },
+    {
+      "id": "I5",
+      "idea": "Multi-squad communication overhead grows exponentially in this engineering group.",
+      "kind": "mechanism",
+      "answers": [
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22330",
+      "note": "Jones presents conditional team-size models, not an exponential law for cross-squad membership."
+    },
+    {
+      "id": "I6",
+      "idea": "Interruptions increase sequencing errors and impose cognitive recovery costs.",
+      "kind": "mechanism",
+      "answers": [
+        "K",
+        "N"
       ],
       "library": "supported",
       "unsupported_kind": "",
       "source": "jones-evidence-based-sweng.md:11959; jones-evidence-based-sweng.md:12592",
-      "note": "Laboratory studies support slower switching and more errors; no company-specific magnitude."
-    },
-    {
-      "id": "I6",
-      "idea": "Communication overhead grows nonlinearly with team interdependencies and can reduce total productive capacity.",
-      "kind": "mechanism",
-      "answers": [
-        "A",
-        "I",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:22335",
-      "note": "A model of communication overhead and peak team size supports the general point; exponential growth is not universal."
+      "note": "The interruption study directly measures sequencing errors; it does not quantify a software-team capacity loss."
     },
     {
       "id": "I7",
-      "idea": "Queueing delays grow exponentially or approach infinity as resource utilisation approaches 100%.",
+      "idea": "Time pressure, high workload, distraction and simultaneous tasks make operational errors more likely.",
       "kind": "mechanism",
       "answers": [
         "A",
+        "C",
+        "D",
+        "F",
         "G",
+        "H",
         "I",
         "J",
-        "L"
+        "K",
+        "N"
       ],
-      "library": "partly",
+      "library": "supported",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:3830; org-topologies-primer-2025.md:754",
-      "note": "The utilisation-versus-flow problem is covered, but searches found no exponential or infinite-delay law."
+      "source": "doe-hpi-handbook-vol1.md:4511",
+      "note": "The handbook explicitly lists these error precursors."
     },
     {
       "id": "I8",
-      "idea": "A system with 100% busy people necessarily has zero or near-zero flow efficiency.",
+      "idea": "Taking on additional tasks while blocked can leave several tasks active together, hiding progress and preventing colleagues from helping.",
       "kind": "mechanism",
       "answers": [
-        "A",
-        "J"
+        "E",
+        "J",
+        "K",
+        "M"
       ],
-      "library": "partly",
+      "library": "supported",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:3830",
-      "note": "Busy people can coexist with slow flow; the numerical zero-flow assertion is absent."
+      "source": "open-practice-library.md:3788",
+      "note": "The Limit Work in Progress practice describes this exact sequence."
     },
     {
       "id": "I9",
-      "idea": "Little’s Law relates cycle time to work in progress divided by throughput, so more WIP at unchanged throughput means longer cycle time.",
+      "idea": "Carried-over work and delays between planning and execution cause loss of context.",
       "kind": "mechanism",
       "answers": [
-        "A",
-        "B",
-        "I"
+        "E",
+        "M"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:21162",
-      "note": "The equation is explicit; it does not establish exponential growth."
+      "source": "open-practice-library.md:21986",
+      "note": "The source names carry-over and critical bug fixes as causes."
     },
     {
       "id": "I10",
-      "idea": "Increasing WIP at constant team capacity makes cycle time expand exponentially.",
+      "idea": "Unfinished work accumulates as a stock that changes subsequent behaviour and can perpetuate overflow.",
       "kind": "mechanism",
       "answers": [
-        "I"
+        "C",
+        "M"
       ],
-      "library": "partly",
+      "library": "supported",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:21162",
-      "note": "The cited relationship is linear at constant throughput; no exponential-capacity claim was found."
+      "source": "ssdl-systems-thinking-foundations.md:905; open-practice-library.md:21986",
+      "note": "Accumulation affects system responses; carry-over adds context loss."
     },
     {
       "id": "I11",
-      "idea": "Optimising individual components or worker utilisation in isolation can worsen the performance of the whole delivery system.",
-      "kind": "mechanism",
+      "idea": "Repeatedly planning above demonstrated delivery capacity is a forecasting failure that creates predictable carry-over.",
+      "kind": "diagnosis",
       "answers": [
         "A",
         "B",
@@ -183,795 +186,212 @@
         "E",
         "F",
         "G",
-        "H",
         "I",
         "J",
-        "K",
-        "L"
+        "L",
+        "M"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1142; open-practice-library.md:3820",
-      "note": "Both sources distinguish local busyness from overall flow."
+      "source": "approach-perfect-field-guide-scrum-events.md:399; scrum-guide-2020.md:441",
+      "note": "Forecasts must reflect past performance and current capacity."
     },
     {
       "id": "I12",
-      "idea": "Repeatedly planning above demonstrated capacity creates predictable sprint carryover rather than extra capacity.",
-      "kind": "diagnosis",
-      "answers": [
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "scrum-guide-2020.md:442; approach-perfect-field-guide-scrum-events.md:402",
-      "note": "Forecasts should use past performance and actual upcoming capacity."
-    },
-    {
-      "id": "I13",
-      "idea": "Unfinished work accumulates across sprints and that accumulated backlog increasingly drives system behaviour.",
-      "kind": "mechanism",
-      "answers": [
-        "C",
-        "D",
-        "H"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "ssdl-systems-thinking-foundations.md:901; open-practice-library.md:3790",
-      "note": "Accumulations affect behaviour beyond the current inflow."
-    },
-    {
-      "id": "I14",
-      "idea": "Forcing firm sprint commitments beyond empirical capacity encourages burnout, poor quality, lost trust and gaming.",
+      "idea": "Even a forty per cent improvement from twenty-five points would produce thirty-five points and still miss the forty-point plan.",
       "kind": "warning",
       "answers": [
-        "B",
-        "G",
-        "I"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "approach-perfect-field-guide-scrum-events.md:402",
-      "note": "The field guide names these consequences explicitly."
-    },
-    {
-      "id": "I15",
-      "idea": "Time pressure, high workload and simultaneous tasks make errors and quality failures more likely.",
-      "kind": "mechanism",
-      "answers": [
-        "A",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:4509; doe-hpi-handbook-vol1.md:3012",
-      "note": "These are explicit error precursors; applying them to software is permitted."
-    },
-    {
-      "id": "I16",
-      "idea": "A permanently overcommitted pace exhausts people and creates a reliability risk.",
-      "kind": "warning",
-      "answers": [
-        "C",
-        "D",
-        "E",
-        "F",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-kanban.md:89",
-      "note": "Sustainable pace and the danger of exhausted teams are explicit."
-    },
-    {
-      "id": "I17",
-      "idea": "The current utilisation-oriented structure conflicts with a strategy requiring fast feature delivery.",
-      "kind": "diagnosis",
-      "answers": [
-        "D",
-        "F",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1242",
-      "note": "The primer gives this precise strategy/design mismatch."
-    },
-    {
-      "id": "I18",
-      "idea": "The throughput bonus encourages story-point inflation or other metric manipulation instead of real gains in customer value.",
-      "kind": "mechanism",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "F",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:41870",
-      "note": "The source directly warns of developers moving control metrics in their own favour."
-    },
-    {
-      "id": "I19",
-      "idea": "Narrow quantitative throughput targets divert effort from testing, reviews, refactoring and other less visible quality work.",
-      "kind": "mechanism",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:10621; openstax-organizational-behavior.md:10995",
-      "note": "Quantity can displace less visible qualitative duties."
-    },
-    {
-      "id": "I20",
-      "idea": "Productivity-only bonuses and discipline for honest mistakes weaken organisational safety controls.",
-      "kind": "diagnosis",
-      "answers": [
-        "C",
-        "F",
-        "H"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:6399",
-      "note": "Both practices appear in the list of flawed cultural controls."
-    },
-    {
-      "id": "I21",
-      "idea": "Stretch targets add pressure without removing capacity constraints and can accumulate hidden operational risk.",
-      "kind": "mechanism",
-      "answers": [
-        "C",
-        "E",
-        "G"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "caib-report-vol1.md:15199; openstax-principles-management.md:21360",
-      "note": "Unreasonable schedule acceleration adds risk; performance still depends on constraints."
-    },
-    {
-      "id": "I22",
-      "idea": "Unattainable goals lose motivational force rather than reliably producing more effort.",
-      "kind": "warning",
-      "answers": [
-        "C",
-        "D",
-        "F"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-accounting-vol2.md:16458; openstax-principles-management.md:21320",
-      "note": "The accounting text explicitly warns against unattainable ideal standards."
-    },
-    {
-      "id": "I23",
-      "idea": "Individual goals and bonuses can undermine teamwork when several leads depend on the same shared developers.",
-      "kind": "mechanism",
-      "answers": [
-        "C",
-        "E",
-        "H"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:10623",
-      "note": "The source recommends group goals where employees depend on each other."
-    },
-    {
-      "id": "I24",
-      "idea": "Strong commitment to difficult goals can reduce helping and other organisational citizenship behaviours.",
-      "kind": "warning",
-      "answers": [
-        "D"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-principles-management.md:25324",
-      "note": "The source explicitly describes this negative relationship."
-    },
-    {
-      "id": "I25",
-      "idea": "Goal pressure can create easy-goal selection, unhealthy competition or sabotage.",
-      "kind": "warning",
-      "answers": [
-        "B",
-        "C"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:10614",
-      "note": "These unintended consequences are explicitly enumerated."
-    },
-    {
-      "id": "I26",
-      "idea": "Financial incentives motivate strongly only when trust is high, performance is measurable and good performance has few negative consequences.",
-      "kind": "mechanism",
-      "answers": [
-        "F"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:12540",
-      "note": "The source also requires substantial reward differences."
-    },
-    {
-      "id": "I27",
-      "idea": "More features or story points are outputs and do not necessarily improve customer or business outcomes.",
-      "kind": "diagnosis",
-      "answers": [
-        "A",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:618",
-      "note": "The source explicitly separates output from outcomes."
-    },
-    {
-      "id": "I28",
-      "idea": "An output-oriented organisation can produce feature bloat and greater costs without solving customers’ problems.",
-      "kind": "warning",
-      "answers": [
-        "C"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:618; org-topologies-primer-2025.md:810",
-      "note": "The delivery-topology discussion warns about output without valuable outcomes."
-    },
-    {
-      "id": "I29",
-      "idea": "Marketing’s feature demands and engineering’s quality needs compete for the same capacity without an explicit leadership decision on the trade-off.",
-      "kind": "diagnosis",
-      "answers": [
-        "C",
-        "E",
-        "F",
-        "H",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:8599; caib-report-vol1.md:20170",
-      "note": "Production and prevention compete; leadership sets the conditions."
-    },
-    {
-      "id": "I30",
-      "idea": "Production and schedule demands tend to prevail over prevention unless leadership sustains a strong safety culture.",
-      "kind": "mechanism",
-      "answers": [
-        "C",
-        "F",
-        "H"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:8697",
-      "note": "The handbook states this directly."
-    },
-    {
-      "id": "I31",
-      "idea": "Efficiency and thoroughness compete, so demanding more output under unchanged constraints tends to sacrifice safety or quality precautions.",
-      "kind": "tension",
-      "answers": [
-        "A",
-        "G",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "lfuo-learning-review-guide-2024.md:5104",
-      "note": "The ETTO definition explicitly describes the trade-off."
-    },
-    {
-      "id": "I32",
-      "idea": "Shortcuts create technical debt whose accumulating rework costs slow later development and reduce stability.",
-      "kind": "mechanism",
-      "answers": [
-        "A",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:22168; open-practice-library.md:22186",
-      "note": "Debt, interest, slower development and declining stability are explicit."
-    },
-    {
-      "id": "I33",
-      "idea": "Pressure to ship creates a reinforcing loop of shortcuts, defects, firefighting, reduced feature capacity and further pressure.",
-      "kind": "mechanism",
-      "answers": [
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:22186; ssdl-systems-thinking-foundations.md:1169",
-      "note": "The debt cycle and fixes-that-fail mechanism directly support the loop."
-    },
-    {
-      "id": "I34",
-      "idea": "Bugs and instability are established as the cause of this company’s customer churn.",
-      "kind": "diagnosis",
-      "answers": [
-        "A",
-        "C",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:22745; openstax-principles-marketing.md:20200",
-      "note": "Sources connect reliability and customer value, but do not establish this company’s churn cause; E phrases part of its chain conditionally."
-    },
-    {
-      "id": "I35",
-      "idea": "Customers may tolerate bugs when the software delivers enough value, so bugs alone do not establish why customers leave.",
-      "kind": "warning",
-      "answers": [
-        "D",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:22745",
-      "note": "The source explicitly discusses worthwhile benefit and the unresolved tolerance threshold."
-    },
-    {
-      "id": "I36",
-      "idea": "Investigate actual churn causes rather than choosing between marketing’s and engineering’s untested explanations.",
-      "kind": "recommendation",
-      "answers": [
-        "D",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:22755; scrum-guide-2020.md:409",
-      "note": "Release economics includes customer fault costs; empiricism supports testing the explanation."
-    },
-    {
-      "id": "I37",
-      "idea": "Compare churned accounts with their incident and support-ticket histories to test the bug-driven churn hypothesis.",
-      "kind": "recommendation",
-      "answers": [
-        "K"
+        "E"
       ],
       "library": "unsupported",
       "unsupported_kind": "inference",
       "source": "",
-      "note": "Reasonable empirical study design, but searches found no such churn-analysis method in the library."
+      "note": "Correct arithmetic from the question, rather than an idea supplied by a library source."
     },
     {
-      "id": "I38",
-      "idea": "Quality depends on leadership’s workload and organisational decisions, so it cannot be assigned solely to engineering.",
-      "kind": "diagnosis",
-      "answers": [
-        "C",
-        "F",
-        "J",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:8697; caib-report-vol1.md:20445",
-      "note": "Leaders create the conditions for reliability and failure."
-    },
-    {
-      "id": "I39",
-      "idea": "Human error is a symptom of deeper weaknesses in tools, tasks and the operating system rather than a sufficient root cause.",
-      "kind": "diagnosis",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:328",
-      "note": "The handbook explicitly states this view of human error."
-    },
-    {
-      "id": "I40",
-      "idea": "Stopping an investigation at the person closest to failure leaves latent weaknesses intact and creates a false belief that the problem is solved.",
-      "kind": "mechanism",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "caib-report-vol1.md:17585; doe-hpi-handbook-vol1.md:9866",
-      "note": "Both sources explicitly describe this investigative failure."
-    },
-    {
-      "id": "I41",
-      "idea": "Punishing honest errors suppresses near-miss and defect reporting, damages trust and prevents organisational learning.",
-      "kind": "mechanism",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "lfuo-learning-review-guide-2024.md:479; doe-hpi-handbook-vol1.md:10197",
-      "note": "The sources connect blame, fewer accounts and loss of reporting culture."
-    },
-    {
-      "id": "I42",
-      "idea": "The severity of an outage depends on failed or missing defensive controls, not simply the initiating developer error.",
-      "kind": "diagnosis",
-      "answers": [
-        "A",
-        "C",
-        "D",
-        "E",
-        "F",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:5839",
-      "note": "Layered controls determine severity; the company application follows directly."
-    },
-    {
-      "id": "I43",
-      "idea": "A just culture and psychological safety are prerequisites for trustworthy reporting and effective improvement.",
-      "kind": "mechanism",
-      "answers": [
-        "A",
-        "B",
-        "D",
-        "F",
-        "G",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:10197; open-practice-library.md:19815",
-      "note": "Reporting culture and trustworthy postmortems require safety."
-    },
-    {
-      "id": "I44",
-      "idea": "Before individual action, use a substitution test asking whether similarly qualified peers might act the same way in the same conditions.",
+      "id": "I13",
+      "idea": "Limit work in progress and finish existing work before starting more to improve flow and shorten cycle time.",
       "kind": "recommendation",
       "answers": [
         "A",
+        "B",
         "C",
-        "D",
         "E",
         "F",
         "G",
         "H",
-        "I",
         "J",
         "K",
-        "L"
+        "M",
+        "N"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "nhs-just-culture-guide.md:88; doe-hpi-handbook-vol1.md:10468",
-      "note": "The NHS and DOE texts provide the test."
+      "source": "open-practice-library.md:3782; open-practice-library.md:21162; open-kanban.md:116",
+      "note": "Includes the equivalent Little’s Law explanation and stop-starting/start-finishing advice."
     },
     {
-      "id": "I45",
-      "idea": "The available facts conclusively establish that any comparable engineer would have made the same merge error.",
-      "kind": "diagnosis",
-      "answers": [
-        "I"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "nhs-just-culture-guide.md:88",
-      "note": "The test is supported, but its unequivocal answer requires an investigation; other answers use qualified expectations."
-    },
-    {
-      "id": "I46",
-      "idea": "Use Reason’s culpability decision tree to distinguish honest system-induced errors from culpable conduct.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:10059",
-      "note": "The tree and its disciplinary-policy purpose are explicit; J misidentifies the volume."
-    },
-    {
-      "id": "I47",
-      "idea": "Over 80% of failures or system errors are latent organisational failures and fewer than 20% are active individual errors.",
-      "kind": "mechanism",
-      "answers": [
-        "J",
-        "L"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:1176",
-      "note": "The handbook instead gives about 80% human-error events, then about 70% of those linked to organisational weaknesses."
-    },
-    {
-      "id": "I48",
-      "idea": "Generic AI adoption is a symptomatic quick fix that can divert investment and attention from the underlying organisational problem.",
-      "kind": "diagnosis",
-      "answers": [
-        "A",
-        "C",
-        "D",
-        "E",
-        "F",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "ssdl-systems-thinking-foundations.md:1256; org-topologies-primer-2025.md:1451",
-      "note": "The quick-fix mechanism and warning against generic AI adoption support this application."
-    },
-    {
-      "id": "I49",
-      "idea": "AI adoption can become a fix that initially helps but later worsens the original problem through side effects.",
-      "kind": "warning",
-      "answers": [
-        "A",
-        "C",
-        "E",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "ssdl-systems-thinking-foundations.md:1169; org-topologies-primer-2025.md:293",
-      "note": "A direct application of the fixes-that-fail mechanism; no measured AI effect is implied here."
-    },
-    {
-      "id": "I50",
-      "idea": "Improving code-generation speed outside the actual bottleneck will not improve total throughput and can overload downstream stages.",
+      "id": "I14",
+      "idea": "Queue delays grow exponentially or approach infinity as human utilisation approaches one hundred per cent.",
       "kind": "mechanism",
       "answers": [
         "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
         "H",
-        "I",
-        "J",
         "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:8577",
-      "note": "TOC explicitly says non-bottleneck improvements can have no effect or add pressure downstream."
-    },
-    {
-      "id": "I51",
-      "idea": "Faster AI code generation into the current overloaded pipeline would increase unfinished work and review or testing queues.",
-      "kind": "warning",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:8581; org-topologies-primer-2025.md:1484",
-      "note": "Conditional application of upstream acceleration and new monitoring work."
-    },
-    {
-      "id": "I52",
-      "idea": "AI-generated code in this environment will increase production defect rates and portal outages.",
-      "kind": "warning",
-      "answers": [
-        "A",
-        "E",
-        "I",
-        "J",
-        "L"
+        "N"
       ],
       "library": "partly",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:8581; open-practice-library.md:11479",
-      "note": "Overload and AI errors are covered, but no source establishes the asserted defect/outage effect."
+      "source": "open-practice-library.md:3832; open-practice-library.md:21162",
+      "note": "The sources support overloaded slow flow and Little’s Law, but not this utilisation-dependent mathematical claim."
     },
     {
-      "id": "I53",
-      "idea": "Introducing AI will double the volume of unverified code entering the pipeline.",
+      "id": "I15",
+      "idea": "One hundred per cent busy people necessarily produce zero or near-zero flow efficiency.",
       "kind": "warning",
       "answers": [
-        "J"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:8581",
-      "note": "Downstream overload is supported; the doubling figure is absent."
-    },
-    {
-      "id": "I54",
-      "idea": "AI-generated work will increase false-positive defect rates.",
-      "kind": "warning",
-      "answers": [
-        "J"
-      ],
-      "library": "unsupported",
-      "unsupported_kind": "beyond",
-      "source": "",
-      "note": "Searches found no causal connection between AI code generation and false-positive defect rates."
-    },
-    {
-      "id": "I55",
-      "idea": "Review, testing, integration and fragmented attention are the delivery constraints rather than raw coding speed.",
-      "kind": "diagnosis",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:8604; open-practice-library.md:8418",
-      "note": "These are plausible constraints, but the sources require measuring or mapping the actual bottleneck."
-    },
-    {
-      "id": "I56",
-      "idea": "AI agents introduce monitoring responsibilities and processes that consume human capacity.",
-      "kind": "mechanism",
-      "answers": [
-        "C",
-        "D",
         "H",
         "K"
       ],
-      "library": "supported",
+      "library": "partly",
       "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1465; org-topologies-primer-2025.md:1484",
-      "note": "The primer explicitly predicts human monitoring work."
+      "source": "open-practice-library.md:3832",
+      "note": "Busy people can coexist with slow flow; the claimed zero-flow limit is not established."
     },
     {
-      "id": "I57",
-      "idea": "Evaluate AI’s net value after subtracting tool access, adaptation and error-detection and correction costs from the manual-process cost.",
+      "id": "I16",
+      "idea": "Optimise and measure work-item flow rather than individual employee utilisation.",
       "kind": "recommendation",
       "answers": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:3825",
+      "note": "Manage Flow explicitly rejects utilisation as the optimisation metric."
+    },
+    {
+      "id": "I17",
+      "idea": "Maintain spare capacity so teams can absorb reviews, tests, incidents and variability without stopping delivery.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "D",
+        "G",
+        "H",
+        "J",
+        "K",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:3846",
+      "note": "The source recommends enough free resources to handle exceptions constructively."
+    },
+    {
+      "id": "I18",
+      "idea": "Engineering should maintain specifically fifteen to twenty per cent operational slack.",
+      "kind": "recommendation",
+      "answers": [
+        "K"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:3846",
+      "note": "Free capacity is supported, but this percentage is not."
+    },
+    {
+      "id": "I19",
+      "idea": "Assign each developer to one dedicated squad and end routine multi-squad allocation.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-kanban.md:116; scrum-guide-2020.md:242",
+      "note": "Direct application of focused work and a cohesive team working towards one objective."
+    },
+    {
+      "id": "I20",
+      "idea": "Reduce the size and complexity of stories and epics, as well as the number being worked on.",
+      "kind": "recommendation",
+      "answers": [
+        "C",
+        "F",
+        "G",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-kanban.md:117",
+      "note": "Small work batches are distinct from assigning people to one squad."
+    },
+    {
+      "id": "I21",
+      "idea": "Form stable cross-functional teams with the skills and mandate to deliver customer value without cross-unit dependencies.",
+      "kind": "recommendation",
+      "answers": [
+        "B",
+        "H",
         "J"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:11466",
-      "note": "The cost equation and its three components are explicit."
+      "source": "org-topologies-primer-2025.md:800; scrum-guide-2020.md:242",
+      "note": "The Delivery Topology explicitly describes complete cross-functional teams."
     },
     {
-      "id": "I58",
-      "idea": "Generic vendor claims that AI coding assistants immediately improve output by 30–40% should be weighed against system constraints.",
-      "kind": "tension",
+      "id": "I22",
+      "idea": "Set squad work-in-progress limits to at most one or two active items per engineer.",
+      "kind": "recommendation",
       "answers": [
-        "I"
+        "K"
       ],
       "library": "partly",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:8581; open-practice-library.md:11491",
-      "note": "Constraint and hype cautions are supported; no such vendor productivity figure was found."
+      "source": "open-practice-library.md:3803",
+      "note": "The practice asks teams to determine their limit; it supplies no universal one-to-two threshold."
     },
     {
-      "id": "I59",
-      "idea": "End multi-squad assignments and give each developer one dedicated squad.",
+      "id": "I23",
+      "idea": "Cap active work across the engineering group at three epics.",
+      "kind": "recommendation",
+      "answers": [
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "open-kanban.md:119; open-practice-library.md:3803",
+      "note": "Reducing active epics is supported; three is an added threshold."
+    },
+    {
+      "id": "I24",
+      "idea": "Base sprint plans on recent completed work and current capacity, around twenty-five points in this case.",
       "kind": "recommendation",
       "answers": [
         "A",
@@ -981,120 +401,33 @@
         "E",
         "F",
         "G",
-        "H",
         "I",
         "J",
-        "K",
-        "L"
+        "L",
+        "M"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "open-kanban.md:116; scrum-guide-2020.md:240",
-      "note": "A direct application of focus, reduced multitasking and cohesive team design."
+      "source": "scrum-guide-2020.md:441; approach-perfect-field-guide-scrum-events.md:233",
+      "note": "The question supplies the twenty-five-point baseline."
     },
     {
-      "id": "I60",
-      "idea": "Limit work in progress and finish existing work before accepting new work.",
+      "id": "I25",
+      "idea": "Treat the Sprint Backlog as a good-faith forecast and focusing tool rather than a guaranteed scope contract.",
       "kind": "recommendation",
       "answers": [
         "A",
         "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:3783; open-kanban.md:117",
-      "note": "Explicit WIP limits and focus on finishing are supported."
-    },
-    {
-      "id": "I61",
-      "idea": "Use smaller, simpler stories and batches rather than large epics and large volumes of simultaneous work.",
-      "kind": "recommendation",
-      "answers": [
-        "C",
-        "E",
-        "F",
-        "G",
-        "J",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-kanban.md:119",
-      "note": "The source recommends reducing story complexity and quantity."
-    },
-    {
-      "id": "I62",
-      "idea": "Set sprint forecasts from demonstrated delivery capacity, approximately 25 points here, rather than the aspirational 40.",
-      "kind": "recommendation",
-      "answers": [
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "scrum-guide-2020.md:442; approach-perfect-field-guide-scrum-events.md:399",
-      "note": "Company numbers apply the historical-capacity principle."
-    },
-    {
-      "id": "I63",
-      "idea": "Use the last three sprints’ completed work as the planning baseline.",
-      "kind": "recommendation",
-      "answers": [
-        "F"
+        "J"
       ],
       "library": "supported",
       "unsupported_kind": "",
       "source": "approach-perfect-field-guide-scrum-events.md:399",
-      "note": "The guide recommends ideally three to four sprints of stable velocity data."
+      "note": "The source explicitly warns against firm commitments above historical performance."
     },
     {
-      "id": "I64",
-      "idea": "Treat sprint backlogs and velocity as empirical forecasts and focusing tools, not guaranteed performance contracts.",
-      "kind": "recommendation",
-      "answers": [
-        "B",
-        "I",
-        "J"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "approach-perfect-field-guide-scrum-events.md:402; approach-perfect-field-guide-scrum-events.md:903",
-      "note": "The forecasting role and warning against firm commitments are explicit."
-    },
-    {
-      "id": "I65",
-      "idea": "Build stable cross-functional squads aligned to product capabilities so teams can deliver end-to-end with fewer dependencies.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "B",
-        "G"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:801; scrum-guide-2020.md:244",
-      "note": "Complete cross-functional delivery units are explicit."
-    },
-    {
-      "id": "I66",
-      "idea": "Change staffing and WIP first because fragmented attention is the common bottleneck through which the other fixes must pass.",
+      "id": "I26",
+      "idea": "Use overload reduction and single-squad focus as the first intervention because other delivery symptoms depend on that constraint.",
       "kind": "priority",
       "answers": [
         "A",
@@ -1103,205 +436,214 @@
         "D",
         "E",
         "F",
+        "G",
         "H",
         "I",
+        "K",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-kanban.md:116; open-practice-library.md:8580",
+      "note": "Combines the documented multitasking problem with the instruction to focus on the constraining activity."
+    },
+    {
+      "id": "I27",
+      "idea": "Restore psychological safety and trustworthy reporting before reorganising the delivery system.",
+      "kind": "priority",
+      "answers": [
         "J",
         "L"
       ],
-      "library": "partly",
+      "library": "supported",
       "unsupported_kind": "",
-      "source": "open-kanban.md:116; open-practice-library.md:8600",
-      "note": "Focus and constraint-first improvement are supported, but declaring this the unique first bottleneck and all other fixes ineffective is stronger than the evidence."
+      "source": "doe-hpi-handbook-vol1.md:8756; open-practice-library.md:19812",
+      "note": "Reporting and psychological safety are prerequisites for learning from operational information."
     },
     {
-      "id": "I67",
-      "idea": "Leadership should change the no-idle rule first because organisational design is under its control and lower-level teams cannot change the policy.",
+      "id": "I28",
+      "idea": "Remove the target and its bonus link as a first step so that capacity and failure information becomes trustworthy.",
+      "kind": "priority",
+      "answers": [
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:41870; doe-hpi-handbook-vol1.md:6401",
+      "note": "Measurement pressure and productivity-only rewards distort the signals needed for change."
+    },
+    {
+      "id": "I29",
+      "idea": "Suspend the throughput incentive and reopen the incident review alongside the initial staffing and planning changes.",
       "kind": "priority",
       "answers": [
         "C",
         "D",
         "E",
         "F",
-        "H"
+        "G",
+        "I",
+        "M"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1294; caib-report-vol1.md:20445",
-      "note": "Internal design and leadership responsibility support the reason for priority."
+      "source": "org-topologies-primer-2025.md:1145; doe-hpi-handbook-vol1.md:6401; open-practice-library.md:19812",
+      "note": "Aligned system changes remove conflicting incentives and protect reporting."
     },
     {
-      "id": "I68",
-      "idea": "Start with single-squad allocation because it is cheap, reversible and can yield an interpretable experiment quickly.",
+      "id": "I30",
+      "idea": "The first staffing and planning changes can be made at no cost in the next sprint.",
+      "kind": "priority",
+      "answers": [
+        "C",
+        "E",
+        "M"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:1294",
+      "note": "Internal design is controllable; the assertion of no implementation cost is added."
+    },
+    {
+      "id": "I31",
+      "idea": "Leadership should change the no-idle rule because it owns the organisational conditions that produce delivery performance.",
       "kind": "priority",
       "answers": [
         "C",
         "D",
-        "F"
+        "F",
+        "G",
+        "I",
+        "L",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "caib-report-vol1.md:20445; org-topologies-primer-2025.md:1294",
+      "note": "Leadership responsibility and internal control support this application."
+    },
+    {
+      "id": "I32",
+      "idea": "No improvement to quality, incentives, incident practice or AI can work until single-squad allocation and WIP controls are in place.",
+      "kind": "priority",
+      "answers": [
+        "A",
+        "D",
+        "H",
+        "K",
+        "N"
       ],
       "library": "partly",
       "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1294; open-practice-library.md:3783",
-      "note": "The change is an internal policy intervention; zero cost and rapid reversibility are not established."
+      "source": "open-practice-library.md:8580; org-topologies-primer-2025.md:1145",
+      "note": "Constraint focus is supported; the categorical failure of every other intervention and strict ordering are not."
     },
     {
-      "id": "I69",
-      "idea": "Single-squad allocation should be judged within two or three sprints using carryover, escaped bugs and incidents.",
+      "id": "I33",
+      "idea": "Reduce overload first so progress is visible and later interventions can be assessed against an honest baseline.",
+      "kind": "priority",
+      "answers": [
+        "E",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:3795; open-practice-library.md:8603",
+      "note": "WIP control makes status visible and constraint work assumes process measurement."
+    },
+    {
+      "id": "I34",
+      "idea": "Within two or three sprints, carry-over, escaped bugs and incidents will reveal whether dedicated squads worked.",
       "kind": "recommendation",
       "answers": [
         "D"
       ],
       "library": "partly",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:3844; scrum-guide-2020.md:409",
-      "note": "Tracking work and empirical feedback are supported; the evaluation window and complete metric set are added."
+      "source": "open-practice-library.md:3808",
+      "note": "Reviewing and adjusting the experiment is supported; the diagnostic timeframe is added."
     },
     {
-      "id": "I70",
-      "idea": "Judge the staffing change after one quarter by completed work and escaped defects.",
-      "kind": "recommendation",
+      "id": "I35",
+      "idea": "Deduplicating squad assignments will recover twenty to thirty per cent of engineering capacity.",
+      "kind": "mechanism",
       "answers": [
-        "E"
+        "K"
       ],
       "library": "partly",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:21155",
-      "note": "Completed-work metrics are covered; the quarter and defect-based evaluation prescription are added."
+      "source": "jones-evidence-based-sweng.md:12592; open-kanban.md:116",
+      "note": "Neither the interruption study nor Kanban quantifies this capacity recovery."
     },
     {
-      "id": "I71",
-      "idea": "Reported points will initially fall because planning becomes more honest.",
+      "id": "I36",
+      "idea": "Context switching consumes twenty to forty per cent of developers’ working day.",
+      "kind": "diagnosis",
+      "answers": [
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:12592",
+      "note": "The source measures sequencing errors, not a twenty-to-forty-per-cent daily time loss."
+    },
+    {
+      "id": "I37",
+      "idea": "Delivered story points will initially fall when planning becomes honest.",
       "kind": "warning",
       "answers": [
-        "E"
+        "F"
       ],
       "library": "unsupported",
       "unsupported_kind": "inference",
       "source": "",
-      "note": "Plausible consequence of removing gaming, but no source predicts a necessary initial fall."
+      "note": "A plausible forecast about changed reporting, not a consequence demonstrated by a source."
     },
     {
-      "id": "I72",
-      "idea": "Single-squad focus will immediately recover 20–30% of engineering capacity.",
+      "id": "I38",
+      "idea": "Assess the operating-model change using completed work, carry-over and reliability results rather than inflated point counts.",
+      "kind": "recommendation",
+      "answers": [
+        "D",
+        "E",
+        "F",
+        "G",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:3846; open-practice-library.md:21148; open-practice-library.md:3808",
+      "note": "Flow metrics and iterative review support the measures; the company-specific selection is an application."
+    },
+    {
+      "id": "I39",
+      "idea": "Paying squad leads for story-point throughput encourages point inflation and metric gaming rather than increased customer value.",
       "kind": "mechanism",
       "answers": [
-        "J"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:11959; open-kanban.md:116",
-      "note": "Switching costs are supported; the recovery percentage and immediacy are absent."
-    },
-    {
-      "id": "I73",
-      "idea": "Developers currently lose 20–40% of each day to context switching.",
-      "kind": "diagnosis",
-      "answers": [
-        "L"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:11959",
-      "note": "Task-switching costs are covered, but the daily percentage is absent."
-    },
-    {
-      "id": "I74",
-      "idea": "Cap active work at one or two items per engineer.",
-      "kind": "recommendation",
-      "answers": [
-        "J"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:3803",
-      "note": "The source asks teams to choose their WIP maximum; it does not prescribe this range."
-    },
-    {
-      "id": "I75",
-      "idea": "Cap active epics at three across the engineering group.",
-      "kind": "recommendation",
-      "answers": [
-        "L"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:3803",
-      "note": "WIP limits are supported, but no source supplies this group-wide threshold."
-    },
-    {
-      "id": "I76",
-      "idea": "Preserve spare capacity to absorb reviews, testing, incidents and other variability instead of maximising everyone’s busyness.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "D",
-        "F",
-        "I",
-        "J"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:3848",
-      "note": "The source explicitly retains free resources to handle exceptions constructively."
-    },
-    {
-      "id": "I77",
-      "idea": "Maintain 15–20% operational slack for fast flow.",
-      "kind": "recommendation",
-      "answers": [
-        "J"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:3848",
-      "note": "Slack is supported; the percentage is not."
-    },
-    {
-      "id": "I78",
-      "idea": "Remove or suspend the 40% throughput target and its link to squad-lead bonuses.",
-      "kind": "recommendation",
-      "answers": [
         "A",
         "B",
         "C",
         "D",
         "E",
-        "F",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:6401; jones-evidence-based-sweng.md:41870",
-      "note": "Direct response to productivity-only rewards and control-metric gaming."
-    },
-    {
-      "id": "I79",
-      "idea": "Pause or rescind the release developer’s performance plan while investigating the wider system.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "B",
-        "D",
-        "F",
         "G",
         "H",
         "I",
-        "J",
         "K",
-        "L"
+        "L",
+        "M",
+        "N"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "nhs-just-culture-guide.md:11; nhs-just-culture-guide.md:29",
-      "note": "Individual action needs a fair investigation of wider causes; unconditional permanent immunity is not inferred."
+      "source": "jones-evidence-based-sweng.md:41870; open-practice-library.md:9211",
+      "note": "Goodhart’s observation directly supports this application to a controllable estimate."
     },
     {
-      "id": "I80",
-      "idea": "Reopen the portal outage as a blameless systemic learning review rather than a search for a culprit.",
-      "kind": "recommendation",
+      "id": "I40",
+      "idea": "Throughput demands and narrow quantitative rewards displace less visible quality precautions such as testing, reviews and refactoring.",
+      "kind": "mechanism",
       "answers": [
         "A",
         "B",
@@ -1314,595 +656,1373 @@
         "I",
         "J",
         "K",
-        "L"
+        "M",
+        "N"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:19780; doe-hpi-handbook-vol1.md:7552",
-      "note": "The sources prescribe context-sensitive, nonjudgemental incident learning."
+      "source": "openstax-principles-management.md:21379; lfuo-learning-review-guide-2024.md:5104; doe-hpi-handbook-vol1.md:6401",
+      "note": "Includes the equivalent efficiency–thoroughness trade-off explanation, rather than counting that mechanism twice."
     },
     {
-      "id": "I81",
-      "idea": "Ask how the organisation failed the developer and what could have prevented the incident.",
-      "kind": "recommendation",
+      "id": "I41",
+      "idea": "Goals viewed as impossible or imposed without acceptance lose their motivating effect.",
+      "kind": "warning",
       "answers": [
-        "B",
         "C",
         "D",
         "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:10185; doe-hpi-handbook-vol1.md:7552",
-      "note": "Both questions are explicit in the handbook."
-    },
-    {
-      "id": "I82",
-      "idea": "Repair the review, automated test, deployment and rollback defences exposed by the outage review.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "F",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:5850; open-practice-library.md:19841",
-      "note": "The sources recommend verifying controls and following through on technical remediation."
-    },
-    {
-      "id": "I83",
-      "idea": "Make automated quality checks and code-review approval mandatory gates that stop unsafe changes from progressing.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "J"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:20096; nist-ssdf-1-1.md:860",
-      "note": "Quality gates decide whether a product can proceed; security criteria can automate decisions."
-    },
-    {
-      "id": "I84",
-      "idea": "Prioritise restoring just culture before other operational changes because fear hides the information needed to improve.",
-      "kind": "priority",
-      "answers": [
-        "G",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:10197; open-practice-library.md:19815",
-      "note": "Reporting and trustworthy incident analysis explicitly depend on psychological safety."
-    },
-    {
-      "id": "I85",
-      "idea": "Withdraw target-linked pay and pause individual punishment together before reorganising so the baseline and feedback can be trusted.",
-      "kind": "priority",
-      "answers": [
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:41870; doe-hpi-handbook-vol1.md:10197",
-      "note": "Removing incentives to distort and suppress information directly supports this ordering rationale."
-    },
-    {
-      "id": "I86",
-      "idea": "Involve engineers in owning and redesigning the change rather than merely imposing it on them.",
-      "kind": "recommendation",
-      "answers": [
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:8",
-      "note": "The primer explicitly says people must own their change."
-    },
-    {
-      "id": "I87",
-      "idea": "Announce staffing changes alongside bonus removal and a renewed incident review because isolated changes will not hold.",
-      "kind": "priority",
-      "answers": [
-        "C",
-        "D",
-        "E"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1142",
-      "note": "Systemically reinforcing policies, rather than isolated optimisation, support the combined intervention."
-    },
-    {
-      "id": "I88",
-      "idea": "Replace utilisation or point-velocity targets with work-item flow measures such as lead time, cycle time and completed-work throughput.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "B",
-        "F",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:3820; open-practice-library.md:21155",
-      "note": "Work-item rather than people metrics and the named flow metrics are explicit."
-    },
-    {
-      "id": "I89",
-      "idea": "Track escaped defects alongside completed work so improved output cannot conceal worsening quality.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "D",
-        "E",
-        "F",
-        "H",
-        "J",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:10621; open-practice-library.md:21155",
-      "note": "Combining qualitative performance with output measurement follows directly; the particular defect measure is a company application."
-    },
-    {
-      "id": "I90",
-      "idea": "Track restoration time or change-failure rates to assess reliability rather than rewarding raw velocity.",
-      "kind": "recommendation",
-      "answers": [
-        "K",
-        "L"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:19820",
-      "note": "Incident timings and reliability improvement are covered, but the prescribed MTTR/change-failure metric regime is not."
-    },
-    {
-      "id": "I91",
-      "idea": "Use Unbroken Customer Flow Time as a replacement engineering performance metric.",
-      "kind": "recommendation",
-      "answers": [
-        "L"
-      ],
-      "library": "unsupported",
-      "unsupported_kind": "beyond",
-      "source": "",
-      "note": "No occurrence or definition of this named metric was found."
-    },
-    {
-      "id": "I92",
-      "idea": "Give product, marketing and engineering shared customer or business outcome goals instead of independent feature-volume targets.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "H",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:10623; org-topologies-primer-2025.md:618",
-      "note": "Shared interdependent goals and outcome orientation support the recommendation."
-    },
-    {
-      "id": "I93",
-      "idea": "Evaluate or reward leads on customer retention, satisfaction, reliability and aggregate business outcomes rather than story points.",
-      "kind": "recommendation",
-      "answers": [
-        "I",
-        "J"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:10623; org-topologies-primer-2025.md:618",
-      "note": "Group/outcome goals and goal-contingent reward principles support this application."
-    },
-    {
-      "id": "I94",
-      "idea": "Review completed work, carryover, customer defects and restoration time together without paying against those measures.",
-      "kind": "recommendation",
-      "answers": [
-        "K"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:41870; open-practice-library.md:21155",
-      "note": "The non-incentivised diagnostic use is supported; the exact four-measure package, including restoration time, is added."
-    },
-    {
-      "id": "I95",
-      "idea": "Put one respected Product Owner in charge of each product line’s backlog so stakeholder demands are reconciled in one place.",
-      "kind": "recommendation",
-      "answers": [
-        "F"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "scrum-guide-2020.md:309; scrum-guide-2020.md:300",
-      "note": "The Product Owner is one person representing stakeholders and the organisation must respect the decisions."
-    },
-    {
-      "id": "I96",
-      "idea": "Separate authority to hold an unsafe release from management of the growth schedule and budget.",
-      "kind": "recommendation",
-      "answers": [
-        "F"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "caib-report-vol1.md:19414",
-      "note": "Independent technical authority separate from schedule and funding is explicit."
-    },
-    {
-      "id": "I97",
-      "idea": "Use cost of delay divided by job size to prioritise smaller high-value work collaboratively across product, marketing and engineering.",
-      "kind": "recommendation",
-      "answers": [
         "G"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "open-practice-library.md:19408; open-practice-library.md:19425",
-      "note": "WSJF and its formula are explicit; collaborative use is a direct application."
+      "source": "openstax-principles-management.md:25282",
+      "note": "Difficulty helps only with acceptance and commitment; impossibility undermines motivation."
     },
     {
-      "id": "I98",
-      "idea": "Create an explicit governance agreement that reserves capacity for growth features, debt remediation and reliability work.",
-      "kind": "recommendation",
-      "answers": [
-        "J"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "letaw-handbook-sweng-methods.md:1047; open-practice-library.md:22182",
-      "note": "Explicitly balancing project constraints and managing debt in the backlog support the general agreement."
-    },
-    {
-      "id": "I99",
-      "idea": "Allocate sprint capacity as 70% growth features, 20% architecture and debt, and 10% infrastructure and reliability.",
-      "kind": "recommendation",
-      "answers": [
-        "J"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "letaw-handbook-sweng-methods.md:1047",
-      "note": "The priority matrix balances time, cost and scope; it supplies no 70/20/10 allocation."
-    },
-    {
-      "id": "I100",
-      "idea": "Offer marketing a predictable cadence of finished features instead of promising one feature every week.",
-      "kind": "recommendation",
-      "answers": [
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:21107; scrum-guide-2020.md:442",
-      "note": "Predictable delivery and empirical capacity support the revised promise."
-    },
-    {
-      "id": "I101",
-      "idea": "Include the release-safety work discovered by the outage review in the squad’s planned workload.",
-      "kind": "recommendation",
-      "answers": [
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:19841; scrum-guide-2020.md:442",
-      "note": "Remediation must be acted on and forecasts must account for real capacity."
-    },
-    {
-      "id": "I102",
-      "idea": "Defer broad AI rollout until flow and release defences have stabilised.",
-      "kind": "priority",
-      "answers": [
-        "A",
-        "C",
-        "D",
-        "E",
-        "F",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:8581; org-topologies-primer-2025.md:1451",
-      "note": "Constraint-first investment supports deferring non-bottleneck automation."
-    },
-    {
-      "id": "I103",
-      "idea": "Aim AI at a specifically identified bottleneck instead of adopting it generically.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "H",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1451",
-      "note": "The primer states this advice explicitly."
-    },
-    {
-      "id": "I104",
-      "idea": "Direct AI investment specifically towards test generation, review verification, static analysis and deployment checks.",
-      "kind": "recommendation",
-      "answers": [
-        "A",
-        "D",
-        "H",
-        "K",
-        "L"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1451; nist-ssdf-1-1.md:1575",
-      "note": "Targeted AI and automated checks are supported separately; AI effectiveness for this prescribed set is not established."
-    },
-    {
-      "id": "I105",
-      "idea": "Pilot AI on one constraint, budget for human review and compare the results before and after.",
-      "kind": "recommendation",
-      "answers": [
-        "D",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1451; org-topologies-primer-2025.md:1465; scrum-guide-2020.md:409",
-      "note": "Targeting, monitoring and empirical inspection support this application."
-    },
-    {
-      "id": "I106",
-      "idea": "Use AI to broaden teams’ skills and work mandates so they can eliminate external dependencies and deliver more end-to-end.",
-      "kind": "recommendation",
-      "answers": [
-        "A"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1446",
-      "note": "The primer explicitly associates AI with broader mandates and organisational elevation."
-    },
-    {
-      "id": "I107",
-      "idea": "AI can make scarce expertise more available and enable broader organisational capabilities.",
-      "kind": "mechanism",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "E",
-        "F",
-        "G",
-        "I",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1435",
-      "note": "The primer advances this proposition; support here records a source statement, not empirical verification."
-    },
-    {
-      "id": "I108",
-      "idea": "AI’s promise of expanding expertise conflicts with warnings that technical quick fixes and non-bottleneck capacity can worsen the system.",
-      "kind": "tension",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "I",
-        "J",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1435; ssdl-systems-thinking-foundations.md:1256; open-practice-library.md:8581",
-      "note": "Both positions are present; they can be reconciled by targeting the actual constraint."
-    },
-    {
-      "id": "I109",
-      "idea": "Difficult, specific and accepted goals can raise effort and performance, creating a tension with warnings about gaming and quality loss.",
-      "kind": "tension",
-      "answers": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:10992; jones-evidence-based-sweng.md:41870",
-      "note": "Goal-setting benefits are conditional, while control-metric gaming is a separate risk."
-    },
-    {
-      "id": "I110",
-      "idea": "Deming’s process-improvement approach warns that numerical goals narrow attention and create fear, in contrast to stretch-goal motivation.",
-      "kind": "tension",
-      "answers": [
-        "A"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-principles-management.md:25315; openstax-principles-management.md:25373",
-      "note": "The source explicitly contrasts TQM process orientation and goal setting."
-    },
-    {
-      "id": "I111",
-      "idea": "Stretch goals are appropriate for simple independent tasks but cause gaming in complex software engineering.",
-      "kind": "warning",
-      "answers": [
-        "A"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "openstax-principles-management.md:25315; jones-evidence-based-sweng.md:41870",
-      "note": "Narrowing and gaming risks are supported; this categorical task-complexity boundary is not."
-    },
-    {
-      "id": "I112",
-      "idea": "Money tied to goals may strengthen commitment while extrinsic rewards can also crowd out intrinsic motivation.",
-      "kind": "tension",
-      "answers": [
-        "B",
-        "C",
-        "E",
-        "F"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:10994; openstax-principles-management.md:20871",
-      "note": "Both motivational mechanisms are stated."
-    },
-    {
-      "id": "I113",
-      "idea": "Effective hard goals require acceptance, commitment, sufficient ability and the absence of blocking constraints.",
-      "kind": "mechanism",
-      "answers": [
-        "C",
-        "D",
-        "F"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-principles-management.md:21359",
-      "note": "The complete set of conditions is explicit."
-    },
-    {
-      "id": "I114",
-      "idea": "Let squads participate in setting achievable customer-outcome goals to increase ownership and commitment.",
-      "kind": "recommendation",
-      "answers": [
-        "D",
-        "F"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-principles-management.md:21339; open-practice-library.md:13602",
-      "note": "Participation and bottom-up, outcome-focused goal setting are explicit."
-    },
-    {
-      "id": "I115",
-      "idea": "The OKR case for stretch goals assumes collaborative, outcome-focused goal setting, which differs from imposed point targets tied to pay.",
-      "kind": "tension",
-      "answers": [
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:13570; open-practice-library.md:13602; jones-evidence-based-sweng.md:41870",
-      "note": "The underlying goal-setting conditions differ; the passages support that distinction."
-    },
-    {
-      "id": "I116",
-      "idea": "A goal-setting framework can produce a threefold productivity increase within twelve months.",
-      "kind": "mechanism",
-      "answers": [
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "open-practice-library.md:13600",
-      "note": "The source repeats an Align vendor claim; the answer identifies that provenance."
-    },
-    {
-      "id": "I117",
-      "idea": "Utilisation-oriented resource management conflicts with flow-oriented approaches that preserve focus and spare capacity.",
-      "kind": "tension",
-      "answers": [
-        "A",
-        "B",
-        "G",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:754; open-practice-library.md:3820",
-      "note": "The contrast exists in the library; it need not be attributed to all classical management."
-    },
-    {
-      "id": "I118",
-      "idea": "Classical accounting and Taylorist management require 100% labour utilisation and regard idle developer time as wasted payroll.",
-      "kind": "tension",
-      "answers": [
-        "A",
-        "G",
-        "I",
-        "J",
-        "L"
-      ],
-      "library": "partly",
-      "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:785; openstax-principles-management.md:3344",
-      "note": "The Resource Topology supports a utilisation aim, but the universal accounting/Taylorist doctrine and payroll assertions were not found."
-    },
-    {
-      "id": "I119",
-      "idea": "Resource Topology is suitable for some temporary specialist engagements, so utilisation is not inherently wrong in every setting.",
+      "id": "I42",
+      "idea": "Strong commitment to difficult goals can reduce helping colleagues and other organisational citizenship behaviours.",
       "kind": "warning",
       "answers": [
         "D"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:785",
-      "note": "The primer explicitly justifies the topology for temporary relationships."
+      "source": "openstax-principles-management.md:25325",
+      "note": "The chapter explicitly reports the decline in citizenship behaviour."
     },
     {
-      "id": "I120",
-      "idea": "Pure blameless models hold that all human error is entirely system-induced and discipline is always counterproductive.",
+      "id": "I43",
+      "idea": "Individual squad-lead goals can backfire when interdependent teams share the same developers.",
+      "kind": "warning",
+      "answers": [
+        "C",
+        "F",
+        "G",
+        "I"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-principles-management.md:21391",
+      "note": "The source recommends group goals when employees depend on one another."
+    },
+    {
+      "id": "I44",
+      "idea": "Pay motivates effectively only when trust, accurate performance measurement and credible reward contingencies are present.",
+      "kind": "mechanism",
+      "answers": [
+        "G"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-organizational-behavior.md:12540",
+      "note": "The text lists these conditions for effective pay motivation."
+    },
+    {
+      "id": "I45",
+      "idea": "Suspend or remove the link between squad-lead bonuses and raw point throughput.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "K",
+        "L",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:6401; jones-evidence-based-sweng.md:41870",
+      "note": "Direct response to productivity-only incentives and controllable proxy measurements; J does not propose removing the bonus."
+    },
+    {
+      "id": "I46",
+      "idea": "Use shared customer and service outcomes as performance goals rather than raw feature or point volume.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "D",
+        "H",
+        "I",
+        "K",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:616; openstax-organizational-behavior.md:12880",
+      "note": "Outcomes are the aim, and rewards should track actual performance."
+    },
+    {
+      "id": "I47",
+      "idea": "Continue using velocity for empirical forecasting rather than individual performance evaluation.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "B"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "approach-perfect-field-guide-scrum-events.md:233; jones-evidence-based-sweng.md:41870",
+      "note": "The field guide supports historical forecasting; the Scrum Guide itself does not mandate velocity."
+    },
+    {
+      "id": "I48",
+      "idea": "Use lead time, cycle time and completed customer-value work to assess delivery flow.",
+      "kind": "recommendation",
+      "answers": [
+        "G",
+        "H",
+        "K"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:21148",
+      "note": "The Kanban practice defines all three flow measures."
+    },
+    {
+      "id": "I49",
+      "idea": "Track reliability through escaped defects, change failures or recovery time alongside delivery volume.",
+      "kind": "recommendation",
+      "answers": [
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "K",
+        "L",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:1232; open-practice-library.md:2433; open-practice-library.md:9156; open-practice-library.md:19841",
+      "note": "The library links delivery-performance measures, monitoring and incident remediation; exact dashboard design is a local application."
+    },
+    {
+      "id": "I50",
+      "idea": "Use Unbroken Customer Flow Time as a replacement performance metric.",
+      "kind": "recommendation",
+      "answers": [
+        "N"
+      ],
+      "library": "unsupported",
+      "unsupported_kind": "beyond",
+      "source": "",
+      "note": "No library passage defines or recommends this named metric."
+    },
+    {
+      "id": "I51",
+      "idea": "Review the delivery and reliability dashboard jointly without paying bonuses against its measures.",
+      "kind": "recommendation",
+      "answers": [
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:41870; open-practice-library.md:3838",
+      "note": "Uses measurements for understanding work rather than financial control."
+    },
+    {
+      "id": "I52",
+      "idea": "Goal setting and financial incentives can improve performance but conflict with warnings about proxy gaming, neglected quality or damaged motivation.",
       "kind": "tension",
       "answers": [
-        "A"
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "K",
+        "L",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-principles-management.md:21304; openstax-principles-management.md:21379; openstax-organizational-behavior.md:10101",
+      "note": "Both sides of the incentives/goal-setting tension are present in the library."
+    },
+    {
+      "id": "I53",
+      "idea": "Let squads participate in setting challenging, accepted goals on customer outcomes.",
+      "kind": "recommendation",
+      "answers": [
+        "D",
+        "G",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-principles-management.md:21339; open-practice-library.md:13604",
+      "note": "Participation increases commitment; OKRs connect team goals to outcomes."
+    },
+    {
+      "id": "I54",
+      "idea": "Change what bonuses measure rather than assuming all bonuses should be abolished.",
+      "kind": "recommendation",
+      "answers": [
+        "E"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-organizational-behavior.md:12880",
+      "note": "The incentive guidance asks for performance-linked design, not universal abolition."
+    },
+    {
+      "id": "I55",
+      "idea": "Bonus schemes can motivate performance but can also create jealousy and undermine teamwork.",
+      "kind": "tension",
+      "answers": [
+        "E",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-introduction-business.md:27165; openstax-introduction-business.md:27181",
+      "note": "The Google award example and broader bonus discussion support both sides."
+    },
+    {
+      "id": "I56",
+      "idea": "A reported survey found success with seventy-three per cent of individual and seventy-five per cent of small-group incentive schemes.",
+      "kind": "mechanism",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-organizational-behavior.md:12837",
+      "note": "A historical survey result, not an estimate for this engineering group."
+    },
+    {
+      "id": "I57",
+      "idea": "Pro-incentive evidence from countable work may not transfer to self-estimated story points.",
+      "kind": "warning",
+      "answers": [
+        "M"
+      ],
+      "library": "unsupported",
+      "unsupported_kind": "inference",
+      "source": "",
+      "note": "A reasonable distinction, but the source does not delimit its evidence to countable work or compare it with story points."
+    },
+    {
+      "id": "I58",
+      "idea": "Goal setting can encourage easy targets, unhealthy competition and even sabotage.",
+      "kind": "warning",
+      "answers": [
+        "B",
+        "C"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-principles-management.md:21381",
+      "note": "These are explicit examples in the goal-theory cautions."
+    },
+    {
+      "id": "I59",
+      "idea": "Deming’s process-improvement emphasis conflicts with goal-setting theory’s focus on reaching numerical accomplishments.",
+      "kind": "tension",
+      "answers": [
+        "H"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-principles-management.md:25314",
+      "note": "The management text directly contrasts these approaches."
+    },
+    {
+      "id": "I60",
+      "idea": "Stretch goals work for simple independent tasks but systematically induce gaming in complex software work.",
+      "kind": "warning",
+      "answers": [
+        "H"
       ],
       "library": "partly",
       "unsupported_kind": "",
-      "source": "lfuo-learning-review-guide-2024.md:1083; lfuo-learning-review-guide-2024.md:3990",
-      "note": "Learning reviews protect participants, but the guide retains discipline elsewhere and excludes intentional harm; the absolute characterisation is not supported."
+      "source": "openstax-principles-management.md:25282; jones-evidence-based-sweng.md:41870",
+      "note": "The caveats and gaming risk are supported, but this universal simple-versus-complex boundary is not."
+    },
+    {
+      "id": "I61",
+      "idea": "OKR guidance claims a threefold productivity gain while measurement research warns about controlled metrics and weak productivity evidence.",
+      "kind": "tension",
+      "answers": [
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:13600; jones-evidence-based-sweng.md:41870",
+      "note": "The threefold figure is reported as a vendor claim in the library, not validated for this company."
+    },
+    {
+      "id": "I62",
+      "idea": "More shipped features or points do not necessarily produce better customer outcomes and may simply increase cost.",
+      "kind": "warning",
+      "answers": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "I",
+        "J",
+        "K",
+        "L",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:616",
+      "note": "The primer explicitly distinguishes outputs from outcomes."
+    },
+    {
+      "id": "I63",
+      "idea": "Marketing’s feature target and engineering’s quality work compete for shared capacity, so leadership must explicitly decide the trade-off.",
+      "kind": "diagnosis",
+      "answers": [
+        "C",
+        "G",
+        "I"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:8599; caib-report-vol1.md:20170",
+      "note": "Production and prevention compete; unaddressed goal conflict favours schedule pressure."
+    },
+    {
+      "id": "I64",
+      "idea": "Schedule acceleration adds small increments of risk that can accumulate unnoticed.",
+      "kind": "mechanism",
+      "answers": [
+        "C",
+        "F"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "caib-report-vol1.md:15198",
+      "note": "The board describes incremental risk acceptance under schedule pressure."
+    },
+    {
+      "id": "I65",
+      "idea": "Engineering shortcuts create technical debt whose interest slows future changes and can destabilise the product.",
+      "kind": "mechanism",
+      "answers": [
+        "A",
+        "H",
+        "K",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:22168",
+      "note": "The technical-debt practice explicitly describes rework, interest and slower, less stable systems."
+    },
+    {
+      "id": "I66",
+      "idea": "Defects and firefighting consume feature capacity, causing more delay and pressure for further shortcuts.",
+      "kind": "mechanism",
+      "answers": [
+        "K",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:22168; open-practice-library.md:22185; openstax-introduction-business.md:29705",
+      "note": "The debt cycle and poor-quality rework premises directly support the reinforcing loop."
+    },
+    {
+      "id": "I67",
+      "idea": "Engineering’s claim that bugs cause this company’s churn is established and the proposed changes will reduce it.",
+      "kind": "diagnosis",
+      "answers": [
+        "A",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "openstax-introduction-business.md:29705",
+      "note": "Poor quality can cause dissatisfaction and lost sales; no source establishes the cause of this company’s churn."
+    },
+    {
+      "id": "I68",
+      "idea": "Test whether bugs cause churn rather than accepting either department’s account without customer evidence.",
+      "kind": "recommendation",
+      "answers": [
+        "D",
+        "E",
+        "L",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22747; open-practice-library.md:20216",
+      "note": "The software text leaves fault tolerance open; cohort analysis supports testing the customer explanation."
+    },
+    {
+      "id": "I69",
+      "idea": "Compare churned accounts with their incident and support-ticket histories.",
+      "kind": "recommendation",
+      "answers": [
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:20216; open-practice-library.md:5024",
+      "note": "Customer segmentation and correlating complaints with operational events support this application."
+    },
+    {
+      "id": "I70",
+      "idea": "Customers may tolerate faulty software when its benefits outweigh the faults, so fault count alone does not determine retention.",
+      "kind": "warning",
+      "answers": [
+        "D",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22747",
+      "note": "The software text treats acceptable fault experiences as an economic and customer-value question."
+    },
+    {
+      "id": "I71",
+      "idea": "Poor quality often loses sales, yet software evidence can show only a small average rating difference for faultier dependencies.",
+      "kind": "tension",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-introduction-business.md:29709; jones-evidence-based-sweng.md:23426",
+      "note": "The Android study measures ratings, not this SaaS company’s churn."
+    },
+    {
+      "id": "I72",
+      "idea": "Quality and productivity require company-wide ownership rather than assignment to engineering alone.",
+      "kind": "recommendation",
+      "answers": [
+        "E",
+        "K",
+        "L",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-introduction-business.md:29705; openstax-introduction-business.md:29721",
+      "note": "Leadership conditions and company-wide dedication make quality a shared responsibility."
+    },
+    {
+      "id": "I73",
+      "idea": "Marketing and engineering may classify the same behaviour differently as a bug or a feature.",
+      "kind": "diagnosis",
+      "answers": [
+        "E"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22935",
+      "note": "The text explicitly identifies classifier-dependent fault definitions."
+    },
+    {
+      "id": "I74",
+      "idea": "Agree one shared definition of a defect before interpreting quality measures.",
+      "kind": "recommendation",
+      "answers": [
+        "E"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22935",
+      "note": "A direct response to the stated ambiguity in fault classification."
+    },
+    {
+      "id": "I75",
+      "idea": "Give Marketing, Product and Engineering one shared customer-outcome or North Star measure.",
+      "kind": "recommendation",
+      "answers": [
+        "E",
+        "H",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:13460; org-topologies-primer-2025.md:616",
+      "note": "The North Star connects product work to business outcomes and shared alignment."
+    },
+    {
+      "id": "I76",
+      "idea": "Assign one respected Product Owner per product line to arbitrate feature and defect priorities.",
+      "kind": "recommendation",
+      "answers": [
+        "G"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "scrum-guide-2020.md:299",
+      "note": "The Product Owner is one person and the organisation must respect their backlog decisions."
+    },
+    {
+      "id": "I77",
+      "idea": "Keep authority to stop unsafe releases separate from management of growth schedules and costs.",
+      "kind": "recommendation",
+      "answers": [
+        "G"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "caib-report-vol1.md:821; caib-report-vol1.md:18296",
+      "note": "The board explicitly separates technical authority from schedule and funding authority."
+    },
+    {
+      "id": "I78",
+      "idea": "Use Weighted Shortest Job First, dividing cost of delay by job size, to prioritise work jointly across departments.",
+      "kind": "recommendation",
+      "answers": [
+        "J"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:19408",
+      "note": "The practice gives the formula and prioritises smaller, cost-beneficial jobs."
+    },
+    {
+      "id": "I79",
+      "idea": "Reserve seventy per cent of capacity for features, twenty per cent for debt and ten per cent for reliability.",
+      "kind": "recommendation",
+      "answers": [
+        "K"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "letaw-handbook-sweng-methods.md:1047",
+      "note": "The priority matrix supports explicit trade-offs, not this percentage allocation or these categories."
+    },
+    {
+      "id": "I80",
+      "idea": "Some technical debt is a defensible short-term investment if it remains visible, tracked and managed.",
+      "kind": "tension",
+      "answers": [
+        "E"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:22180",
+      "note": "The practice explicitly recognises useful debt and the risk of an unmanaged debt cycle."
+    },
+    {
+      "id": "I81",
+      "idea": "Automated tests prevent a queue forming in front of manual testers.",
+      "kind": "mechanism",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:8418",
+      "note": "The test-automation practice makes this specific flow argument."
+    },
+    {
+      "id": "I82",
+      "idea": "Fixed deadlines can improve focus and quick problem solving can confer competitive advantage, despite the risks of permanent overload.",
+      "kind": "tension",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:20870; openstax-entrepreneurship.md:10141; open-kanban.md:85",
+      "note": "These passages support deadlines and speed, with sustainable-pace constraints."
+    },
+    {
+      "id": "I83",
+      "idea": "Manufacturing quality-control ideas may not transfer directly to software, whose finished bits can be copied perfectly.",
+      "kind": "tension",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22923; openstax-introduction-business.md:29715",
+      "note": "Jones distinguishes replication quality from software development; the business text credits Deming."
+    },
+    {
+      "id": "I84",
+      "idea": "Human error is a symptom of deeper organisational weaknesses, so stopping an investigation at the last person leaves the system failure unresolved.",
+      "kind": "diagnosis",
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:330; doe-hpi-handbook-vol1.md:9866; caib-report-vol1.md:19631",
+      "note": "Includes the false reassurance created by replacing or retraining the person closest to failure."
+    },
+    {
+      "id": "I85",
+      "idea": "The strength of controls around a human error determines the severity of its consequences.",
+      "kind": "mechanism",
+      "answers": [
+        "C",
+        "G"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:5840",
+      "note": "The handbook distinguishes error frequency from consequence severity."
+    },
+    {
+      "id": "I86",
+      "idea": "Ask why review, tests, release controls or rollback allowed a single merge to become a prolonged outage.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:7552; open-practice-library.md:19826",
+      "note": "Investigate what could have prevented or mitigated the event, including defences that failed."
+    },
+    {
+      "id": "I87",
+      "idea": "Fear of punishment suppresses near-miss reporting and trust, while psychological safety enables honest incident information and learning.",
+      "kind": "mechanism",
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:8756; lfuo-learning-review-guide-2024.md:1083; open-practice-library.md:19823",
+      "note": "The reporting and learning consequences are explicit."
+    },
+    {
+      "id": "I88",
+      "idea": "Introduce or reopen a blameless system-focused postmortem that reconstructs the incident and its contributing conditions.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:19780",
+      "note": "The practice describes this review purpose and approach."
+    },
+    {
+      "id": "I89",
+      "idea": "Pause the developer’s performance plan until a fair systemic investigation has been completed.",
+      "kind": "recommendation",
+      "answers": [
+        "D",
+        "E",
+        "G",
+        "I",
+        "L",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "nhs-just-culture-guide.md:12; nhs-just-culture-guide.md:30",
+      "note": "The guide requires fuller investigation and relevant tests before formal individual action."
+    },
+    {
+      "id": "I90",
+      "idea": "Rescind the developer’s performance plan outright on the basis that the incident was systemic.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "B",
+        "H",
+        "J",
+        "K",
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "nhs-just-culture-guide.md:7; nhs-just-culture-guide.md:100",
+      "note": "The guide opposes automatic targeting but does not establish this developer’s culpability or require unconditional withdrawal."
+    },
+    {
+      "id": "I91",
+      "idea": "Use the substitution test and a culpability decision tree before deciding whether individual action is justified.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "D",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:10031; nhs-just-culture-guide.md:89",
+      "note": "The tools ask whether comparable peers would have acted similarly under the same conditions."
+    },
+    {
+      "id": "I92",
+      "idea": "The substitution test is already certain or almost certain to exonerate this developer.",
+      "kind": "diagnosis",
+      "answers": [
+        "A",
+        "D",
+        "G",
+        "I",
+        "L"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "nhs-just-culture-guide.md:89",
+      "note": "The test is supported, but no investigation establishes how comparable peers would actually respond."
+    },
+    {
+      "id": "I93",
+      "idea": "Distinguish honest error from reckless or deliberate violations and retain proportionate individual accountability.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "K",
+        "L",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:9990; nhs-just-culture-guide.md:43",
+      "note": "Just culture explicitly preserves a route to individual action; context and workable safeguards matter."
+    },
+    {
+      "id": "I94",
+      "idea": "Keep incident learning and disciplinary or personal-accountability processes separate.",
+      "kind": "recommendation",
+      "answers": [
+        "C",
+        "D",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "lfuo-learning-review-guide-2024.md:1083",
+      "note": "The Forest Service guide explicitly requires a firewall."
+    },
+    {
+      "id": "I95",
+      "idea": "Just-culture frameworks differ in how they retain individual intervention, separate personal accountability or prohibit disciplinary use of learning-review evidence.",
+      "kind": "tension",
+      "answers": [
+        "C",
+        "D",
+        "E",
+        "G",
+        "I",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "nhs-just-culture-guide.md:100; caib-report-vol1.md:19635; lfuo-learning-review-guide-2024.md:1083",
+      "note": "Systemic learning and personal accountability are not identical across these frameworks."
+    },
+    {
+      "id": "I96",
+      "idea": "DOE’s root-cause approach conflicts with the Forest Service FLA’s rejection of causal statements in favour of context and networked conditions.",
+      "kind": "tension",
+      "answers": [
+        "C",
+        "D",
+        "G",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:7561; lfuo-learning-review-guide-2024.md:1794",
+      "note": "The sources explicitly take different positions on root-cause explanation."
+    },
+    {
+      "id": "I97",
+      "idea": "Incident recommendations can add workplace complexity and increase risk, so a long action list is not automatically an improvement.",
+      "kind": "warning",
+      "answers": [
+        "D",
+        "G",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "lfuo-learning-review-guide-2024.md:1809",
+      "note": "The guide explicitly warns about recommendation-induced risk."
+    },
+    {
+      "id": "I98",
+      "idea": "Write a shared incident account before selecting a short set of actions with named owners.",
+      "kind": "recommendation",
+      "answers": [
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:19794; lfuo-learning-review-guide-2024.md:1836",
+      "note": "The story comes before documentation; retained recommendations need responsibility and dates."
+    },
+    {
+      "id": "I99",
+      "idea": "Keep senior business stakeholders out of the postmortem meeting and involve them after engineers review the draft.",
+      "kind": "recommendation",
+      "answers": [
+        "E",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:19820",
+      "note": "The source gives both the exclusion and the later review point."
+    },
+    {
+      "id": "I100",
+      "idea": "Reconstruct what participants knew and why their actions made sense at the time, while using hindsight carefully to improve future choices.",
+      "kind": "recommendation",
+      "answers": [
+        "J",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:7566; open-practice-library.md:19826",
+      "note": "The sources caution against judging past decisions solely from known outcomes."
+    },
+    {
+      "id": "I101",
+      "idea": "Punishing this developer guarantees that similar outages will recur.",
+      "kind": "warning",
+      "answers": [
+        "A",
+        "K"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:9866",
+      "note": "The source warns about persistent risk if latent causes remain; it does not guarantee a particular future outage."
+    },
+    {
+      "id": "I102",
+      "idea": "Over eighty per cent of failures or errors are caused by latent organisational conditions rather than active individual mistakes.",
+      "kind": "mechanism",
+      "answers": [
+        "K",
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "doe-hpi-handbook-vol1.md:1177",
+      "note": "DOE says about 80% of events involve human error, then about 70% of those errors involve organisational weaknesses; it does not give the asserted >80% latent share."
+    },
+    {
+      "id": "I103",
+      "idea": "Pure blameless models assert that all human errors are entirely system-induced and individual discipline is always counterproductive.",
+      "kind": "tension",
+      "answers": [
+        "H"
+      ],
+      "library": "unsupported",
+      "unsupported_kind": "beyond",
+      "source": "",
+      "note": "The sources do not establish this universal doctrine; the learning-review firewall is narrower."
+    },
+    {
+      "id": "I104",
+      "idea": "Senior managers can miss most frontline problems, making safe employee feedback essential.",
+      "kind": "mechanism",
+      "answers": [
+        "K"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-principles-marketing.md:20131",
+      "note": "The text reports Yoshida’s 4% top-management and 100% employee awareness figures."
+    },
+    {
+      "id": "I105",
+      "idea": "Accountability can mean providing an honest account and holding the organisation responsible for learning and system improvements.",
+      "kind": "mechanism",
+      "answers": [
+        "B",
+        "C",
+        "J"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "lfuo-learning-review-guide-2024.md:460",
+      "note": "The Forest Service guide explicitly defines accountability this way."
+    },
+    {
+      "id": "I106",
+      "idea": "Improving a non-bottleneck can yield no total throughput benefit or worsen pressure on a downstream constraint.",
+      "kind": "mechanism",
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:8580",
+      "note": "This includes the conditional warning about generating code faster than review or release can absorb it."
+    },
+    {
+      "id": "I107",
+      "idea": "Apply the constraint cycle: identify the bottleneck, exploit existing capacity, subordinate other work, elevate it and repeat.",
+      "kind": "recommendation",
+      "answers": [
+        "B",
+        "C",
+        "J"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:8611",
+      "note": "The library lists the five stages and the need to find the next bottleneck."
+    },
+    {
+      "id": "I108",
+      "idea": "Map the value stream jointly to find the single largest constraint and establish shared facts across departments.",
+      "kind": "recommendation",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:6142; open-practice-library.md:6265",
+      "note": "The mapping practice supplies shared visibility, decision data and one constraint."
+    },
+    {
+      "id": "I109",
+      "idea": "Check how often each process step receives usable work without clarification or rework.",
+      "kind": "recommendation",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:6250",
+      "note": "The value-stream mapping quality measure tests hand-off completeness."
+    },
+    {
+      "id": "I110",
+      "idea": "Capping WIP before mapping the constraint departs from the source’s identify-first order but is justified here as a reversible response to visible overload.",
+      "kind": "tension",
+      "answers": [
+        "M"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:8611; open-practice-library.md:6265",
+      "note": "The identify-first sequence is documented; the local justification for reversing it is the answer’s judgement."
+    },
+    {
+      "id": "I111",
+      "idea": "Buying tools as a quick fix can divert attention and investment from the underlying organisational solution.",
+      "kind": "warning",
+      "answers": [
+        "C",
+        "D",
+        "F",
+        "G",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "ssdl-systems-thinking-foundations.md:1256",
+      "note": "The shifting-the-burden mechanism directly supports this application."
+    },
+    {
+      "id": "I112",
+      "idea": "A short-term output fix can create delayed side effects that worsen the original delivery problem.",
+      "kind": "warning",
+      "answers": [
+        "A",
+        "C",
+        "F",
+        "H",
+        "K",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "ssdl-systems-thinking-foundations.md:1163",
+      "note": "Fixes that fail is distinct from diversion of investment in a fundamental solution."
+    },
+    {
+      "id": "I113",
+      "idea": "Code writing is definitively not the company’s bottleneck; review, testing, fragmented attention or release safety are.",
+      "kind": "diagnosis",
+      "answers": [
+        "A",
+        "B",
+        "D",
+        "F",
+        "H",
+        "I",
+        "J",
+        "K",
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:8592; open-kanban.md:116",
+      "note": "The sources support plausible constraints and focus costs but require investigation to establish this company’s actual bottleneck."
+    },
+    {
+      "id": "I114",
+      "idea": "AI-generated code introduced into this system will increase defects and outages.",
+      "kind": "warning",
+      "answers": [
+        "A",
+        "H",
+        "K",
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:8580; open-practice-library.md:11481",
+      "note": "Downstream overload and AI error costs are supported; a definite increase in defects or outages is not demonstrated."
+    },
+    {
+      "id": "I115",
+      "idea": "AI adoption will double the volume of unverified code entering the pipeline.",
+      "kind": "warning",
+      "answers": [
+        "K"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:8580",
+      "note": "More upstream output can overload a constraint, but no source supplies a doubling estimate."
+    },
+    {
+      "id": "I116",
+      "idea": "Vendors promise immediate thirty to forty per cent improvements from AI coding assistants.",
+      "kind": "warning",
+      "answers": [
+        "A"
+      ],
+      "library": "unsupported",
+      "unsupported_kind": "beyond",
+      "source": "",
+      "note": "No source carries this specific coding-assistant vendor claim; the macroeconomic AI forecast concerns a different measure and timescale."
+    },
+    {
+      "id": "I117",
+      "idea": "Defer broad AI coding-tool adoption until flow and release safety have been stabilised.",
+      "kind": "priority",
+      "answers": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "K",
+        "L",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:8580; open-practice-library.md:11494",
+      "note": "Constraint focus and evaluating hidden error costs support this sequencing application."
+    },
+    {
+      "id": "I118",
+      "idea": "Aim AI investment at a named bottleneck rather than generic adoption.",
+      "kind": "recommendation",
+      "answers": [
+        "C",
+        "D",
+        "E",
+        "G",
+        "H",
+        "I",
+        "L",
+        "M",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:1452",
+      "note": "The primer explicitly recommends the specific bottleneck over generic adoption."
+    },
+    {
+      "id": "I119",
+      "idea": "AI can broaden team skills and work mandates, reducing dependence on scarce specialists.",
+      "kind": "mechanism",
+      "answers": [
+        "B",
+        "C",
+        "D",
+        "F",
+        "G",
+        "H",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:1434; org-topologies-primer-2025.md:1446",
+      "note": "The primer makes this design claim; it is not a measured productivity result."
+    },
+    {
+      "id": "I120",
+      "idea": "AI creates additional human monitoring responsibilities and processes that require real capacity.",
+      "kind": "warning",
+      "answers": [
+        "C",
+        "D",
+        "I",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:1465; org-topologies-primer-2025.md:1484",
+      "note": "The primer explicitly predicts new monitoring work."
     },
     {
       "id": "I121",
-      "idea": "Just culture preserves individual responsibility and possible management action for culpable conduct while rejecting automatic punishment for honest errors.",
+      "idea": "Pilot AI in a bounded team or period, measure before and after, and evaluate its effect on the chosen constraint.",
+      "kind": "recommendation",
+      "answers": [
+        "D",
+        "E",
+        "L",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:11510; org-topologies-primer-2025.md:1452",
+      "note": "Baseline economic measurement and bottleneck targeting support a bounded local evaluation."
+    },
+    {
+      "id": "I122",
+      "idea": "Compare manual cost with AI access, adaptation, supervision and error-correction costs before investing.",
+      "kind": "recommendation",
+      "answers": [
+        "E",
+        "K"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:11465",
+      "note": "The Westerman framework explicitly supplies this comparison."
+    },
+    {
+      "id": "I123",
+      "idea": "AI’s error-detection and correction cost is especially problematic while reviewers are overloaded and release controls are weak.",
+      "kind": "diagnosis",
+      "answers": [
+        "E"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:11481; open-practice-library.md:3790",
+      "note": "A direct application of the supervision cost and documented overload mechanism."
+    },
+    {
+      "id": "I124",
+      "idea": "Redirect AI spending towards automated test generation, regression detection, static analysis and release or pull-request checks.",
+      "kind": "recommendation",
+      "answers": [
+        "H",
+        "I",
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:1452; open-practice-library.md:8418",
+      "note": "Targeting constraints and test automation are supported; these specific AI quality-assurance capabilities and their benefits are not established."
+    },
+    {
+      "id": "I125",
+      "idea": "AI optimism about abundant expertise conflicts with the risk of quick fixes, added complexity and error-supervision costs.",
+      "kind": "tension",
+      "answers": [
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:1434; ssdl-systems-thinking-foundations.md:1256; open-practice-library.md:11481",
+      "note": "Both the optimistic design claims and the countervailing system costs are in the library."
+    },
+    {
+      "id": "I126",
+      "idea": "A macroeconomic forecast of forty per cent AI labour-productivity growth does not establish a forty per cent squad-throughput gain by Q1.",
+      "kind": "warning",
+      "answers": [
+        "E"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-business-ethics.md:14939",
+      "note": "The quoted forecast concerns broad economic effects by 2035 and holistic implementation."
+    },
+    {
+      "id": "I127",
+      "idea": "New organisational changes can initially raise error risk and create new ways for a complex system to fail.",
+      "kind": "warning",
+      "answers": [
+        "C"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "caib-report-vol1.md:20490",
+      "note": "The handbook warns about unintended effects and competition between old and new ways."
+    },
+    {
+      "id": "I128",
+      "idea": "Continuous integration adoption does not automatically increase merged output; one study found slower growth in merged commits afterwards.",
+      "kind": "warning",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22174",
+      "note": "The result concerns the rate of increase, not an absolute decline in commits."
+    },
+    {
+      "id": "I129",
+      "idea": "A passing build can conceal ignored failures; one study found them in twelve per cent of passing builds.",
+      "kind": "warning",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22180",
+      "note": "The reported study supports the precise figure."
+    },
+    {
+      "id": "I130",
+      "idea": "Treat public productivity benchmarks and vendor tool claims sceptically because they may be marketing rather than meaningful evidence.",
+      "kind": "warning",
+      "answers": [
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:42511",
+      "note": "The source distinguishes performance and productivity and discusses benchmark marketing."
+    },
+    {
+      "id": "I131",
+      "idea": "Strengthen automated testing and deployment quality gates to prevent unsafe code reaching production.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "H",
+        "I",
+        "K",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:20096; open-practice-library.md:1232; open-practice-library.md:8418",
+      "note": "The library supports pre-release tests and quality gates; K additionally specifies mandatory build stops."
+    },
+    {
+      "id": "I132",
+      "idea": "Resource utilisation and delivery-date optimisation are competing scheduling objectives that leadership must choose between.",
       "kind": "tension",
       "answers": [
         "A",
@@ -1916,302 +2036,302 @@
         "I",
         "J",
         "K",
-        "L"
+        "L",
+        "N"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "nhs-just-culture-guide.md:42; nhs-just-culture-guide.md:110; doe-hpi-handbook-vol1.md:10059",
-      "note": "NHS/DOE retain a fair route to individual action; CAIB also retains responsibility."
+      "source": "jones-evidence-based-sweng.md:21544; org-topologies-primer-2025.md:750; open-practice-library.md:3832",
+      "note": "The library describes both objectives; this does not establish a universal queueing theorem."
     },
     {
-      "id": "I122",
-      "idea": "Keep disciplinary or personal-accountability processes separate from the safety learning review.",
-      "kind": "recommendation",
-      "answers": [
-        "C",
-        "D",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "lfuo-learning-review-guide-2024.md:1083; caib-report-vol1.md:17664",
-      "note": "The learning-review firewall is explicit."
-    },
-    {
-      "id": "I123",
-      "idea": "NHS and DOE preserve a route to individual action, CAIB separates personal accountability, and the Forest Service forbids using learning-review findings for discipline.",
+      "id": "I133",
+      "idea": "Classical accounting or scientific management prescribes full human utilisation as the way to maximise labour cost efficiency.",
       "kind": "tension",
       "answers": [
-        "C",
-        "D",
-        "K"
+        "A",
+        "H",
+        "K",
+        "N"
       ],
-      "library": "supported",
+      "library": "partly",
       "unsupported_kind": "",
-      "source": "nhs-just-culture-guide.md:110; lfuo-learning-review-guide-2024.md:1112; caib-report-vol1.md:17664",
-      "note": "These are different process boundaries, not a disagreement over whether any accountability exists."
+      "source": "org-topologies-primer-2025.md:784",
+      "note": "The primer describes a possible utilisation-oriented design, not this universal prescription by classical accounting or management."
     },
     {
-      "id": "I124",
-      "idea": "The Forest Service defines accountability as giving an honest account and obliges the organisation to learn and improve its conditions.",
-      "kind": "mechanism",
-      "answers": [
-        "B",
-        "C"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "lfuo-learning-review-guide-2024.md:460",
-      "note": "Forward-looking accountability is explicitly defined."
-    },
-    {
-      "id": "I125",
-      "idea": "Traditional individual performance-reward models pull against safety approaches that locate the conditions for failure in organisational design.",
+      "id": "I134",
+      "idea": "Resource Topology is appropriate for some temporary specialist engagements and is not inherently wrong for every organisation.",
       "kind": "tension",
       "answers": [
-        "B",
-        "G",
-        "I",
+        "D"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:784",
+      "note": "The primer explicitly gives the temporary hiring example and fit-for-purpose qualification."
+    },
+    {
+      "id": "I135",
+      "idea": "Fixed sprint timeboxes and continuous Kanban pull differ over batching and when ready work should be released.",
+      "kind": "tension",
+      "answers": [
+        "A",
         "J"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:12400; doe-hpi-handbook-vol1.md:10185",
-      "note": "Individual contingent rewards coexist with systemic explanations; the sources do not mandate scapegoating."
+      "source": "scrum-guide-2020.md:377; open-practice-library.md:21111",
+      "note": "Scrum uses fixed Sprints; Kanban supports deploying ready items without waiting for a batch."
     },
     {
-      "id": "I126",
-      "idea": "Traditional HR doctrine specifically advocates PIPs and punishment after honest operational errors as a deterrent to carelessness.",
+      "id": "I136",
+      "idea": "Scrum requires fixed scope commitments, in contrast to Kanban’s adaptive flow.",
       "kind": "tension",
       "answers": [
-        "I",
+        "A",
         "J"
       ],
       "library": "partly",
       "unsupported_kind": "",
-      "source": "openstax-organizational-behavior.md:12400; doe-hpi-handbook-vol1.md:6399",
-      "note": "Performance management and rewards exist, but this specific pro-punishment doctrine is not supported."
+      "source": "scrum-guide-2020.md:395; approach-perfect-field-guide-scrum-events.md:399",
+      "note": "Timeboxes are fixed, but the guides describe a forecast and scope flexibility; this characterisation overstates the conflict."
     },
     {
-      "id": "I127",
-      "idea": "DOE root-cause prevention conflicts with the Forest Service’s emphasis on networked conditions and avoiding causal statements.",
+      "id": "I137",
+      "idea": "Kanban’s start-where-you-are approach differs from Org Topologies’ insistence on aligning the surrounding organisational design.",
       "kind": "tension",
       "answers": [
         "C",
-        "D",
         "F",
-        "K"
+        "G",
+        "I",
+        "L"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "doe-hpi-handbook-vol1.md:7552; lfuo-learning-review-guide-2024.md:1794; lfuo-learning-review-guide-2024.md:5165",
-      "note": "The differing investigative approaches are explicit."
+      "source": "open-kanban.md:112; org-topologies-primer-2025.md:316",
+      "note": "The sources differ on the emphasis and scale of structural intervention."
     },
     {
-      "id": "I128",
-      "idea": "Formal postmortem recommendations can add complexity, increase risk and obstruct learning.",
-      "kind": "warning",
-      "answers": [
-        "D",
-        "F",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "lfuo-learning-review-guide-2024.md:1802",
-      "note": "The guide explicitly warns about this effect."
-    },
-    {
-      "id": "I129",
-      "idea": "Write a shared incident account first, then a short list of corrective actions with named owners.",
+      "id": "I138",
+      "idea": "If dedicated squads do not remove the dependencies, redesign the broader nine-squad and three-product-line structure next.",
       "kind": "recommendation",
       "answers": [
-        "K"
+        "F"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "lfuo-learning-review-guide-2024.md:773; lfuo-learning-review-guide-2024.md:1836",
-      "note": "The Learning Review builds on an FLA account and creates an action plan with responsibilities."
+      "source": "org-topologies-primer-2025.md:316; org-topologies-primer-2025.md:800",
+      "note": "The primer warns against isolating team improvements from the structures around them."
     },
     {
-      "id": "I130",
-      "idea": "Org Topologies calls for changes to surrounding structures whereas Kanban permits starting with existing titles and roles.",
+      "id": "I139",
+      "idea": "Use system archetypes as hypotheses to test with teams rather than labels that erase what is specific to the situation.",
+      "kind": "warning",
+      "answers": [
+        "C"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "ssdl-systems-thinking-foundations.md:1422",
+      "note": "The source explicitly warns against prescriptive use of archetypes."
+    },
+    {
+      "id": "I140",
+      "idea": "Engineers need to own the redesign of their work, which requires a safe environment for participation.",
+      "kind": "recommendation",
+      "answers": [
+        "L"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:9; open-practice-library.md:19812",
+      "note": "Ownership of change and psychological safety are explicit premises."
+    },
+    {
+      "id": "I141",
+      "idea": "Extrinsic financial rewards can diminish intrinsic motivation, even when they increase effort towards a rewarded goal.",
+      "kind": "mechanism",
+      "answers": [
+        "C",
+        "F",
+        "G"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-organizational-behavior.md:10098",
+      "note": "Self-determination theory supplies the mechanism, distinct from manipulating a reported metric."
+    },
+    {
+      "id": "I142",
+      "idea": "Unit-level incentive schemes can improve a work area’s results while harming overall company performance.",
+      "kind": "mechanism",
+      "answers": [
+        "E",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-introduction-business.md:27131; openstax-accounting-vol2.md:25593",
+      "note": "Gain sharing and misaligned managerial incentives illustrate local gain at corporate expense."
+    },
+    {
+      "id": "I143",
+      "idea": "An output-oriented organisation can create feature bloat without solving the underlying customer problem.",
+      "kind": "warning",
+      "answers": [
+        "C"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:831",
+      "note": "The primer explicitly warns that more delivery need not solve the problem."
+    },
+    {
+      "id": "I144",
+      "idea": "Aggressive schedules can be healthy, provided leadership monitors their effects on safety rather than treating every deadline as inviolable.",
       "kind": "tension",
       "answers": [
         "C",
-        "E",
-        "F",
-        "H",
-        "K"
+        "I"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "open-kanban.md:113; org-topologies-primer-2025.md:293; org-topologies-primer-2025.md:1142",
-      "note": "Incremental starting points and wider organisational design can coexist."
+      "source": "caib-report-vol1.md:14239",
+      "note": "The board qualifies rather than universally rejects demanding schedules."
     },
     {
-      "id": "I131",
-      "idea": "If single-squad allocation cannot hold, reconsider the wider arrangement of nine squads across the product lines.",
+      "id": "I145",
+      "idea": "Estimate developer productivity only after accounting for effort across all relevant development activities.",
       "kind": "recommendation",
       "answers": [
         "E"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "org-topologies-primer-2025.md:1142",
-      "note": "A direct application of changing reinforcing structures when a local change is insufficient."
+      "source": "jones-evidence-based-sweng.md:16231",
+      "note": "The text warns against estimating productivity from one isolated activity."
     },
     {
-      "id": "I132",
-      "idea": "Scrum’s fixed timeboxed iterations contrast with Kanban’s continuous pull flow and explicit WIP controls.",
-      "kind": "tension",
+      "id": "I146",
+      "idea": "Demanding faster feature output and fewer bugs is an unresolvable trade-off unless workload constraints are reduced.",
+      "kind": "warning",
       "answers": [
-        "G",
-        "I"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "scrum-guide-2020.md:375; open-kanban.md:88; open-practice-library.md:21107",
-      "note": "The scheduling approaches differ, though the sources do not make them mutually exclusive."
-    },
-    {
-      "id": "I133",
-      "idea": "Scrum requires fixed sprint deliverable commitments and Kanban holds that such commitments create sprint-end rushing and truncated testing.",
-      "kind": "tension",
-      "answers": [
-        "G",
-        "I"
+        "J"
       ],
       "library": "partly",
       "unsupported_kind": "",
-      "source": "scrum-guide-2020.md:586; approach-perfect-field-guide-scrum-events.md:402",
-      "note": "Scrum commits to a goal with flexible scope; the field guide rejects firm backlog guarantees, and no sprint-end claim was found."
+      "source": "lfuo-learning-review-guide-2024.md:5104",
+      "note": "ETTO supports competing demands, but not the categorical impossibility of improving both through other system changes."
     },
     {
-      "id": "I134",
-      "idea": "Technical and organisational changes can initially increase error risk and create new failure modes through added complexity.",
-      "kind": "warning",
-      "answers": [
-        "C"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "caib-report-vol1.md:20490; org-topologies-primer-2025.md:293",
-      "note": "Both sources warn about complex changes and unintended consequences."
-    },
-    {
-      "id": "I135",
-      "idea": "Treat system archetypes as hypotheses and test the diagnosis with squads rather than imposing a convenient label.",
-      "kind": "recommendation",
-      "answers": [
-        "C"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "ssdl-systems-thinking-foundations.md:1425",
-      "note": "The brief warns against jumping to archetypes and external labels."
-    },
-    {
-      "id": "I136",
-      "idea": "Frontline employees know operational problems that executives cannot see, making safe upward feedback essential.",
-      "kind": "mechanism",
-      "answers": [
-        "J"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "openstax-principles-marketing.md:20130",
-      "note": "The source reports Yoshida’s 4% executive versus 100% employee awareness figures."
-    },
-    {
-      "id": "I137",
-      "idea": "Code-review outcomes are sensitive to patch size and review burden, so larger incoming changes create review risk.",
-      "kind": "mechanism",
-      "answers": [
-        "J"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:22598; jones-evidence-based-sweng.md:22662",
-      "note": "The WebKit/Mozilla review study discusses patch size and review time."
-    },
-    {
-      "id": "I138",
-      "idea": "Aggressive schedules can be healthy, but their effects on safety must be monitored rather than automatically taking precedence.",
-      "kind": "warning",
-      "answers": [
-        "C",
-        "H"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "caib-report-vol1.md:14240",
-      "note": "The board explicitly makes both points."
-    },
-    {
-      "id": "I139",
-      "idea": "People under schedule pressure can become reluctant to say that a date cannot or should not be met.",
-      "kind": "mechanism",
-      "answers": [
-        "H"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "caib-report-vol1.md:14422",
-      "note": "CAIB describes the difficulty of admitting excessive schedule and resource strain."
-    },
-    {
-      "id": "I140",
-      "idea": "Leadership must align goals, resources and safety and take responsibility for the conditions its policies create.",
-      "kind": "recommendation",
-      "answers": [
-        "C",
-        "D",
-        "E",
-        "F",
-        "H",
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "caib-report-vol1.md:20445",
-      "note": "The board directly assigns this responsibility to leaders."
-    },
-    {
-      "id": "I141",
-      "idea": "Software-productivity folklore, such as the 28-to-1 developer claim, is a poor basis for accepting unmeasured AI productivity promises.",
-      "kind": "warning",
-      "answers": [
-        "K"
-      ],
-      "library": "supported",
-      "unsupported_kind": "",
-      "source": "jones-evidence-based-sweng.md:10683",
-      "note": "Jones explains the evidential vacuum and the misinterpreted productivity claim; applying the caution to new promises is direct."
-    },
-    {
-      "id": "I142",
-      "idea": "Technical quality as customer value conflicts with an economic view that customers accept faults when benefits outweigh them.",
+      "id": "I147",
+      "idea": "Individual performance-and-reward frameworks place responsibility on workers, while system-safety approaches emphasise management’s responsibility for working conditions.",
       "kind": "tension",
       "answers": [
-        "K"
+        "A",
+        "B",
+        "H",
+        "J",
+        "K",
+        "N"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "open-kanban.md:94; jones-evidence-based-sweng.md:22745",
-      "note": "Open Kanban defines software value as good-quality working code; Jones describes tolerated faults."
+      "source": "openstax-organizational-behavior.md:12880; doe-hpi-handbook-vol1.md:330; caib-report-vol1.md:20445",
+      "note": "The tension is between emphases, not proof that either school rejects all responsibility at the other level."
     },
     {
-      "id": "I143",
-      "idea": "Use service quality and customer value across product and engineering to sustain satisfaction, loyalty and profitable growth.",
+      "id": "I148",
+      "idea": "Choose reversible initial interventions so the organisation can learn before committing to a larger redesign.",
+      "kind": "priority",
+      "answers": [
+        "D",
+        "G",
+        "L",
+        "M"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "org-topologies-primer-2025.md:1409; open-practice-library.md:3808",
+      "note": "The primer recommends gradual experimentation and feedback; the local staffing or target choices are applications."
+    },
+    {
+      "id": "I149",
+      "idea": "Withdraw the imposed forty per cent throughput target itself, as well as removing its bonus link.",
+      "kind": "recommendation",
+      "answers": [
+        "A",
+        "H",
+        "K",
+        "L",
+        "N"
+      ],
+      "library": "supported",
+      "unsupported_kind": "",
+      "source": "openstax-principles-management.md:25282; approach-perfect-field-guide-scrum-events.md:399",
+      "note": "Withdrawing an unsupported scope target is distinct from merely decoupling pay."
+    },
+    {
+      "id": "I150",
+      "idea": "Offer Marketing a predictable cadence of completed features based on demonstrated capacity instead of promising one feature every week.",
       "kind": "recommendation",
       "answers": [
         "L"
       ],
       "library": "supported",
       "unsupported_kind": "",
-      "source": "openstax-principles-marketing.md:20080; openstax-principles-marketing.md:20200",
-      "note": "The service-profit chain connects value, satisfaction, loyalty and profitability."
+      "source": "scrum-guide-2020.md:441; open-practice-library.md:20890",
+      "note": "Empirical capacity-based forecasting applies to external commitments as well as sprint selection."
+    },
+    {
+      "id": "I151",
+      "idea": "Larger or less cognitively clear changes make peer code review more difficult.",
+      "kind": "warning",
+      "answers": [
+        "K"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "jones-evidence-based-sweng.md:22598; open-practice-library.md:20117",
+      "note": "The library covers review work and patch studies, but the cited WebKit passage does not establish the claimed size-and-clarity relationship."
+    },
+    {
+      "id": "I152",
+      "idea": "Flooding review queues with AI-generated code will increase false-positive defect reports.",
+      "kind": "warning",
+      "answers": [
+        "K"
+      ],
+      "library": "unsupported",
+      "unsupported_kind": "beyond",
+      "source": "",
+      "note": "The library discusses static-analysis false positives, but no passage connects AI-generated review volume to their rate."
+    },
+    {
+      "id": "I153",
+      "idea": "Developer payroll is a variable expense for purposes of the full-utilisation argument.",
+      "kind": "diagnosis",
+      "answers": [
+        "K"
+      ],
+      "library": "unsupported",
+      "unsupported_kind": "beyond",
+      "source": "",
+      "note": "No source establishes this cost classification for the company’s salaried engineering headcount."
+    },
+    {
+      "id": "I154",
+      "idea": "Use Change Failure Rate as a named replacement for point-velocity performance metrics.",
+      "kind": "recommendation",
+      "answers": [
+        "N"
+      ],
+      "library": "partly",
+      "unsupported_kind": "",
+      "source": "open-practice-library.md:9156; open-practice-library.md:1232",
+      "note": "The library discusses delivery-performance metrics and monitoring failures, but does not define or name Change Failure Rate in the converted text."
     }
   ]
 }

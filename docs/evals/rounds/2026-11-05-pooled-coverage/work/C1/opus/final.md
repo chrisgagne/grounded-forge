@@ -1,21 +1,18 @@
-The pool file is at `opus/pool.json` and loads as valid JSON.
-
-**Ideas pooled:** 89
-- Supported: 78
-- Partly: 6
-- Unsupported: 5 (3 go beyond the library, 2 are reasonable inferences)
+I've written the pool to `opus/pool.json`. It holds 113 ideas: 102 supported, 7 partly supported and 4 unsupported (3 are reasonable inferences, 1 goes beyond the library).
 
 | Answer | Ideas carried | Supported |
 |---|---|---|
-| A | 33 | 29 |
-| B | 23 | 23 |
-| C | 45 | 44 |
-| D | 42 | 40 |
-| E | 33 | 33 |
-| F | 47 | 45 |
-| G | 28 | 23 |
-| H | 37 | 36 |
-| I | 36 | 31 |
-| J | 35 | 30 |
-| K | 42 | 38 |
-| L | 34 | 29 |
+| A | 34 | 30 |
+| B | 26 | 24 |
+| C | 50 | 49 |
+| D | 45 | 43 |
+| E | 41 | 39 |
+| F | 36 | 35 |
+| G | 46 | 44 |
+| H | 36 | 32 |
+| I | 35 | 35 |
+| J | 27 | 25 |
+| K | 34 | 28 |
+| L | 42 | 41 |
+| M | 35 | 34 |
+| N | 36 | 30 |

@@ -1,0 +1,1 @@
+Cited sentences: 36; supports: 33; partial: 3; none: 0; wrong_book: 0.

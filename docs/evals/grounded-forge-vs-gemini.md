@@ -4,7 +4,7 @@ Between 31 October and 5 November 2026, seven eval rounds put the same questions
 
 ## What was compared
 
-- **Gemini Notebook,** with the corpus's original files uploaded as sources, at default chat settings and, in one round, under a strict custom chat style.
+- **Gemini Notebook** on Google's Pro plan, with the corpus's original files uploaded as sources, at default chat settings and, in one round, under a strict custom chat style. Google doesn't say which model answers a Notebook chat; the Ultra plan and Gemini 4 Argon weren't tested in Notebook ([one unscored Argon run](rounds/2026-11-05-gemini-strict-style/#which-gemini) in the Gemini app cited whole files per section).
 - **grounded-forge in two forms.**
   - `answer-from-corpus` in project mode, reading the corpus's audited references and converted text.
   - [Verbatim mode](../architecture/verbatim-mode-proposal.md), where the model writes the argument, and code places each quotation from the converted source and gives every credited claim a pointer to its passage and printed page.
@@ -67,6 +67,7 @@ How much effort a reader saves depends on how effort is counted.
 
 - **Claude is on both sides.** grounded-forge's answers are written by Claude, and Claude is the primary scorer. Sol re-graded the case-citations round, round 2 and round 3. It agreed with the Claude scorers on 96% of miss calls in the case-citations round, and on every one in rounds 3 and 3b. In round 2 it agreed on 85% of delivered calls, against 94% between the two Opus judges. Round 1 was judged by Opus only.
 - **Blinding was thin.** Judges guessed which kind of tool wrote an answer from its form, pointer blocks against citation popups.
+- **One Gemini plan.** Gemini Notebook ran on the Pro plan and grounded-forge on Claude Opus 5.5, Anthropic's top model. The comparison is between the products as an individual buys them, not between the two companies' best models.
 - **The numbers are small.** Three cases, four questions, one or two runs each, written with the corpora in view. Read this as a direction, not a rate.
 - **Coverage has no answer key.** The case-citations round's keys were written by Claude, which also wrote grounded-forge's answers, so coverage comes from the pooled round, where Opus and Sol each pooled the ideas and the ranking holds in both.
 - **Scale.** Gemini's share of markers carrying the claim as stated fell from 23–57% on the public notebook to 10–24% on the private one. Its miss rate didn't rise. The private corpus is reported as counts only.

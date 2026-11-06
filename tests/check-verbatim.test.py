@@ -17,9 +17,13 @@ MCDP 1's conversion: running headers and folios between pages, and a quote that
 holds both a word split across a line and a compound split across a line. The
 OpenStax sections mirror its two conversions: bold headers with a folio beside a
 chapter or section number and no form feed, and pages split by form feeds whose
-footers carry a folio that runs with the page count. Each new rule has a guard
-beside it: a changed decimal, a prefix hyphen, a recurring line with no page
-break, and a page-foot number off the page count all still fail.
+footers carry a folio that runs with the page count, or carry only that folio
+on a line of its own. A PDF footer set as a two-line block recurring on every
+page is dropped, as are a converter's spaces beside emphasis spans and a link
+that wraps or carries a title. Each new rule has a guard beside it: a changed
+decimal, a prefix hyphen, a recurring line with no page break, a page-foot
+number off the page count, a block recurring too rarely and a changed word
+beside the emphasis spacing all still fail.
 The multi-line blocks hold extraction scope: a `[V]` before a colon covers the
 list it introduces, and a `[V]` named in the notes section is not a claim, while
 a `[V]` on a paraphrase anywhere else still reports no-quote. A quotation
@@ -244,6 +248,41 @@ for n, body in enumerate([
 SOURCE += "rescind the contract and restore the parties\n\nSummary of Contract Law     999\n\f"
 SOURCE += "to their positions before it was signed.\n"
 
+# Pages split by form feeds whose only furniture is a folio on a line of its
+# own, running with the page count. The last page's folio is off that count,
+# and stays.
+for body in ["Folio page one.", "Folio page two.", "Folio page three.", "Folio page four.",
+             "A learning analysis is a scalable process used to make sense of an outcome without"]:
+    SOURCE += f"{body}\n\f{len(re.findall(chr(12) + '+', SOURCE)) + 100}\n\n"
+SOURCE += "recommendations. It aims to tell a compelling story.\n\nThe review closes with the\n\f7\n\nlessons the crew drew.\n"
+
+# A PDF footer set as a block of two long lines (a copyright line with the
+# folio, then a licence) recurring on every page, with no form feed. And a
+# two-line block that recurs only four times, which stays in the text.
+SOURCE += "".join(
+    f"\nGuide body {n}.\n\n\u00a9 2020, Example Press, Limited. [https://example.com](https://example.com/) {n}\n"
+    "[Licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License](http://example.com/cc)\n\n"
+    for n in range(2, 7)
+)
+SOURCE += ("\nA good title might be \u201cAs a reader, I can find the chapter that answers my\n\n"
+           "\u00a9 2020, Example Press, Limited. [https://example.com](https://example.com/) 7\n"
+           "[Licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License](http://example.com/cc)\n\n"
+           "question,\u201d not \u201cIndex every heading.\u201d\n\n")
+SOURCE += "".join(f"Draft body {n}.\n\nPrepared for the board:\nfirst reading; second reading\n\n" for n in range(3))
+SOURCE += "The board agreed the plan\n\nPrepared for the board:\nfirst reading; second reading\n\nand adjourned.\n"
+
+# A PDF converter's spacing beside emphasis spans, a table cell's emphasis
+# glued to the word before it, and a link whose text wraps and whose target
+# carries a title.
+SOURCE += """
+Don\u2019t demonstrate work that isn\u2019t \u201c _Done_ .\u201d It erodes trust. Use the last 3\u20134 sprint\u2019s _Capacity_ -adjusted Velocity.
+
+|Retrospective|Others<br>must  not  attend<br>unless  freely<br>invited  by  all  on<br>the_Scrum  Team_.|
+
+It was made up by [Taiichi
+  Ohno](https://en.wikipedia.org/wiki/Taiichi_Ohno "Taiichi Ohno") at Toyota.
+"""
+
 # (label, deep-ref line, expected kind or None for a clean match)
 CASES = [
     ("exact through conversion noise",
@@ -434,6 +473,33 @@ CASES = [
      "missing"),
     ("a journal header whose authors end in a full stop inside emphasis is dropped",
      '"The survey measures how often crews report near misses to the safety office" [V] (p 7).',
+     None),
+    ("a folio alone after a form feed, running with the page count, is dropped",
+     '"a scalable process used to make sense of an outcome without recommendations" [V] (p 5).',
+     None),
+    ("a folio alone after a form feed, off the page count, stays in the text → page",
+     '"The review closes with the lessons the crew drew" [V] (p 6).',
+     "page"),
+    ("a two-line footer block recurring on every page is dropped",
+     '"As a reader, I can find the chapter that answers my question" [V] (p 7).',
+     None),
+    ("a two-line block recurring four times stays in the text → interrupted",
+     '"The board agreed the plan and adjourned" [V] (p 8).',
+     "interrupted"),
+    ("space a converter set inside a quote mark beside emphasis is dropped",
+     '"Don’t demonstrate work that isn’t \'*Done*.\' It erodes trust" [V] (Tips).',
+     None),
+    ("space a converter set before a hyphen after emphasis is dropped",
+     '"the last 3–4 sprint’s Capacity-adjusted Velocity" [V] (Tips).',
+     None),
+    ("a changed word beside the emphasis spacing → missing",
+     '"Don\'t demonstrate work that isn\'t \'*Finished*.\' It erodes trust" [V] (Tips).',
+     "missing"),
+    ("a table cell's emphasis glued to the word before it reads as a space",
+     '"Others must not attend unless freely invited by all on the *Scrum Team*." [V] (Table).',
+     None),
+    ("a link wrapped across a line, with a title, reads as its text",
+     '"It was made up by Taiichi Ohno at Toyota." [V] (What is it?).',
      None),
     ("a quote ending in a full stop, then its citation, is checked",
      'The text is plain. "Relationship conflict tends to erode the trust that teams rely on." (Ch 4, p. 5) [V].',

@@ -12,7 +12,7 @@ sources:
     resource: https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-11-04T14:27:34+13:00
+  at: 2026-11-06T15:08:29+13:00
 ---
 # Heft & Pattillo (Group Jazz), Liberating Structures Handbook — Stakeholder-Engagement Distillation
 
@@ -133,7 +133,7 @@ A fourth thread is the *pattern-language* framing of engagement: any LS structur
 | Apply 15% Solutions across implementers | Each implementer has only their 15%. What does each person's 15% look like? Aggregate across the implementing community without waiting for the 85% (the broader context) to change first. |
 | Run Appreciative Interviews on the engagement's after-life | Pairs interview each other about "a time when…" the engagement actually produced change. Surface the working patterns before debugging the broken ones. |
 | Audit the Levels of Accountability | Where is the group sitting — "Take Action and Learn" ("Make it happen") at the top, or "Wait 'n Hope," "Blame self," "Blame others," "Denial" near the bottom? |
-| Use Network Weaving's clusters-and-periphery questions periodically | "Are there as many nodes in the periphery as in the core? If not, how might you expand the network's periphery? What types of individuals, organizations or perspectives are missing or underrepresented (gender, race/ethnicity, class, neighborhoods, etc) and how might you include these individuals to the network?" [V] |
+| Use Network Weaving's clusters-and-periphery questions periodically | "Are there as many nodes in the periphery as in the core? If not, how might you expand the network's periphery?" and "What types of individuals, organizations or perspectives are missing or underrepresented (gender, race/ethnicity, class, neighborhoods, etc) and how might you include these individuals to the network?" [V] |
 
 ### Phase 6: Closing (Adjourning well)
 

@@ -12,7 +12,7 @@ sources:
     resource: https://orgtopologies.com
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-11-04T14:27:34+13:00
+  at: 2026-11-06T15:08:29+13:00
 ---
 # Krivitsky, Larman & Flemm, Org Topologies Primer — Software-Business Distillation
 
@@ -54,7 +54,7 @@ This distillation gathers these threads into a working pattern: how to use the t
 
 9.  **Strategic AI adoption as a commercial decision.** "A key insight when designing with OT: Specialization and expertise are vanishing as limited resources, due to intelligence as a service. That makes it much easier to elevate an organization!" [V] The structural consequence: "top-right Driving archetypes will become more feasible" [V] as AI lowers the cost of broader skill and work mandates. The commercial decision is not whether to adopt AI but where — focused on the elevation area, targeting bottlenecks. (p. 20, "Strategic AI Adoption")
 
-10.  **The three AI-investment questions as a software-business filter.** (1) "What parts of the organization are the focus of development with OT? Focus your AI investment in the area you are elevating, where competitive advantage may come from early adoption of new technology." [V] (2) "What archetypes are part of your target, and what are the major bottlenecks or constraints limiting their rapid adoption? Find the early points where AI can make an outsized impact." [V] (3) "Do the AIs need monitoring by humans? That implies new responsibilities and processes in your organization." [V] The third question has a hidden cost: human-monitoring overhead must be priced into the AI investment. (p. 20)
+10.  **The three AI-investment questions as a software-business filter.** (1) "What parts of the organization are the focus of development with OT?" — "Focus your AI investment in the area you are elevating, where competitive advantage may come from early adoption of new technology." [V] (2) "What archetypes are part of your target, and what are the major bottlenecks or constraints limiting their rapid adoption?" — "Find the early points where AI can make an outsized impact." [V] (3) "Do the AIs need monitoring by humans? That implies new responsibilities and processes in your organization." [V] The third question has a hidden cost: human-monitoring overhead must be priced into the AI investment. (p. 20)
 
 11.  **The pet-supply e-commerce worked example as an AI investment archetype.** Resource topology → target Delivery topology with CAPS-3 teams; bottleneck is front-end skill; AI investment targeted at front-end agents; human monitoring assigned to existing front-end specialists in their new CAPS-3 roles. This is the Primer's worked example for a software business deciding *where* to aim AI investment. (pp. 20–21, "Strategic AI Adoption")
 

@@ -12,7 +12,7 @@ sources:
     resource: https://www.grassrootsgrantmakers.org/wp-content/uploads/Engaging-Everyone-31.pdf
 generated:
   by: grounded-forge/0.4.0
-  at: 2026-11-04T14:27:34+13:00
+  at: 2026-11-06T15:08:29+13:00
 ---
 # Liberating Structures Handbook, AAR Distillation
 
@@ -46,7 +46,7 @@ The Liberating Structures Handbook projects onto the AAR axis as a facilitation-
 
 11.  **1-2-4-Whole Group (against HiPPOs).** Four-stage scaling: individual reflection, pairs (5–10 minutes), groups of 4–6, then whole group. "More than six is too big to give everyone a chance to talk." [V] (Source: "1-2-4-Whole Group") In an AAR where rank or seniority is suppressing candour, the 1-2-4 structure opens the timeline-reconstruction and contributory-factor phases to all perspectives before the dominant voice can anchor the room.
 
-12.  **Mini Constellations (positional diversity).** Spatial-positioning: "Place an object on the floor to represent an idea, choice, move, etc. Ask participants to place themselves somewhere in the room that represents to what degree they feel positively about the idea." [V] (Source: "Mini Constellations") In an AAR where the group appears to have reached consensus but the consensus is artificial, Mini Constellations surfaces the full range of views without forcing a vote.
+12.  **Mini Constellations (positional diversity).** Spatial-positioning: "Place an object on the floor to represent an idea, choice, move, etc."; then "Ask participants to place themselves somewhere in the room that represents to what degree they feel positively about the idea." [V] (Source: "Mini Constellations") In an AAR where the group appears to have reached consensus but the consensus is artificial, Mini Constellations surfaces the full range of views without forcing a vote.
 
 13.  **Troika Consulting (peer iteration on a stuck problem).** Groups of three, 10 minutes per focal person. Focal person describes a challenge; partners ask honing questions, engage with each other, then with the focal person. After all three rounds the group surfaces patterns. (Source: "Troika Consulting") In an AAR where individual team leads are each carrying a different piece of the contributory-factor analysis, Troika Consulting gives each person a structured peer consultation round.
 

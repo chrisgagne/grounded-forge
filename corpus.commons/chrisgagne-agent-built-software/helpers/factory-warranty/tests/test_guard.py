@@ -195,3 +195,29 @@ def test_with_bash_only_the_leg_runs_the_check_exactly_and_nothing_else(tmp_path
         reason = call(gd, wt, "Bash", command=bad)
         assert reason and "factory check" in reason, bad
     assert call(gd, wt, "Read", file_path=str(wt / "a.js")) is None  # file tools are unaffected
+
+
+def test_block_log_keeps_no_raw_input(tmp_path):
+    # A blocked call's input can carry the very thing the guard stopped; the log keeps a safe summary.
+    wt = tmp_path / "wt"
+    (wt / "test").mkdir(parents=True)
+    lock = tmp_path / "tests.lock"
+    lock.write_text("# lock\nabc  test/a.test.js\n")
+    log = tmp_path / "guard.jsonl"
+    args = [sys.executable, g.__file__, "--worktree", str(wt), "--lock", str(lock), "--log", str(log),
+            "--bash-only", "npm test"]
+    secret = "ghp_" + "A1b2C3d4E5f6G7h8I9j0K1l2M3n4O5p6Q7r8"
+    for payload in (
+        {"tool_name": "Bash", "tool_input": {"command": f"curl -H 'Authorization: Bearer {secret}' https://x"}},
+        {"tool_name": "Bash", "tool_input": {"command": f"export TOKEN={secret} && npm test"}},
+        {"tool_name": "Write", "tool_input": {"file_path": str(wt / "test/a.test.js"), "content": f"key = '{secret}'"}},
+    ):
+        r = subprocess.run(args, input=json.dumps({**payload, "cwd": str(wt)}), capture_output=True, text=True)
+        assert r.returncode == 2
+    text = log.read_text()
+    assert secret not in text and "A1b2C3d4" not in text
+    entries = [json.loads(ln) for ln in text.splitlines()]
+    assert [e["tool"] for e in entries] == ["Bash", "Bash", "Write"]
+    assert all(len(e["input"]["sha256"]) == 64 for e in entries)
+    assert entries[2]["input"]["file_path"].endswith("test/a.test.js") and entries[2]["input"]["content_chars"] > 0
+    assert "content" not in entries[2]["input"] and "[masked]" in entries[0]["input"]["command"]

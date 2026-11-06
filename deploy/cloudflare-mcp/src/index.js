@@ -6,6 +6,7 @@
 import { OAuthProvider } from "@cloudflare/workers-oauth-provider";
 import mcp from "./mcp.js";
 import { connector } from "./corpus.js";
+import { oauthLimit } from "./oauth-limit.js";
 
 const NAME = connector.title;
 
@@ -52,7 +53,7 @@ const policy = (origin) => `<h1>${esc(NAME)}: privacy policy</h1>
 <h2>Who else handles it</h2>
 <p>Cloudflare hosts the server, its logs and the sign-in records. GitHub handles sign-in. Nothing is sold or shared with anyone else, and there are no analytics, ads or tracking cookies.</p>
 <h2>How long it's kept</h2>
-<p>Logs: up to seven days, Cloudflare's retention. Access tokens expire after 30 days and refresh tokens after a year. The consent cookie lasts ${REMEMBER_DAYS} days.</p>
+<p>Logs: up to seven days, Cloudflare's retention. Access tokens expire after 30 days and refresh tokens after 90 days. The consent cookie lasts ${REMEMBER_DAYS} days.</p>
 <h2>Your choices</h2>
 <p>Remove the connector in your AI client to stop using it, and revoke ${esc(NAME)} under GitHub → Settings → Applications → Authorized OAuth Apps. To have your sign-in records deleted now, or with any question, ${CONTACT}.</p>
 <p class="mute"><small><a href="/">${esc(NAME)}</a></small></p>`;
@@ -225,7 +226,9 @@ const api = {
 let provider;
 
 export default {
-  fetch(request, env, ctx) {
+  async fetch(request, env, ctx) {
+    const limited = await oauthLimit(request, env);
+    if (limited) return limited;
     provider ??= new OAuthProvider({
       apiRoute: "/mcp",
       apiHandler: api,
@@ -237,7 +240,7 @@ export default {
       // Each refresh is two KV writes, so a month keeps them rare. A long token costs little:
       // it reads a shared library, and BLOCKED_USERS is checked on every call.
       accessTokenTTL: 30 * 86400,
-      refreshTokenTTL: 365 * 86400,
+      refreshTokenTTL: 90 * 86400,
       clientIdMetadataDocumentEnabled: true,
       // Lets older Cursor builds sign in with cursor://; redirectAllowed still admits only the
       // exact URIs above.

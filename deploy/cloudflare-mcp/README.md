@@ -12,7 +12,7 @@ For a local connector over stdio, use [`scripts/mcp/corpus-server.mjs`](../../sc
 - **Each person signs in with GitHub.** The Worker is its own OAuth server ([`@cloudflare/workers-oauth-provider`](https://github.com/cloudflare/workers-oauth-provider), tokens hashed in the `OAUTH_KV` namespace), with GitHub as the sign-in. GitHub is asked for no scopes: the Worker reads only the public login and id, and keeps no GitHub token. Clients register themselves; only Claude's, Claude Code's and ChatGPT's return addresses are accepted.
 - **Logs who called which tool, never what they typed.** Each call writes one line to Workers Logs: the GitHub login, the tool, and the library file or section it read (or a match count). Query text, incident details and anything else the user types are never logged. The consent page says so before anyone signs in.
 - **Shuts one person out without touching anyone else.** Add a GitHub login to `BLOCKED_USERS` in `wrangler.jsonc` and deploy: sign-in and every call with their live tokens refuse them at once.
-- **Rate-limits per login:** 120 MCP calls a minute (the `LIMITER` binding).
+- **Rate-limits per login:** 120 MCP calls a minute (the `LIMITER` binding). The OAuth paths (`/register`, `/authorize`, `/token`, `/callback`) run before sign-in, so they're limited per client IP on the same binding; the IP is never logged.
 
 ## Files
 
@@ -25,6 +25,8 @@ For a local connector over stdio, use [`scripts/mcp/corpus-server.mjs`](../../sc
 | `aar-maker/` | The live AAR Maker's guide and its three facilitation workflows (`aar-new`, `aar-deep`, `aar-actions`). |
 | `connectors/` | One file per connector: its name, tool descriptions, pages, the app it packs and its self-test values. `aar-maker.mjs` is the default. |
 | `selftest.mjs` | Calls every tool in-process against the built bundle (`npm test`). |
+| `RUNBOOK.md` | What to do when something goes wrong: a breach, wrong guidance, a loss claim. |
+| `src/oauth-limit.js` | Per-IP rate limit on the OAuth paths, which run before sign-in (`oauth-limit.test.mjs`). |
 | `wrangler.jsonc` | Worker config: domain, bindings, vars. |
 | `public/` | Icons (Factory Review's; `wrangler.review.jsonc`). |
 | `public-aar-maker/` | AAR Maker's icons (`wrangler.jsonc`). |

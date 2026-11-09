@@ -39,7 +39,7 @@ Open Notebook cites a whole source (`[source:…]`), not a passage, so each cite
 
 | Public cases | Cited sentences carried | Grain | Quotations exact | Supported ideas per answer (Opus / Sol) |
 |---|---|---|---|---|
-| grounded-forge, verbatim mode (round 3b) | 96% (Opus) / 89% (Sol) of citations | passage | 147 of 147 | 40.5 / 48.8 |
+| grounded-forge, verbatim mode (round 3b) | 96% (Opus) / 88% (Sol) of citations | passage | 94 of 94 | 40.5 / 48.8 |
 | grounded-forge, `answer-from-corpus` | 95% / 86% | book | 142 of 146 | 36.8 / 46.5 |
 | Open Notebook, Opus 5.5, strict | 93% / 93% | book | 129 of 134 | 32.0 / 39.5 |
 | Gemini Notebook, strict style | 64% / 67% of sentences | chunk | 9 of 11 | 22.2 / 29.2 |

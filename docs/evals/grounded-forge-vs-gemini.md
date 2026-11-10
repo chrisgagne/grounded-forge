@@ -36,6 +36,10 @@ Sol (`gpt-6.1-sol`) is from a different model family from Claude, and wrote none
 
 **A one-paragraph chat style roughly doubles Gemini's rate.** Told to cite only what a passage says, to mark its own inferences as "My inference:" without a citation, and to quote only exact words, Gemini's cited sentences carried by their markers rose from about 40% to 73% (Sol) and 71% (Opus): 64–67% on the public notebook, 76–77% on the private one. It gets there by citing fewer sentences, not by finding better passages, and its quotations became mostly exact. Nothing in Gemini enforces the style; a user has to know to set it.
 
+The paragraph, to set as a custom chat style in Gemini Notebook ([`style.txt`](rounds/2026-11-05-gemini-strict-style/style.txt)):
+
+> Attach a citation only to a sentence that says what the cited passage itself says. Do not add numbers, percentages, causes, examples, or applications to the user's situation that the passage does not contain, and do not make the passage's claim stronger or broader than it is. When you apply a source to the user's case, or draw your own conclusion, put that in a separate sentence that starts "My inference:" and carries no citation. Put words in quotation marks only when they appear word for word in a source. If no passage supports a point, say that no source in this notebook covers it rather than citing a nearby passage. Keep the answer in the chat.
+
 **Asked for a memo, Gemini often doesn't cite at all.** In 7 of 10 as-asked runs, it wrote the memo as a Studio report with no citation markers.
 
 **grounded-forge's quotations are exact; Gemini's are few and loose.**

@@ -85,7 +85,7 @@ One concept file per source, projected onto the `aar` task axis. Each row maps a
 ## Phase 3: Just-culture sorting
 
 - Walk the five-test decision tree in order → [nhs-just-culture-guide](nhs-just-culture-guide.md)
-- Apply the foresight test as system-contract probe → [nhs-just-culture-guide](nhs-just-culture-guide.md)
+- Apply the foresight test as protocols probe → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Apply the substitution test as peer-and-supervision probe → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Decompose a multi-action incident into one-action evaluations → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Test the reckless-and-willful threshold → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)

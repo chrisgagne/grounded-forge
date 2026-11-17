@@ -266,6 +266,7 @@ The scenario is operator-authored. The liaison guidance (Part 5), the administra
 ## Related concepts
 
 - [NHS Just Culture Guide](nhs-just-culture-guide.md) — shared: Blameless Review, Incident Investigation, Just Culture, Systems Thinking
+- [Aristotle, Rhetoric (trans. W. Rhys Roberts)](aristotle-rhetoric.md) — shared: Counterfactual Reasoning
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md) — shared: Systems Thinking
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Systems Thinking
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Systems Thinking

@@ -92,6 +92,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Detect production as the default value → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Decide whether to diagnose before deciding → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
 - Check the risk category and whether it has drifted → [caib-report-vol1](caib-report-vol1.md)
+- Test that the matter is decidable → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 2: Bounding
 
@@ -148,6 +149,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Set the irreversible step and abort criteria → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Write down and verify the assumptions → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
 - Decide who carries the burden of proof → [caib-report-vol1](caib-report-vol1.md)
+- Separate the necessary, the usual and the single sign → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 3: Exploring
 
@@ -176,7 +178,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Treat forecasting tools as decision inputs, not decision-makers → [scrum-guide-2020](scrum-guide-2020.md)
 - Invite advisors to Sprint Planning when warranted → [scrum-guide-2020](scrum-guide-2020.md)
 - Walk the just-culture five-test decision tree in order → [nhs-just-culture-guide](nhs-just-culture-guide.md)
-- Apply the foresight test as the system-contract probe → [nhs-just-culture-guide](nhs-just-culture-guide.md)
+- Apply the foresight test as the protocols probe → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Apply the substitution test as the peer-and-supervision probe → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Apply the Five Hows to each key decision or action → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
 - Decompose beliefs, perceptions, expectations, and paradigms → [lfuo-learning-review-guide-2024](lfuo-learning-review-guide-2024.md)
@@ -221,6 +223,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Test assumptions and the shared mental model → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Generate options and name a devil's advocate → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
 - Get the information that would settle it, and hear the marginal voices → [caib-report-vol1](caib-report-vol1.md)
+- Reason from real precedents → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 4: Deciding
 
@@ -291,6 +294,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Put the burden of proof on proceeding → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Apply the conservative-decision practices → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
 - Demand the uncertainty, and a devil's advocate → [caib-report-vol1](caib-report-vol1.md)
+- Compare goods and test the arguments → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 5: Ratifying
 
@@ -338,6 +342,7 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - State roles, contingencies, abort criteria and the right to stop → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Commit with owners, contingencies and abort criteria → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
 - Name an owner for the accepted risk; check the rationale is fresh → [caib-report-vol1](caib-report-vol1.md)
+- Expect the deterrents → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 6: Monitoring
 
@@ -394,10 +399,12 @@ One concept file per source, projected onto the `decision-making` task axis. Eac
 - Catch normalisation of a repeated deviation → [doe-hpi-handbook-vol1](doe-hpi-handbook-vol1.md)
 - Choose indicators that predict, and read them properly → [doe-hpi-handbook-vol2](doe-hpi-handbook-vol2.md)
 - Track every recurrence as a trend → [caib-report-vol1](caib-report-vol1.md)
+- Review without hindsight → [aristotle-rhetoric](aristotle-rhetoric.md)
 
-## All concept files (30)
+## All concept files (31)
 
 - [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md)
+- [Aristotle, Rhetoric (trans. W. Rhys Roberts)](aristotle-rhetoric.md)
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md)
 - [Columbia Accident Investigation Board, Report Volume I](caib-report-vol1.md)
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md)

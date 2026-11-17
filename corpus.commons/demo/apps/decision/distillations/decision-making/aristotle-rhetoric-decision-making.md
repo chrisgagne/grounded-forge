@@ -1,0 +1,169 @@
+# Aristotle, Rhetoric (trans. W. Rhys Roberts), Decision-Making Distillation
+
+**Source:** Aristotle, *Rhetoric*, translated by W. Rhys Roberts (Oxford: Clarendon Press, 1924; The Works of Aristotle, vol. XI). Internet Classics Archive transcription, http://classics.mit.edu/Aristotle/rhetoric.html. **Licence:** Public domain (translation published 1924; translator died 1929). **Scope:** open. Cited as `(Bk N, Part M)`; every quotation is Roberts's English.
+
+## Decision-Making Relevance
+
+The *Rhetoric* is a treatise on persuasion, and Book I, Parts 4–8 are an account of deliberation written for the person who must advise a deciding body. It sets the boundary of what can be decided at all: counsel is given only on matters *"that ultimately depend on ourselves, and which we have it in our power to set going"* [V] (Bk I, Part 4), and nobody who takes things to be incapable of being otherwise wastes time deliberating about them (Bk I, Part 2). It holds that deliberation concerns means rather than ends, *"what it is most useful to do"* [V] (Bk I, Part 6), and then supplies what a decision-maker needs to compare options: an account of the ends people pursue (Bk I, Part 5), lists of things good and useful (Bk I, Part 6), and a long set of tests for judging one good greater than another (Bk I, Part 7). Because decisions about action rest on what usually happens rather than on what must happen, its account of reasoning from probabilities, signs and precedents (Bk I, Part 2; Bk II, Parts 19–20, 25) is an account of evidence for decisions.
+
+Books II and III add the other side: how decisions get pushed off course. The author states that the emotions *"so change men as to affect their judgements"* [V] (Bk II, Part 1); he lists the three failings behind all bad advice (want of good sense, moral badness, want of goodwill); and he catalogues arguments that only look valid, among them post hoc reasoning, indignant language without proof, and the hindsight judgement that a better course was available (Bk II, Parts 23–24). For a decision-maker these are tests to run on the arguments put to them. The source speaks to the person who advises a decision and to the decider as the "judge" of that advice. Its political examples (war, revenue, constitutions) are ancient; every move from them to modern organisational decisions is this distillation's.
+
+## Key Concepts for Decision-Making
+
+1.  **Only some things are decisions.** Counsel can be given only on what may or may not take place and depends on us; things that exist or will exist inevitably, or that occur naturally or by accident, are outside it (Bk I, Part 4) [AP]. *"For it is about our actions that we deliberate and inquire, and all our actions have a contingent character; hardly any of them are determined by necessity."* [V] (Source: Aristotle, *Rhetoric*, Bk I, Parts 2, 4)
+
+2.  **Deliberation is about means; the end is assumed.** *"Now the political or deliberative orator's aim is utility: deliberation seeks to determine not ends but the means to ends, i.e. what it is most useful to do."* [V] The end the author names for all advice is happiness and its constituents (Bk I, Part 5) [AP]. A decision whose end is in dispute is not yet a deliberation about means. (Source: *Rhetoric*, Bk I, Parts 5–6)
+
+3.  **Comparing options: tests of the greater good.** When people agree two things are useful but not which is more so, the author offers tests (Bk I, Part 7) [AP]: what is a cause or beginning is greater; what would be chosen by people of understanding, or by a better person, is better; what lasts and is secure is better; the rare and the plentiful can each be argued better. Some tests cut both ways: Leodamas blamed the prompter over the doer in one prosecution and the doer over the prompter in another (Bk I, Part 7) [AE]. (Source: *Rhetoric*, Bk I, Part 7)
+
+4.  **Decisions run on probabilities, and signs differ in strength.** The materials of enthymemes, the orator's arguments, are Probabilities (what usually happens, within the contingent) and Signs. Some signs are infallible; others are refutable, *"since a man may breathe hard without having a fever"* [V] (Bk I, Part 2), even if the facts are correct (Bk II, Part 25) [AR]. Past and future fact are argued from power and wish, and from what naturally comes before or after; *"Of all these sequences some are inevitable and some merely usual."* [V] (Bk II, Part 19) (Source: *Rhetoric*, Bk I, Part 2; Bk II, Parts 19, 25)
+
+5.  **Precedent as evidence about the future.** Examples suit deliberation *"for we judge of future events by divination from past events"* [V] (Bk I, Part 9). Real precedents are worth more to the adviser than invented parallels *"since in most respects the future will be like what the past has been"* [V] (Bk II, Part 20); the political speaker must study other countries' wars because *"similar causes are likely to have similar results"* [V] (Bk I, Part 4). A negative instance refutes an argument from examples *"in so far as it is proved not inevitable"* [V]; where the positive examples are more numerous and more frequent, one contends that the present case *"is dissimilar, or that its conditions are dissimilar"* [V] (Bk II, Part 25). (Source: *Rhetoric*, Bk I, Parts 4, 9; Bk II, Parts 20, 25)
+
+6.  **Know the facts of the subject first.** The adviser on war must know the country's strength, revenue, allies and past wars (Bk I, Part 4; Bk II, Part 22) [AE]:
+
+   > *"Whether our argument concerns public affairs or some other subject, we must know some, if not all, of the facts about the subject on which we are to speak and argue. Otherwise we can have no materials out of which to construct arguments."* [V] (Source: *Rhetoric*, Bk II, Part 22)
+
+   The more special facts, the less an argument is a commonplace that fits any case; and abstract laws of greatness are *"to argue without an object; in practical life, particular facts count more than generalizations"* [V] (Bk II, Part 19).
+
+7.  **Feelings move judgements.** *"The Emotions are all those feelings that so change men as to affect their judgements, and that are also attended by pain or pleasure."* [V] (Bk II, Part 1) The same people judge one way when friendly and another way, or the same way with a different intensity, when angry (Bk II, Part 1) [AP]. One of the author's reasons for well-drawn laws rests on the same point: judges deciding definite cases are swayed by friendship, hatred and self-interest (Bk I, Part 1) [AR]. (Source: *Rhetoric*, Bk I, Part 1; Bk II, Part 1)
+
+8.  **Three ways advice goes wrong.** The author derives the sources of a speaker's credibility from the causes of bad advice:
+
+   > *"Men either form a false opinion through want of good sense; or they form a true opinion, but because of their moral badness do not say what they really think; or finally, they are both sensible and upright, but not well disposed to their hearers, and may fail in consequence to recommend what they know to be the best course."* [V] (Source: *Rhetoric*, Bk II, Part 1)
+
+   *"These are the only possible cases."* [V] A decision-maker weighing advice can ask which of the three, good sense, good moral character or goodwill, is in doubt. (Source: *Rhetoric*, Bk II, Part 1)
+
+9.  **Arguments that only look valid.** Book II, Part 24 lists them [AP]: a compact, antithetical wording that passes for a conclusion; whole and parts confused; *"indignant language"* that paints *"a highly-coloured picture of the situation without having proved the facts of it"* [V]; a single sign taken as proof; the accidental taken as essential; argument from consequence; time and circumstances left out; and the cause read from sequence: *"They assume that, because B happens after A, it happens because of A. Politicians are especially fond of taking this line."* [V] (Source: *Rhetoric*, Bk II, Part 24)
+
+10.  **"They could have done better" is a fallacy.** One line of argument considers whether the accused could have taken a better course; the author calls it fallacious, *"for it often becomes clear after the event how the action could have been done better, though before the event this was far from clear"* [V] (Bk II, Part 23, line 25). (Source: *Rhetoric*, Bk II, Part 23)
+
+11.  **Decide on what is likely, not only on what is certain.** Any argument from what usually happens can be met by showing it is not inevitable, but that refutation may be spurious: judges *"ought to decide by considering not merely what must be true but also what is likely to be true"* [V]. A sound objection *"must state what is more usually true than the statement attacked"* [V], in frequency or exactness, best both (Bk II, Part 25). (Source: *Rhetoric*, Bk II, Part 25)
+
+12.  **Inducements and deterrents.** People act when an action is *"possible, easy, and useful to ourselves or our friends or hurtful to our enemies"* [V] (Bk II, Part 23, line 20). Book I's account of wrongdoers runs the same calculus: they weigh whether they will be found out, whether the gain is great, certain or immediate and the penalty small, uncertain or distant (Bk I, Part 12) [AP]. Separately, what people approve openly differs from what they approve secretly: openly justice and nobility, in their hearts their own advantage (Bk II, Part 23, line 15) [AP]. (Source: *Rhetoric*, Bk I, Part 12; Bk II, Part 23)
+
+## Questions to Ask During Decision-Making
+
+The questions are this distillation's; the third column names the passage each leans on.
+
+### Phase 1: Framing (Recognising the decision and gathering context)
+
+| Need | Question | Source |
+|---|---|---|
+| Test that it is a decision | Does the outcome depend on something we can set going, or are we deliberating about what will happen anyway, by necessity or by accident? | Bk I, Part 4; Bk I, Part 2 |
+| Separate ends from means | Do we agree what end this decision serves? If not, are we arguing about means while the real dispute is about ends? | Bk I, Parts 5–6 |
+| Gather the facts of the subject | What are the specific facts of this case (resources, commitments, history, who is with and against us), as distinct from general truths that would fit any similar case? | Bk II, Part 22; Bk I, Part 4 |
+| Notice the room's mood | Is the group angry, frightened, hopeful or friendly about this right now, and how might that be bending its reading of the facts? | Bk II, Part 1 |
+
+### Phase 2: Bounding (Defining the decision and its constraints)
+
+| Need | Question | Source |
+|---|---|---|
+| Name the kind of claim | Which parts of this decision rest on what must happen, which on what usually happens, and which on a single sign? | Bk I, Part 2; Bk II, Part 25 |
+| Check the arrangements we are bound by | Which existing rules, agreements or institutional interests constrain the options, and whose interest lies in keeping things as they are? | Bk I, Part 8 |
+| Bound the general argument | Are we being asked to settle an abstract principle when the decision turns on particular facts? | Bk II, Part 19 |
+
+### Phase 3: Exploring (Generating alternatives)
+
+| Need | Question | Source |
+|---|---|---|
+| Find real precedents | Where has a similar choice been made before, here or elsewhere, and how did it end? Are the present conditions like those, or dissimilar? | Bk II, Part 20; Bk I, Part 4; Bk II, Part 25 |
+| List consequences both ways | What good and what bad consequences follow from each option, and does each option have both? | Bk II, Part 23 (lines 13–14) |
+| Surface the unstated motive | What does each party openly argue for, and what would it prefer if no one were watching? | Bk II, Part 23 (line 15) |
+| Test feasibility | Is each option possible, and is it easy? What would make the first step possible: people we can persuade, compel or call on as friends? | Bk I, Part 6; Bk II, Part 19 |
+
+### Phase 4: Deciding (Analysing and selecting)
+
+| Need | Question | Source |
+|---|---|---|
+| Compare goods on stated tests | Which option is the cause of more of what we want, more lasting and secure, and what would a person of good understanding choose? | Bk I, Part 7 |
+| Check the argument's form | Does any argument for an option rest on sequence alone (it followed, so it caused), on a single instance, on a vivid picture without proof, or on leaving out time and circumstances? | Bk II, Part 24 |
+| Weigh the likely, not the certain | Is an option being rejected only because its case is not inevitable? What is more usually true? | Bk II, Part 25 |
+| Weigh the adviser | For the advice in front of us, is the doubt about good sense, about honesty, or about goodwill toward us? | Bk II, Part 1 |
+
+### Phase 5: Ratifying (Implementing the decision)
+
+| Need | Question | Source |
+|---|---|---|
+| State the decision and its reasons | Can we state what was decided and the argument for it plainly, so that those who must carry it out can follow the reasoning? | Bk III, Parts 13, 19 |
+| Fit the case to the people who must accept it | Who has to accept this decision, what do they already believe, and what form of government or institution are they working within? | Bk II, Part 21; Bk I, Part 8 |
+| Expect the deterrents | What makes the decided action look hard, unprofitable or risky to those who must carry it out? | Bk II, Part 23 (line 20) |
+
+### Phase 6: Monitoring (Evaluating effectiveness)
+
+| Need | Question | Source |
+|---|---|---|
+| Review without hindsight | When we ask whether a better course was available, are we using what only became clear after the event? | Bk II, Part 23 (line 25) |
+| Classify the outcome fairly | Was a bad result a misfortune (unexpected results, no moral badness), an error of judgement (results that might have been expected, no moral badness), or something worse? | Bk I, Part 13 |
+| Check the causal story | Is the account of what caused the result based on sequence alone? | Bk II, Part 24 |
+| Update the precedents | What does this outcome add to the record of past cases we will reason from next time? | Bk II, Part 20 |
+
+## What to Look For
+
+| Signal | Diagnosis | Follow-up |
+|---|---|---|
+| A proposal is blamed for a downturn because the downturn came after it | Post hoc reasoning, which the author calls a spurious enthymeme and says politicians are especially fond of (Bk II, Part 24) | Ask what else changed in the same period and whether the effect appears where the supposed cause is absent; the author's own line is that cause and effect are present or absent together (Bk II, Part 23, line 24) |
+| The case for an option is a vivid picture of disaster with no facts behind it | Indignant language standing in for proof: the hearer infers, but no proof is given (Bk II, Part 24) | Separate the picture from the claims; ask for the facts each claim rests on |
+| Debate circles over whether a principle is true in general | Arguing without an object; particular facts count more than generalisations in practical life (Bk II, Part 19) | Bring the discussion back to the facts of this case and the options actually available |
+| An option is dismissed because "we can't be sure it will work" | Refutation by non-inevitability, which the author says may be spurious, since judges ought to decide on what is likely as well as on what must be true (Bk II, Part 25); applying it to options is this distillation's transfer | Ask what is more usually true, and how often and how closely the case resembles it |
+| The group has just been insulted, frightened or embarrassed, and the decision is due today | Emotion changing judgement (Bk II, Part 1); the author also notes that time puts an end to anger (Bk II, Part 3) | If the decision can wait, let it; if not, name the feeling and check the reading of the facts against someone not caught up in it |
+| A review of a past decision says "obviously they should have…" | The better-course argument, which the author calls fallacious because how the action could have been done better often becomes clear only after the event (Bk II, Part 23, line 25) | Reconstruct what was known and likely before the decision, and judge the choice on that |
+| Advice comes from someone who stands to gain from one option | A possible failure of goodwill or moral character, not of good sense (Bk II, Part 1) | Seek the same assessment from a party without the stake; the author holds that detached persons are highly trustworthy on questions of quality (Bk I, Part 15) |
+
+## When to Use This Reference
+
+- A group is unsure whether a matter is theirs to decide, or whether they are arguing about ends while appearing to argue about means. Book I, Parts 4–6 set the boundary and the distinction.
+- Several options are all called "good" and the group needs explicit tests for which is better. Book I, Part 7 is a ready list of comparison tests, with the warning that some cut both ways.
+- The arguments in front of a decision-maker need checking. Book II, Parts 24–25 catalogue arguments that only look valid and say how a probability is properly refuted.
+- A decision is being reviewed after the fact. The better-course fallacy (Bk II, Part 23) and the equity distinctions between misfortune, error of judgement and criminal act (Bk I, Part 13) keep hindsight and blame in check.
+- Reach for the OpenStax *Organizational Behavior* distillation for the psychology of individual and group decisions (biases, groupthink, escalation); the *Rhetoric* names emotional and argumentative distortions but does not study them empirically.
+- Reach for the MCDP 1 distillation when the decision is time-competitive against a moving situation; the *Rhetoric* touches decision time only in passing (court decisions come at short notice, Bk I, Part 1).
+- Reach for the NHS Just Culture distillation when an individual's action after an incident must be sorted; the *Rhetoric*'s equity distinctions are a short passage written for a law-court, not a protocol.
+
+## Worked Example
+
+*The scenario is operator-authored; its events and outcome are the scenario's. The* Rhetoric *writes about assemblies, law-courts and ceremonies in ancient Greece; every transfer to a modern board is this distillation's.*
+
+A community health charity runs a main clinic and, for the past eighteen months, a satellite clinic in a neighbouring town. Donations fell 15% last year. At the board meeting the treasurer proposes closing the satellite: donations began falling after it opened.
+
+**Framing.** The chair first checks that this is a decision at all: the satellite's future depends on the board, so it is a matter *"which we have it in our power to set going"* [V] (Bk I, Part 4). She asks what end the decision serves. The board agrees the end is the charity's patients and its survival, and that the question is which means serves that end better, which is deliberation as the author frames it: *"not ends but the means to ends"* [V] (Bk I, Part 6). She asks for the specific facts before any argument: patient numbers at each site, cost per visit, where the donations came from and when they fell (Bk II, Part 22).
+
+**Exploring.** The treasurer's argument is that the fall followed the opening. The chair names it as the sequence argument the author warns against:
+
+> *"They assume that, because B happens after A, it happens because of A. Politicians are especially fond of taking this line."* [V] (Source: *Rhetoric*, Bk II, Part 24)
+
+The donation records, in the scenario, show the fall came almost entirely from one corporate donor that changed its giving policy across the region. The board then looks for precedents, the author's preferred evidence about the future (Bk II, Part 20): two other charities in the region that ran satellites, one closed after a year, one still open. It asks whether their conditions are like its own (Bk II, Part 25).
+
+**Deciding.** A board member argues that the satellite *might* fail next year too, so it should close. The chair answers with the author's rule that judges should decide on what is likely as well as on what must be true: the board *"ought to decide by considering not merely what must be true but also what is likely to be true"* [V] (Bk II, Part 25). She asks the member to state what is more usually true of satellites like this one. The board compares the options on the Book I, Part 7 tests: the satellite is the source of most of the charity's new patients, which the test of what is a beginning or cause counts in its favour, and it is less secure. They keep it open for one more year with a funding target.
+
+**Monitoring.** A year later the target is missed and the satellite closes. In the review, a trustee says the board should obviously have closed it a year earlier. The chair points to the author's warning that this argument is fallacious, *"for it often becomes clear after the event how the action could have been done better, though before the event this was far from clear"* [V] (Bk II, Part 23, line 25). The review instead asks what was known and likely at the time, and records the outcome as a new precedent.
+
+What the example takes from the *Rhetoric*: the test of what is decidable and the means-not-ends frame (Bk I, Parts 4, 6); facts of the case before argument (Bk II, Part 22); the post hoc warning (Bk II, Part 24); precedent and its refutation by dissimilar conditions (Bk II, Parts 20, 25); deciding on the likely (Bk II, Part 25); the comparison tests (Bk I, Part 7); and the better-course fallacy (Bk II, Part 23). The charity, the figures and the outcome are the scenario's.
+
+## Anti-patterns This Reference Helps Avoid
+
+- **Deliberating about the undecidable.** *Signal:* long discussion of an outcome the group cannot influence. *Diagnosis:* counsel can only be given on matters that depend on us (Bk I, Part 4). *Follow-up:* split the matter into what is ours to set going and what we must plan around.
+- **Arguing means while ends are in dispute.** *Signal:* the same options are re-argued because people want different things from them. *Diagnosis:* deliberation concerns means, with the end assumed (Bk I, Part 6). *Follow-up:* settle or name the end before comparing options.
+- **Sequence read as cause.** *Signal:* "it started after we did X". *Diagnosis:* the post hoc spurious enthymeme (Bk II, Part 24). *Follow-up:* look for the effect where the supposed cause is absent.
+- **Certainty as the bar.** *Signal:* options die because nobody can prove they will work. *Diagnosis:* the spurious refutation by non-inevitability (Bk II, Part 25). *Follow-up:* ask what is more usually true, and decide on that.
+- **The vivid case.** *Signal:* the most dramatic speaker carries the room without facts. *Diagnosis:* indignant language without proof (Bk II, Part 24); the author also notes that an emotional speaker makes the audience feel with him *"even when there is nothing in his arguments"* [V] (Bk III, Part 7). *Follow-up:* ask which claims the picture rests on, and check them.
+- **Generalities in place of the case.** *Signal:* the argument would fit any organisation. *Diagnosis:* commonplaces rather than special facts (Bk II, Part 22). *Follow-up:* ask what is true of this case alone.
+- **Judging past decisions by hindsight.** *Signal:* reviews conclude that the right answer was obvious. *Diagnosis:* the better-course fallacy (Bk II, Part 23). *Follow-up:* judge on what was known and likely before the event.
+- **Weighing advice without weighing the adviser.** *Signal:* advice is accepted or rejected on the speaker's confidence alone. *Diagnosis:* advice fails through want of good sense, moral badness or want of goodwill (Bk II, Part 1). *Follow-up:* ask which of the three is in doubt.
+
+## Integration with Other References
+
+| Reference | How it pairs with the *Rhetoric* |
+|---|---|
+| OpenStax, *Organizational Behavior* (Ch 6.4, 6.6) | OB names barriers to effective decisions (bounded rationality, escalation of commitment, biases, conflict avoidance) and groupthink, where members keep objections to themselves to keep the peace. The *Rhetoric* supplies the adviser's side: the three failings behind bad advice (good sense, moral character, goodwill) and the arguments that only look valid. Use OB for the psychology; use the *Rhetoric* to test the arguments and the advisers. |
+| U.S. Marine Corps, *MCDP 1: Warfighting* | MCDP 1 treats decisionmaking in execution as time-competitive and holds that delaying action in an emergency for want of information shows a lack of moral courage. The *Rhetoric* reaches a related point by another route: decisions about action rest on what usually happens, and refuting a probability only by showing it is not inevitable may be spurious (Bk II, Part 25). Carrying that to an option refused for want of certainty is this distillation's transfer. MCDP 1 adds the clock; the *Rhetoric* adds the account of evidence and of comparing goods. |
+| NHS Improvement, *A Just Culture Guide* | Both make the judgement of an individual's act turn on the circumstances in which it was done. The *Rhetoric*'s equity passage distinguishes misfortune, error of judgement and criminal act by intent and foreseeability (Bk I, Part 13); the NHS guide applies a gated sequence of tests to one action at a time. Use the NHS guide as the protocol; the *Rhetoric* is the older statement of the distinction. |
+| OpenStax, *Business Ethics* | Where a decision turns on whose interests count, Business Ethics carries the stakeholder theory. The *Rhetoric* observes that people approve justice openly and their own advantage in secret (Bk II, Part 23, line 15), and that all are persuaded by their interest in the established order (Bk I, Part 8): a reason to surface interests explicitly rather than assume them. |
+
+## Citation and Source-Integrity Notes
+
+**Borrowed-through gaps.** The author refers to the *Topics*, *Analytics* and *Politics* for fuller treatments of induction, syllogism, signs and forms of government; none is held in this corpus. He attributes particular lines of argument to earlier rhetoric manuals (Corax, Callippus, Pamphilus, and the Art before Theodorus), none held. This distillation uses only the *Rhetoric*'s own statements.
+
+**Named limits of the source.** The *Rhetoric* is written for speakers advising assemblies, pleading in law-courts and praising at ceremonies; its political subjects are revenue, war, defence, food supply and legislation (Bk I, Part 4). It does not address organisations, markets or modern evidence methods, and it reports no empirical findings: its claims about emotions and character are the author's descriptions. Its comparison tests are lines of argument a speaker can use, some of which the author shows cutting both ways (Bk I, Part 7), not a decision procedure. Its equity passage is a few sentences on forensic judgement (Bk I, Part 13). Every transfer to modern decisions here is the distillation's.
+
+**Evidence-marker continuity.** Every `[V]` quotation is copied from a `[V]` passage in the deep reference `references/aristotle-rhetoric-deep.md`, and is Roberts's English exactly as the converted source prints it, including the hyphens it uses for dashes. `[V]` here means the translator's words; Aristotle's Greek does not survive on the source. Passages the deep reference paraphrases are carried as `[AP]`, `[AR]` or `[AE]`. Unmarked prose, including every question, pattern, anti-pattern and the Worked Example scenario, is the distillation's own.

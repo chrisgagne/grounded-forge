@@ -10,7 +10,7 @@ generated:
 
 **Bundle:** decision (OKF 0.2, emitted by grounded-forge/0.4.0)
 **Most-restrictive scope:** open-nc
-**Sources:** 30
+**Sources:** 31
 
 ## Scope levels
 
@@ -29,6 +29,7 @@ The bundle inherits the most-restrictive scope across all sources below. The rec
 | Source | Scope | Licence |
 |---|---|---|
 | approach-perfect-field-guide-scrum-events | open | Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0) |
+| aristotle-rhetoric | open | Public domain (translation published 1924 |
 | barbrook-johnson-systems-mapping | open | unknown |
 | caib-report-vol1 | open | Public domain (US Government work, 17 USC §105 |
 | doe-hpi-handbook-vol1 | open | Public domain (US Government work, 17 USC §105 |

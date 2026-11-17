@@ -233,6 +233,7 @@ This worked example illustrates several key concepts in the source: the eight-qu
 - [OpenStax Business Ethics](openstax-business-ethics.md) — shared: Business Ethics, Corporate Culture, Ethics, Harassment
 - [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking, Business Environment, Business Ethics, Entrepreneurship
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
+- [Aristotle, Rhetoric (trans. W. Rhys Roberts)](aristotle-rhetoric.md) — shared: Decision Making, Virtue Ethics
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making, Stakeholder Theory
 - [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Employment Law, Sexual Harassment

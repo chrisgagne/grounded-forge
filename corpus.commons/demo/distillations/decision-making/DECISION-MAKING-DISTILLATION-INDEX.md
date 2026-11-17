@@ -244,6 +244,8 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | **Deciding which decisions to hand down and how much method to prescribe** | Decentralised command; mission tactics; commander's intent, intent predominant over task (US Marine Corps, MCDP 1 Warfighting) | `mcdp1-warfighting-decision-making.md` |
 | **Too many simultaneous priorities; one main effort must be named** | Main effort: one action gets priority for support, prudent risk accepted elsewhere (US Marine Corps, MCDP 1 Warfighting) | `mcdp1-warfighting-decision-making.md` |
 | **Decision against a moving clock: act now or wait for more information?** | Time-competitive decisionmaking; moral courage against rashness; deliberate-planning decisions not rushed (Ch 4 "Decisionmaking") (US Marine Corps, MCDP 1 Warfighting) | `mcdp1-warfighting-decision-making.md` |
+| **Comparing options that are all "good": which is better?** | Tests of the greater good; deliberation concerns means, not ends (Aristotle, *Rhetoric*, Bk I, Parts 6–7) | `aristotle-rhetoric-decision-making.md` |
+| **Testing the arguments put to a decision-maker** | Spurious enthymemes (post hoc, indignant language, a single sign as proof); refuting a probability by what is more usually true (Aristotle, *Rhetoric*, Bk II, Parts 24–25) | `aristotle-rhetoric-decision-making.md` |
 
 ---
 
@@ -341,6 +343,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Detect production as the default value | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Schedule framing dominates and safety is assumed; unless safety is preserved as a core value, production becomes the default value (adapted from Hollnagel). |
 | Decide whether to diagnose before deciding | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | A problem has no clear cause yet: PACTS works backward from a problem stated as a gap; the decision tool works forward from a goal; in a no-rule situation, pause and involve a second knowledgeable person. |
 | Check the risk category and whether it has drifted | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-decision-making.md` | "It's in family" or "we've seen this before": is the situation really inside the experience base, has the category's meaning drifted with each recurrence, and was a conclusion shared before any analysis started? |
+| Test that the matter is decidable | Aristotle, *Rhetoric* (trans. W. Rhys Roberts) | `aristotle-rhetoric-decision-making.md` | The group is deliberating about an outcome. The *Rhetoric* holds that counsel can only be given on matters that depend on us and could be otherwise, and that deliberation concerns means, not ends (Bk I, Parts 4, 6). |
 
 ### Phase 2: Bounding
 
@@ -399,6 +402,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Set the irreversible step and abort criteria | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | A decision touches a step whose failure causes irreversible harm (a critical step); weigh severity as well as likelihood and set abort criteria before starting. |
 | Write down and verify the assumptions | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | *I think*, *we've always*, *it was fine last time* or a vendor's *it's equivalent* carry the case: document each assumption, find objective evidence, check it in the field, and close every unverified one out before the decision is handed on. |
 | Decide who carries the burden of proof | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-decision-making.md` | A hazardous option is on the table: must it be proved safe, or must objectors prove it dangerous? Test "nothing can be done" before accepting it; name what the schedule is deciding. |
+| Separate the necessary, the usual and the single sign | Aristotle, *Rhetoric* (trans. W. Rhys Roberts) | `aristotle-rhetoric-decision-making.md` | The case for a decision mixes certainties, likelihoods and one-off signs. The *Rhetoric* distinguishes probabilities (what usually happens) from infallible and fallible signs, and holds that in practical life particular facts count more than generalisations (Bk I, Part 2; Bk II, Part 19). |
 
 ### Phase 3: Exploring
 
@@ -474,6 +478,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Test assumptions and the shared mental model | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | "I think", "We've always", "I believe" are carrying the argument; agree the mental model, name a devil's advocate, check confirmation, similarity and availability bias. |
 | Generate options and name a devil's advocate | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | Only one option is on the table, or front-line expertise has not been asked: develop several alternatives, use all available expertise, and assign someone to look for flaws. |
 | Get the information that would settle it, and hear the marginal voices | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-decision-making.md` | Data that would resolve the question (a test, an inspection, imagery) has been requested and not obtained, or people at the edge of the decision have not been heard: track each request and seek out those who may know but will not volunteer. |
+| Reason from real precedents | Aristotle, *Rhetoric* (trans. W. Rhys Roberts) | `aristotle-rhetoric-decision-making.md` | Options need evidence about the future. The *Rhetoric* prefers actual past cases to invented parallels because in most respects the future will be like the past, and answers a precedent by showing the present conditions are dissimilar (Bk II, Parts 20, 25). |
 
 ### Phase 4: Deciding
 
@@ -546,6 +551,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Put the burden of proof on proceeding | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Safety is uncertain and work is about to continue: prove it safe before proceeding rather than unsafe before halting; place systems in a known safe condition; watch for the group "risky shift". |
 | Apply the conservative-decision practices | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | Schedule pressure or a favoured option: stay within the safe envelope, do not discount disconfirming data, minimise uncertainty with facts, weigh cumulative risk, get an independent review, and check the signer can sign without doubt. |
 | Demand the uncertainty, and a devil's advocate | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-decision-making.md` | An analysis arrives as a bottom line, a trusted expert reassures, or the room agrees quickly: ask for the quantified uncertainty and the model's validated range, check the expert's scope, appoint someone to argue the other side, and judge concerns on merits, not channels. |
+| Compare goods and test the arguments | Aristotle, *Rhetoric* (trans. W. Rhys Roberts) | `aristotle-rhetoric-decision-making.md` | Several options are each called good. The *Rhetoric* gives tests of the greater good (Bk I, Part 7), names arguments that only look valid, including post hoc reasoning and indignant language without proof (Bk II, Part 24), and holds that decisions should rest on what is likely, not only on what must be true (Bk II, Part 25). |
 
 ### Phase 5: Ratifying
 
@@ -595,6 +601,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | State roles, contingencies, abort criteria and the right to stop | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Communicating a conservative decision: clear direction, roles and responsibilities, contingencies and abort criteria; workers authorised to take conservative action when conditions turn uncertain. |
 | Commit with owners, contingencies and abort criteria | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | The plan step: who, what, by when; contingencies for unintended consequences; abort or hold criteria; stakeholders involved. |
 | Name an owner for the accepted risk; check the rationale is fresh | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-decision-making.md` | A sign-off process ratifies a known problem: consensus by signature can leave no one accountable; ask whether the rationale rests on analysis or on past success, and whether the ratifiers heard the full analysis or a slide. |
+| Expect the deterrents | Aristotle, *Rhetoric* (trans. W. Rhys Roberts) | `aristotle-rhetoric-decision-making.md` | Others must carry the decision out. The *Rhetoric* holds that people act when an action is possible, easy and useful to them, and that what they approve openly differs from what they prefer in private (Bk II, Part 23, lines 15 and 20). |
 
 ### Phase 6: Monitoring
 
@@ -653,6 +660,7 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 | Catch normalisation of a repeated deviation | US DOE, HPI Handbook Vol. 1 | `doe-hpi-handbook-vol1-decision-making.md` | Something happens every time without harm, or good results are used to dismiss recommendations: the bald-tire attitude, with Columbia's foam strikes as the handbook's example. |
 | Choose indicators that predict, and read them properly | US DOE, HPI Handbook Vol. 2 | `doe-hpi-handbook-vol2-decision-making.md` | Choosing how to track a decision: seven criteria for an indicator, two or three per objective, leading over lagging; "a single event could appear to be a trend"; schedule the effectiveness review; benchmark or invite independent oversight to see past paradigm blindness. |
 | Track every recurrence as a trend | Columbia Accident Investigation Board, Report Vol. I | `caib-report-vol1-decision-making.md` | An anomaly keeps recurring without harm: record every instance where a trend can be seen, do not analyse a big surprise into a weak signal, update the hazard analysis behind earlier decisions, and plan for vigilance fading. |
+| Review without hindsight | Aristotle, *Rhetoric* (trans. W. Rhys Roberts) | `aristotle-rhetoric-decision-making.md` | Reviewing a decision that went badly. The *Rhetoric* calls the argument that a better course was available fallacious, because what was better often becomes clear only after the event, and separates misfortune and error of judgement from deliberate wrong (Bk II, Part 23, line 25; Bk I, Part 13). |
 
 ---
 
@@ -738,6 +746,10 @@ Concepts within a distillation may be referenced with line ranges (`{file}.md L{
 ### Doctrine and high-tempo / high-uncertainty decision frame
 
 - `mcdp1-warfighting-decision-making.md`, U.S. Marine Corps (*MCDP 1: Warfighting*, 1997, supersedes FMFM 1, 1989). **Licence unverified (Distribution Statement A, "Approved for public release; distribution is unlimited"; the imprint reads "© 1997 … All rights reserved."); scope=open on the distribution statement.** Doctrine for war, projected onto decisions made under uncertainty and against a moving clock. Ch 4 "Decisionmaking": any decision is generally better than no decision; time is often the most important factor and decisionmaking in execution is time-competitive, but deliberate-planning decisions should not be rushed; intuitive and analytical modes; delay for incomplete information in an emergency as a lack of moral courage, balanced against rashness; the aim is a promising course of action with an acceptable degree of risk. Around it: decentralised command, mission tactics and commander's intent (method prescribed only as far as coordination needs; intent predominant over task; understood at least two levels up); main effort with prudent risk accepted elsewhere; honest opinion before the decision and support after it; leniency for overbold errors by junior leaders, severity for inaction or timidity, no licence for recklessness; doctrine as guidance requiring judgment; critiques that ask why actions were taken. Applications outside war are the distillation's; the tempo and surfaces-and-gaps material assumes an opposing will.
+
+### Classical rhetoric: deliberation and argument
+
+- `aristotle-rhetoric-decision-making.md`, Aristotle (*Rhetoric*, trans. W. Rhys Roberts, Oxford: Clarendon Press, 1924). **Public domain; scope=open.** A treatise on persuasion whose Book I, Parts 4–8, give an account of deliberation for those who advise a deciding body. What can be decided (matters that depend on us and could be otherwise; Bk I, Parts 2, 4); deliberation about means, not ends (Bk I, Part 6); tests for judging one good greater than another, some of which cut both ways (Bk I, Part 7); probabilities, infallible and fallible signs (Bk I, Part 2); precedent as evidence about the future, answered by dissimilar conditions (Bk II, Parts 20, 25); facts of the case before argument (Bk II, Part 22); emotions as feelings that change judgements, and the three failings behind bad advice: want of good sense, moral badness, want of goodwill (Bk II, Part 1); arguments that only look valid, including post hoc reasoning (Bk II, Part 24); deciding on the likely as well as on what must be true (Bk II, Part 25); the better-course argument as hindsight fallacy (Bk II, Part 23). Quotations are Roberts's English; transfers to modern decisions are the distillation's.
 
 ---
 

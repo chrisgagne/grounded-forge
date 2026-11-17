@@ -184,6 +184,7 @@ They pause the run in a known safe state, check the cooling line, and set an abo
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Avoidance Learning, Benchmarking, Change Management, Cognitive Biases
 - [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Human Performance, Incident Investigation, Just Culture, Systems Thinking
 - [OpenStax Organizational Behavior](openstax-organizational-behavior.md) — shared: Avoidance Learning, Change Management, Cognitive Biases, Decision Making
+- [Aristotle, Rhetoric (trans. W. Rhys Roberts)](aristotle-rhetoric.md) — shared: Decision Making, Hindsight Bias
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Continuous Improvement, Systems Thinking
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making, Performance Measurement
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Memory

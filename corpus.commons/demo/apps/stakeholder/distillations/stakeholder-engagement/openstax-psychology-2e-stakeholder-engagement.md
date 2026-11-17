@@ -170,6 +170,7 @@ This worked example illustrates several key concepts in the source: standing-not
 | Bandura social learning theory | The Bobo doll work and self-efficacy concept appear in Ch 6.4 and Ch 11.4; the broader social-cognitive theory shapes how engagement-driven behaviour change can be designed. |
 | Attribution theory (Heider, Kelley) | The fundamental attribution error and self-serving bias are the operative parts of attribution theory in *Psychology 2e*; pair with Kelley's covariation model for richer attribution-pattern analysis. |
 | Tajfel and Turner social identity theory | *Psychology 2e* presents in-group bias and discrimination dynamics that social identity theory formalises; pair for deeper treatment of identity-based stakeholder dynamics. |
+| Aristotle, *Rhetoric* (trans. W. Rhys Roberts) | The Yale approach's source and audience factors have a classical counterpart in the *Rhetoric*: three things inspire confidence in a speaker's character (good sense, good moral character and goodwill), and the hearers' character by age and by fortune shapes how they take a speech (Bk II, Parts 1, 12–17). *Psychology 2e* reports the research framing; the *Rhetoric* gives the author's own description. |
 
 ## Citation and Source-Integrity Notes
 

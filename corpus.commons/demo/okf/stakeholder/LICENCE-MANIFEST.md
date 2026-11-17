@@ -10,7 +10,7 @@ generated:
 
 **Bundle:** stakeholder (OKF 0.2, emitted by grounded-forge/0.4.0)
 **Most-restrictive scope:** open-nc
-**Sources:** 27
+**Sources:** 28
 
 ## Scope levels
 
@@ -29,6 +29,7 @@ The bundle inherits the most-restrictive scope across all sources below. The rec
 | Source | Scope | Licence |
 |---|---|---|
 | approach-perfect-field-guide-scrum-events | open | Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0) |
+| aristotle-rhetoric | open | Public domain (translation published 1924 |
 | barbrook-johnson-systems-mapping | open | unknown |
 | flo-facilitation-guide | open | CC BY 4.0 (Creative Commons Attribution 4.0 International) |
 | jones-evidence-based-sweng | open | Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) |

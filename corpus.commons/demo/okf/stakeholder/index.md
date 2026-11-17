@@ -8,7 +8,7 @@ An Open Knowledge Format (OKF v0.2) bundle emitted by grounded-forge/0.4.0. Each
 
 ## Task axes
 
-- [stakeholder-engagement](stakeholder-engagement/index.md) — 27 concept files
+- [stakeholder-engagement](stakeholder-engagement/index.md) — 28 concept files
 
 ## Lenses
 

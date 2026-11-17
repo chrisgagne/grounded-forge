@@ -201,6 +201,7 @@ This worked example illustrates several key concepts in the source: dual-system 
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Brainstorming, Organisational Structure, Power
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
+- [Aristotle, Rhetoric (trans. W. Rhys Roberts)](aristotle-rhetoric.md) — shared: Decision Making
 - [Columbia Accident Investigation Board, Report Volume I](caib-report-vol1.md) — shared: Corporate Culture
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Human Cognition
 - [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry

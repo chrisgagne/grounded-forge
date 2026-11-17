@@ -187,6 +187,7 @@ The scenario is operator-authored, set in the kind of work the handbook was writ
 - [OpenStax Principles of Management](openstax-principles-management.md) — shared: Benchmarking, Change Management, Decision Making
 - [LFUO 2024](lfuo-learning-review-guide-2024.md) — shared: Incident Investigation, Just Culture
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making, Performance Measurement
+- [Aristotle, Rhetoric (trans. W. Rhys Roberts)](aristotle-rhetoric.md) — shared: Decision Making
 - [Columbia Accident Investigation Board, Report Volume I](caib-report-vol1.md) — shared: Safety Culture
 - [Letaw, Handbook of Software Engineering Methods](letaw-handbook-sweng-methods.md) — shared: Project Management
 - [OpenStax Entrepreneurship](openstax-entrepreneurship.md) — shared: Benchmarking

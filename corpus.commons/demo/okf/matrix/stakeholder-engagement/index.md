@@ -63,7 +63,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Manager-to-manager conversation about an incident-involved staff member → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Communicating an incident response to staff, patients, and families → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Manager-to-individual-staff-member conversation about an incident → [nhs-just-culture-guide](nhs-just-culture-guide.md)
-- External-stakeholder engagement around an incident (regulator, professional body) → [nhs-just-culture-guide](nhs-just-culture-guide.md)
+- External-stakeholder engagement around an incident (regulator, police) → [nhs-just-culture-guide](nhs-just-culture-guide.md)
 - Scrum: stakeholders want to influence the Product Backlog → [scrum-guide-2020](scrum-guide-2020.md)
 - Sprint Review collapsing into a presentation rather than a working session → [scrum-guide-2020](scrum-guide-2020.md)
 - Sprint Retrospective being skipped or perfunctory → [scrum-guide-2020](scrum-guide-2020.md)
@@ -194,6 +194,9 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Decisions keep being reopened, or nobody disagrees with the senior person → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Delegating engagement work: give purpose, not a script → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Engaging a party whose aims oppose yours → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Engaging a group that doubts the convenor → [aristotle-rhetoric](aristotle-rhetoric.md)
+- Anger or a standing grievance in the engagement → [aristotle-rhetoric](aristotle-rhetoric.md)
+- A rumour or prejudice is shaping the engagement → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 1: Mapping
 
@@ -268,6 +271,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Test whether "people-as-resources" framing is suppressing voice in the stakeholder set → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Orient on a party whose aims oppose yours → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Find whose intent governs, one and two levels up → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Map what each party judges by → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 2: Framing the question
 
@@ -332,6 +336,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Choose the vocabulary for cross-discipline org-change engagement → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - State the intent, not only the task → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Name the main effort among your own workstreams → [mcdp1-warfighting](mcdp1-warfighting.md)
+- State the aim and clear prejudice first → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 3: Convening
 
@@ -422,6 +427,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Frame proposed changes as Elevating Katas — named experiments, not directives → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Put the key decision-holders in direct contact → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Let peers coordinate laterally within a shared intent → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Earn credibility in what you say in the room → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 4: Surfacing conflict
 
@@ -477,6 +483,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Diagnose framework-adoption conflict as a disengagement failure mode → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Name the target topology's failure mode honestly when surfacing design disagreement → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Draw out honest dissent before the decision is stated → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Read anger as a response to a slight → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 5: Reaching agreement
 
@@ -519,6 +526,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Anchor org-change agreement on the chain-of-fit (business goal → topology → frameworks as tools) → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Accommodate divergent designs for divergent stakeholder groups → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Frame a delegated agreement as a two-way contract → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Acknowledge fault; prefer negotiation and arbitration → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 6: Ratifying
 
@@ -548,6 +556,7 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Ratify Elevating Katas as stakeholder-owned experiments with named hypotheses and end-states → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Close the multi-level engagement loop: confirm all levels are represented in the ratified commitments → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Turn dissent into support once the decision is stated → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Recap what was agreed and why → [aristotle-rhetoric](aristotle-rhetoric.md)
 
 ## Phase 7: Post-engagement
 
@@ -619,10 +628,12 @@ One concept file per source, projected onto the `stakeholder-engagement` task ax
 - Watch for drift back to Resource-Topology framing and low-voice patterns → [org-topologies-primer-2025](org-topologies-primer-2025.md)
 - Hold a critique soon after, open to all hands → [mcdp1-warfighting](mcdp1-warfighting.md)
 - Weigh inaction as a failure too → [mcdp1-warfighting](mcdp1-warfighting.md)
+- Build goodwill between engagements → [aristotle-rhetoric](aristotle-rhetoric.md)
 
-## All concept files (27)
+## All concept files (28)
 
 - [Gagné, The Approach Perfect Field Guide to Scrum Events](approach-perfect-field-guide-scrum-events.md)
+- [Aristotle, Rhetoric (trans. W. Rhys Roberts)](aristotle-rhetoric.md)
 - [Barbrook-Johnson & Penn, Systems Mapping](barbrook-johnson-systems-mapping.md)
 - [Currie, Riessner, Bennett & Cougler Blom, FLO Facilitation Guide](flo-facilitation-guide.md)
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md)

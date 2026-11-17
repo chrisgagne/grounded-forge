@@ -228,6 +228,7 @@ This worked example illustrates several key concepts in the source: dual-system 
 - [US DOE, Human Performance Improvement Handbook Vol. 1](doe-hpi-handbook-vol1.md) — shared: Avoidance Learning, Benchmarking, Change Management, Cognitive Biases
 - [OpenStax Psychology 2e](openstax-psychology-2e.md) — shared: Cognitive Biases, Emotional Intelligence, Motivation, Self-Efficacy
 - [US DOE, Human Performance Improvement Handbook Vol. 2](doe-hpi-handbook-vol2.md) — shared: Benchmarking, Change Management, Decision Making
+- [Aristotle, Rhetoric (trans. W. Rhys Roberts)](aristotle-rhetoric.md) — shared: Decision Making, Virtue Ethics
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making, Stakeholder Theory
 - [OpenStax Business Law I Essentials](openstax-business-law.md) — shared: Employment Law, Sexual Harassment

@@ -200,6 +200,7 @@ The scenario is operator-authored; all framework citations trace through the dee
 - [OpenStax Introduction to Business](openstax-introduction-business.md) — shared: Brainstorming, Organisational Structure, Power
 - [Hurtado, Open Kanban](open-kanban.md) — shared: Collaboration, Values
 - [Krivitsky, Larman & Flemm, Org Topologies Primer](org-topologies-primer-2025.md) — shared: Change Management, Organisational Structure
+- [Aristotle, Rhetoric (trans. W. Rhys Roberts)](aristotle-rhetoric.md) — shared: Decision Making
 - [Jones, Evidence-based Software Engineering](jones-evidence-based-sweng.md) — shared: Human Cognition
 - [Heft & Pattillo (Group Jazz), Liberating Structures Handbook](liberating-structures-handbook.md) — shared: Appreciative Inquiry
 - [OpenStax Principles of Accounting Volume 2](openstax-accounting-vol2.md) — shared: Decision Making
